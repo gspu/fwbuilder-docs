@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.5 2003-02-03 05:23:06 vadim Exp $
+# $Id: Makefile,v 1.6 2003-02-10 01:34:35 vadim Exp $
 
 STAGEDIR= /var/ftp/pub/FWBuilder-Manual
 
@@ -32,8 +32,12 @@ pdf/UsersGuide.pdf: UsersGuide.sgml
 	cp *.png pdf/
 	docbook2pdf -d `pwd`/pdf.dsl -o pdf UsersGuide.sgml
 
-
-install: html pdf
+install_html: html
 	rm -f $(STAGEDIR)/*
 	cp html/* $(STAGEDIR)
+
+install_pdf: pdf
+	rm -f $(STAGEDIR)/*
 	cp pdf/UsersGuide.pdf $(STAGEDIR)
+
+install: install_html install_pdf

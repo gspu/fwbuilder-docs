@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.6 $  $Date: 2003-02-10 00:43:11 $</edition>
+    <edition>$Revision: 1.7 $  $Date: 2003-02-10 01:34:35 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -2434,6 +2434,7 @@
         </para>
       </sect2>
 
+<!-- ===================================== PF ================================== -->
       <sect2>
         <title>pf</title>
 
@@ -2582,6 +2583,7 @@
 
       </sect2>
 
+      <!-- ===================================== PIX ================================= -->
       <sect2>
         <title>PIX</title>
 
@@ -2595,117 +2597,132 @@
         </figure>
 
         <para>
-          <itemizedlist>
-            <listitem>
-              <para><guimenuitem>Version</guimenuitem></para>
-
-              <para>Version of the software PIX firewall is running.</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Prolog script</guimenuitem></para>
-
-              <para>this is a list of any PIX configuration commands
+        <table frame="topbot" pgwide="0">
+            <title>General</title>
+            <tgroup cols="2">
+              <colspec colwidth="150pt" align="left">
+              <colspec colwidth="350pt" align="left">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Version</guimenuitem></entry>
+                  <entry>Version of the software PIX firewall is running.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Prolog script</guimenuitem></entry>
+                  <entry>this is a list of any PIX configuration commands
               that will be included on top of generated configuration
               file. No syntax or other checks are done on commands in
-              this list.</para>
-            </listitem>
-            <listitem>
-              <para><guimenuitem>Epilog script</guimenuitem></para>
-
-              <para>this is a list of any PIX configuration commands
+              this list.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Epilog script</guimenuitem></entry>
+                  <entry>this is a list of any PIX configuration commands
               that will be appended at the end of generated
               configuration file. No syntax or other checks are done
-              on commands in this list</para>
-            </listitem>
+              on commands in this list</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
 
-
-            <listitem>
-              <para><guimenuitem>Policy compiler options</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Assume firewall is part of 'any'</guimenuitem></para>
-
-                    <para> See <xref linkend="fw-is-part-of-any"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Replace NAT'ed objects with
+        <para>
+              <table frame="topbot" pgwide="0">
+            <title>Policy compiler options</title>
+            <tgroup cols="2">
+              <colspec colwidth="150pt" align="left">
+              <colspec colwidth="350pt" align="left">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Assume firewall is part of 'any'</guimenuitem></entry>
+                  <entry> See <xref linkend="fw-is-part-of-any"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Replace NAT'ed objects with
                     their translations in policy rules
-                    </guimenuitem></para>
-
-                    <para>PIX inspects packet with access lists before
+                    </guimenuitem></entry>
+                  <entry>PIX inspects packet with access lists before
                     it performs address translation. Many other
                     firewall platforms do it the other way
                     around. This option turns on emulation of the
                     firewall that does NAT first.
-                    </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Emulate outbound ACLs</guimenuitem></para>
-
-                    <para>Normally PIX does not support outbound
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Emulate outbound ACLs</guimenuitem></entry>
+                  <entry>Normally PIX does not support outbound
                     access lists.This option turns on an emulation of
-                    outbound ACLs</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Generate 'clear' commands</guimenuitem></para>
-
-                    <para>If this option is ON, compiler generates
+                    outbound ACLs</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Generate 'clear' commands</guimenuitem></entry>
+                  <entry>If this option is ON, compiler generates
                     <emphasis>'clear'</emphasis> commands to reset any pre-existing
                     access lists, object-group, nat, global, static,
-                    telnet, ssh and other commands.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Optimize 'default nat' rules</guimenuitem></para>
-
-                    <para>This option simplifies nat rules if object
+                    telnet, ssh and other commands.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Optimize 'default nat' rules</guimenuitem></entry>
+                  <entry>This option simplifies nat rules if object
                     in Original Source is the same as the Network zone
                     of one of the interfaces. Network zone of the
                     interfaces defines all networks that are located
-                    "behind" this interface. This means that packets
+                    &quot;behind&quot; this interface. This means that packets
                     entering the interface may have source address
                     only belonging to the Network zone of this
                     interface. Since policy compiler can correctly
                     assign nat rule to the interface using information
                     about its Network Zone, explicit specification of
                     the source address can be omitted.
-                    </para>
-                  </listitem>
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Ignore empty groups in rules</guimenuitem></entry>
+                  <entry> See <xref linkend="empty-groups"></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
-                  <listitem>
-                    <para><guimenuitem>Ignore empty groups in rules</guimenuitem></para>
+            </para>
 
-                    <para> See <xref linkend="empty-groups"></para>
-                  </listitem>
-                </itemizedlist>
-              </para>
-            </listitem>
+        <para>
 
-            <listitem>
-              <para><guimenuitem>Script formatting</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Comment the code</guimenuitem></para>
-
-                    <para>If this option is activated, compiler adds
-                    comments to the configuration file</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Group similar commands
-                    together</guimenuitem></para>
-
-                    <para>If this option is activated, compiler groups
+              <table frame="topbot" pgwide="0">
+            <title>Script formatting</title>
+            <tgroup cols="2">
+              <colspec colwidth="150pt" align="left">
+              <colspec colwidth="350pt" align="left">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Comment the code</guimenuitem></entry>
+                  <entry>If this option is activated, compiler adds
+                    comments to the configuration file</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Group similar commands
+                    together</guimenuitem></entry>
+                  <entry>If this option is activated, compiler groups
                     similar commands next to each other, just like PIX
-                    device does it in the output of "show config"
+                    device does it in the output of &quot;show config&quot;
                     command. Otherwise commands are grouped logically:
                     first go all object-group commands, then all
                     access-lists, then all nat, global and static
@@ -2714,81 +2731,93 @@
                     generated for, as they appear in the GUI. If one
                     rule requires several access-list commands
                     assigned to different interfaces, these commands
-                    are grouped together. Command "show conf" groups
-                    access-list commands by their interface.</para>
-                  </listitem>
+                    are grouped together. Command &quot;show conf&quot; groups
+                    access-list commands by their interface.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
-                </itemizedlist>
-              </para>
-            </listitem>
+            </para>
 
-            <listitem>
-              <para><guimenuitem>Verification of policy rules</guimenuitem></para>
+        <para>
 
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Detect rule shadowing in the
-                    policy</guimenuitem></para>
+              <table frame="topbot" pgwide="0">
+            <title>Verification of policy rules</title>
+            <tgroup cols="2">
+              <colspec colwidth="150pt" align="left">
+              <colspec colwidth="350pt" align="left">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Detect rule shadowing in the
+                    policy</guimenuitem></entry>
+                  <entry> See <xref linkend="rule-shadowing"></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
-                    <para> See <xref linkend="rule-shadowing"></para>
-                  </listitem>
+            </para>
 
-                </itemizedlist>
-              </para>
-            </listitem>
+        <para>
 
-            <listitem>
-              <para><guimenuitem>Verification of NAT rules</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Check for duplicate nat rules </guimenuitem></para>
-
-                    <para>If this option is activated, compiler checks
+              <table frame="topbot" pgwide="0">
+            <title>Verification of NAT rules</title>
+            <tgroup cols="2">
+              <colspec colwidth="150pt" align="left">
+              <colspec colwidth="350pt" align="left">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Check for duplicate nat rules </guimenuitem></entry>
+                  <entry>If this option is activated, compiler checks
                     generated configuration for duplicate <emphasis>'nat'</emphasis>
                     commands
-                    </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Check for overlapping global pools </guimenuitem></para>
-
-                    <para>If this option is activated, compiler checks
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Check for overlapping global pools </guimenuitem></entry>
+                  <entry>If this option is activated, compiler checks
                     generated configuration for overlapping
                     <emphasis>'global'</emphasis> address pools
-                    </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Check for overlapping statics</guimenuitem></para>
-
-                    <para>If this option is activated, compiler checks
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Check for overlapping statics</guimenuitem></entry>
+                  <entry>If this option is activated, compiler checks
                     generated configuration for <emphasis>'static'</emphasis>
                     commands that use overlapping address
-                    ranges.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Check for overlapping global
-                    pools and statics</guimenuitem></para>
-
-                    <para>If this option is activated, compiler checks
+                    ranges.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Check for overlapping global
+                    pools and statics</guimenuitem></entry>
+                  <entry>If this option is activated, compiler checks
                     generated configuration for <emphasis>'global'</emphasis> and
                     'static commands using overlapping address
-                    ranges.</para>
-                  </listitem>
+                    ranges.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
-                </itemizedlist>
-              </para>
-            </listitem>
-          </itemizedlist>
-        </para>
+            </para>
 
+
+<!-- ===================================== PIX Advanced ========================= -->
         <sect3>
           <title>'Advanced' firewall setting dialog for PIX</title>
-          <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT4 SIMPLESECT) -->
 
           <para>Clicking button <guimenuitem>'Advanced'</guimenuitem>
           in the 'Firewall' tab of the PIX firewall object brings up a
@@ -2852,76 +2881,80 @@
           PIX firewall:</para>
 
           <para>
-            <itemizedlist>
-              <listitem>
-                <para><guimenuitem>Syslog</guimenuitem></para>
+            <table frame="topbot" pgwide="0">
+              <title>Syslog</title>
+              <tgroup cols="2">
+                <colspec colwidth="150pt" align="left">
+                <colspec colwidth="350pt" align="left">
+                <thead>
+                  <row>
+                    <entry>GUI control</entry>
+                    <entry>Description</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry><guimenuitem>Syslog host</guimenuitem></entry>
+                    <entry>This is an address of the syslog host the
+                      firewall will send all logging to.</entry>
+                  </row>
+                  <row>
+                    <entry><guimenuitem>syslog message queue size</guimenuitem></entry>
+                    <entry>The size of internal logging queue, in messages.</entry>
+                  </row>
+                  <row>
+                    <entry><guimenuitem>Facility</guimenuitem></entry>
+                    <entry> Syslog facility, See <xref linkend="log-facility"></entry>
+                  </row>
+                  <row>
+                    <entry><guimenuitem>Level</guimenuitem></entry>
+                    <entry> Syslog level, See <xref linkend="log-level"></entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table>
 
-                <para>
-                  <itemizedlist>
-                    <listitem>
-                      <para><guimenuitem>Syslog host</guimenuitem></para>
+          </para>
 
-                      <para>This is an address of the syslog host the
-                      firewall will send all logging to.</para>
-                    </listitem>
-
-                    <listitem>
-                      <para><guimenuitem>syslog message queue size</guimenuitem></para>
-
-                      <para>The size of internal logging queue, in messages.</para>
-                    </listitem>
-                    <listitem>
-                      <para><guimenuitem>Facility</guimenuitem></para>
-
-                      <para> Syslog facility, See <xref linkend="log-facility"></para>
-                    </listitem>
-                    <listitem>
-                      <para><guimenuitem>Level</guimenuitem></para>
-
-                      <para> Syslog level, See <xref linkend="log-level"></para>
-                    </listitem>
-                  </itemizedlist>
-
-                </para>
-              </listitem>
-
-              <listitem>
-                <para><guimenuitem>Other logging destinations and levels</guimenuitem></para>
-
-                <para>
-                  <itemizedlist>
-                    <listitem>
-                      <para><guimenuitem>Internal buffer</guimenuitem></para>
-
-                      <para>Send syslog messages to an internal buffer
+          <para>
+            <table frame="topbot" pgwide="0">
+              <title>Other logging destinations, levels and parameters</title>
+              <tgroup cols="2">
+                <colspec colwidth="150pt" align="left">
+                <colspec colwidth="350pt" align="left">
+                <thead>
+                  <row>
+                    <entry>GUI control</entry>
+                    <entry>Description</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry><guimenuitem>Internal buffer</guimenuitem></entry>
+                    <entry>Send syslog messages to an internal buffer
                       that can be viewed with the show logging
                       command. The level pull-down menu allows to set
                       a minimal logging level of messages that are
-                      going to be recorded.</para>
-                    </listitem>
-
-                    <listitem>
-                      <para><guimenuitem>Console</guimenuitem></para>
-
-                      <para> Specify that syslog messages appear on
+                      going to be recorded.</entry>
+                  </row>
+                  <row>
+                    <entry><guimenuitem>Console</guimenuitem></entry>
+                    <entry> Specify that syslog messages appear on
                       the PIX Firewall console as each message
                       occurs. You can limit the types of messages that
-                      appear on the console with level.</para>
-                    </listitem>
-                  </itemizedlist>
+                      appear on the console with level.</entry>
+                  </row>
+                  <row>
+                    <entry>Logging timestamps</entry>
+                    <entry>Specify that syslog messages sent to the
+                    syslog server should have a time stamp value on
+                    each message. </entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table>
 
-                </para>
-              </listitem>
-              <listitem>
-                <para><guimenuitem>Logging timestamps</guimenuitem></para>
-
-                <para>Specify that syslog messages sent to the syslog
-                server should have a time stamp value on each
-                message. </para>
-              </listitem>
-            </itemizedlist>
           </para>
-
 
           <para>
             <figure id="pix-fw-adv-options" float="1">
@@ -3000,6 +3033,7 @@
     </sect1>
 
 
+      <!-- ===================================== OS ================================= -->
     <sect1>
       <title>Configuring Host OS </title>
       <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT2 SIMPLESECT) -->
