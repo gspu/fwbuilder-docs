@@ -1,9 +1,8 @@
-# $Id: Makefile,v 1.3 2002-09-13 17:52:50 vadim Exp $
+# $Id: Makefile,v 1.4 2003-02-01 23:56:28 vadim Exp $
 
+STAGEDIR= /var/ftp/pub/FWBuilder-Manual
 
 .PHONY: all html pdf
-
-.PHONY:  html/index.html pdf/Using.pdf
 
 all:  html  pdf
 
@@ -18,6 +17,7 @@ html/index.html:   Using.sgml Using-html.dsl
 	rm -rf html
 	mkdir -p html
 	cp *.jpg html/
+	cp *.png html/
 	cp *.css html/
 	docbook2html -d `pwd`/Using-html.dsl -o html Using.sgml
 
@@ -29,6 +29,11 @@ pdf/Using.pdf: Using.sgml
 	rm -rf pdf
 	mkdir -p pdf
 	cp *.jpg pdf/
+	cp *.png pdf/
 	docbook2pdf -d `pwd`/Using-pdf.dsl -o pdf Using.sgml
 
 
+install: html pdf
+	rm -f $(STAGEDIR)/*
+	cp html/* $(STAGEDIR)
+	cp pdf/Using.pdf $(STAGEDIR)

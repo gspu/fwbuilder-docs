@@ -1,13 +1,12 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
 <!entity fwbuilder-url    "http://www.fwbuilder.org/">
-<!entity tutorial-url     "http://www.fwbuilder.org/pages/Tutorial/index.html">
-<!entity requirements-url "http://www.fwbuilder.org/pages/Requirements.html">
 <!entity iptables-url     "http://netfilter.filewatcher.org/">
 <!entity ipfilter-url     "http://coombs.anu.edu.au/~avalon/">
 <!entity gtkmm-url        "http://gtkmm.sourceforge.net/">
 <!entity gtkmm-download   "http://www.hvrlab.org/pub/gtkmm/">
 <!entity ipt-howto        "http://www.netfilter.org/documentation/HOWTO//NAT-HOWTO.html">
-<!entity faq-url          "http://www.fwbuilder.org/pages/Documents/FAQ/FAQ.html">
+<!entity faq-url  "http://www.fwbuilder.org/pages/Documents/FAQ/FAQ.html">
+<!entity inst-url "http://www.fwbuilder.org/pages/Documents/Requirements.html">
 ]>
 
 <book id="Using">
@@ -23,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.52 $  $Date: 2003-01-16 08:35:37 $</edition>
+    <edition>$Revision: 1.53 $  $Date: 2003-02-01 23:56:28 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -36,10 +35,11 @@
       NetCitadel LLC. NetCitadel LLC assumes no responsibility or
       liability for any errors or inaccuracies that may appear in this
       manual.</para>
-
+<!--
       <para>The software described in this manual is furnished under a
       license and may only be used or copied in accordance with the
       terms and conditions of such a license.</para>
+-->
     </legalnotice>
     
   </bookinfo>
@@ -155,48 +155,37 @@
     </sect1>
   </chapter>
 
+
+
+
+
   <!-- ############################################################### -->
-  <chapter id="Installation">
-    <title>Installation</title>
+  <chapter id="Packaging">
+    <title>Packaging</title>
 
-    <!-- *************************************************************** -->
-    <sect1>
-      <title>Packaging</title>
-
-      <para>
-       Firewall Builder is an Open Source project. Source code for the
-       API library, GUI and policy compilers for iptables, ipfilter
-       and pf is available for download from our web site
-       http://www.fwbuilder.org/. Firewall Builder for PIX is
-       available only as a binary package. 
+      <para>Firewall Builder is an Open Source project. Source code
+      for the API library, GUI and policy compilers for iptables,
+      ipfilter and pf is available for download from our web site
+      http://www.fwbuilder.org/. Firewall Builder for PIX is a
+      licensed commercial product available as a binary package.
       </para>
 
-      <para>
-       We do encourage people to compile from the source code;
-       building instructions are available on the same web site in the
-       section "Documents". Firewall Builder can be compiled and works
-       on the following OS and distributions:
+      <para>       
+       Installation instructions are available online at the following
+       URL : &inst-url . The same document outlines procedures for
+       building Firewall Builder from the source code.  Firewall
+       Builder can be compiled and works on the following OS and
+       distributions:
       </para>
 
       <para><itemizedlist spacing="compact">
-          <listitem>
-            <para>RedHat Linux 7.2 and 7.3</para>
-          </listitem>
-          <listitem>
-            <para>Mandrake Linux 8.2 </para>
-          </listitem>
-          <listitem>
-            <para>SuSE Linux 7.3 and 8.0</para>
-          </listitem>
-          <listitem>
-            <para>FreeBSD 4.5 and 4.6</para>
-          </listitem>
-          <listitem>
-            <para>OpenBSD 3.0 and 3.1</para>
-          </listitem>
-          <listitem>
-            <para>Solaris 8</para>
-          </listitem>
+          <listitem><para>Debian </para></listitem>
+          <listitem><para>Mandrake Linux 8.2 and 9.0 </para></listitem>
+          <listitem><para>RedHat Linux 7.3 and 8.0</para></listitem>
+          <listitem><para>SuSE Linux 8.1</para></listitem>
+          <listitem><para>FreeBSD 4.7</para></listitem>
+          <listitem><para>OpenBSD 3.2</para></listitem>
+          <listitem><para>Mac OS X 10.2</para></listitem>
         </itemizedlist></para>
 
       <para>
@@ -230,227 +219,21 @@
 
         </itemizedlist></para>
 
-      <para>
-       You need to install the API library
+      <para>You need to install the API library
        <emphasis>libfwbuilder</emphasis>, the GUI
        <emphasis>fwbuilder</emphasis> and at least one module that
        provides support for the target firewall platform; this could
        be either <emphasis>fwbuilder-ipt</emphasis> or one of the
-       others.
-      </para>
+       others. </para>
+
+      <para>Pre-built binary packages for many OS and distributions
+      can be downloaded from our web site at &fwbuilder-url </para>
 
       <para>
-       Typical installation problems are addressed in the document "Firewall Builder
-       Frequently Asked Questions (FAQ)" which can be found at the following URL: 
-       &faq-url
+       Typical installation problems are addressed in the document
+       "Firewall Builder Frequently Asked Questions (FAQ)" which can
+       be found at the following URL: &faq-url
       </para>
-
-    </sect1>
-
-    <!-- *************************************************************** -->
-    <sect1>
-      <title>General prerequisites</title>
-
-      <para>Certain libraries should be installed on your system
-      before you can install our pre-built binary packages. Here is
-      the list:</para>
-
-      <para>
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>libstdc++ version 2.9 or newer</para>
-          </listitem>
-          <listitem>
-            <para>gdk-pixbuf version 0.11 or newer</para>
-          </listitem>
-          <listitem>
-            <para>gtkmm version 1.2.8 or newer</para>
-          </listitem>
-          <listitem>
-            <para>libsigc++ version 1.0 or newer</para>
-          </listitem>
-          <listitem>
-            <para>libxml2 version 2.4.10 or newer</para>
-          </listitem>
-          <listitem>
-            <para>libxslt version 1.0.7 or newer</para>
-          </listitem>
-          <listitem>
-            <para>ucd-snmp version 4.2.3 or newer</para>
-          </listitem>
-          <listitem>
-            <para>openssl version 0.9.6b or newer</para>
-          </listitem>
-        </itemizedlist>
-      </para>
-
-      <para>
-       Most of these packages come standard with popular Linux
-       distributions and may already be on your sysetm. In case they
-       are missing, you need to install them from your original OS
-       media. On the other hand, some packages are missing on some
-       distributions and therefore need to be downloaded and
-       installed. See below for specific instructions as of where you
-       can get these packages from for different OS and distributions.
-      </para>
-
-      <para>
-       You can always verify if a certain package is installed on your
-       system using the following command:
-      </para>
-
-      <programlisting>
-       $ rpm -q gtkmm
-      </programlisting>
-
-      <para>
-       This command checks if the package gtkmm is installed. If the
-       package is present, it prints its version, too.
-      </para>
-
-      <para>
-       Once you have installed all the packages, you can start
-       Firewall Builder GUI by simply typing "fwbuilder" on the
-       command line.
-      </para>
-
-    </sect1>
-
-    <!-- *************************************************************** -->
-    <sect1>
-      <title>Installing pre-built binaries on RedHat Linux 7.2 and 7.3</title>
-
-      <para>
-       All prerequisite libraries except gtkmm come with RedHat 7.3,
-       so chances are you already have them. If your system is
-       configured as "Gnome Workstation" or Ximian Gnome is installed,
-       then you already have proper gtk+, gtkmm and libsigc++
-       packages. If you are using KDE, then you may need to add these
-       packages.
-      </para>
-
-      <para>
-       We build using gtkmm and libsigc++ packages that come with
-       Ximian Gnome.  These RPM can be downloaded from their ftp site
-       directly, obtained as part of Ximian Gnome, or using Red
-       Carpet. libsigc++ now comes on disk #2 with RedHat 7.3. Users
-       of RedHat 7.2 systems can also get it from the home page at
-       http://libsigc.sourceforge.net/
-      </para>
-
-      <para>
-       Firewall Builder implements a number of features which make use
-       of SNMP, therefore you will need ucd-snmp RPM installed,
-       too. RPMs we distribute are built using ucd-snmp v4.2.3 (as of
-       Feb 2002)
-      </para>
-
-      <para>
-       Here is a list of recommended packages and where you can get
-       them from:
-      </para>
-
-      <para>
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>gtkmm-1.2.8-1</para>
-            <para> ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/</para>
-          </listitem>
-          <listitem>
-            <para>gdk-pixbuf-0.16.0</para>
-            <para> Ximian Gnome or RedHat updates</para>
-          </listitem>
-          <listitem>
-            <para>libsigc++-1.0.4-1</para>
-            <para> RedHat 7.3 distribution or ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/    </para>
-          </listitem>
-          <listitem>
-            <para>libxml2-2.4.19</para>
-            <para> RedHat 7.3 distribution or ftp://ftp.gnome.org/pub/GNOME/stable/redhat/i386/libxml/ </para>
-          </listitem>
-          <listitem>
-            <para>libxslt-1.0.15-1</para>
-            <para> RedHat 7.3 distribution or ftp://ftp.gnome.org/pub/GNOME/stable/redhat/i386/libxslt/</para>
-          </listitem>
-          <listitem>
-            <para>ucd-snmp-4.2.3</para>
-            <para> RedHat distribution</para>
-          </listitem>
-          <listitem>
-            <para>ucd-snmp-utils-4.2.3</para>
-            <para> RedHat distribution</para>
-          </listitem>
-          <listitem>
-            <para>openssl-0.9.6b</para>
-            <para> RedHat distribution</para>
-          </listitem>
-        </itemizedlist>
-      </para>
-
-      <para>Firewall Builder for PIX has the same requirements.</para>
-
-    </sect1>
-
-    <!-- *************************************************************** -->
-    <sect1>
-      <title>Installing pre-built binaries on Mandrake Linux 8.2</title>
-
-      <para>
-       The requirements for installing Firewall Builder on Mandrake are
-       very much the same as for RedHat.
-      </para>
-
-      <para>
-       Here is the list of recommended packages. All these packages
-       come with the standard Mandrake distribution, but you may need
-       to add some of them if they are not installed. What packages
-       need to be added depends on the configuration of OS. Some of
-       these packages can be found on CD #1, while some others are on
-       CD #2. Use rpmdrake to install these.
-      </para>
-
-      <para>
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>libglib1.2-1.2.10</para>
-          </listitem>
-          <listitem>
-            <para>libstdc++2.10-2.96</para>
-          </listitem>
-          <listitem>
-            <para>libgtkmm1.2-1.2.8</para>
-          </listitem>
-          <listitem>
-            <para>libgdk-pixbuf2-0.16.0</para>
-          </listitem>
-          <listitem>
-            <para>libsigc++1.0-4.0.4</para>
-          </listitem>
-          <listitem>
-            <para>libxml2-2.4.16</para>
-          </listitem>
-          <listitem>
-            <para>libxslt1-1.0.12</para>
-          </listitem>
-          <listitem>
-            <para>libxslt-proc-1.0.12</para>
-          </listitem>
-          <listitem>
-            <para>libsnmp0-4.2.3</para>
-          </listitem>
-          <listitem>
-            <para>ucd-snmp-utils-4.2.3</para>
-          </listitem>
-          <listitem>
-            <para>libopenssl0-0.9.6c</para>
-          </listitem>
-        </itemizedlist>
-      </para>
-
-      <para>Firewall Builder for PIX has the same requirements.</para>
-
-    </sect1>
-
 
   </chapter>
 
@@ -1707,7 +1490,7 @@
     <sect1>
       <title>Firewall Object</title>
 
-      <sect2>
+      <sect2 id="creating_firewall">
         <title>Creating a Firewall Object</title>
 
         <para>Similar for the creating of a Host Object; creating a
@@ -1950,16 +1733,12 @@
 
         <para>Tabs <emphasis>'Firewall'</emphasis> and
           <emphasis>'Network'</emphasis> provide fields specific to
-          the chosen firewall platform and host OS configurations. See
-          <xref linkend="tab-firewall"> for the description of the
-          dialogs for all supported firewall platforms and <xref
-                                                                 linkend="tab-network"> for the description of the dialogs
-          for supported target host OS.
+          the chosen firewall platform and host OS configurations. 
         </para>
       </sect2>
     </sect1>
 
-    <sect1>
+    <sect1 id="firewall-interface">
       <title>Firewall's Interface</title>
 
       <figure id="firewall-interface1" float="1">
@@ -2729,8 +2508,7 @@ PIX                  always             no             policy, NAT
             <para>This menu item brings up a dialogue which allows
               you to modify certain options specific to the target
               firewall platform and associated only with the current
-              rule. See <xref linkend="policy-rule-options-dialogs">
-              for a detailed explanation. </para>
+              rule.</para>
           </listitem>
           <listitem>
             <para>Turn logging ON:</para>
@@ -4100,156 +3878,1035 @@ PIX                  always             no             policy, NAT
   </chapter>
 
 
-  <!-- ############################################################### -->
-  <!-- TODO: pick better name for this chapter 
+  <chapter id="policy">
+    <title>Examples of Policy Rules
+    </title>
 
-  What is it about:
-
-  Examples and comparison of code produced by policy compilers for different firewall platforms
-
-  -->
-
-  <chapter>
-    <title>Generating the code for different firewall platforms</title>
-
+    <!-- ********************************************************* -->
     <sect1>
-      <title>Filtering rules</title>
+      <title>
+	Letting certain protocols through, while blocking everything else
+      </title>
 
-      <sect2>
-        <title>Filtering rule in interface policy</title>
+      <para>
+	This is one of the simplest, most basic tasks you may want
+	your firewall to do - block all the traffic but let certain
+	protocols through. Let's assume we have a network consisting
+	just of the firewall "firewall1" and few hosts behind it. We
+	want to let protocols SMTP and FTP through to the server
+	"hostA" from the Internet, and block everything else. All we
+	need to do is put the following rules in the Global Policy:
+      </para>
 
-        <para></para>
-      </sect2>
+      <para>
+	<figure>
+	  <title>Example of a rule permitting only certain protocols to the server and blocking everything else. </title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-1.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
 
-      <sect2>
-        <title>Filtering rule in Global Policy</title>
+      <para>
+	Rule #0 allows SMTP and FTP through to the server, while rule #1 blocks
+	and logs everything else. It is worth mentioning that this policy also blocks
+	all the access to firewall itself, including access to it from internal
+	hosts.
+      </para>
 
-        <para></para>
-      </sect2>
+      <para>
+	We do not need any additional rules to take care of &quot;reply&quot; packets coming
+	back from the server to clients because our underlying firewall software
+	supports stateful inspection and &quot;understands&quot; that such packets should be
+	let through.
+      </para>
 
-      <sect2>
-        <title>Filtering rule using group of objects</title>
-
-        <para></para>
-      </sect2>
     </sect1>
 
+
+    <!-- ********************************************************* -->
     <sect1>
-      <title>NAT Rules</title>
+	<title>Interchangeable and non-interchangeable objects</title>
 
-      <sect2>
-        <title>Simple 'masquerading' type NAT rule</title>
+      <para>
+	In the previous example we put object "hostA" into the
+	Destination field of the policy rule #0 because our goal was
+	to permit protocols SMTP and FTP to that host and not to any
+	other one. This actually reflects general principle Firewall
+	Builder is based on: put the object you want to control access
+	for in the Source or Destination field of the policy rule. Two
+	different objects with the same address may or may not be
+	interchangeable, depending on their type and other
+	parameters. One of the frequent mistakes is to create Host
+	object with IP address of the firewall, then use it in the
+	policy and expect Firewall Builder to build policy controlling
+	access to the firewall.  Unfortunately it does not always work
+	that way. If you wish to control access to or from the
+	firewall machine, then put Firewall object into the policy
+	rule.
+      </para>
 
-        <para></para>
-      </sect2>
+      <para>
+	Another example of two objects which may on the first glance
+	represent the same thing, but in fact are not interchangeable,
+	is IP service object with protocol number set to 1 and ICMP
+	service object with type and code set to "any". Both objects
+	might represent the same type of service, namely "Any ICMP
+	message". IP protocol 1 is in fact ICMP, so one would expect
+	the behaviour of the firewall to be the same regardless of
+	what type of service object is used. However, target firewall
+	software typically uses special syntax for indication of
+	different protocols, so using proper syntax for ICMP protocol
+	turns certain features on, like for example session state
+	tracking. Using just IP with protocol number 1 will most
+	likely not turn these features on and therefore will lead to
+	unexpected results.
+      </para>
+      
+      <para>
+	On the other hand, two objects of the same type with different
+	names but the same values of all other parameters are
+	perfectly interchangeable. Using different objects to describe
+	the same object may be confusing, but the final firewall
+	policy will be correct. Firewall Builder leaves design of the
+	objects up to the firewall administrator. 
+      </para>
+    </sect1>
 
-      <sect2>
-        <title>Access to the server inside, using its translated address</title>
 
-        <para></para>
-      </sect2>
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Using groups</title>
+ 
+      <para>
+	Sometimes we need to define a lot of very similar rules for
+	multiple hosts or networks. For example, there may be a need
+	to permit the same service to 10 different hosts on the
+	network, while still blocking it to all others. The simplest
+	way to accomplish this is to add 10 rules with the same source
+	and service fields and just different destinations. Obviously
+	this can make firewall policy quite cluttered. To avoid this
+	and make policy readable we can use groups. Group is just a
+	container which includes multiple objects of the same or
+	similar type. Firewall Builder supports groups of objects and
+	groups of services. One can put "Host", "Network" and
+	"Firewall" objects in the group of objects; service objects
+	can not be put in a such group. Similarly group of services
+	can contain "IP Service", "TCP Service", "UDP Service" and
+	"ICMP Service" objects and can not contain hosts or
+	networks. Groups can contain other groups of the same type as
+	well. <xref linkend="group-dialog1"> represents an example of
+	the object group.
+      </para>
 
-      <sect2>
-        <title>"No NAT" rule</title>
+      <para>
+	To add objects to a group simply drag them from the tree on
+	the left into group view on the right, or use Copy/Paste
+	functions available via menus.
+      </para>
 
-        <para></para>
-      </sect2>
+      <para>
+	Once appropriate group has been created, it can be used for
+	the policy and NAT rules just like any other object.
+      </para>
+
+      <para>
+	<figure>
+	  <title>Example of a rule using object group. </title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-1-1.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+
+    </sect1>
+
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Blocking unwanted types of packets</title>
+ 
+      <para>
+	Fragmented IP packets, although useful in certain situations,
+	are often used as a tool to probe and penetrate simple packet
+	filters. Particular kind of fragmented packets, namely those
+	with incorrect length specification, are especially bad
+	because they can cause some operating systems to crash (for
+	example Windows NT was known to crash before fix was developed
+	and published by Microsoft).  These packets therefore are
+	considered potentially harmful and should be blocked on the
+	perimeter of your network. Many firewall platforms provide
+	ways to deal with such packets.
+      </para>
+
+      <para>
+	In Firewall Builder, we provide a way to set flags or options
+	in the IP service object. Two options deal with fragments: one
+	is called "all fragments" and another "short fragments". <xref
+	linkend="f-policy-2"> shows how does object "ip_fragments"
+	look like with both options turned on. Policy compilers
+	recognize this object and generate correct code for underlying
+	firewall software platform.
+      </para>
+
+      <para>
+	<figure id="f-policy-2">
+	  <title>IP Service object which represents fragmented packets.</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-2.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[IP Service object which represents fragmented packets]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Object "ip_fragments" is included in the section "Services/IP"
+	of the standard objects database coming with Firewall Builder.
+      </para>
+
+      <para>
+	Another potentially harmful type of packets is so called
+	"Christmas tree" packet. This one is just a TCP packet with
+        impossible combination of TCP flags or even all TCP flags
+        turned on at once (for example SYN, ACK, FIN, RST, PSH). This
+        combination is never used in real communications, so if a
+        packet like that appears at the boundary of your network, it
+        should be considered illegal and blocked. Object "tcp-xmas" is
+        included in the section "Services/TCP" of the standard objects
+        database coming with Firewall Builder.
+      </para>
+
+      <para>
+	Some platforms provide a mechanism to turn on and off stateful
+	inspection on individual rules. Turning it off on those rules
+	which do not require it may improve performance of the
+	firewall.  Obviously we do not need stateful inspection while
+	analysing fragmented packets as we do not really want any
+	session to be established, so we can safely use this option on
+	this rule. One example of firewall platform which supports
+	stateful inspection but provides a way to turn it on and off
+	is iptables. In Firewall Builder, this can be done in the rule
+	options dialog (which is platform-sensitive and shows
+	different options for different platforms). <xref
+	linkend="f-policy-3"> shows rule options dialog for iptables
+	firewall:
+      </para>
+
+      <para>
+	<figure id="f-policy-3">
+	  <title>Rule options dialog for iptables firewall</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-3.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Rule options dialog for iptables firewall]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Here is an example of the policy rule which is intended to
+	block all fragmented and TCP "Christmas tree" packets. Note an
+	icon in the "Options" column, it indicates that this rule has
+	non-default options set.
+      </para>
+
+      <para>
+	<figure>
+	  <title>Rule blocking all fragmented packets and TCP "christmas tree" packets</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-4.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Rule blocking all fragmented packets and TCP "christmas tree" packets]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	This rule is part of the Global Policy and therefore applies
+	to all packets crossing the firewall regardless of their
+	origin. This means that it will block such packets originating
+	in your network, too. If by some reason you might want to be
+	able to send this kind of packets out, then put this rule in
+	the Interface Policy on your external interface, with
+	Direction "Inbound".
+      </para>
+
+      <para>
+	An interactive Druid available via menu item "Rules/Help me
+	build firewall policy" can create a rule to protect against
+	fragmented packets.
+      </para>
+    </sect1>
+
+
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Anti-spoofing rules</title>
+ 
+      <para>
+        Generally speaking, IP spoofing is a technique of generating
+        IP packets with source address that belongs to someone else.
+        Spoofing creates danger when hosts on the LAN permit access to
+        their resources and services to trusted hosts by checking
+        source IP of the packets. Using spoofing, intruder can fake
+        source address of his packets and make them look like those
+        originated on the trusted hosts.  Basic idea of anti-spoofing
+	protection is to create a firewall rule assigned to the
+	external interface of the firewall to examine source address
+	of all packets crossing that interface coming from outside. If
+	the address belongs to internal network or firewall itself,
+	packet should be dropped. Since rule must take into account
+	both interface packet is coming through and the direction in
+	which it is coming, it must be put into Interface Policy. This
+	is one of the rare cases when the rule can not be put into
+	Global Policy.
+      </para>
+
+      <para>
+	To create anti-spoofing rule in Firewall Builder we need
+	objects for all subnets inside the firewall perimeter and
+	obviously an object for firewall itself. Objects for internal
+	subnets can be put in the single group, to make rule
+	compact. Then we create a rule in the Interface Policy of
+	firewall's external interface (interface eth1 on <xref
+	linkend="f-policy-5">) and put all these objects, or a group
+	which contains them, plus the firewall object in the "source"
+	rule element. "Destination" and "service" must be set to "any"
+	and Direction must be set to "inbound". <xref
+	linkend="f-policy-5"> shows the anti-spoofing rule. <xref
+	linkend="creating_firewall"> explains how firewall object and
+	its interfaces can be created. <xref
+	linkend="firewall-interface"> has more details on the
+	firewall's interfaces, their types and other properties.
+      </para>
+
+      <para>
+	<figure id="f-policy-5">
+	  <title>Anti-spoofing rule</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-5.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Anti-spoofing rule]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Just like in the previous example, it may be advantageous to
+	turn stateful inspection off on anti-spoofing rules. Since we
+	want to prevent these packets from entering our network, there
+	is going to be no session opened and we do not want to keep
+	state at all. You can use "Options" element to do it.
+      </para>
+
+      <para>
+	An interactive Druid available via menu item "Rules/Help me
+	build firewall policy" can create anti-spoofing rules.
+      </para>
+    </sect1>
+
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Protecting local host</title>
+ 
+      <para>
+	This is the kind of policy you would want if you are using
+	firewall software running on the host itself.  Sometimes your
+	host may obtain its IP address dynamically using DHCP or PPPoE
+	protocol; Firewall Builder can handle this situation as well.
+      </para>
+
+      <para>
+	<itemizedlist>
+	  <listitem>
+	    <para> create firewall object, do not forget to choose
+	    firewall platform and OS it is running on and add its
+            interfaces, including loopback interface. If host gets its
+            IP address dynamically, mark interface as 'dynamic' using
+            appropriate checkbox. See <xref linkend="creating_firewall">.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para> call Druid, choose "Firewall protects local host"
+	    and then pick rules you want. 
+	    </para>
+	  </listitem>
+	</itemizedlist>
+      </para>
+
+      <para>
+	See what Druid have created for you. You can edit these and
+	add more rules now.
+      </para>
+
+    </sect1>
+
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Proper blocking of Ident protocol</title>
+ 
+      <para>
+	Suppose we want to block connections to certain ports on the
+	server behind the firewall, but want to do it in a "polite"
+	manner, that is somehow let sender host know right away that
+	the connection attempt was blocked so our server would look
+	like nothing is listening on that port at all. One of the
+	practical applications of this setup would be blocking Ident
+	connections to a mail relay or a mail server. Sendmail and
+	many other MTA's (Mail Transport Agents) attempt to connect to
+	Ident port (TCP port 113) on the mail relay every time they
+	accept email from that relay. Many believe Ident protocol is
+	practically useless and does not really serve as a protection
+	against SPAM or for any other useful purpose. Unfortunately
+	silent blocking of ident connections on the firewall using a
+	rule with action <emphasis>"Deny"</emphasis> adds a delay in
+	the email delivery. This happens because when sender host
+	tries to establish Ident connection to the recipient, it sends
+	TCP SYN packet to it (the first packet in three-way TCP
+	handshake) and then waits for TCP ACK packet in
+	responce. However, it never sees it because recipient's
+	firewall blocked its first TCP SYN packet. In the situation
+	like this sender host assumes the reply packet got lost and
+	tries to send TCP SYN packet again. It repeats this for a few
+	seconds (usually 30 sec) before it gives up. This adds 30 sec
+	delay to email delivery. Our intent is to show how one can
+	construct a policy rule to block Ident without causing this
+	delay.
+      </para>
+
+      <para>
+	The simplest way to block any protocol is to use "Deny" action
+	in the policy rule. Since "Deny" causes firewall to silently
+	drop the packet, sender never knows what happened to it and
+	keeps waiting for responce. To avoid this delay we will set
+	rule Action to "Reject". Normally "Reject" makes firewall to
+	send ICMP "unreachable" message back to sender, thus
+	indicating that access to requested port is denied by the
+	firewall. This may be insufficient in some cases because host
+	trying to connect to our Ident port won't understand this type
+	of ICMP message and will keep trying. In fact, most OS do not
+	recognize ICMP "administratively prohibited" message and do
+	keep trying. To make host on the other side stop its attempts
+	right away we need to send TCP RST packet back instead of ICMP
+	message. This can be done by adding appropriate rule option
+	(see <xref linkend="f-policy-7">) It is also safe to turn
+	stateful inspection off on this rule since we do not want
+	connection to be estabslished and therefore do not need to
+	keep track of it.
+      </para>
+
+      <para>
+	<figure>
+	  <title>Using action "Reject" with rule option</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-6.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Using action "Reject" with rule option]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	<figure id="f-policy-7">
+	  <title>Adding rule option to make send TCP RST packet</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-7.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Adding rule option to make send TCP RST packet]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+    </sect1>
+
+
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Using negation in policy rules</title>
+ 
+      <para>
+	Suppose we want to set up a rule to permit access from the
+	host on DMZ net "mail_relay_1" to hosts on the Internet, but
+	do not want to open access from it to machines on our internal
+	network represented by the object "internal_net". Since we
+	want it to connect to hosts on the Internet and can not
+	predict their addresses, we have to use "any" as a destination
+	in the policy rule. Unfortunately "any" includes our internal
+	net as well, which is going to open undesired hole in the
+	firewall.
+      </para>
+
+      <para>
+	There are two solutions to this problem. First, we can use two
+	rules: first will deny access from "mail_relay_1" to
+	"internal_net" and the second will permit access from
+	"mail_relay_1" to "any". Since rules are consulted in the
+	order they are specified in the policy, access to internal net
+	will be blocked by the first rule since the packet would hit
+	it first. These two rules are represented on <xref linkend="f-policy-8">
+      </para>
+
+      <para>
+	<figure id="f-policy-8">
+	  <title>Using two rules to block access from DMZ to internal net and permit
+	    access to the Internet</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-8.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Using two rules to block access from DMZ to internal net and permit
+		access to the Internet]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Another solution uses negation. We can specify destination in
+	the rule as "not internal_net", thus permitting access to
+	anything but "internal_net".  Negation can be enabled and
+	disabled in the pop-up menu which you call by clicking right
+	mouse button on the corresponding rule field. This rule
+	depends on the rules below it to block access from
+	"mail_relay1" to the "internal_net". If the policy was built
+	using general principle of blocking everything and then
+	enabling only types of connections that must be permitted,
+	then it usually has a "catch-all" rule at the bottom that
+	blocks everything. This last rule is going to deny connections
+	from the "mail_relay1" to "internal_net".
+      </para>
+
+      <para>
+	<figure id="f-policy-9">
+	  <title>Using rule with negation to block access from DMZ to internal
+	net and permit access to the Internet</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-9.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Using rule with negation to block access from DMZ to internal
+		net and permit access to the Internet]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Negation can be used in NAT rules in a similar way.
+      </para>
     </sect1>
   </chapter>
 
 
-  <!-- ############################################################### -->
-  <appendix id="tab-firewall">
-    <title>Using Firewall Dialog Tab 'Firewall' to configure target
-    firewall options and control behavior of policy compiler </title>
+  <chapter id="nat">
 
+    <title>Examples of Network Address Translation Rules</title>
+
+      
+    <!-- ********************************************************* -->
     <sect1>
-      <title>iptables</title>
+      <title>Providing Internet connection for workstations behind the firewall</title>
 
-      <para></para>
+      <para>
+	Suppose your internal network is configured using so-called
+	private IP addresses as defined in RFC 1918. These addresses
+	are:
+      </para>
+
+      <para>
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	    10.0.0.0 / 255.0.0.0
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      172.16.0.0 / 255.240.0.0
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      192.168.0.0 / 255.255.0.0
+	    </para>
+	  </listitem>
+	</itemizedlist>
+      </para>
+
+      <para>
+	If your network uses addresses from one of these blocks, and
+	you want to provide Internet access for machines on this net,
+	then you may need Network Address Translation (NAT) configured
+	on the firewall. This particular type of NAT configuration is
+	often called Masquerading.  When configured this way, firewall
+	rewrites source IP address of each packet sent by internal
+	machines to the Internet replacing private IP address with the
+	address of its external interface.
+      </para>
+
+      <para>
+	In Firewall Builder this type of the NAT rule is composed as
+	shown on <xref linkend="f-nat-1">
+      </para>
+
+      <para>
+	<figure id="f-nat-1">
+	  <title>Masquerading rule (this rule is part of NAT ruleset)</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-1.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Masquerading rule (this rule is part of NAT ruleset)]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Here, object representing internal network is placed in
+	"Original Source" and firewall's object is placed in
+	"Translated Source", thus indicating that we want source
+	address of the packets to be translated.  As before, we do not
+	need to worry about reply packets because underlying firewall
+	software keeps track of translations done for all the
+	connections opened through the firewall and rewrites addresses
+	in all reply packets automatically.
+      </para>
+
+      <para>
+	The rule on <xref linkend="f-nat-1"> provides address
+	translation for all the packets, but to permit connections to
+	the Internet a special Global Policy rule is needed. This rule
+	simply permits all connections from internal network to "any"
+	and should be placed somewhere close to the end of the policy,
+	for example right on top of "catch all and log" rule.
+      </para>
+
+
+      <para>
+	<figure id="f-nat-2">
+	  <title>Rule #3 permits connections from internal network to the Internet
+	(this rule is part of Global Policy)</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-2.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Rule #3 permits connections from internal network to the Internet
+	(this rule is part of Global Policy)]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
     </sect1>
 
-    <sect1>
-      <title>ipfilter</title>
 
-      <para></para>
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Server behind the firewall using address of the firewall for access</title>
+ 
+      <para>
+	Suppose we have a network using private IP addresses behind
+	the firewall, and a web server on it. We need to provide
+	access to this server from the Internet in a such way that
+	connections will be established to the address of the
+	firewall. In this case we need destination address of packets
+	to be rewritten so packets would reach the server on internal
+	network. Just like in the previous case we need one NAT rule
+	to provide translation and one Global Policy rule to permit
+	connecitons. <xref linkend="f-nat-3"> shows NAT rule we need:
+      </para>
+
+      <para>
+	<figure id="f-nat-3">
+	  <title>NAT rule for the server behind the firewall</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-3.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[NAT rule for the server behind the firewall]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Since we wanted to use address of the firewall's external
+	interface to access the server, firewall's object is placed in
+	"Original Destination" part of the rule. Server's object was
+	placed in "Translated Destination" part of the rule so that
+	original destination address of the packet will be replaced
+	with server's address.
+      </para>
+
+      <para>
+	We also need a Global Policy rule to permit connections to the
+	server. This rule is shown on <xref linkend="f-nat-4">
+      </para>
+
+      <para>
+	<figure id="f-nat-4">
+	  <title>rule #1 permits access to the server (This rule is part of Global Policy)</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-4.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[rule #1 permits access to the server (This rule is part of Global Policy)]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Configuration on <xref linkend="f-nat-3"> and <xref
+	linkend="f-nat-4"> can be combined with configuration on <xref
+	linkend="f-nat-1"> and <xref linkend="f-nat-2"> Such
+	combination illustrate a situation when machines on the local
+	network can go out to the Internet, and at the same time
+	server located on internal network can provide service for the
+	Internet users - all using single IP address of the firewall's
+	external interface! This configuration can be useful for those
+	with cable or DSL connection and single IP address.
+      </para>
     </sect1>
 
-    <sect1>
-      <title>pf</title>
 
-      <para></para>
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Server behind the firewall using virtual address for access</title>
+      
+      <para>
+	Those who have more than one IP address allocated by their ISP
+	may want to configure the firewall in a such way that extra
+	addresses be mapped to different servers inside their
+	network. This can be done using slightly different NAT rule.
+      </para>
+
+      <para>
+	First of all, we create additional "Host" object with IP
+	address which we are going to use for the translation. This
+	object can have any name, but for simplicity I call it
+	"hostA-nat" since it will be used to configure NAT rule for
+	hostA in our example. The rule which provides translation from
+	address "hostA-nat" to "hostA" is shown on <xref
+	linkend="f-nat-6">
+      </para>
+
+      <para>
+	<figure id="f-nat-5">
+	  <title>Additional object used for "Original Destination" in the NAT rule</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-5.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Additional object used for "Original Destination" in the NAT rule]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+
+      <para>
+	<figure id="f-nat-6">
+	  <title>NAT rule for the server behind the firewall with different address used for access</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-6.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[NAT rule for the server behind the firewall with different address used for access]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Finally we need a Global Policy rule to permit connections to
+	the server. This rule looks exactly like that in the previous
+	case - see <xref linkend="f-nat-4">
+      </para>
+
+      <para>
+	Using different address for translation requires additional
+	set up to be done on the firewall to ensure packets would
+	reach firewall while headed for that address. There are two
+	approaches to this problem:
+      </para>
+      
+      <para>
+	One way to do it is to basically take care of ARP requests
+	sent by the router in front of the firewall. This can be done
+	either by setting up static ARP entries on the router or on
+	the firewall, so the additional address we use for translation
+	will get mapped to the same MAC address of the firewall's
+	external interface.  Here are the commands we would need to
+	run on Linux firewall to map address 222.222.222.33 to the MAC
+	address of the interface eth1 and add appropriate routing
+	entry pointing to the internal interface eth0:
+      </para>
+
+      <programlisting>
+	route add 222.222.222.33 dev eth0
+	arp -Ds 222.222.222.33 eth1 pub
+      </programlisting>
+
+      <para>
+	Another way is to use tool <application>/sbin/ip</application>
+	to assign an "alias" ip address to the same interface of the
+	firewall:
+      </para>
+
+      <programlisting>
+	ip addr add 222.222.222.33 dev eth0 scope link
+      </programlisting>
+
+      <para>
+	Tool <application>/sbin/ip</application> is a part of the
+	package <application>iproute</application>.
+      </para>
+
+      <para>
+	Firewall Builder provides simple way of doing this. Just check
+	option "Create virtual addresses for NAT rules" in the
+	"Firewall" tab in Firewall dialog and policy compiler will
+	include all the neccesary code in the firewall script.
+      </para>
+      </sect1>
+
+
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Server behind the firewall with port mapping</title>
+ 
+      <para>
+	This case is similar to two previous ones, except it
+	illustrates how NAT rule can help change a port number besides
+	of the address. This can be useful if server behind the
+	firewall runs on some alternative port, yet we want to make it
+	so that users would access it using another port when connect
+	to it. For example, one could use it to provide access to the
+	web server running on non-standard port #8080 by setting up
+	translation of TCP ports to the standard one #80. This
+	configuration can be combined with either one of the two
+	above, that is translation can be done using either firewall's
+	external interface address or some different address.
+      </para>
+
+      <para>
+	This kind of translation works for both TCP and UDP services. 
+      </para>
+
+      <para>
+	First of all, additional Service object needs to be
+	created. This object would have its port number set to that
+	used by the real server.  <xref linkend="f-nat-7"> illustrates
+	this object's setup:
+      </para>
+
+      <para>
+	<figure id="f-nat-7">
+	  <title>TCP Service object for port tranlsation rule</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-7.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[TCP Service object for port tranlsation rule]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Now we can create the rule, it would look just like previous
+	translation rules except we put appropriate service objects in
+	"Original Service" and "Translated Service" columns. see 
+	<xref linkend="f-nat-8">
+      </para>
+
+      <para>
+	<figure id="f-nat-8">
+	  <title>NAT rule with port translation</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-8.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[NAT rule with port translation]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Of course we need Global Policy rule as well to permit
+	connections to our server. Since Policy rules are consulted
+	after NAT, Policy rule should use TCP Service object
+	"tcp-8080" instead of "http". See <xref linkend="f-nat-9">
+      </para>
+
+
+      <para>
+	<figure id="f-nat-9">
+	  <title>Global Policy rule which permits access to the server</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-9.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Global Policy rule which permits access to the server]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+      
     </sect1>
 
+    <!-- ********************************************************* -->
     <sect1>
-      <title>Cisco PIX</title>
+      <title>Destination NAT Onto the Same Network</title>
+ 
+      <para>
+	This situation is described in iptables HOWTO <ulink url="&ipt-howto">&ipt-howto</ulink>
+      </para>
 
-      <para></para>
-    </sect1>
-  </appendix>
+      <para>
+	This problem occurs when machines on internal LAN try
+	to access a server (let's say web server) which is actually
+	located on the same LAN and DNAT'ed through the firewall. If
+	internal users access it by its external DNAT'ed address, then
+	they send their TCP packets through the firewall, which
+	translates them and sends them to the server on LAN. Server,
+	however, replies back to the clients directly, because they
+	are on the same network. Since the reply has server's real
+	address in the source, clients do not recognize it and
+	connection can not be established.
+      </para>
 
-  <!-- ############################################################### -->
-  <appendix id="tab-network">
-    <title>Using Firewall Dialog Tab 'Network' to adjust network setup
-    on the target host OS</title>
+      <para>
+	To resolve this problem you need to add yet another NAT rule
+	to the policy to force translation on packets going from
+	clients to the server so that source address in these packets
+	will be replaced with address of the firewall. In this case
+	server will reply back to the firewall, which will translate
+	again before sending back to the client. Client see the
+	address it expects and connection gets established. 
+      </para>
 
-    <sect1>
-      <title>Linux</title>
+      <para>
+	In order to implement this rule, you need to create a Host
+	object with address the same as that of firewall's internal
+	interface, then add NAT rule as shown on diagram below. Rule
+	#0 on the diagram adds source address translation, while rule
+	#1 is just a usual NAT rule that provides access to the web
+	server from outside. The order of these two rules does not
+	matter. In reality translation defined by rule #1 happens
+	first, but for the sake of illustration I put them in reverse
+	order on the diagram.
+      </para>
 
-      <para></para>
-    </sect1>
+      <para>
+	<figure id="f-nat-11">
+	  <title>DNAT back to the same LAN</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-11.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[DNAT back to the same LAN]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
 
-    <sect1>
-      <title>FreeBSD</title>
-
-      <para></para>
-    </sect1>
-
-    <sect1>
-      <title>OpenBSD</title>
-
-      <para></para>
-    </sect1>
-
-    <sect1>
-      <title>Solaris</title>
-
-      <para></para>
-    </sect1>
-
-    <sect1>
-      <title>Cisco PIX</title>
-
-      <para></para>
-    </sect1>
-
-  </appendix>
-
-  <appendix id="policy-rule-options-dialogs">
-    <title>Policy Rule Options</title>
-
-    <sect1>
-      <title>iptables</title>
-
-      <para></para>
-    </sect1>
-
-    <sect1>
-      <title>ipfilter</title>
-
-      <para></para>
-    </sect1>
-
-    <sect1>
-      <title>pf</title>
-
-      <para></para>
     </sect1>
 
+    <!-- ********************************************************* -->
     <sect1>
-      <title>Cisco PIX</title>
+      <title>Redirecting the traffic</title>
+ 
+      <para>
+	this is a special case of NAT where packet's destination
+	address gets changed to that of the firewall itself. This may
+	be useful if you, for example, run transparent web proxy on
+	the firewall box. The rule goes to NAT ruleset and should have
+	firewall object in "Translated desination". Redirection rule
+	may be combined with port mapping, so redirected packet will
+	hit firewall on a different port.
+      </para>
+      
+      <para>
+	In a real policy this rule would have specific port number in
+	"Original Service" to limit its scope to the protocol
+	supported by the proxy server and will also be placed on top
+	of other NAT rules dealing with the same source addresses so
+	it would match first.  <xref linkend="f-nat-10"> shows
+	redirection rule which bounces all HTTP connections opened by
+	users on "internal_net" to the Squid proxy server running on
+	the firewall box on port 3128. Obviously squid has to be
+	configured properly to work as transparent proxy.
+      </para>
 
-      <para></para>
+      <para>
+	<figure id="f-nat-10">
+	  <title>Redirect rule</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-10.png" format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[Redirect rule]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+	Note that for this setup to work a Global Policy rule is needed to
+	permit HTTP requests made by Squid. These requests will originate from
+	the firewall itself.
+      </para>
+
     </sect1>
-  </appendix>
+
+  </chapter>
+
+
+
 </book>
