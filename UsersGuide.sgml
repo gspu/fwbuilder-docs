@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.4 $  $Date: 2003-02-09 05:34:31 $</edition>
+    <edition>$Revision: 1.5 $  $Date: 2003-02-09 21:16:19 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1750,6 +1750,175 @@
       'General' tab.</para>
 
       <sect2>
+        <title>Generic Parameters</title>
+
+        <para>These are compilation-time modes and algorithms that are
+        common for all target firewall platforms.</para>
+
+        <sect3 id="rule-shadowing">
+          <title>Rule Shadowing</title>
+
+          <para>Rule shadowing happens when certain rule is a superset
+          of a subsequent rule and any packets potentially matched by
+          the subsequent rule have already been matched by the prior
+          rule. For example, if rule #1 uses network object for source
+          and rule #2 uses host object located on that network for
+          source, rule #1 'shadows' rule #2 because any packet matched
+          by #1 will never be matched by #2. This may be important if,
+          say, rule #1 permits and #2 denies access to the same
+          destination. If rule #1 'shadows' rule #2, then rule #2 will
+          never fire. This situation is most often an error; the
+          compiler can detect it and abort processing of the policy
+          with appropriate error message.</para>
+        </sect3>
+
+        <sect3 id="empty-groups">
+          <title>Empty Groups</title>
+
+          <para>This option is specifically designed to help to use
+          the following trick. It is sometimes necessary to control
+          access to an often changing group fo hosts or networks. In
+          order to avoind having to make changes to the policy rules,
+          these hosts or networks should be put in a group object
+          which is then used in the policy rule. You can then add and
+          remove hosts to this group and regenerate the policy. This
+          simple technique works just fine until you get a rule where
+          this group is a sole object in the rule element (source or
+          destination) and by some reason this group has become empty
+          because you had to remove all objects from it. Policy
+          compiler should be careful not to treat an empty group as
+          'any' because that would be something exactly opposite to
+          the intended meaning of the rule. </para>
+
+          <para>If this option is off, compiler treats empty group
+          which is used as a sole object in the rule element as an
+          error and aborts processing firewall policy with appropriate
+          error message.</para>
+
+          <para>If this option is on, compiler tries to remove all
+          empty groups from the rule element. If after the last one
+          has been removed the rule element becomes empty (that is,
+          'any'), compiler automatically disables this rule and
+          continues.</para>
+        </sect3>
+
+        <sect3 id="fw-is-part-of-any">
+          <title>Assume firewall is part of <emphasis>'any'</emphasis></title>
+
+          <para>On some firewall platforms there is a difference in
+          the configuration command used to control access through the
+          firewall versus command that control access to the firewall
+          itself. For example, in iptables packets headed for the
+          firewall machine should be inspected in the INPUT chain,
+          while packets going through the firewall are inspected in
+          the FORWARD chain. If this option is ON, compiler generates
+          code for both FORWARD and INPUT chains if it sees
+          <emphasis>'any'</emphasis> in the destination of the policy
+          rule. In other words, it assumes that firewall is part of
+          <emphasis>'any'</emphasis> and packet may either go to or through the
+          firewall. If this option is off, compiler only generates
+          code for the FORWARD chain. Compiler treats <emphasis>'any'</emphasis> in the
+          source of the rule in a similar way, generating code either
+          for OUTPUT and FORWARD, or only FORWARD chain.</para>
+
+          <para>Another example of this is PIX, where one should use
+          special commands to control access to the firewall on
+          protocols <emphasis>telnet</emphasis>,
+          <emphasis>ssh</emphasis> and
+          <emphasis>icmp</emphasis>.</para>
+        </sect3>
+
+        <sect3 id="log-prefix">
+          <title>Custom Logging Prefixes</title>
+
+          <para>Custom string that shows up in the log together with
+          information logged for each rule that has 'logging' option
+          activated. Firewall Builder supports a few macros in the log
+          prefix that are expanded at the compile time:</para>
+
+          <para>
+            <table frame="topbot" pgwide="0">
+              <title>Macros allowed in the logging prefix</title>
+              <tgroup cols="2">
+                <colspec colwidth="64pt" align="center">
+                <colspec colwidth="250pt" align="left">
+                <thead>
+                  <row>
+                    <entry>Macro</entry>
+                    <entry>Replaced with</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry>%N</entry> <entry>rule number in the GUI.</entry>
+                  </row>
+
+                  <row>
+                    <entry>%A</entry>
+                    <entry>rule action</entry>
+                  </row>
+
+                  <row>
+                    <entry>%I</entry> <entry>interface the rule is associated
+                        with</entry>
+                  </row>
+
+                  <row>
+                    <entry>%C</entry> <entry>(iptables only) iptables
+                    chain this rule generated code for.</entry>
+                  </row>
+
+                </tbody>
+              </tgroup>
+            </table>
+          </para>
+        </sect3>
+
+        <sect3 id="virt-addr-for-nat">
+          <title>Create Virtual Addresses for NAT Rules</title>
+
+          <para>Compiler can generate commands to add virtual address
+          to one of the interfaces of the firewall machine if this
+          option is turned on. This is needed if a NAT rule uses IP
+          address that does not belong to any interface of the
+          firewall.  Firewall either needs static 'published' ARP
+          entry for this address, or it should be added to one of the
+          interfaces as an 'alias' or virtual address. </para>
+
+          <para>Policy compiler adds code to add 'alias' address to
+          interface on top of the firewall activation
+          script. Depending on the OS the firewall is running on, it
+          may use <filename>ifconfig</filename> (FreeBSD, OpenBSD,
+          Solaris) or <filename>ip</filename> (Linux) to do
+          that.</para>
+
+          <para>The activation script also adds virtual addresses to
+          interfaces of the firewall if such addresses are configured
+          in the firewall object in the GUI but are missing on the
+          real firewall.</para>
+        </sect3>
+
+        <sect3 id="script-debug">
+          <title>Turn on debugging in the generated script</title>
+
+          <para>This option makes generated firewall script print all
+          commands when it is executed. Depending on the format of the
+          target firewall configuration, policy compiler choses
+          appropriate command line option or a configuration flag to
+          indicate debugging. For example, configuration for iptables
+          is just a shell script. In this case compiler adds
+          <parameter>"-x"</parameter> to the shell command
+          line. For PF compiler generates two files: an activation
+          script and <filename>"pf.conf"</filename>
+          file. In this case compiler not only adds
+          <parameter>"-x"</parameter> to the shell command
+          line but also passes <parameter>"-v"</parameter>
+          to the utility <filename>pfctl</filename> which
+          activates firewall confguration. </para>
+        </sect3>
+      </sect2>
+
+      <sect2>
         <title>iptables</title>
         <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
@@ -1840,95 +2009,206 @@
                     1.</para>
                   </listitem>
 
+                  <listitem>
+                    <para><guimenuitem>Log Prefix</guimenuitem></para>
+
+                    <para> See <xref linkend="log-prefix"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Log all dropped packets</guimenuitem></para>
+
+                    <para>This option makes firewall log all packets
+                    it drops, including those that do not match any
+                    entry in the state table and some others. This
+                    option can only be used if corresponding patch has
+                    been applied to iptables running on the
+                    firewall. Patch is called 'dropped-table' and is
+                    part of patch-o-matic.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Logging limit:</guimenuitem></para>
+
+                    <para>This option allows to set a limit on the
+                    number of log entries that the firewall records
+                    per unit of time. This could be useful on high
+                    traffic firewalls, where writing too much to the
+                    log can overload disk subsystem.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Turn logging ON on all rules</guimenuitem></para>
+
+                    <para>This option overrides logging option in each
+                    rule to make the firewall act as if logging was
+                    turned on on each rule. This is useful for the
+                    policy debugging.</para>
+                  </listitem>
                 </itemizedlist>
               </para>
             </listitem>
 
             <listitem>
-              <para><guimenuitem>Log Prefix</guimenuitem></para>
+              <para><guimenuitem>Default action on 'Reject'</guimenuitem></para>
 
-              <para>Custom string that shows up in the log together
-              with information logged for each rule that has 'logging'
-              option activated. Firewall Builder supports a few macros
-              in the log prefix that are expanded at the compile
-              time:</para>
+              <para>When rule with action 'Reject' matches the packet,
+              it not only blocks it, but also sends a message back to
+              sender to notify them that their original packet has
+              been denied access. The firewall can send back several
+              types of ICMP 'unreachable' messages or TCP RST packet,
+              depending on the setting of this option and service
+              object used in the rule.</para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Options</guimenuitem></para>
 
               <para>
-                <table frame="none">
-                  <title>Macros allowed in the logging prefix</title>
-                  <tgroup cols="2">
-                    <tbody>
-                      <row>
-                        <entry>%N</entry> <entry>This macro is
-                        replaced with the rule number in the
-                        GUI.</entry>
-                      </row>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Turn off optimization in
+                    compiler</guimenuitem></para>
 
-                      <row>
-                        <entry>%A</entry>
-                        <entry>This macro is replaced with rule action</entry>
-                      </row>
+                    <para>This option turns off some optimization
+                    algorithms in the policy compiler.</para>
+                  </listitem>
 
-                      <row>
-                        <entry>%I</entry> <entry>This macro is
-                        replaced with interface the rule is associated
-                        with</entry>
-                      </row>
+                  <listitem>
+                    <para><guimenuitem>Load modules</guimenuitem></para>
 
-                      <row>
-                        <entry>%C</entry> <entry>This macro is
-                        replaced with iptables chain this rule
-                        generated code for.</entry>
-                      </row>
+                    <para>Compiler generates code to load iptables
+                    kernel modules before activating policy
+                    rules.</para>
+                  </listitem>
 
-                    </tbody>
-                  </tgroup>
-                </table>
+                  <listitem>
+                    <para><guimenuitem>Verify interfaces before
+                    loading firewall policy</guimenuitem></para>
+
+                    <para>Compiler generates code to check if
+                    interfaces configured in the firewall object exist
+                    in the real firewall machine. This check is
+                    executed before policy rules are loaded. If the
+                    check fails, firewall policy won't be modified.
+                    </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Assume firewall object is part
+                    of 'any'</guimenuitem></para>
+
+                    <para> See <xref linkend="fw-is-part-of-any"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Clamp MSS to
+                    MTU</guimenuitem></para>
+
+                    <para>This option allows you to examine and alter
+                    the MSS value of TCP SYN packets, to control the
+                    maximum size for that connection. This option can
+                    only be used if corresponding patch from
+                    patch-o-matic is applied to iptables running on
+                    the firewall.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Accept TCP sessions opened
+                    prior to firewall restart</guimenuitem></para>
+
+                    <para>If this option is ON, firewall will accept
+                    TCP sessions opened before firewall software has
+                    been activated. These sessions are special because
+                    firewall never saw their initiation phase. If this
+                    option is on, the firewall creates an entry in
+                    the state table when it sees a packet that
+                    apparently belongs to the unknown TCP session.
+                    </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Accept ESTABLISHED and RELATED
+                    packets before the first rule</guimenuitem></para>
+
+                    <para>This option generates implicit rule to
+                    accept ESTABLISHED and RELATED packets before the
+                    very first rule specified in the GUI. This helps
+                    to reduce the size of the policy script generated
+                    by policy compiler. ESTABLISHED packets are
+                    basically reply packets coming back from the
+                    server to the client. Iptables keeps state
+                    information about each TCP session opened through
+                    the firewall and thus can detect and permit this
+                    kind of packets automatically. RELATED packets
+                    belong to another stream somehow associated with
+                    initial stream opened through the firewall. FTP
+                    protocol is a good example of this situation.  FTP
+                    uses TCP sessions: command channel and data
+                    channel. You do not need to add special rule for
+                    the data channel to your policy because iptables
+                    'understands' when it needs to permit packets that
+                    belong to the data channel that has been created
+                    per request sent via known command channel.</para>
+
+                    <para>This option is ON by default.</para>
+
+                    <para>If by some reason you do not want to have an
+                    implicit rule to permit these types of packets on
+                    top of all rules defined in the GUI, you should
+                    uncheck this option. Remember that in this case
+                    you need to add a rule to permit these types of
+                    packets yourself. You can use Custom Service
+                    object 'ESTABLISHED' in this rule. This service
+                    object can be found in the 'Standard' object
+                    tree.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Bridging firewall</guimenuitem></para>
+
+                    <para>This option changes algorithms used by the
+                    policy compiler and makes it generate script for a
+                    bridging firewall. Bridging firewall treats
+                    broadcast packets differently, never uses INPUT
+                    and OUTPUT chains and has some other
+                    differences.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Detect rule shadowing in
+                    policy</guimenuitem></para>
+
+                    <para> See <xref linkend="rule-shadowing"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Ignore empty groups in
+                    rules</guimenuitem></para>
+
+                    <para> See <xref linkend="empty-groups"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Turn on debug output in
+                    iptables script</guimenuitem></para>
+
+                    <para> See <xref linkend="script-debug"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Create virtual addresses for
+                    NAT rules</guimenuitem></para>
+
+                    <para> See <xref linkend="virt-addr-for-nat"></para>
+                  </listitem>
+
+                </itemizedlist>
               </para>
             </listitem>
 
-            <listitem>
-              <para><guimenuitem>Log all dropped packets</guimenuitem></para>
-
-              <para>This option makes firewall log all packets it
-              drops, including those that do not match any entry in
-              the state table and some others. This option can only be
-              used if corresponding patch has been applied to iptables
-              running on the firewall. Patch is called 'dropped-table'
-              and is part of patch-o-matic.</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Logging limit:</guimenuitem></para>
-
-              <para>This option allows to set a limit on the number of
-              log entries that the firewall records per unit of
-              time. This could be useful on high traffic firewalls,
-              where writing too much to the log can overload disk
-              subsystem.</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Turn logging ON on all rules</guimenuitem></para>
-
-              <para>This option overrides logging option in each rule
-              to make the firewall act as if logging was turned on on
-              each rule. This is useful for the policy debugging.</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Default action on 'Reject'</guimenuitem></para>
-
-              <para>When rules with action 'Reject' encounters packet
-              that it matches, it not only blocks it, but also sends a
-              packet back to sender to notify them that their original
-              packet has been denied access. The firewall can send
-              back various types of ICMP 'unreachable' messages or TCP
-              RST packet depending on the setting of this option and
-              service object used in the rule.</para>
-            </listitem>
-
           </itemizedlist>
+
 
         </para>
       </sect2>
@@ -1960,6 +2240,136 @@
             </imageobject>
           </mediaobject>
         </figure>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para><guimenuitem>Version</guimenuitem></para>
+
+              <para>OS version the firewall is running on</para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Options</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Generate both 'in' and 'out' rules</guimenuitem></para>
+
+                    <para>There are two ways compiler can generate
+                    code for rules in the Global Policy: it can either
+                    create two pf rules for one rule in the GUI to
+                    control both incoming and outgoing packets, or it
+                    can create only one pf rule for incoming packets
+                    and always permit all outgoing packets. If this
+                    option is ON, the compiler creates rules for
+                    incoming and outgoing packets. This way you get
+                    more control over the data flows crossing your
+                    firewall, but the configuration is going to be
+                    larger. </para>
+                  </listitem>
+                  <listitem>
+                    <para><guimenuitem>Pass all outgoing</guimenuitem></para>
+
+                    <para>See above. If this option is ON, the
+                    compiler puts implicit rule to permit all outgoing
+                    packets on the top of the policy and then creates
+                    rules only for incoming packets. This way you get
+                    smaller confguration but have little control over
+                    outgoing sessions.</para>
+                  </listitem>
+                  <listitem>
+                    <para><guimenuitem>Run all packets through
+                    defragmentation filter</guimenuitem></para>
+
+                    <para>This is also called packet
+                    normalization. Packet normalization is invoked via
+                    the scrub directive.  Normalization is used to
+                    sanitize packet content in such a way that there
+                    are no ambiguities in packet interpretation on the
+                    receiving side. The normalizer does IP fragment
+                    reassembly to prevent attacks that confuse
+                    intrusion detection systems by sending overlapping
+                    IP fragments. See more details in the man page
+                    <filename>pf.conf(5)</filename></para>
+                  </listitem>
+                  <listitem>
+                    <para><guimenuitem>Modulate state for all stateful
+                    rules</guimenuitem></para>
+
+                    <para>By applying a "modulate state" rule to a TCP
+                    connection, pf will create a high quality random
+                    sequence number for each connection endpoint.  The
+                    "modulate state" directive implicitly keeps state
+                    on the rule and is only applicable to TCP
+                    connections. See more details in the man page 
+                    <filename>pf.conf(5)</filename></para>
+                  </listitem>
+                  <listitem>
+                    <para><guimenuitem>Detect rule shadowing in policy</guimenuitem></para>
+
+                    <para> See <xref linkend="rule-shadowing"></para>
+                  </listitem>
+                  <listitem>
+                    <para><guimenuitem>Ignore empty groups in rules</guimenuitem></para>
+
+                    <para> See <xref linkend="empty-groups"></para>
+                  </listitem>
+                </itemizedlist>
+
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>global Logging Parameters</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Log Prefix</guimenuitem></para>
+
+                    <para> See <xref linkend="log-prefix"></para>
+                  </listitem>
+                </itemizedlist>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Script Options</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Turn on debug output in the
+                    script</guimenuitem></para>
+
+                    <para> See <xref linkend="script-debug"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Create virtual addresses for
+                    NAT rules</guimenuitem></para>
+
+                    <para> See <xref linkend="virt-addr-for-nat"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Directory where firewall
+                    configuration files should be
+                    installed</guimenuitem></para>
+
+                    <para>This parameter tells firewall initialization
+                    script produced by the compiler where firewall
+                    configuration file is going to be located.</para>
+                  </listitem>
+                </itemizedlist>
+              </para>
+            </listitem>
+
+          </itemizedlist>
+
+        </para>
 
       </sect2>
 
