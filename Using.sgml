@@ -100,6 +100,12 @@
           </listitem>
 
           <listitem>
+            <para>The ability to turn firewall policy into
+            configuration file or a script and then install it on a
+            firewall with just a few clicks of a mouse.</para>
+          </listitem>
+
+          <listitem>
             <para>Convenient GUI that supports standard Copy/Paste
             operations for both text strings and network objects and
             allows for policy editing using drag and drop</para>
