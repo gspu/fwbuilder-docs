@@ -15,9 +15,9 @@
   
   <bookinfo>
 
-    <productname>Using Firewall Builder</productname>
+    <productname>Firewall Builder</productname>
 
-    <title>Using Firewall Builder</title>
+    <title>Firewall Builder User's Guide</title>
 
     <author>
       <firstname>Vadim</firstname>
@@ -439,10 +439,86 @@
   </chapter>
 
 <!-- ############################################################### -->
-  <chapter id="Tutorial">
-    <title></title>
+  <chapter id="using-gui">
+    <title>Using Firewall Builder</title>
+
+    <sect1>
+      <title>The Main Window</title>
 
       <para></para>
+
+    </sect1>
+
+    <sect1>
+      <title>Working With Objects</title>
+
+      <para></para>
+
+      <sect2>
+        <title>Host Object</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Network Object</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Address Range Object</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Group of Objects</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Network Discovery: Quick Way to Create Objects</title>
+
+        <para></para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Working With Services</title>
+      <sect2>
+        <title>IP Service</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>ICMP Service</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>TCP Service</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>UDP Service</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Custom Service</title>
+
+        <para></para>
+      </sect2>
+
+
+    </sect1>
   </chapter>
 
 </book>
