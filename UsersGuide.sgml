@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.55 $  $Date: 2003-02-03 05:16:04 $</edition>
+    <edition>$Revision: 1.1 $  $Date: 2003-02-03 05:23:06 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1922,819 +1922,6 @@
 
   </chapter>
 
-  <chapter>
-    <title>Firewall Policies</title>
-
-
-    <sect1 id="policies-and-rules">
-      <title>Policies and Rules</title>
-
-      <para>Each firewall object has several sets of rules associated
-      with it: Global Policy, Interface Policies and Network Address
-      Translation (NAT) rules. Rules in the global policy and in
-      interface policies control access to and from the firewall
-      machine and machines behind it, while NAT rules describe address
-      and port transformations that the firewall should make to the
-      packets flowing through it.</para>
-
-      <para>Firewall software varies widely in the way it can process
-      packets. For example, some firewalls allow for rules to be
-      written without specification of the interface, while some
-      others require all rules to be associated with interface. Some
-      firewalls perform address and port transofrmations first and
-      then apply policy rules, while some others do it the other way
-      around. There are many other variations and features, specific
-      to particular implementations. In Firewall Builder though user
-      works with an abstract firewall that looks uniform regardless of
-      the target firewall platform it is used to generate code
-      for. For example, Cisco PIX applies its Access List rules to the
-      packet before it performs address and port transformations
-      accroding to the NAT rules. This makes this firewall platform
-      substantially different and inconvenient because a policy rule
-      that controls access to the server behind the firewall doing NAT
-      should be written using firewall's object instead of the
-      server's object. The meaning of such rule is not obvious at a
-      glance since one has to keep in mind all NAT rules as well to
-      understand that this policy rule controls access not the
-      firewall machine, but rather to the server behind it. Firewall
-      Builder compensates for variations like this using smart
-      algorithms to transform rules defined in the GUI to generate
-      code in the language of the target firewall platform to achieve
-      desired effect.</para>
-
-      <para><xref linkend="policies-seq"> represents logical sequence
-      in which rules defined in Firewall Builder affect network
-      packet. This diagram describes an abstract firewall which
-      Firewall Builder represents for the user. In some cases the
-      target firewall may work the same way, in some other cases it
-      won't. Either way, the goal is for administrator to build the
-      rules assuming his firewall works like shown on <xref
-      linkend="policies-seq">. The firewall may have multiple
-      interfaces and multiple interface policies. Since interface is
-      one of the parameters of the rule, and rules in different
-      Interface Policies are tied to different interfaces, they are
-      orthogonal. Because of that, it does not matter in which order
-      Interface Policies are applied. It is guaranteed however that
-      Interface Policies are stacked on top of the Global Policy and
-      inspect the packet before the Global Policy will.
-      </para>
-
-      <figure id="policies-seq" float="1">
-        <title>Sequence in which NAT and Policy rules apply to the
-        packet in Firewall Builder </title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="policies-seq.jpg" format="jpg" align="Left" scale="33">
-          </imageobject>
-        </mediaobject>
-      </figure>
-
-      <para>Among three major types of supported sets of rules, Global
-      Policy rules and Interface Policy rules are similar. These rules
-      represent access control because they define which packets will
-      be permitted and which will be denied. Both Global and Interface
-      Policy rules operate on the packet's source and destination
-      addresses and protocol parameters. The difference is that
-      Interface rules also take into account firewall's interface
-      which the packet is crossing in one or another direction. Global
-      Policy rules work regardless of the interface. In case of
-      iptables, Global Policy is roughly equivalent to the FORWARD
-      chain, however there might be no such direct correspondence in
-      other firewall platforms.  Interface Policy rules are associated
-      with particular interface of the firewall and have an option
-      that describes direction in which packet should cross the
-      interface in order for the rule to match it. <xref
-      linkend="directions"> illustrates definition of the direction
-      for packets entering or exiting firewall interface.  </para>
-
-      <figure id="directions" float="1">
-        <title>Directions </title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="directions.jpg" format="jpg" align="Left" scale="33">
-          </imageobject>
-        </mediaobject>
-      </figure>
-
-<!--
-Table:
-
-firewall platform   should rules     Can we write      In what order
-                    be associated    rules without     does this firewall
-                    with interface?  interface?        perform NAT and policy
-                                                       control?
-
-iptables             can be, but
-                     not necessarily    yes            NAT, policy
-
-OpenBSD pf           can be, but
-                     not necessarily    yes            NAT, policy
-
-ipfilter             can be, but
-                     not necessarily    yes            NAT, policy
-
-PIX                  always             no             policy, NAT
-
--->
-
-      <sect2 id="global-policy">
-        <title>Global Firewall Policy</title>
-
-        <figure id="global-policy1" float="1">
-          <title>Global Policy</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="global_policy.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>The Firewall policy consists of a set of rules. Packets
-        are analysed by comparing their parameters with rules in the
-        policy; inspecting rules in an orderly manner from top to
-        bottom. The first rule that matches the packet is used. Each
-        rule includes a standard set of parameters, or <emphasis>Rule
-        Elements</emphasis>, which are used to compare the data packet
-        with, such as "Source", "Deestination", "Service",
-        "Direction". If a rule is part of the Interface Policy (<xref
-                                                                      linkend="interface-policy">), then the interface it belongs to
-        acts as yet another parameter. For example, if a packet
-        entering the firewall has a source address which matches the
-        object in the "Source" field of the rule, its destination
-        address matches the object in "Destination", its protocol and
-        port numbers match the object in the field "Service", and its
-        direction matches that specified in the field "Direction",
-        then the firewall will take action, specified in the "Action"
-        field of the matching rule. In the case of Interface rule, the
-        firewall will also take into account the interface through
-        which packet had entered or through which it is about to leave
-        the firewall.</para>
-
-        <para>For example on <xref linkend="global-policy1">, the rule
-        #0 says that all fragmented packets should be dropped (the
-        rule uses service object <emphasis>ip_fragments</emphasis> and
-        the <emphasis>Deny</emphasis> action). Rule #1 says that
-        connections from the internal network (object
-        <emphasis>internal-net</emphasis>) to the firewall itself
-        (object <emphasis>firewall-pix</emphasis>) using protocols
-        <emphasis>telnet</emphasis> and <emphasis>snmp</emphasis> are
-        allowed (action <emphasis>Accept</emphasis>). The "Catch all"
-        rule #8 denies all packets that have not been matched by any
-        other rule above it. The global policy on <xref
-                                                        linkend="global-policy1"> is built to allow only specific
-        services and deny everything else, which is a good practice.
-        </para>
-
-        <para><xref linkend="rule-elements"> lists rule elements
-        available in the policy, depending on the chosen target
-        firewall platform.
-        </para>
-      </sect2>
-
-      <sect2 id="interface-policy">
-        <title>Interface Policy</title>
-
-        <figure id="interface-policy1" float="1">
-          <title>Interface Policy for iptables firewall</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="interface_policy1.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <figure id="interface-policy2" float="1">
-          <title>Interface Policy for Cisco PIX firewall</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="interface_policy2.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>Each firewall's interface may have a security policy
-        associated with it. Different firewalls require different
-        commands to attach policy rules to the firewall, but policy
-        compilers take care of that and generate the appropriate
-        code. The Interface Policy consists of a set of rules; each
-        rule has the same rule elements as a Global Policy rule and
-        adds some additional ones. </para>
-
-        <para>In <xref linkend="interface-policy1"> rule #0 (the so
-        called Anti-spoofing rule) says that all packets which enter
-        the firewall's interface eth0 (direction is
-        <emphasis>"Inbound"</emphasis>) and have their source address
-        match either the internal network or dmz network or any
-        address that belongs to the firewall itself, should be dropped
-        and a record should be made in the log (since there is a
-        "notebook and pencil" icon in the
-        <emphasis>"Options"</emphasis> rule element).
-        </para>
-      </sect2>
-
-      <sect2>
-        <title>Network Address Translation Rules</title>
-
-        <figure id="nat-policy" float="1">
-          <title>Network Address Translation Rules</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="nat_policy.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>Just like the firewall policy, the Network Address
-        Translation (NAT) rules are inspected by the firewall in the
-        order they appear in the NAT policy. Each NAT rule consists of
-        the following rule elements:</para>
-
-        <para>
-          <itemizedlist spacing="compact">
-            <listitem><para>Original Source</para>
-
-              <para>This is the object which the source address of
-              original packet should match for it to be translated by
-              this rule </para>
-            </listitem>
-            <listitem><para>Original Destination</para>
-
-              <para>This is the object which the destination address
-              of original packet should match for it to be translated
-              by this rule </para>
-            </listitem>
-            <listitem><para>Original Service</para>
-
-              <para>This is the service which the original packet should
-              match to be translated by this rule</para>
-            </listitem>
-            <listitem><para>Translated Source</para>
-
-              <para>This object defines the address which should be
-              used to substitute the original packet's source address
-              </para>
-            </listitem>
-            <listitem><para>Translated Destination</para>
-
-              <para>This object defines the address which should be
-              used to substitute the destination address in the original
-              packet.</para>
-            </listitem>
-            <listitem><para>Translated Service</para>
-
-              <para>This object defines the protocol and port numbers
-              which should be used to substitute those parameters in
-              the original packet</para>
-            </listitem>
-            <listitem><para>Comment</para>
-            </listitem>
-          </itemizedlist>
-        </para>
-
-        <para>Here is how it works:</para>
-
-        <para>The original packet is compared with NAT rules, one at a
-        time, starting with the topmost rule. Once the rule which
-        matches the packet's source and destination addresses and its
-        service is found, the firewall takes parameters from the
-        second half of that rule and makes substitutions for the
-        source and destination addresses and port numbers. Some rule
-        elements in the first half of the rule may be left empty (they
-        show "Any" in this case); these elements match any value of a
-        corresponding parameter of the packet.  Some rule elements in
-        the second half of the rule may also be left empty (in which
-        case the GUI shows the word "Original" in the rule
-        element). This tells the firewall that no substitution should
-        happen for those elements. </para>
-
-        <para>In fact the firewall not only substitutes addresses and
-        port numbers, it also makes a record in its internal table to
-        remember the original packet and translated packet it just
-        produced. This way the firewall can perform a reverse
-        translation when the reply packet comes back. </para>
-
-        <para>The NAT rules in the screenshot <xref
-                                                    linkend="nat-policy"> tell the firewall to do the
-        following:</para>
-
-        <para>
-          <itemizedlist spacing="compact">
-            <listitem>
-              <para>Rule #0:</para>
-
-              <para>If the original packet has a destination address
-              which matches the addresses of an external interface of
-              the firewall object "firewall-iptables" and protocol TCP
-              and port 80 (matches service "http", protocol used by
-              web servers), then its destination address should be
-              changed to that of the object "mail server" and the
-              service should be left the same. Note that this rule
-              would have had the same effect if the "Translated
-              Service" was left "Original".</para>
-            </listitem>
-            <listitem>
-              <para>Rule #1:</para>
-
-              <para>This rule is very much the same as #0, except it
-              works for packets headed for TCP port 25 (service "smtp"
-              which describes protocol used to send and receive
-              Internet email)</para>
-            </listitem>
-            <listitem>
-              <para>Rule #2:</para>
-
-              <para>This rule is like #0 and #1, except it works for
-              the service "ssh"</para>
-            </listitem>
-            <listitem>
-              <para>Rule #3:</para>
-
-              <para>This rule follows the same pattern as #0-2, but
-              translates packets headed for the external firewall's
-              address, TCP port 2222, and sends them to the standard
-              TCP port that belongs to the service "ssh" on the
-              internal machine "build server". This rule illustrates
-              that you can simultaneously translate both addresses and
-              services: it makes changes to the destination address of
-              the packet and the service.</para>
-            </listitem>
-            <listitem>
-              <para>Rule #4:</para>
-
-              <para>This rule matches packets that originated in the
-              internal network (object "internal-net") and headed for
-              DMZ net (object "dmz-net"). Since all rule elements in
-              the second half of the rule are left blank, this rule
-              tells the firewall that no translation is needed for
-              these packets.</para>
-            </listitem>
-            <listitem>
-              <para>Rule #5:</para>
-
-              <para>This rule defines another type of translation: all
-              packets originated in either the internal network or in
-              DMZ net, going to any destination, should have their
-              source address replaced with the address of the
-              firewall's external interface. This type of translation
-              rule is sometimes called the "Masquerading".</para>
-            </listitem>
-          </itemizedlist>
-        </para>
-
-        <para>Some firewall platforms support negation in NAT
-        rules. If it is supported, this feature can be activated
-        through the pop-up menu ( <xref linkend="editing-policy2"> )
-        that appears when you click the right mouse button on the rule
-        element in the NAT rule. <xref linkend="rule-elements"> shows
-        what firewall platforms support negation in NAT.</para>
-
-        <para>See below in "Tutorial" for detailed discussion of
-        different types of NAT rules.</para>
-
-        <para>You can create NAT rules and edit them using the same
-        methods as described in <xref linkend="editing-policy-and-nat"></para>
-
-      </sect2>
-
-    </sect1>
-
-    <sect1 id="editing-policy-and-nat">
-      <title>Editing firewall Policy and NAT Rules</title>
-
-      <sect2>
-        <title>Adding and removing rules</title>
-
-        <figure id="editing-policy1" float="1">
-          <title>Modifying Policy rules</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>Rules can be added, removed or moved around in the
-          policy using commands in a popup menu which appears if you
-          click the right mouse button on the rule element "Num" (the
-          very first rule element, counting from the left). Screenshot
-          <xref linkend="editing-policy1"> illustrates this
-          menu. </para>
-
-        <para>This menu allows for adding new rules above or below
-          of the currently selected rule in the policy, removing
-          rules, moving the current rule up and down, plus the usual
-          <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
-          operations done on policy rules.</para>
-
-        <para>Functions of this pop-up menu are also duplicated in
-          the main menu <guimenuitem>"Rules"</guimenuitem></para>
-
-        <para>You can also use the drag and drop operation to move
-          rules up and down in the policy. Just drag the rule with the
-          mouse by its "number" rule element.</para>
-      </sect2>
-
-      <sect2>
-        <title>Adding, removing and modifying objects in the policy
-          and NAT rules</title>
-
-        <para>To add objects to the policy or NAT rule you can
-          either drag them from the tree and drop them into the
-          corresponding rule element, or use the
-          <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
-          operation. Objects can be copied into clipboard both from
-          the tree and from another policy rule; in both cases use the
-          pop-up menu or main menu <guimenuitem>"Edit"</guimenuitem>.</para>
-
-        <para>Clicking the right mouse button when the cursor is
-          over rule elements "Source","Destination" or "Service"
-          brings a context-sensitive pop-up menu ( <xref
-                                                         linkend="editing-policy2"> ). The same pop-up menu appears
-          when you do that over the "Original Source", "Original
-          Destination", "Original Service", "Translated Source",
-          "Translated Destination" and "Translated Service" rule
-          elements in the NAT rule. </para>
-
-        <figure id="editing-policy2" float="1">
-          <title>Modifying Object in the Policy Rule</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>This menu provides items for the following functions:</para>
-
-        <para>
-          <itemizedlist spacing="compact">
-            <listitem>
-              <para>Edit:</para>
-
-              <para>This menu item opens the currently selected
-                object in the dialog</para>
-            </listitem>
-            <listitem>
-              <para>Edit in a new window:</para>
-
-              <para>This menu item creates a new main window and
-                opens the currently selected object in it. If more
-                than one main window currently exists, the object will
-                be opened in one of the existing windows.</para>
-            </listitem>
-            <listitem>
-              <para>Copy:</para>
-
-              <para>The object is copied into clipboard.</para>
-            </listitem>
-            <listitem>
-              <para>Cut:</para>
-
-              <para>The object is copied into clipboard and removed from the rule.</para>
-            </listitem>
-            <listitem>
-              <para>Paste:</para>
-
-              <para>The object is copied from the clipboard to the rule.</para>
-            </listitem>
-            <listitem>
-              <para>Negate:</para>
-
-              <para>All objects in the selected rule element are
-                negated. The rule element "Source" is negated in
-                rule #1 in screenshot <xref linkend="editing-policy2">
-                </para>
-            </listitem>
-          </itemizedlist>
-        </para>
-
-      </sect2>
-
-      <sect2>
-        <title>Changing rule action</title>
-
-        <para>Clicking the right mouse button when the cursor is
-          over the rule element "Action" brings a context-sensitive
-          pop-up menu ( <xref linkend="editing-policy3"> ).</para>
-
-        <figure id="editing-policy3" float="1">
-          <title>Modifying the Action of the Policy Rule</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>This menu provides items for the following functions:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>Accept:</para>
-
-            <para>The rule will accept the packet matching it</para>
-          </listitem>
-          <listitem>
-            <para>Deny:</para>
-
-            <para>The rule will drop the packet matching it</para>
-          </listitem>
-          <listitem>
-            <para>Reject:</para>
-
-            <para>The rule will drop the packet matching it, and will also
-            send appropriate ICMP responce message back to
-            source.</para>
-          </listitem>
-        </itemizedlist>
-
-      </sect2>
-
-      <sect2>
-        <title>Changing rule direction</title>
-
-        <para>Clicking the right mouse button when the cursor is
-          over the rule element "Direction" brings a context-sensitive
-          pop-up menu ( <xref linkend="editing-policy4"> ).</para>
-
-        <figure id="editing-policy4" float="1">
-          <title>Modifying the Direction of the Policy Rule</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>This menu provides items for the following functions:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>Inbound:</para>
-
-            <para>The rule matches packets entering the firewall</para>
-          </listitem>
-          <listitem>
-            <para>Outbound:</para>
-
-            <para>The rule matches packets exiting the firewall</para>
-          </listitem>
-          <listitem>
-            <para>Both:</para>
-
-            <para>The rule matches both entering and exiting packets</para>
-          </listitem>
-        </itemizedlist>
-
-      </sect2>
-
-      <sect2>
-        <title>Changing rule options and logging</title>
-
-        <para>clicking the right mouse button when the cursor is
-          over the rule element "Options" brings up a
-          context-sensitive pop-up menu ( <xref
-                                                linkend="editing-policy5">. )</para>
-
-        <figure id="editing-policy5" float="1">
-          <title>Modifying Options of the Policy Rule</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="33">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>This menu provides items for the following functions:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>Modify Options:</para>
-
-            <para>This menu item brings up a dialogue which allows
-              you to modify certain options specific to the target
-              firewall platform and associated only with the current
-              rule.</para>
-          </listitem>
-          <listitem>
-            <para>Turn logging ON:</para>
-
-            <para>Turns logging on for all packets matching this
-              rule. If the target firewall platform does not support
-              selective logging of packets, this menu item is
-              disabled.</para>
-          </listitem>
-          <listitem>
-            <para>Turn logging OFF:</para>
-
-            <para>Turn logging off for packets matching this rule.
-              If the target firewall platform does not support
-              selective logging of packets, this menu item is
-              disabled.</para>
-          </listitem>
-        </itemizedlist>
-
-      </sect2>
-
-    </sect1>
-
-
-
-    <sect1 id="rule-elements">
-      <title>Support for Rule Elements and Features on Various Firewalls</title>
-
-      <para>Certain fields in the rules are only available if the
-        target firewall platform supports them.  For example, the
-        iptables firewall provides controls for logging of matched
-        packets, while Cisco PIX does not and always logs every packet
-        it drops. Where possible, the policy compilers try to emulate
-        the missing feature. For example, OpenBSD PF does not support
-        negation natively, but policy compiler
-        <emphasis>"fwb_pf"</emphasis> provides a workaround and tries
-        to emulate this feature for PF. Another example is policy
-        rules with direction "Outbound". Cisco PIX supports only
-        inbound Access Lists, so the policy compiler emulates outbound
-        Access Lists while generating configuration for PIX. <xref
-                                                                   linkend="policy-rule-elements"> represents a list of fields in
-        the rules and what firewall platforms support
-        them. Information about these fields and features is available
-        for fwbuilder GUI which disables corresponding menu items and
-        hides corresponding policy elements when they are not
-        supported.</para>
-
-      <para>
-          <table id="policy-rule-elements">
-          <title></title>
-          <tgroup cols="11">
-            <thead>
-              <row>
-                <entry>Firewall Platform</entry>
-                <entry>Source</entry>
-                <entry>Destination</entry>
-                <entry>Service</entry>
-                <entry>Time Interval</entry>
-                <entry>Direction</entry>
-                <entry>Action</entry>
-                <entry>Logging/ Options</entry>
-                <entry>Comment</entry>
-                <entry>Negation in Policy rules</entry>
-                <entry>Negation in NAT rules</entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>iptables</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-              </row>
-              <row>
-                <entry>ipfilter</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>-</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>-</entry>
-              </row>
-              <row>
-                <entry>pf</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>-</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-              </row>
-              <row>
-                <entry>Cisco PIX</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>-</entry>
-                <entry>+</entry>
-                <entry>+</entry>
-                <entry>-</entry>
-                <entry>+</entry>
-                <entry>-</entry>
-                <entry>-</entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-        </para>
-
-    </sect1>
-
-    <sect1 id="multiple-addresses">
-      <title>Using Objects With Multiple Addresses in the Policy and NAT rules</title>
-
-      <para>One of the great advantages of the object-oriented
-      approach to building firewall's policy is that it helps simplify
-      representation of the policy. Host and Firewall objects can have
-      child Interface objects, which in turn have child Address and
-      Physical Address objects. Any object in the hierarchy Host -
-      Interface - Address/Physical Address can be used in the policy
-      and compiler uses all objects in the hierarchy down from the one
-      used in the policy to build the rule.</para>
-
-      <figure id="multiple-addresses-obj1" float="1">
-        <title>Host object with an interface that has multiple addresses</title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="multiple-addresses-obj1.jpg" format="jpg" align="Left" scale="33">
-          </imageobject>
-        </mediaobject>
-      </figure>
-    
-
-      <figure id="multiple-addresses1" float="1">
-        <title>Using objects with multiple addresses in the policy
-        rules</title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="multiple-addresses-rule1.jpg" format="jpg" align="Left" scale="33">
-          </imageobject>
-        </mediaobject>
-      </figure>
-    
-
-      <para>Consider example <xref linkend="multiple-addresses-obj1">, <xref linkend="multiple-addresses1">.
-      Here interface <emphasis>eth0</emphasis> of the Host object
-      <emphasis>"test server"</emphasis> has three IP addresses (named
-      <emphasis>"test server:eth0:1"</emphasis> through
-      <emphasis>"test server:eth0:3"</emphasis>) and interface
-      <emphasis>eth0</emphasis> of the Host object <emphasis>"dmz
-      host"</emphasis> has only one IP address <emphasis>"dmz
-      host:eth0"</emphasis>. Policy rule #4 says that <emphasis>"dmz
-      host"</emphasis> can talk to <emphasis>"test server"</emphasis>
-      using any protocol. Since <emphasis>"test server"</emphasis> has
-      three different addresses, we need to generate policy rule that
-      will match on any of them (obviously not on all three at once,
-      that's impossible, so we have to use logical operation "OR", not
-      "AND" here.) Basically rule #4 is equivalent to three separate
-      rules, each of them using one address of <emphasis>"test
-      server"</emphasis> in turn. These three rules are represented in
-      <xref linkend="multiple-addresses2"> (original rule #4 also
-      shown there, but it is disabled.)</para>
-
-      <figure id="multiple-addresses2" float="1">
-        <title>Equivalent rules</title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="multiple-addresses-rule2.jpg" format="jpg" align="Left" scale="33">
-          </imageobject>
-        </mediaobject>
-      </figure>
-    
-      <para>Firewall Builder takes care of this situation
-      automatically and generates firewall policy for the case in
-      <xref linkend="multiple-addresses1"> as if user built policy in
-      the GUI using three rules as in <xref
-      linkend="multiple-addresses2">. </para>
-
-      <para>In fact, the algorithm it uses is even more general. In
-      the example <xref linkend="multiple-addresses1"> host
-      <emphasis>"test server"</emphasis> has single interface with
-      multiple addresses which compiler used to generate target
-      firewall code. The policy compiler works in a similar way even
-      if host or firewall object used in the rule has multiple
-      interfaces and each interface, in turn, has multiple
-      addresses. If host (or firewall) object is used in the rule,
-      then the compiler scans all its interfaces, finds all their
-      addresses and uses them to generate firewall configuration. If
-      interface object is used in the rule, then the compiler uses all
-      its addresses. And finally, if Address or Physical Address
-      object is used in the rule, then compiler uses only it to
-      generate the target firewall configuration. In other words,
-      compiler always looks down the tree, starting from the object
-      found in the policy rule and uses parameters of all Address and
-      Physical Address objects it finds. Since Address and Physical
-      Address objects are the leaf nodes in the tree, they have no
-      other objects beneath them, so the compiler uses their
-      parameters to generate the target code. </para>
-
-      <note><para>There is an exception to this algorithm, see <xref
-        linkend="using-mac-address"></para></note>
-    </sect1>
-
-  </chapter>
-
   <!-- ***************************************************************
   -->
   <chapter id="network-discovery">
@@ -3879,6 +3066,819 @@ PIX                  always             no             policy, NAT
 
 
       <para></para>
+    </sect1>
+
+  </chapter>
+
+  <chapter>
+    <title>Firewall Policies</title>
+
+
+    <sect1 id="policies-and-rules">
+      <title>Policies and Rules</title>
+
+      <para>Each firewall object has several sets of rules associated
+      with it: Global Policy, Interface Policies and Network Address
+      Translation (NAT) rules. Rules in the global policy and in
+      interface policies control access to and from the firewall
+      machine and machines behind it, while NAT rules describe address
+      and port transformations that the firewall should make to the
+      packets flowing through it.</para>
+
+      <para>Firewall software varies widely in the way it can process
+      packets. For example, some firewalls allow for rules to be
+      written without specification of the interface, while some
+      others require all rules to be associated with interface. Some
+      firewalls perform address and port transofrmations first and
+      then apply policy rules, while some others do it the other way
+      around. There are many other variations and features, specific
+      to particular implementations. In Firewall Builder though user
+      works with an abstract firewall that looks uniform regardless of
+      the target firewall platform it is used to generate code
+      for. For example, Cisco PIX applies its Access List rules to the
+      packet before it performs address and port transformations
+      accroding to the NAT rules. This makes this firewall platform
+      substantially different and inconvenient because a policy rule
+      that controls access to the server behind the firewall doing NAT
+      should be written using firewall's object instead of the
+      server's object. The meaning of such rule is not obvious at a
+      glance since one has to keep in mind all NAT rules as well to
+      understand that this policy rule controls access not the
+      firewall machine, but rather to the server behind it. Firewall
+      Builder compensates for variations like this using smart
+      algorithms to transform rules defined in the GUI to generate
+      code in the language of the target firewall platform to achieve
+      desired effect.</para>
+
+      <para><xref linkend="policies-seq"> represents logical sequence
+      in which rules defined in Firewall Builder affect network
+      packet. This diagram describes an abstract firewall which
+      Firewall Builder represents for the user. In some cases the
+      target firewall may work the same way, in some other cases it
+      won't. Either way, the goal is for administrator to build the
+      rules assuming his firewall works like shown on <xref
+      linkend="policies-seq">. The firewall may have multiple
+      interfaces and multiple interface policies. Since interface is
+      one of the parameters of the rule, and rules in different
+      Interface Policies are tied to different interfaces, they are
+      orthogonal. Because of that, it does not matter in which order
+      Interface Policies are applied. It is guaranteed however that
+      Interface Policies are stacked on top of the Global Policy and
+      inspect the packet before the Global Policy will.
+      </para>
+
+      <figure id="policies-seq" float="1">
+        <title>Sequence in which NAT and Policy rules apply to the
+        packet in Firewall Builder </title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="policies-seq.jpg" format="jpg" align="Left" scale="33">
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Among three major types of supported sets of rules, Global
+      Policy rules and Interface Policy rules are similar. These rules
+      represent access control because they define which packets will
+      be permitted and which will be denied. Both Global and Interface
+      Policy rules operate on the packet's source and destination
+      addresses and protocol parameters. The difference is that
+      Interface rules also take into account firewall's interface
+      which the packet is crossing in one or another direction. Global
+      Policy rules work regardless of the interface. In case of
+      iptables, Global Policy is roughly equivalent to the FORWARD
+      chain, however there might be no such direct correspondence in
+      other firewall platforms.  Interface Policy rules are associated
+      with particular interface of the firewall and have an option
+      that describes direction in which packet should cross the
+      interface in order for the rule to match it. <xref
+      linkend="directions"> illustrates definition of the direction
+      for packets entering or exiting firewall interface.  </para>
+
+      <figure id="directions" float="1">
+        <title>Directions </title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="directions.jpg" format="jpg" align="Left" scale="33">
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+<!--
+Table:
+
+firewall platform   should rules     Can we write      In what order
+                    be associated    rules without     does this firewall
+                    with interface?  interface?        perform NAT and policy
+                                                       control?
+
+iptables             can be, but
+                     not necessarily    yes            NAT, policy
+
+OpenBSD pf           can be, but
+                     not necessarily    yes            NAT, policy
+
+ipfilter             can be, but
+                     not necessarily    yes            NAT, policy
+
+PIX                  always             no             policy, NAT
+
+-->
+
+      <sect2 id="global-policy">
+        <title>Global Firewall Policy</title>
+
+        <figure id="global-policy1" float="1">
+          <title>Global Policy</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="global_policy.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>The Firewall policy consists of a set of rules. Packets
+        are analysed by comparing their parameters with rules in the
+        policy; inspecting rules in an orderly manner from top to
+        bottom. The first rule that matches the packet is used. Each
+        rule includes a standard set of parameters, or <emphasis>Rule
+        Elements</emphasis>, which are used to compare the data packet
+        with, such as "Source", "Deestination", "Service",
+        "Direction". If a rule is part of the Interface Policy (<xref
+                                                                      linkend="interface-policy">), then the interface it belongs to
+        acts as yet another parameter. For example, if a packet
+        entering the firewall has a source address which matches the
+        object in the "Source" field of the rule, its destination
+        address matches the object in "Destination", its protocol and
+        port numbers match the object in the field "Service", and its
+        direction matches that specified in the field "Direction",
+        then the firewall will take action, specified in the "Action"
+        field of the matching rule. In the case of Interface rule, the
+        firewall will also take into account the interface through
+        which packet had entered or through which it is about to leave
+        the firewall.</para>
+
+        <para>For example on <xref linkend="global-policy1">, the rule
+        #0 says that all fragmented packets should be dropped (the
+        rule uses service object <emphasis>ip_fragments</emphasis> and
+        the <emphasis>Deny</emphasis> action). Rule #1 says that
+        connections from the internal network (object
+        <emphasis>internal-net</emphasis>) to the firewall itself
+        (object <emphasis>firewall-pix</emphasis>) using protocols
+        <emphasis>telnet</emphasis> and <emphasis>snmp</emphasis> are
+        allowed (action <emphasis>Accept</emphasis>). The "Catch all"
+        rule #8 denies all packets that have not been matched by any
+        other rule above it. The global policy on <xref
+                                                        linkend="global-policy1"> is built to allow only specific
+        services and deny everything else, which is a good practice.
+        </para>
+
+        <para><xref linkend="rule-elements"> lists rule elements
+        available in the policy, depending on the chosen target
+        firewall platform.
+        </para>
+      </sect2>
+
+      <sect2 id="interface-policy">
+        <title>Interface Policy</title>
+
+        <figure id="interface-policy1" float="1">
+          <title>Interface Policy for iptables firewall</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="interface_policy1.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <figure id="interface-policy2" float="1">
+          <title>Interface Policy for Cisco PIX firewall</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="interface_policy2.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Each firewall's interface may have a security policy
+        associated with it. Different firewalls require different
+        commands to attach policy rules to the firewall, but policy
+        compilers take care of that and generate the appropriate
+        code. The Interface Policy consists of a set of rules; each
+        rule has the same rule elements as a Global Policy rule and
+        adds some additional ones. </para>
+
+        <para>In <xref linkend="interface-policy1"> rule #0 (the so
+        called Anti-spoofing rule) says that all packets which enter
+        the firewall's interface eth0 (direction is
+        <emphasis>"Inbound"</emphasis>) and have their source address
+        match either the internal network or dmz network or any
+        address that belongs to the firewall itself, should be dropped
+        and a record should be made in the log (since there is a
+        "notebook and pencil" icon in the
+        <emphasis>"Options"</emphasis> rule element).
+        </para>
+      </sect2>
+
+      <sect2>
+        <title>Network Address Translation Rules</title>
+
+        <figure id="nat-policy" float="1">
+          <title>Network Address Translation Rules</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="nat_policy.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Just like the firewall policy, the Network Address
+        Translation (NAT) rules are inspected by the firewall in the
+        order they appear in the NAT policy. Each NAT rule consists of
+        the following rule elements:</para>
+
+        <para>
+          <itemizedlist spacing="compact">
+            <listitem><para>Original Source</para>
+
+              <para>This is the object which the source address of
+              original packet should match for it to be translated by
+              this rule </para>
+            </listitem>
+            <listitem><para>Original Destination</para>
+
+              <para>This is the object which the destination address
+              of original packet should match for it to be translated
+              by this rule </para>
+            </listitem>
+            <listitem><para>Original Service</para>
+
+              <para>This is the service which the original packet should
+              match to be translated by this rule</para>
+            </listitem>
+            <listitem><para>Translated Source</para>
+
+              <para>This object defines the address which should be
+              used to substitute the original packet's source address
+              </para>
+            </listitem>
+            <listitem><para>Translated Destination</para>
+
+              <para>This object defines the address which should be
+              used to substitute the destination address in the original
+              packet.</para>
+            </listitem>
+            <listitem><para>Translated Service</para>
+
+              <para>This object defines the protocol and port numbers
+              which should be used to substitute those parameters in
+              the original packet</para>
+            </listitem>
+            <listitem><para>Comment</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <para>Here is how it works:</para>
+
+        <para>The original packet is compared with NAT rules, one at a
+        time, starting with the topmost rule. Once the rule which
+        matches the packet's source and destination addresses and its
+        service is found, the firewall takes parameters from the
+        second half of that rule and makes substitutions for the
+        source and destination addresses and port numbers. Some rule
+        elements in the first half of the rule may be left empty (they
+        show "Any" in this case); these elements match any value of a
+        corresponding parameter of the packet.  Some rule elements in
+        the second half of the rule may also be left empty (in which
+        case the GUI shows the word "Original" in the rule
+        element). This tells the firewall that no substitution should
+        happen for those elements. </para>
+
+        <para>In fact the firewall not only substitutes addresses and
+        port numbers, it also makes a record in its internal table to
+        remember the original packet and translated packet it just
+        produced. This way the firewall can perform a reverse
+        translation when the reply packet comes back. </para>
+
+        <para>The NAT rules in the screenshot <xref
+                                                    linkend="nat-policy"> tell the firewall to do the
+        following:</para>
+
+        <para>
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Rule #0:</para>
+
+              <para>If the original packet has a destination address
+              which matches the addresses of an external interface of
+              the firewall object "firewall-iptables" and protocol TCP
+              and port 80 (matches service "http", protocol used by
+              web servers), then its destination address should be
+              changed to that of the object "mail server" and the
+              service should be left the same. Note that this rule
+              would have had the same effect if the "Translated
+              Service" was left "Original".</para>
+            </listitem>
+            <listitem>
+              <para>Rule #1:</para>
+
+              <para>This rule is very much the same as #0, except it
+              works for packets headed for TCP port 25 (service "smtp"
+              which describes protocol used to send and receive
+              Internet email)</para>
+            </listitem>
+            <listitem>
+              <para>Rule #2:</para>
+
+              <para>This rule is like #0 and #1, except it works for
+              the service "ssh"</para>
+            </listitem>
+            <listitem>
+              <para>Rule #3:</para>
+
+              <para>This rule follows the same pattern as #0-2, but
+              translates packets headed for the external firewall's
+              address, TCP port 2222, and sends them to the standard
+              TCP port that belongs to the service "ssh" on the
+              internal machine "build server". This rule illustrates
+              that you can simultaneously translate both addresses and
+              services: it makes changes to the destination address of
+              the packet and the service.</para>
+            </listitem>
+            <listitem>
+              <para>Rule #4:</para>
+
+              <para>This rule matches packets that originated in the
+              internal network (object "internal-net") and headed for
+              DMZ net (object "dmz-net"). Since all rule elements in
+              the second half of the rule are left blank, this rule
+              tells the firewall that no translation is needed for
+              these packets.</para>
+            </listitem>
+            <listitem>
+              <para>Rule #5:</para>
+
+              <para>This rule defines another type of translation: all
+              packets originated in either the internal network or in
+              DMZ net, going to any destination, should have their
+              source address replaced with the address of the
+              firewall's external interface. This type of translation
+              rule is sometimes called the "Masquerading".</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <para>Some firewall platforms support negation in NAT
+        rules. If it is supported, this feature can be activated
+        through the pop-up menu ( <xref linkend="editing-policy2"> )
+        that appears when you click the right mouse button on the rule
+        element in the NAT rule. <xref linkend="rule-elements"> shows
+        what firewall platforms support negation in NAT.</para>
+
+        <para>See below in "Tutorial" for detailed discussion of
+        different types of NAT rules.</para>
+
+        <para>You can create NAT rules and edit them using the same
+        methods as described in <xref linkend="editing-policy-and-nat"></para>
+
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="editing-policy-and-nat">
+      <title>Editing firewall Policy and NAT Rules</title>
+
+      <sect2>
+        <title>Adding and removing rules</title>
+
+        <figure id="editing-policy1" float="1">
+          <title>Modifying Policy rules</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Rules can be added, removed or moved around in the
+          policy using commands in a popup menu which appears if you
+          click the right mouse button on the rule element "Num" (the
+          very first rule element, counting from the left). Screenshot
+          <xref linkend="editing-policy1"> illustrates this
+          menu. </para>
+
+        <para>This menu allows for adding new rules above or below
+          of the currently selected rule in the policy, removing
+          rules, moving the current rule up and down, plus the usual
+          <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
+          operations done on policy rules.</para>
+
+        <para>Functions of this pop-up menu are also duplicated in
+          the main menu <guimenuitem>"Rules"</guimenuitem></para>
+
+        <para>You can also use the drag and drop operation to move
+          rules up and down in the policy. Just drag the rule with the
+          mouse by its "number" rule element.</para>
+      </sect2>
+
+      <sect2>
+        <title>Adding, removing and modifying objects in the policy
+          and NAT rules</title>
+
+        <para>To add objects to the policy or NAT rule you can
+          either drag them from the tree and drop them into the
+          corresponding rule element, or use the
+          <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
+          operation. Objects can be copied into clipboard both from
+          the tree and from another policy rule; in both cases use the
+          pop-up menu or main menu <guimenuitem>"Edit"</guimenuitem>.</para>
+
+        <para>Clicking the right mouse button when the cursor is
+          over rule elements "Source","Destination" or "Service"
+          brings a context-sensitive pop-up menu ( <xref
+                                                         linkend="editing-policy2"> ). The same pop-up menu appears
+          when you do that over the "Original Source", "Original
+          Destination", "Original Service", "Translated Source",
+          "Translated Destination" and "Translated Service" rule
+          elements in the NAT rule. </para>
+
+        <figure id="editing-policy2" float="1">
+          <title>Modifying Object in the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This menu provides items for the following functions:</para>
+
+        <para>
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Edit:</para>
+
+              <para>This menu item opens the currently selected
+                object in the dialog</para>
+            </listitem>
+            <listitem>
+              <para>Edit in a new window:</para>
+
+              <para>This menu item creates a new main window and
+                opens the currently selected object in it. If more
+                than one main window currently exists, the object will
+                be opened in one of the existing windows.</para>
+            </listitem>
+            <listitem>
+              <para>Copy:</para>
+
+              <para>The object is copied into clipboard.</para>
+            </listitem>
+            <listitem>
+              <para>Cut:</para>
+
+              <para>The object is copied into clipboard and removed from the rule.</para>
+            </listitem>
+            <listitem>
+              <para>Paste:</para>
+
+              <para>The object is copied from the clipboard to the rule.</para>
+            </listitem>
+            <listitem>
+              <para>Negate:</para>
+
+              <para>All objects in the selected rule element are
+                negated. The rule element "Source" is negated in
+                rule #1 in screenshot <xref linkend="editing-policy2">
+                </para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+      </sect2>
+
+      <sect2>
+        <title>Changing rule action</title>
+
+        <para>Clicking the right mouse button when the cursor is
+          over the rule element "Action" brings a context-sensitive
+          pop-up menu ( <xref linkend="editing-policy3"> ).</para>
+
+        <figure id="editing-policy3" float="1">
+          <title>Modifying the Action of the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This menu provides items for the following functions:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>Accept:</para>
+
+            <para>The rule will accept the packet matching it</para>
+          </listitem>
+          <listitem>
+            <para>Deny:</para>
+
+            <para>The rule will drop the packet matching it</para>
+          </listitem>
+          <listitem>
+            <para>Reject:</para>
+
+            <para>The rule will drop the packet matching it, and will also
+            send appropriate ICMP responce message back to
+            source.</para>
+          </listitem>
+        </itemizedlist>
+
+      </sect2>
+
+      <sect2>
+        <title>Changing rule direction</title>
+
+        <para>Clicking the right mouse button when the cursor is
+          over the rule element "Direction" brings a context-sensitive
+          pop-up menu ( <xref linkend="editing-policy4"> ).</para>
+
+        <figure id="editing-policy4" float="1">
+          <title>Modifying the Direction of the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This menu provides items for the following functions:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>Inbound:</para>
+
+            <para>The rule matches packets entering the firewall</para>
+          </listitem>
+          <listitem>
+            <para>Outbound:</para>
+
+            <para>The rule matches packets exiting the firewall</para>
+          </listitem>
+          <listitem>
+            <para>Both:</para>
+
+            <para>The rule matches both entering and exiting packets</para>
+          </listitem>
+        </itemizedlist>
+
+      </sect2>
+
+      <sect2>
+        <title>Changing rule options and logging</title>
+
+        <para>clicking the right mouse button when the cursor is
+          over the rule element "Options" brings up a
+          context-sensitive pop-up menu ( <xref
+                                                linkend="editing-policy5">. )</para>
+
+        <figure id="editing-policy5" float="1">
+          <title>Modifying Options of the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This menu provides items for the following functions:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>Modify Options:</para>
+
+            <para>This menu item brings up a dialogue which allows
+              you to modify certain options specific to the target
+              firewall platform and associated only with the current
+              rule.</para>
+          </listitem>
+          <listitem>
+            <para>Turn logging ON:</para>
+
+            <para>Turns logging on for all packets matching this
+              rule. If the target firewall platform does not support
+              selective logging of packets, this menu item is
+              disabled.</para>
+          </listitem>
+          <listitem>
+            <para>Turn logging OFF:</para>
+
+            <para>Turn logging off for packets matching this rule.
+              If the target firewall platform does not support
+              selective logging of packets, this menu item is
+              disabled.</para>
+          </listitem>
+        </itemizedlist>
+
+      </sect2>
+
+    </sect1>
+
+
+
+    <sect1 id="rule-elements">
+      <title>Support for Rule Elements and Features on Various Firewalls</title>
+
+      <para>Certain fields in the rules are only available if the
+        target firewall platform supports them.  For example, the
+        iptables firewall provides controls for logging of matched
+        packets, while Cisco PIX does not and always logs every packet
+        it drops. Where possible, the policy compilers try to emulate
+        the missing feature. For example, OpenBSD PF does not support
+        negation natively, but policy compiler
+        <emphasis>"fwb_pf"</emphasis> provides a workaround and tries
+        to emulate this feature for PF. Another example is policy
+        rules with direction "Outbound". Cisco PIX supports only
+        inbound Access Lists, so the policy compiler emulates outbound
+        Access Lists while generating configuration for PIX. <xref
+                                                                   linkend="policy-rule-elements"> represents a list of fields in
+        the rules and what firewall platforms support
+        them. Information about these fields and features is available
+        for fwbuilder GUI which disables corresponding menu items and
+        hides corresponding policy elements when they are not
+        supported.</para>
+
+      <para>
+          <table id="policy-rule-elements">
+          <title></title>
+          <tgroup cols="11">
+            <thead>
+              <row>
+                <entry>Firewall Platform</entry>
+                <entry>Source</entry>
+                <entry>Destination</entry>
+                <entry>Service</entry>
+                <entry>Time Interval</entry>
+                <entry>Direction</entry>
+                <entry>Action</entry>
+                <entry>Logging/ Options</entry>
+                <entry>Comment</entry>
+                <entry>Negation in Policy rules</entry>
+                <entry>Negation in NAT rules</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>iptables</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+              </row>
+              <row>
+                <entry>ipfilter</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>-</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>-</entry>
+              </row>
+              <row>
+                <entry>pf</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>-</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+              </row>
+              <row>
+                <entry>Cisco PIX</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>-</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>-</entry>
+                <entry>+</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        </para>
+
+    </sect1>
+
+    <sect1 id="multiple-addresses">
+      <title>Using Objects With Multiple Addresses in the Policy and NAT rules</title>
+
+      <para>One of the great advantages of the object-oriented
+      approach to building firewall's policy is that it helps simplify
+      representation of the policy. Host and Firewall objects can have
+      child Interface objects, which in turn have child Address and
+      Physical Address objects. Any object in the hierarchy Host -
+      Interface - Address/Physical Address can be used in the policy
+      and compiler uses all objects in the hierarchy down from the one
+      used in the policy to build the rule.</para>
+
+      <figure id="multiple-addresses-obj1" float="1">
+        <title>Host object with an interface that has multiple addresses</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="multiple-addresses-obj1.jpg" format="jpg" align="Left" scale="33">
+          </imageobject>
+        </mediaobject>
+      </figure>
+    
+
+      <figure id="multiple-addresses1" float="1">
+        <title>Using objects with multiple addresses in the policy
+        rules</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="multiple-addresses-rule1.jpg" format="jpg" align="Left" scale="33">
+          </imageobject>
+        </mediaobject>
+      </figure>
+    
+
+      <para>Consider example <xref linkend="multiple-addresses-obj1">, <xref linkend="multiple-addresses1">.
+      Here interface <emphasis>eth0</emphasis> of the Host object
+      <emphasis>"test server"</emphasis> has three IP addresses (named
+      <emphasis>"test server:eth0:1"</emphasis> through
+      <emphasis>"test server:eth0:3"</emphasis>) and interface
+      <emphasis>eth0</emphasis> of the Host object <emphasis>"dmz
+      host"</emphasis> has only one IP address <emphasis>"dmz
+      host:eth0"</emphasis>. Policy rule #4 says that <emphasis>"dmz
+      host"</emphasis> can talk to <emphasis>"test server"</emphasis>
+      using any protocol. Since <emphasis>"test server"</emphasis> has
+      three different addresses, we need to generate policy rule that
+      will match on any of them (obviously not on all three at once,
+      that's impossible, so we have to use logical operation "OR", not
+      "AND" here.) Basically rule #4 is equivalent to three separate
+      rules, each of them using one address of <emphasis>"test
+      server"</emphasis> in turn. These three rules are represented in
+      <xref linkend="multiple-addresses2"> (original rule #4 also
+      shown there, but it is disabled.)</para>
+
+      <figure id="multiple-addresses2" float="1">
+        <title>Equivalent rules</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="multiple-addresses-rule2.jpg" format="jpg" align="Left" scale="33">
+          </imageobject>
+        </mediaobject>
+      </figure>
+    
+      <para>Firewall Builder takes care of this situation
+      automatically and generates firewall policy for the case in
+      <xref linkend="multiple-addresses1"> as if user built policy in
+      the GUI using three rules as in <xref
+      linkend="multiple-addresses2">. </para>
+
+      <para>In fact, the algorithm it uses is even more general. In
+      the example <xref linkend="multiple-addresses1"> host
+      <emphasis>"test server"</emphasis> has single interface with
+      multiple addresses which compiler used to generate target
+      firewall code. The policy compiler works in a similar way even
+      if host or firewall object used in the rule has multiple
+      interfaces and each interface, in turn, has multiple
+      addresses. If host (or firewall) object is used in the rule,
+      then the compiler scans all its interfaces, finds all their
+      addresses and uses them to generate firewall configuration. If
+      interface object is used in the rule, then the compiler uses all
+      its addresses. And finally, if Address or Physical Address
+      object is used in the rule, then compiler uses only it to
+      generate the target firewall configuration. In other words,
+      compiler always looks down the tree, starting from the object
+      found in the policy rule and uses parameters of all Address and
+      Physical Address objects it finds. Since Address and Physical
+      Address objects are the leaf nodes in the tree, they have no
+      other objects beneath them, so the compiler uses their
+      parameters to generate the target code. </para>
+
+      <note><para>There is an exception to this algorithm, see <xref
+        linkend="using-mac-address"></para></note>
     </sect1>
 
   </chapter>

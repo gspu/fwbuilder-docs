@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.4 2003-02-01 23:56:28 vadim Exp $
+# $Id: Makefile,v 1.5 2003-02-03 05:23:06 vadim Exp $
 
 STAGEDIR= /var/ftp/pub/FWBuilder-Manual
 
@@ -11,29 +11,29 @@ clean:
 
 
 
-html:   Using.sgml Using-html.dsl html/index.html
+html:   UsersGuide.sgml html.dsl html/index.html
 
-html/index.html:   Using.sgml Using-html.dsl 
+html/index.html:   UsersGuide.sgml html.dsl 
 	rm -rf html
 	mkdir -p html
 	cp *.jpg html/
 	cp *.png html/
 	cp *.css html/
-	docbook2html -d `pwd`/Using-html.dsl -o html Using.sgml
+	docbook2html -d `pwd`/html.dsl -o html UsersGuide.sgml
 
 
 
-pdf:   Using.sgml pdf/Using.pdf
+pdf:   UsersGuide.sgml pdf/UsersGuide.pdf
 
-pdf/Using.pdf: Using.sgml 
+pdf/UsersGuide.pdf: UsersGuide.sgml 
 	rm -rf pdf
 	mkdir -p pdf
 	cp *.jpg pdf/
 	cp *.png pdf/
-	docbook2pdf -d `pwd`/Using-pdf.dsl -o pdf Using.sgml
+	docbook2pdf -d `pwd`/pdf.dsl -o pdf UsersGuide.sgml
 
 
 install: html pdf
 	rm -f $(STAGEDIR)/*
 	cp html/* $(STAGEDIR)
-	cp pdf/Using.pdf $(STAGEDIR)
+	cp pdf/UsersGuide.pdf $(STAGEDIR)
