@@ -130,7 +130,7 @@
         <title>Sample firewall policy</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="scrn2.jpg" format="jpg" align="Left" scale="40">
+            <imagedata fileref="scrn2.jpg" format="jpg" align="Left" scale="25">
           </imageobject>
         </mediaobject>
       </figure>
@@ -442,6 +442,7 @@
   <chapter id="using-gui">
     <title>Using Firewall Builder</title>
 
+
 <!-- *************************************************************** -->
     <sect1>
       <title>The Main Window</title>
@@ -453,7 +454,7 @@
         <title>Main window</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="40">
+            <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="25">
           </imageobject>
         </mediaobject>
       </figure>
@@ -475,7 +476,7 @@
         <title>GUI Options Dialog</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="options1.jpg" format="jpg" align="Left" scale="40">
+            <imagedata fileref="options1.jpg" format="jpg" align="Left" scale="25">
           </imageobject>
         </mediaobject>
       </figure>
@@ -656,7 +657,7 @@
           <title>Standard Tree Structure</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="tree_structure1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="tree_structure1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -695,7 +696,7 @@
           <title>Standard Objects</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="main_win2.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="main_win2.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -714,7 +715,7 @@
           <title>Creating Objects Using Main Menu 'Insert'</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="scrn-menu1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="scrn-menu1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -746,7 +747,7 @@
                 <entry>
                   <inlinemediaobject>
                     <imageobject>
-                      <imagedata fileref="scrn-menu2.jpg" format="jpg" align="Left" scale="40">
+                      <imagedata fileref="scrn-menu2.jpg" format="jpg" align="Left" scale="25">
                     </imageobject>
                   </inlinemediaobject>
                 </entry>
@@ -754,7 +755,7 @@
                 <entry>
                   <inlinemediaobject>
                     <imageobject>
-                      <imagedata fileref="scrn-menu3.jpg" format="jpg" align="Left" scale="40">
+                      <imagedata fileref="scrn-menu3.jpg" format="jpg" align="Left" scale="25">
                     </imageobject>
                   </inlinemediaobject>
                 </entry>
@@ -861,7 +862,7 @@
           <title>Group View</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="group_view1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="group_view1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -927,7 +928,7 @@
           <title>Host Object With One Interface And Multiple Virtual Addresses </title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="host_in_tree.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="host_in_tree.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -947,7 +948,7 @@
           <title>Editing Host Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1000,7 +1001,7 @@
           <title>Host Object System Information</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1012,14 +1013,14 @@
 
       </sect2>
 
-      <sect2>
+      <sect2 id="host-interface">
         <title>Host's Interface</title>
 
         <figure id="host-interface1" float="1">
           <title>Host's Interface</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="host_interface1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="host_interface1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1094,7 +1095,7 @@
           <title>Address Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="address1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="address1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1145,7 +1146,7 @@
           <title>Network Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="network_dialog1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="network_dialog1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1193,7 +1194,7 @@
           <title>Network Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="address_range_dialog1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="address_range_dialog1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1237,7 +1238,7 @@
           <title>Group Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="group_dialog1.jpg" format="jpg" align="Left" scale="40">
+              <imagedata fileref="group_dialog1.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1289,17 +1290,706 @@
       <sect2>
         <title>Firewall Object</title>
 
-        <para></para>
+        <figure id="firewall-dialog-general" float="1">
+          <title>Firewall Object, tab 'General'</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="firewall_dialog_general.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Firewall Object represents firewall machine and is the
+        most complex object in Firewall Builder. Its dialog has the
+        following tabs: 'General', 'Sysinfo', 'Compile/Install',
+        'Firewall', 'Network'</para>
+
+        <para>
+          Tab <emphasis>General</emphasis> provides the following controls:
+        </para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Name:</para>
+
+              <para>This is the name of the object</para>
+            </listitem>
+            <listitem>
+              <para>Host OS:</para>
+
+              <para>Modules that provide support for target OS and
+              firewall platforms are distributed separately from the
+              GUI and can be installed in a various combinations. This
+              pull-down menu provides choice of the host OS and is
+              dynamically updated depending on the combination of
+              installed modules. </para>
+            </listitem>
+            <listitem>
+              <para>Firewall platform:</para>
+
+              <para>Like "Host OS" menu, this pull-down menu provides
+              choice of the target firewall platform and is
+              dynamically updated depending on a combination of
+              installed modules.</para>
+            </listitem>
+            <listitem>
+              <para>SNMP Communities:</para>
+
+              <para>SNMP community "read" is used to pull "sysinfo"
+              MIB variables from the firewall machine, provided it
+              runs SNMP agent. It is also used if you want to
+              automatically create interfaces for the firewall using
+              SNMP query. SNMP community "write" is not used at this
+              time.</para>
+            </listitem>
+            <listitem>
+              <para>Comment:</para>
+
+              <para>This is free-form text field used for comments</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <figure id="firewall-dialog-sysinfo" float="1">
+          <title>Firewall Object, tab 'Sysinfo'</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="firewall_dialog_sysinfo.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>
+          This tab holds the following fields:
+        </para>
+
+        <para>
+           <itemizedlist>
+            <listitem><para>Description:</para></listitem>
+            <listitem><para>Location:</para></listitem>
+            <listitem><para>Contact:</para></listitem>
+          </itemizedlist>
+        </para>
+
+        <para>These fields present values of corresponding MIB
+        variables.</para>
+
+        <figure id="firewall-dialog-compile" float="1">
+          <title>Firewall Object, tab 'Compile/Install'</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="firewall_dialog_compile.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>
+          This tab holds the following fields:
+        </para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Compiler:</para>
+
+              <para>The full directory path and file name for the
+              policy compiler program that the GUI invokes when you
+              use main menu item
+              <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Compile"</guimenuitem>. If
+              this field is left blank, then the GUI calls default
+              policy compiler program which is preconfigured for the
+              firewall platform chosen in the tab 'General'. Use this
+              field if you use non-standard policy compiler, or if you
+              use wrapper script which calls policy compiler.</para>
+            </listitem>
+            <listitem>
+              <para>Command line parameters for compiler:</para>
+
+              <para>This is where you can specify command line
+              parameters for the policy compiler. Normally the GUI
+              supplies minimal necessary set of options, such as "-f"
+              for the data file name and "-d" for the working
+              directory. You may want to add "-v" here to turn on
+              verbose output of the policy compiler. See man page for
+              the corresponding policy compiler for the complete set
+              of supported command line options.
+              </para>
+            </listitem>
+            <listitem>
+              <para>Installer: install script</para>
+
+              <para>In the future there will be two ways to install
+              and activate policy on the firewall machine: using
+              install script or fwbd daemon. The daemon is not
+              supported yet, so install script is the only method
+              available at this time. The GUI calls install script
+              when you use main menu item
+              <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Install"</guimenuitem></para>
+            </listitem>
+            <listitem>
+              <para>Istaller: fwbd daemon:</para>
+
+              <para><emphasis>Not supported</emphasis></para>
+            </listitem>
+            <listitem>
+              <para>Policy install script:</para>
+
+              <para>The full directory path and file name for the
+              install script.</para>
+            </listitem>
+            <listitem>
+              <para>Command line parameters for the script:</para>
+
+              <para>This is where you specify command line parameters
+              for the install script. Normally GUI supplies two
+              command line paremeters for the script: "-f" for the
+              data file name and "-d" for the working directory. You
+              can add more parameters in this entry field if your
+              script supports them.</para>
+            </listitem>
+            <listitem>
+              <para>Options for fwbd:</para> 
+
+              <para>Since current version of Firewall Builder does not
+              come with fwbd and does not support it yet, these
+              options are reserved for future use.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <para>Tabs <emphasis>'Firewall'</emphasis> and
+        <emphasis>'Network'</emphasis> provide fields specific to the
+        chosen firewall platform and host OS configurations. See <xref
+        linkend="tab-firewall"> for the description of the dialogs for
+        all supported firewall platforms and <xref
+        linkend="tab-network"> for the description of the dialogs for
+        supported target host OS.
+        </para>
       </sect2>
 
       <sect2>
         <title>Firewall's Interface</title>
 
-        <para></para>
+        <figure id="firewall-interface1" float="1">
+          <title>Interface Object that belongs to firewall</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="firewall_interface1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Dialog for the interface object that belongs to the
+        firewall is similar to that for the Host's interface (<xref
+        linkend="host-interface">) but has few extra controls.
+        </para>
+
+        <para>Interfaces of the firewall have a parameter called
+        <emphasis>"Security Level"</emphasis> Depending on the
+        firewall platform, security level may either have two values
+        <emphasis>"External"/"Internal"</emphasis> or a numeric value
+        in diapason 0-100, with 0 being least secure and 100 being
+        most secure levels. GUI dialog adjusts automatically and shows
+        appropriate controls depending on the choice of the firewall
+        platform in the interface's parent firewall object. 
+        </para>
+
+        <para><xref linkend="firewall-interface1"> shows a screenshot
+        of the dialog for the interface object that belongs to
+        iptables firewall. <xref linkend="firewall-interface2"> shows
+        a screenshot of the dialof for the interface object that
+        belongs to Cisco PIX firewall.
+        </para>
+
+        <figure id="firewall-interface2" float="1">
+          <title>Interface with numeric Security Level </title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="firewall_interface2.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Another platform-specific parameter of the interface is
+        a reference to Network Zone. Currently only Cisco PIX firewall
+        requires Network Zone. Dialog shows controls for the Network
+        Zone in a separate tab (<xref linkend="firewall-interface3">),
+        which appears only if the parent firewall object specifies
+        firewall platform which requires it. GUI dynamically generates
+        pull-down menu with all available network and group objects
+        and puts it in the Network Zone dialog. You need to choose one
+        object in the menu. Usually external interface (the one which
+        connects your firewall to the Internet) has Network Zone set
+        to <emphasis>"Any"</emphasis>. It is also recommended to
+        create a group objects to represent Network Zones of all other
+        interfaces of the firewall.</para>
+
+        <figure id="firewall-interface3" float="1">
+          <title>Network Zone dialog</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="firewall_interface3.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+
+        <para><xref linkend="platform-specific-interface-parameters">
+        shows values for Security Level and Network Zone parameters
+        for supported firewall platforms.</para>
+
+        <table pgwide="0" id="platform-specific-interface-parameters">
+          <title></title>
+          <tgroup cols="3">
+            <thead>
+              <row>
+                <entry><para>Firewall Platform</para></entry>
+                <entry><para>Security Level Values</para></entry>
+                <entry><para>Network Zone</para></entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry><para>iptables</para></entry>
+                <entry><para>External/Internal</para></entry>
+                <entry><para>N/A</para></entry>
+              </row>
+              <row>
+                <entry><para>ipfilter</para></entry>
+                <entry><para>External/Internal</para></entry>
+                <entry><para>N/A</para></entry>
+              </row>
+              <row>
+                <entry><para>pf</para></entry>
+                <entry><para>External/Internal</para></entry>
+                <entry><para>N/A</para></entry>
+              </row>
+              <row>
+                <entry><para>Cisco PIX</para></entry>
+                <entry><para>numeric, 0 - 100</para></entry>
+                <entry><para>a reference to a group or network object</para></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
+      </sect2>
+
+      <sect2 id="global-policy">
+        <title>Global Firewall Policy</title>
+
+        <figure id="global-policy1" float="1">
+          <title>Global Policy</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="global_policy.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Firewall policy consists of a set of rules. Packets are
+        analysed by comparing their parameters with rules in the
+        policy, inspecting rules in the orderly manner from top to
+        bottom. The first rule that matches packet is used. Each rule
+        includes a standard set of parameters, or <emphasis>Rule
+        Elements</emphasis>, which are used to compare data packet
+        with, such as "Source", "Deestination", "Service",
+        "Direction". If rule is part of the Interface Policy (<xref
+        linkend="interface-policy">), then the interface it belongs to
+        acts as yet another parameter. For example, if packet entering
+        the firewall has source address which matches object in the
+        "Source" field of the rule, and its destination address
+        matches object in "Destination", and its protocol and port
+        numbers match object in field "Service", and its direction
+        matches that specified in the field "Direction", then the
+        firewall will take an action, specified in the field "Action"
+        of the matching rule. In case of Interface rule, firewall will
+        also take into account interface through wich packet had
+        entered or through which it is about to leave the
+        fireall.</para>
+
+        <para>For example on <xref linkend="global-policy1"> rule#0
+        says that all fragmented packets should be dropped (rule uses
+        service object <emphasis>ip_fragments</emphasis> and action
+        <emphasis>Deny</emphasis>). Rule #1 says that connections from
+        internal network (object <emphasis>internal-net</emphasis>) to
+        the firewall itself (object <emphasis>firewall-pix</emphasis>)
+        using protocols <emphasis>telnet</emphasis> and
+        <emphasis>ssh</emphasis> are allowed (action
+        <emphasis>Accept</emphasis>). "Catch all" rule #8 denies all
+        packets that have not been matched by any other rule above
+        it. The global policy on <xref linkend="global-policy1"> is
+        built so that to allow only specific services and deny
+        everything else, which is a good practice.
+        </para>
+
+        <para><xref linkend="rule-elements"> lists rule elements
+        available in the policy, depending on the chosen target
+        firewall platform.
+        </para>
+      </sect2>
+
+      <sect2 id="interface-policy">
+        <title>Interface Policy</title>
+
+        <figure id="interface-policy1" float="1">
+          <title>Interface Policy for iptables firewall</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="interface_policy1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <figure id="interface-policy2" float="1">
+          <title>Interface Policy for Cisco PIX firewall</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="interface_policy2.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Each firewall's interface may have security policy
+        associated with it. Different firewalls require different
+        commands to attach policy rule to the firewall, but policy
+        compilers take care of that and generate appropriate
+        code. Interface Policy, consists of a set of rules; each rule
+        has the same rule elements as a Global Policy rule and adds
+        some additional ones. </para>
+
+        <para>On <xref linkend="interface-policy1"> rule #0 (so called
+        Anti-spoofing rule) says that all packets which enter
+        firewalls interface eth0 (direction is
+        <emphasis>"Inbound"</emphasis>) and have their source address
+        match either internal network or dmz network or any address
+        that belongs to the firewall itself, should be dropped and
+        record should be made in the log (because there is a "notebook
+        and pencil" icon in the <emphasis>"Options"</emphasis> rule
+        element). 
+        </para>
       </sect2>
 
       <sect2>
-        <title>Network Discovery: Quick Way to Create Objects</title>
+        <title>Network Address Translation Rules</title>
+
+        <para></para>
+
+        <para><xref linkend="rule-elements"> lists rule elements
+        available in the policy, depending on the chosen target
+        firewall platform.
+        </para>
+      </sect2>
+
+      <sect2>
+        <title>Editing firewall Policy and NAT Rules</title>
+
+        <figure id="editing-policy1" float="1">
+          <title>Modifying Policy rules</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Rules can be added, removed or moved around in the
+        policy using commands in a popup menu which appears if you
+        click right mouse button on the rule element "Num" (the very
+        first rule element, counting from the left). Screenshot <xref
+        linkend="editing-policy1"> illustrates this menu. </para>
+
+        <para>This menu allows for adding new rule above or below of
+        the currently selected rule in the policy, removing rule,
+        moving current rule up and down, plus usual
+        <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
+        operations done on policy rules.</para>
+
+        <para>Functions of this pop-up menu are also duplicated in the
+        main menu <guimenuitem>"Rules"</guimenuitem></para>
+
+        <para>To add objects to the policy or NAT rule you can either
+        drag them from the tree and drop into corresponding rule
+        element, or use
+        <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
+        operation. Object can be copied into clipboard both from the
+        tree and from another policy rule, in both cases use pop-up
+        menu or main menu <guimenuitem>"Edit"</guimenuitem>.
+        </para>
+
+        <para>clicking right mouse button when cursor is over rule
+        element "Source","Destination" or "Service" brings
+        context-sensitive pop-up menu <xref
+        linkend="editing-policy2">.</para>
+
+        <figure id="editing-policy2" float="1">
+          <title>Modifying Object in the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This menu provides items for the following functions:</para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Edit:</para>
+
+              <para>this menu item opens currently selected object in the dialog</para>
+            </listitem>
+            <listitem>
+              <para>Edit in a new window:</para>
+
+              <para>This menu items creates new main window and opens
+              currently selected object in it. If more than one main
+              window currently exists, object will be opened in one of
+              the existing windows.</para>
+            </listitem>
+            <listitem>
+              <para>Copy:</para>
+
+              <para>Object is copied into clipboard.</para>
+            </listitem>
+            <listitem>
+              <para>Cut:</para>
+
+              <para>Object is copied into clipboard and removed from the rule.</para>
+            </listitem>
+            <listitem>
+              <para>Paste:</para>
+
+              <para>Object is copied from the clipboard to the rule.</para>
+            </listitem>
+            <listitem>
+              <para>Negate:</para>
+
+              <para>All objects in the selected rule element are negated.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <para>clicking right mouse button when cursor is over rule
+        element "Action" brings context-sensitive pop-up menu <xref
+        linkend="editing-policy3">.</para>
+
+        <figure id="editing-policy3" float="1">
+          <title>Modifying Action of the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This menu provides items for the following functions:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Accept:</para>
+
+            <para>Rule will accept packet matching it</para>
+          </listitem>
+          <listitem>
+            <para>Deny:</para>
+
+            <para>Rule will drop packet matching it</para>
+          </listitem>
+          <listitem>
+            <para>Reject:</para>
+
+            <para>Rule will drop packet matching it, and will also
+            send appropriate ICMP responce message back to
+            source.</para>
+          </listitem>
+        </itemizedlist>
+
+
+        <para>clicking right mouse button when cursor is over rule
+        element "Direction" brings context-sensitive pop-up menu <xref
+        linkend="editing-policy4">.</para>
+
+        <figure id="editing-policy4" float="1">
+          <title>Modifying Direction of the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This menu provides items for the following functions:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Inbound:</para>
+
+            <para>Rule matches packets entering firewall</para>
+          </listitem>
+          <listitem>
+            <para>Outbound:</para>
+
+            <para>Rule matches packet exiting firewall</para>
+          </listitem>
+          <listitem>
+            <para>Both:</para>
+
+            <para>Rule matches both entering and exiting packets</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>clicking right mouse button when cursor is over rule
+        element "Options" brings context-sensitive pop-up menu <xref
+        linkend="editing-policy5">.</para>
+
+        <figure id="editing-policy5" float="1">
+          <title>Modifying Options of the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This menu provides items for the following functions:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Modify Options:</para>
+
+            <para>This menu items brings dialog which allows you to
+            modify certain options specific to the target firewall
+            platform and associated only with current rule. See <xref
+            linkend="policy-rule-options-dialogs"> for detailed
+            explanation. </para>
+          </listitem>
+          <listitem>
+            <para>Turn logging ON:</para>
+
+            <para>Turns logging on for all packets matching this
+            rule. If target firewall platform does not support
+            selective logging of packets, this menu item is
+            disabled.</para>
+          </listitem>
+          <listitem>
+            <para>Turn logging OFF:</para>
+
+            <para>Turn logging off for packets matching this rule.  If
+            target firewall platform does not support selective
+            logging of packets, this menu item is disabled.</para>
+          </listitem>
+        </itemizedlist>
+
+
+      </sect2>
+
+
+
+      <sect2 id="rule-elements">
+        <title>Support for Rule Elements and Features on Various Firewalls</title>
+
+        <para>Certain fields in the rules are only available if target
+        firewall platform supports them.  For example, iptables
+        firewall provides controls for logging of matched packets,
+        while Cisco PIX does not and always logs every packet it
+        drops. Where possible, policy compilers try to emulate missing
+        feature. For example, OpenBSD PF does not support negation
+        natively, but policy compiler provides a workaround and tries
+        to emulate this feature for PF. Another example is policy
+        rules with direction "Outbound". Cisco PIX supports only
+        inbound Access Lists, so policy compiler emulates outbound
+        Access Lists when generates configuration for PIX. <xref
+        linkend="policy-rule-elements"> represents list of fields in
+        the rules and what firewall platforms support
+        them. Information about these fields and features is available
+        for fwbuilder GUI which disabled corresponding menu items and
+        hides corresponding policy elements when they are not
+        supported.</para>
+
+        <para>
+          <table id="policy-rule-elements">
+            <title></title>
+            <tgroup cols="11">
+              <thead>
+                <row>
+                  <entry>Firewall Platform</entry>
+                  <entry>Source</entry>
+                  <entry>Destination</entry>
+                  <entry>Service</entry>
+                  <entry>Time Interval</entry>
+                  <entry>Direction</entry>
+                  <entry>Action</entry>
+                  <entry>Logging/ Options</entry>
+                  <entry>Comment</entry>
+                  <entry>Negation in Policy rules</entry>
+                  <entry>Negation in NAT rules</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>iptables</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                </row>
+                <row>
+                  <entry>ipfilter</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>-</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>-</entry>
+                </row>
+                <row>
+                  <entry>pf</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>-</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                </row>
+                <row>
+                  <entry>Cisco PIX</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>-</entry>
+                  <entry>+</entry>
+                  <entry>+</entry>
+                  <entry>-</entry>
+                  <entry>+</entry>
+                  <entry>-</entry>
+                  <entry>-</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
+
+      </sect2>
+
+      <sect2>
+        <title>Network Discovery: A Quick Way to Create Objects</title>
 
         <para></para>
       </sect2>
@@ -1340,8 +2030,98 @@
 
 
     </sect1>
-
-
   </chapter>
 
+  <appendix id="tab-firewall">
+    <title>Using Firewall Dialog Tab 'Firewall' to configure target
+    firewall options and control behavior of policy compiler </title>
+
+    <sect1>
+      <title>iptables</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>ipfilter</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>pf</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>Cisco PIX</title>
+
+      <para></para>
+    </sect1>
+  </appendix>
+
+  <appendix id="tab-network">
+    <title>Using Firewall Dialog Tab 'Network' to adjust network setup
+    on the target host OS</title>
+
+    <sect1>
+      <title>Linux</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>FreeBSD</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>OpenBSD</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>Solaris</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>Cisco PIX</title>
+
+      <para></para>
+    </sect1>
+
+  </appendix>
+
+  <appendix id="policy-rule-options-dialogs">
+    <title>Policy Rule Options</title>
+
+    <sect1>
+      <title>iptables</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>ipfilter</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>pf</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>Cisco PIX</title>
+
+      <para></para>
+    </sect1>
+  </appendix>
 </book>
