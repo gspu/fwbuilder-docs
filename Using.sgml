@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.41 $  $Date: 2002-11-03 01:58:47 $</edition>
+    <edition>$Revision: 1.42 $  $Date: 2002-11-03 02:33:02 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -1658,7 +1658,7 @@
         <title>Firewall's Interface</title>
 
         <figure id="firewall-interface1" float="1">
-          <title>Interface Object that belongs to firewall</title>
+          <title>The Interface Object belonging to a firewall</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="firewall_interface1.jpg" format="jpg" align="Left" scale="33">
@@ -1666,31 +1666,32 @@
           </mediaobject>
         </figure>
 
-        <para>Dialog for the interface object that belongs to a
+        <para>The dialogue for the interface object that belongs to a
         firewall is similar to that for the Host's interface (<xref
-        linkend="host-interface">) but has few extra controls.
+        linkend="host-interface">) but has a few extra controls.
         </para>
 
-        <para>Interfaces of the firewall have a parameter called
+        <para>The interfaces of the firewall have a parameter called
         <emphasis>"Security Level"</emphasis>. Depending on the
-        firewall platform, security level may either have two values
-        <emphasis>"External"/"Internal"</emphasis> or a numeric value
-        in the range between 0 and 100, with 0 being least secure and
-        100 being most secure levels. GUI dialog adjusts automatically
-        and shows appropriate controls depending on the choice of the
-        firewall platform in the interface's parent firewall object.
+        firewall platform, the security level may either have two
+        values <emphasis>"External"/"Internal"</emphasis> or a numeric
+        value between 0 and 100, with 0 being least secure and 100
+        being most secure levels. The GUI dialogue adjusts
+        automatically and shows appropriate controls depending on the
+        choice of the firewall platform in the interface's parent
+        firewall object.
         </para>
 
         <para><xref linkend="firewall-interface1"> shows a screenshot
-        of the dialog for the interface object that belongs to
+        of the dialogue for the interface object that belongs to an
         iptables firewall object named "firewall-iptables". <xref
         linkend="firewall-interface2"> shows a screenshot of the
-        dialof for the interface object that belongs to Cisco PIX
+        dialogue for the interface object that belongs to a Cisco PIX
         firewall object named "firewall-pix".
         </para>
 
         <figure id="firewall-interface2" float="1">
-          <title>Interface with numeric Security Level </title>
+          <title>An Interface with a numeric Security Level </title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="firewall_interface2.jpg" format="jpg" align="Left" scale="33">
@@ -1701,23 +1702,24 @@
         <sect2>
           <title>Network Zone</title>
 
-          <para>One of the platform-specific parameter of the
-          interface is a reference to Network Zone. Currently only
-          Cisco PIX firewall requires Network Zone. Interface dialog
-          shows controls for the Network Zone in a separate tab (<xref
-          linkend="firewall-interface3">), which appears only if the
-          parent firewall object specifies firewall platform which
-          requires it. GUI dynamically generates pull-down menu with
-          all available network and group objects and puts it in the
-          Network Zone dialog. You need to choose one object in the
-          menu. Usually external interface (the one which connects
-          your firewall to the Internet) has Network Zone set to
+          <para>One of the platform-specific parameters of the
+          interface is a reference to the Network Zone. Currently only
+          a Cisco PIX firewall requires the Network Zone. The
+          interface dialogue shows controls for the Network Zone in a
+          separate tab (<xref linkend="firewall-interface3">), which
+          appears only if the parent firewall object specifies the
+          firewall platform which requires it. The GUI dynamically
+          generates a pull-down menu with all available network and
+          group objects and puts it in the Network Zone dialog. You
+          need to choose one object in the menu. Usually the external
+          interface (the one which connects your firewall to the
+          Internet) has the Network Zone set to
           <emphasis>"Any"</emphasis>. It is also recommended to create
-          a group objects to represent Network Zones of all other
+          a group of objects to represent Network Zones of all other
           interfaces of the firewall.</para>
 
           <figure id="firewall-interface3" float="1">
-            <title>Network Zone dialog</title>
+            <title>The Network Zone dialogue</title>
             <mediaobject>
               <imageobject>
                 <imagedata fileref="firewall_interface3.jpg" format="jpg" align="Left" scale="33">
@@ -1725,17 +1727,17 @@
             </mediaobject>
           </figure>
 
-          <para>Consider network layout as on <xref
-          linkend="network-zones">. Here firewall has three
-          interfaces: 'outside', 'dmz' and 'inside'; behind the
+          <para>Consider the network layout as on <xref
+          linkend="network-zones">. Here the firewall has three
+          interfaces: 'outside', 'dmz' and 'inside'. Behind the
           firewall there is a router which in turn is connected to
           three subnets 'subnet A', 'subnet B' and 'subnet C'. Subnet
           A is shared between the router and the firewall (each device
-          has interface on this subnet). Let's suppose also that we
+          has an interface on this subnet). Let's also suppose that we
           have created Network Objects for each subnet and called them
           'subnet DMZ', 'subnet A', 'subnet B' and 'subnet C'
           (remember, spaces are allowed in object names). For this
-          setup network zones should be configured as follows:
+          setup, network zones should be configured as follows:
           </para>
 
           <para>
@@ -1774,10 +1776,10 @@
             </informaltable>
           </para>
 
-          <para>Since network zone for interface
-          <emphasis>'inside'</emphasis> consists of multiple objects,
-          a group must be created so that you could use this group as
-          a Network Zone object. </para>
+          <para>Since the network zone for the
+          <emphasis>'inside'</emphasis> interface consists of multiple
+          objects, a group must be created so that you could use this
+          group as a Network Zone object. </para>
 
           <figure id="network-zones" float="1">
             <title>Choosing Network Zones</title>
@@ -1792,8 +1794,8 @@
           <para><xref
           linkend="platform-specific-interface-parameters"> explains
           differences in the way firewall platforms interpret values
-          in Security Level and Network Zone parameters of the firewall
-          interfaces.</para>
+          in the Security Level and Network Zone parameters of the
+          firewall interfaces.</para>
 
           <table pgwide="0" id="platform-specific-interface-parameters">
             <title></title>
@@ -1808,17 +1810,17 @@
               <tbody>
                 <row>
                   <entry><para>iptables</para></entry>
-                  <entry><para>External/Internal</para></entry>
+                  <entry><para>two values: 'External' or 'Internal'</para></entry>
                   <entry><para>N/A</para></entry>
                 </row>
                 <row>
                   <entry><para>ipfilter</para></entry>
-                  <entry><para>External/Internal</para></entry>
+                  <entry><para>two values: 'External' or 'Internal'</para></entry>
                   <entry><para>N/A</para></entry>
                 </row>
                 <row>
                   <entry><para>pf</para></entry>
-                  <entry><para>External/Internal</para></entry>
+                  <entry><para>two values: 'External' or 'Internal'</para></entry>
                   <entry><para>N/A</para></entry>
                 </row>
                 <row>
@@ -1846,40 +1848,40 @@
           </mediaobject>
         </figure>
 
-        <para>Firewall policy consists of a set of rules. Packets are
-        analysed by comparing their parameters with rules in the
-        policy, inspecting rules in the orderly manner from top to
-        bottom. The first rule that matches packet is used. Each rule
-        includes a standard set of parameters, or <emphasis>Rule
-        Elements</emphasis>, which are used to compare data packet
+        <para>The Firewall policy consists of a set of rules. Packets
+        are analysed by comparing their parameters with rules in the
+        policy; inspecting rules in an orderly manner from top to
+        bottom. The first rule that matches the packet is used. Each
+        rule includes a standard set of parameters, or <emphasis>Rule
+        Elements</emphasis>, which are used to compare the data packet
         with, such as "Source", "Deestination", "Service",
-        "Direction". If rule is part of the Interface Policy (<xref
+        "Direction". If a rule is part of the Interface Policy (<xref
         linkend="interface-policy">), then the interface it belongs to
-        acts as yet another parameter. For example, if packet entering
-        the firewall has source address which matches object in the
-        "Source" field of the rule, and its destination address
-        matches object in "Destination", and its protocol and port
-        numbers match object in field "Service", and its direction
-        matches that specified in the field "Direction", then the
-        firewall will take an action, specified in the field "Action"
-        of the matching rule. In case of Interface rule, firewall will
-        also take into account interface through wich packet had
-        entered or through which it is about to leave the
-        fireall.</para>
+        acts as yet another parameter. For example, if a packet
+        entering the firewall has a source address which matches the
+        object in the "Source" field of the rule, its destination
+        address matches the object in "Destination", its protocol and
+        port numbers match the object in the field "Service", and its
+        direction matches that specified in the field "Direction",
+        then the firewall will take action, specified in the "Action"
+        field of the matching rule. In the case of Interface rule, the
+        firewall will also take into account the interface through
+        which packet had entered or through which it is about to leave
+        the firewall.</para>
 
-        <para>For example on <xref linkend="global-policy1"> rule#0
-        says that all fragmented packets should be dropped (rule uses
-        service object <emphasis>ip_fragments</emphasis> and action
-        <emphasis>Deny</emphasis>). Rule #1 says that connections from
-        internal network (object <emphasis>internal-net</emphasis>) to
-        the firewall itself (object <emphasis>firewall-pix</emphasis>)
-        using protocols <emphasis>telnet</emphasis> and
-        <emphasis>ssh</emphasis> are allowed (action
-        <emphasis>Accept</emphasis>). "Catch all" rule #8 denies all
-        packets that have not been matched by any other rule above
-        it. The global policy on <xref linkend="global-policy1"> is
-        built so that to allow only specific services and deny
-        everything else, which is a good practice.
+        <para>For example on <xref linkend="global-policy1">, the rule
+        #0 says that all fragmented packets should be dropped (the
+        rule uses service object <emphasis>ip_fragments</emphasis> and
+        the <emphasis>Deny</emphasis> action). Rule #1 says that
+        connections from the internal network (object
+        <emphasis>internal-net</emphasis>) to the firewall itself
+        (object <emphasis>firewall-pix</emphasis>) using protocols
+        <emphasis>telnet</emphasis> and <emphasis>ssh</emphasis> are
+        allowed (action <emphasis>Accept</emphasis>). The "Catch all"
+        rule #8 denies all packets that have not been matched by any
+        other rule above it. The global policy on <xref
+        linkend="global-policy1"> is built to allow only specific
+        services and deny everything else, which is a good practice.
         </para>
 
         <para><xref linkend="rule-elements"> lists rule elements
@@ -1909,23 +1911,23 @@
           </mediaobject>
         </figure>
 
-        <para>Each firewall's interface may have security policy
+        <para>Each firewall's interface may have a security policy
         associated with it. Different firewalls require different
-        commands to attach policy rule to the firewall, but policy
-        compilers take care of that and generate appropriate
-        code. Interface Policy, consists of a set of rules; each rule
-        has the same rule elements as a Global Policy rule and adds
-        some additional ones. </para>
+        commands to attach policy rules to the firewall, but policy
+        compilers take care of that and generate the appropriate
+        code. The Interface Policy consists of a set of rules; each
+        rule has the same rule elements as a Global Policy rule and
+        adds some additional ones. </para>
 
-        <para>On <xref linkend="interface-policy1"> rule #0 (so called
-        Anti-spoofing rule) says that all packets which enter
-        firewalls interface eth0 (direction is
+        <para>In <xref linkend="interface-policy1"> rule #0 (the so
+        called Anti-spoofing rule) says that all packets which enter
+        the firewall's interface eth0 (direction is
         <emphasis>"Inbound"</emphasis>) and have their source address
-        match either internal network or dmz network or any address
-        that belongs to the firewall itself, should be dropped and
-        record should be made in the log (because there is a "notebook
-        and pencil" icon in the <emphasis>"Options"</emphasis> rule
-        element). 
+        match either the internal network or dmz network or any
+        address that belongs to the firewall itself, should be dropped
+        and a record should be made in the log (since there is a
+        "notebook and pencil" icon in the
+        <emphasis>"Options"</emphasis> rule element).
         </para>
       </sect1>
 
@@ -1941,10 +1943,10 @@
           </mediaobject>
         </figure>
 
-        <para>Just like firewall policy, Network Address Translation
-        (NAT) rules are inspected by the firewall in the order they
-        appear in the NAT policy. Each NAT rule consists of the
-        following rule elements:</para>
+        <para>Just like the firewall policy, the Network Address
+        Translation (NAT) rules are inspected by the firewall in the
+        order they appear in the NAT policy. Each NAT rule consists of
+        the following rule elements:</para>
 
         <para>
           <itemizedlist spacing="compact">
@@ -1962,19 +1964,19 @@
             </listitem>
             <listitem><para>Original Service</para>
 
-              <para>This is the service which original packet should
+              <para>This is the service which the original packet should
               match to be translated by this rule</para>
             </listitem>
             <listitem><para>Translated Source</para>
 
-              <para>This object defines the address which sould be
-              used to substitute original packet's source address
+              <para>This object defines the address which should be
+              used to substitute the original packet's source address
               </para>
             </listitem>
             <listitem><para>Translated Destination</para>
 
               <para>This object defines the address which should be
-              used to substitute destination address in the original
+              used to substitute the destination address in the original
               packet.</para>
             </listitem>
             <listitem><para>Translated Service</para>
@@ -1990,27 +1992,27 @@
 
         <para>Here is how it works:</para>
 
-        <para>Original packet is compared with NAT rules, one at a
+        <para>The original packet is compared with NAT rules, one at a
         time, starting with the topmost rule. Once the rule which
-        matches packet's source and destination addresses and service
-        is found, firewall takes parameters from the second half of
-        that rule and makes substitutions for source and destination
-        addresses and port numbers. Some rule elements in the first
-        half of the rule may be left empty (they show "Any" in this
-        case), these elements match any value of corresponding
-        parameter of the packet.  Some rule elements in the second
-        half of the rule may also be left empty (in which case GUI
-        shows word "Original" in thie rule element). This tells the
-        firewall that no substitution should happen for those
-        elements. </para>
+        matches the packet's source and destination addresses and its
+        service is found, the firewall takes parameters from the
+        second half of that rule and makes substitutions for the
+        source and destination addresses and port numbers. Some rule
+        elements in the first half of the rule may be left empty (they
+        show "Any" in this case); these elements match any value of a
+        corresponding parameter of the packet.  Some rule elements in
+        the second half of the rule may also be left empty (in which
+        case the GUI shows the word "Original" in the rule
+        element). This tells the firewall that no substitution should
+        happen for those elements. </para>
 
-        <para>In fact firewall not only substitutes addresses and port
-        numbers, it also makes a record in its internal table to
+        <para>In fact the firewall not only substitutes addresses and
+        port numbers, it also makes a record in its internal table to
         remember the original packet and translated packet it just
-        produced. This way firewall can perform reverse translation
-        when reply packet comes back. </para>
+        produced. This way the firewall can perform a reverse
+        translation when the reply packet comes back. </para>
 
-        <para>The NAT rules on the screenshot <xref
+        <para>The NAT rules in the screenshot <xref
         linkend="nat-policy"> tell the firewall to do the
         following:</para>
 
@@ -2019,15 +2021,15 @@
             <listitem>
               <para>Rule #0:</para>
 
-              <para>If original packet has destination address which
-              matches the addresses of an external interface of the
-              firewall object "firewall-iptables" and protocol TCP and
-              port 80 (matches service "http", protocol used by web
-              servers), then its destination address should be changed
-              to that of the object "mail server" and service should
-              be left the same. Note that this wule would have had the
-              same effect if "Translated Service" was left
-              "Original".</para>
+              <para>If the original packet has a destination address
+              which matches the addresses of an external interface of
+              the firewall object "firewall-iptables" and protocol TCP
+              and port 80 (matches service "http", protocol used by
+              web servers), then its destination address should be
+              changed to that of the object "mail server" and the
+              service should be left the same. Note that this rule
+              would have had the same effect if the "Translated
+              Service" was left "Original".</para>
             </listitem>
             <listitem>
               <para>Rule #1:</para>
@@ -2041,49 +2043,49 @@
               <para>Rule #2:</para>
 
               <para>This rule is like #0 and #1, except it works for
-              service "ssh"</para>
+              the service "ssh"</para>
             </listitem>
             <listitem>
               <para>Rule #3:</para>
 
               <para>This rule follows the same pattern as #0-2, but
-              translates packets headed for external firewall's
-              address, TCP port 2222 and sends them to the standard
-              TCP port that belongs to service "ssh" on internal
-              machine "build server". This rule illustrates that you
-              can simultaneously translate both addresses and
-              services: it makes change to destination address of the
-              packet and the service.</para>
+              translates packets headed for the external firewall's
+              address, TCP port 2222, and sends them to the standard
+              TCP port that belongs to the service "ssh" on the
+              internal machine "build server". This rule illustrates
+              that you can simultaneously translate both addresses and
+              services: it makes changes to the destination address of
+              the packet and the service.</para>
             </listitem>
             <listitem>
               <para>Rule #4:</para>
 
-              <para>This rule matches packets that originated on
+              <para>This rule matches packets that originated in the
               internal network (object "internal-net") and headed for
               DMZ net (object "dmz-net"). Since all rule elements in
               the second half of the rule are left blank, this rule
-              tells firewall that no translation is needed for these
-              packets.</para>
+              tells the firewall that no translation is needed for
+              these packets.</para>
             </listitem>
             <listitem>
               <para>Rule #5:</para>
 
               <para>This rule defines another type of translation: all
-              packets originated on either internal network or on DMZ
-              net, going to any destination, should have their source
-              address replaced with address of firewall's external
-              interface. This type of translation rule sometimes is
-              called "Masuqerading" rule.</para>
+              packets originated in either the internal network or in
+              DMZ net, going to any destination, should have their
+              source address replaced with the address of the
+              firewall's external interface. This type of translation
+              rule is sometimes called the "Masquerading".</para>
             </listitem>
           </itemizedlist>
         </para>
 
         <para>Some firewall platforms support negation in NAT
         rules. If it is supported, this feature can be activated
-        through pop-up menu <xref linkend="editing-policy2"> that
-        appears when you click right mouse button on the rule element
-        in NAT rule. <xref linkend="rule-elements"> shows what
-        firewall platforms support negation in NAT.</para>
+        through the pop-up menu ( <xref linkend="editing-policy2"> )
+        that appears when you click the right mouse button on the rule
+        element in the NAT rule. <xref linkend="rule-elements"> shows
+        what firewall platforms support negation in NAT.</para>
 
         <para>See below in "Tutorial" for detailed discussion of
         different types of NAT rules.</para>
