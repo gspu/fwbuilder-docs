@@ -1688,15 +1688,16 @@
           A is shared between the router and the firewall (each device
           has interface on this subnet). Let's suppose also that we
           have created Network Objects for each subnet and called them
-          'subnet A', 'subnet B' and 'subnet C' (remember, spaces are
-          allowed in object names). 
+          'subnet DMZ', 'subnet A', 'subnet B' and 'subnet C'
+          (remember, spaces are allowed in object names). For this
+          setup network zones should be configured as follows:
           </para>
 
           <para>
-            <informaltable>
+            <informaltable frame="none">
               <tgroup cols="2">
                 <colspec colwidth="64pt" align="center">
-                <colspec colwidth="200pt" align="center">
+                <colspec colwidth="150pt" align="center">
                 <thead>
                   <row>
                     <entry>Interface</entry>
@@ -1728,6 +1729,11 @@
             </informaltable>
           </para>
 
+          <para>Since network zone for interface
+          <emphasis>'inside'</emphasis> consists of multiple objects,
+          a group must be created so that you could use this group as
+          a Network Zone object. </para>
+
           <figure id="network-zones" float="1">
             <title>Choosing Network Zones</title>
             <mediaobject>
@@ -1738,9 +1744,11 @@
           </figure>
 
 
-          <para><xref linkend="platform-specific-interface-parameters">
-        shows values for Security Level and Network Zone parameters
-        for supported firewall platforms.</para>
+          <para><xref
+          linkend="platform-specific-interface-parameters"> explains
+          differences in the way firewall platforms interpret values
+          in Security Level and Network Zone parameters of the firewall
+          interfaces.</para>
 
           <table pgwide="0" id="platform-specific-interface-parameters">
             <title></title>
