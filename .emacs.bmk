@@ -2,53 +2,58 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Redirect"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
-   (front-context-string . "\n	this is a spec")
-   (rear-context-string . ">\n \n      <para>")
-   (position . 204467)))
+(("directions"
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
+   (front-context-string . "\n        <para> ")
+   (rear-context-string . "ections</title>\n")
+   (position . 131563)))
  ("DNAT onto the same net"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
    (front-context-string . " \n      <para>\n	")
    (rear-context-string . "Network</title>\n")
    (position . 201852)))
  ("NAT with port mapping"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
    (front-context-string . "	 <xref linkend=")
    (rear-context-string . "tion port 8080.\n")
    (position . 199648)))
  ("NAT with virtual addr"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
    (front-context-string . "\n\n\n      <para>\n")
    (rear-context-string . ". \n      </para>")
    (position . 194694)))
- ("masquearing"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
-   (front-context-string . "\n\n      <para>\n\n")
-   (rear-context-string . "    secure one. ")
-   (position . 187545)))
- ("negation in policy"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
-   (front-context-string . "      <para>\n	Su")
-   (rear-context-string . "rules</title>\n \n")
-   (position . 179829)))
+ ("Redirect"
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
+   (front-context-string . "\n	this is a spec")
+   (rear-context-string . ">\n \n      <para>")
+   (position . 204467)))
  ("anti-spoofing"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
    (front-context-string . "\n      </para>\n\n")
    (rear-context-string . "	can be created.")
    (position . 174032)))
  ("blocking ident"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
    (front-context-string . "      <para>\n	Su")
    (rear-context-string . "tocol</title>\n \n")
    (position . 176283)))
+ ("masquearing"
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
+   (front-context-string . "\n\n      <para>\n\n")
+   (rear-context-string . "    secure one. ")
+   (position . 187545)))
+ ("negation in policy"
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
+   (front-context-string . "      <para>\n	Su")
+   (rear-context-string . "rules</title>\n \n")
+   (position . 179829)))
  ("protecting local host"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
    (front-context-string . "	  </listitem>\n	")
    (rear-context-string . "x.\n	    </para>\n")
    (position . 175144)))
  ("using groups"
-  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/Using.sgml")
+  ((filename . "/Users/vadim/beaver/Projects/fwb/fwbuilder-docs/UsersGuide.sgml")
    (front-context-string . "	group.\n      </")
    (rear-context-string . "e of the object\n")
    (position . 166699))))

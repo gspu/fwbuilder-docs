@@ -470,7 +470,7 @@
         <Option name="use_numeric_log_levels">False</Option>
       </FirewallOptions>
     </Firewall>
-    <Firewall comment="" host_OS="linux24" id="id3B7D9514" name="firewall_on_the_host" platform="iptables" version="">
+    <Firewall comment="" host_OS="linux24" id="id3B7D9514" name="firewall_on_host" platform="iptables">
       <NAT id="id3B7D9517"/>
       <Policy id="id3B7D9516">
         <PolicyRule action="Deny" comment="block fragments" disabled="False" id="id3B7D9534" log="True" position="0">
@@ -574,24 +574,38 @@
           </PolicyRule>
         </InterfacePolicy>
       </Interface>
-      <Management address="192.168.1.20">
+      <Management address="127.0.0.1">
         <SNMPManagement enabled="False" snmp_read_community="public" snmp_write_community=""/>
-        <FWBDManagement enabled="False" identity="" port="-1"/>
+        <FWBDManagement enabled="True" identity="" port="9999"/>
         <PolicyInstallScript arguments="" command="" enabled="False"/>
       </Management>
       <FirewallOptions>
         <Option name="accept_established">True</Option>
         <Option name="accept_new_tcp_with_no_syn">True</Option>
         <Option name="action_on_reject">ICMP net unreachable</Option>
-        <Option name="check_shading">true</Option>
+        <Option name="bridging_fw">False</Option>
+        <Option name="check_shading">True</Option>
+        <Option name="clamp_mss_to_mtu">False</Option>
         <Option name="cmdline"></Option>
         <Option name="compiler"></Option>
         <Option name="debug">False</Option>
         <Option name="dyn_addr">False</Option>
         <Option name="firewall_is_part_of_any_and_networks">False</Option>
+        <Option name="ignore_empty_groups">False</Option>
         <Option name="inst_cmdline"></Option>
         <Option name="inst_script"></Option>
+        <Option name="limit_suffix"></Option>
+        <Option name="limit_value">0</Option>
         <Option name="linux24_ip_forward">0</Option>
+        <Option name="linux24_path_ip"></Option>
+        <Option name="linux24_path_iptables"></Option>
+        <Option name="linux24_path_logger"></Option>
+        <Option name="linux24_path_lsmod"></Option>
+        <Option name="linux24_path_modprobe"></Option>
+        <Option name="linux24_tcp_fin_timeout">30</Option>
+        <Option name="linux24_tcp_keepalive_interval">1800</Option>
+        <Option name="load_modules">False</Option>
+        <Option name="log_all">False</Option>
         <Option name="log_all_dropped">False</Option>
         <Option name="log_ip_opt">False</Option>
         <Option name="log_level">debug</Option>
@@ -606,9 +620,15 @@
         <Option name="snmp_contact"></Option>
         <Option name="snmp_description"></Option>
         <Option name="snmp_location"></Option>
+        <Option name="ulog_cprange">0</Option>
+        <Option name="ulog_nlgroup">1</Option>
+        <Option name="ulog_qthreshold">1</Option>
+        <Option name="use_ULOG">False</Option>
+        <Option name="use_numeric_log_levels">False</Option>
+        <Option name="verify_interfaces">False</Option>
       </FirewallOptions>
     </Firewall>
-    <Firewall comment="" host_OS="linux24" id="id3B848BEA" name="firewall_with_dmz_1" platform="iptables" version="">
+    <Firewall comment="" host_OS="linux24" id="id3B848BEA" name="fw3" platform="iptables">
       <NAT id="id3B848BED">
         <NATRule comment="do not translate" disabled="False" id="id3B8490E3" position="0">
           <OSrc neg="False">
@@ -645,7 +665,7 @@
             <ServiceRef ref="sysid1"/>
           </OSrv>
           <TSrc neg="False">
-            <ObjectRef ref="id3B848BEA"/>
+            <ObjectRef ref="id3B848C80"/>
           </TSrc>
           <TDst neg="False">
             <ObjectRef ref="sysid0"/>
@@ -745,24 +765,42 @@
         <IPv4 address="192.168.2.1" id="id3B848C82-ipv4" name="firewall_with_dmz_1" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3B848C83"/>
       </Interface>
-      <Management address="192.168.1.1">
+      <Interface comment="" dyn="False" id="id3E3DFC96" label="" mgmt="False" name="lo" security_level="100" unnum="False">
+        <IPv4 address="127.0.0.1" comment="" id="id3E3DFC98" name="lo(ip)" netmask="255.0.0.0"/>
+        <InterfacePolicy id="id3E3DFC97"/>
+      </Interface>
+      <Management address="127.0.0.1">
         <SNMPManagement enabled="False" snmp_read_community="public" snmp_write_community=""/>
-        <FWBDManagement enabled="False" identity="" port="-1"/>
+        <FWBDManagement enabled="True" identity="" port="9999"/>
         <PolicyInstallScript arguments="" command="" enabled="False"/>
       </Management>
       <FirewallOptions>
         <Option name="accept_established">True</Option>
         <Option name="accept_new_tcp_with_no_syn">True</Option>
         <Option name="action_on_reject">ICMP net unreachable</Option>
-        <Option name="check_shading">true</Option>
+        <Option name="bridging_fw">False</Option>
+        <Option name="check_shading">True</Option>
+        <Option name="clamp_mss_to_mtu">False</Option>
         <Option name="cmdline"></Option>
         <Option name="compiler"></Option>
         <Option name="debug">False</Option>
         <Option name="dyn_addr">False</Option>
         <Option name="firewall_is_part_of_any_and_networks">True</Option>
+        <Option name="ignore_empty_groups">False</Option>
         <Option name="inst_cmdline"></Option>
         <Option name="inst_script"></Option>
+        <Option name="limit_suffix"></Option>
+        <Option name="limit_value">0</Option>
         <Option name="linux24_ip_forward">0</Option>
+        <Option name="linux24_path_ip"></Option>
+        <Option name="linux24_path_iptables"></Option>
+        <Option name="linux24_path_logger"></Option>
+        <Option name="linux24_path_lsmod"></Option>
+        <Option name="linux24_path_modprobe"></Option>
+        <Option name="linux24_tcp_fin_timeout">30</Option>
+        <Option name="linux24_tcp_keepalive_interval">1800</Option>
+        <Option name="load_modules">False</Option>
+        <Option name="log_all">False</Option>
         <Option name="log_all_dropped">False</Option>
         <Option name="log_ip_opt">False</Option>
         <Option name="log_level">debug</Option>
@@ -777,6 +815,12 @@
         <Option name="snmp_contact"></Option>
         <Option name="snmp_description"></Option>
         <Option name="snmp_location"></Option>
+        <Option name="ulog_cprange">0</Option>
+        <Option name="ulog_nlgroup">1</Option>
+        <Option name="ulog_qthreshold">1</Option>
+        <Option name="use_ULOG">False</Option>
+        <Option name="use_numeric_log_levels">False</Option>
+        <Option name="verify_interfaces">False</Option>
       </FirewallOptions>
     </Firewall>
     <Firewall comment="" host_OS="linux24" id="id3B8492D6" name="fw2" platform="iptables">
@@ -888,6 +932,26 @@
         <IPv4 address="192.0.2.22" comment="" id="id3B84932D-ipv4" name="fw2:eth1(ip1)" netmask="255.255.255.0"/>
         <IPv4 address="192.0.2.44" comment="" id="id3E3DEBBB" name="fw2:eth1(ip2)" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3B84932E"/>
+      </Interface>
+      <Interface comment="" dyn="False" id="id3E3DF791" label="" mgmt="False" name="lo" security_level="100" unnum="False">
+        <IPv4 address="127.0.0.1" comment="" id="id3E3DF793" name="fw2:lo(ip)" netmask="255.0.0.0"/>
+        <InterfacePolicy id="id3E3DF792">
+          <PolicyRule action="Accept" direction="Both" disabled="False" id="id3E3DF796" log="False" position="0">
+            <Src neg="False">
+              <ObjectRef ref="id3B8492D6"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="id3B8492D6"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions/>
+          </PolicyRule>
+        </InterfacePolicy>
       </Interface>
       <Management address="222.222.111.11">
         <SNMPManagement enabled="False" snmp_read_community="public" snmp_write_community=""/>
@@ -1858,7 +1922,7 @@
         <Option name="verify_interfaces">False</Option>
       </FirewallOptions>
     </Firewall>
-    <Firewall comment="" host_OS="linux24" id="id3E3C5A23" name="firewall_with_dmz_2" platform="iptables">
+    <Firewall comment="" host_OS="linux24" id="id3E3C5A23" name="firewall_dmz_2" platform="iptables">
       <NAT id="id3E3C5A24">
         <NATRule disabled="False" id="id3E3C5A25" position="0">
           <OSrc neg="False">

@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.1 $  $Date: 2003-02-03 05:23:06 $</edition>
+    <edition>$Revision: 1.2 $  $Date: 2003-02-03 07:00:06 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -2677,7 +2677,8 @@
         <title>Editing TCP Service Object</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="tcp_service_dialog1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="tcp_service_dialog1.jpg" 
+                format="jpg" align="Left" scale="33">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -2703,7 +2704,8 @@
         <title>TCP Service Object: priviliged source ports</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="tcp_service_dialog2.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="tcp_service_dialog2.jpg" 
+                format="jpg" align="Left" scale="33">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -2736,7 +2738,7 @@
 
       <para>There are six flags in TCP header. We just briefly
         mention them here; more information can be found in <citetitle
-                                                                       pubwork="book">TCP/IP Illustrated, vol 1</citetitle> by
+        pubwork="book">TCP/IP Illustrated, vol 1</citetitle> by
         W. Richard Stevens, chapter 17. </para>
 
       <informaltable frame="none">
@@ -3132,7 +3134,8 @@
         packet in Firewall Builder </title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="policies-seq.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="policies-seq.jpg"
+                format="jpg" align="Left" scale="33">
           </imageobject>
         </mediaobject>
       </figure>
@@ -3146,23 +3149,55 @@
       Interface rules also take into account firewall's interface
       which the packet is crossing in one or another direction. Global
       Policy rules work regardless of the interface. In case of
-      iptables, Global Policy is roughly equivalent to the FORWARD
-      chain, however there might be no such direct correspondence in
+      iptables, Global Policy is roughly equivalent the iptables
+      commands that do not specify interface using "-i" or "-o"
+      option, however there might be no such direct correspondence in
       other firewall platforms.  Interface Policy rules are associated
       with particular interface of the firewall and have an option
       that describes direction in which packet should cross the
-      interface in order for the rule to match it. <xref
-      linkend="directions"> illustrates definition of the direction
-      for packets entering or exiting firewall interface.  </para>
+      interface in order for the rule to match it.
+      </para>
 
-      <figure id="directions" float="1">
-        <title>Directions </title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="directions.jpg" format="jpg" align="Left" scale="33">
-          </imageobject>
-        </mediaobject>
-      </figure>
+      <note><para>
+        Although this may be counter-intuitive for those who are very
+        familiar with iptables (netfilter), Interface Policies are NOT
+        directly converted into INPUT and OUTPUT chains. In fact,
+        certain rules in Interface Policy may still go into the
+        FORWARD chain. Only rules where the firewall object or one of
+        its interfaces is used in the destination generate iptables
+        rules that go into INPUT chain. Similarly, rules that have the
+        firewall or one of its interfaces in source generate iptables
+        rules that go into OUTPUT chain. Such rules may happen in both
+        Global and Interface Policies. What makes Global and Interface
+        policies different, is a reference to the interface which in
+        iptables corresponds to "-i" and "-o" clauses with
+        corresponding interface name.
+      </para></note>
+
+      <sect2 id="directions">
+        <title>Directions</title>
+
+        <para> The direction is being defined with repsect to the
+        firewall machine, not to the network behind it. For example,
+        packets that leave internal network through the firewall are
+        considered "inbound" on firewall's internal interface and
+        "outbound" on its externa interface. Likewise, packets that come
+        from the Internet are "inbound" on firewall's external interface
+        and "outbound" on its internal interface.  <xref
+        linkend="f-directions"> illustrates definition of the direction
+        for packets entering or exiting firewall interface. </para>
+
+        <figure id="f-directions" float="1">
+          <title>Directions </title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="directions.jpg"
+                  format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
 
 <!--
 Table:
@@ -4026,7 +4061,8 @@ PIX                  always             no             policy, NAT
 	  <title>Example of a rule using object group. </title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-1-1.png" format="png" align="left" scale="50">
+	      <imagedata fileref="policy-1-1.png"
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[]</phrase>
@@ -4036,6 +4072,53 @@ PIX                  always             no             policy, NAT
       </para>
 
 
+    </sect1>
+
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>Firewall talking to itself</title>
+ 
+      <para>Many services running on the firewall machine need to be
+      able to establish connections to the same machine. X11, RPC, DNS
+      are services like that, to name a few. Malfunctioning caused by
+      firewall rules blocking these kinds of services manifest itself
+      in a different ways, depending on what protocol is being
+      blocked. If it is DNS, then it may take a lot longer than usual
+      to get to a command line prompt when logging in to the machine
+      using telnet or ssh. Once logged in, you won't be able to
+      resolve any host names into addresses. If X11 is blocked, then X
+      server and any graphic environment using it (KDE, Gnome etc.)
+      won't start. In any case though the problem can easily be solved
+      by adding a simple rule to the loopback interface of the
+      firewall to permit all sorts of commincations. As shown on <xref
+      linkend="rule-on-loopback">, this rule should use firewall
+      object in both source and destination, have action
+      <emphasis>Accept</emphasis> and direction
+      <emphasis>Both</emphasis>.  </para>
+
+      <para>
+	<figure id="rule-on-loopback">
+	  <title>Rule permitting everything on the loopback interface</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="policy-10.png"
+                  format="png" align="left" scale="50">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+
+      <note><para>
+        Running X11 and other complex services on the dedicated
+        firewall machine should be discouraged, however
+        recommendations given in this chapter do apply to the firewall
+        protecting a server or a workstation where X11, RPC and other
+        services are perfectly normal.
+      </para></note>
     </sect1>
 
     <!-- ********************************************************* -->
@@ -4182,7 +4265,7 @@ PIX                  always             no             policy, NAT
 	of all packets crossing that interface coming from outside. If
 	the address belongs to internal network or firewall itself,
 	packet should be dropped. Since rule must take into account
-	both interface packet is coming through and the direction in
+	both the interface packet is coming through and the direction in
 	which it is coming, it must be put into Interface Policy. This
 	is one of the rare cases when the rule can not be put into
 	Global Policy.
@@ -4199,11 +4282,15 @@ PIX                  always             no             policy, NAT
 	which contains them, plus the firewall object in the "source"
 	rule element. "Destination" and "service" must be set to "any"
 	and Direction must be set to "inbound". <xref
-	linkend="f-policy-5"> shows the anti-spoofing rule. <xref
-	linkend="creating_firewall"> explains how firewall object and
-	its interfaces can be created. <xref
-	linkend="firewall-interface"> has more details on the
-	firewall's interfaces, their types and other properties.
+	linkend="f-policy-5"> shows the anti-spoofing rule.
+      </para>
+
+      <para>
+       <xref linkend="creating_firewall"> explains how firewall object
+       and its interfaces can be created. <xref
+       linkend="firewall-interface"> has more details on the
+	firewall's interfaces, their types and other properties. <xref
+	linkend="directions"> explains concept of the direction.
       </para>
 
       <para>
@@ -5014,6 +5101,65 @@ PIX                  always             no             policy, NAT
       </para>
 
     </sect1>
+
+    <!-- ********************************************************* -->
+    <sect1>
+      <title>"No NAT" rules</title>
+ 
+      <para>Sometimes we need to instruct the firewall to do NAT for
+      certain connections, but not for others. In other words, we need
+      to set up a rule to define an exceptions for another NAT
+      rule. For example, suppose firewall <emphasis>fw3</emphasis> has
+      three interfaces: an external interface
+      <emphasis>eth1</emphasis>, internal interface
+      <emphasis>eth0</emphasis> and interface
+      <emphasis>eth2</emphasis> connected to a DMZ subnet. Both
+      internal net and DMZ use private IP addresses. Our goal is to
+      provide NAT for both internal net and DMZ to be able to
+      establish conenctions to hosts out on the Internet, but
+      connections between internal net and DMZ should not be
+      translated. This can be achieved using combination of rules
+      shown in <xref linkend="f-nat-12">
+      </para>
+
+      <para>
+	<figure id="f-nat-12">
+	  <title>Example of no NAT rule</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-12.png"
+                  format="png" align="left" scale="50">
+	    </imageobject>
+	    <textobject>
+	      <phrase></phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+       Since both <emphasis>Translated Source</emphasis> and
+       <emphasis>Translated Destination</emphasis> in the rule #0 are
+       left <emphasis>Original</emphasis>, this rule says that
+       connections from
+      <emphasis>internal_net</emphasis> to
+      <emphasis>dmz_net_1</emphasis> and from
+      <emphasis>dmz_net_1</emphasis> to
+      <emphasis>internal_net</emphasis> should not be translated.  The
+      rule #1 is a usual masquerading type rule as described in
+      previous chapters. The order of these two rules is important:
+      the <emphasis>Original destination</emphasis> in the rule #1 is
+      <emphasis>Any</emphasis>, which means connections from both
+      <emphasis>internal_net</emphasis> and
+      <emphasis>dmz_net_1</emphasis> to any host on any network should
+      be translated. In order to exclude connections between
+      <emphasis>internal_net</emphasis> and
+      <emphasis>dmz_net_1</emphasis> from the rule #1, "no nat" rule
+      #0 must be located above rule #1 so it would hit first.
+      </para>
+
+    </sect1>
+
 
     <!-- ********************************************************* -->
     <sect1>
