@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.44 $  $Date: 2002-11-11 04:51:44 $</edition>
+    <edition>$Revision: 1.45 $  $Date: 2002-11-23 05:32:52 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -2739,91 +2739,92 @@
           </mediaobject>
         </figure>      
 
-        <para>There are few settings that affect crawler's algorithm
-        (see <xref linkend="discovery-snmp-options"> and <xref
-        linkend="discovery-snmp-options2">). Here is the list:</para>
+        <para>There are a few settings that affect the crawler's
+        algorithm (see <xref linkend="discovery-snmp-options"> and
+        <xref linkend="discovery-snmp-options2">). Here is the
+        list:</para>
 
         <para>
           <itemizedlist spacing="compact">
             <listitem>
               <para>Run network scan recursively</para>
 
-              <para>As was described above, crawler starts with the
-              "seed" host and then repeats its algorithm using every
-              discovered host as a new "seed". If this option is
-              turned ON, then crawler runs its algorithm only once and
-              stops.</para>
+              <para>As was described above, the crawler starts with
+              the "seed" host and then repeats its algorithm using
+              every discovered host as a new "seed". If this option is
+              turned ON, then the crawler runs its algorithm only once
+              and stops.</para>
             </listitem>
             <listitem>
               <para>Follow point-to-point links</para>
 
-              <para>If firewall or a router has point-to-point
-              interface (for example, PPP interface), then crawler can
-              automatically calculate IP address of the other side of
-              this interface. It then continues discovery process by
-              querying a router on the other side. Very often
-              point-to-point link connects organization's network to
-              an ISP and you are not really interested in collecting
-              data about your ISP network. This option, if activated,
-              prevents crawler from crossing point-to-point
-              links. </para>
+              <para>If a firewall or a router has a point-to-point
+              interface (for example, PPP interface), then the crawler
+              can automatically calculate the IP address of the other
+              side of this interface. It then continues the discovery
+              process by querying a router on the other side. Very
+              often, the point-to-point link connects the
+              organization's network to an ISP and you are not really
+              interested in collecting data about your ISP
+              network. This option, if activated, prevents the crawler
+              from crossing point-to-point links. </para>
             </listitem>
             <listitem>
               <para>Include virtual addresses</para>
 
               <para>Sometimes servers or routers have more than one IP
               address assigned to the same interface. If this option
-              is turned on, then crawler "discovers" these virtual
+              is turned on, the crawler "discovers" these virtual
               addresses and tries to create objects for them.</para>
             </listitem>
             <listitem>
               <para>Run reverse name lookup queries to determine host
               names</para>
 
-              <para>If host discovered by crawler answers SNMP
-              queries, then it will report is name, which crawler will
-              use to create an object in Firewall Builder. However, if
-              the host does not answer the query, the crawler can not
-              determine its name and only knows its IP
-              address. Crawler can use DNS to back-resolve such
-              addresses and determine host names if this option is
-              turned ON. </para>
+              <para>If the host discovered by the crawler answers to
+              SNMP queries, it will report its name, which the crawler
+              will use to create an object in Firewall
+              Builder. However, if the host does not answer the query,
+              the crawler can not determine its name and only knows
+              its IP address. The crawler can use DNS to back-resolve
+              such addresses and determine host names if this option
+              is turned ON. </para>
             </listitem>
 
             <listitem>
               <para>SNMP query parameters</para>
 
-              <para>You must specify SNMP "read" community string
+              <para>You must specify the SNMP "read" community string
               which will be used for SNMP queries. You can also
-              specify number of retries and a timeout for the
+              specify the number of retries and a timeout for the
               query.</para>
             </listitem>
 
             <listitem>
               <para>DNS parameters:</para>
 
-              <para>You can specify number of retries and a timeout
-              for DNS lookup query, as well as number of threads.
-              Firewall Builder uses multithreaded resolver in order to
-              speed up the process. In other words, it can run several
-              DNS lookups simultaneously and parameter "Number of
-              threads" defines how many lookups it can run in
-              parallel.</para>
+              <para>You can specify the number of retries and a
+              timeout for the DNS lookup query, as well as the number
+              of threads.  Firewall Builder uses a multithreaded
+              resolver in order to speed up the process. In other
+              words, it can run several DNS lookups simultaneously,
+              the "Number of threads" parameter defines how many
+              lookups it can run in parallel.</para>
             </listitem>
           </itemizedlist>
         </para>
 
 
-        <para>Once all parameters are entered, crawler actually gets
-        to work which may take a while. Depending on the size of the
-        network and such parameters as SNMP timeout value, scanning
-        may take minutes or even hours. The progress of the scanner
-        can be monitored on the page in the Druid (<xref
-        linkend="discovery-snmp-crawler">). You can always stop
+        <para>Once all parameters are entered, the crawler actually
+        gets to work, which may take a while. Depending on the size of
+        the network and such parameters as the SNMP timeout value,
+        scanning may take minutes or even hours. The progress of the
+        scanner can be monitored on the page in the Druid (<xref
+        linkend="discovery-snmp-crawler">). You can always stop the
         crawler using button <guibutton>"Stop network
-        scan"</guibutton>. Data does not get lost if you do that as
-        Druid will use whatever objects crawler discovered before you
-        stopped it.</para>
+        scan"</guibutton>. Data does not get lost if you do this as
+        the Druid will use whatever objects the crawler discovered
+        before you stopped it.</para>
 
         <figure id="discovery-snmp-crawler" float="1">
           <title>Parameters for Network Discovery: Page 2</title>
@@ -2834,15 +2835,16 @@
           </mediaobject>
         </figure>      
 
-        <para>Button <guibutton>"Save scan log to file"</guibutton>
-        saves content of the progress window to the text file and is
+        <para>the <guibutton>"Save scan log to file"</guibutton> button 
+        saves the content of the progress window to a text file and is
         mostly used for troubleshooting and bug reports related to
-        crawler. </para>
+        the crawler. </para>
 
-        <para>If crawler succeeded and was able to collect information
-        it needs to create objects, you can switch to the next page
-        where you chose and create objects. That page is the same as
-        the one presented on <xref linkend="discovery-hosts-2">.</para>
+        <para>If the crawler succeeded and was able to collect
+        information it needs to create objects, you can switch to the
+        next page where you choose and create objects. That page is
+        the same as the one presented in <xref
+        linkend="discovery-hosts-2">.</para>
 
       </sect1>
   </chapter>
@@ -2853,28 +2855,28 @@
       <sect1>
         <title>IP Service</title>
 
-        <para>The simple IP service object is represented on
+        <para>The simple IP service object is represented in the
         screenshot <xref linkend="ip-service-dialog1">. Firewall
         Builder provides standard object types for well-known and
         frequently used protocols such as ICMP (IP protocol number 1),
-        TCP (IP protocol number 6) and UDP (IP protocol number 17). IP
-        service object helps describe other protocols which are
-        neither ICMP nor TCP nor UDP. Protocol is defined by the 8-bit
-        field in the IP packet header. Screenshot <xref
-        linkend="ip-service-dialog1"> represents object 'ESP'
-        (Encapsulating Security Payload, part of IPSEC protocol
-        family) which uses IP protocol number 50. Protocols numbers
-        are assigned by IANA; one can look up the number for
-        particular protocol at the following URL:
+        TCP (IP protocol number 6) and UDP (IP protocol number
+        17). The IP service object helps describe other protocols
+        which are neither ICMP nor TCP nor UDP. The protocol is
+        defined by the 8-bit field in the IP packet header. The
+        screenshot <xref linkend="ip-service-dialog1"> represents
+        object 'ESP' (Encapsulating Security Payload, part of the
+        IPSEC protocol family) which uses the IP protocol number
+        50. Protocol numbers are assigned by IANA; one can look up the
+        number for a particular protocol at the following URL:
         http://www.iana.org/assignments/protocol-numbers/</para>
 
-        <para>Besides protocol number, header of the IP packet has
-        also a field called "options" which is variable-length list of
-        optional information for the packet. Not all firewalls can
-        examine options, and those that can usually have certain
-        limitations as of what options they can match
+        <para>Besides the protocol number, the header of the IP packet
+        also has a field called "options" which is a variable-length
+        list of optional information for the packet. Not all firewalls
+        can examine options, and those that can usually have certain
+        limitations as to what options they can match
         against. Firewall Builder tries to provide controls for many
-        popular options, supported by most sophisticated
+        popular options, supported by the most sophisticated
         firewalls. Not all options supported by Firewall Builder are
         supported by all target firewall platforms (<xref
         linkend="support-for-ip-options">).</para>
@@ -2891,26 +2893,27 @@
                 <entry>Normally IP routing is dynamic with each router
                 making decisions about which next hop router to send
                 the packet to. However another option exists, where
-                sender can choose the route. In case of Loose Source
-                Route, sender host can specify list of routers the
-                packet must traverse, but it can also pass through
-                other routers between any two addresses in the
-                list. Strict Source Route works very much the same
-                way, except packet must traverse only through the
-                specified addresses. Source routing can potentially be
-                used to reach hosts behind firewall even if these
-                hosts use private IP addresses which normally are not
-                reachable on the Internet.</entry>
+                the sender can choose the route. In the case of the
+                Loose Source Route, the sender (host) can specify a
+                list of routers the packet must traverse, but it may
+                also pass through other routers between any two
+                addresses in the list. The Strict Source Route works
+                very much the same way, except the packet must
+                traverse only through the specified addresses. Source
+                routing can potentially be used to reach hosts behind
+                the firewall even if these hosts use private IP
+                addresses which normally are not reachable over the
+                Internet.</entry>
               </row>
               <row>
                 <entry><filename>Record route option: RR</filename></entry>
 
                 <entry>This option causes every router that handles
-                the packet on its way to add its IP address to a list
-                in the options field. This option is used by ping
+                the packet on the way to add its IP address to a list
+                in the options field. This option is used by the ping
                 utility when it is called with "-R" command line
-                switch and can potentially be exploited to discover
-                internal network addressing and layout behind the
+                switch; it can potentially be exploited to discover
+                the internal network addressing and layout behind the
                 firewall. Although the risk is low, some firewall
                 administrators prefer to block packets with this
                 option set.</entry>
@@ -2920,10 +2923,10 @@
 
                 <entry>This option tells routers that handle the
                 packet to record their timestamps and sometimes
-                addresses (like in the case of record route
+                addresses (like in the case of the record route
                 option). This option is seldom used, but can
                 potentially be exploited to gather information about
-                protected network, so some firewall administrators
+                the protected network, so some firewall administrators
                 prefer to block packets with this option set. </entry>
               </row>
             </tbody>
@@ -2932,22 +2935,22 @@
 
 
         <para>IP packets sometimes may become fragmented. This happens
-        if original datagram was larger than what a physical network
-        layer can transmit. IP packet header has special fields
-        (called Flags and Fragmentation Offset) which help detect
-        fragmented packets and reassembly them. Many firewalls can
-        check these bits as well. Certain combinations of flags and
-        fragmentation offset can never happen during normal operation
-        but were seen to be used by attackers. Firewall Builder
-        provides two options for most commonly used cases related to
-        packet fragmentation: option 'all fragments' matches the
-        second and further fragments, while option 'short' is used to
-        match packets that are too short to contain even complete IP
-        header.</para>
+        if the original datagram is larger than what a physical
+        network layer can transmit. The IP packet header has special
+        fields (called "Flags" and "Fragmentation Offset") which help
+        detect fragmented packets and reassemble them. Many firewalls
+        can check these bits as well. Certain combinations of flags
+        and fragmentation offsets can never happen during a normal
+        operation but were seen to be used by attackers. Firewall
+        Builder provides two options for most commonly used cases
+        related to packet fragmentation: option 'all fragments'
+        matches the second and further fragments, while option 'short'
+        is used to match packets that are too short to contain even
+        a complete IP header.</para>
 
         <para>Standard IP Service objects that come with Firewall
-        Builder appear in the tree "Standard", in the branch
-        <guimenuitem>Services/IP</guimenuitem>.</para>
+        Builder appear in the "Standard" tree, in the 
+        <guimenuitem>Services/IP</guimenuitem> branch.</para>
 
         <table id="support-for-ip-options">
           <title>Support for IP options and fragmentation on various firewall platforms</title>
@@ -3012,7 +3015,7 @@
         </table>
 
         <figure id="ip-service-dialog1" float="1">
-          <title>Editing IP Service Object</title>
+          <title>Editing the IP Service Object</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="ip_service_dialog1.jpg" format="jpg" align="Left" scale="33">
@@ -3020,7 +3023,7 @@
           </mediaobject>
         </figure>      
 
-        <para>IP Service dialog provides the following controls: </para>
+        <para>The IP Service dialog provides the following controls: </para>
 
         <para>
           <itemizedlist spacing="compact">
@@ -3033,13 +3036,13 @@
             <listitem>
               <para>Protocol:</para>
 
-              <para>This is protocol number. </para>
+              <para>This is the protocol number. </para>
             </listitem>
 
             <listitem>
               <para>Options:</para>
 
-              <para>These flags represent IP header 'Options' flags:</para>
+              <para>These flags represent 'Options' flags in the IP header:</para>
 
               <para>
                 <simplelist>
@@ -3055,7 +3058,7 @@
             <listitem>
               <para>Comments:</para>
 
-              <para>This is free-style text field used for comments.</para>
+              <para>This is a free-style text field used for comments.</para>
             </listitem>
           </itemizedlist>
         </para>
@@ -3065,29 +3068,30 @@
       <sect1>
         <title>ICMP Service</title>
 
-        <para>ICMP Service object is a generalized representation of
-        ICMP protocol. ICMP packets are often used to communicate
-        error messages which are acted upon by either IP layer or
+        <para>The ICMP Service object is a generalized representation
+        of ICMP protocol. ICMP packets are often used to communicate
+        error messages which are acted upon by either the IP layer or
         higher layer protocols (TCP or UDP). ICMP can also be used as
-        a simple query protocol.  Firewall administrator needs to
+        a simple query protocol.  The firewall administrator needs to
         understand the nature and purpose of ICMP in order to properly
-        configure firewall to block unwanted and permit useful ICMP
-        messages. ICMP packets have two header fields that distibguish
-        particular ICMP messages: the <emphasis>"type"</emphasis> and
-        <emphasis>"code"</emphasis> fields. There can be 15 different
-        ICMP types, each of which may use different values for its
-        <emphasis>"code"</emphasis> field to further specify the
-        condition. Firewall Builder provides dialog with built-in list
-        of all possible ICMP types and corresponding codes which helps
-        administrator to pick appropriate one without having to look
-        up these numbers in the book (<xref
-        linkend="icmp-service-dialog1">). Standard ICMP Service
-        objects that come with Firewall Builder appear in the tree
-        "Standard", in the branch <guimenuitem>Services/ICMP</guimenuitem>.
+        configure the firewall to block unwanted and permit useful
+        ICMP messages. ICMP packets have two header fields that
+        distinguish particular ICMP messages: the
+        <emphasis>"type"</emphasis> and <emphasis>"code"</emphasis>
+        fields. There can be 15 different ICMP types, each of which
+        may use different values for its <emphasis>"code"</emphasis>
+        field to further specify the condition. Firewall Builder
+        provides a dialog with a built-in list of all possible ICMP
+        types and corresponding codes which helps the administrator to
+        the pick appropriate one without having to look up these numbers
+        in the book (<xref linkend="icmp-service-dialog1">). The standard
+        ICMP Service objects that come with Firewall Builder appear in
+        the "Standard" tree, in the 
+        <guimenuitem>Services/ICMP</guimenuitem> branch.
         </para>
 
         <figure id="icmp-service-dialog1" float="1">
-          <title>Editing ICMP Service Object</title>
+          <title>Editing the ICMP Service Object</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="icmp_service_dialog1.jpg" format="jpg" align="Left" scale="33">
