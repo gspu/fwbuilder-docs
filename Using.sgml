@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.43 $  $Date: 2002-11-03 07:44:10 $</edition>
+    <edition>$Revision: 1.44 $  $Date: 2002-11-11 04:51:44 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -2288,9 +2288,10 @@
         <sect2>
           <title>Changing rule options and logging</title>
 
-          <para>clicking right mouse button when cursor is over rule
-          element "Options" brings context-sensitive pop-up menu <xref
-          linkend="editing-policy5">.</para>
+          <para>clicking the right mouse button when the cursor is
+          over the rule element "Options" brings up a
+          context-sensitive pop-up menu ( <xref
+          linkend="editing-policy5">. )</para>
 
           <figure id="editing-policy5" float="1">
             <title>Modifying Options of the Policy Rule</title>
@@ -2307,17 +2308,17 @@
             <listitem>
               <para>Modify Options:</para>
 
-              <para>This menu items brings dialog which allows you to
-              modify certain options specific to the target firewall
-              platform and associated only with current rule. See
-              <xref linkend="policy-rule-options-dialogs"> for
-              detailed explanation. </para>
+              <para>This menu item brings up a dialogue which allows
+              you to modify certain options specific to the target
+              firewall platform and associated only with the current
+              rule. See <xref linkend="policy-rule-options-dialogs">
+              for a detailed explanation. </para>
             </listitem>
             <listitem>
               <para>Turn logging ON:</para>
 
               <para>Turns logging on for all packets matching this
-              rule. If target firewall platform does not support
+              rule. If the target firewall platform does not support
               selective logging of packets, this menu item is
               disabled.</para>
             </listitem>
@@ -2325,8 +2326,9 @@
               <para>Turn logging OFF:</para>
 
               <para>Turn logging off for packets matching this rule.
-              If target firewall platform does not support selective
-              logging of packets, this menu item is disabled.</para>
+              If the target firewall platform does not support
+              selective logging of packets, this menu item is
+              disabled.</para>
             </listitem>
           </itemizedlist>
 
@@ -2339,21 +2341,22 @@
       <sect1 id="rule-elements">
         <title>Support for Rule Elements and Features on Various Firewalls</title>
 
-        <para>Certain fields in the rules are only available if target
-        firewall platform supports them.  For example, iptables
-        firewall provides controls for logging of matched packets,
-        while Cisco PIX does not and always logs every packet it
-        drops. Where possible, policy compilers try to emulate missing
-        feature. For example, OpenBSD PF does not support negation
-        natively, but policy compiler provides a workaround and tries
+        <para>Certain fields in the rules are only available if the
+        target firewall platform supports them.  For example, the
+        iptables firewall provides controls for logging of matched
+        packets, while Cisco PIX does not and always logs every packet
+        it drops. Where possible, the policy compilers try to emulate
+        the missing feature. For example, OpenBSD PF does not support
+        negation natively, but policy compiler
+        <emphasis>"fwb_pf"</emphasis> provides a workaround and tries
         to emulate this feature for PF. Another example is policy
         rules with direction "Outbound". Cisco PIX supports only
-        inbound Access Lists, so policy compiler emulates outbound
-        Access Lists when generates configuration for PIX. <xref
-        linkend="policy-rule-elements"> represents list of fields in
+        inbound Access Lists, so the policy compiler emulates outbound
+        Access Lists while generating configuration for PIX. <xref
+        linkend="policy-rule-elements"> represents a list of fields in
         the rules and what firewall platforms support
         them. Information about these fields and features is available
-        for fwbuilder GUI which disabled corresponding menu items and
+        for fwbuilder GUI which disables corresponding menu items and
         hides corresponding policy elements when they are not
         supported.</para>
 
@@ -2442,7 +2445,7 @@
     <title>Network Discovery: A Quick Way to Create Objects</title>
 
     <figure id="discovery-menu" float="1">
-      <title>Calling Object Discovery Druid</title>
+      <title>Calling the Object Discovery Druid</title>
       <mediaobject>
         <imageobject>
           <imagedata fileref="discovery_menu.jpg" format="jpg" align="Left" scale="33">
@@ -2451,16 +2454,16 @@
     </figure>
       
     <para>One of the distinguishing features that Firewall Builder
-    provides is a support for automated creating of objects. This
-    helps populate objects tree for large networks with lots of hosts
-    and subnets. It would have taken hours if user always had to do it
-    manually, while Objects Discovery Druid helps complete this task
-    in minutes. You can bring this Druid using main menu
-    <guimenuitem>"Tools"</guimenuitem>/<guimenuitem>"Discover
+    provides is support for automated object creation. This helps
+    populate the objects tree for large networks with lots of hosts
+    and subnets. It would have taken hours if the user always had to
+    do it manually, while the Objects Discovery Druid helps complete
+    this task in minutes. You can bring this Druid up using the main
+    menu <guimenuitem>"Tools"</guimenuitem>/<guimenuitem>"Discover
     Objects"</guimenuitem> </para>
 
-    <para>Druid supports three main methods for automated creation of
-    objects:</para>
+    <para>The Druid supports three main methods for automated object
+    creation:</para>
 
     <para>
         <itemizedlist spacing="compact">
@@ -2470,8 +2473,8 @@
       </itemizedlist>
     </para>
     
-    <para>You make a choice of the method on the first page of the
-    Druid <xref linkend="discovery-page1"></para>
+    <para>You choose the method on the first page of the Druid ( <xref
+    linkend="discovery-page1">. )</para>
 
     <figure id="discovery-page1" float="1">
       <title>Calling Object Discovery Druid</title>
@@ -2483,29 +2486,29 @@
     </figure>
       
     <para>Just check the radio-button next to the method you want to
-    use and click button <guibutton>'Next'</guibutton></para>
+    use and click the <guibutton>'Next'</guibutton> button.</para>
 
       <sect1>
         <title>Reading file /etc/hosts</title>
 
-        <para>This method imports host records present in standard
-        file /etc/hosts or any other file that contain records in the
-        following format (this format is actually described in a man
-        page hosts(5)).</para>
+        <para>This method imports host records present in the standard
+        file <emphasis>/etc/hosts</emphasis> or any other file that
+        contain records in the following format (this format is
+        actually described in the man page hosts(5)).</para>
 
         <para>IP_Address   host_name</para>
 
-        <para>IP address must be separated from the host name with any
-        number of whitespaces or tab symbols. Lines starting with '#'
-        are considered comments and are ignored. Currently Firewall
-        Builder does not support ipv6 addresses and ignores
+        <para>The IP address must be separated from the host name with
+        any number of spaces or tab symbols. Lines starting with
+        '#' are considered comments and are ignored. Currently
+        Firewall Builder does not support ipv6 addresses and ignores
         them.</para>
 
-        <para>When you chose import from /etc/hosts on the first page,
-        Druid asks you for the file path and name on the next
-        page. Once that information is entered, it reads contents of
-        that file and presents the table of new objects (<xref
-        linkend="discovery-hosts-2">):</para>
+        <para>When you choose the import from /etc/hosts on the first
+        page, the Druid asks you for the file path and name on the
+        next page. Once that information is entered, it reads the
+        contents of that file and presents a table of new objects
+        (<xref linkend="discovery-hosts-2">):</para>
 
         <figure id="discovery-hosts-2" float="1">
           <title>Creating objects using gathered information</title>
@@ -2519,26 +2522,26 @@
         <para>This page of the druid is the same for all discovery
         methods, so let's discuss it in detail.</para>
 
-        <para>Discovered objects are presented in the table. Since
+        <para>Discovered objects are shown in the table. Since the
         source of information used for discovery could have had
         different host names for the same IP address, object names are
-        presented in a pull-down menu. If there was only one name for
-        the address, then pull-down menu has only one entry, otherwise
-        it has several entries. The rightmost column in the table
-        presents choices of the object type to be created: it can
-        become either Host, or Network, or Firewall. Sometimes Druid
-        can guess the type of the object or use proper type depending
-        on the discovery method used.</para>
+        shown in a pull-down menu. If there was only one name for the
+        address, then the pull-down menu would have only one entry,
+        otherwise it has several entries. The rightmost column in the
+        table shows choices for the object type to be created: it can
+        become either the Host, Network, or Firewall. Sometimes, the
+        Druid can guess the type of the object or use the proper type
+        depending on the discovery method used.</para>
 
-        <para>Druid creates objects only for selected records in the
-        table. Use checkbox in the very first column of the table to
-        select objects. Comment to the right shows total number of
-        selected objects at any given moment (text "Selected: N
-        objects"). 6 objects are selected on screenshot <xref
-        linkend="discovery-hosts-2">
+        <para>The Druid creates objects only for selected records in
+        the table. Use the checkbox in the very first column of the
+        table to select objects. The comment to the right shows the
+        total number of selected objects at any given moment (text
+        "Selected: N objects"). 6 objects are selected in the
+        screenshot <xref linkend="discovery-hosts-2">
         </para>
 
-        <para>This page of the Druid also has following buttons:</para>
+        <para>This page of the Druid also has the following buttons:</para>
 
         <para>
           <itemizedlist spacing="compact">
@@ -2555,7 +2558,7 @@
             <listitem>
               <para><guibutton>"Filter"</guibutton></para>
 
-              <para>Brings up filter dialog. Filtering helps manage
+              <para>Brings up a filter dialog. Filtering helps manage
               long lists of objects.</para>
             </listitem>
             <listitem>
@@ -2576,27 +2579,28 @@
           </mediaobject>
         </figure>      
 
-        <para>Druid can filter records in the table either by their
-        address or by their name or by both. To filter by address
-        enter part of it in the field "Address". The program compares
-        text entered in the filter dialog with an address in the table
-        and shows only those records whose address starts with the
-        text of the filter. For example, to filter out only hosts with
-        addresses on the net 10.3.14.0 we could use filter
+        <para>The Druid can filter records in the table either by
+        their address, by their name, or by both. To filter by address
+        enter part of it in the "Address" field. The program compares
+        the text entered in the filter dialog with an address in the
+        table and shows only those records whose address starts with
+        the text of the filter. For example, to only filter out hosts
+        with addresses on the net 10.3.14.0 we could use the filter
         "10.3.14". Likewise, to remove hosts "bear" and "beaver"
-        (addresses 10.3.14.50 and 10.3.14.74) we could use filter
+        (addresses 10.3.14.50 and 10.3.14.74) we could use the filter
         "10.3.14.6". Note that filter string does not contain any
-        wildcard symbols like "*". Filter shows only records that have
-        address which literary matches filter string.
+        wildcard symbols like "*". The filter shows only records that
+        have addresses which literarily match the filter string.
         </para>
 
-        <para>Filtering by the object name uses regular expressions
-        syntax described in a man page regex(7). For example, to find
-        all records whose names start with 'f' we could use regular
-        expression '^f'. Symbol '^' matches beginning of the string,
-        so this regular expression matches any name that starts with
-        'f'. To find all names that end with 'domedomain.com', we
-        could use regular expression '.*somedomain.com$' </para>
+        <para>Filtering by the object name uses POSIX regular
+        expressions syntax described in the man page regex(7). For
+        example, to find all records whose names start with 'f' we
+        could use the regular expression '^f'. Symbol '^' matches the
+        beginning of the string, so this regular expression matches
+        any name that starts with 'f'. To find all names that end with
+        'somedomain.com', we could use the regular expression
+        '.*somedomain.com$' </para>
 
       </sect1>
 
@@ -2607,11 +2611,11 @@
         library supporting DNS zone transfers. Currently it is
         available on Linux and Solaris. </para>
 
-        <para>First, Druid asks you for the domain name you wish to
+        <para>First, the Druid asks you for the domain name you wish to
         import (<xref linkend="discovery-dns-domain">)</para>
 
         <figure id="discovery-dns-domain" float="1">
-          <title>Entering domain name</title>
+          <title>Entering the domain name</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="discovery_dns_domain.jpg" format="jpg" align="Left" scale="33">
@@ -2619,11 +2623,11 @@
           </mediaobject>
         </figure>      
 
-        <para>Once domain name is entered and you click
-        <guibutton>"Next"</guibutton>, the program runs first DNS
+        <para>Once the domain name is entered and you have clicked
+        <guibutton>"Next"</guibutton>, the program first runs the DNS
         query to find out what name servers are responsible for that
-        domain. It then presents the list of name servers on the next
-        page for you to chose from (<xref
+        domain. It then presents a list of name servers on the next
+        page for you to choose from (<xref
         linkend="discovery-dns-ns">).</para>
 
         <figure id="discovery-dns-ns" float="1">
@@ -2637,11 +2641,12 @@
 
 
         <para> You can use one of the registsred name servers, or, if
-        you have your own local name server which is autoritative for
-        this domain (for example local secondary server), you can
+        you have your own local name server which is authoritative for
+        this domain (for example the local secondary server), you can
         enter its name or address in the entry field at the bottom of
         the dialog. Clicking <guibutton>"Next"</guibutton> initiates
-        zone transfer (<xref linkend="discovery-dns-transfer">). </para>
+        the zone transfer process (<xref
+        linkend="discovery-dns-transfer">). </para>
 
         <figure id="discovery-dns-transfer" float="1">
           <title>DNS zone transfer</title>
@@ -2652,10 +2657,10 @@
           </mediaobject>
         </figure>      
 
-        <para>If DNS zone transfer succeeded and druid was able to
-        pull information it needs to create objects, you can switch to
-        the next page where you chose and create objects. That page is
-        the same as the one presented on <xref
+        <para>If the DNS zone transfer succeeded and the druid was
+        able to pull the information it needs to create objects, you
+        can switch to the next page where you choose and create
+        objects. That page is the same as the one presented in <xref
         linkend="discovery-hosts-2">. </para>
 
       </sect1>
@@ -2664,7 +2669,7 @@
         <title>Network Discovery</title>
 
         <figure id="discovery-snmp-seed" float="1">
-          <title>Initial Parameters for Network Discovery</title>
+          <title>Initial Parameters for the Network Discovery program</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="discovery_snmp_seed.jpg" format="jpg" align="Left" scale="33">
@@ -2672,47 +2677,49 @@
           </mediaobject>
         </figure>      
 
-        <para>Network discovery program (sometimes referred to as
-        "Network Crawler") needs a host to start from. This host is
-        called "seed host", you enter it in the first page of this
-        Druid (<xref linkend="discovery-snmp-seed">). Crawler
-        implements the following algorithm (this is somewhat
+        <para>The Network discovery program (sometimes referred to as
+        the "Network Crawler") needs a host to start from. This host
+        is called the "seed host"; you enter it in the first page of
+        the Druid (<xref linkend="discovery-snmp-seed">). The crawler
+        implements the following algorithm (this is a somewhat
         simplified explanation):</para>
 
-        <para>first, it runs several SNMP queries agains seed host
-        trying to collect the following data: the list of its
+        <para>First, it runs several SNMP queries against the seed
+        host trying to collect the following data: the list of its
         interfaces and its ARP and routing tables. This host is then
         added to the table of discovered network objects, together
-        with its interfaces and their addresses and netmasks and
-        host's "sysinfo" parameters. Then crawler analyses routing
-        table of that host, this allows it to discover networks and
-        subnets which in turn are also added to the list of discovered
-        objects. Then it analyses ARP table, which holds MAC and IP
-        addresses of neighboring hosts. It takes one host found in
-        this table at a time and repeats the same algorithm using it
-        as a seed host. When it pulls ARP table from the next host, it
-        discards entries that describe objects it already knows
-        about. However if it finds new entries, it tries them as well
-        and thus travels further down the network. Eventually it will
-        visit every host on all subnets on the network.</para>
+        with its interfaces, their addresses and netmasks and the
+        host's "sysinfo" parameters. Then the crawler analyses the
+        routing table of that host; this allows it to discover the
+        networks and subnets which in turn are also added to the list
+        of discovered objects. Then it analyses the ARP table, which
+        holds MAC and IP addresses of neighboring hosts. It takes one
+        host found in this table at a time and repeats the same
+        algorithm using it as a seed host. When it pulls an ARP table
+        from the next host, it discards entries that describe objects
+        it already knows about. However if it finds new entries, it
+        tries them as well and thus travels further down the
+        network. Eventually it will visit every host on all subnets on
+        the network.</para>
 
-        <para>This algorithm relies on hosts answering to SNMP
-        queries. If the very first host ("seed" host) does not run
+        <para>This algorithm relies on hosts answering to the SNMP
+        queries. If the very first host (the "seed" host) does not run
         SNMP agent, the crawler will stop on the first run of its
         algorithm and won't find anything. Therefore it is important
-        to use a host which does run snmp agent as a "seed" host. Even
+        to use a host which does run SNMP agent as a "seed" host. Even
         if most of the hosts on the network do not run SNMP agents,
-        but few do, crawler most likely will find all of them. This
-        happens because it discovers objects when it reads ARP tables
-        from the host which does answer, so even if discovered hosts
-        do not answer to SNMP queries, crawler already found them
-        anyway. </para>
+        but a few do, the crawler will most likely find all of
+        them. This happens because it discovers objects when it reads
+        the ARP tables from the host which answers; so even if
+        discovered hosts do not answer to SNMP queries, the crawler
+        already found them anyway. </para>
 
         <para>One of the ways to limit the scope of the network that
-        crawler will visit is to use parameter "Confine scan to the
-        network". You need to enter both network address and a
-        netmask; crawler checks if hosts it discovers belong to this
-        network and if they do not, it discards them.</para>
+        the crawler will visit is to use the parameter "Confine scan
+        to the network". You need to enter both a network address and
+        a netmask; the crawler will then check if hosts it discovers
+        belong to this network and if they do not, discard
+        them.</para>
 
         <figure id="discovery-snmp-options" float="1">
           <title>Parameters for Network Discovery: Page 1</title>
