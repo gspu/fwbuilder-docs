@@ -6,7 +6,7 @@
 <!entity gtkmm-download   "http://www.hvrlab.org/pub/gtkmm/">
 <!entity ipt-howto        "http://www.netfilter.org/documentation/HOWTO//NAT-HOWTO.html">
 <!entity faq-url  "http://www.fwbuilder.org/pages/Documents/FAQ/FAQ.html">
-<!entity inst-url "http://www.fwbuilder.org/pages/Documents/Requirements.html">
+<!entity inst-url "http://www.fwbuilder.org/pages/Documents/Build.html">
 ]>
 
 <book id="Using">
@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.17 $  $Date: 2003-04-24 00:11:34 $</edition>
+    <edition>$Revision: 1.18 $  $Date: 2003-04-24 00:40:16 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -179,18 +179,21 @@
       </para>
 
       <para><itemizedlist spacing="compact">
-          <listitem><para>Debian </para></listitem>
-          <listitem><para>Mandrake Linux 8.2 and 9.0 </para></listitem>
-          <listitem><para>RedHat Linux 7.3 and 8.0</para></listitem>
-          <listitem><para>SuSE Linux 8.1</para></listitem>
-          <listitem><para>FreeBSD 4.7</para></listitem>
-          <listitem><para>OpenBSD 3.2</para></listitem>
-          <listitem><para>Mac OS X 10.2</para></listitem>
+          <listitem><para>Debian Linux </para></listitem>
+          <listitem><para>Mandrake Linux </para></listitem>
+          <listitem><para>RedHat Linux </para></listitem>
+          <listitem><para>SuSE Linux </para></listitem>
+          <listitem><para>FreeBSD </para></listitem>
+          <listitem><para>OpenBSD </para></listitem>
+          <listitem><para>Mac OS X </para></listitem>
+          <listitem><para>Solaris </para></listitem>
         </itemizedlist></para>
 
-      <para>
-       Firewall Builder comes in a several packages:
-      </para>
+    <para>Document &inst-url always has the latest up-to-date
+    information about release and version numbers of these OS and
+    distributions. </para>
+
+    <para> Firewall Builder comes in a several packages: </para>
 
       <para><itemizedlist spacing="compact">
           <listitem>
