@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.13 $  $Date: 2003-04-06 05:12:44 $</edition>
+    <edition>$Revision: 1.14 $  $Date: 2003-04-06 06:19:16 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -4569,6 +4569,66 @@
         iptables corresponds to "-i" and "-o" clauses with
         corresponding interface name.
       </para></note>
+
+      <sect2>
+        <title>Actions</title>
+
+        <para>
+          Policy rule action can be one of the following:
+          <emphasis>Acccept</emphasis>, <emphasis>Deny</emphasis> or
+          <emphasis>Reject</emphasis>. If a rule's action is Accept,
+          then a packet with source and destination addresses and
+          service matching the rule is permitted through. If a rule's
+          action is Deny, such packet is silently dropped. If a rule's
+          action is Reject, then the packet is dropped and an
+          appropriate ICMP message is sent back to the sender. For
+          target platforms that support it, there might be an option
+          to send a TCP RST packet back in response for TCP
+          services. <xref linkend="actions"> illustrates rule actions.
+        </para>
+
+        <figure id="actions" float="1">
+          <title>Actions </title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="actions.png"
+                  format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>
+          Some firewall platforms also support action
+          <emphasis>Accounting</emphasis>. Rule with this action is
+          supposed to only count packets that match it but does not
+          make any decision whether the packet should be permitted or
+          denied. Rules with this action are an exception because even
+          if the packet matches such rule, the inspection process
+          continues with other rules below it. On <xref
+          linkend="accounting-action"> rule #0 counts packets that are
+          part of <emphasis>HTTP</emphasis> sessions opened through
+          the firewall. Rule #1 permits <emphasis>HTTP</emphasis>
+          access to the server <emphasis>server</emphasis> from any
+          source and rule #2 permits internal network to connect to
+          any destination. Since accounting rule #0 has
+          <emphasis>any</emphasis> in its source and destination
+          fields, it will count both accesses to the web server
+          <emphasis>server</emphasis> and traffic created when users
+          on the internal net connect to the web sites out on the
+          Internet.
+        </para>
+
+        <figure id="accounting-action" float="1">
+          <title>Example of Accounting Action </title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="accounting-action.png"
+                  format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
 
       <sect2 id="directions">
         <title>Directions</title>
