@@ -2739,6 +2739,58 @@
         supported by all target firewall platforms (<xref
         linkend="support-for-ip-options">).</para>
 
+        <para>Firewall Builder supports the following options:</para>
+
+        <informaltable frame="none">
+          <tgroup cols="2">
+            <colspec colwidth="150pt" align="left">
+            <tbody>
+              <row>
+                <entry><filename>Source route options: LSRR, SSRR</filename></entry>
+
+                <entry>Normally IP routing is dynamic with each router
+                making decisions about which next hop router to send
+                the packet to. However another option exists, where
+                sender can choose the route. In case of Loose Source
+                Route, sender host can specify list of routers the
+                packet must traverse, but it can also pass through
+                other routers between any two addresses in the
+                list. Strict Source Route works very much the same
+                way, except packet must traverse only through the
+                specified addresses. Source routing can potentially be
+                used to reach hosts behind firewall even if these
+                hosts use private IP addresses which normally are not
+                reachable on the Internet.</entry>
+              </row>
+              <row>
+                <entry><filename>Record route option: RR</filename></entry>
+
+                <entry>This option causes every router that handles
+                the packet on its way to add its IP address to a list
+                in the options field. This option is used by ping
+                utility when it is called with "-R" command line
+                switch and can potentially be exploited to discover
+                internal network addressing and layout behind the
+                firewall. Although the risk is low, some firewall
+                administrators prefer to block packets with this
+                option set.</entry>
+              </row>
+              <row>
+                <entry><filename>Timestamp option:</filename></entry>
+
+                <entry>This option tells routers that handle the
+                packet to record their timestamps and sometimes
+                addresses (like in the case of record route
+                option). This option is seldom used, but can
+                potentially be exploited to gather information about
+                protected network, so some firewall administrators
+                prefer to block packets with this option set. </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+
         <para>IP packets sometimes may become fragmented. This happens
         if original datagram was larger than what a physical network
         layer can transmit. IP packet header has special fields
@@ -2982,6 +3034,66 @@
     </sect1>
   </chapter>
 
+
+<!-- ############################################################### -->
+<!-- TODO: pick better name for this chapter 
+
+  What is it about:
+
+  Examples and comparison of code produced by policy compilers for different firewall platforms
+
+  -->
+
+  <chapter>
+    <title>Generating code for different firewall platforms</title>
+
+    <sect1>
+      <title>Filtering rules</title>
+
+      <sect2>
+        <title>Filtering rule in interface policy</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Filtering rule in Global Policy</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Filtering rule using group of objects</title>
+
+        <para></para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>NAT Rules</title>
+
+      <sect2>
+        <title>Simple 'masquerading' type NAT rule</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Access to the server inside, using its translated address</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>"No NAT" rule</title>
+
+        <para></para>
+      </sect2>
+    </sect1>
+  </chapter>
+
+
+<!-- ############################################################### -->
   <appendix id="tab-firewall">
     <title>Using Firewall Dialog Tab 'Firewall' to configure target
     firewall options and control behavior of policy compiler </title>
@@ -3011,6 +3123,7 @@
     </sect1>
   </appendix>
 
+<!-- ############################################################### -->
   <appendix id="tab-network">
     <title>Using Firewall Dialog Tab 'Network' to adjust network setup
     on the target host OS</title>
