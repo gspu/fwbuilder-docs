@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.36 $  $Date: 2002-09-14 23:33:47 $</edition>
+    <edition>$Revision: 1.37 $  $Date: 2002-10-26 20:22:58 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -37,9 +37,9 @@
       liability for any errors or inaccuracies that may appear in this
       manual.</para>
 
-      <para>The software described in this manual is furnished under
+      <para>The software described in this manual is furnished under a
       license and may only be used or copied in accordance with the
-      terms and conditions of such license.</para>
+      terms and conditions of such a license.</para>
     </legalnotice>
     
   </bookinfo>
@@ -56,22 +56,22 @@
         Checkpoint Firewall-1 to Cisco PIX or to an Open Source
         firewall, or a hobbyist trying to secure your home network,
         Firewall Builder can help you manage your firewall policy in a
-        simpler and efficient way.
+        simpler and more efficient way.
       </para>
 
       <para>
-        With Firewall Builder, you can manage security policy of your
+        With Firewall Builder, you can manage the security policy of your
         firewall efficiently and accurately, without the learning
         curve usually associated with command line interfaces of many
         free and commercial firewalls. You do not have to think of a
         policy in terms of obscure port numbers, firewall interfaces
-        and make choices about what interface certain rule should
+        and make choices about what interface a certain rule should
         belong to and so on. Instead, you create a set of objects
         describing your firewall, subnets of your network and hosts on
-        them, then implement firewall policy by dragging objects into
-        policy rules. You can also take an advantage of a large
+        them, and then implement your firewall policy by dragging objects into
+        policy rules. You can also take advantage of a large
         collection of predefined objects describing many standard
-        protocols and services.Once policy is built in the GUI, you
+        protocols and services.Once a policy is built in the GUI, you
         can compile it and install it on the firewall machine.
       </para>
     </sect1>
@@ -81,7 +81,7 @@
 
       <para><itemizedlist spacing="compact">
           <listitem>
-            <para>Over 100 predefined objects for most popular and
+            <para>Over 100 predefined objects for the most popular and
             widely used protocols and services</para>
           </listitem>
 
@@ -104,21 +104,21 @@
           </listitem>
 
           <listitem>
-            <para>Network discovery tool, to automate objects creation
-            task</para>
+            <para>The Network discovery tool, to automate the creation
+            of multiple objects </para>
           </listitem>
           
           <listitem>
             <para>Object oriented approach to the policy management:
-            change made to an object gets immediately reflected in all
+            any change made to an object gets immediately reflected in all
             policy rules of all firewalls using that
-            object. Configuration for multiple firewalls shares the
+            object. The configuration for multiple firewalls shares the
             same object database.</para>
           </listitem>
 
           <listitem>
-            <para>The ability to turn firewall policy into
-            configuration file or a script and then install it on a
+            <para>The ability to turn a firewall policy into
+            a configuration file or a script and then install it on a
             firewall with just a few clicks of a mouse.</para>
           </listitem>
 
@@ -135,8 +135,8 @@
           </listitem>
 
           <listitem>
-            <para>The ability to print single object or firewall
-            policy or the whole hierarchy, or export it to the text
+            <para>The ability to print a single object, a firewall
+            policy, the whole hierarchy, or export it to the text
             file in either plain text or html format</para>
           </listitem>
 
@@ -164,7 +164,7 @@
       <title>Packaging</title>
 
       <para>
-       Firewall Builder is Open Source project. Source code for the
+       Firewall Builder is an Open Source project. Source code for the
        API library, GUI and policy compilers for iptables, ipfilter
        and pf is available for download from our web site
        http://www.fwbuilder.org/. Firewall Builder for PIX is
@@ -231,18 +231,18 @@
       </itemizedlist></para>
 
       <para>
-       One needs to install the API library
+       You need to install the API library
        <emphasis>libfwbuilder</emphasis>, the GUI
        <emphasis>fwbuilder</emphasis> and at least one module that
-       provides support for the target firewall platform, this could
+       provides support for the target firewall platform; this could
        be either <emphasis>fwbuilder-ipt</emphasis> or one of the
        others.
       </para>
 
       <para>
        Typical installation problems are addressed in the document "Firewall Builder
-       Frequently Asked Questions (FAQ)" which can be found at the following
-       <ulink url="&faq-url">URL</ulink>
+       Frequently Asked Questions (FAQ)" which can be found at the following URL: 
+       &faq-url
       </para>
 
     </sect1>
@@ -295,7 +295,7 @@
       </para>
 
       <para>
-       You can always verify if certain package is installed on your
+       You can always verify if a certain package is installed on your
        system using the following command:
       </para>
 
@@ -304,7 +304,7 @@
       </programlisting>
 
       <para>
-       This command checks if package gtkmm is installed. If the
+       This command checks if the package gtkmm is installed. If the
        package is present, it prints its version, too.
       </para>
 
@@ -321,7 +321,7 @@
       <title>Installing pre-built binaries on RedHat Linux 7.2 and 7.3</title>
 
       <para>
-       All prerequisite libraries, except gtkmm, come with RedHat 7.3,
+       All prerequisite libraries except gtkmm come with RedHat 7.3,
        so chances are you already have them. If your system is
        configured as "Gnome Workstation" or Ximian Gnome is installed,
        then you already have proper gtk+, gtkmm and libsigc++
@@ -332,21 +332,22 @@
       <para>
        We build using gtkmm and libsigc++ packages that come with
        Ximian Gnome.  These RPM can be downloaded from their ftp site
-       directly, or obtained as part of Ximian Gnome or using Red
+       directly, obtained as part of Ximian Gnome, or using Red
        Carpet. libsigc++ now comes on disk #2 with RedHat 7.3. Users
        of RedHat 7.2 systems can also get it from the home page at
        http://libsigc.sourceforge.net/
       </para>
 
       <para>
-       Firewall Builder implements number of features which make use
+       Firewall Builder implements a number of features which make use
        of SNMP, therefore you will need ucd-snmp RPM installed,
        too. RPMs we distribute are built using ucd-snmp v4.2.3 (as of
        Feb 2002)
       </para>
 
       <para>
-       List of recommended packages and where you can get them from:
+       Here is a list of recommended packages and where you can get
+       them from:
       </para>
 
       <para>
@@ -395,17 +396,17 @@
       <title>Installing pre-built binaries on Mandrake Linux 8.2</title>
 
       <para>
-       Requirements for installing Firewall Builder on Mandrake are
+       The requirements for installing Firewall Builder on Mandrake are
        very much the same as for RedHat.
       </para>
 
       <para>
        Here is the list of recommended packages. All these packages
-       come with standard Mandrake distribution, but you may need to
-       add some of them if they are not installed. What packages are
-       going to need to be added depends on the configuration of
-       OS. Some of these packages can be found on CD #1, while some
-       others are on CD #2. Use rpmdrake to install these.
+       come with the standard Mandrake distribution, but you may need
+       to add some of them if they are not installed. What packages
+       need to be added depends on the configuration of OS. Some of
+       these packages can be found on CD #1, while some others are on
+       CD #2. Use rpmdrake to install these.
       </para>
 
       <para>
@@ -462,19 +463,19 @@
     <sect1>
       <title>The Main Window</title>
 
-      <para>The main window is divided onto two parts: the objects
-      tree and a dialog area. Object which is surrently selected in
-      the tree is highlighted with a color and is shown in the dialog
+      <para>The main window is divided into two parts: the objects
+      tree and a dialog area. The object which is surrently selected
+      in the tree is highlighted in a color and is shown in the dialog
       in the right half of the main window. You can create more than
-      one main window using main menu
+      one main window using the main menu
       <guimenuitem>"File"</guimenuitem>/<guimenuitem>"New
       Window"</guimenuitem>. All windows are synchronized and work
       with the same object tree. Changes made to the object in one
       window are immediately reflected in all windows where it is
       visible, both in the tree and in the dialog. We recommend using
-      multi-window mode if you work with firewall with very large
-      policy. In this case opening the policy may take some time and
-      switching between the policy view and individual objects can
+      the multi-window mode if you work with a firewall with a very
+      large policy. In this case opening the policy may take some time
+      and switching between the policy view and individual objects can
       slow the work down. Opening the policy in one window and working
       with individual objects in another helps avoid this problem.
       </para>
@@ -499,11 +500,11 @@
     <sect1>
       <title>GUI Options</title>
 
-      <para>Certain aspects of the GUI behavior can be changed by
+      <para>Certain aspects of the GUI behavior can be changed by the
       user. These are gathered in the dialog called "Options" which
-      can be accessed through main menu
-      "<guimenuitem>Edit</guimenuitem>/<guimenuitem>Options</guimenuitem>". GUI
-      Options dialog is represented on <xref linkend="options1">.
+      can be accessed through the main menu
+      "<guimenuitem>Edit</guimenuitem>/<guimenuitem>Options</guimenuitem>". The
+      GUI Options dialog is represented in <xref linkend="options1">.
       </para>
 
       <figure id="options1" float="0" pgwide="1">
@@ -525,13 +526,14 @@
               <listitem>
                 <para>Working directory:</para>
 
-                <para>This option tells the program where data file
-                should be stored. Policy compilers also store firewall
-                configuration files or scripts they produce in the
-                same directory. If this parameter is left blank, then
-                policy compiler will store firewall configuration it
-                generates in the same directory the original data file
-                was loaded from.</para>
+                <para>This option tells the program where the data
+                file should be stored. Policy compilers also store
+                firewall configuration files or scripts they produce
+                in the same directory. If this parameter is left
+                blank, then the policy compiler will store the
+                firewall configuration it generates in the same
+                directory the original data file was loaded
+                from.</para>
               </listitem>
             </itemizedlist>
           </listitem>
@@ -545,17 +547,17 @@
 
                 <para>Here you can configure timeout values and retry
                 counters for SNMP queries. These values are used when
-                program runs SNMP query to collect host "sysinfo" data
-                or its interfaces Note that Network discovery Druid
-                has its own settings for SNMP timeout value and retry
-                counter..</para>
+                the program runs a SNMP query to collect host
+                "sysinfo" data and its interfaces. Note that the Network
+                discovery Druid has its own settings for the SNMP
+                timeout value and retry counter.</para>
               </listitem>
               <listitem>
                 <para>DNS Timeout and Retries</para>
 
                 <para>Here you can configure timeout values and retry
                 counters for DNS queries. These values are used when
-                the program uses DNS to determine host's address by
+                the program uses DNS to determine the host's address by
                 its name. </para>
               </listitem>
             </itemizedlist>
@@ -569,19 +571,19 @@
                 <para>Remember window size at exit</para>
 
                 <para>If this option is checked, the GUI remembers
-                main window size when program finishes. The
-                information is stored in user's preferences file so
+                the main window size when the program finishes. The
+                information is stored in the user's preferences file so
                 that when the program is started again next time, it
-                opens window of the same size as before.</para>
+                opens the window in the same size as before.</para>
               </listitem>
 
               <listitem>
                 <para>Hide navigation bar in object dialog</para>
 
-                <para>The GUI can show navigation bar on top for the
-                object's dialog. The navigation bar shows current
+                <para>The GUI can show the navigation bar on top for the
+                object's dialog. The navigation bar shows the current
                 position in the tree and familiar buttons that allow
-                navigation "up", "down", "left" in the tree. If this
+                navigation "up", "down" and "left" in the tree. If this
                 option is checked, then the bar will disappear.</para>
               </listitem>
             </itemizedlist>
@@ -590,28 +592,29 @@
           <listitem>
             <para><guimenuitem>GUI / Object Tooltips</guimenuitem></para>
 
-            <para>Firewall Builder can show object's properties in a
-            quick pop-up window (this feature is often called
-            "tooltip") when user flies mouse cursor over the object in
-            a group view or in the firewall policy view, where objects
-            are represented by their icons. This is a convenient way
-            to quickly check object's properties without having to
-            leave current dialog and open the object's dialog. There
-            are three choices for the tooltip feature:
+            <para>Firewall Builder can show the object's properties in
+            a quick pop-up window (this feature is often called
+            "tooltip") when the user places the mouse cursor over the
+            object in a group view or in the firewall policy view,
+            where objects are represented by their icons. This is a
+            convenient way to quickly check the object's properties
+            without having to leave the current dialog and open the
+            object's dialog. There are three choices for the tooltip
+            feature:
            </para>
 
             <para>
               <itemizedlist spacing="compact">
                 <listitem><para>Off</para></listitem>
                 <listitem><para>Show properties in a tooltip pop-up window</para></listitem>
-                <listitem><para>Show properties on a main window's status bar</para></listitem>
+                <listitem><para>Show properties on the main window's status bar</para></listitem>
               </itemizedlist>
             </para>
         
-            <para>For the second choice (showing in tooltip window)
-            additional parameter is avaliable, it controls a delay
-            before tooltip window appears after mouse cursor is
-            positioned over the object's icon.</para>
+            <para>For the second choice (showing in tooltip window) an
+            additional parameter is avaliable; it controls the delay
+            before the tooltip window appears ( after the mouse cursor
+            is positioned over the object's icon.)</para>
           </listitem>
 
           <listitem>
@@ -623,17 +626,18 @@
                 <para>Automatically save data in dialogs while
                 switching between objects</para>
 
-                <para>The GUI shows dialog for every opened object in
-                the same place (right half of the main
-                window). Normally if user has made some changes to the
-                object's data and wants to switch to another object
-                without clicking on <guibutton>"Apply"</guibutton> or
-                <guibutton>"Undo"</guibutton> button, GUI shows pop-up
-                dialog asking whether data should be saved or changes
-                should be ignored. If this option is turned on though,
-                the program automatically saves data every time user
-                leaves dialog with unsaved data to open another
-                object.</para>
+                <para>The GUI shows a dialog for every opened object
+                in the same place (right half of the main
+                window). Normally if the user has made some changes to
+                the object's data and wants to switch to another
+                object without clicking on the
+                <guibutton>"Apply"</guibutton> or
+                <guibutton>"Undo"</guibutton> button, GUI shows a
+                pop-up dialog asking whether data should be saved or
+                changes should be ignored. If this option is turned on
+                though, the program automatically saves data every
+                time the user leaves the dialog with unsaved data to
+                open another object.</para>
 
               </listitem>
             </itemizedlist>
@@ -654,7 +658,7 @@
                 <para>Show object libraries in separate trees</para>
 
                 <para>If this option is checked, the GUI shows objects
-                belonging to different libraries in a separate
+                belonging to different libraries in separate
                 trees</para>
               </listitem>
 
@@ -670,7 +674,7 @@
 
                 <para>If this option is checked, then GUI shows
                 brief summary of object's properties, or one most
-                frequently used property, in the additional column in
+                frequently used property, in an additional column in
                 the tree view.</para>
               </listitem>
             </itemizedlist>
@@ -686,7 +690,7 @@
       <title>Object Tree</title>
 
       <sect1>
-        <title>Standard Tree Structure</title>
+        <title>The Standard Tree Structure</title>
 
         <figure id="tree-structure" float="1" pgwide="0">
           <title>Standard Tree Structure</title>
@@ -814,7 +818,7 @@
       </sect1>
 
       <sect1>
-        <title>Navigating Object Tree and Editing Objects</title>
+        <title>Navigating The Object Tree and Editing Objects</title>
 
         <para>Object selected in the tree automatically appears in the
         dialog area where it can be reviewed or modified. Objects are
@@ -975,7 +979,7 @@
         </note>
 
         <sect2>
-          <title>Creating Host Object</title>
+          <title>Creating a Host Object</title>
 
           <figure id="creating-host1" float="1">
             <title>First Page of the Druid</title>
@@ -1034,7 +1038,7 @@
         </sect2>
 
         <sect2>
-          <title>Editing Host Object</title>
+          <title>Editing a Host Object</title>
 
           <para>Host object dialog is split onto two tabs: "General"
           (<xref linkend="host-dialog1">) and "Sysinfo" (<xref
@@ -1388,7 +1392,7 @@
         <title>Firewall Object</title>
 
         <sect2>
-          <title>Creating Firewall Object</title>
+          <title>Creating a Firewall Object</title>
 
           <para>Similarly for the creating of the Host Object,
           creating of the new Firewall Object is aided by the
@@ -1435,7 +1439,7 @@
 
         </sect2>
         <sect2>
-          <title>Editing Firewall Object</title>
+          <title>Editing a Firewall Object</title>
 
           <figure id="firewall-dialog-general" float="1">
             <title>Firewall Object, tab 'General'</title>
@@ -2088,7 +2092,8 @@
         </sect2>
 
         <sect2>
-          <title>Adding, removing and modifying object in the policy and NAT rules</title>
+          <title>Adding, removing and modifying objects in the policy
+          and NAT rules</title>
 
           <para>To add objects to the policy or NAT rule you can
           either drag them from the tree and drop into corresponding
@@ -3488,7 +3493,7 @@
   -->
 
   <chapter>
-    <title>Generating code for different firewall platforms</title>
+    <title>Generating the code for different firewall platforms</title>
 
     <sect1>
       <title>Filtering rules</title>
