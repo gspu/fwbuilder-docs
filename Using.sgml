@@ -445,7 +445,86 @@
     <sect1>
       <title>The Main Window</title>
 
-      <para></para>
+      <para>The main window is divided onto two parts: the objects
+      tree and a dialog area. Object selected in the tree
+      automatically appears in the dialog area where it can be
+      reviewed or modified. Objects are opened on a single mouse click
+      in the tree. In general, GUI has been designed to "look and
+      feel" like typical file browser (e.g. Windows Explorer). It
+      shows object groups as a collection of icons, where each icon
+      represents individual object. User can navigate between objects
+      either using mouse, or keyboard "arrow" keys. Active object is
+      highlighted with a different color. Douple-clicking on the icon
+      in the group view opens corresponding object. Clicking right
+      mouse button or spacebar on the keyboard opens pop-up menu,
+      which acts as a shortcut to a frequently used operations such as
+      "Open Object", "Copy","Cut" and "Paste" </para>
+
+      <figure id="main-win1">
+        <title>Main window</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="40">
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>The program can maintain all the objects in a single tree,
+      or divide them onto "libraries". The latter case is illustrated
+      by <xref linkend="main-win2"> where each library is represented
+      by individual tree; one tree is always called "User" and holds
+      user-defined objects. Another tree is called "Standrard" and
+      holds a collection of standard objects that comes with the
+      program. Some of the standard objects are visible on the
+      screenshot <xref linkend="main-win2">. Standard objects
+      represent over 100 of frequently used protocols and services.
+      There may be more libraries in the future. Both user-defined and
+      standard objects can be used equally in firewall policies or in
+      groups. </para>
+
+      <figure id="main-win2">
+        <title>Standard Objects</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="main_win2.jpg" format="jpg" align="Left" scale="40">
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+    </sect1>
+
+    <sect1>
+      <title>GUI Options</title>
+
+      <sect2>
+        <title>General</title>
+
+       <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Network</title>
+
+       <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Object Tooltips</title>
+
+       <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Behavior</title>
+
+       <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Tree View</title>
+
+       <para></para>
+      </sect2>
 
     </sect1>
 
@@ -474,6 +553,24 @@
 
       <sect2>
         <title>Group of Objects</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Firewall Object</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Interface Object</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Address Object</title>
 
         <para></para>
       </sect2>
