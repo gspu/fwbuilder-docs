@@ -28,7 +28,7 @@
         </HostOptions>
       </Host>
       <Host comment="" id="id3D3880B8" name="build server">
-        <Interface dyn="False" id="id3D3880B8-i" name="interface-1" physAddress="" security_level="0">
+        <Interface comment="" dyn="False" id="id3D3880B8-i" label="" mgmt="False" name="eth0" physAddress="" security_level="0">
           <IPv4 address="10.3.14.40" id="id3D3880B8-i-1-addr" name="address" netmask="255.255.255.255"/>
         </Interface>
         <Management address="10.3.14.40"/>

@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2002-08-31 02:56:13 vadim Exp $
+# $Id: Makefile,v 1.2 2002-09-02 05:30:32 vadim Exp $
 
 
 
@@ -26,6 +26,6 @@ pdf/Using.pdf: Using.sgml
 	rm -rf pdf
 	mkdir -p pdf
 	cp *.jpg pdf/
-	db2pdf -o pdf Using.sgml
+	db2pdf -d `pwd`/Using-pdf.dsl -o pdf Using.sgml
 
 

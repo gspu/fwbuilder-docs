@@ -126,7 +126,7 @@
         </itemizedlist>
       </para> 
 
-      <figure id="example1">
+      <figure id="example1" float="1">
         <title>Sample firewall policy</title>
         <mediaobject>
           <imageobject>
@@ -449,7 +449,7 @@
       <para>The main window is divided onto two parts: the objects
       tree and a dialog area. </para>
 
-      <figure id="main-win1">
+      <figure id="main-win1" float="1">
         <title>Main window</title>
         <mediaobject>
           <imageobject>
@@ -471,7 +471,7 @@
       standard objects can be used equally in firewall policies or in
       groups. </para>
 
-      <figure id="main-win2">
+      <figure id="main-win2" float="1">
         <title>Standard Objects</title>
         <mediaobject>
           <imageobject>
@@ -527,7 +527,7 @@
       Options dialog is represented on <xref linkend="options1">.
       </para>
 
-      <figure id="options1">
+      <figure id="options1" float="1">
         <title>GUI Options Dialog</title>
         <mediaobject>
           <imageobject>
@@ -705,16 +705,95 @@
     <sect1>
       <title>Working With Objects</title>
 
-      <para>All objects visible to user have some common editable
-      fields, such as their name and comment. Object name can contain
-      white spaces and can be arbitrary long. Comment can contain any
-      text you wish, of any length.
-      </para>
+      <sect2>
+        <title>Creating Objects</title>
 
-      <para>Dialogs for those objects that can have address use
-      standard GUI widget that visually separates four octets of IP
-      address and provides "on the fly" control for the validity of an
-      address.</para>
+        <para>New object can be created using main menu
+        <guimenuitem>"Insert"</guimenuitem>. Certain objects can also
+        be created via pop-up menu that can be called by clicking
+        right mouse button on the object in the tree.</para>
+
+        <figure id="menu-insert" float="1">
+          <title>Creating Objects Using Main Menu 'Insert'</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="scrn-menu1.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>You can create all objects through main menu 'Insert'
+        (<xref linkend="menu-insert">). Since some objects can be
+        placed in the tree only under certain object types,
+        corresponding menu items get enabled only when right object is
+        displayed in the dialog in the main window. For example,
+        interface object can only be placed under host or firewall,
+        therefore menu item <guimenuitem>"Insert"</guimenuitem>/<guimenuitem>"Interface"</guimenuitem>
+        is enabled only if host or firewall object is opened in the
+        main window. Likewise, menu item <guimenuitem>"Address"</guimenuitem>
+        is enabled only when interface object is opened.</para>
+
+        <para>Another way to create objects uses pop-up menu which
+        appears if you click right mouse button on the object label in
+        the tree (<xref linkend="popup-menu-insert">).</para>
+
+
+        <figure id="popup-menu-insert">
+          <title>Adding Objects Using Pop-up Menu</title>
+          <informaltable frame="none">
+          <tgroup cols="2">
+            <colspec align="left" colwidth="1*">
+            <colspec align="left">
+            <tbody>
+              <row>
+                <entry>
+                  <inlinemediaobject>
+                    <imageobject>
+                      <imagedata fileref="scrn-menu2.jpg" format="jpg" align="Left" scale="40">
+                    </imageobject>
+                  </inlinemediaobject>
+                </entry>
+
+                <entry>
+                  <inlinemediaobject>
+                    <imageobject>
+                      <imagedata fileref="scrn-menu3.jpg" format="jpg" align="Left" scale="40">
+                    </imageobject>
+                  </inlinemediaobject>
+                </entry>
+              </row>
+            </tbody>
+          </tgroup>
+          </informaltable>
+        </figure>
+
+        <para>Just like items under main menu
+        <guimenuitem>"Insert"</guimenuitem>, items in the popup menu
+        are context-sensitive. In particular, menu items that add
+        interfaces appear only when object opened in the main window
+        is either host or firewall (<xref
+        linkend="popup-menu-insert">). You can add interface objects
+        by hand (using menu item <guimenuitem>"Add
+        Interface"</guimenuitem>) or import them via SNMP query (using
+        menu item <guimenuitem>"Add Interfaces via SNMP"</guimenuitem>)
+        </para>
+
+      </sect2>
+
+      <sect2>
+        <title>Common Object Properties</title>
+
+        <para>All objects visible to user have some common editable
+        fields, such as their name and comment. Object name can
+        contain white spaces and can be arbitrary long. Comment can
+        contain any text you wish, of any length.</para>
+
+        <para>Dialogs for those objects that can have address use
+        standard GUI widget that visually separates four octets of IP
+        address and provides "on the fly" control for the validity of
+        an address.</para>
+
+      </sect2>
 
       <sect2>
         <title>Host Object</title>
@@ -735,7 +814,7 @@
         interface and address objects below.
         </para>
 
-        <figure id="host-in-tree">
+        <figure id="host-in-tree" float="1">
           <title>Host Object With One Interface And Multiple Virtual Addresses </title>
           <mediaobject>
             <imageobject>
@@ -755,7 +834,7 @@
         (<xref linkend="host-dialog1">) and "Sysinfo" (<xref
         linkend="host-dialog2">). </para>
 
-        <figure id="host-dialog1">
+        <figure id="host-dialog1" float="1">
           <title>Editing Host Object</title>
           <mediaobject>
             <imageobject>
@@ -764,23 +843,24 @@
           </mediaobject>
         </figure>
 
-        <para>Tab "General" holds GUI controls for the host name, SNMP
-        communities, comment text and an option that activates MAC
-        address filtering for this host. If this option is activated,
-        policy compiler uses MAC addresses of all interfaces of this
-        host to build firewall rules.  Not all underlying firewall
-        platforms support MAC address filtering, so this option may
-        have no effect on the generated firewall script. However this
-        is treated as non-critical situation and policy compiler will
-        only generate warning while processing firewall policy where
-        such host is used.</para>
+        <para>Tab "General" provides GUI controls for the host name,
+        SNMP communities, comment text and an option that activates
+        MAC address filtering for this host. If this option is
+        activated, policy compiler uses MAC addresses of all
+        interfaces of this host instead of their IP addresses to build
+        firewall rules.  Not all underlying firewall platforms support
+        MAC address filtering, so this option may have no effect on
+        the generated firewall script. However this is treated as
+        non-critical situation and policy compiler will only generate
+        warning while processing firewall policy where such host is
+        used.</para>
 
         <para>SNMP communities usually can not contain spaces. If your
         host does not run SNMP agent, or you do not need to pull host
         info using SNMP, then SNMP community strings may be left
         blank.</para>
 
-        <figure id="host-dialog2">
+        <figure id="host-dialog2" float="1">
           <title>Host Object System Information</title>
           <mediaobject>
             <imageobject>
@@ -797,15 +877,128 @@
       </sect2>
 
       <sect2>
-        <title>Interface Object</title>
+        <title>Host's Interface</title>
 
-        <para></para>
+        <figure id="host-interface1" float="1">
+          <title>Host's Interface</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="host_interface1.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Dialog for interface object that belongs to host has
+        only one tab named "General", which provides controls for the
+        following parameters:</para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Name</para>
+
+              <para>This is the name of the object. Usually it should
+              be the real interface's name. For example, on Linux this
+              could be 'eth0' or 'eth1', on FreeBSD this could be
+              'lnc0' or 'fxp0', on Solaris this could be 'hme0', on
+              Cisco PIX it could be 'ethernet0' and so on.</para>
+            </listitem>
+            <listitem>
+              <para>Label</para>
+
+              <para>On most OS this field is not used and serves a
+              pupose of a descriptive label. Firewall Builder GUI uses
+              label, if it is not blank, to show interfaces in the
+              tree. One of the suggested uses for this field is to
+              mark interfaces to reflect network topology ('outside',
+              'inside') or purpose ('web frontend' or 'backup
+              subnet'). Label is mandatory for Cisco PIX though, where
+              it must reflect network topology. See below in the
+              chapter describing interfaces of the firewall </para>
+            </listitem>
+            <listitem>
+              <para>Checkbox "Address is dynamic"</para>
+
+              <para>Use this option if interface has dynamic address
+              (obtained by means of DHCP or PPP or other protocol); in
+              this case an address is unknown at the moment when
+              Firewall Builder generates firewall policy.</para>
+            </listitem>
+            <listitem>
+              <para>Checkbox "This is management interface"</para>
+
+              <para>Sometimes host has several network interfaces in
+              which case one of them can be marked as 'management
+              interface'. Management interface is used for all
+              communication between Firewall Builder and the host. In
+              case of host object this communication is currently
+              limited to SNMP query to pull host information (standard
+              SNMP MIB variables 'Description', 'Location',
+              'Contact'), however in the future we will add
+              more.</para>
+            </listitem>
+            <listitem>
+              <para>Physical (MAC) Address</para>
+
+              <para>This field holds interface's MAC address.</para>
+            </listitem>
+            <listitem>
+              <para>Comment</para>
+
+              <para>This is a free-form text field for a comment.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
       </sect2>
 
       <sect2>
         <title>Address Object</title>
 
-        <para></para>
+        <figure id="address1" float="1">
+          <title>Address Object</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="address1.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Address object describes IP address of the interface and provides the following entry fields:</para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Name</para>
+
+              <para>This is the name of the object.</para>
+
+              <note>
+                <para> It is recommended that you use some descriptive
+                name because when address object is used in firewall
+                policy, it is labeled with this name. It may be hard
+                to tell one address from another if their names are
+                similar. </para>
+              </note>
+            </listitem>
+            <listitem>
+              <para>Address</para>
+
+              <para>This is an IP address. GUI widget visually
+              separates octets and provides syntax control for the
+              values entered in the octet fields.</para>
+            </listitem>
+            <listitem>
+              <para>Netmask</para>
+
+              <para>This is a netmask assigned to the interface.</para>
+            </listitem>
+            <listitem>
+              <para>Comment</para>
+
+              <para>This is free-form text field for a comment.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
       </sect2>
 
       <sect2>
@@ -828,6 +1021,12 @@
 
       <sect2>
         <title>Firewall Object</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Firewall's Interface</title>
 
         <para></para>
       </sect2>
