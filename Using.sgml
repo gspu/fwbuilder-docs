@@ -1,0 +1,35 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+<!entity fwbuilder-url    "http://www.fwbuilder.org/">
+<!entity tutorial-url     "http://www.fwbuilder.org/pages/Tutorial/index.html">
+<!entity requirements-url "http://www.fwbuilder.org/pages/Requirements.html">
+<!entity iptables-url     "http://netfilter.filewatcher.org/">
+<!entity ipfilter-url     "http://coombs.anu.edu.au/~avalon/">
+<!entity gtkmm-url        "http://gtkmm.sourceforge.net/">
+<!entity gtkmm-download   "http://www.hvrlab.org/pub/gtkmm/">
+<!entity ipt-howto        "http://www.netfilter.org/documentation/HOWTO//NAT-HOWTO.html">
+]>
+
+<book id="Using">
+  <?dbhtml filename="index.html">
+  
+  <bookinfo>
+
+    <productname>Using Firewall Builder</productname>
+
+    <title>Using Firewall Builder</title>
+
+    <author>
+      <firstname>Vadim</firstname>
+      <surname>Kurland</surname>
+      <affiliation>
+        <address><email>vadim@fwbuilder.org</email></address>
+      </affiliation>
+    </author>
+    
+  </bookinfo>
+
+  <chapter id="Intro">
+    <title>Introduction</title>
+
+  </chapter>
+</book>
