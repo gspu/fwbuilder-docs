@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.40 $  $Date: 2002-11-02 06:28:13 $</edition>
+    <edition>$Revision: 1.41 $  $Date: 2002-11-03 01:58:47 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -1347,7 +1347,7 @@
         <title>Group of Objects</title>
 
         <figure id="group-dialog1" float="1">
-          <title>Group Object</title>
+          <title>Group of Objects</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="group_dialog1.jpg" format="jpg" align="Left" scale="33">
@@ -1355,7 +1355,7 @@
           </mediaobject>
         </figure>
 
-        <para>Group of Objects holds references to Hosts, Networks,
+        <para>The group of objects holds references to Hosts, Networks,
         Address Ranges, Firewalls and other groups of objects (<xref
         linkend="group-dialog1">). Objects can be added to the group
         using the following methods:
@@ -1367,30 +1367,30 @@
               <para>Using drag and drop:</para>
 
               <para>Objects can be dragged from the tree into the
-              group dialog. The tree switches to the object on a
+              group dialog. The tree switches to the object in a
               single click, however pointing a mouse cursor at the
               object and then pressing the button does not switch, but
-              rather allows to start drag and drop operation. </para>
+              rather allows to start a drag and drop operation. </para>
             </listitem>
             <listitem>
-              <para>Using popup menu:</para>
+              <para>Using the popup menu:</para>
 
-              <para>You can use "Copy"/"Paste" operations between the
-              tree and group dialog. Right mouse click on the object
-              in the tree brings pop-up menu. Choose item "Copy" or
-              "Cut" in this menu, then switch to the group dialog and
+              <para>You can use the "Copy"/"Paste" operations between the
+              tree and group dialog. Right mouse clicking on the object
+              in the tree brings a pop-up menu. Choose the "Copy" or
+              "Cut" item in this menu, then switch to the group dialog and
               right mouse click in the icon field. This also brings
-              pop-up menu, where you choose item "Paste". This inserts
-              reference to the object in the group.</para>
+              up a pop-up menu, where you choose  "Paste" item. This inserts
+              a reference to the object in the group.</para>
             </listitem>
             <listitem>
-              <para>Using maun menu "Edit":</para>
+              <para>Using the main menu "Edit":</para>
 
-              <para>Just like in case of pop-up menu, select object in
-              the tree, then use main menu
+              <para>Just like in the case of a pop-up menu, select the
+              object in the tree, use the main menu
               <guimenuitem>"Edit"</guimenuitem>/<guimenuitem>"Copy
               Object"</guimenuitem>, then switch to the group dialog
-              and use main menu
+              and use the main menu
               <guimenuitem>"Edit"</guimenuitem>/<guimenuitem>"Paste
               Object"</guimenuitem>
               </para>
@@ -1405,13 +1405,14 @@
         <sect2>
           <title>Creating a Firewall Object</title>
 
-          <para>Similarly for the creating of the Host Object,
-          creating of the new Firewall Object is aided by the
-          Druid. The first page of this Druid is represented on a
-          screenshot <xref linkend="creating-firewall1">. First of all
-          you need to specify the name for new firewall, then click
+          <para>Similar for the creating of a Host Object; creating a
+          new Firewall Object is aided by the Druid. The first page of
+          this Druid is represented on a screenshot ( <xref
+          linkend="creating-firewall1"> ). First of all you need to
+          specify the name for new firewall; then click
           <guibutton>"Next"</guibutton>. This brings you to the next
-          page of the Druid (<xref linkend="creating-firewall2">).</para>
+          page of the Druid (<xref
+          linkend="creating-firewall2">).</para>
 
           <figure id="creating-firewall1" float="1">
             <title>First Page of the Druid</title>
@@ -1432,20 +1433,20 @@
           </figure>
 
           <para>This page is similar to that of the new Host object
-          druid page where you add interfaces. You enter name, address
-          and netmask of the interface in appropriate fields, then
-          click <guibutton>"Add"</guibutton>. Button
-          <guibutton>"Update"</guibutton> updates parameters of the
-          currently selected interface and button
-          <guibutton>"Delete"</guibutton> deletes it. Once all
-          interfaces are configured, click on
-          <guibutton>"Next"</guibutton> to create new firewall
+          druid page where you add interfaces. You enter the name,
+          address and netmask of the interface in appropriate fields,
+          then click <guibutton>"Add"</guibutton>. The
+          <guibutton>"Update"</guibutton> button updates parameters of
+          the currently selected interface and the
+          <guibutton>"Delete"</guibutton> button deletes it. Once all
+          the interfaces are configured, click on
+          <guibutton>"Next"</guibutton> to create a new firewall
           object.</para>
 
           <note>
             <para>You can always add, modify and delete
             interfaces later using controls provided by the main
-            window and object tree view.</para>
+            window and the object tree view.</para>
           </note>
 
         </sect2>
@@ -1461,12 +1462,12 @@
             </mediaobject>
           </figure>
 
-          <para>Firewall Object represents firewall machine and is the
-          most complex object in Firewall Builder. Its dialog has the
-          following tabs: 'General', 'Sysinfo', 'Compile/Install',
-          'Firewall', 'Network'</para>
+          <para>The Firewall Object represents the firewall machine
+          and is the most complex object in Firewall Builder. Its
+          dialog has the following tabs: 'General', 'Sysinfo',
+          'Compile/Install', 'Firewall' and 'Network'</para>
 
-          <para>Tab <emphasis>General</emphasis> provides the
+          <para>The <emphasis>General</emphasis> tab provides the
           following controls:</para>
 
           <para>
@@ -1481,33 +1482,34 @@
 
                 <para>Modules that provide support for target OS and
                 firewall platforms are distributed separately from the
-                GUI and can be installed in a various
-                combinations. This pull-down menu provides choice of
-                the host OS and is dynamically updated depending on
-                the combination of installed modules. </para>
+                GUI and can be installed in various combinations. This
+                pull-down menu provides a choice of the host OS and is
+                dynamically updated depending on the combination of
+                installed modules. </para>
               </listitem>
               <listitem>
                 <para>Firewall platform:</para>
 
-                <para>Like "Host OS" menu, this pull-down menu
-                provides choice of the target firewall platform and is
-                dynamically updated depending on a combination of
+                <para>Like the "Host OS" menu, this pull-down menu
+                provides a choice of the target firewall platform and
+                is dynamically updated depending on a combination of
                 installed modules.</para>
               </listitem>
               <listitem>
                 <para>SNMP Communities:</para>
 
-                <para>SNMP community "read" is used to pull "sysinfo"
-                MIB variables from the firewall machine, provided it
-                runs SNMP agent. It is also used if you want to
-                automatically create interfaces for the firewall using
-                SNMP query. SNMP community "write" is not used at this
-                time.</para>
+                <para>The SNMP "read" community is used to pull
+                "sysinfo" MIB variables from the firewall machine,
+                provided it runs a SNMP agent. It is also used if you
+                want to automatically create interfaces for the
+                firewall using SNMP query. The SNMP "write" community
+                is not used at this time.</para>
               </listitem>
               <listitem>
                 <para>Comment:</para>
 
-                <para>This is free-form text field used for comments</para>
+                <para>This is a free-form text field used for
+                comments</para>
               </listitem>
             </itemizedlist>
           </para>
@@ -1552,38 +1554,62 @@
 
                 <para>The full directory path and file name for the
                 policy compiler program that the GUI invokes when you
-                use main menu item
+                use the main menu item
                 <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Compile"</guimenuitem>. If
-                this field is left blank, then the GUI calls default
-                policy compiler program which is preconfigured for the
-                firewall platform chosen in the tab 'General'. Use
-                this field if you use non-standard policy compiler, or
-                if you use wrapper script which calls policy
-                compiler.</para>
+                this field is left blank, then the GUI calls the
+                default policy compiler program which is preconfigured
+                for the firewall platform chosen in the 'General'
+                tab. Use this field if you use a non-standard policy
+                compiler, or if you use a wrapper script which calls a
+                policy compiler.</para>
               </listitem>
               <listitem>
                 <para>Command line parameters for compiler:</para>
 
                 <para>This is where you can specify command line
-                parameters for the policy compiler. Normally the GUI
-                supplies minimal necessary set of options, such as
-                "-f" for the data file name and "-d" for the working
-                directory. You may want to add "-v" here to turn on
-                verbose output of the policy compiler. See man page
-                for the corresponding policy compiler for the complete
-                set of supported command line options.
+                parameters for the policy compiler. Here is the list
+                of command line options supported by all policy
+                compilers:
+                </para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><emphasis>"-f":</emphasis> specifies the
+                    data file name to be used by compiler;</para>
+                  </listitem>
+                  <listitem>
+                    <para><emphasis>"-d":</emphasis> specifies the
+                    working directory where data the file is located
+                    and where produced firewall script should be
+                    placed;</para>
+                  </listitem>
+                  <listitem>
+                    <para><emphasis>"-v":</emphasis> turn on verbose
+                    diagnostics print during compile;</para>
+                  </listitem>
+                </itemizedlist>
               </para>
+                
+              <para>
+                Normally the GUI automatically supplies "-f" and "-d"
+                options when it calls policy compiler.  See the man
+                page for the corresponding policy compiler for the
+                complete set of supported command line options.
+              </para>
+
               </listitem>
               <listitem>
                 <para>Installer: install script</para>
 
                 <para>In the future there will be two ways to install
-                and activate policy on the firewall machine: using
+                and activate a policy on the firewall machine: using
                 install script or fwbd daemon. The daemon is not
-                supported yet, so install script is the only method
-                available at this time. The GUI calls install script
-                when you use main menu item
-                <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Install"</guimenuitem></para>
+                supported yet, so the install script is the only
+                method available at this time. The GUI calls the
+                install script when you use the main menu
+                <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Install"</guimenuitem>
+                item.</para>
               </listitem>
               <listitem>
                 <para>Istaller: fwbd daemon:</para>
@@ -1600,18 +1626,19 @@
                 <para>Command line parameters for the script:</para>
 
                 <para>This is where you specify command line
-                parameters for the install script. Normally GUI
-                supplies two command line paremeters for the script:
-                "-f" for the data file name and "-d" for the working
-                directory. You can add more parameters in this entry
-                field if your script supports them.</para>
+                parameters for the install script. The GUI expects
+                install script to accept the same command line
+                parameters as all policy compilers (see above) and
+                automatically supplies "-f" and "-d" options.  You can
+                add more parameters in this entry field if your script
+                supports them.</para>
               </listitem>
               <listitem>
                 <para>Options for fwbd:</para> 
 
-                <para>Since current version of Firewall Builder does
-                not come with fwbd and does not support it yet, these
-                options are reserved for future use.</para>
+                <para>Since the current version of Firewall Builder
+                does not come with fwbd and does not support it yet,
+                these options are reserved for future use.</para>
               </listitem>
             </itemizedlist>
           </para>
