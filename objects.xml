@@ -1309,7 +1309,7 @@ clock timezone PDT -7
         </NATRule>
       </NAT>
       <Policy id="id3E8F8EBF">
-        <PolicyRule action="Deny" comment="block fragments" disabled="False" id="id3E8F8EC0" log="True" position="0">
+        <PolicyRule action="Accounting" comment="" disabled="False" id="id3E8F8EC0" log="False" position="0">
           <Src neg="False">
             <ObjectRef ref="sysid0"/>
           </Src>
@@ -1317,49 +1317,52 @@ clock timezone PDT -7
             <ObjectRef ref="sysid0"/>
           </Dst>
           <Srv neg="False">
-            <ServiceRef ref="ip-IP_Fragments"/>
+            <ServiceRef ref="tcp-HTTP"/>
           </Srv>
           <When neg="False">
             <IntervalRef ref="sysid2"/>
           </When>
           <PolicyRuleOptions>
-            <Option name="stateless">True</Option>
+            <Option name="action_on_reject"></Option>
+            <Option name="limit_burst">0</Option>
+            <Option name="limit_suffix"></Option>
+            <Option name="limit_value">0</Option>
+            <Option name="log_level"></Option>
+            <Option name="log_prefix"></Option>
+            <Option name="stateless">False</Option>
           </PolicyRuleOptions>
         </PolicyRule>
-        <PolicyRule action="Accept" disabled="False" id="id3E8F8ECA" log="False" position="1">
+        <PolicyRule action="Accept" disabled="False" id="id3E8F9848" log="False" position="1">
           <Src neg="False">
-            <ObjectRef ref="id3D387B60"/>
-            <ObjectRef ref="id3D387B61"/>
+            <ObjectRef ref="sysid0"/>
           </Src>
           <Dst neg="False">
-            <ObjectRef ref="id3E8F8E68"/>
+            <ObjectRef ref="id3E8F933C"/>
           </Dst>
           <Srv neg="False">
-            <ServiceRef ref="tcp-Telnet"/>
-            <ServiceRef ref="udp-SNMP"/>
+            <ServiceRef ref="tcp-HTTP"/>
           </Srv>
           <When neg="False">
             <IntervalRef ref="sysid2"/>
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Accept" comment="" disabled="False" id="id3E8F8ED6" log="False" position="2">
+        <PolicyRule action="Accept" disabled="False" id="id3E8F983C" log="False" position="2">
           <Src neg="False">
             <ObjectRef ref="id3D387B60"/>
-            <ObjectRef ref="id3D387B61"/>
           </Src>
           <Dst neg="False">
-            <ObjectRef ref="id3E8F8E68"/>
+            <ObjectRef ref="sysid0"/>
           </Dst>
           <Srv neg="False">
-            <ServiceRef ref="icmp-ping_request"/>
+            <ServiceRef ref="sysid1"/>
           </Srv>
           <When neg="False">
             <IntervalRef ref="sysid2"/>
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Accept" disabled="False" id="id3E8F8EE1" log="False" position="3">
+        <PolicyRule action="Deny" disabled="False" id="id3E8F9832" log="True" position="3">
           <Src neg="False">
             <ObjectRef ref="sysid0"/>
           </Src>
