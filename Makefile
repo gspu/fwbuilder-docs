@@ -1,6 +1,6 @@
-# $Id: Makefile,v 1.7 2003-02-10 04:50:48 vadim Exp $
+# $Id: Makefile,v 1.8 2003-04-06 02:24:17 vadim Exp $
 
-STAGEDIR= /var/ftp/pub/FWBuilder-Manual
+STAGEDIR= /var/ftp/pub/fwbuilder-manual
 
 .PHONY: all html pdf
 

@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.9 $  $Date: 2003-02-27 05:21:25 $</edition>
+    <edition>$Revision: 1.10 $  $Date: 2003-04-06 02:24:17 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -5917,6 +5917,149 @@ PIX                  always             no             policy, NAT
     </sect1>
   </chapter>
 
+
+  <chapter>
+    <title>Basic NAT rules</title>
+    <sect1>
+      <title>Source Address Translation</title>
+      <para>
+      <para>
+	Suppose your internal network is configured using so-called
+	private IP addresses as defined in RFC 1918. These addresses
+	are:
+      </para>
+
+      <para>
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	    10.0.0.0 / 255.0.0.0
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      172.16.0.0 / 255.240.0.0
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      192.168.0.0 / 255.255.0.0
+	    </para>
+	  </listitem>
+	</itemizedlist>
+      </para>
+
+      <para>
+        If your network uses addresses from one of these blocks, and
+        you want to provide Internet access for machines on this net,
+        then you may need Network Address Translation (NAT) configured
+        on the firewall. This particular type of NAT configuration is
+        often called Masquerading. When configured this way, the
+        firewall rewrites source IP address of each packet sent by
+        internal machines to the Internet, replacing private IP
+        address with the address of its external interface.
+      </para>
+
+      <para>
+        In Firewall Builder this type of the NAT rule is composed as
+        shown on Figure 10-1
+      </para>
+
+
+Figure 10-1. Masquerading rule (this rule is part of NAT ruleset)
+
+      <para>
+        Here, object representing internal network is placed in
+        "Original Source" and firewall's object is placed in
+        "Translated Source", indicating that we want source address of
+        the packets to be translated. As before, we do not need to
+        worry about reply packets because underlying firewall software
+        keeps track of translations done for all the connections
+        opened through the firewall and rewrites addresses in all
+        reply packets automatically.
+      </para>
+
+      <para>
+        Figure 10-1 uses firewall object in Translated Source, which
+        means the firewall will substitute a source address in the
+        packet with the address of one of its interfaces. Since the
+        firewall has more than one interface, this rule will use all
+        of them in a such fasion that packets exiting the firewall
+        through interface "eth1" will have their source address
+        translated into address of that interface, packets exiting
+        through "eth2" will have its interface used for their source
+        address and so on. Decision on which interface given packet
+        should exit the firewall through is made by firewall’s TCP/IP
+        stack using its routing table.
+      </para>
+
+      <para>
+        One of the consequences of this design is that rule #0 on
+        Figure 10-1 provides translation for packets coming from
+        internal_net and going out to the Internet, as well as those
+        coming from internal_net and going back to the same net. The
+        latter case may sound strange and useless, but we'll see later
+        that it may have some very practical applications (see Section
+        11.3).
+      </para>
+
+      <para>
+        But what if the firewall has three or more interfaces ? This
+        happens if it has multiple connections to the Internet or
+        other insecure subnets like DMZ. Following the same logic, the
+        translation will be performed using all interfaces of the
+        firewall. Figure 10-3 (A) illistrates this.
+      </para>
+
+      <para>
+        There may be situations when we would not want to
+        automatically use all interfaces of the firewall for
+        translation.  Suppose firewall "fw2" has two insecure
+        interfaces, one of which connects it to the Internet, while
+        another one is connected to DMZ subnet which is using private
+        IP addresses on the net 10.2.1.0. We want to do the same
+        masquerading translation for all packets going from internal
+        network to the Internet as before, but do not need to
+        translate packets going from the internal net to DMZ. Rule #0
+        in Figure 10-2 does just that.
+      </para>
+
+
+Figure 10-2. Translation using only one interface of the firewall
+
+      <para>
+        Rule #0 in Figure 10-2 uses firewall's interface "eth1" for
+        translation. This means that only packets exiting through this
+        interface will be translated; packets exiting through "eth2"
+        will keep their original source address on the internal
+        net. Figure 10-3 (B) illistrates this.
+      </para>
+
+      <note>
+        <para>
+          Interface object can be used in the NAT rules even if the
+          address of this interface is obtained dynamically and is not
+          known beforehand.
+        </para>
+      </note>
+
+Figure 10-3. Translations done to packets going in different directions: (A) when firewall object is used in
+TSrc in the NAT rule and (B) when interface eth1 is used in TSrc in the NAT rule
+
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Destination Address Translation</title>
+      <para>
+
+      </para>
+    </sect1>
+
+  </chapter>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
   <chapter id="nat">
 
