@@ -190,6 +190,7 @@
 <TCPService ack_flag="False" comment="" dst_range_end="7100" dst_range_start="7100" fin_flag="False" id="id3B4FF1B8" library="Standard" name="xfs" psh_flag="False" rst_flag="False" src_range_end="0" src_range_start="0" syn_flag="False" urg_flag="False"/>
 <TCPService ack_flag="True" comment="" dst_range_end="0" dst_range_start="0" fin_flag="True" id="id3C685B2B" library="Standard" name="xmas scan" psh_flag="True" rst_flag="True" src_range_end="0" src_range_start="0" syn_flag="True" urg_flag="True"/>
 <TCPService ack_flag="False" comment="" dst_range_end="2222" dst_range_start="2222" fin_flag="False" id="id3D38FF49" name="tcp-2222" psh_flag="False" rst_flag="False" src_range_end="0" src_range_start="0" syn_flag="False" urg_flag="False"/>
+<TCPService ack_flag="False" comment="" dst_range_end="0" dst_range_start="0" fin_flag="False" id="id3D82DDDB" name="priviliged TCP" psh_flag="False" rst_flag="False" src_range_end="1023" src_range_start="0" syn_flag="False" urg_flag="False"/>
 </ServiceGroup>
 <ServiceGroup id="stdid08" library="Standard" name="UDP">
 <UDPService comment="ipchains used to use this port range for masqueraded packets" dst_range_end="0" dst_range_start="0" id="udp-ALL_UDP_Masqueraded" library="Standard" name="ALL UDP Masqueraded" src_range_end="65095" src_range_start="61000"/>

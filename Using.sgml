@@ -3027,13 +3027,105 @@
       <sect2>
         <title>TCP Service</title>
 
-        <para></para>
+        <para>TCP Service object is a generalization of TCP protocol
+        which provides a connection-oriented, reliable, byte stream
+        service. Many well-known frequently used application protocols
+        use underlying TCP protocol: FTP (File Transfer Protocol),
+        SMTP (Simple Mail Transfer Protocol), HTTP (Hyper Text
+        Transfer Protocol) and so on. TCP header contains special
+        fields called source and destination port numbers that are
+        used to identify the sending and receiving application using
+        data stream. These two values, along with the source and
+        destination IP addresses in the IP header, uniquely identify
+        each connection. </para>
+
+        <para>Since port numbers are used to distnguish applications
+        using data stream provided by TCP protocol, each application
+        should use unique port number. To ensure interoperability,
+        these numbers must be assigned by a central authority in a
+        coordinated manner. Internet Assigned Numbers Authority
+        (IANA) does that; assigned TCP and UDP port numbers can be
+        looked up at the following URL
+        http://www.iana.org/assignments/port-numbers . Most Unix
+        systems also come with a file /etc/services which also
+        contains a list of assigned port numbers.</para>
+
+        <para>Firewall Builder comes with a collection of predefined
+        TCP Service objects with port numbers already configured. You
+        can simply use these objects in your policy rules and do not
+        have to look up port numbers every time you need them. </para>
+
+        <para>Typical TCP Service object is represented on a
+        screenshot <xref linkend="tcp-service-dialog1">.</para>
+
+        <figure id="tcp-service-dialog1" float="1">
+          <title>Editing TCP Service Object</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="tcp_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+
+        <para>In Firewall Builder, TCP Service object is a
+        gneralization of TCP protocol. TCP header of a packet carries
+        only one fixed value for the source port and one fixed value
+        for destination port. In TCP Service object one can specify a
+        range of values for the source and destination ports. This
+        allows single TCP Service object to describe either a family
+        of protocols using consequitive port numbers, or a protocol
+        that may use variable port numbers or simply many protocols
+        that use port numbers from a certain range. For example, on
+        Unix systems TCP sessions opened by priviliged process always
+        have their source port number assigned from the range below
+        1024, while unpriviliged processes use source port numbers
+        from the range starting from 1024 and above. One could create
+        TCP Service object in Firewall Builder with source ports
+        defined as shown on screenshot <xref
+        linkend="tcp-service-dialog2"> to describe all priviliged TCP
+        sessions.</para>
+
+        <figure id="tcp-service-dialog2" float="1">
+          <title>TCP Service Object: priviliged source ports</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="tcp_service_dialog2.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+
+        <para>Using '0' as both start and end values for a range means
+        'any value' for that range. Source port range of the object
+        'priviliged TCP' starts from 0 and ends at 1023 (range are
+        inclusive in Firewall Builder), while its destination port
+        range start and end are both set to zero, which means 'any
+        destination port'. Thus this object describes any TCP protocol
+        with source port in range 0-1023 and any destination
+        port.</para>
+
+        <para>If all you need is to create an object to describe TCP
+        protocol with particular destination port, then you should use
+        its port number for both start and end of destination port
+        range (which effectively creates a range that consists of a
+        single value). Example on <xref linkend="tcp-service-dialog1">
+        shows such service.</para>
+
       </sect2>
 
       <sect2>
         <title>UDP Service</title>
 
         <para></para>
+
+        <figure id="udp-service-dialog1" float="1">
+          <title>Editing UDP Service Object</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="udp_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+
       </sect2>
 
       <sect2>
