@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.38 $  $Date: 2002-10-30 08:24:38 $</edition>
+    <edition>$Revision: 1.39 $  $Date: 2002-11-02 06:19:05 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -147,7 +147,7 @@
         <title>Sample firewall policy</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="scrn2.jpg" format="jpg" align="Left" scale="25">
+            <imagedata fileref="scrn2.jpg" format="jpg" align="Left" scale="33">
           </imageobject>
         </mediaobject>
       </figure>
@@ -488,7 +488,7 @@
           <title>Main window</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -511,7 +511,7 @@
         <title>GUI Options Dialog</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="options1.jpg" format="jpg" align="Left" scale="25">
+            <imagedata fileref="options1.jpg" format="jpg" align="Left" scale="33">
           </imageobject>
         </mediaobject>
       </figure>
@@ -696,7 +696,7 @@
           <title>Standard Tree Structure</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="tree_structure1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="tree_structure1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -705,37 +705,38 @@
         types so that they can be arranged in a hierarchy. Types that
         correspond to network objects (hosts, address ranges, networks
         and groups of these) are located in the "Objects" branch,
-        types that correspond to all services are in the 
-        "Services" branch, time intervals are in the branch "Time" and all
-        firewalls are in the branch "Firewalls". Newly created objects
+        types that correspond to all services are in the "Services"
+        branch, time intervals are in the "Time" branch, and all
+        firewalls are in the "Firewalls" branch. Newly created objects
         are automatically placed in their corresponding position in
         the tree. Each branch of the tree is automatically sorted by
-        object's name.</para>
+        the object's name.</para>
 
         <note>
-          <para>Future versions of Firewall Builder will support
+          <para>Future versions of Firewall Builder will support 
           creation of custom branches in the tree and placing of
           objects and groups of objects in any branch.</para>
         </note>
 
         <para>The program can maintain all the objects in a single
-        tree, or divide them onto "libraries". The latter case is
+        tree, or divide them into "libraries". The latter case is
         illustrated by <xref linkend="main-win2"> where each library
-        is represented by individual tree; one tree is always called
-        "User" and holds user-defined objects. Another tree is called
-        "Standrard" and holds a collection of standard objects that
-        come with the program. Some of the standard objects are
-        visible on the screenshot <xref linkend="main-win2">. Standard
-        objects represent over 100 of frequently used protocols and
-        services.  There may be more libraries in the future. Both
-        user-defined and standard objects can be used equally in
-        firewall policies or in groups. </para>
+        is represented by an individual tree; one tree is always
+        called "User" and holds user-defined objects. The other tree
+        is called "Standrard" and holds a collection of standard
+        objects that come with the program. Some of the standard
+        objects are visible on the screenshot <xref
+        linkend="main-win2">. Standard objects represent over 100 of
+        frequently used protocols and services.  There may be more
+        libraries in the future. Both user-defined and standard
+        objects can be used equally in firewall policies or in
+        groups. </para>
 
         <figure id="main-win2" float="1">
           <title>Standard Objects</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="main_win2.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="main_win2.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -745,34 +746,36 @@
       <sect1>
         <title>Creating Objects</title>
 
-        <para>New object can be created using main menu
+        <para>New objects can be created using the main menu
         <guimenuitem>"Insert"</guimenuitem>. Certain objects can also
-        be created via pop-up menu that can be called by clicking
-        right mouse button on the object in the tree.</para>
+        be created via a pop-up menu that can be opened by clicking
+        the right mouse button on the object in the tree.</para>
 
         <figure id="menu-insert" float="1">
           <title>Creating Objects Using Main Menu 'Insert'</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="scrn-menu1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="scrn-menu1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para>You can create all objects through main menu 'Insert'
-        (<xref linkend="menu-insert">). Since some objects can be
-        placed in the tree only under certain object types,
-        corresponding menu items get enabled only when right object is
-        displayed in the dialog in the main window. For example,
-        interface object can only be placed under host or firewall,
-        therefore menu item <guimenuitem>"Insert"</guimenuitem>/<guimenuitem>"Interface"</guimenuitem>
-        is enabled only if host or firewall object is opened in the
-        main window. Likewise, menu item <guimenuitem>"Address"</guimenuitem>
-        is enabled only when interface object is opened.</para>
+        <para>You can create all objects through the main menu
+        'Insert' (<xref linkend="menu-insert">). Since some objects
+        can be placed in the tree only under certain object types,
+        corresponding menu items get enabled only when the right
+        object is displayed in the dialog in the main window. For
+        example, the interface object can only be placed under the
+        host or the firewall, therefore the menu item
+        <guimenuitem>"Insert"</guimenuitem>/<guimenuitem>"Interface"</guimenuitem>
+        is enabled only if the host or firewall object is opened in
+        the main window. Likewise, the menu item
+        <guimenuitem>"Address"</guimenuitem> is enabled only when the
+        interface object is opened.</para>
 
-        <para>Another way to create objects uses pop-up menu which
-        appears if you click right mouse button on the object label in
-        the tree (<xref linkend="popup-menu-insert">).</para>
+        <para>Another way to create objects uses the pop-up menu which
+        appears if you click the right mouse button on the object
+        label in the tree (<xref linkend="popup-menu-insert">).</para>
 
 
         <figure id="popup-menu-insert">
@@ -786,7 +789,7 @@
                 <entry>
                   <inlinemediaobject>
                     <imageobject>
-                      <imagedata fileref="scrn-menu2.jpg" format="jpg" align="Left" scale="25">
+                      <imagedata fileref="scrn-menu2.jpg" format="jpg" align="Left" scale="33">
                     </imageobject>
                   </inlinemediaobject>
                 </entry>
@@ -794,7 +797,7 @@
                 <entry>
                   <inlinemediaobject>
                     <imageobject>
-                      <imagedata fileref="scrn-menu3.jpg" format="jpg" align="Left" scale="25">
+                      <imagedata fileref="scrn-menu3.jpg" format="jpg" align="Left" scale="33">
                     </imageobject>
                   </inlinemediaobject>
                 </entry>
@@ -804,15 +807,16 @@
           </informaltable>
         </figure>
 
-        <para>Just like items under main menu
+        <para>Just like items under the main menu
         <guimenuitem>"Insert"</guimenuitem>, items in the popup menu
         are context-sensitive. In particular, menu items that add
-        interfaces appear only when object opened in the main window
-        is either host or firewall (<xref
+        interfaces appear only when the object opened in the main
+        window is either the host or the firewall (<xref
         linkend="popup-menu-insert">). You can add interface objects
-        by hand (using menu item <guimenuitem>"Add
+        by hand (using the menu item <guimenuitem>"Add
         Interface"</guimenuitem>) or import them via SNMP query (using
-        menu item <guimenuitem>"Add Interfaces via SNMP"</guimenuitem>)
+        menu item <guimenuitem>"Add Interfaces via
+        SNMP"</guimenuitem>)
         </para>
 
       </sect1>
@@ -820,12 +824,13 @@
       <sect1>
         <title>Navigating The Object Tree and Editing Objects</title>
 
-        <para>Object selected in the tree automatically appears in the
-        dialog area where it can be reviewed or modified. Objects are
-        opened on a single mouse click in the tree. Clicking right
-        button when mouse cursor is over object's label in the tree
-        brings pop-up menu. This menu is context-sensitive and
-        provides items for the following functions (<xref linkend="popup-menu-insert">):</para>
+        <para>The object selected in the tree automatically appears in
+        the dialog area where it can be reviewed or modified. Objects
+        are opened at a single mouse click in the tree. Clicking the
+        right button when the mouse cursor is over the object's label
+        in the tree brings up the pop-up menu. This menu is
+        context-sensitive and provides items for the following
+        functions (<xref linkend="popup-menu-insert">):</para>
 
         <para>
           <itemizedlist spacing="compact">
@@ -834,37 +839,34 @@
 
               <para>This function creates a copy of the current
               object, places it in the tree and opens it in the main
-              window. The new object has generic name "New Object",
-              but once you change the name and click
+              window. The new object has the generic name "New
+              Object", but once you change the name and click
               <guibutton>"Apply"</guibutton>, its name will
-              immediately change in the tree and branch it is located
-              in will be sorted alphabetically. This means that once
-              object's name changes, it "jumps" into another position
-              in the tree branch to keep branch sorted..</para>
+              immediately change in the tree.</para>
             </listitem>
             <listitem>
               <para>Copy:</para>
 
-              <para>This copies an object into clipboard.</para>
+              <para>This copies an object into the clipboard.</para>
             </listitem>
             <listitem>
               <para>Cut:</para>
 
-              <para>This copies an object into clipboard and removes
-              it from the tree.</para>
+              <para>This copies an object into the clipboard and
+              removes it from the tree.</para>
             </listitem>
             <listitem>
               <para>Paste:</para>
 
-              <para>This creates new object which is a copy of the
+              <para>This creates a new object which is a copy of the
               current content of the clipboard.</para>
             </listitem>
             <listitem>
               <para>Delete:</para>
 
               <para>This deletes an object without making a copy in
-              the clipboard. This is unreversible operation and the
-              program shows pop-up dialog, asking user to
+              the clipboard. This is an unreversible operation and the
+              program shows a pop-up dialog, asking the user to
               confirm. </para>
             </listitem>
             <listitem>
@@ -872,54 +874,56 @@
 
               <para>This scans the whole tree, including all groups
               and policies of all firewalls, looking for references to
-              the current object. In the end the program shows pop-up
-              dialog with icons corresponding to groups and firewalls
-              that use current object. Double-clicking on the icon
-              opens corresponding object in the main window.</para>
+              the current object. In the end the program shows a
+              pop-up dialog with icons corresponding to groups and
+              firewalls that use current object. Double-clicking on
+              the icon opens the corresponding object in the main
+              window.</para>
             </listitem>
           </itemizedlist>
         </para>
 
-        <para>Pop-up menu can also have items to add interface and
-        address objects, depending on what type of the object it is
+        <para>The pop-up menu can also have items to add interface and
+        address objects, depending on what type of object it is
         called for (<xref linkend="popup-menu-insert">).
         </para>
 
         <para>In general, GUI has been designed to "look and feel"
-        like typical file browser (e.g. Windows Explorer). It shows
+        like a typical file browser (e.g. Windows Explorer). It shows
         object groups as a collection of icons, where each icon
-        represents individual object (<xref
-        linkend="group-view">). User can navigate between objects
-        either using mouse, or keyboard "arrow" keys. Active object is
-        highlighted with a different color. Douple-clicking on the
-        icon in the group view opens corresponding object. Clicking
-        right mouse button or spacebar on the keyboard opens pop-up
-        menu, which acts as a shortcut to a frequently used operations
-        such as "Open Object", "Copy","Cut" and "Paste" </para>
+        represents an individual object (<xref
+        linkend="group-view">). The user can navigate between objects
+        either using the mouse or keyboard "arrow" keys. The active
+        object is highlighted with a different color. The
+        douple-clicking on the icon in the group view opens the
+        corresponding object. Clicking the right mouse button or spacebar
+        on the keyboard opens a pop-up menu, which acts as a shortcut to
+        frequently used operations such as "Open Object",
+        "Copy","Cut" and "Paste" </para>
 
         <figure id="group-view" float="1">
           <title>Group View</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="group_view1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="group_view1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para>Dialogs for objects that can be edited have buttons
+        <para>Dialogs for objects that can be edited have
         <guibutton>"Apply"</guibutton> and
-        <guibutton>"Undo"</guibutton> at the bottom. Initially these
-        buttons are inactive, but once object's parameters have been
-        modified in the dialog, or group members have been added or
-        removed, both buttons get activated so that user can click
-        <guibutton>"Apply"</guibutton> to save new data, or
+        <guibutton>"Undo"</guibutton> buttons at the bottom. Initially
+        these buttons are inactive, but once the object's parameters
+        have been modified in the dialog, or group members have been
+        added or removed, both buttons get activated so that the user
+        can click <guibutton>"Apply"</guibutton> to save new data or
         <guibutton>"Undo"</guibutton> to reload original values into
-        the dialog. If user tries to switch to another object without
-        either saving or reloading data in the current dialog, the
-        program shows pop-up dialog asking the user to take one of
-        these actions. There is also an option to make the program
-        automatically save modified data when user switches between
-        objects, see <link linkend="gui-behavior">below</link>.
+        the dialog. If the user tries to switch to another object
+        without either saving or reloading data in the current dialog,
+        the program shows a pop-up dialog asking the user to take one
+        of these actions. There is also an option to make the program
+        automatically save modified data when the user switches
+        between objects (see <link linkend="gui-behavior">below</link>).
       </para>
 
       </sect1>
@@ -932,50 +936,50 @@
       <sect1>
         <title>Common Properties</title>
 
-        <para>All objects visible to user have some common editable
-        fields, such as their name and comment. Object name can
-        contain white spaces and can be arbitrary long. Comment can
-        contain any text you wish, of any length.</para>
+        <para>All objects visible to the user have some common
+        editable fields, such as their name and comment. The object
+        name can contain white spaces and can be arbitrarily long. The
+        comment can contain any text of any length.</para>
 
-        <para>Dialogs for those objects that can have address use
-        standard GUI widget that visually separates four octets of IP
-        address and provides "on the fly" control for the validity of
-        an address.</para>
+        <para>Dialogs for those objects that can have an address use
+        the standard GUI widget that visually separates the four
+        octets of IP address and provides "on the fly" control for the
+        validity of an address.</para>
 
       </sect1>
 
       <sect1>
-        <title>Host Object</title>
+        <title>The Host Object</title>
 
-        <para>Host object in Firewall Builder is designed to represent
-        real hosts on the network: workstations, servers and any other
-        network node with an address. Just like real hosts, host
-        object can have interfaces, which in turn have addresses. Both
-        interfaces and addresses are represented by objects, which are
-        organized into a tree-like hierarchy. This way, interface
-        object is sitting in the tree directly under host and address
-        objects are located under interfaces. Just like in real
-        computers, in Firewall Builder interface can have either one or
-        multiple addresses. An example of a host with one interface,
-        which has multiple addresses is shown on <xref
-        linkend="host-in-tree">. In fact host may even have interface
-        with no addresses at all. We will go over features of
-        interface and address objects below.
-        </para>
+        <para>The host object in Firewall Builder is designed to
+        represent real hosts in the network: workstations, servers,
+        and any other network node with an address. Just like real
+        hosts, the host object can have interfaces, which in turn have
+        addresses. Both interfaces and addresses are represented by
+        objects, which are organized into a tree-like hierarchy.
+        Interface objects is sitting in the tree directly under the
+        host; the address objects are located under their
+        interfaces. Just like in real computers, in Firewall Builder
+        interface object can have either one or multiple addresses. An
+        example of a host with one interface, which has multiple
+        addresses is shown in <xref linkend="host-in-tree">. In fact
+        host may even have an interface with no addresses at all. We
+        will go over the features of interface and address objects
+        below. </para>
 
         <figure id="host-in-tree" float="1">
-          <title>Host Object With One Interface And Multiple Virtual Addresses </title>
+          <title>A Host Object With One Interface And Multiple Virtual Addresses </title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="host_in_tree.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="host_in_tree.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
 
         <note>
-          <para>host object can not have any security or Network
+          <para>The host object can not have any security or Network
           Address Translation policy associated with it; only firewall
-          objects can have it.</para>
+          objects can.</para>
         </note>
 
         <sect2>
@@ -985,52 +989,54 @@
             <title>First Page of the Druid</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="creating_host1.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="creating_host1.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
 
-          <para>To speed up process and make it simpler, creating of
-          the new host object is aided by the Druid which collects all
-          data needed for both host and its interfaces and then
-          creates the object. Screenshot <xref
-          linkend="creating-host1"> represents the first page of the
-          Druid. First of all you need to enter host name. Generally
-          this name does not have to be the same as the real host's
-          name, but if it is, then you can use DNS to query for host's
-          IP address using its name. If the new host object has single
-          interface (this, perhaps, is the most common case) then you
-          just need to fill entry field for its address and may be MAC
-          address and click <guibutton>"Next"</guibutton>. If object's
-          name is the same as real host name, then you can use button
-          <guibutton>"DNS Lookup"</guibutton> to get the address from
-          DNS. </para>
+          <para>To speed up the process and make it simpler, creating
+          of a new host object is aided by the Druid which collects
+          all data needed for both the host and its interfaces and
+          then creates the object. The screenshot (<xref
+          linkend="creating-host1">) represents the first page of the
+          Druid. First of all you need to enter the host
+          name. Generally this name does not have to be the same as
+          the real host's name, but if it is, then you can use DNS to
+          query for the host's IP address using its name. If the new
+          host object has a single interface (this, perhaps, is the
+          most common case) then you just need to fill the entry field
+          for its address and may be MAC address and click
+          <guibutton>"Next"</guibutton>. If the object's name is the
+          same as the real host name, then you can use the
+          <guibutton>"DNS Lookup"</guibutton> button to get the
+          address from DNS. </para>
 
           <para>In case the new host object should have multiple
-          interfaces, you need to check option at the bottom of the
-          dialog and then switch to the next page of the Druid using
-          button <guibutton>"Next"</guibutton>. The next page is
-          represented on screenshot <xref linkend="creating-host2">.</para>
+          interfaces, you need to check the option at the bottom of the
+          dialog and then switch to the next page of the Druid using the
+          <guibutton>"Next"</guibutton> button. The next page is
+          represented in screenshot <xref linkend="creating-host2">.</para>
 
           <figure id="creating-host2" float="1">
             <title>Adding Interfaces to the New Host Object</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="creating_host2.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="creating_host2.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
 
           <para>Here you can add interfaces to the new host
-          object. Enter interface name, its address and netmask in
-          appropriate fields and click <guibutton>"Add"</guibutton> to
-          add it to the list. Button <guibutton>"Update"</guibutton>
-          updates informtation for interface that is selected in the
-          list and button <guibutton>"Delete"</guibutton> deletes
-          currently selected interface.</para>
+          object. Enter the interface name, its address and netmask in
+          the appropriate fields, and click
+          <guibutton>"Add"</guibutton> to add it to the list. The
+          <guibutton>"Update"</guibutton> button updates information
+          for the interface that is selected in the list, and the
+          <guibutton>"Delete"</guibutton> button deletes currently
+          selected interface.</para>
 
           <note>
-            <para>You can always add, modidy and remove
+            <para>You can always add, modify and remove
             interfaces of the new host object later using controls
             provided by the main window and the object tree
             view.</para>
@@ -1040,20 +1046,20 @@
         <sect2>
           <title>Editing a Host Object</title>
 
-          <para>Host object dialog is split onto two tabs: "General"
+          <para>The Host object dialog is split into two tabs: "General"
           (<xref linkend="host-dialog1">) and "Sysinfo" (<xref
           linkend="host-dialog2">). </para>
 
           <figure id="host-dialog1" float="1">
-            <title>Editing Host Object</title>
+            <title>Editing The Host Object</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
 
-          <para>Tab "General" provides GUI controls for the following parameters:</para>
+          <para>The "General" tab provides GUI controls for the following parameters:</para>
 
           <para>
             <itemizedlist spacing="compact">
@@ -1065,33 +1071,34 @@
               <listitem>
                 <para>MAC address filtering:</para>
 
-                <para>If this option is activated, policy compiler
+                <para>If this option is activated, the policy compiler
                 uses MAC addresses of all interfaces of this host
                 instead of their IP addresses to build firewall rules.
                 Not all firewall platforms support MAC address
                 filtering, so this option may have no effect on the
-                generated firewall script. This is treated as
-                non-critical situation and policy compiler will only
-                generate warning while processing firewall policy
-                where such host is used.</para>
+                generated firewall script. This is treated as a
+                non-critical situation, and the policy compiler will
+                only generate a warning while processing a firewall
+                policy where such a host is used.</para>
               </listitem>
               <listitem>
                 <para>SNMP communities:</para>
 
-                <para>SNMP 'read' community is used if host runs SNMP
-                agent and you pull hosts "sysinfo" variables via SNMP
-                query. SNMP 'write' community currently is not used
-                but we may add features using it in the future.  SNMP
-                communities usually can not contain spaces. If your
-                host does not run SNMP agent, or you do not need to
-                pull host info using SNMP, then SNMP community strings
-                may be left blank.</para>
+                <para>The SNMP 'read' community is used if the host
+                runs SNMP agent and you pull the host's "sysinfo"
+                variables via SNMP query. The SNMP 'write' community
+                is currently not used but we may add features using it
+                in the future.  SNMP communities usually can not
+                contain spaces. If your host does not run SNMP agent,
+                or if you do not need to pull the host info using
+                SNMP, then SNMP community strings may be left
+                blank.</para>
 
               </listitem>
               <listitem>
                 <para>Comment:</para>
 
-                <para>This is free-form text field which can be used to
+                <para>This is a free-form text field which can be used to
               add comments.</para>
               </listitem>
             </itemizedlist>
@@ -1101,34 +1108,35 @@
             <title>Host Object System Information</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
 
-          <para>Tab "Sysinfo" holds data retrieved from the host via
-          SNMP query. There you can see strings that host returned for
-          standard SNMP MIB variables "Description", "Location" and
-          "Contact". These fields are read-only in the GUI.</para>
+          <para>The "Sysinfo" tab holds data retrieved from the host
+          via SNMP query. There, you can see the strings that the host
+          returned for standard SNMP MIB "Description", "Location" and
+          "Contact" variables. These fields are read-only in the
+          GUI.</para>
 
         </sect2>
       </sect1>
 
       <sect1 id="host-interface">
-        <title>Host's Interface</title>
+        <title>The Host's Interface</title>
 
         <figure id="host-interface1" float="1">
-          <title>Host's Interface</title>
+          <title>The Host's Interface</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="host_interface1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="host_interface1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para>Dialog for interface object that belongs to host has
-        only one tab named "General", which provides controls for the
-        following parameters:</para>
+        <para>The dialog for the interface object that belongs to the
+        host has only one tab named "General", which provides controls
+        for the following parameters:</para>
 
         <para>
           <itemizedlist spacing="compact">
@@ -1144,32 +1152,34 @@
             <listitem>
               <para>Label</para>
 
-              <para>On most OS this field is not used and serves a
-              pupose of a descriptive label. Firewall Builder GUI uses
-              label, if it is not blank, to show interfaces in the
-              tree. One of the suggested uses for this field is to
-              mark interfaces to reflect network topology ('outside',
-              'inside') or purpose ('web frontend' or 'backup
-              subnet'). Label is mandatory for Cisco PIX though, where
-              it must reflect network topology. See below in the
-              chapter describing interfaces of the firewall </para>
+              <para>On most OS this field is not used and serves the
+              purpose of a descriptive label. Firewall Builder GUI
+              uses a label, if it is not blank, to show interfaces in
+              the tree. One of the suggested uses for this field is to
+              mark interfaces to reflect the network topology
+              ('outside', 'inside') or the purpose ('web frontend' or
+              'backup subnet'). The label is mandatory for Cisco PIX
+              though, where it must reflect the network topology. See
+              below for the chapter describing interfaces of the
+              firewall </para>
             </listitem>
             <listitem>
               <para>Checkbox "Address is dynamic"</para>
 
-              <para>Use this option if interface has dynamic address
-              (obtained by means of DHCP or PPP or other protocol); in
-              this case an address is unknown at the moment when
-              Firewall Builder generates firewall policy.</para>
+              <para>Use this option if the interface has a dynamic
+              address (obtained by means of DHCP or PPP or another
+              protocol); in this case an address is unknown at the
+              moment when Firewall Builder generates the firewall
+              policy.</para>
             </listitem>
             <listitem>
               <para>Checkbox "This is management interface"</para>
 
-              <para>Sometimes host has several network interfaces in
-              which case one of them can be marked as 'management
-              interface'. Management interface is used for all
+              <para>Sometimes the host has several network interfaces in
+              which case one of them can be marked as the 'management
+              interface'. The management interface is used for all
               communication between Firewall Builder and the host. In
-              case of host object this communication is currently
+              the case of a host object this communication is currently
               limited to SNMP query to pull host information (standard
               SNMP MIB variables 'Description', 'Location',
               'Contact'), however in the future we will add
@@ -1178,7 +1188,7 @@
             <listitem>
               <para>Physical (MAC) Address</para>
 
-              <para>This field holds interface's MAC address.</para>
+              <para>This field holds the interface's MAC address.</para>
             </listitem>
             <listitem>
               <para>Comment</para>
@@ -1190,19 +1200,20 @@
       </sect1>
 
       <sect1>
-        <title>Address Object</title>
+        <title>The Address Object</title>
 
         <figure id="address1" float="1">
-          <title>Address Object</title>
+          <title>The Address Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="address1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="address1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para>Address object describes IP address of the interface;
-        its dialog provides the following entry fields:</para>
+        <para>The address object describes the IP address of the
+        interface; its dialog provides the following entry
+        fields:</para>
 
         <para>
           <itemizedlist spacing="compact">
@@ -1213,16 +1224,16 @@
 
               <note>
                 <para> It is recommended that you use some descriptive
-                name because when address object is used in firewall
-                policy, it is labeled with this name. It may be hard
-                to tell one address from another if their names are
-                similar. </para>
+                name because when the address object is used in the
+                firewall policy, it is labeled with this name. It may
+                be hard to tell one address from another if their
+                names are similar. </para>
               </note>
             </listitem>
             <listitem>
               <para>Address</para>
 
-              <para>This is an IP address. GUI widget visually
+              <para>This is an IP address. The GUI widget visually
               separates octets and provides syntax control for the
               values entered in the octet fields.</para>
             </listitem>
@@ -1241,18 +1252,18 @@
       </sect1>
 
       <sect1>
-        <title>Network Object</title>
+        <title>The Network Object</title>
 
         <figure id="network-dialog1" float="1">
-          <title>Network Object</title>
+          <title>The Network Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="network_dialog1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="network_dialog1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para>Network object describes IP network or a subnet; its
+        <para>The network object describes the IP network or a subnet; its
         dialog provides the following entry fields:</para>
 
         <para>
@@ -1263,10 +1274,10 @@
               <para>Network object name</para>
             </listitem>
             <listitem>
-              <para>Button 'DNS Lookup':</para>
+              <para>'DNS Lookup' button:</para>
 
-              <para>Clicking on this button runs DNS query for an "A"
-              RR using the name entered in the field "Name"</para>
+              <para>Clicking on this button runs a DNS query for an "A"
+              RR using the name entered in the "Name" field </para>
             </listitem>
             <listitem>
               <para>Address:</para>
@@ -1276,31 +1287,31 @@
             <listitem>
               <para>Netmask:</para>
 
-              <para>Netmask, in combination with an Address, defines
-              subnet.</para>
+              <para>The netmask, in combination with an Address, defines
+              the subnet.</para>
             </listitem>
             <listitem>
               <para>Comment:</para>
 
-              <para>This is free-form text field used for comments</para>
+              <para>This is a free-form text field used for comments</para>
             </listitem>
           </itemizedlist>
         </para>
       </sect1>
 
-      <sect1>
-        <title>Address Range Object</title>
+    <sect1>
+      <title>The Address Range Object</title>
 
         <figure id="address-range-dialog1" float="1">
-          <title>Network Object</title>
+          <title>The Address Range Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="address_range_dialog1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="address_range_dialog1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para>Address Range object describes a continuous range of IP
+      <para>the Address Range object describes a continuous range of IP
         addresses; its dialog provides the following entry fields:</para>
 
         <para>
@@ -1339,7 +1350,7 @@
           <title>Group Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="group_dialog1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="group_dialog1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1406,7 +1417,7 @@
             <title>First Page of the Druid</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="creating_firewall1.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="creating_firewall1.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -1415,7 +1426,7 @@
             <title>Adding Interfaces to the new Firewall Object</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="creating_firewall2.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="creating_firewall2.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -1445,7 +1456,7 @@
             <title>Firewall Object, tab 'General'</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="firewall_dialog_general.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="firewall_dialog_general.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -1505,7 +1516,7 @@
             <title>Firewall Object, tab 'Sysinfo'</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="firewall_dialog_sysinfo.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="firewall_dialog_sysinfo.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -1527,7 +1538,7 @@
             <title>Firewall Object, tab 'Compile/Install'</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="firewall_dialog_compile.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="firewall_dialog_compile.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -1623,7 +1634,7 @@
           <title>Interface Object that belongs to firewall</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="firewall_interface1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="firewall_interface1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1655,7 +1666,7 @@
           <title>Interface with numeric Security Level </title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="firewall_interface2.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="firewall_interface2.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1682,7 +1693,7 @@
             <title>Network Zone dialog</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="firewall_interface3.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="firewall_interface3.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -1745,7 +1756,7 @@
             <title>Choosing Network Zones</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="fwbuilder-using-netzone1.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="fwbuilder-using-netzone1.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -1803,7 +1814,7 @@
           <title>Global Policy</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="global_policy.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="global_policy.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1857,7 +1868,7 @@
           <title>Interface Policy for iptables firewall</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="interface_policy1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="interface_policy1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1866,7 +1877,7 @@
           <title>Interface Policy for Cisco PIX firewall</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="interface_policy2.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="interface_policy2.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1898,7 +1909,7 @@
           <title>Network Address Translation Rules</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="nat_policy.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="nat_policy.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -2065,7 +2076,7 @@
             <title>Modifying Policy rules</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -2116,7 +2127,7 @@
             <title>Modifying Object in the Policy Rule</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -2176,7 +2187,7 @@
             <title>Modifying Action of the Policy Rule</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -2216,7 +2227,7 @@
             <title>Modifying Direction of the Policy Rule</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -2254,7 +2265,7 @@
             <title>Modifying Options of the Policy Rule</title>
             <mediaobject>
               <imageobject>
-                <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="25">
+                <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="33">
               </imageobject>
             </mediaobject>
           </figure>
@@ -2403,7 +2414,7 @@
       <title>Calling Object Discovery Druid</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="discovery_menu.jpg" format="jpg" align="Left" scale="25">
+          <imagedata fileref="discovery_menu.jpg" format="jpg" align="Left" scale="33">
         </imageobject>
       </mediaobject>
     </figure>
@@ -2435,7 +2446,7 @@
       <title>Calling Object Discovery Druid</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="discovery_page1.jpg" format="jpg" align="Left" scale="25">
+          <imagedata fileref="discovery_page1.jpg" format="jpg" align="Left" scale="33">
         </imageobject>
       </mediaobject>
     </figure>
@@ -2469,7 +2480,7 @@
           <title>Creating objects using gathered information</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_hosts_2.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_hosts_2.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
@@ -2529,7 +2540,7 @@
           <title>Filter Dialog</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_hosts_filter.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_hosts_filter.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -2572,7 +2583,7 @@
           <title>Entering domain name</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_dns_domain.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_dns_domain.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -2588,7 +2599,7 @@
           <title>List of name servers</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_dns_ns.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_dns_ns.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -2605,7 +2616,7 @@
           <title>DNS zone transfer</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_dns_transfer.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_dns_transfer.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -2625,7 +2636,7 @@
           <title>Initial Parameters for Network Discovery</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_snmp_seed.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_snmp_seed.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -2676,7 +2687,7 @@
           <title>Parameters for Network Discovery: Page 1</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_snmp_options.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_snmp_options.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -2685,7 +2696,7 @@
           <title>Parameters for Network Discovery: Page 2</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_snmp_options2.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_snmp_options2.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -2780,7 +2791,7 @@
           <title>Parameters for Network Discovery: Page 2</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="discovery_snmp_crawler.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="discovery_snmp_crawler.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -2966,7 +2977,7 @@
           <title>Editing IP Service Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="ip_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="ip_service_dialog1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -3041,7 +3052,7 @@
           <title>Editing ICMP Service Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="icmp_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="icmp_service_dialog1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -3141,7 +3152,7 @@
           <title>Editing TCP Service Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="tcp_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="tcp_service_dialog1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -3168,7 +3179,7 @@
           <title>TCP Service Object: priviliged source ports</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="tcp_service_dialog2.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="tcp_service_dialog2.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -3353,7 +3364,7 @@
           <title>Editing UDP Service Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="udp_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="udp_service_dialog1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -3442,7 +3453,7 @@
           <title>Editing Custom Service Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="custom_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="custom_service_dialog1.jpg" format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>      

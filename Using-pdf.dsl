@@ -32,12 +32,24 @@
   ;; Are sections enumerated?
   #t)
 
+<!--
 
-(define %visual-acuity% "tiny")
+ visual-acuity defines the font size as follows:
+
+(define %bf-size%
+ (case %visual-acuity%
+    (("tiny") 8pt)
+    (("normal") 10pt)
+    (("presbyopic") 12pt)
+    (("large-type") 24pt)))
+
+-->
+
+(define %visual-acuity% "normal")
 (define %left-margin%   4pi)
 (define %right-margin%  3pi)
-<!-- (define %top-margin%    3pi) -->
-<!-- (define %bottom-margin% 3pi) -->
+(define %top-margin%    3pi)
+(define %bottom-margin% 3pi)
 <!-- (define %paper-type% "A5")   -->
 
 
