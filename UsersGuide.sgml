@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.2 $  $Date: 2003-02-03 07:00:06 $</edition>
+    <edition>$Revision: 1.3 $  $Date: 2003-02-09 05:20:12 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1736,7 +1736,335 @@
           the chosen firewall platform and host OS configurations. 
         </para>
       </sect2>
+
     </sect1>
+
+    <sect1>
+      <title>Configuring Target Firewall Software </title>
+      <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT2 SIMPLESECT) -->
+
+      <para>Firewall object's dialog tab 'Firewall' provides a set of
+      controls to adjust behavior of the policy compiler and
+      underlying firewall software. This dialog tab changes when user
+      changes setting in the 'Firewall Platform' option in the 
+      'General' tab.</para>
+
+      <sect2>
+        <title>iptables</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-iptables" float="1">
+          <title>Firewall Object, tab 'Firewall' for iptables</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-iptables.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para><guimenuitem>Version:</guimenuitem></para>
+
+              <para>Version of iptables used on the firewall machine.</para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Global Logging Parameters</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Use LOG</guimenuitem></para>
+                    <para>Use standard target LOG for logging (as opposed to using ULOG)</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>log TCP seq. numbers</guimenuitem></para>
+                    <para>Log TCP sequence numbers.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>log TCP options</guimenuitem></para>
+                    <para>Log options from the TCP packet header. </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>log IP options</guimenuitem></para>
+                    <para>Log options from the IP packet header. </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Use numeric syslog levels</guimenuitem></para>
+
+                    <para>Use numeric setting for "--log-level". This
+                    option was introduced as a workaround for a bug in
+                    iptables 1.2.3 which could not interpret properly
+                    standard symbolic syslog level (priority) names
+                    'debug', 'info', 'notice', 'warning', 'error',
+                    'crit', 'alert', 'emerg', 'panic' </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Use ULOG</guimenuitem></para>
+
+                    <para>Use ULOG target for more advanced packet
+                    logging mechanism. The ULOG target is only
+                    available if corresponding patch is applied to
+                    iptables. See <ulink
+                    url="http://www.gnumonks.org/projects/ulogd">http://www.gnumonks.org/projects/ulogd</ulink>
+                    </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>cprange</guimenuitem></para>
+
+                    <para>Number of bytes to be copied to userspace. A
+                    value of 0 always copies the entire packet,
+                    regardless of its size. Default is 0</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>queue thrershold</guimenuitem></para>
+
+                    <para>Sets the amount of packets batched together
+                    in one multipart netlink message.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Netlink Group</guimenuitem></para>
+
+                    <para>This specifies the netlink group (1-32) to
+                    which the packet is sent.  Default value is
+                    1.</para>
+                  </listitem>
+
+                </itemizedlist>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Log Prefix</guimenuitem></para>
+
+              <para>Custom string that shows up in the log together
+              with information logged for each rule that has 'logging'
+              option activated. Firewall Builder supports a few macros
+              in the log prefix that are expanded at the compile
+              time:</para>
+
+              <para>
+                <table frame="none">
+                  <title>Macros allowed in the logging prefix</title>
+                  <tgroup cols="2">
+                    <tbody>
+                      <row>
+                        <entry>%N</entry> <entry>This macro is
+                        replaced with the number of the rule in the
+                        GUI.</entry>
+                      </row>
+
+                      <row>
+                        <entry>%A</entry>
+                        <entry>This macro is replaced with rule action</entry>
+                      </row>
+
+                      <row>
+                        <entry>%I</entry> <entry>This macro is
+                        replaced with interface the rule is associated
+                        with</entry>
+                      </row>
+
+                      <row>
+                        <entry>%C</entry> <entry>This macro is
+                        replaced with iptables chain this rule
+                        generated code for.</entry>
+                      </row>
+
+                    </tbody>
+                  </tgroup>
+                </table>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Log all dropped packets</guimenuitem></para>
+
+              <para>This option makes firewall log all packets it
+              drops, including those that do not match any entry in
+              the state table and some others. This option can only be
+              used if corresponding patch has been applied to iptables
+              running on the firewall. Patch is called 'dropped-table'
+              and is part of patch-o-matic.</para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Logging limit:</guimenuitem></para>
+
+              <para>This option allows to set a limit on the number of
+              log entries that the firewall records per unit of
+              time. This could be useful on high traffic firewalls,
+              where writing too much to the log can overload disk
+              subsystem.</para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Turn logging ON on all rules</guimenuitem></para>
+
+              <para>This option overrides logging option in each rule
+              to make the firewall act as if logging was turned on on
+              each rule. This is useful for the policy debugging.</para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Default action on 'Reject'</guimenuitem></para>
+
+              <para>When rules with action 'Reject' encounters packet
+              that it matches, it not only blocks it, but also sends a
+              packet back to sender to notify them that their original
+              packet has been denied access. The firewall can send
+              back various types of ICMP 'unreachable' messages or TCP
+              RST packet depending on the setting of this option and
+              service object used in the rule.</para>
+            </listitem>
+
+          </itemizedlist>
+
+        </para>
+      </sect2>
+
+      <sect2>
+        <title>ipfilter</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-ipf" float="1">
+          <title>Firewall Object, tab 'Firewall' for ipfilter</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-ipf.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
+
+      <sect2>
+        <title>pf</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-pf" float="1">
+          <title>Firewall Object, tab 'Firewall' for pf</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-pf.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
+
+      <sect2>
+        <title>PIX</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-pix" float="1">
+          <title>Firewall Object, tab 'Firewall' for PIX</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-pix.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
+
+    </sect1>
+
+
+    <sect1>
+      <title>Configuring Host OS </title>
+      <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT2 SIMPLESECT) -->
+
+      <para>Firewall object's dialog tab 'Network' provides set of
+      controls to manipulate network settings and some kernel
+      parameters for the host OS firewall machine is running on.</para>
+
+      <sect2>
+        <title>FreeBSD</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-freebsd" float="1">
+          <title>Firewall Object, tab 'Network' for FreeBSD</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-freebsd.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
+
+      <sect2>
+        <title>Linux</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-linux24" float="1">
+          <title>Firewall Object, tab 'Network' for Linux</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-linux24.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
+
+      <sect2>
+        <title>OpenBSD</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-openbsd" float="1">
+          <title>Firewall Object, tab 'Network' for OpenBSD</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-openbsd.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
+
+      <sect2>
+        <title>Solaris</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-solaris" float="1">
+          <title>Firewall Object, tab 'Network' for Solaris</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-solaris.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
+
+      <sect2>
+        <title>PIX</title>
+        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
+
+        <figure id="fw-pix-os" float="1">
+          <title>Firewall Object, tab 'Network' for PIX</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="fw-pix-os.png" format="png" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+      </sect2>
+    </sect1>
+
 
     <sect1 id="firewall-interface">
       <title>Firewall's Interface</title>
