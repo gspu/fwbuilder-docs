@@ -1,5 +1,5 @@
 <!DOCTYPE style-sheet PUBLIC "-//James Clark//DTD DSSSL Style Sheet//EN" [
-<!ENTITY dbstyle SYSTEM "/usr/share/sgml/docbook/utils-0.6.9/docbook-utils.dsl" CDATA DSSSL>
+<!ENTITY dbstyle SYSTEM "docbook/utils-0.6.9/docbook-utils.dsl" CDATA DSSSL>
 ]>
 
 <!--
@@ -9,7 +9,7 @@
   
   Author:        Vadim Kurland 
   Build date:    09/01/2002
-  Last changed:  09/01/2002
+  Last changed:  05/08/2003
   Description:   This stylesheet modifies parameters to achieve proper document
                  formatting 
 
@@ -42,9 +42,10 @@
 (define %visual-acuity% "normal")
 (define %left-margin%   4pi)
 (define %right-margin%  3pi)
+<!--
 (define %top-margin%    2pi)
 (define %bottom-margin% 2pi)
-<!-- (define %paper-type% "A5")   -->
+-->
 
 
 </style-specification-body>
