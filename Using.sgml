@@ -42,8 +42,28 @@
 
     <revhistory>
       <revision>
-        <revnumber>$Revision: 1.33 $ </revnumber>
-        <date>$Date: 2002-09-14 23:06:04 $</date>
+
+        <revnumber>
+          <inlinemediaobject>
+            <imageobject>
+              <objectinfo>
+                <releaseinfo>$Release$</releaseinfo>
+              </objectinfo>
+              <imagedata>
+            </imageobject>
+          </inlinemediaobject>
+        </revnumber>
+
+        <date>
+          <inlinemediaobject>
+            <imageobject>
+              <objectinfo>
+                <releaseinfo>$Date</releaseinfo>
+              </objectinfo>
+              <imagedata>
+            </imageobject>
+          </inlinemediaobject>
+        </date>
       </revision>
     </revhistory>
 
