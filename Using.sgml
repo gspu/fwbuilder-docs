@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.42 $  $Date: 2002-11-03 02:33:02 $</edition>
+    <edition>$Revision: 1.43 $  $Date: 2002-11-03 07:44:10 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -2112,23 +2112,23 @@
 
           <para>Rules can be added, removed or moved around in the
           policy using commands in a popup menu which appears if you
-          click right mouse button on the rule element "Num" (the very
-          first rule element, counting from the left). Screenshot
+          click the right mouse button on the rule element "Num" (the
+          very first rule element, counting from the left). Screenshot
           <xref linkend="editing-policy1"> illustrates this
           menu. </para>
 
-          <para>This menu allows for adding new rule above or below of
-          the currently selected rule in the policy, removing rule,
-          moving current rule up and down, plus usual
+          <para>This menu allows for adding new rules above or below
+          of the currently selected rule in the policy, removing
+          rules, moving the current rule up and down, plus the usual
           <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
           operations done on policy rules.</para>
 
           <para>Functions of this pop-up menu are also duplicated in
           the main menu <guimenuitem>"Rules"</guimenuitem></para>
 
-          <para>You can also use drag and drop operation to move rules
-          up and down in the policy. Just drag the rule with the mouse
-          by its "number" rule element.</para>
+          <para>You can also use the drag and drop operation to move
+          rules up and down in the policy. Just drag the rule with the
+          mouse by its "number" rule element.</para>
         </sect2>
 
         <sect2>
@@ -2136,18 +2136,18 @@
           and NAT rules</title>
 
           <para>To add objects to the policy or NAT rule you can
-          either drag them from the tree and drop into corresponding
-          rule element, or use
+          either drag them from the tree and drop them into the
+          corresponding rule element, or use the
           <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
-          operation. Object can be copied into clipboard both from the
-          tree and from another policy rule, in both cases use pop-up
-          menu or main menu <guimenuitem>"Edit"</guimenuitem>.</para>
+          operation. Objects can be copied into clipboard both from
+          the tree and from another policy rule; in both cases use the
+          pop-up menu or main menu <guimenuitem>"Edit"</guimenuitem>.</para>
 
-          <para>clicking right mouse button when cursor is over rule
-          element "Source","Destination" or "Service" brings
-          context-sensitive pop-up menu <xref
-          linkend="editing-policy2">. The same pop-up menu appears
-          when you do that over "Original Source", "Original
+          <para>Clicking the right mouse button when the cursor is
+          over rule elements "Source","Destination" or "Service"
+          brings a context-sensitive pop-up menu ( <xref
+          linkend="editing-policy2"> ). The same pop-up menu appears
+          when you do that over the "Original Source", "Original
           Destination", "Original Service", "Translated Source",
           "Translated Destination" and "Translated Service" rule
           elements in the NAT rule. </para>
@@ -2168,37 +2168,39 @@
               <listitem>
                 <para>Edit:</para>
 
-                <para>this menu item opens currently selected object in the dialog</para>
+                <para>This menu item opens the currently selected
+                object in the dialog</para>
               </listitem>
               <listitem>
                 <para>Edit in a new window:</para>
 
-                <para>This menu items creates new main window and opens
-              currently selected object in it. If more than one main
-              window currently exists, object will be opened in one of
-              the existing windows.</para>
+                <para>This menu item creates a new main window and
+                opens the currently selected object in it. If more
+                than one main window currently exists, the object will
+                be opened in one of the existing windows.</para>
               </listitem>
               <listitem>
                 <para>Copy:</para>
 
-                <para>Object is copied into clipboard.</para>
+                <para>The object is copied into clipboard.</para>
               </listitem>
               <listitem>
                 <para>Cut:</para>
 
-                <para>Object is copied into clipboard and removed from the rule.</para>
+                <para>The object is copied into clipboard and removed from the rule.</para>
               </listitem>
               <listitem>
                 <para>Paste:</para>
 
-                <para>Object is copied from the clipboard to the rule.</para>
+                <para>The object is copied from the clipboard to the rule.</para>
               </listitem>
               <listitem>
                 <para>Negate:</para>
 
                 <para>All objects in the selected rule element are
-                negated. Rule element "Source" is negated in the rule
-                #1 on screenshot <xref linkend="editing-policy2"> </para>
+                negated. The rule element "Source" is negated in
+                rule #1 in screenshot <xref linkend="editing-policy2">
+                </para>
               </listitem>
             </itemizedlist>
         </para>
@@ -2208,12 +2210,12 @@
         <sect2>
           <title>Changing rule action</title>
 
-          <para>clicking right mouse button when cursor is over rule
-          element "Action" brings context-sensitive pop-up menu <xref
-          linkend="editing-policy3">.</para>
+          <para>Clicking the right mouse button when the cursor is
+          over the rule element "Action" brings a context-sensitive
+          pop-up menu ( <xref linkend="editing-policy3"> ).</para>
 
           <figure id="editing-policy3" float="1">
-            <title>Modifying Action of the Policy Rule</title>
+            <title>Modifying the Action of the Policy Rule</title>
             <mediaobject>
               <imageobject>
                 <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="33">
@@ -2227,17 +2229,17 @@
             <listitem>
               <para>Accept:</para>
 
-              <para>Rule will accept packet matching it</para>
+              <para>The rule will accept the packet matching it</para>
             </listitem>
             <listitem>
               <para>Deny:</para>
 
-              <para>Rule will drop packet matching it</para>
+              <para>The rule will drop the packet matching it</para>
             </listitem>
             <listitem>
               <para>Reject:</para>
 
-              <para>Rule will drop packet matching it, and will also
+              <para>The rule will drop the packet matching it, and will also
             send appropriate ICMP responce message back to
             source.</para>
             </listitem>
@@ -2248,12 +2250,12 @@
         <sect2>
           <title>Changing rule direction</title>
 
-          <para>clicking right mouse button when cursor is over rule
-        element "Direction" brings context-sensitive pop-up menu <xref
-                                                                       linkend="editing-policy4">.</para>
+          <para>Clicking the right mouse button when the cursor is
+          over the rule element "Direction" brings a context-sensitive
+          pop-up menu ( <xref linkend="editing-policy4"> ).</para>
 
           <figure id="editing-policy4" float="1">
-            <title>Modifying Direction of the Policy Rule</title>
+            <title>Modifying the Direction of the Policy Rule</title>
             <mediaobject>
               <imageobject>
                 <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="33">
@@ -2267,17 +2269,17 @@
             <listitem>
               <para>Inbound:</para>
 
-              <para>Rule matches packets entering firewall</para>
+              <para>The rule matches packets entering the firewall</para>
             </listitem>
             <listitem>
               <para>Outbound:</para>
 
-              <para>Rule matches packet exiting firewall</para>
+              <para>The rule matches packets exiting the firewall</para>
             </listitem>
             <listitem>
               <para>Both:</para>
 
-              <para>Rule matches both entering and exiting packets</para>
+              <para>The rule matches both entering and exiting packets</para>
             </listitem>
           </itemizedlist>
 
