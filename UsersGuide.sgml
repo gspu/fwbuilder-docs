@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.18 $  $Date: 2003-04-24 00:40:16 $</edition>
+    <edition>$Revision: 1.19 $  $Date: 2003-05-03 07:27:49 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1056,19 +1056,13 @@
         <emphasis>Destination</emphasis>, <emphasis>Dynamic</emphasis>
         interface can be used there only on some firewall platforms,
         and <emphasis>Unnumbered</emphasis> interface can never be
-        used in these policy rule elements.  For example, on netfilter
-        there is no difference between <emphasis>Dynamic</emphasis>
-        and <emphasis>Unnumbered</emphasis> interface: neither one can
-        be used in the policy rule elements because its address is
-        unknown. In OpnBSD PF, on the other hand,
-        <emphasis>Dynamic</emphasis> interface can be used in rules
-        because PF can automatically use its current address.</para>
+        used in these policy rule elements.  For example, on iptables
+        and PF <emphasis>dynamic</emphasis> interface can be used in
+        rules. PF can automatically use the address it has at the
+        moment the firewall rules are loaded; iptables can not this,
+        but Firewall Builder provides emulation with the same
+        effect.</para>
 
-        <note>
-          <para>We plan to overcome this limitation in the future
-          versions and implement mechanism to emulate behavior similar
-          to that of OpenBSD PF on netfilter.</para>
-        </note>
       </sect2>
 
     </sect1>
@@ -3152,17 +3146,20 @@
       <para>The dialogue for the interface object that belongs to a
         firewall is similar to that for the Host's interface (<xref
         linkend="host-interface">) but has a few extra controls.
-        </para>
+      </para>
 
-      <para>The interfaces of the firewall have a parameter called
-        <emphasis>"Security Level"</emphasis>. Depending on the
-        firewall platform, the security level may either have two
-        values <emphasis>"External"/"Internal"</emphasis> or a numeric
-        value between 0 and 100, with 0 being least secure and 100
-        being most secure levels. The GUI dialogue adjusts
-        automatically and shows appropriate controls depending on the
-        choice of the firewall platform in the interface's parent
-        firewall object.
+      <para>The interface of the Firewall and Host objects has the same
+      types described in <xref linkend="types-of-interfaces"></para>
+
+      <para>Unlike interface of the Host object, interface of the
+      Firewall has a parameter <emphasis>"Security
+      Level"</emphasis>. Depending on the firewall platform, the
+      security level may either have two values
+      <emphasis>"External"/"Internal"</emphasis> or a numeric value
+      between 0 and 100, with 0 being least secure and 100 being most
+      secure levels. The GUI dialogue adjusts automatically and shows
+      appropriate controls depending on the choice of the firewall
+      platform in the interface's parent firewall object.
         </para>
 
       <para><xref linkend="firewall-interface1"> shows a screenshot
