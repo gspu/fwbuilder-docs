@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.15 $  $Date: 2003-04-07 07:42:11 $</edition>
+    <edition>$Revision: 1.16 $  $Date: 2003-04-22 04:43:31 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -4411,12 +4411,6 @@
         'psd' defines command line options specific for module 'psd'
         in the field 'Code'</para>
 
-      <para>In general, Custom service can store arbitrary piece of
-        code for each supported firewall platform. When this object is
-        used in firewall policy, policy compiler picks appropriate
-        line of code depending on what target firewall platform the
-        code is being compiled for.</para>
-
       <note>
         <para> The code specified in the Custom Service is used
           literally; no validation is done either by Firewall Builder
@@ -4432,7 +4426,9 @@
             </imageobject>
           </mediaobject>
         </figure>      
-        </para>
+      </para>
+
+
       <para>Custom Service dialog provides the following controls:</para>
 
       <para>
@@ -4462,6 +4458,40 @@
         </itemizedlist>
         </para>
 
+      <para>Custom Service Object created as shown in <xref
+      linkend="custom-service-dialog1"> can be used in the rule just
+      like any other service object. For example, policy rule shown in
+      <xref linkend="rule-with-custom-service"> blocks port scanning
+      attempts launched against server
+      <emphasis>server</emphasis>. Policy compiler translates this
+      rule into iptables command shown in <xref linkend="code-for-custom-service">:
+      </para>
+
+      <para>
+        <figure id="rule-with-custom-service" float="1">
+          <title>Using Custom Service Object in the Policy Rule</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="rule-with-custom-service.png" format="jpg" align="Left" scale="50">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+      </para>
+
+
+      <example id="code-for-custom-service">
+        <title>Iptables commands generated for the policy rule <xref linkend="rule-with-custom-service"></title>
+      <programlisting>
+$IPTABLES -A OUTPUT  -d 10.3.14.100 -m psd --psd-weight-threshold 5 --psd-delay-threshold 10000  -j DROP 
+$IPTABLES -A FORWARD  -d 10.3.14.100 -m psd --psd-weight-threshold 5 --psd-delay-threshold 10000  -j DROP 
+      </programlisting>
+      </example>
+
+      <para>In general, Custom service can store arbitrary piece of
+        code for each supported firewall platform. When this object is
+        used in firewall policy, policy compiler picks appropriate
+        line of code depending on what target firewall platform the
+        code is being compiled for.</para>
 
       <para></para>
     </sect1>
