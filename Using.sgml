@@ -19,15 +19,27 @@
 
     <title>Firewall Builder User's Guide</title>
 
-    <author>
-      <firstname>Vadim</firstname>
-      <surname>Kurland</surname>
-      <affiliation>
-        <orgname>NetCitadel LLC</orgname>
-        <address><email>vadim@fwbuilder.org</email></address>
-      </affiliation>
-    </author>
+    <affiliation>
+      <orgname>NetCitadel LLC</orgname>
+    </affiliation>
+
+    <legalnotice>
+      <para>The information in this manual is subject to change
+      without notice, and should not be construed as a commitment by
+      NetCitadel LLC. NetCitadel LLC assumes no responsibility or
+      liability for any errors or inaccuracies that may appear in this
+      manual.</para>
+
+      <para>The software described in this manual is furnished under
+      license and may only be used or copied in accordance with the
+      terms and conditions of such license.</para>
+    </legalnotice>
     
+    <copyright>
+      <year>2002</year>
+      <holder>NetCitadel LLC</holder>
+    </copyright>
+
   </bookinfo>
 
 <!-- ############################################################### -->
@@ -60,8 +72,10 @@
         protocols and services.Once policy is built in the GUI, you
         can compile it and install it on the firewall machine.
       </para>
+    </sect1>
 
-      <para>Firewall Builder provides:</para>
+    <sect1>
+      <title>Overview of Firewall Builder Features</title>
 
       <para><itemizedlist spacing="compact">
           <listitem>
@@ -135,8 +149,6 @@
           </imageobject>
         </mediaobject>
       </figure>
-
-
 
     </sect1>
   </chapter>
@@ -2915,7 +2927,7 @@
             <listitem>
               <para>Comments:</para>
 
-              <para>This os free-style text field used for comments.</para>
+              <para>This is free-style text field used for comments.</para>
             </listitem>
           </itemizedlist>
         </para>
