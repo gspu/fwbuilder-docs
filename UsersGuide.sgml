@@ -20,7 +20,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.21 $  $Date: 2003-05-08 03:20:44 $</edition>
+    <edition>$Revision: 1.22 $  $Date: 2003-05-17 21:08:11 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1779,27 +1779,27 @@
         <sect3 id="empty-groups">
           <title>Empty Groups</title>
 
-          <para>This option is specifically designed to help to use
-          the following trick. It is sometimes necessary to control
-          access to an often changing group fo hosts or networks. In
-          order to avoind having to make changes to the policy rules,
-          these hosts or networks should be put in a group object
-          which is then used in the policy rule. You can then add and
-          remove hosts to this group and regenerate the policy. This
-          simple technique works just fine until you get a rule where
-          this group is a sole object in the rule element (source or
+          <para>This option is specifically designed to help use the
+          following trick. It is sometimes necessary to control access
+          to an often changing group fo hosts or networks. In order to
+          avoind having to make changes to the policy rules, these
+          hosts or networks should be put in a group object which is
+          then used in the policy rule. You can then add and remove
+          hosts to this group and regenerate the policy. This simple
+          technique works just fine until you get a rule where this
+          group is a sole object in the rule element (source or
           destination) and by some reason this group has become empty
-          because you had to remove all objects from it. Policy
-          compiler should be careful not to treat an empty group as
-          'any' because that would be something exactly opposite to
-          the intended meaning of the rule. </para>
+          because you had to remove all the objects from it. The
+          policy compiler should be careful not to treat an empty
+          group as 'any' because that would be something exactly
+          opposite to the intended meaning of the rule. </para>
 
-          <para>If this option is off, compiler treats empty group
-          which is used as a sole object in the rule element as an
-          error and aborts processing firewall policy with appropriate
-          error message.</para>
+          <para>If this option is off, the compiler treats the empty
+          group which is used as a sole object in the rule element as
+          an error and aborts processing firewall policy with
+          an appropriate error message.</para>
 
-          <para>If this option is on, compiler tries to remove all
+          <para>If this option is on, the compiler tries to remove all
           empty groups from the rule element. If after the last one
           has been removed the rule element becomes empty (that is,
           'any'), compiler automatically disables this rule and
@@ -1811,34 +1811,34 @@
 
           <para>On some firewall platforms there is a difference in
           the configuration command used to control access through the
-          firewall versus command that control access to the firewall
-          itself. For example, in iptables packets headed for the
-          firewall machine should be inspected in the INPUT chain,
-          while packets going through the firewall are inspected in
-          the FORWARD chain. If this option is ON, compiler generates
-          code for both FORWARD and INPUT chains if it sees
-          <emphasis>'any'</emphasis> in the destination of the policy
-          rule. In other words, it assumes that firewall is part of
-          <emphasis>'any'</emphasis> and packet may either go to or through the
-          firewall. If this option is off, compiler only generates
-          code for the FORWARD chain. Compiler treats <emphasis>'any'</emphasis> in the
-          source of the rule in a similar way, generating code either
-          for OUTPUT and FORWARD, or only FORWARD chain.</para>
+          firewall versus the command that controls access to the
+          firewall itself. For example, in iptables, packets headed
+          for the firewall machine should be inspected in the INPUT
+          chain, while packets going through the firewall are
+          inspected in the FORWARD chain. If this option is ON, the
+          compiler generates code for both FORWARD and INPUT chains if
+          it sees <emphasis>'any'</emphasis> as the destination of the
+          policy rule. In other words, it assumes that the firewall is
+          part of <emphasis>'any'</emphasis>, and packets may either
+          go to or through the firewall. If this option is off,
+          the compiler only generates code for the FORWARD chain. Compiler
+          treats <emphasis>'any'</emphasis> in the source of the rule
+          in a similar way, generating code either for the OUTPUT and
+          FORWARD, or only for the FORWARD chain.</para>
 
           <para>Another example of this is PIX, where one should use
           special commands to control access to the firewall on
-          protocols <emphasis>telnet</emphasis>,
-          <emphasis>ssh</emphasis> and
-          <emphasis>icmp</emphasis>.</para>
+          <emphasis>telnet</emphasis>, <emphasis>ssh</emphasis> and
+          <emphasis>icmp</emphasis> protocols.</para>
         </sect3>
 
         <sect3 id="log-level">
           <title>Log Level</title>
 
           <para>This option usually refers to the syslog log level and
-          is used with firewalls support logging via syslog
+          is used with firewalls support logging via the syslog
           protocol. Here is the list of the standard log levels:
-          'debug', 'info', 'notice', 'warning', 'error', 'crit',
+          'debug', 'info', 'notice', 'warning', 'error', 'crit' and
           'alert' </para>
         </sect3>
 
@@ -1847,18 +1847,20 @@
 
           <para>This option usually refers to the syslog facility
           parameter and is used with firewalls that support logging
-          via syslog protocol. The facility is one of the following
-          keywords: auth, priv, cron, daemon, kern, lpr, mail, mark,
-          news, syslog, user, uucp and local0 through local7. </para>
+          via the syslog protocol. The facility is one of the
+          following keywords: auth, priv, cron, daemon, kern, lpr,
+          mail, mark, news, syslog, user, uucp and local0 through
+          local7. </para>
         </sect3>
 
         <sect3 id="log-prefix">
           <title>Custom Logging Prefixes</title>
 
-          <para>Custom string that shows up in the log together with
-          information logged for each rule that has 'logging' option
-          activated. Firewall Builder supports the following macros in
-          the log prefix that are expanded at the compile time:</para>
+          <para>The custom string may show up in the log together with
+          information logged for each rule that has the 'logging'
+          option activated. Firewall Builder supports the following
+          macros in the log prefix that are expanded at the compile
+          time:</para>
 
           <para>
             <informaltable frame="none" pgwide="0">
@@ -1885,7 +1887,7 @@
                   <row>
                     <entry>%C</entry>
                     <entry> (iptables only) iptables
-                    chain this rule generated code for.</entry>
+                    chain that this rule generated code for.</entry>
                   </row>
 
                 </tbody>
@@ -1897,16 +1899,16 @@
         <sect3 id="virt-addr-for-nat">
           <title>Create Virtual Addresses for NAT Rules</title>
 
-          <para>Compiler can generate commands to add virtual address
-          to one of the interfaces of the firewall machine if this
-          option is turned on. This is needed if a NAT rule uses IP
-          address that does not belong to any interface of the
-          firewall.  Firewall either needs static 'published' ARP
-          entry for this address, or it should be added to one of the
-          interfaces as an 'alias' or virtual address. </para>
+          <para>The compiler can generate commands to add a virtual
+          address to one of the interfaces of the firewall machine if
+          this option is turned on. This is needed if a NAT rule uses
+          an IP address that does not belong to any interface of the
+          firewall. The firewall either needs the static 'published'
+          ARP entry for this address, or it should be added to one of
+          the interfaces as an 'alias' or virtual address. </para>
 
-          <para>Policy compiler adds code to add 'alias' address to
-          interface on top of the firewall activation
+          <para>The policy compiler adds code to add an 'alias'
+          address to the interface on top of the firewall activation
           script. Depending on the OS the firewall is running on, it
           may use <filename>ifconfig</filename> (FreeBSD, OpenBSD,
           Solaris) or <filename>ip</filename> (Linux) to do
@@ -1919,34 +1921,34 @@
         </sect3>
 
         <sect3 id="action-on-reject">
-          <title>Default setting for rules using 'Reject' action</title>
+          <title>Default setting for rules using the 'Reject' action</title>
 
-          <para>When rule with action 'Reject' matches the packet, it
-          not only blocks it, but also sends a message back to sender
-          to notify them that their original packet has been denied
-          access. The firewall can send back several types of ICMP
-          'unreachable' messages or TCP RST packet, depending on the
-          setting of this option and service object used in the
-          rule.</para>
+          <para>When the rule with the 'Reject' action matches the
+          packet, it not only blocks it, but also sends a message back
+          to the sender to notify them that their original packet has
+          been denied access. The firewall can send back several types
+          of ICMP 'unreachable' messages or a TCP RST packet,
+          depending on the setting of this option and the service
+          object used in the rule.</para>
         </sect3>
 
         <sect3 id="script-debug">
           <title>Turn on debugging in the generated script</title>
 
-          <para>This option makes generated firewall script print all
-          commands when it is executed. Depending on the format of the
-          target firewall configuration, policy compiler choses
-          appropriate command line option or a configuration flag to
-          indicate debugging. For example, configuration for iptables
-          is just a shell script. In this case compiler adds
-          <parameter>"-x"</parameter> to the shell command
-          line. For PF compiler generates two files: an activation
-          script and <filename>"pf.conf"</filename>
-          file. In this case compiler not only adds
-          <parameter>"-x"</parameter> to the shell command
-          line but also passes <parameter>"-v"</parameter>
-          to the utility <filename>pfctl</filename> which
-          activates firewall confguration. </para>
+          <para>This option makes the generated firewall script print
+          all commands when it is executed. Depending on the format of
+          the target firewall configuration, the policy compiler
+          chooses appropriate command line option or a configuration
+          flag to indicate debugging. For example, configuration for
+          iptables is just a shell script. In this case the compiler
+          adds <parameter>"-x"</parameter> to the shell command
+          line. For PF, the compiler generates two files: an
+          activation script and a <filename>"pf.conf"</filename>
+          file. In this case, the compiler not only adds
+          <parameter>"-x"</parameter> to the shell command line but
+          also passes <parameter>"-v"</parameter> to the
+          <filename>pfctl</filename> utility, which activates the
+          firewall confguration. </para>
         </sect3>
       </sect2>
 
@@ -1955,7 +1957,7 @@
         <title>iptables</title>
 
         <figure id="fw-iptables" float="1">
-          <title>Firewall Object, tab 'Firewall' for iptables</title>
+          <title>Firewall Object, 'Firewall' tab for iptables</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="fw-iptables.png" format="png" align="Left" scale="50">
@@ -2000,7 +2002,7 @@
               <tbody>
                 <row>
                   <entry><guimenuitem>Use LOG</guimenuitem></entry>
-                  <entry>Use standard target LOG for logging (as opposed to using ULOG)</entry>
+                  <entry>Use standard LOG target for logging (as opposed to using ULOG)</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>log TCP seq. numbers</guimenuitem></entry>
@@ -2015,13 +2017,14 @@
                   <entry>Log options from the IP packet header. </entry>
                 </row>
                 <row>
-                  <entry><guimenuitem>Use numeric syslog levels</guimenuitem></entry>
-                  <entry>Use numeric setting for &quot;--log-level&quot;. This
-                    option was introduced as a workaround for a bug in
-                    iptables 1.2.3 which could not interpret properly
-                    standard symbolic syslog level (priority) names
-                    'debug', 'info', 'notice', 'warning', 'error',
-                    'crit', 'alert' </entry>
+                  <entry><guimenuitem>Use a numeric syslog levels</guimenuitem></entry>
+                  <entry>Use numeric setting for
+                  &quot;--log-level&quot;. This option was introduced
+                  as a workaround for a bug in iptables 1.2.3 which
+                  could not interpret properly the standard symbolic
+                  syslog level (priority) names 'debug', 'info',
+                  'notice', 'warning', 'error', 'crit' and 'alert'
+                  </entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Log level</guimenuitem></entry>
@@ -2029,17 +2032,18 @@
                 </row>
                 <row>
                   <entry><guimenuitem>Use ULOG</guimenuitem></entry>
-                  <entry>Use ULOG target for more advanced packet
-                    logging mechanism. The ULOG target is only
-                    available if corresponding patch is applied to
-                    iptables. See <ulink url="http://www.gnumonks.org/projects/ulogd">http://www.gnumonks.org/projects/ulogd</ulink>
+                  <entry>Use ULOG target for a more advanced packet
+                  logging mechanism. The ULOG target is only available
+                  if the corresponding patch is applied to
+                  iptables. See <ulink
+                  url="http://www.gnumonks.org/projects/ulogd">http://www.gnumonks.org/projects/ulogd</ulink>
                     </entry>
                 </row>
                 <row>
                   <entry><guimenuitem>cprange</guimenuitem></entry>
-                  <entry>Number of bytes to be copied to userspace. A
-                    value of 0 always copies the entire packet,
-                    regardless of its size. Default is 0</entry>
+                  <entry>The number of bytes to be copied to
+                  userspace. A value of 0 always copies the entire
+                  packet, regardless of its size. Default is 0</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>queue thrershold</guimenuitem></entry>
@@ -2058,28 +2062,28 @@
                 </row>
                 <row>
                   <entry><guimenuitem>Log all dropped packets</guimenuitem></entry>
-                  <entry>This option makes firewall log all packets
-                    it drops, including those that do not match any
-                    entry in the state table and some others. This
-                    option can only be used if corresponding patch has
-                    been applied to iptables running on the
-                    firewall. Patch is called 'dropped-table' and is
-                    part of patch-o-matic.</entry>
+                  <entry>This option makes the firewall log all the
+                  packets it drops, including those that do not match
+                  any entry in the state table and some others. This
+                  option can only be used if the corresponding patch
+                  has been applied to iptables running on the
+                  firewall. The patch is called 'dropped-table' and is
+                  part of patch-o-matic.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Logging limit:</guimenuitem></entry>
                   <entry>This option allows to set a limit on the
                     number of log entries that the firewall records
-                    per unit of time. This could be useful on high
+                    per a unit of time. This could be useful on high
                     traffic firewalls, where writing too much to the
-                    log can overload disk subsystem.</entry>
+                    log can overload the disk subsystem.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Turn logging ON on all rules</guimenuitem></entry>
-                  <entry>This option overrides logging option in each
-                    rule to make the firewall act as if logging was
-                    turned on on each rule. This is useful for the
-                    policy debugging.</entry>
+                  <entry>This option overrides the logging option in
+                  each rule to make the firewall act as if logging was
+                  turned on in each rule. This is useful for debugging
+                  of the policy.</entry>
                 </row>
               </tbody>
             </tgroup>
@@ -2111,14 +2115,14 @@
                 </row>
                 <row>
                   <entry><guimenuitem>Load modules</guimenuitem></entry>
-                  <entry>Compiler generates code to load iptables
+                  <entry>The compiler generates code to load iptables
                     kernel modules before activating policy
                     rules.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Verify interfaces before
                     loading firewall policy</guimenuitem></entry>
-                  <entry>Compiler generates code to check if
+                  <entry>The compiler generates code to check if
                     interfaces configured in the firewall object exist
                     in the real firewall machine. This check is
                     executed before policy rules are loaded. If the
@@ -2134,63 +2138,64 @@
                   <entry><guimenuitem>Clamp MSS to
                     MTU</guimenuitem></entry>
                   <entry>This option allows you to examine and alter
-                    the MSS value of TCP SYN packets, to control the
+                    the MSS value of TCP SYN packets and control the
                     maximum size for that connection. This option can
-                    only be used if corresponding patch from
+                    only be used if the corresponding patch from
                     patch-o-matic is applied to iptables running on
                     the firewall.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Accept TCP sessions opened
                     prior to firewall restart</guimenuitem></entry>
-                  <entry>If this option is ON, firewall will accept
-                    TCP sessions opened before firewall software has
-                    been activated. These sessions are special because
-                    firewall never saw their initiation phase. If this
-                    option is on, the firewall creates an entry in
-                    the state table when it sees a packet that
-                    apparently belongs to the unknown TCP session.
-                    </entry>
+                  <entry>If this option is ON, the firewall will
+                  accept TCP sessions opened before the firewall
+                  software has been activated. These sessions are
+                  special because the firewall never saw their
+                  initiation phase. If this option is on, the firewall
+                  creates an entry in the state table when it sees a
+                  packet that apparently belongs to the unknown TCP
+                  session. </entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Accept ESTABLISHED and RELATED
                     packets before the first rule</guimenuitem></entry>
 
-                  <entry> This option generates implicit rule to
+                  <entry> This option generates an implicit rule to
                   accept ESTABLISHED and RELATED packets before the
                   very first rule specified in the GUI. This helps to
                   reduce the size of the policy script generated by
-                  policy compiler. ESTABLISHED packets are basically
-                  reply packets coming back from the server to the
-                  client. Iptables keeps state information about each
-                  TCP session opened through the firewall and thus can
-                  detect and permit this kind of packets
+                  the policy compiler. ESTABLISHED packets are
+                  basically reply packets coming back from the server
+                  to the client. Iptables keeps state information
+                  about each TCP session opened through the firewall
+                  and thus can detect and permit these kind of packets
                   automatically. RELATED packets belong to another
-                  stream somehow associated with initial stream opened
-                  through the firewall. FTP protocol is a good example
-                  of this situation.  FTP uses TCP sessions: command
-                  channel and data channel. You do not need to add
-                  special rule for the data channel to your policy
-                  because iptables 'understands' when it needs to
-                  permit packets that belong to the data channel that
-                  has been created per request sent via known command
-                  channel.  This option is ON by default.  If by some
-                  reason you do not want to have an implicit rule to
-                  permit these types of packets on top of all rules
-                  defined in the GUI, you should uncheck this
-                  option. Remember that in this case you need to add a
-                  rule to permit these types of packets yourself. You
-                  can use Custom Service object 'ESTABLISHED' in this
-                  rule. This service object can be found in the
-                  'Standard' object tree.  </entry>
+                  stream somehow associated with the initial stream
+                  opened through the firewall. FTP protocol is a good
+                  example of this situation.  FTP uses two TCP
+                  sessions: command channel and data channel. You do
+                  not need to add a special rule for the data channel
+                  to your policy because iptables 'understands' when
+                  it needs to permit packets that belong to the data
+                  channel that has been created per request sent via a
+                  known command channel.  This option is ON by
+                  default.  If for some reason you do not want to have
+                  an implicit rule to permit these types of packets on
+                  top of all the rules defined in the GUI, you should
+                  uncheck this option. Remember that in this case you
+                  need to add a rule to permit these types of packets
+                  yourself. You can use the Custom Service object
+                  named 'ESTABLISHED' in this rule. This service
+                  object can be found in the 'Standard' object tree.
+                  </entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Bridging firewall</guimenuitem></entry>
                   <entry>This option changes algorithms used by the
                     policy compiler and makes it generate script for a
-                    bridging firewall. Bridging firewall treats
+                    bridging firewall. A bridging firewall treats
                     broadcast packets differently, never uses INPUT
-                    and OUTPUT chains and has some other
+                    and OUTPUT chains, and has some other
                     differences.</entry>
                 </row>
                 <row>
@@ -2290,10 +2295,10 @@
                 <row>
                   <entry><guimenuitem>Pass all outgoing</guimenuitem></entry>
                   <entry>See above. If this option is ON, the
-                    compiler puts implicit rule to permit all outgoing
+                    compiler puts an implicit rule to permit all outgoing
                     packets on the top of the policy and then creates
                     rules only for incoming packets. This way you get
-                    smaller confguration but have little control over
+                    a smaller configuration but have little control over
                     outgoing sessions.  This option is common for
                     compilers for <emphasis>ipfilter</emphasis> and
                     <emphasis>pf</emphasis></entry>
@@ -2324,8 +2329,8 @@
                   <entry><guimenuitem>Directory where firewall
                     configuration files should be
                     installed</guimenuitem></entry>
-                  <entry>This parameter tells firewall initialization
-                    script produced by the compiler where firewall
+                  <entry>This parameter tells the firewall initialization
+                    script produced by the compiler where the firewall
                     configuration file is going to be located.</entry>
                 </row>
               </tbody>
@@ -2355,12 +2360,12 @@
                   <entry><guimenuitem>Masquerade returned icmp as
                     being from original packet's
                     destination</guimenuitem></entry>
-                  <entry>The firewall will construct icmp
-                    'unreachable' packet using source IP of the
+                  <entry>The firewall will construct an ICMP
+                    'unreachable' packet using the source IP of the
                     original packet's destination. This helps to hide
                     the firewall which sits in between the sender and
                     their original destination. If this option is OFF,
-                    the icmp 'unreachable' packet has source address
+                    the icmp 'unreachable' packet has the source address
                     of the firewall.
                     </entry>
                 </row>
@@ -2393,14 +2398,14 @@
                 </row>
                 <row>
                   <entry><guimenuitem>Block if can not log</guimenuitem></entry>
-                  <entry> if for some reason the firewall is unable
+                  <entry> If for some reason the firewall is unable
                     to log the packet (such as the log reader being
-                    too slow) then the rule should be interpreted as
-                    if the action was block for this packet.</entry>
+                    too slow), then the rule should be interpreted as
+                    if the action was <emphasis>Deny</emphasis> for this packet.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Log packet body</guimenuitem></entry>
-                  <entry> Logs not only packet's header, but also its
+                  <entry> Logs not only the packet's header, but also its
                     payload data. </entry>
                 </row>
               </tbody>
@@ -2411,7 +2416,7 @@
 
 
         <para><guimenuitem>Protocol Helpers: </guimenuitem> IP Filter
-        comes with a few, simple, proxies built into the code that is
+        comes with a few simple proxies built into the code that is
         loaded into the kernel to allow secondary channels to be
         opened without forcing the packets through a user program. See
         documentation for ipfilter and FAQ for additional
@@ -2469,7 +2474,7 @@
               <tbody>
                 <row>
                   <entry><guimenuitem>Generate both 'in' and 'out' rules</guimenuitem></entry>
-                  <entry>There are two ways compiler can generate
+                  <entry>There are two ways the compiler can generate
                     code for rules in the Global Policy: it can either
                     create two pf rules for one rule in the GUI to
                     control both incoming and outgoing packets, or it
@@ -2486,10 +2491,10 @@
                 <row>
                   <entry><guimenuitem>Pass all outgoing</guimenuitem></entry>
                   <entry>See above. If this option is ON, the
-                    compiler puts implicit rule to permit all outgoing
+                    compiler puts an implicit rule to permit all outgoing
                     packets on the top of the policy and then creates
                     rules only for incoming packets. This way you get
-                    smaller confguration but have little control over
+                    a smaller configuration but have little control over
                     outgoing sessions.  This option is common for
                     compilers for <emphasis>ipfilter</emphasis> and
                     <emphasis>pf</emphasis></entry>
@@ -2516,7 +2521,7 @@
                     sequence number for each connection endpoint.  The
                     &quot;modulate state&quot; directive implicitly keeps state
                     on the rule and is only applicable to TCP
-                    connections. See more details in the man page 
+                    connections. See more details in the manual page 
                     <filename>pf.conf(5)</filename></entry>
                 </row>
                 <row>
@@ -2582,8 +2587,8 @@
                   <entry><guimenuitem>Directory where firewall
                     configuration files should be
                     installed</guimenuitem></entry>
-                  <entry>This parameter tells firewall initialization
-                    script produced by the compiler where firewall
+                  <entry>This parameter tells the firewall initialization
+                    script produced by the compiler where the firewall
                     configuration file is going to be located.</entry>
                 </row>
               </tbody>
@@ -2625,15 +2630,15 @@
                 </row>
                 <row>
                   <entry><guimenuitem>Prolog script</guimenuitem></entry>
-                  <entry>this is a list of any PIX configuration commands
-              that will be included on top of generated configuration
+                  <entry>This is a list of any PIX configuration commands
+              that will be included on top of the generated configuration
               file. No syntax or other checks are done on commands in
               this list.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Epilog script</guimenuitem></entry>
                   <entry>this is a list of any PIX configuration commands
-              that will be appended at the end of generated
+              that will be appended at the end of the generated
               configuration file. No syntax or other checks are done
               on commands in this list</entry>
                 </row>
@@ -2663,12 +2668,11 @@
                   <entry><guimenuitem>Replace NAT'ed objects with
                     their translations in policy rules
                     </guimenuitem></entry>
-                  <entry>PIX inspects packet with access lists before
-                    it performs address translation. Many other
-                    firewall platforms do it the other way
-                    around. This option turns on emulation of the
-                    firewall that does NAT first.
-                    </entry>
+                  <entry>PIX inspects a packet with access lists
+                  before it performs an address translation. Many
+                  other firewall platforms do it the other way
+                  around. This option turns on emulation to make PIX
+                  look like a firewall that does NAT first.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Emulate outbound ACLs</guimenuitem></entry>
@@ -2678,22 +2682,22 @@
                 </row>
                 <row>
                   <entry><guimenuitem>Generate 'clear' commands</guimenuitem></entry>
-                  <entry>If this option is ON, compiler generates
+                  <entry>If this option is ON, the compiler generates
                     <emphasis>'clear'</emphasis> commands to reset any pre-existing
                     access lists, object-group, nat, global, static,
                     telnet, ssh and other commands.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Optimize 'default nat' rules</guimenuitem></entry>
-                  <entry>This option simplifies nat rules if object
+                  <entry>This option simplifies nat rules if the object
                     in Original Source is the same as the Network zone
-                    of one of the interfaces. Network zone of the
+                    of one of the interfaces. The network zone of the
                     interfaces defines all networks that are located
                     &quot;behind&quot; this interface. This means that packets
-                    entering the interface may have source address
+                    entering the interface may have a source address
                     only belonging to the Network zone of this
-                    interface. Since policy compiler can correctly
-                    assign nat rule to the interface using information
+                    interface. Since the policy compiler can correctly
+                    assign a NAT rule to the interface using information
                     about its Network Zone, explicit specification of
                     the source address can be omitted.
                     </entry>
@@ -2724,25 +2728,30 @@
               <tbody>
                 <row>
                   <entry><guimenuitem>Comment the code</guimenuitem></entry>
-                  <entry>If this option is activated, compiler adds
+                  <entry>If this option is activated, the compiler adds
                     comments to the configuration file</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Group similar commands
-                    together</guimenuitem></entry>
-                  <entry>If this option is activated, compiler groups
-                    similar commands next to each other, just like PIX
-                    device does it in the output of &quot;show config&quot;
-                    command. Otherwise commands are grouped logically:
-                    first go all object-group commands, then all
-                    access-lists, then all nat, global and static
-                    commands. Commands access-list, nat, global and
-                    static are grouped by the rules they were
-                    generated for, as they appear in the GUI. If one
-                    rule requires several access-list commands
-                    assigned to different interfaces, these commands
-                    are grouped together. Command &quot;show conf&quot; groups
-                    access-list commands by their interface.</entry>
+                  together</guimenuitem></entry> 
+
+                  <entry>If this option is activated, the compiler
+                  groups similar commands next to each other, just
+                  like the PIX device does it in the output of the
+                  &quot;show config&quot; command. Otherwise commands
+                  are grouped logically: first go all
+                  <emphasis>object-group</emphasis> commands, then all
+                  <emphasis>access-lists</emphasis>, then all
+                  <emphasis>nat</emphasis>,<emphasis>global</emphasis>
+                  and <emphasis>static</emphasis> commands. Commands
+                  <emphasis>access-list</emphasis>,
+                  <emphasis>nat</emphasis>,<emphasis>global</emphasis>
+                  and <emphasis>static</emphasis> are grouped by the
+                  rules they were generated for, as they appear in the
+                  GUI. If one rule requires several
+                  <emphasis>access-list</emphasis> commands assigned
+                  to different interfaces, these commands are grouped
+                  together. </entry>
                 </row>
               </tbody>
             </tgroup>
@@ -2791,30 +2800,30 @@
               <tbody>
                 <row>
                   <entry><guimenuitem>Check for duplicate nat rules </guimenuitem></entry>
-                  <entry>If this option is activated, compiler checks
-                    generated configuration for duplicate <emphasis>'nat'</emphasis>
+                  <entry>If this option is activated, the compiler checks
+                    the generated configuration for duplicate <emphasis>'nat'</emphasis>
                     commands
                     </entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Check for overlapping global pools </guimenuitem></entry>
-                  <entry>If this option is activated, compiler checks
-                    generated configuration for overlapping
+                  <entry>If this option is activated, the compiler checks
+                    the generated configuration for overlapping
                     <emphasis>'global'</emphasis> address pools
                     </entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Check for overlapping statics</guimenuitem></entry>
-                  <entry>If this option is activated, compiler checks
-                    generated configuration for <emphasis>'static'</emphasis>
+                  <entry>If this option is activated, the compiler checks
+                    the generated configuration for <emphasis>'static'</emphasis>
                     commands that use overlapping address
                     ranges.</entry>
                 </row>
                 <row>
                   <entry><guimenuitem>Check for overlapping global
                     pools and statics</guimenuitem></entry>
-                  <entry>If this option is activated, compiler checks
-                    generated configuration for <emphasis>'global'</emphasis> and
+                  <entry>If this option is activated, the compiler checks
+                    the generated configuration for <emphasis>'global'</emphasis> and
                     'static commands using overlapping address
                     ranges.</entry>
                 </row>
@@ -2850,9 +2859,9 @@
           <para>Parameters set in this dialog are mapped directly to
           the <emphasis>'timeout'</emphasis> command in the PIX
           configuration which sets timeout values for various
-          protocols supported by PIX. Clicking button
-          <guimenuitem>'Set all to defaults'</guimenuitem> resets all
-          timeout parameters to their default values.</para>
+          protocols supported by PIX. Clicking <guimenuitem>'Set all
+          to defaults'</guimenuitem> button resets all timeout
+          parameters to their default values.</para>
 
           <para>
             <figure id="pix-fw-adv-fixups" float="1">
@@ -2868,12 +2877,12 @@
 
           <para>Parameters set in this dialog are mapped to the
           <emphasis>'fixup'</emphasis> commands in the PIX
-          configuration. Button <guimenuitem>'Add'</guimenuitem> adds
-          new parameter of the type chosen in the drop-down menu to
-          the left. Clicking button <emphasis>'Delete'</emphasis>
-          deletes corresponding parameter. Clicking button
-          <emphasis>'Set all to defaults'</emphasis> returns all
-          settings to their default values. </para>
+          configuration. The <guimenuitem>'Add'</guimenuitem> button
+          adds a new parameter of the type chosen in the drop-down
+          menu to the left. Clicking the <emphasis>'Delete'</emphasis>
+          button deletes the corresponding parameter. Clicking the
+          <emphasis>'Set all to defaults'</emphasis> button returns
+          all settings to their default values. </para>
 
           <para>
             <figure id="pix-fw-adv-logging" float="1">
@@ -2910,7 +2919,7 @@
                   </row>
                   <row>
                     <entry><guimenuitem>syslog message queue size</guimenuitem></entry>
-                    <entry>The size of internal logging queue, in messages.</entry>
+                    <entry>The size of the internal logging queue, in messages.</entry>
                   </row>
                   <row>
                     <entry><guimenuitem>Facility</guimenuitem></entry>
@@ -2952,7 +2961,7 @@
                     <entry> Specify that syslog messages appear on
                       the PIX Firewall console as each message
                       occurs. You can limit the types of messages that
-                      appear on the console with level.</entry>
+                      appear on the console using the level parameter.</entry>
                   </row>
                   <row>
                     <entry>Logging timestamps</entry>
@@ -2978,8 +2987,8 @@
             </figure>
           </para>
 
-          <para>This dialog helps configure some global parameters for
-          the PIX firewall. See PIX documentation for detailed
+          <para>This dialog helps to configure some global parameters for
+          the PIX firewall. See PIX documentation for a detailed
           explanation of each command.</para>
 
 
@@ -3048,16 +3057,16 @@
       <title>Configuring Host OS </title>
       <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT2 SIMPLESECT) -->
 
-      <para>Firewall object's dialog tab 'Network' provides set of
+      <para>Firewall object's 'Network' dialog tab provides a set of
       controls to manipulate network settings and some kernel
-      parameters for the host OS firewall machine is running on.</para>
+      parameters for the host OS that the firewall machine is running on.</para>
 
       <sect2>
         <title>FreeBSD</title>
         <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-freebsd" float="1">
-          <title>Firewall Object, tab 'Network' for FreeBSD</title>
+          <title>Firewall Object, 'Network' tab for FreeBSD</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="fw-freebsd.png" format="png" align="Left" scale="50">
@@ -3072,7 +3081,7 @@
         <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-linux24" float="1">
-          <title>Firewall Object, tab 'Network' for Linux</title>
+          <title>Firewall Object, 'Network' tab for Linux</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="fw-linux24.png" format="png" align="Left" scale="50">
@@ -3087,7 +3096,7 @@
         <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-openbsd" float="1">
-          <title>Firewall Object, tab 'Network' for OpenBSD</title>
+          <title>Firewall Object, 'Network' tab for OpenBSD</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="fw-openbsd.png" format="png" align="Left" scale="50">
@@ -3102,7 +3111,7 @@
         <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-solaris" float="1">
-          <title>Firewall Object, tab 'Network' for Solaris</title>
+          <title>Firewall Object, 'Network' tab for Solaris</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="fw-solaris.png" format="png" align="Left" scale="50">
@@ -3117,7 +3126,7 @@
         <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-pix-os" float="1">
-          <title>Firewall Object, tab 'Network' for PIX</title>
+          <title>Firewall Object, 'Network' tab for PIX</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="fw-pix-os.png" format="png" align="Left" scale="50">
@@ -3179,7 +3188,7 @@
       </figure>
 
       <sect2 id="network-zone">
-        <title>Network Zone</title>
+        <title>The Network Zone</title>
 
         <para>One of the platform-specific parameters of the
           interface is a reference to the Network Zone. Currently only
@@ -3206,11 +3215,11 @@
           </mediaobject>
         </figure>
 
-        <para>Consider the network layout as on <xref
+        <para>Consider the network layout as in <xref
         linkend="network-zones">. Here the firewall has three
-        interfaces: 'outside', 'dmz' and 'inside'. Behind the firewall
+        interfaces: 'outside', 'dmz', and 'inside'. Behind the firewall
         there is a router which in turn is connected to three subnets
-        'subnet A', 'subnet B' and 'subnet C'. Subnet A is shared
+        'subnet A', 'subnet B', and 'subnet C'. Subnet A is shared
         between the router and the firewall (each device has an
         interface on this subnet). Let's also suppose that we have
         created Network Objects for each subnet and called them
@@ -3246,7 +3255,7 @@
                   <entry>
                       <emphasis>subnet A,</emphasis>
                       <emphasis>subnet B,</emphasis>
-                      <emphasis>subnet B</emphasis>
+                      <emphasis>subnet C</emphasis>
                     </entry>
                 </row>
               </tbody>
@@ -3271,7 +3280,7 @@
 
 
         <para><xref linkend="platform-specific-interface-parameters">
-        explains differences in the way firewall platforms interpret
+        explains the differences in the way firewall platforms interpret
         values in the Security Level and Network Zone parameters of
         the firewall interfaces.</para>
 
@@ -3335,9 +3344,9 @@
     populate the objects tree for large networks with lots of hosts
     and subnets. It would have taken hours if the user always had to
     do it manually, while the Objects Discovery Druid helps complete
-    this task in minutes. You can bring this Druid up using the main
-    menu <guimenuitem>"Tools"</guimenuitem>/<guimenuitem>"Discover
-    Objects"</guimenuitem> </para>
+    this task in minutes. You can bring this Druid up using the
+    <guimenuitem>"Tools"</guimenuitem>/<guimenuitem>"Discover
+    Objects"</guimenuitem> main menu </para>
 
     <para>The Druid supports three main methods for automated object
     creation:</para>
@@ -3354,7 +3363,7 @@
                                                                        linkend="discovery-page1">. )</para>
 
     <figure id="discovery-page1" float="1">
-      <title>Calling Object Discovery Druid</title>
+      <title>Calling The Object Discovery Druid</title>
       <mediaobject>
         <imageobject>
           <imagedata fileref="discovery_page1.jpg" format="jpg" align="Left" scale="50">
@@ -3366,12 +3375,12 @@
     use and click the <guibutton>'Next'</guibutton> button.</para>
 
     <sect1>
-      <title>Reading file /etc/hosts</title>
+      <title>Reading the /etc/hosts file</title>
 
-      <para>This method imports host records present in the standard
-        file <emphasis>/etc/hosts</emphasis> or any other file that
+      <para>This method imports the host records present in the standard
+        <emphasis>/etc/hosts</emphasis> file or any other file that
         contain records in the following format (this format is
-        actually described in the man page hosts(5)).</para>
+        actually described in the manual page hosts(5)).</para>
 
       <para>IP_Address   host_name</para>
 
@@ -3406,7 +3415,7 @@
         address, then the pull-down menu would have only one entry,
         otherwise it has several entries. The rightmost column in the
         table shows choices for the object type to be created: it can
-        become either the Host, Network, or Firewall. Sometimes, the
+        become either Host, Network, or Firewall. Sometimes, the
         Druid can guess the type of the object or use the proper type
         depending on the discovery method used.</para>
 
@@ -3415,7 +3424,7 @@
         table to select objects. The comment to the right shows the
         total number of selected objects at any given moment (text
         "Selected: N objects"). 6 objects are selected in the
-        screenshot <xref linkend="discovery-hosts-2">
+        screenshot (<xref linkend="discovery-hosts-2">)
         </para>
 
       <para>This page of the Druid also has the following buttons:</para>
@@ -3430,7 +3439,7 @@
           <listitem>
             <para><guibutton>"Unselect All"</guibutton></para>
 
-            <para>Unselects all records in the table</para>
+            <para>Deselects all records in the table</para>
           </listitem>
           <listitem>
             <para><guibutton>"Filter"</guibutton></para>
@@ -3441,7 +3450,7 @@
           <listitem>
             <para><guibutton>"Remove Filter"</guibutton></para>
 
-            <para>Removes currently applied filter and shows all
+            <para>Removes the currently applied filter and shows all
               records in the table</para>
           </listitem>
         </itemizedlist>
@@ -3465,15 +3474,15 @@
         with addresses on the net 10.3.14.0 we could use the filter
         "10.3.14". Likewise, to remove hosts "bear" and "beaver"
         (addresses 10.3.14.50 and 10.3.14.74) we could use the filter
-        "10.3.14.6". Note that filter string does not contain any
+        "10.3.14.6". Note that the filter string does not contain any
         wildcard symbols like "*". The filter shows only records that
         have addresses which literarily match the filter string.
         </para>
 
-      <para>Filtering by the object name uses POSIX regular
-        expressions syntax described in the man page regex(7). For
+      <para>Filtering by the object name uses the POSIX regular
+        expressions syntax described in the manual page regex(7). For
         example, to find all records whose names start with 'f' we
-        could use the regular expression '^f'. Symbol '^' matches the
+        could use the regular expression '^f'. The '^' symbol matches the
         beginning of the string, so this regular expression matches
         any name that starts with 'f'. To find all names that end with
         'somedomain.com', we could use the regular expression
@@ -3537,7 +3546,7 @@
       <para>If the DNS zone transfer succeeded and the druid was
         able to pull the information it needs to create objects, you
         can switch to the next page where you choose and create
-        objects. That page is the same as the one presented in <xref
+        objects. This page is the same as the one presented in <xref
                                                                      linkend="discovery-hosts-2">. </para>
 
     </sect1>
@@ -3591,12 +3600,11 @@
         discovered hosts do not answer to SNMP queries, the crawler
         already found them anyway. </para>
 
-      <para>One of the ways to limit the scope of the network that
-        the crawler will visit is to use the parameter "Confine scan
-        to the network". You need to enter both a network address and
-        a netmask; the crawler will then check if hosts it discovers
-        belong to this network and if they do not, discard
-        them.</para>
+      <para>One of the ways to limit the scope of the network that the
+      crawler will visit is to use the "Confine scan to the network"
+      parameter. You need to enter both a network address and a
+      netmask; the crawler will then check if the hosts it discovers
+      belong to this network and if they do not, discard them.</para>
 
       <figure id="discovery-snmp-options" float="1">
         <title>Parameters for Network Discovery: Page 1</title>
@@ -3685,24 +3693,24 @@
               timeout for the DNS lookup query, as well as the number
               of threads.  Firewall Builder uses a multithreaded
               resolver in order to speed up the process. In other
-              words, it can run several DNS lookups simultaneously,
-              the "Number of threads" parameter defines how many
+              words, it can run several DNS lookups simultaneously.
+              The "Number of threads" parameter defines how many
               lookups it can run in parallel.</para>
           </listitem>
         </itemizedlist>
         </para>
 
 
-      <para>Once all parameters are entered, the crawler actually
-        gets to work, which may take a while. Depending on the size of
-        the network and such parameters as the SNMP timeout value,
-        scanning may take minutes or even hours. The progress of the
-        scanner can be monitored on the page in the Druid (<xref
-                                                                 linkend="discovery-snmp-crawler">). You can always stop the
-        crawler using button <guibutton>"Stop network
-        scan"</guibutton>. Data does not get lost if you do this as
-        the Druid will use whatever objects the crawler discovered
-        before you stopped it.</para>
+      <para>Once all parameters are entered, the crawler actually gets
+      to work, which may take a while. Depending on the size of the
+      network and such parameters as the SNMP timeout value, scanning
+      may take minutes or even hours. The progress of the scanner can
+      be monitored on the page in the Druid (<xref
+      linkend="discovery-snmp-crawler">). You can always stop the
+      crawler using the <guibutton>"Stop network scan"</guibutton>
+      button. Data does not get lost if you do this as the Druid will
+      use whatever objects the crawler discovered before you stopped
+      it.</para>
 
       <figure id="discovery-snmp-crawler" float="1">
         <title>Parameters for Network Discovery: Page 2</title>
@@ -3713,16 +3721,15 @@
         </mediaobject>
       </figure>      
 
-      <para>the <guibutton>"Save scan log to file"</guibutton> button 
+      <para>The <guibutton>"Save scan log to file"</guibutton> button 
         saves the content of the progress window to a text file and is
         mostly used for troubleshooting and bug reports related to
         the crawler. </para>
 
       <para>If the crawler succeeded and was able to collect
-        information it needs to create objects, you can switch to the
-        next page where you choose and create objects. That page is
-        the same as the one presented in <xref
-                                               linkend="discovery-hosts-2">.</para>
+      information it needed to create objects, you can switch to the
+      next page where you choose and create objects. That page is the
+      same as the one shown in <xref linkend="discovery-hosts-2">.</para>
 
     </sect1>
   </chapter>
@@ -3734,19 +3741,20 @@
       <title>IP Service</title>
 
       <para>The simple IP service object is represented in the
-        screenshot <xref linkend="ip-service-dialog1">. Firewall
-        Builder provides standard object types for well-known and
-        frequently used protocols such as ICMP (IP protocol number 1),
-        TCP (IP protocol number 6) and UDP (IP protocol number
-        17). The IP service object helps describe other protocols
-        which are neither ICMP nor TCP nor UDP. The protocol is
-        defined by the 8-bit field in the IP packet header. The
-        screenshot <xref linkend="ip-service-dialog1"> represents
-        object 'ESP' (Encapsulating Security Payload, part of the
-        IPSEC protocol family) which uses the IP protocol number
-        50. Protocol numbers are assigned by IANA; one can look up the
-        number for a particular protocol at the following URL:
-        http://www.iana.org/assignments/protocol-numbers/</para>
+      screenshot (<xref linkend="ip-service-dialog1">). Firewall
+      Builder provides standard object types for well-known and
+      frequently used protocols such as ICMP (IP protocol number 1),
+      TCP (IP protocol number 6), and UDP (IP protocol number 17). The
+      IP service object helps describe other protocols which are
+      neither ICMP nor TCP nor UDP. The protocol is defined by the
+      8-bit field in the IP packet header. The screenshot (<xref
+      linkend="ip-service-dialog1">) represents the
+      <emphasis>'ESP'</emphasis> object (Encapsulating Security
+      Payload, part of the IPSEC protocol family) which uses the IP
+      protocol number 50. Protocol numbers are assigned by IANA; one
+      can look up the number for a particular protocol at the
+      following URL:
+      http://www.iana.org/assignments/protocol-numbers/</para>
 
       <para>Besides the protocol number, the header of the IP packet
         also has a field called "options" which is a variable-length
@@ -3789,7 +3797,7 @@
               <entry>This option causes every router that handles
                 the packet on the way to add its IP address to a list
                 in the options field. This option is used by the ping
-                utility when it is called with "-R" command line
+                utility when it is called with the "-R" command line
                 switch; it can potentially be exploited to discover
                 the internal network addressing and layout behind the
                 firewall. Although the risk is low, some firewall
@@ -3821,8 +3829,8 @@
         and fragmentation offsets can never happen during a normal
         operation but were seen to be used by attackers. Firewall
         Builder provides two options for most commonly used cases
-        related to packet fragmentation: option 'all fragments'
-        matches the second and further fragments, while option 'short'
+        related to packet fragmentation: the 'all fragments' option
+        matches the second and further fragments, while the 'short' option
         is used to match packets that are too short to contain even
         a complete IP header.</para>
 
@@ -4885,8 +4893,8 @@ PIX                  always             no             policy, NAT
         produced. This way the firewall can perform a reverse
         translation when the reply packet comes back. </para>
 
-        <para>The NAT rules in the screenshot <xref
-        linkend="nat-policy"> tell the firewall to do the
+        <para>The NAT rules in the screenshot (<xref
+        linkend="nat-policy">) tell the firewall to do the
         following:</para>
 
         <para>
