@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE FWObjectDatabase SYSTEM "fwbuilder.dtd">
-<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="0.10.12" id="root">
+<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="0.10.13" id="root">
   <AnyNetwork comment="Any Network" id="sysid0" library="Standard" name="Any" address="0.0.0.0" netmask="0.0.0.0"/>
   <AnyIPService comment="Any IP Service" id="sysid1" library="Standard" name="Any" protocol_num="0"/>
   <AnyInterval comment="Any Interval" from_day="-1" from_hour="-1" from_minute="-1" from_month="-1" from_weekday="-1" from_year="-1" id="sysid2" library="Standard" name="Any" to_day="-1" to_hour="-1" to_minute="-1" to_month="-1" to_weekday="-1" to_year="-1"/>
@@ -22,7 +22,7 @@
     </ObjectGroup>
     <ObjectGroup id="stdid02" library="Standard" name="Hosts">
       <Host comment="" id="id3D387E5E" name="mail server">
-        <Interface dyn="False" id="id3D387E5E-i" name="interface-1" physAddress="" security_level="0">
+        <Interface dyn="False" id="id3D387E5E-i" name="interface-1" security_level="0" unnum="False">
           <IPv4 address="10.3.14.30" id="id3D387E5E-i-1-addr" name="address" netmask="255.255.255.255"/>
         </Interface>
         <Management address="10.3.14.30">
@@ -39,8 +39,9 @@
         </HostOptions>
       </Host>
       <Host comment="" id="id3D3880B8" name="build server">
-        <Interface comment="" dyn="False" id="id3D3880B8-i" label="" mgmt="False" name="eth0" physAddress="" security_level="0">
+        <Interface comment="" dyn="False" id="id3D3880B8-i" label="" mgmt="False" name="eth0" security_level="0" unnum="False">
           <IPv4 address="10.3.14.40" id="id3D3880B8-i-1-addr" name="address" netmask="255.255.255.255"/>
+          <physAddress address="00:10:4b:de:e6:6f" comment="" id="id3E139309" name="build server:eth0(MAC)"/>
         </Interface>
         <Management address="10.3.14.40">
           <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
@@ -56,7 +57,7 @@
         </HostOptions>
       </Host>
       <Host comment="" id="id3D713A07" name="test server">
-        <Interface dyn="False" id="id3D713A0D" name="eth0" physAddress="" security_level="0">
+        <Interface dyn="False" id="id3D713A0D" name="eth0" security_level="0" unnum="False">
           <IPv4 address="10.3.14.50" comment="" id="id3D713A0E" name="addr1" netmask="255.255.255.0"/>
           <IPv4 address="10.3.14.51" comment="" id="id3D713A0F" name="addr2" netmask="255.255.255.0"/>
           <IPv4 address="10.3.14.52" comment="" id="id3D713A10" name="addr3" netmask="255.255.255.0"/>
@@ -535,7 +536,7 @@
           </PolicyRuleOptions>
         </PolicyRule>
       </Policy>
-      <Interface comment="" dyn="False" id="id3D387B57" label="outside" mgmt="False" name="ethernet0" network_zone="sysid0" physAddress="" security_level="0">
+      <Interface comment="" dyn="False" id="id3D387B57" label="outside" mgmt="False" name="ethernet0" network_zone="sysid0" security_level="0" unnum="False">
         <IPv4 address="192.0.2.20" comment="" id="id3D387B57-ipv4" name="address" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3D387B59">
           <PolicyRule action="Deny" comment="Anti-spoofing rule" direction="Inbound" disabled="False" id="id3D387B6F" log="True" position="0">
@@ -559,11 +560,11 @@
           </PolicyRule>
         </InterfacePolicy>
       </Interface>
-      <Interface comment="" dyn="False" id="id3D387B5A" label="inside" mgmt="True" name="ethernet1" network_zone="id3D6EA57D" physAddress="" security_level="100">
+      <Interface comment="" dyn="False" id="id3D387B5A" label="inside" mgmt="True" name="ethernet1" network_zone="id3D6EA57D" security_level="100" unnum="False">
         <IPv4 address="10.3.14.202" id="id3D387B5A-ipv4" name="address" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3D387B5C"/>
       </Interface>
-      <Interface dyn="False" id="id3D387B5D" label="dmz50" name="ethernet2" network_zone="id3D387B61" physAddress="" security_level="50">
+      <Interface dyn="False" id="id3D387B5D" label="dmz50" name="ethernet2" network_zone="id3D387B61" security_level="50" unnum="False">
         <IPv4 address="10.2.2.1" id="id3D387B5D-ipv4" name="address" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3D387B5F"/>
       </Interface>
@@ -1004,7 +1005,7 @@ clock timezone PDT -7
           </PolicyRuleOptions>
         </PolicyRule>
       </Policy>
-      <Interface comment="" dyn="False" id="id3D77C225" label="" mgmt="False" name="eth0" network_zone="sysid0" physAddress="" security_level="0">
+      <Interface comment="" dyn="False" id="id3D77C225" label="" mgmt="False" name="eth0" network_zone="sysid0" security_level="0" unnum="False">
         <IPv4 address="192.0.2.22" comment="" id="id3D77C226" name="address" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3D77C227">
           <PolicyRule action="Deny" comment="Anti-spoofing rule" direction="Inbound" disabled="False" id="id3D77C228" log="True" position="0">
@@ -1047,11 +1048,11 @@ clock timezone PDT -7
           </PolicyRule>
         </InterfacePolicy>
       </Interface>
-      <Interface comment="" dyn="False" id="id3D77C240" label="" mgmt="True" name="eth1" network_zone="id3D387B60" physAddress="" security_level="100">
+      <Interface comment="" dyn="False" id="id3D77C240" label="" mgmt="True" name="eth1" network_zone="id3D387B60" security_level="100" unnum="False">
         <IPv4 address="10.3.14.203" comment="" id="id3D77C241" name="address" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3D77C242"/>
       </Interface>
-      <Interface comment="" dyn="False" id="id3D77C243" label="" mgmt="False" name="eth2" network_zone="id3D387B61" physAddress="" security_level="50">
+      <Interface comment="" dyn="False" id="id3D77C243" label="" mgmt="False" name="eth2" network_zone="id3D387B61" security_level="50" unnum="False">
         <IPv4 address="10.2.2.1" id="id3D77C244" name="address" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3D77C245"/>
       </Interface>

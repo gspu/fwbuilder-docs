@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.46 $  $Date: 2002-11-24 22:34:01 $</edition>
+    <edition>$Revision: 1.47 $  $Date: 2003-01-02 00:49:19 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -464,7 +464,7 @@
       <title>The Main Window</title>
 
       <para>The main window is divided into two parts: the objects
-      tree and a dialog area. The object which is surrently selected
+      tree and a dialog area. The object which is currently selected
       in the tree is highlighted in a color and is shown in the dialog
       in the right half of the main window. You can create more than
       one main window using the main menu
@@ -769,9 +769,10 @@
         host or the firewall, therefore the menu item
         <guimenuitem>"Insert"</guimenuitem>/<guimenuitem>"Interface"</guimenuitem>
         is enabled only if the host or firewall object is opened in
-        the main window. Likewise, the menu item
-        <guimenuitem>"Address"</guimenuitem> is enabled only when the
-        interface object is opened.</para>
+        the main window. Likewise, the menu items
+        <guimenuitem>"Address"</guimenuitem> and
+        <guimenuitem>"Physical Address"</guimenuitem> are enabled only
+        when the interface object is opened.</para>
 
         <para>Another way to create objects uses the pop-up menu which
         appears if you click the right mouse button on the object
