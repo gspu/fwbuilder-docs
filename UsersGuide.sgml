@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.14 $  $Date: 2003-04-06 06:19:16 $</edition>
+    <edition>$Revision: 1.15 $  $Date: 2003-04-07 07:42:11 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -147,7 +147,7 @@
         <title>Sample firewall policy</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="scrn2.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="scrn2.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -271,7 +271,7 @@
           <title>Main window</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -294,7 +294,7 @@
         <title>GUI Options Dialog</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="options1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="options1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -479,7 +479,7 @@
         <title>Standard Tree Structure</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="tree_structure1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="tree_structure1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -522,7 +522,7 @@
         <title>Standard Objects</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="main_win2.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="main_win2.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -541,7 +541,7 @@
         <title>Creating Objects Using Main Menu 'Insert'</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="scrn-menu1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="scrn-menu1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -576,7 +576,7 @@
                 <entry>
                   <inlinemediaobject>
                     <imageobject>
-                      <imagedata fileref="scrn-menu2.jpg" format="jpg" align="Left" scale="33">
+                      <imagedata fileref="scrn-menu2.jpg" format="jpg" align="Left" scale="50">
                     </imageobject>
                   </inlinemediaobject>
                 </entry>
@@ -584,7 +584,7 @@
                 <entry>
                   <inlinemediaobject>
                     <imageobject>
-                      <imagedata fileref="scrn-menu3.jpg" format="jpg" align="Left" scale="33">
+                      <imagedata fileref="scrn-menu3.jpg" format="jpg" align="Left" scale="50">
                     </imageobject>
                   </inlinemediaobject>
                 </entry>
@@ -692,7 +692,7 @@
         <title>Group View</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="group_view1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="group_view1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -758,7 +758,7 @@
         <title>A Host Object With One Interface And Multiple Virtual Addresses </title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="host_in_tree.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="host_in_tree.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -776,7 +776,7 @@
           <title>First Page of the Druid</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="creating_host1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="creating_host1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -808,7 +808,7 @@
           <title>Adding Interfaces to the New Host Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="creating_host2.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="creating_host2.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -841,7 +841,7 @@
           <title>Editing The Host Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -895,7 +895,7 @@
           <title>Host Object System Information</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -916,7 +916,7 @@
         <title>The Host's Interface</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="host_interface1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="host_interface1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -1077,7 +1077,7 @@
         <title>The Address Object</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="address1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="address1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -1138,7 +1138,7 @@
         <title>The Physical Address Object</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="physaddress1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="physaddress1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -1214,7 +1214,7 @@
           <title>the Host object with Address and Physical Address</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="using-physaddress-1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="using-physaddress-1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1242,7 +1242,7 @@
                 <title>Policy rule using only Address object</title>
                 <mediaobject>
                   <imageobject>
-                    <imagedata fileref="using-physaddress-4.jpg" format="jpg" align="Left" scale="33">
+                    <imagedata fileref="using-physaddress-4.jpg" format="jpg" align="Left" scale="50">
                   </imageobject>
                 </mediaobject>
               </figure>
@@ -1256,7 +1256,7 @@
                 <title>Policy rule using only Physical Address object</title>
                 <mediaobject>
                   <imageobject>
-                    <imagedata fileref="using-physaddress-5.jpg" format="jpg" align="Left" scale="33">
+                    <imagedata fileref="using-physaddress-5.jpg" format="jpg" align="Left" scale="50">
                   </imageobject>
                 </mediaobject>
               </figure>
@@ -1273,7 +1273,7 @@
                 <title>Policy rule using Host object</title>
                 <mediaobject>
                   <imageobject>
-                    <imagedata fileref="using-physaddress-6.jpg" format="jpg" align="Left" scale="33">
+                    <imagedata fileref="using-physaddress-6.jpg" format="jpg" align="Left" scale="50">
                   </imageobject>
                 </mediaobject>
               </figure>
@@ -1282,7 +1282,7 @@
                 <title>Policy rule using Interface object</title>
                 <mediaobject>
                   <imageobject>
-                    <imagedata fileref="using-physaddress-3.jpg" format="jpg" align="Left" scale="33">
+                    <imagedata fileref="using-physaddress-3.jpg" format="jpg" align="Left" scale="50">
                   </imageobject>
                 </mediaobject>
               </figure>
@@ -1317,7 +1317,7 @@
           <title>Policy rule using Address and Physical Address objects</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="using-physaddress-7.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="using-physaddress-7.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1346,7 +1346,7 @@
         <title>The Network Object</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="network_dialog1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="network_dialog1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -1394,7 +1394,7 @@
         <title>The Address Range Object</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="address_range_dialog1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="address_range_dialog1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -1438,7 +1438,7 @@
         <title>Group of Objects</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="group_dialog1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="group_dialog1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -1506,7 +1506,7 @@
           <title>First Page of the Druid</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="creating_firewall1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="creating_firewall1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1515,7 +1515,7 @@
           <title>Adding Interfaces to the new Firewall Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="creating_firewall2.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="creating_firewall2.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1545,7 +1545,7 @@
           <title>Firewall Object, tab 'General'</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="firewall_dialog_general.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="firewall_dialog_general.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1606,7 +1606,7 @@
           <title>Firewall Object, tab 'Sysinfo'</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="firewall_dialog_sysinfo.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="firewall_dialog_sysinfo.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1628,7 +1628,7 @@
           <title>Firewall Object, tab 'Compile/Install'</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="firewall_dialog_compile.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="firewall_dialog_compile.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -1962,7 +1962,7 @@
           <title>Firewall Object, tab 'Firewall' for iptables</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-iptables.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-iptables.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -2234,7 +2234,7 @@
           <title>Firewall Object, tab 'Firewall' for ipfilter</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-ipf.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-ipf.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -2431,7 +2431,7 @@
           <title>Firewall Object, tab 'Firewall' for pf</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-pf.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-pf.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -2605,7 +2605,7 @@
           <title>Firewall Object, tab 'Firewall' for PIX</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-pix.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-pix.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -2845,7 +2845,7 @@
               <mediaobject>
                 <imageobject>
                   <imagedata fileref="fw-pix-adv-timeouts.png" 
-                             format="png" align="Left" scale="33">
+                             format="png" align="Left" scale="50">
                 </imageobject>
               </mediaobject>
             </figure>
@@ -2864,7 +2864,7 @@
               <mediaobject>
                 <imageobject>
                   <imagedata fileref="fw-pix-adv-fixups.png" 
-                             format="png" align="Left" scale="33">
+                             format="png" align="Left" scale="50">
                 </imageobject>
               </mediaobject>
             </figure>
@@ -2885,7 +2885,7 @@
               <mediaobject>
                 <imageobject>
                   <imagedata fileref="fw-pix-adv-logging.png" 
-                             format="png" align="Left" scale="33">
+                             format="png" align="Left" scale="50">
                 </imageobject>
               </mediaobject>
             </figure>
@@ -2976,7 +2976,7 @@
               <mediaobject>
                 <imageobject>
                   <imagedata fileref="fw-pix-adv-options.png" 
-                             format="png" align="Left" scale="33">
+                             format="png" align="Left" scale="50">
                 </imageobject>
               </mediaobject>
             </figure>
@@ -3064,7 +3064,7 @@
           <title>Firewall Object, tab 'Network' for FreeBSD</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-freebsd.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-freebsd.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -3079,7 +3079,7 @@
           <title>Firewall Object, tab 'Network' for Linux</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-linux24.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-linux24.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -3094,7 +3094,7 @@
           <title>Firewall Object, tab 'Network' for OpenBSD</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-openbsd.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-openbsd.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -3109,7 +3109,7 @@
           <title>Firewall Object, tab 'Network' for Solaris</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-solaris.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-solaris.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -3124,7 +3124,7 @@
           <title>Firewall Object, tab 'Network' for PIX</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fw-pix-os.png" format="png" align="Left" scale="33">
+              <imagedata fileref="fw-pix-os.png" format="png" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -3141,7 +3141,7 @@
         <mediaobject>
           <imageobject>
             <imagedata fileref="firewall_interface1.jpg" 
-                format="jpg" align="Left" scale="33">
+                format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -3174,7 +3174,7 @@
         <title>An Interface with a numeric Security Level </title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="firewall_interface2.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="firewall_interface2.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -3202,7 +3202,7 @@
           <title>The Network Zone dialogue</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="firewall_interface3.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="firewall_interface3.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -3265,7 +3265,7 @@
           <mediaobject>
             <imageobject>
               <imagedata fileref="fwbuilder-using-netzone1.jpg" 
-                  format="jpg" align="Left" scale="33">
+                  format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -3326,7 +3326,7 @@
       <title>Calling the Object Discovery Druid</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="discovery_menu.jpg" format="jpg" align="Left" scale="33">
+          <imagedata fileref="discovery_menu.jpg" format="jpg" align="Left" scale="50">
         </imageobject>
       </mediaobject>
     </figure>
@@ -3358,7 +3358,7 @@
       <title>Calling Object Discovery Druid</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="discovery_page1.jpg" format="jpg" align="Left" scale="33">
+          <imagedata fileref="discovery_page1.jpg" format="jpg" align="Left" scale="50">
         </imageobject>
       </mediaobject>
     </figure>
@@ -3392,7 +3392,7 @@
         <title>Creating objects using gathered information</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_hosts_2.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_hosts_2.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -3452,7 +3452,7 @@
         <title>Filter Dialog</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_hosts_filter.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_hosts_filter.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3496,7 +3496,7 @@
         <title>Entering the domain name</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_dns_domain.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_dns_domain.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3512,7 +3512,7 @@
         <title>List of name servers</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_dns_ns.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_dns_ns.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3530,7 +3530,7 @@
         <title>DNS zone transfer</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_dns_transfer.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_dns_transfer.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3550,7 +3550,7 @@
         <title>Initial Parameters for the Network Discovery program</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_snmp_seed.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_snmp_seed.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3603,7 +3603,7 @@
         <title>Parameters for Network Discovery: Page 1</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_snmp_options.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_snmp_options.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3612,7 +3612,7 @@
         <title>Parameters for Network Discovery: Page 2</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_snmp_options2.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_snmp_options2.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3709,7 +3709,7 @@
         <title>Parameters for Network Discovery: Page 2</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="discovery_snmp_crawler.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="discovery_snmp_crawler.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3897,7 +3897,7 @@
         <title>Editing the IP Service Object</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="ip_service_dialog1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="ip_service_dialog1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -3973,7 +3973,7 @@
         <title>Editing the ICMP Service Object</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="icmp_service_dialog1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="icmp_service_dialog1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -4074,7 +4074,7 @@
         <mediaobject>
           <imageobject>
             <imagedata fileref="tcp_service_dialog1.jpg" 
-                format="jpg" align="Left" scale="33">
+                format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -4101,7 +4101,7 @@
         <mediaobject>
           <imageobject>
             <imagedata fileref="tcp_service_dialog2.jpg" 
-                format="jpg" align="Left" scale="33">
+                format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>      
@@ -4242,7 +4242,7 @@
           <title>TCP Service Object: any TCP packet with SYN flag set and all other flags cleared.</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="tcp_service_dialog3.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="tcp_service_dialog3.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -4265,7 +4265,7 @@
           <title>"null scan" TCP Service Object: firewall examines all TCP flags and matches if all are cleared.</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="tcp_service_dialog4.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="tcp_service_dialog4.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -4339,7 +4339,7 @@
           <title>Editing UDP Service Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="udp_service_dialog1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="udp_service_dialog1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -4428,7 +4428,7 @@
           <title>Editing Custom Service Object</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="custom_service_dialog1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="custom_service_dialog1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>      
@@ -4531,7 +4531,7 @@
         <mediaobject>
           <imageobject>
             <imagedata fileref="policies-seq.jpg"
-                format="jpg" align="Left" scale="33">
+                format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -4592,7 +4592,7 @@
           <mediaobject>
             <imageobject>
               <imagedata fileref="actions.png"
-                  format="jpg" align="Left" scale="33">
+                  format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -4623,7 +4623,7 @@
           <mediaobject>
             <imageobject>
               <imagedata fileref="accounting-action.png"
-                  format="jpg" align="Left" scale="33">
+                  format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -4648,7 +4648,7 @@
           <mediaobject>
             <imageobject>
               <imagedata fileref="directions.png"
-                  format="jpg" align="Left" scale="33">
+                  format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -4683,7 +4683,7 @@ PIX                  always             no             policy, NAT
           <title>Global Policy</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="global_policy.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="global_policy.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -4737,7 +4737,7 @@ PIX                  always             no             policy, NAT
           <title>Interface Policy for iptables firewall</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="interface_policy1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="interface_policy1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -4746,7 +4746,7 @@ PIX                  always             no             policy, NAT
           <title>Interface Policy for Cisco PIX firewall</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="interface_policy2.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="interface_policy2.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -4782,7 +4782,7 @@ PIX                  always             no             policy, NAT
           <title>Network Address Translation Rules</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="nat_policy.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="nat_policy.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -5278,7 +5278,7 @@ PIX                  always             no             policy, NAT
           <title>Modifying Policy rules</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -5329,7 +5329,7 @@ PIX                  always             no             policy, NAT
           <title>Modifying Object in the Policy Rule</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -5391,7 +5391,7 @@ PIX                  always             no             policy, NAT
           <title>Modifying the Action of the Policy Rule</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -5431,7 +5431,7 @@ PIX                  always             no             policy, NAT
           <title>Modifying the Direction of the Policy Rule</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -5470,7 +5470,7 @@ PIX                  always             no             policy, NAT
           <title>Modifying Options of the Policy Rule</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="50">
             </imageobject>
           </mediaobject>
         </figure>
@@ -5626,7 +5626,7 @@ PIX                  always             no             policy, NAT
         <title>Host object with an interface that has multiple addresses</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="multiple-addresses-obj1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="multiple-addresses-obj1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -5637,7 +5637,7 @@ PIX                  always             no             policy, NAT
         rules</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="multiple-addresses-rule1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="multiple-addresses-rule1.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
@@ -5666,7 +5666,7 @@ PIX                  always             no             policy, NAT
         <title>Equivalent rules</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="multiple-addresses-rule2.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="multiple-addresses-rule2.jpg" format="jpg" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>
