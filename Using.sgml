@@ -29,6 +29,7 @@
     
   </bookinfo>
 
+<!-- ############################################################### -->
   <chapter id="Introduction">
     <title>Introduction</title>
 
@@ -89,7 +90,7 @@
             <para>Network discovery tool, to automate objects creation
             task</para>
           </listitem>
-
+          
           <listitem>
             <para>Object oriented approach to the policy management:
             change made to an object gets immediately reflected in all
@@ -133,9 +134,11 @@
     </sect1>
   </chapter>
 
+<!-- ############################################################### -->
   <chapter id="Installation">
     <title>Installation</title>
 
+<!-- *************************************************************** -->
     <sect1>
       <title>Packaging</title>
 
@@ -143,14 +146,18 @@
        Firewall Builder is Open Source project. Source code for the
        API library, GUI and policy compilers for iptables, ipfilter
        and pf is available for download from our web site
-       http://www.fwbuilder.org/. We do encourage people to compile
-       from the source code; building instructions are available on
-       the same web site in the section "Documents". Firewall Builder
-       can be compiled and works on the following OS and
-       distributions:
+       http://www.fwbuilder.org/. Firewall Builder for PIX is
+       available only as a binary package. 
       </para>
 
-      <itemizedlist>
+      <para>
+       We do encourage people to compile from the source code;
+       building instructions are available on the same web site in the
+       section "Documents". Firewall Builder can be compiled and works
+       on the following OS and distributions:
+      </para>
+
+      <para><itemizedlist>
         <listitem>
           <para>RedHat Linux 7.2 and 7.3</para>
         </listitem>
@@ -169,13 +176,57 @@
         <listitem>
           <para>Solaris 8</para>
         </listitem>
-      </itemizedlist>
+      </itemizedlist></para>
 
       <para>
-       Firewall Builder for PIX is available only as a binary package.
+       Firewall Builder comes in a several packages:
       </para>
+
+      <para><itemizedlist>
+        <listitem>
+          <para>Firewall Builder <emphasis>API library</emphasis>: package "libfwbuilder"</para>
+        </listitem>
+
+        <listitem>
+          <para>Firewall Builder <emphasis>GUI</emphasis>: package "fwbuilder"</para>
+        </listitem>
+
+        <listitem>
+          <para>Parts of GUI and policy compiler for <emphasis>iptables</emphasis>: package "fwbuilder-ipt"</para>
+        </listitem>
+
+        <listitem>
+          <para>Parts of GUI and policy compiler for <emphasis>ipfilter</emphasis>: package "fwbuilder-ipf"</para>
+        </listitem>
+
+        <listitem>
+          <para>Parts of GUI and policy compiler for <emphasis>pf</emphasis>: package "fwbuilder-pf"</para>
+        </listitem>
+
+        <listitem>
+          <para>Parts of GUI and policy compiler for <emphasis>Cisco PIX</emphasis>: package "fwbuilder-pix"</para>
+        </listitem>
+
+      </itemizedlist></para>
+
+      <para>
+       One needs to install the API library
+       <emphasis>libfwbuilder</emphasis>, the GUI
+       <emphasis>fwbuilder</emphasis> and at least one module that
+       provides support for the target firewall platform, this could
+       be either <emphasis>fwbuilder-ipt</emphasis> or one of the
+       others.
+      </para>
+
+      <para>
+       Typical installation problems are addressed in the document "Firewall Builder
+       Frequently Asked Questions (FAQ)" which can be found at the following
+       <ulink url="&faq-url">URL</ulink>
+      </para>
+
     </sect1>
 
+<!-- *************************************************************** -->
     <sect1>
       <title>General prerequisites</title>
 
@@ -237,12 +288,14 @@
       </para>
 
       <para>
-       Typical installation problems are addressed in the document "Firewall Builder
-       Frequently Asked Questions (FAQ)" which can be found at the following
-       <ulink url="&faq-url">URL</ulink>
+       Once you have installed all the packages, you can start
+       Firewall Builder GUI by simply typing "fwbuilder" on the
+       command line.
       </para>
+
     </sect1>
 
+<!-- *************************************************************** -->
     <sect1>
       <title>Installing pre-built binaries on RedHat Linux 7.2 and 7.3</title>
 
@@ -316,6 +369,7 @@
 
     </sect1>
 
+<!-- *************************************************************** -->
     <sect1>
       <title>Installing pre-built binaries on Mandrake Linux 8.2</title>
 
@@ -378,6 +432,7 @@
 
   </chapter>
 
+<!-- ############################################################### -->
   <chapter id="Tutorial">
     <title></title>
 
