@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.7 $  $Date: 2003-02-10 01:34:35 $</edition>
+    <edition>$Revision: 1.8 $  $Date: 2003-02-10 04:50:48 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1739,9 +1739,9 @@
 
     </sect1>
 
+<!-- ===================================== Configuring Target FW ================= -->
     <sect1>
       <title>Configuring Target Firewall Software </title>
-      <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT2 SIMPLESECT) -->
 
       <para>Firewall object's dialog tab 'Firewall' provides a set of
       controls to adjust behavior of the policy compiler and
@@ -1749,6 +1749,7 @@
       changes setting in the 'Firewall Platform' option in the 
       'General' tab.</para>
 
+<!-- ===================================== Generic =============================== -->
       <sect2>
         <title>Generic Parameters</title>
 
@@ -1860,44 +1861,40 @@
 
           <para>Custom string that shows up in the log together with
           information logged for each rule that has 'logging' option
-          activated. Firewall Builder supports a few macros in the log
-          prefix that are expanded at the compile time:</para>
+          activated. Firewall Builder supports the following macros in
+          the log prefix that are expanded at the compile time:</para>
 
           <para>
-            <table frame="topbot" pgwide="0">
-              <title>Macros allowed in the logging prefix</title>
-              <tgroup cols="2">
-                <colspec colwidth="64pt" align="center">
-                <colspec colwidth="250pt" align="left">
-                <thead>
-                  <row>
-                    <entry>Macro</entry>
-                    <entry>Replaced with</entry>
-                  </row>
-                </thead>
+            <informaltable frame="none" pgwide="0">
+              <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+                <colspec colwidth="0.5in">
+                <colspec colwidth="3.5in">
                 <tbody>
                   <row>
-                    <entry>%N</entry> <entry>rule number in the GUI.</entry>
+                    <entry>%N</entry>
+                    <entry> rule number in the GUI.</entry>
                   </row>
 
                   <row>
                     <entry>%A</entry>
-                    <entry>rule action</entry>
+                    <entry> rule action</entry>
                   </row>
 
                   <row>
-                    <entry>%I</entry> <entry>interface the rule is associated
+                    <entry>%I</entry>
+                    <entry> interface the rule is associated
                         with</entry>
                   </row>
 
                   <row>
-                    <entry>%C</entry> <entry>(iptables only) iptables
+                    <entry>%C</entry>
+                    <entry> (iptables only) iptables
                     chain this rule generated code for.</entry>
                   </row>
 
                 </tbody>
               </tgroup>
-            </table>
+            </informaltable>
           </para>
         </sect3>
 
@@ -1957,6 +1954,7 @@
         </sect3>
       </sect2>
 
+<!-- ===================================== IPTABLES ============================== -->
       <sect2>
         <title>iptables</title>
 
@@ -1970,287 +1968,265 @@
         </figure>
 
         <para>
-          <itemizedlist>
-            <listitem>
-              <para><guimenuitem>Version:</guimenuitem></para>
+          <table frame="topbot" pgwide="0">
+            <title>General</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row rowsep="1">
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Version:</guimenuitem></entry>
+                  <entry>Version of iptables used on the firewall machine.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
 
-              <para>Version of iptables used on the firewall machine.</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Global Logging Parameters</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Use LOG</guimenuitem></para>
-                    <para>Use standard target LOG for logging (as opposed to using ULOG)</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>log TCP seq. numbers</guimenuitem></para>
-                    <para>Log TCP sequence numbers.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>log TCP options</guimenuitem></para>
-                    <para>Log options from the TCP packet header. </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>log IP options</guimenuitem></para>
-                    <para>Log options from the IP packet header. </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Use numeric syslog levels</guimenuitem></para>
-
-                    <para>Use numeric setting for "--log-level". This
+        <para>
+          <table frame="topbot" pgwide="0">
+            <title>Global Logging Parameters</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row rowsep="1">
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Use LOG</guimenuitem></entry>
+                  <entry>Use standard target LOG for logging (as opposed to using ULOG)</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>log TCP seq. numbers</guimenuitem></entry>
+                  <entry>Log TCP sequence numbers.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>log TCP options</guimenuitem></entry>
+                  <entry>Log options from the TCP packet header. </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>log IP options</guimenuitem></entry>
+                  <entry>Log options from the IP packet header. </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Use numeric syslog levels</guimenuitem></entry>
+                  <entry>Use numeric setting for &quot;--log-level&quot;. This
                     option was introduced as a workaround for a bug in
                     iptables 1.2.3 which could not interpret properly
                     standard symbolic syslog level (priority) names
                     'debug', 'info', 'notice', 'warning', 'error',
-                    'crit', 'alert' </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Log level</guimenuitem></para>
-
-                    <para> See <xref linkend="log-level"> </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Use ULOG</guimenuitem></para>
-
-                    <para>Use ULOG target for more advanced packet
+                    'crit', 'alert' </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Log level</guimenuitem></entry>
+                  <entry> See <xref linkend="log-level"> </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Use ULOG</guimenuitem></entry>
+                  <entry>Use ULOG target for more advanced packet
                     logging mechanism. The ULOG target is only
                     available if corresponding patch is applied to
-                    iptables. See <ulink
-                    url="http://www.gnumonks.org/projects/ulogd">http://www.gnumonks.org/projects/ulogd</ulink>
-                    </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>cprange</guimenuitem></para>
-
-                    <para>Number of bytes to be copied to userspace. A
+                    iptables. See <ulink url="http://www.gnumonks.org/projects/ulogd">http://www.gnumonks.org/projects/ulogd</ulink>
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>cprange</guimenuitem></entry>
+                  <entry>Number of bytes to be copied to userspace. A
                     value of 0 always copies the entire packet,
-                    regardless of its size. Default is 0</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>queue thrershold</guimenuitem></para>
-
-                    <para>Sets the amount of packets batched together
-                    in one multipart netlink message.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Netlink Group</guimenuitem></para>
-
-                    <para>This specifies the netlink group (1-32) to
+                    regardless of its size. Default is 0</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>queue thrershold</guimenuitem></entry>
+                  <entry>Sets the amount of packets batched together
+                    in one multipart netlink message.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Netlink Group</guimenuitem></entry>
+                  <entry>This specifies the netlink group (1-32) to
                     which the packet is sent.  Default value is
-                    1.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Log Prefix</guimenuitem></para>
-
-                    <para> See <xref linkend="log-prefix"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Log all dropped packets</guimenuitem></para>
-
-                    <para>This option makes firewall log all packets
+                    1.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Log Prefix</guimenuitem></entry>
+                  <entry> See <xref linkend="log-prefix"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Log all dropped packets</guimenuitem></entry>
+                  <entry>This option makes firewall log all packets
                     it drops, including those that do not match any
                     entry in the state table and some others. This
                     option can only be used if corresponding patch has
                     been applied to iptables running on the
                     firewall. Patch is called 'dropped-table' and is
-                    part of patch-o-matic.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Logging limit:</guimenuitem></para>
-
-                    <para>This option allows to set a limit on the
+                    part of patch-o-matic.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Logging limit:</guimenuitem></entry>
+                  <entry>This option allows to set a limit on the
                     number of log entries that the firewall records
                     per unit of time. This could be useful on high
                     traffic firewalls, where writing too much to the
-                    log can overload disk subsystem.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Turn logging ON on all rules</guimenuitem></para>
-
-                    <para>This option overrides logging option in each
+                    log can overload disk subsystem.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Turn logging ON on all rules</guimenuitem></entry>
+                  <entry>This option overrides logging option in each
                     rule to make the firewall act as if logging was
                     turned on on each rule. This is useful for the
-                    policy debugging.</para>
-                  </listitem>
-                </itemizedlist>
-              </para>
-            </listitem>
+                    policy debugging.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
 
-            <listitem>
-              <para><guimenuitem>Default action on 'Reject'</guimenuitem></para>
-
-              <para> See <xref linkend="action-on-reject"></para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Options</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Turn off optimization in
-                    compiler</guimenuitem></para>
-
-                    <para>This option turns off some optimization
-                    algorithms in the policy compiler.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Load modules</guimenuitem></para>
-
-                    <para>Compiler generates code to load iptables
+        <para>
+          <table frame="topbot" pgwide="0">
+            <title>Options</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row rowsep="1">
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>Default action on 'Reject'</entry>
+                  <entry> See <xref linkend="action-on-reject"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Turn off optimization in
+                    compiler</guimenuitem></entry>
+                  <entry>This option turns off some optimization
+                    algorithms in the policy compiler.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Load modules</guimenuitem></entry>
+                  <entry>Compiler generates code to load iptables
                     kernel modules before activating policy
-                    rules.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Verify interfaces before
-                    loading firewall policy</guimenuitem></para>
-
-                    <para>Compiler generates code to check if
+                    rules.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Verify interfaces before
+                    loading firewall policy</guimenuitem></entry>
+                  <entry>Compiler generates code to check if
                     interfaces configured in the firewall object exist
                     in the real firewall machine. This check is
                     executed before policy rules are loaded. If the
                     check fails, firewall policy won't be modified.
-                    </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Assume firewall object is part
-                    of 'any'</guimenuitem></para>
-
-                    <para> See <xref linkend="fw-is-part-of-any"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Clamp MSS to
-                    MTU</guimenuitem></para>
-
-                    <para>This option allows you to examine and alter
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Assume firewall object is part
+                    of 'any'</guimenuitem></entry>
+                  <entry> See <xref linkend="fw-is-part-of-any"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Clamp MSS to
+                    MTU</guimenuitem></entry>
+                  <entry>This option allows you to examine and alter
                     the MSS value of TCP SYN packets, to control the
                     maximum size for that connection. This option can
                     only be used if corresponding patch from
                     patch-o-matic is applied to iptables running on
-                    the firewall.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Accept TCP sessions opened
-                    prior to firewall restart</guimenuitem></para>
-
-                    <para>If this option is ON, firewall will accept
+                    the firewall.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Accept TCP sessions opened
+                    prior to firewall restart</guimenuitem></entry>
+                  <entry>If this option is ON, firewall will accept
                     TCP sessions opened before firewall software has
                     been activated. These sessions are special because
                     firewall never saw their initiation phase. If this
                     option is on, the firewall creates an entry in
                     the state table when it sees a packet that
                     apparently belongs to the unknown TCP session.
-                    </para>
-                  </listitem>
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Accept ESTABLISHED and RELATED
+                    packets before the first rule</guimenuitem></entry>
 
-                  <listitem>
-                    <para><guimenuitem>Accept ESTABLISHED and RELATED
-                    packets before the first rule</guimenuitem></para>
-
-                    <para>This option generates implicit rule to
-                    accept ESTABLISHED and RELATED packets before the
-                    very first rule specified in the GUI. This helps
-                    to reduce the size of the policy script generated
-                    by policy compiler. ESTABLISHED packets are
-                    basically reply packets coming back from the
-                    server to the client. Iptables keeps state
-                    information about each TCP session opened through
-                    the firewall and thus can detect and permit this
-                    kind of packets automatically. RELATED packets
-                    belong to another stream somehow associated with
-                    initial stream opened through the firewall. FTP
-                    protocol is a good example of this situation.  FTP
-                    uses TCP sessions: command channel and data
-                    channel. You do not need to add special rule for
-                    the data channel to your policy because iptables
-                    'understands' when it needs to permit packets that
-                    belong to the data channel that has been created
-                    per request sent via known command channel.</para>
-
-                    <para>This option is ON by default.</para>
-
-                    <para>If by some reason you do not want to have an
-                    implicit rule to permit these types of packets on
-                    top of all rules defined in the GUI, you should
-                    uncheck this option. Remember that in this case
-                    you need to add a rule to permit these types of
-                    packets yourself. You can use Custom Service
-                    object 'ESTABLISHED' in this rule. This service
-                    object can be found in the 'Standard' object
-                    tree.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Bridging firewall</guimenuitem></para>
-
-                    <para>This option changes algorithms used by the
+                  <entry> This option generates implicit rule to
+                  accept ESTABLISHED and RELATED packets before the
+                  very first rule specified in the GUI. This helps to
+                  reduce the size of the policy script generated by
+                  policy compiler. ESTABLISHED packets are basically
+                  reply packets coming back from the server to the
+                  client. Iptables keeps state information about each
+                  TCP session opened through the firewall and thus can
+                  detect and permit this kind of packets
+                  automatically. RELATED packets belong to another
+                  stream somehow associated with initial stream opened
+                  through the firewall. FTP protocol is a good example
+                  of this situation.  FTP uses TCP sessions: command
+                  channel and data channel. You do not need to add
+                  special rule for the data channel to your policy
+                  because iptables 'understands' when it needs to
+                  permit packets that belong to the data channel that
+                  has been created per request sent via known command
+                  channel.  This option is ON by default.  If by some
+                  reason you do not want to have an implicit rule to
+                  permit these types of packets on top of all rules
+                  defined in the GUI, you should uncheck this
+                  option. Remember that in this case you need to add a
+                  rule to permit these types of packets yourself. You
+                  can use Custom Service object 'ESTABLISHED' in this
+                  rule. This service object can be found in the
+                  'Standard' object tree.  </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Bridging firewall</guimenuitem></entry>
+                  <entry>This option changes algorithms used by the
                     policy compiler and makes it generate script for a
                     bridging firewall. Bridging firewall treats
                     broadcast packets differently, never uses INPUT
                     and OUTPUT chains and has some other
-                    differences.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Detect rule shadowing in
-                    policy</guimenuitem></para>
-
-                    <para> See <xref linkend="rule-shadowing"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Ignore empty groups in
-                    rules</guimenuitem></para>
-
-                    <para> See <xref linkend="empty-groups"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Turn on debug output in
-                    iptables script</guimenuitem></para>
-
-                    <para> See <xref linkend="script-debug"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Create virtual addresses for
-                    NAT rules</guimenuitem></para>
-
-                    <para> See <xref linkend="virt-addr-for-nat"></para>
-                  </listitem>
-
-                </itemizedlist>
-              </para>
-            </listitem>
-
-          </itemizedlist>
-
+                    differences.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Detect rule shadowing in
+                    policy</guimenuitem></entry>
+                  <entry> See <xref linkend="rule-shadowing"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Ignore empty groups in
+                    rules</guimenuitem></entry>
+                  <entry> See <xref linkend="empty-groups"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Turn on debug output in
+                    iptables script</guimenuitem></entry>
+                  <entry> See <xref linkend="script-debug"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Create virtual addresses for
+                    NAT rules</guimenuitem></entry>
+                  <entry> See <xref linkend="virt-addr-for-nat"></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
         </para>
+
+
       </sect2>
 
+<!-- ===================================== IPF ================================== -->
       <sect2>
         <title>ipfilter</title>
 
@@ -2263,25 +2239,45 @@
           </mediaobject>
         </figure>
 
+        <para>
+          <table frame="topbot" pgwide="0">
+            <title>General</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row rowsep="1">
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Version</guimenuitem></entry>
+                  <entry>OS version the firewall is running on</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
 
         <para>
-          <itemizedlist>
-            <listitem>
-              <para><guimenuitem>Version</guimenuitem></para>
-
-              <para>OS version the firewall is running on</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Options</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Generate both 'in' and 'out'
-                    rules</guimenuitem></para>
-
-                    <para>There are two ways compiler can generate
+          <table frame="topbot" pgwide="0">
+            <title>Options</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row rowsep="1">
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Generate both 'in' and 'out'
+                    rules</guimenuitem></entry>
+                  <entry>There are two ways compiler can generate
                     code for rules in the Global Policy: it can either
                     create two pf rules for one rule in the GUI to
                     control both incoming and outgoing packets, or it
@@ -2293,145 +2289,138 @@
                     firewall, but the configuration is going to be
                     larger. This option is common for compilers for
                     <emphasis>ipfilter</emphasis> and <emphasis>pf</emphasis>
-                    </para>
-                  </listitem>
-                  <listitem>
-                    <para><guimenuitem>Pass all outgoing</guimenuitem></para>
-
-                    <para>See above. If this option is ON, the
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Pass all outgoing</guimenuitem></entry>
+                  <entry>See above. If this option is ON, the
                     compiler puts implicit rule to permit all outgoing
                     packets on the top of the policy and then creates
                     rules only for incoming packets. This way you get
                     smaller confguration but have little control over
                     outgoing sessions.  This option is common for
                     compilers for <emphasis>ipfilter</emphasis> and
-                    <emphasis>pf</emphasis></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Find and eliminate duplicate rules</guimenuitem></para>
-
-                    <para> See <xref linkend="duplicate-rules"></para>
-                  </listitem>
-                  <listitem>
-                    <para><guimenuitem>Detect rule shadowing in policy</guimenuitem></para>
-
-                    <para> See <xref linkend="rule-shadowing"></para>
-                  </listitem>
-                  <listitem>
-                    <para><guimenuitem>Ignore empty groups in rules</guimenuitem></para>
-
-                    <para> See <xref linkend="empty-groups"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Turn on debug output in the
-                    script</guimenuitem></para>
-
-                    <para> See <xref linkend="script-debug"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Create virtual addresses for
-                    NAT rules</guimenuitem></para>
-
-                    <para> See <xref linkend="virt-addr-for-nat"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Directory where firewall
+                    <emphasis>pf</emphasis></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Find and eliminate duplicate rules</guimenuitem></entry>
+                  <entry> See <xref linkend="duplicate-rules"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Detect rule shadowing in policy</guimenuitem></entry>
+                  <entry> See <xref linkend="rule-shadowing"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Ignore empty groups in rules</guimenuitem></entry>
+                  <entry> See <xref linkend="empty-groups"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Turn on debug output in the
+                    script</guimenuitem></entry>
+                  <entry> See <xref linkend="script-debug"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Create virtual addresses for
+                    NAT rules</guimenuitem></entry>
+                  <entry> See <xref linkend="virt-addr-for-nat"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Directory where firewall
                     configuration files should be
-                    installed</guimenuitem></para>
-
-                    <para>This parameter tells firewall initialization
+                    installed</guimenuitem></entry>
+                  <entry>This parameter tells firewall initialization
                     script produced by the compiler where firewall
-                    configuration file is going to be located.</para>
-                  </listitem>
-                </itemizedlist>
+                    configuration file is going to be located.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
 
-              </para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Options for action 'Reject'</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Default action on
-                    'Reject'</guimenuitem></para>
-
-                    <para> See <xref linkend="action-on-reject"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Masquerade returned icmp as
+        <para>
+          <table frame="topbot" pgwide="0">
+            <title>Options for action 'Reject'</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row rowsep="1">
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Default action on
+                    'Reject'</guimenuitem></entry>
+                  <entry> See <xref linkend="action-on-reject"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Masquerade returned icmp as
                     being from original packet's
-                    destination</guimenuitem></para>
-
-                    <para>The firewall will construct icmp
+                    destination</guimenuitem></entry>
+                  <entry>The firewall will construct icmp
                     'unreachable' packet using source IP of the
                     original packet's destination. This helps to hide
                     the firewall which sits in between the sender and
                     their original destination. If this option is OFF,
                     the icmp 'unreachable' packet has source address
                     of the firewall.
-                    </para>
-                  </listitem>
-                </itemizedlist>
-              </para>
-            </listitem>
+                    </entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
+        
 
-            <listitem>
-              <para><guimenuitem>Logging</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Log facility</guimenuitem></para>
-
-                    <para> See <xref linkend="log-facility"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Log level</guimenuitem></para>
-
-                    <para> See <xref linkend="log-level"> </para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Block if can not log</guimenuitem></para>
-
-                    <para> if for some reason the firewall is unable
+        <para>
+          <table frame="topbot" pgwide="0">
+            <title>Logging</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row rowsep="1">
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Log facility</guimenuitem></entry>
+                  <entry> See <xref linkend="log-facility"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Log level</guimenuitem></entry>
+                  <entry> See <xref linkend="log-level"> </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Block if can not log</guimenuitem></entry>
+                  <entry> if for some reason the firewall is unable
                     to log the packet (such as the log reader being
                     too slow) then the rule should be interpreted as
-                    if the action was block for this packet.</para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Log packet body</guimenuitem></para>
-
-                    <para> Logs not only packet's header, but also its
-                    payload data. </para>
-                  </listitem>
-                </itemizedlist>
-              </para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Protocol Helpers</guimenuitem></para>
-
-              <para>IP Filter comes with a few, simple, proxies built
-              into the code that is loaded into the kernel to allow
-              secondary channels to be opened without forcing the
-              packets through a user program. See documentation for
-              ipfilter and FAQ for additional information.</para>
-
-            </listitem>
-
-          </itemizedlist>
+                    if the action was block for this packet.</entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Log packet body</guimenuitem></entry>
+                  <entry> Logs not only packet's header, but also its
+                    payload data. </entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
         </para>
+
+
+        <para><guimenuitem>Protocol Helpers: </guimenuitem> IP Filter
+        comes with a few, simple, proxies built into the code that is
+        loaded into the kernel to allow secondary channels to be
+        opened without forcing the packets through a user program. See
+        documentation for ipfilter and FAQ for additional
+        information.</para>
+        
       </sect2>
 
 <!-- ===================================== PF ================================== -->
@@ -2448,22 +2437,43 @@
         </figure>
 
         <para>
-          <itemizedlist>
-            <listitem>
-              <para><guimenuitem>Version</guimenuitem></para>
+          <table frame="topbot" pgwide="0">
+            <title>General</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Version</guimenuitem></entry>
+                  <entry>OS version the firewall is running on</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
 
-              <para>OS version the firewall is running on</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Options</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Generate both 'in' and 'out' rules</guimenuitem></para>
-
-                    <para>There are two ways compiler can generate
+        <para>
+          <table frame="topbot" pgwide="0">
+            <title>Options</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Generate both 'in' and 'out' rules</guimenuitem></entry>
+                  <entry>There are two ways compiler can generate
                     code for rules in the Global Policy: it can either
                     create two pf rules for one rule in the GUI to
                     control both incoming and outgoing packets, or it
@@ -2475,25 +2485,23 @@
                     firewall, but the configuration is going to be
                     larger. This option is common for compilers for
                     <emphasis>ipfilter</emphasis> and <emphasis>pf</emphasis>
-                    </para>
-                  </listitem>
-                  <listitem>
-                    <para><guimenuitem>Pass all outgoing</guimenuitem></para>
-
-                    <para>See above. If this option is ON, the
+                    </entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Pass all outgoing</guimenuitem></entry>
+                  <entry>See above. If this option is ON, the
                     compiler puts implicit rule to permit all outgoing
                     packets on the top of the policy and then creates
                     rules only for incoming packets. This way you get
                     smaller confguration but have little control over
                     outgoing sessions.  This option is common for
                     compilers for <emphasis>ipfilter</emphasis> and
-                    <emphasis>pf</emphasis></para>
-                  </listitem>
-                  <listitem>
-                    <para><guimenuitem>Run all packets through
-                    defragmentation filter</guimenuitem></para>
-
-                    <para>This is also called packet
+                    <emphasis>pf</emphasis></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Run all packets through
+                    defragmentation filter</guimenuitem></entry>
+                  <entry>This is also called packet
                     normalization. Packet normalization is invoked via
                     the scrub directive.  Normalization is used to
                     sanitize packet content in such a way that there
@@ -2502,83 +2510,89 @@
                     reassembly to prevent attacks that confuse
                     intrusion detection systems by sending overlapping
                     IP fragments. See more details in the man page
-                    <filename>pf.conf(5)</filename></para>
-                  </listitem>
-                  <listitem>
-                    <para><guimenuitem>Modulate state for all stateful
-                    rules</guimenuitem></para>
-
-                    <para>By applying a "modulate state" rule to a TCP
+                    <filename>pf.conf(5)</filename></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Modulate state for all stateful
+                    rules</guimenuitem></entry>
+                  <entry>By applying a &quot;modulate state&quot; rule to a TCP
                     connection, pf will create a high quality random
                     sequence number for each connection endpoint.  The
-                    "modulate state" directive implicitly keeps state
+                    &quot;modulate state&quot; directive implicitly keeps state
                     on the rule and is only applicable to TCP
                     connections. See more details in the man page 
-                    <filename>pf.conf(5)</filename></para>
-                  </listitem>
-                  <listitem>
-                    <para><guimenuitem>Detect rule shadowing in policy</guimenuitem></para>
+                    <filename>pf.conf(5)</filename></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Detect rule shadowing in policy</guimenuitem></entry>
+                  <entry> See <xref linkend="rule-shadowing"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Ignore empty groups in rules</guimenuitem></entry>
+                  <entry> See <xref linkend="empty-groups"></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
-                    <para> See <xref linkend="rule-shadowing"></para>
-                  </listitem>
-                  <listitem>
-                    <para><guimenuitem>Ignore empty groups in rules</guimenuitem></para>
+        </para>
 
-                    <para> See <xref linkend="empty-groups"></para>
-                  </listitem>
-                </itemizedlist>
+        <para>
+          <table frame="topbot" pgwide="0">
+            <title>Global Logging Parameters</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Log Prefix</guimenuitem></entry>
+                  <entry> See <xref linkend="log-prefix"></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
 
-              </para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>global Logging Parameters</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Log Prefix</guimenuitem></para>
-
-                    <para> See <xref linkend="log-prefix"></para>
-                  </listitem>
-                </itemizedlist>
-              </para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Script Options</guimenuitem></para>
-
-              <para>
-                <itemizedlist>
-                  <listitem>
-                    <para><guimenuitem>Turn on debug output in the
-                    script</guimenuitem></para>
-
-                    <para> See <xref linkend="script-debug"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Create virtual addresses for
-                    NAT rules</guimenuitem></para>
-
-                    <para> See <xref linkend="virt-addr-for-nat"></para>
-                  </listitem>
-
-                  <listitem>
-                    <para><guimenuitem>Directory where firewall
+        <para>
+          <table frame="topbot" pgwide="0">
+            <title>Script Options</title>
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><guimenuitem>Turn on debug output in the
+                    script</guimenuitem></entry>
+                  <entry> See <xref linkend="script-debug"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Create virtual addresses for
+                    NAT rules</guimenuitem></entry>
+                  <entry> See <xref linkend="virt-addr-for-nat"></entry>
+                </row>
+                <row>
+                  <entry><guimenuitem>Directory where firewall
                     configuration files should be
-                    installed</guimenuitem></para>
-
-                    <para>This parameter tells firewall initialization
+                    installed</guimenuitem></entry>
+                  <entry>This parameter tells firewall initialization
                     script produced by the compiler where firewall
-                    configuration file is going to be located.</para>
-                  </listitem>
-                </itemizedlist>
-              </para>
-            </listitem>
-
-          </itemizedlist>
-
+                    configuration file is going to be located.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
         </para>
 
       </sect2>
@@ -2599,9 +2613,9 @@
         <para>
         <table frame="topbot" pgwide="0">
             <title>General</title>
-            <tgroup cols="2">
-              <colspec colwidth="150pt" align="left">
-              <colspec colwidth="350pt" align="left">
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
               <thead>
                 <row>
                   <entry>GUI control</entry>
@@ -2633,11 +2647,11 @@
         </para>
 
         <para>
-              <table frame="topbot" pgwide="0">
+          <table frame="topbot" pgwide="0">
             <title>Policy compiler options</title>
-            <tgroup cols="2">
-              <colspec colwidth="150pt" align="left">
-              <colspec colwidth="350pt" align="left">
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
               <thead>
                 <row>
                   <entry>GUI control</entry>
@@ -2700,11 +2714,11 @@
 
         <para>
 
-              <table frame="topbot" pgwide="0">
+          <table frame="topbot" pgwide="0">
             <title>Script formatting</title>
-            <tgroup cols="2">
-              <colspec colwidth="150pt" align="left">
-              <colspec colwidth="350pt" align="left">
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
               <thead>
                 <row>
                   <entry>GUI control</entry>
@@ -2742,11 +2756,11 @@
 
         <para>
 
-              <table frame="topbot" pgwide="0">
+          <table frame="topbot" pgwide="0">
             <title>Verification of policy rules</title>
-            <tgroup cols="2">
-              <colspec colwidth="150pt" align="left">
-              <colspec colwidth="350pt" align="left">
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
               <thead>
                 <row>
                   <entry>GUI control</entry>
@@ -2767,11 +2781,11 @@
 
         <para>
 
-              <table frame="topbot" pgwide="0">
+          <table frame="topbot" pgwide="0">
             <title>Verification of NAT rules</title>
-            <tgroup cols="2">
-              <colspec colwidth="150pt" align="left">
-              <colspec colwidth="350pt" align="left">
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="2in" colsep="1">
+              <colspec colwidth="4in">
               <thead>
                 <row>
                   <entry>GUI control</entry>
@@ -2883,9 +2897,9 @@
           <para>
             <table frame="topbot" pgwide="0">
               <title>Syslog</title>
-              <tgroup cols="2">
-                <colspec colwidth="150pt" align="left">
-                <colspec colwidth="350pt" align="left">
+              <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+                <colspec colwidth="2in" colsep="1">
+                <colspec colwidth="4in">
                 <thead>
                   <row>
                     <entry>GUI control</entry>
@@ -2919,9 +2933,9 @@
           <para>
             <table frame="topbot" pgwide="0">
               <title>Other logging destinations, levels and parameters</title>
-              <tgroup cols="2">
-                <colspec colwidth="150pt" align="left">
-                <colspec colwidth="350pt" align="left">
+              <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+                <colspec colwidth="2in" colsep="1">
+                <colspec colwidth="4in">
                 <thead>
                   <row>
                     <entry>GUI control</entry>
@@ -2976,9 +2990,9 @@
           <table frame="topbot" pgwide="0">
             <title>Global parameters controlled through the 'Advanced' firewall dialog</title>
 
-            <tgroup cols="2">
-              <colspec colwidth="320pt" align="left">
-              <colspec colwidth="180pt" align="left">
+            <tgroup cols="2" align="char" charoff="0.5in" char=" ">
+              <colspec colwidth="4in" colsep="1">
+              <colspec colwidth="2in">
               <thead>
                 <row>
                   <entry>GUI control</entry>
