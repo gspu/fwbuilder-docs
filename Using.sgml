@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.37 $  $Date: 2002-10-26 20:22:58 $</edition>
+    <edition>$Revision: 1.38 $  $Date: 2002-10-30 08:24:38 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -701,12 +701,12 @@
           </mediaobject>
         </figure>
 
-        <para>Object tree provides standard places for all object
+        <para>The object tree provides standard places for all object
         types so that they can be arranged in a hierarchy. Types that
         correspond to network objects (hosts, address ranges, networks
-        and groups of these) are located in the branch "Objects",
-        types that correspond to all services are in the branch
-        "Services", time intervals are in the branch "Time" and all
+        and groups of these) are located in the "Objects" branch,
+        types that correspond to all services are in the 
+        "Services" branch, time intervals are in the branch "Time" and all
         firewalls are in the branch "Firewalls". Newly created objects
         are automatically placed in their corresponding position in
         the tree. Each branch of the tree is automatically sorted by
