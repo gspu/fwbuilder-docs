@@ -442,6 +442,7 @@
   <chapter id="using-gui">
     <title>Using Firewall Builder</title>
 
+<!-- *************************************************************** -->
     <sect1>
       <title>The Main Window</title>
 
@@ -493,41 +494,191 @@
 
     </sect1>
 
+<!-- *************************************************************** -->
     <sect1>
       <title>GUI Options</title>
 
-      <sect2>
-        <title>General</title>
+      <para>Certain aspects of the GUI behavior can be changed by
+      user. These are gathered in the dialog called "Options" which
+      can be accessed through main menu
+      "<guimenuitem>Edit</guimenuitem>/<guimenuitem>Options</guimenuitem>". GUI
+      Options dialog is represented on <xref linkend="options1">.
+      </para>
 
-       <para></para>
-      </sect2>
+      <figure id="options1">
+        <title>GUI Options Dialog</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="options1.jpg" format="jpg" align="Left" scale="40">
+          </imageobject>
+        </mediaobject>
+      </figure>
 
-      <sect2>
-        <title>Network</title>
 
-       <para></para>
-      </sect2>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para><guimenuitem>General/Paths</guimenuitem></para>
 
-      <sect2>
-        <title>Object Tooltips</title>
+            <itemizedlist>
+              <listitem>
+                <para>Working directory:</para>
 
-       <para></para>
-      </sect2>
+                <para>This option tells the program where data file
+                should be stored. Policy compilers also store firewall
+                configuration files or scripts they produce in the
+                same directory. If this parameter is left blank, then
+                policy compiler will store firewall configuration it
+                generates in the same directory the original data file
+                was loaded from.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
 
-      <sect2>
-        <title>Behavior</title>
+          <listitem>
+            <para><guimenuitem>Network</guimenuitem></para>
 
-       <para></para>
-      </sect2>
+            <itemizedlist>
+              <listitem>
+                <para>SNMP Timeout and Retries</para>
 
-      <sect2>
-        <title>Tree View</title>
+                <para>Here you can configure timeout values and retry
+                counters for SNMP queries. These values are used when
+                program runs SNMP query to collect host "sysinfo" data
+                or its interfaces Note that Network discovery Druid
+                has its own settings for SNMP timeout value and retry
+                counter..</para>
+              </listitem>
+              <listitem>
+                <para>DNS Timeout and Retries</para>
 
-       <para></para>
-      </sect2>
+                <para>Here you can configure timeout values and retry
+                counters for DNS queries. These values are used when
+                the program uses DNS to determine host's address by
+                its name. </para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
 
+          <listitem>
+            <para><guimenuitem>GUI</guimenuitem></para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Remember window size at exit</para>
+
+                <para>If this option is checked, the GUI remembers
+                main window size when program finishes. The
+                information is stored in user's preferences file so
+                that when the program is started again next time, it
+                opens window of the same size as before.</para>
+              </listitem>
+
+              <listitem>
+                <para>Hide navigation bar in object dialog</para>
+
+                <para>The GUI can show navigation bar on top for the
+                object's dialog. The navigation bar shows current
+                position in the tree and familiar buttons that allow
+                navigation "up", "down", "left" in the tree. If this
+                option is checked, then the bar will disappear.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para><guimenuitem>GUI / Object Tooltips</guimenuitem></para>
+
+            <para>Firewall Builder can show object's properties in a
+            quick pop-up window (this feature is often called
+            "tooltip") when user flies mouse cursor over the object in
+            a group view or in the firewall policy view, where objects
+            are represented by their icons. This is a convenient way
+            to quickly check object's properties without having to
+            leave current dialog and open the object's dialog. There
+            are three choices for the tooltip feature:
+           </para>
+
+            <para>
+              <itemizedlist>
+                <listitem><para>Off</para></listitem>
+                <listitem><para>Show properties in a tooltip pop-up window</para></listitem>
+                <listitem><para>Show properties on a main window's status bar</para></listitem>
+              </itemizedlist>
+            </para>
+        
+            <para>For the second choice (showing in tooltip window)
+            additional parameter is avaliable, it controls a delay
+            before tooltip window appears after mouse cursor is
+            positioned over the object's icon.</para>
+          </listitem>
+
+          <listitem>
+            <para><guimenuitem>GUI / Behavior</guimenuitem></para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Automatically save data in dialogs while
+                switching between objects</para>
+
+                <para>The GUI shows dialog for every opened object in
+                the same place (right half of the main
+                window). Normally if user has made some changes to the
+                object's data and wants to switch to another object
+                without clicking on <guibutton>"Apply"</guibutton> or
+                <guibutton>"Undo"</guibutton> button, GUI shows pop-up
+                dialog asking whether data should be saved or changes
+                should be ignored. If this option is turned on though,
+                the program automatically saves data every time user
+                leaves dialog with unsaved data to open another
+                object.</para>
+
+              </listitem>
+            </itemizedlist>
+
+          </listitem>
+
+          <listitem>
+            <para><guimenuitem>GUI / Tree View</guimenuitem></para>
+
+            <para>As was mentioned before, objects can be organized
+            into different libraries. Usually there are at least two
+            libraries: "User" and "Standard". GUI can represent
+            objects either in one large tree, or in a separate tree
+            for each library.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Show object libraries in separate trees</para>
+
+                <para>If this option is checked, the GUI shows objects
+                belonging to different libraries in a separate
+                trees</para>
+              </listitem>
+
+              <listitem>
+                <para>Combine all libraries in a single tree</para>
+
+                <para>If this option is checked, the GUI combines all
+                objects in one large tree.</para>
+              </listitem>
+
+              <listitem>
+                <para>Show properties of objects in the tree</para>
+
+                <para>If this option is checked, then GUI shows
+                brief summary of object's properties, or one most
+                frequently used property, in the additional column in
+                the tree view.</para>
+              </listitem>
+            </itemizedlist>
+
+          </listitem>
+        </itemizedlist>
+      </para>
     </sect1>
 
+<!-- *************************************************************** -->
     <sect1>
       <title>Working With Objects</title>
 
@@ -582,6 +733,7 @@
       </sect2>
     </sect1>
 
+<!-- *************************************************************** -->
     <sect1>
       <title>Working With Services</title>
       <sect2>
