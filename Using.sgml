@@ -3104,11 +3104,109 @@
         port.</para>
 
         <para>If all you need is to create an object to describe TCP
-        protocol with particular destination port, then you should use
-        its port number for both start and end of destination port
-        range (which effectively creates a range that consists of a
-        single value). Example on <xref linkend="tcp-service-dialog1">
-        shows such service.</para>
+        protocol with particular destination port, just use the same
+        port number for both start and end of destination port range
+        (which effectively creates a range that consists of a single
+        value). Example on <xref linkend="tcp-service-dialog1"> shows
+        such service.</para>
+
+        <para>TCP header also contains a collection of one-bit fields,
+        or flags, that carry a variety of control information. For
+        example, the SYN and ACK fkags are used for connection
+        establishment, and the FIN flag is used for connection
+        termination. Certain combination of flags are not allowed
+        during the normal protocol operation bt may cause unpredicted
+        reaction from systems when encountered in real packets;
+        because of this reason firewall administrator may want to
+        block TCP packets with unwanted combination of flags. </para>
+
+        <para>There are six flags in TCP header. We just briefly
+        mention them here; more information can be found in <citetitle
+        pubwork="book">TCP/IP Illustrated, vol 1</citetitle> by
+        W. Richard Stevens, chapter 17. </para>
+
+        <informaltable frame="none">
+          <tgroup cols="2">
+            <colspec colwidth="64pt" align="center">
+            <colspec                 align="left">
+            <tbody>
+              <row>
+                <entry><filename>URG</filename></entry>
+
+                <entry>The "urgent" pointer is valid</entry>
+
+              </row>
+              <row>
+                <entry><filename>ACK</filename></entry>
+
+                <entry>The acknowledgment number is valid</entry>
+
+              </row>
+              <row>
+                <entry><filename>PSH</filename></entry>
+
+                <entry>The reciever should pass this data to the
+                application as soon as possible</entry>
+
+              </row>
+              <row>
+                <entry><filename>RST</filename></entry>
+
+                <entry>Reset the connection</entry>
+
+              </row>
+              <row>
+                <entry><filename>SYN</filename></entry>
+
+                <entry>Synchronize sequence numbers to initiate a
+                connection.</entry>
+
+              </row>
+              <row>
+                <entry><filename>FIN</filename></entry>
+
+                <entry>The sender is finished sending data.</entry>
+
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>Firewall Builder supports all six flags, although not
+        all target firewall platforms can match against combinations
+        of TCP or against flags at all (See <xref linkend="support-for-tcp-flags">).</para>
+
+        <table id="support-for-tcp-flags" pgwide="0">
+          <title>Support for Matching against TCP flags</title>
+          <tgroup cols="2">
+            <colspec colwidth="64pt"  align="center">
+            <colspec colwidth="200pt" align="center">
+            <thead>
+              <row>
+                <entry>Firewall</entry>
+                <entry>Can inspect TCP header flags in the packet</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>iptables</entry>
+                <entry>Yes</entry>
+              </row>
+              <row>
+                <entry>ipfilter</entry>
+                <entry>Yes</entry>
+              </row>
+              <row>
+                <entry>pf</entry>
+                <entry>Yes</entry>
+              </row>
+              <row>
+                <entry>Cisco PIX</entry>
+                <entry>No</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
 
       </sect2>
 
