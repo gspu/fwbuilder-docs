@@ -2221,7 +2221,7 @@
         <itemizedlist>
           <listitem><para>Reading file /etc/hosts</para></listitem>
           <listitem><para>Import of DNS zone</para></listitem>
-          <listitem><para>Recursive network discovery using SNMP queries</para></listitem>
+          <listitem><para>Network discovery using SNMP queries</para></listitem>
         </itemizedlist>
       </para>
 
@@ -2263,7 +2263,7 @@
         linkend="discovery-hosts-2">):</para>
 
         <figure id="discovery-hosts-2" float="1">
-          <title>Working with imported records</title>
+          <title>Creating objects using gathered information</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="discovery_hosts_2.jpg" format="jpg" align="Left" scale="25">
@@ -2347,12 +2347,11 @@
 
         <para>Filtering by the object name uses regular expressions
         syntax described in a man page regex(7). For example, to find
-        all records with names that start with 'f' we could use
-        regular expression '^f'. Symbol '^' matches beginning of the
-        string, so this regular expression matches any name that
-        starts with 'f'. To find all names that end with
-        'domedomain.com', we could use regular expression
-        '.*somedomain.com$' </para>
+        all records whose names start with 'f' we could use regular
+        expression '^f'. Symbol '^' matches beginning of the string,
+        so this regular expression matches any name that starts with
+        'f'. To find all names that end with 'domedomain.com', we
+        could use regular expression '.*somedomain.com$' </para>
 
       </sect2>
 
@@ -2417,7 +2416,7 @@
       </sect2>
 
       <sect2>
-        <title>Recursive Network Discovery</title>
+        <title>Network Discovery</title>
 
         <figure id="discovery-snmp-seed" float="1">
           <title>Initial Parameters for Network Discovery</title>
