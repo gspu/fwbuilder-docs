@@ -1233,7 +1233,57 @@
       <sect2>
         <title>Group of Objects</title>
 
-        <para></para>
+        <figure id="group-dialog1" float="1">
+          <title>Group Object</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="group_dialog1.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Group of Objects holds references to Hosts, Networks,
+        Address Ranges, Firewalls and other groups of objects (<xref
+        linkend="group-dialog1">). Objects can be added to the group
+        using the following methods:
+        </para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Using drag and drop:</para>
+
+              <para>Objects can be dragged from the tree into the
+              group dialog. The tree switches to the object on a
+              single click, however pointing a mouse cursor at the
+              object and then pressing the button does not switch, but
+              rather allows to start drag and drop operation. </para>
+            </listitem>
+            <listitem>
+              <para>Using popup menu:</para>
+
+              <para>You can use "Copy"/"Paste" operations between the
+              tree and group dialog. Right mouse click on the object
+              in the tree brings pop-up menu. Choose item "Copy" or
+              "Cut" in this menu, then switch to the group dialog and
+              right mouse click in the icon field. This also brings
+              pop-up menu, where you choose item "Paste". This inserts
+              reference to the object in the group.</para>
+            </listitem>
+            <listitem>
+              <para>Using maun menu "Edit":</para>
+
+              <para>Just like in case of pop-up menu, select object in
+              the tree, then use main menu
+              <guimenuitem>"Edit"</guimenuitem>/<guimenuitem>"Copy
+              Object"</guimenuitem>, then switch to the group dialog
+              and use main menu
+              <guimenuitem>"Edit"</guimenuitem>/<guimenuitem>"Paste
+              Object"</guimenuitem>
+              </para>
+            </listitem>
+          </itemizedlist>
+        </para>
       </sect2>
 
       <sect2>

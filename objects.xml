@@ -15,6 +15,9 @@
         <ObjectRef ref="id3D387E5E"/>
         <ObjectRef ref="id3D3880B8"/>
         <ObjectRef ref="id3D387B61"/>
+        <ObjectRef ref="id3D6EA57D"/>
+        <ObjectRef ref="id3D387B4E"/>
+        <ObjectRef ref="id3D388209"/>
       </ObjectGroup>
     </ObjectGroup>
     <ObjectGroup id="stdid02" library="Standard" name="Hosts">
