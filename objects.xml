@@ -70,7 +70,7 @@
 <ObjectGroup id="stdid03" library="Standard" name="Networks">
 <Network comment="" id="id3D387B60" name="internal-net" address="10.3.14.0" netmask="255.255.255.0"/>
 <Network comment="" id="id3D387B61" name="dmz-net" address="10.2.2.0" netmask="255.255.255.0"/>
-<Network comment="" id="id3D388209" name="ext-net" address="22.222.222.0" netmask="255.255.255.0"/>
+<Network comment="" id="id3D388209" name="ext-net" address="192.0.2.0" netmask="255.255.255.0"/>
 </ObjectGroup>
 <ObjectGroup id="stdid15" library="Standard" name="Address Ranges">
 <AddressRange comment="" id="id3D388124" name="internal-hosts" start_address="10.3.14.30" end_address="10.3.14.40"/>
