@@ -20,7 +20,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.20 $  $Date: 2003-05-08 02:44:53 $</edition>
+    <edition>$Revision: 1.21 $  $Date: 2003-05-08 03:20:44 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -6175,7 +6175,7 @@ PIX                  always             no             policy, NAT
 
     <!-- ********************************************************* -->
     <sect1>
-      <title>Proper blocking of Ident protocol</title>
+      <title>Using Action 'Reject': blocking Ident protocol</title>
  
       <para>
 	Suppose we want to block connections to certain ports on the
