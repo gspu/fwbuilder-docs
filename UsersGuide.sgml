@@ -20,7 +20,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.23 $  $Date: 2003-06-04 05:12:22 $</edition>
+    <edition>$Revision: 1.24 $  $Date: 2003-11-04 06:46:19 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -740,24 +740,39 @@
 
       <para>The host object in Firewall Builder is designed to
       represent real hosts in the network: workstations, servers, and
-      any other network node with an address. Just like real hosts,
-      the host object can have interfaces, which in turn have
-      addresses. Both interfaces and addresses are represented by
-      objects, which are organized into a tree-like hierarchy.
-      Interface objects sit in the tree directly under the host, and
-      the address objects are located under their interfaces. Just
-      like in real computers, the Firewall Builder interface object
-      can have either one or multiple addresses. An example of a host
-      with one interface which has multiple addresses is shown in
-      <xref linkend="host-in-tree">. In fact, the host may even have
-      an interface with no addresses at all. We will go over the
-      features of interface and address objects below. </para>
+      any other network node with an address.  Just like real hosts,
+      the host objects have interfaces, representing different
+      physical connections to the network.  Most internet hosts will
+      have just a single (visible) interface with a single IP address,
+      in that case the actual interface and its name do not matter.
+      For most foreign hosts, fwbuilder will assign an arbitrary name
+      <quote>interface1</quote> to the hosts interface.  By using a
+      tree-like hierarchy of hosts -> interfaces -> addresses it is
+      possible however to specify the exact address and/or interface
+      of a host in the case when it does matter.  Both interfaces and
+      addresses are represented by objects, which are organized in a
+      tree.  Interface objects sit in the tree directly under the
+      host, and the address objects are located under their
+      interfaces. The interface object can have either one or multiple
+      addresses. Examples of hosts with one interface with multiple
+      addresses are shown in <xref linkend="host-in-tree">. Host
+      <quote>test server</quote> is located on the LAN and has three
+      virtual IP addresses that all belong to the same interface
+      <quote>eth0</quote>. Host <quote>www.netcitadel.com</quote> is
+      remote and also has three IP addresses. This host object may in
+      fact represent a web farm that accepts connections on three IP
+      addresses rather than a single computer. Host object in Firewall
+      Builder is an abstraction used to represent both real hosts and
+      addresses in general, regardless of their location in respect to
+      the firewall.  We will go over the features of interface and
+      address objects below. </para>
+
 
       <figure id="host-in-tree" float="1">
         <title>A Host Object With One Interface And Multiple Virtual Addresses </title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="host_in_tree.jpg" format="jpg" align="Left" scale="50">
+            <imagedata fileref="host_in_tree.png" format="png" align="Left" scale="50">
           </imageobject>
         </mediaobject>
       </figure>

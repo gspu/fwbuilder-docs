@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE FWObjectDatabase SYSTEM "fwbuilder.dtd">
-<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="1.0.0" id="root">
+<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="1.0.2" id="root">
   <AnyNetwork comment="Any Network" id="sysid0" library="Standard" name="Any" address="0.0.0.0" netmask="0.0.0.0"/>
   <AnyIPService comment="Any IP Service" id="sysid1" library="Standard" name="Any" protocol_num="0"/>
   <AnyInterval comment="Any Interval" from_day="-1" from_hour="-1" from_minute="-1" from_month="-1" from_weekday="-1" from_year="-1" id="sysid2" library="Standard" name="Any" to_day="-1" to_hour="-1" to_minute="-1" to_month="-1" to_weekday="-1" to_year="-1"/>
@@ -131,6 +131,21 @@
           <Option name="use_mac_addr_filter">False</Option>
         </HostOptions>
       </Host>
+      <Host id="id3FA74AAF" name="www.netcitadel.com">
+        <Interface dyn="False" id="id3FA74AB1" name="interface1" security_level="0" unnum="False">
+          <IPv4 address="69.56.183.145" comment="" id="id3FA74AB2" name="ip1" netmask="255.255.255.255"/>
+          <IPv4 address="69.56.183.146" comment="" id="id3FA74AB5" name="ip2" netmask="255.255.255.255"/>
+          <IPv4 address="69.56.183.147" comment="" id="id3FA74AB6" name="ip3" netmask="255.255.255.255"/>
+        </Interface>
+        <Management address="0.0.0.0">
+          <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
+          <FWBDManagement enabled="False" identity="" port="-1"/>
+          <PolicyInstallScript arguments="" command="" enabled="False"/>
+        </Management>
+        <HostOptions>
+          <Option name="use_mac_addr">false</Option>
+        </HostOptions>
+      </Host>
     </ObjectGroup>
     <ObjectGroup id="stdid03" library="Standard" name="Networks">
       <Network comment="" id="id3D387B60" name="internal-net" address="10.3.14.0" netmask="255.255.255.0"/>
@@ -138,6 +153,8 @@
       <Network comment="" id="id3D388209" name="ext-net" address="192.0.2.0" netmask="255.255.255.0"/>
     </ObjectGroup>
     <ObjectGroup id="stdid15" library="Standard" name="Address Ranges">
+      <AddressRange comment="" id="id3F6D115C" library="Standard" name="broadcast" start_address="255.255.255.255" end_address="255.255.255.255"/>
+      <AddressRange comment="" id="id3F6D115D" library="Standard" name="old-broadcast" start_address="0.0.0.0" end_address="0.0.0.0"/>
       <AddressRange comment="" id="id3D388124" name="internal-hosts" start_address="10.3.14.30" end_address="10.3.14.40"/>
       <AddressRange comment="" id="id3D388125" name="ext-NAT-range" start_address="10.1.1.30" end_address="10.1.1.40"/>
     </ObjectGroup>
