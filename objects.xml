@@ -88,27 +88,22 @@
           <Option name="use_mac_addr">false</Option>
         </HostOptions>
       </Host>
-      <Host comment="" id="id3E18D720" name="important host">
-        <Interface comment="" dyn="False" id="id3E18D724" label="" mgmt="False" name="eth0" security_level="0" unnum="False">
-          <IPv4 address="10.1.1.1" comment="" id="id3E18D725" name="eth0(ip)" netmask="255.255.255.255"/>
-          <physAddress address="00:08:C7:29:D1:AC" comment="" id="id3E18D726" name="eth0(MAC)"/>
+      <Host id="id3E8F933C" name="server">
+        <Interface dyn="False" id="id3E8F933E" name="interface1" security_level="0" unnum="False">
+          <IPv4 address="10.3.14.100" comment="" id="id3E8F933F" name="server:interface1(ip)" netmask="255.255.255.255"/>
         </Interface>
-        <Management address="10.1.1.1">
+        <Management address="0.0.0.0">
           <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
           <FWBDManagement enabled="False" identity="" port="-1"/>
           <PolicyInstallScript arguments="" command="" enabled="False"/>
         </Management>
         <HostOptions>
-          <Option name="snmp_contact"></Option>
-          <Option name="snmp_description"></Option>
-          <Option name="snmp_location"></Option>
           <Option name="use_mac_addr">false</Option>
-          <Option name="use_mac_addr_filter">True</Option>
         </HostOptions>
       </Host>
-      <Host id="id3E8F933C" name="server">
-        <Interface dyn="False" id="id3E8F933E" name="interface1" security_level="0" unnum="False">
-          <IPv4 address="10.3.14.10" id="id3E8F933F" name="server:interface1(ip)" netmask="255.255.255.255"/>
+      <Host id="id3E8F9509" name="nat-address">
+        <Interface dyn="False" id="id3E8F950B" name="interface1" security_level="0" unnum="False">
+          <IPv4 address="192.0.2.50" id="id3E8F950C" name="nat-address:interface1(ip)" netmask="255.255.255.255"/>
         </Interface>
         <Management address="0.0.0.0">
           <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
@@ -954,8 +949,7 @@ clock timezone PDT -7
         </PolicyRule>
         <PolicyRule action="Accept" disabled="False" id="id3E18D797" log="False" position="3">
           <Src neg="False">
-            <ObjectRef ref="id3E18D725"/>
-            <ObjectRef ref="id3E18D726"/>
+            <ObjectRef ref="sysid0"/>
           </Src>
           <Dst neg="False">
             <ObjectRef ref="sysid0"/>
@@ -1294,19 +1288,19 @@ clock timezone PDT -7
       <NAT id="id3E8F8E69">
         <NATRule disabled="False" id="id3E8F8EA2" position="0">
           <OSrc neg="False">
-            <ObjectRef ref="sysid0"/>
+            <ObjectRef ref="id3D387B60"/>
           </OSrc>
           <ODst neg="False">
-            <ObjectRef ref="id3E8F8E68"/>
+            <ObjectRef ref="sysid0"/>
           </ODst>
           <OSrv neg="False">
             <ServiceRef ref="sysid1"/>
           </OSrv>
           <TSrc neg="False">
-            <ObjectRef ref="sysid0"/>
+            <ObjectRef ref="id3E8F9509"/>
           </TSrc>
           <TDst neg="False">
-            <ObjectRef ref="id3E8F933C"/>
+            <ObjectRef ref="sysid0"/>
           </TDst>
           <TSrv neg="False">
             <ServiceRef ref="sysid1"/>
@@ -1367,8 +1361,7 @@ clock timezone PDT -7
         </PolicyRule>
         <PolicyRule action="Accept" disabled="False" id="id3E8F8EE1" log="False" position="3">
           <Src neg="False">
-            <ObjectRef ref="id3E18D725"/>
-            <ObjectRef ref="id3E18D726"/>
+            <ObjectRef ref="sysid0"/>
           </Src>
           <Dst neg="False">
             <ObjectRef ref="sysid0"/>

@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.11 $  $Date: 2003-04-06 03:06:19 $</edition>
+    <edition>$Revision: 1.12 $  $Date: 2003-04-06 03:38:31 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -6072,11 +6072,40 @@ PIX                  always             no             policy, NAT
       </note>
 
       <para>
+        Another possibility is when neither firewall itself, nor one
+        of its interfaces is used in Translated Source in the
+        rule. The translation is similar to the one in <xref
+        linkend="src-nat"> (A) except the same address is used
+        regardless of the interface the packet exits firewall
+        through. This case is illustrated in <xref
+        linkend="basic-nat-3"> and <xref linkend="src-nat"> (C).
+      </para>
+
+      <para>
+	<figure id="basic-nat-3">
+	  <title>Source Address Translation Rule Using Host Object</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="basic-nat-3.png" 
+                  format="png" align="left" scale="50">
+	    </imageobject>
+	    <textobject>
+	      <phrase></phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+
+      <para>
 	<figure id="src-nat">
+
 	  <title>Translations done to packets going in different
 	  directions: (A) when firewall object is used in TSrc in the
-	  NAT rule and (B) when interface eth1 is used in TSrc in the
-	  NAT rule</title>
+	  NAT rule; (B) when interface eth1 is used in TSrc in the NAT
+	  rule; (C) when host object with address 192.0.2.50 is used
+	  in TSrc in the NAT rule</title>
+
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="src-translations.png" 
