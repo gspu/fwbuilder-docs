@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.8 $  $Date: 2003-02-10 04:50:48 $</edition>
+    <edition>$Revision: 1.9 $  $Date: 2003-02-27 05:21:25 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -3630,22 +3630,23 @@
             <para>As was described above, the crawler starts with
               the "seed" host and then repeats its algorithm using
               every discovered host as a new "seed". If this option is
-              turned ON, then the crawler runs its algorithm only once
+              turned OFF, then the crawler runs its algorithm only once
               and stops.</para>
           </listitem>
           <listitem>
             <para>Follow point-to-point links</para>
 
             <para>If a firewall or a router has a point-to-point
-              interface (for example, PPP interface), then the crawler
-              can automatically calculate the IP address of the other
-              side of this interface. It then continues the discovery
-              process by querying a router on the other side. Very
-              often, the point-to-point link connects the
-              organization's network to an ISP and you are not really
-              interested in collecting data about your ISP
-              network. This option, if activated, prevents the crawler
-              from crossing point-to-point links. </para>
+            interface (for example, PPP interface), then the crawler
+            can automatically calculate the IP address of the other
+            side of this interface. It then continues the discovery
+            process by querying a router on the other side. Very
+            often, the point-to-point link connects the organization's
+            network to an ISP and you are not really interested in
+            collecting data about your ISP network. By default crawler
+            won't cross point-to-point links, but this option, if
+            activated, permits it.
+            </para>
           </listitem>
           <listitem>
             <para>Include virtual addresses</para>
@@ -4494,7 +4495,7 @@
       the target firewall platform it is used to generate code
       for. For example, Cisco PIX applies its Access List rules to the
       packet before it performs address and port transformations
-      accroding to the NAT rules. This makes this firewall platform
+      according to the NAT rules. This makes this firewall platform
       substantially different and inconvenient because a policy rule
       that controls access to the server behind the firewall doing NAT
       should be written using firewall's object instead of the
@@ -4572,11 +4573,11 @@
       <sect2 id="directions">
         <title>Directions</title>
 
-        <para> The direction is being defined with repsect to the
+        <para> The direction is being defined with respect to the
         firewall machine, not to the network behind it. For example,
         packets that leave internal network through the firewall are
         considered "inbound" on firewall's internal interface and
-        "outbound" on its externa interface. Likewise, packets that come
+        "outbound" on its external interface. Likewise, packets that come
         from the Internet are "inbound" on firewall's external interface
         and "outbound" on its internal interface.  <xref
         linkend="f-directions"> illustrates definition of the direction
@@ -4633,20 +4634,20 @@ PIX                  always             no             policy, NAT
         bottom. The first rule that matches the packet is used. Each
         rule includes a standard set of parameters, or <emphasis>Rule
         Elements</emphasis>, which are used to compare the data packet
-        with, such as "Source", "Deestination", "Service",
-        "Direction". If a rule is part of the Interface Policy (<xref
-                                                                      linkend="interface-policy">), then the interface it belongs to
-        acts as yet another parameter. For example, if a packet
-        entering the firewall has a source address which matches the
-        object in the "Source" field of the rule, its destination
-        address matches the object in "Destination", its protocol and
-        port numbers match the object in the field "Service", and its
-        direction matches that specified in the field "Direction",
-        then the firewall will take action, specified in the "Action"
-        field of the matching rule. In the case of Interface rule, the
-        firewall will also take into account the interface through
-        which packet had entered or through which it is about to leave
-        the firewall.</para>
+        with, such as "Source", "Destination", "Service",
+        "Direction". If a rule is a part of the Interface Policy
+        (<xref linkend="interface-policy">), then the interface it
+        belongs to acts as yet another parameter. For example, if a
+        packet entering the firewall has a source address which
+        matches the object in the "Source" field of the rule, its
+        destination address matches the object in "Destination", its
+        protocol and port numbers match the object in the field
+        "Service", and its direction matches that specified in the
+        field "Direction", then the firewall will take action,
+        specified in the "Action" field of the matching rule. In the
+        case of Interface rule, the firewall will also take into
+        account the interface through which packet had entered or
+        through which it is about to leave the firewall.</para>
 
         <para>For example on <xref linkend="global-policy1">, the rule
         #0 says that all fragmented packets should be dropped (the
@@ -4792,7 +4793,7 @@ PIX                  always             no             policy, NAT
         translation when the reply packet comes back. </para>
 
         <para>The NAT rules in the screenshot <xref
-                                                    linkend="nat-policy"> tell the firewall to do the
+        linkend="nat-policy"> tell the firewall to do the
         following:</para>
 
         <para>
@@ -5122,23 +5123,22 @@ PIX                  always             no             policy, NAT
       <title>Support for Rule Elements and Features on Various Firewalls</title>
 
       <para>Certain fields in the rules are only available if the
-        target firewall platform supports them.  For example, the
-        iptables firewall provides controls for logging of matched
-        packets, while Cisco PIX does not and always logs every packet
-        it drops. Where possible, the policy compilers try to emulate
-        the missing feature. For example, OpenBSD PF does not support
-        negation natively, but policy compiler
-        <emphasis>"fwb_pf"</emphasis> provides a workaround and tries
-        to emulate this feature for PF. Another example is policy
-        rules with direction "Outbound". Cisco PIX supports only
-        inbound Access Lists, so the policy compiler emulates outbound
-        Access Lists while generating configuration for PIX. <xref
-                                                                   linkend="policy-rule-elements"> represents a list of fields in
-        the rules and what firewall platforms support
-        them. Information about these fields and features is available
-        for fwbuilder GUI which disables corresponding menu items and
-        hides corresponding policy elements when they are not
-        supported.</para>
+      target firewall platform supports them.  For example, the
+      iptables firewall provides controls for logging of matched
+      packets, while Cisco PIX does not; PIX always logs every packet
+      it drops. Where possible, the policy compilers are trying to
+      emulate the missing feature. For example, OpenBSD PF does not
+      support negation natively, but policy compiler
+      <emphasis>"fwb_pf"</emphasis> provides a workaround and tries to
+      emulate this feature for PF. Another example is policy rules
+      with "Outbound" direction. Cisco PIX supports only inbound
+      Access Lists, so the policy compiler emulates outbound Access
+      Lists while generating configuration for PIX. <xref
+      linkend="policy-rule-elements"> represents a list of fields in
+      the rules and which firewall platforms support them. Information
+      about these fields and features is available for fwbuilder GUI
+      that disables corresponding menu items and hides associated
+      policy elements when they are not supported.</para>
 
       <para>
           <table id="policy-rule-elements">
@@ -5224,7 +5224,7 @@ PIX                  always             no             policy, NAT
 
       <para>One of the great advantages of the object-oriented
       approach to building firewall's policy is that it helps simplify
-      representation of the policy. Host and Firewall objects can have
+      the representation of the policy. Host and Firewall objects can have
       child Interface objects, which in turn have child Address and
       Physical Address objects. Any object in the hierarchy Host -
       Interface - Address/Physical Address can be used in the policy
@@ -5263,9 +5263,9 @@ PIX                  always             no             policy, NAT
       host"</emphasis> can talk to <emphasis>"test server"</emphasis>
       using any protocol. Since <emphasis>"test server"</emphasis> has
       three different addresses, we need to generate policy rule that
-      will match on any of them (obviously not on all three at once,
+      will match any of them (obviously not on all three at once,
       that's impossible, so we have to use logical operation "OR", not
-      "AND" here.) Basically rule #4 is equivalent to three separate
+      "AND" here.) Basically, rule #4 is equivalent to three separate
       rules, each of them using one address of <emphasis>"test
       server"</emphasis> in turn. These three rules are represented in
       <xref linkend="multiple-addresses2"> (original rule #4 also
@@ -5281,9 +5281,9 @@ PIX                  always             no             policy, NAT
       </figure>
     
       <para>Firewall Builder takes care of this situation
-      automatically and generates firewall policy for the case in
-      <xref linkend="multiple-addresses1"> as if user built policy in
-      the GUI using three rules as in <xref
+      automatically and generates firewall policy described in
+      <xref linkend="multiple-addresses1"> as if a user have built a policy in
+      the GUI using the three rules as shown in <xref
       linkend="multiple-addresses2">. </para>
 
       <para>In fact, the algorithm it uses is even more general. In
@@ -5294,18 +5294,19 @@ PIX                  always             no             policy, NAT
       if host or firewall object used in the rule has multiple
       interfaces and each interface, in turn, has multiple
       addresses. If host (or firewall) object is used in the rule,
-      then the compiler scans all its interfaces, finds all their
-      addresses and uses them to generate firewall configuration. If
-      interface object is used in the rule, then the compiler uses all
-      its addresses. And finally, if Address or Physical Address
-      object is used in the rule, then compiler uses only it to
-      generate the target firewall configuration. In other words,
-      compiler always looks down the tree, starting from the object
-      found in the policy rule and uses parameters of all Address and
-      Physical Address objects it finds. Since Address and Physical
-      Address objects are the leaf nodes in the tree, they have no
-      other objects beneath them, so the compiler uses their
-      parameters to generate the target code. </para>
+      then the compiler scans all its interfaces, finds all
+      corresponding addresses and uses them to generate firewall
+      configuration. If interface object is used in the rule, then the
+      compiler uses all its addresses. And finally, if Address or
+      Physical Address object is used in the rule, then compiler uses
+      only this parameter to generate the target firewall
+      configuration. In other words, compiler always traverses the
+      tree, starting from the object found in the policy rule and uses
+      parameters of all Address and Physical Address objects it
+      finds. Since Address and Physical Address objects are the leaf
+      nodes in the tree and have no other objects beneath them, the
+      compiler uses parameters of the objects of these types to
+      generate the target code. </para>
 
       <note><para>There is an exception to this algorithm, see <xref
         linkend="using-mac-address"></para></note>
@@ -5326,12 +5327,13 @@ PIX                  always             no             policy, NAT
 
       <para>
 	This is one of the simplest, most basic tasks you may want
-	your firewall to do - block all the traffic but let certain
-	protocols through. Let's assume we have a network consisting
-	just of the firewall "firewall1" and few hosts behind it. We
-	want to let protocols SMTP and FTP through to the server
-	"hostA" from the Internet, and block everything else. All we
-	need to do is put the following rules in the Global Policy:
+	your firewall to do - block all the traffic while letting
+	certain protocols through. Let's assume that we have a network
+	consisting of just the firewall "firewall1" and a few hosts
+	behind it. We want to let protocols SMTP and FTP through to
+	the server "hostA" from the Internet, and block everything
+	else. All we need to do is put the following rules in the
+	Global Policy:
       </para>
 
       <para>
@@ -5475,21 +5477,20 @@ PIX                  always             no             policy, NAT
  
       <para>Many services running on the firewall machine need to be
       able to establish connections to the same machine. X11, RPC, DNS
-      are services like that, to name a few. Malfunctioning caused by
-      firewall rules blocking these kinds of services manifest itself
-      in a different ways, depending on what protocol is being
-      blocked. If it is DNS, then it may take a lot longer than usual
-      to get to a command line prompt when logging in to the machine
-      using telnet or ssh. Once logged in, you won't be able to
-      resolve any host names into addresses. If X11 is blocked, then X
-      server and any graphic environment using it (KDE, Gnome etc.)
-      won't start. In any case though the problem can easily be solved
-      by adding a simple rule to the loopback interface of the
-      firewall to permit all sorts of commincations. As shown on <xref
-      linkend="rule-on-loopback">, this rule should use firewall
-      object in both source and destination, have action
-      <emphasis>Accept</emphasis> and direction
-      <emphasis>Both</emphasis>.  </para>
+      are services like that, to name a few. Blocking these services
+      on the firewall can cause various problems, depending on what
+      protocol is being blocked. If it is DNS, then it may take a lot
+      longer than usual to get to a command line prompt when logging
+      in to the machine using telnet or ssh. Once logged in, you won't
+      be able to resolve any host names into addresses. If X11 is
+      blocked, then X server and any graphic environment using it
+      (KDE, Gnome etc.)  won't start. In any case though the problem
+      can easily be solved by adding a simple rule to the loopback
+      interface of the firewall to permit all sorts of
+      commincations. As shown on <xref linkend="rule-on-loopback">,
+      this rule should use firewall object in both source and
+      destination, have action <emphasis>Accept</emphasis> and
+      direction <emphasis>Both</emphasis>.  </para>
 
       <para>
 	<figure id="rule-on-loopback">
@@ -5802,7 +5803,7 @@ PIX                  always             no             policy, NAT
 	message. This can be done by adding appropriate rule option
 	(see <xref linkend="f-policy-7">) It is also safe to turn
 	stateful inspection off on this rule since we do not want
-	connection to be estabslished and therefore do not need to
+	connection to be established and therefore do not need to
 	keep track of it.
       </para>
 
@@ -5957,9 +5958,9 @@ PIX                  always             no             policy, NAT
 	you want to provide Internet access for machines on this net,
 	then you may need Network Address Translation (NAT) configured
 	on the firewall. This particular type of NAT configuration is
-	often called Masquerading.  When configured this way, firewall
+	often called Masquerading.  When configured this way, the firewall
 	rewrites source IP address of each packet sent by internal
-	machines to the Internet replacing private IP address with the
+	machines to the Internet, replacing private IP address with the
 	address of its external interface.
       </para>
 
@@ -6179,13 +6180,13 @@ PIX                  always             no             policy, NAT
 
 
       <para>
-        This may not be desired effect in certain configurations
+        This may not have the desired effect in certain configurations
         though. One such case is when the second insecure
         interface<emphasis>"eth2"</emphasis> of the firewall is
         connected to a DMZ subnet using private addresses. The
         translation is not necessary for the packets going from DMZ to
-        internal net and we avoid it by using firewall's external
-        interface <emphasis>"eth1"</emphasis> instead of the
+        internal net and we are avoiding it by using firewall's
+        external interface <emphasis>"eth1"</emphasis> instead of the
         firewall's object in the NAT rule #1 as shown in <xref
         linkend="f-nat-3-2">.
       </para>
@@ -6361,13 +6362,13 @@ PIX                  always             no             policy, NAT
 	on TCP port #8080, we need to create a TCP Object with
 	destination port equal to 8080. The source port number does
 	not matter in this case, therefore we leave source port
-	setting at zero in our new object. We also do not set any TCP
-	flags since we are not going to build rules matching on
+	setting at zero in our new object. We also do not need to set
+	any TCP flags since we are not going to build rules matching
 	those. Basically, all we need is an object that defines
-	destination port 8080. See <xref linkend="creating-objects"> and
-       <xref linkend="tcp-service"> for an explanation on how create
-       and edit TCP Service object. <xref linkend="f-nat-7">
-       illustrates this object's setup.
+	destination port 8080. See <xref linkend="creating-objects">
+	and <xref linkend="tcp-service"> for an explanation on how
+	create and edit TCP Service object. <xref linkend="f-nat-7">
+	illustrates this object's setup.
       </para>
 
       <para>
@@ -6458,8 +6459,8 @@ PIX                  always             no             policy, NAT
 	clients to the server so that source address in these packets
 	will be replaced with address of the firewall. In this case
 	server will reply back to the firewall, which will translate
-	again before sending back to the client. Client see the
-	address it expects and connection gets established. 
+	again before sending back to the client. Client will see the
+	address it expects and connection will get established. 
       </para>
 
       <para>
@@ -6553,6 +6554,10 @@ PIX                  always             no             policy, NAT
       #0 must be located above rule #1 so it would hit first.
       </para>
 
+      <note>
+        <para>The same effect can be achieved by using negation in the
+        <emphasis>Original Destination</emphasis></para>
+      </note>
     </sect1>
 
 
@@ -6571,8 +6576,8 @@ PIX                  always             no             policy, NAT
       </para>
       
       <para>
-	In a real policy this rule would have specific port number in
-	"Original Service" to limit its scope to the protocol
+	In a real policy this rule would have a specific port number
+	in the "Original Service" to limit its scope to the protocol
 	supported by the proxy server and will also be placed on top
 	of other NAT rules dealing with the same source addresses so
 	it would match first.  <xref linkend="f-nat-10"> shows
@@ -6581,11 +6586,9 @@ PIX                  always             no             policy, NAT
 	the firewall box on port 3128.
       </para>
 
-      <note><para>
-        Squid needs to be configured as a transparent proxy or
-        otherwise it won't work. Please see Squid documentation and
-        FAQ for instructions.
-      </para></note>
+      <note><para> Squid needs to be configured as a transparent proxy
+      or it won't work. Please see Squid documentation and FAQ for
+      instructions.  </para></note>
 
       <para>
 	<figure id="f-nat-10">
