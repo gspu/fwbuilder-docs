@@ -498,9 +498,8 @@
           </mediaobject>
         </figure>
 
-
         <para>Object tree provides standard places for all object
-        types so that they are arranged in a hierarchy. Types that
+        types so that they can be arranged in a hierarchy. Types that
         correspond to network objects (hosts, address ranges, networks
         and groups of these) are located in the branch "Objects",
         types that correspond to all services are in the branch
