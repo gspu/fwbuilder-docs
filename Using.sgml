@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.51 $  $Date: 2003-01-09 09:39:20 $</edition>
+    <edition>$Revision: 1.52 $  $Date: 2003-01-16 08:35:37 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1308,15 +1308,11 @@
           <listitem>
             <para>Name</para>
 
-            <para>This is the name of the object.</para>
-
-            <note>
-              <para> It is recommended that you use some descriptive
-                name because when the address object is used in the
-                firewall policy, it is labeled with this name. It may
-                be hard to tell one address from another if their
-                names are similar. </para>
-            </note>
+            <para>This is the name of the object.  It is recommended
+            that you use some descriptive name because when the
+            address object is used in the firewall policy, it is
+            labeled with this name. It may be hard to tell one address
+            from another if their names are similar. </para>
           </listitem>
           <listitem>
             <para>Address</para>
@@ -1324,6 +1320,13 @@
             <para>This is an IP address. The GUI widget visually
               separates octets and provides syntax control for the
               values entered in the octet fields.</para>
+
+            <note>
+              <para>A typical error is to interpret this object as an
+              address of the subnet to which interface of the host or
+              firewall belongs. This object represents an address of
+              interface, not a network address.  </para>
+            </note>
           </listitem>
           <listitem>
             <para>Netmask</para>
@@ -1367,15 +1370,12 @@
           <listitem>
             <para>Name</para>
 
-            <para>This is the name of the object.</para>
+            <para>This is the name of the object. It is recommended
+            that you use some descriptive name because when the
+            address object is used in the firewall policy, it is
+            labeled with this name. It may be hard to tell one address
+            from another if their names are similar. </para>
 
-            <note>
-              <para> It is recommended that you use some descriptive
-                name because when the address object is used in the
-                firewall policy, it is labeled with this name. It may
-                be hard to tell one address from another if their
-                names are similar. </para>
-            </note>
           </listitem>
           <listitem>
             <para>Address</para>
