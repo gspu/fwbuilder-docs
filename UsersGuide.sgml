@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.5 $  $Date: 2003-02-09 21:16:19 $</edition>
+    <edition>$Revision: 1.6 $  $Date: 2003-02-10 00:43:11 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1772,6 +1772,13 @@
           with appropriate error message.</para>
         </sect3>
 
+        <sect3 id="duplicate-rules">
+          <title>Find and eliminate duplicate rules</title>
+
+          <para>Policy compiler can detect and eliminate rules that
+          lead to identical code in the target firewall
+          configuration.</para>
+        </sect3>
         <sect3 id="empty-groups">
           <title>Empty Groups</title>
 
@@ -1826,6 +1833,26 @@
           protocols <emphasis>telnet</emphasis>,
           <emphasis>ssh</emphasis> and
           <emphasis>icmp</emphasis>.</para>
+        </sect3>
+
+        <sect3 id="log-level">
+          <title>Log Level</title>
+
+          <para>This option usually refers to the syslog log level and
+          is used with firewalls support logging via syslog
+          protocol. Here is the list of the standard log levels:
+          'debug', 'info', 'notice', 'warning', 'error', 'crit',
+          'alert' </para>
+        </sect3>
+
+        <sect3 id="log-facility">
+          <title>Log facility</title>
+
+          <para>This option usually refers to the syslog facility
+          parameter and is used with firewalls that support logging
+          via syslog protocol. The facility is one of the following
+          keywords: auth, priv, cron, daemon, kern, lpr, mail, mark,
+          news, syslog, user, uucp and local0 through local7. </para>
         </sect3>
 
         <sect3 id="log-prefix">
@@ -1898,6 +1925,18 @@
           real firewall.</para>
         </sect3>
 
+        <sect3 id="action-on-reject">
+          <title>Default setting for rules using 'Reject' action</title>
+
+          <para>When rule with action 'Reject' matches the packet, it
+          not only blocks it, but also sends a message back to sender
+          to notify them that their original packet has been denied
+          access. The firewall can send back several types of ICMP
+          'unreachable' messages or TCP RST packet, depending on the
+          setting of this option and service object used in the
+          rule.</para>
+        </sect3>
+
         <sect3 id="script-debug">
           <title>Turn on debugging in the generated script</title>
 
@@ -1920,7 +1959,6 @@
 
       <sect2>
         <title>iptables</title>
-        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-iptables" float="1">
           <title>Firewall Object, tab 'Firewall' for iptables</title>
@@ -1972,7 +2010,13 @@
                     iptables 1.2.3 which could not interpret properly
                     standard symbolic syslog level (priority) names
                     'debug', 'info', 'notice', 'warning', 'error',
-                    'crit', 'alert', 'emerg', 'panic' </para>
+                    'crit', 'alert' </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Log level</guimenuitem></para>
+
+                    <para> See <xref linkend="log-level"> </para>
                   </listitem>
 
                   <listitem>
@@ -2052,13 +2096,7 @@
             <listitem>
               <para><guimenuitem>Default action on 'Reject'</guimenuitem></para>
 
-              <para>When rule with action 'Reject' matches the packet,
-              it not only blocks it, but also sends a message back to
-              sender to notify them that their original packet has
-              been denied access. The firewall can send back several
-              types of ICMP 'unreachable' messages or TCP RST packet,
-              depending on the setting of this option and service
-              object used in the rule.</para>
+              <para> See <xref linkend="action-on-reject"></para>
             </listitem>
 
             <listitem>
@@ -2215,7 +2253,6 @@
 
       <sect2>
         <title>ipfilter</title>
-        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-ipf" float="1">
           <title>Firewall Object, tab 'Firewall' for ipfilter</title>
@@ -2226,11 +2263,179 @@
           </mediaobject>
         </figure>
 
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para><guimenuitem>Version</guimenuitem></para>
+
+              <para>OS version the firewall is running on</para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Options</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Generate both 'in' and 'out'
+                    rules</guimenuitem></para>
+
+                    <para>There are two ways compiler can generate
+                    code for rules in the Global Policy: it can either
+                    create two pf rules for one rule in the GUI to
+                    control both incoming and outgoing packets, or it
+                    can create only one pf rule for incoming packets
+                    and always permit all outgoing packets. If this
+                    option is ON, the compiler creates rules for
+                    incoming and outgoing packets. This way you get
+                    more control over the data flows crossing your
+                    firewall, but the configuration is going to be
+                    larger. This option is common for compilers for
+                    <emphasis>ipfilter</emphasis> and <emphasis>pf</emphasis>
+                    </para>
+                  </listitem>
+                  <listitem>
+                    <para><guimenuitem>Pass all outgoing</guimenuitem></para>
+
+                    <para>See above. If this option is ON, the
+                    compiler puts implicit rule to permit all outgoing
+                    packets on the top of the policy and then creates
+                    rules only for incoming packets. This way you get
+                    smaller confguration but have little control over
+                    outgoing sessions.  This option is common for
+                    compilers for <emphasis>ipfilter</emphasis> and
+                    <emphasis>pf</emphasis></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Find and eliminate duplicate rules</guimenuitem></para>
+
+                    <para> See <xref linkend="duplicate-rules"></para>
+                  </listitem>
+                  <listitem>
+                    <para><guimenuitem>Detect rule shadowing in policy</guimenuitem></para>
+
+                    <para> See <xref linkend="rule-shadowing"></para>
+                  </listitem>
+                  <listitem>
+                    <para><guimenuitem>Ignore empty groups in rules</guimenuitem></para>
+
+                    <para> See <xref linkend="empty-groups"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Turn on debug output in the
+                    script</guimenuitem></para>
+
+                    <para> See <xref linkend="script-debug"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Create virtual addresses for
+                    NAT rules</guimenuitem></para>
+
+                    <para> See <xref linkend="virt-addr-for-nat"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Directory where firewall
+                    configuration files should be
+                    installed</guimenuitem></para>
+
+                    <para>This parameter tells firewall initialization
+                    script produced by the compiler where firewall
+                    configuration file is going to be located.</para>
+                  </listitem>
+                </itemizedlist>
+
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Options for action 'Reject'</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Default action on
+                    'Reject'</guimenuitem></para>
+
+                    <para> See <xref linkend="action-on-reject"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Masquerade returned icmp as
+                    being from original packet's
+                    destination</guimenuitem></para>
+
+                    <para>The firewall will construct icmp
+                    'unreachable' packet using source IP of the
+                    original packet's destination. This helps to hide
+                    the firewall which sits in between the sender and
+                    their original destination. If this option is OFF,
+                    the icmp 'unreachable' packet has source address
+                    of the firewall.
+                    </para>
+                  </listitem>
+                </itemizedlist>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Logging</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Log facility</guimenuitem></para>
+
+                    <para> See <xref linkend="log-facility"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Log level</guimenuitem></para>
+
+                    <para> See <xref linkend="log-level"> </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Block if can not log</guimenuitem></para>
+
+                    <para> if for some reason the firewall is unable
+                    to log the packet (such as the log reader being
+                    too slow) then the rule should be interpreted as
+                    if the action was block for this packet.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Log packet body</guimenuitem></para>
+
+                    <para> Logs not only packet's header, but also its
+                    payload data. </para>
+                  </listitem>
+                </itemizedlist>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Protocol Helpers</guimenuitem></para>
+
+              <para>IP Filter comes with a few, simple, proxies built
+              into the code that is loaded into the kernel to allow
+              secondary channels to be opened without forcing the
+              packets through a user program. See documentation for
+              ipfilter and FAQ for additional information.</para>
+
+            </listitem>
+
+          </itemizedlist>
+
+        </para>
       </sect2>
 
       <sect2>
         <title>pf</title>
-        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-pf" float="1">
           <title>Firewall Object, tab 'Firewall' for pf</title>
@@ -2267,7 +2472,9 @@
                     incoming and outgoing packets. This way you get
                     more control over the data flows crossing your
                     firewall, but the configuration is going to be
-                    larger. </para>
+                    larger. This option is common for compilers for
+                    <emphasis>ipfilter</emphasis> and <emphasis>pf</emphasis>
+                    </para>
                   </listitem>
                   <listitem>
                     <para><guimenuitem>Pass all outgoing</guimenuitem></para>
@@ -2277,7 +2484,9 @@
                     packets on the top of the policy and then creates
                     rules only for incoming packets. This way you get
                     smaller confguration but have little control over
-                    outgoing sessions.</para>
+                    outgoing sessions.  This option is common for
+                    compilers for <emphasis>ipfilter</emphasis> and
+                    <emphasis>pf</emphasis></para>
                   </listitem>
                   <listitem>
                     <para><guimenuitem>Run all packets through
@@ -2375,7 +2584,6 @@
 
       <sect2>
         <title>PIX</title>
-        <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT3 SIMPLESECT) -->
 
         <figure id="fw-pix" float="1">
           <title>Firewall Object, tab 'Firewall' for PIX</title>
@@ -2386,6 +2594,407 @@
           </mediaobject>
         </figure>
 
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para><guimenuitem>Version</guimenuitem></para>
+
+              <para>Version of the software PIX firewall is running.</para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Prolog script</guimenuitem></para>
+
+              <para>this is a list of any PIX configuration commands
+              that will be included on top of generated configuration
+              file. No syntax or other checks are done on commands in
+              this list.</para>
+            </listitem>
+            <listitem>
+              <para><guimenuitem>Epilog script</guimenuitem></para>
+
+              <para>this is a list of any PIX configuration commands
+              that will be appended at the end of generated
+              configuration file. No syntax or other checks are done
+              on commands in this list</para>
+            </listitem>
+
+
+            <listitem>
+              <para><guimenuitem>Policy compiler options</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Assume firewall is part of 'any'</guimenuitem></para>
+
+                    <para> See <xref linkend="fw-is-part-of-any"></para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Replace NAT'ed objects with
+                    their translations in policy rules
+                    </guimenuitem></para>
+
+                    <para>PIX inspects packet with access lists before
+                    it performs address translation. Many other
+                    firewall platforms do it the other way
+                    around. This option turns on emulation of the
+                    firewall that does NAT first.
+                    </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Emulate outbound ACLs</guimenuitem></para>
+
+                    <para>Normally PIX does not support outbound
+                    access lists.This option turns on an emulation of
+                    outbound ACLs</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Generate 'clear' commands</guimenuitem></para>
+
+                    <para>If this option is ON, compiler generates
+                    <emphasis>'clear'</emphasis> commands to reset any pre-existing
+                    access lists, object-group, nat, global, static,
+                    telnet, ssh and other commands.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Optimize 'default nat' rules</guimenuitem></para>
+
+                    <para>This option simplifies nat rules if object
+                    in Original Source is the same as the Network zone
+                    of one of the interfaces. Network zone of the
+                    interfaces defines all networks that are located
+                    "behind" this interface. This means that packets
+                    entering the interface may have source address
+                    only belonging to the Network zone of this
+                    interface. Since policy compiler can correctly
+                    assign nat rule to the interface using information
+                    about its Network Zone, explicit specification of
+                    the source address can be omitted.
+                    </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Ignore empty groups in rules</guimenuitem></para>
+
+                    <para> See <xref linkend="empty-groups"></para>
+                  </listitem>
+                </itemizedlist>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Script formatting</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Comment the code</guimenuitem></para>
+
+                    <para>If this option is activated, compiler adds
+                    comments to the configuration file</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Group similar commands
+                    together</guimenuitem></para>
+
+                    <para>If this option is activated, compiler groups
+                    similar commands next to each other, just like PIX
+                    device does it in the output of "show config"
+                    command. Otherwise commands are grouped logically:
+                    first go all object-group commands, then all
+                    access-lists, then all nat, global and static
+                    commands. Commands access-list, nat, global and
+                    static are grouped by the rules they were
+                    generated for, as they appear in the GUI. If one
+                    rule requires several access-list commands
+                    assigned to different interfaces, these commands
+                    are grouped together. Command "show conf" groups
+                    access-list commands by their interface.</para>
+                  </listitem>
+
+                </itemizedlist>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Verification of policy rules</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Detect rule shadowing in the
+                    policy</guimenuitem></para>
+
+                    <para> See <xref linkend="rule-shadowing"></para>
+                  </listitem>
+
+                </itemizedlist>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para><guimenuitem>Verification of NAT rules</guimenuitem></para>
+
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para><guimenuitem>Check for duplicate nat rules </guimenuitem></para>
+
+                    <para>If this option is activated, compiler checks
+                    generated configuration for duplicate <emphasis>'nat'</emphasis>
+                    commands
+                    </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Check for overlapping global pools </guimenuitem></para>
+
+                    <para>If this option is activated, compiler checks
+                    generated configuration for overlapping
+                    <emphasis>'global'</emphasis> address pools
+                    </para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Check for overlapping statics</guimenuitem></para>
+
+                    <para>If this option is activated, compiler checks
+                    generated configuration for <emphasis>'static'</emphasis>
+                    commands that use overlapping address
+                    ranges.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para><guimenuitem>Check for overlapping global
+                    pools and statics</guimenuitem></para>
+
+                    <para>If this option is activated, compiler checks
+                    generated configuration for <emphasis>'global'</emphasis> and
+                    'static commands using overlapping address
+                    ranges.</para>
+                  </listitem>
+
+                </itemizedlist>
+              </para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <sect3>
+          <title>'Advanced' firewall setting dialog for PIX</title>
+          <!-- one of (CALLOUTLIST GLOSSLIST ITEMIZEDLIST ORDEREDLIST SEGMENTEDLIST SIMPLELIST VARIABLELIST CAUTION IMPORTANT NOTE TIP WARNING LITERALLAYOUT PROGRAMLISTING PROGRAMLISTINGCO SCREEN SCREENCO SCREENSHOT SYNOPSIS CMDSYNOPSIS FUNCSYNOPSIS CLASSSYNOPSIS FIELDSYNOPSIS CONSTRUCTORSYNOPSIS DESTRUCTORSYNOPSIS METHODSYNOPSIS FORMALPARA PARA SIMPARA ADDRESS BLOCKQUOTE GRAPHIC GRAPHICCO MEDIAOBJECT MEDIAOBJECTCO INFORMALEQUATION INFORMALEXAMPLE INFORMALFIGURE INFORMALTABLE EQUATION EXAMPLE FIGURE TABLE MSGSET PROCEDURE SIDEBAR QANDASET ANCHOR BRIDGEHEAD REMARK HIGHLIGHTS ABSTRACT AUTHORBLURB EPIGRAPH INDEXTERM REFENTRY SECT4 SIMPLESECT) -->
+
+          <para>Clicking button <guimenuitem>'Advanced'</guimenuitem>
+          in the 'Firewall' tab of the PIX firewall object brings up a
+          new dialog. This dialog helps configure protocol timeouts,
+          <emphasis>'fixup'</emphasis> commands, logging and some
+          other general configuration option.</para>
+
+          <para>
+            <figure id="pix-fw-adv-timeout" float="1">
+              <title>Configuring protocol timeouts.</title>
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="fw-pix-adv-timeouts.png" 
+                             format="png" align="Left" scale="33">
+                </imageobject>
+              </mediaobject>
+            </figure>
+          </para>
+
+          <para>Parameters set in this dialog are mapped directly to
+          the <emphasis>'timeout'</emphasis> command in the PIX
+          configuration which sets timeout values for various
+          protocols supported by PIX. Clicking button
+          <guimenuitem>'Set all to defaults'</guimenuitem> resets all
+          timeout parameters to their default values.</para>
+
+          <para>
+            <figure id="pix-fw-adv-fixups" float="1">
+              <title>Configuring protocol helpers ('fixup' commands).</title>
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="fw-pix-adv-fixups.png" 
+                             format="png" align="Left" scale="33">
+                </imageobject>
+              </mediaobject>
+            </figure>
+          </para>
+
+          <para>Parameters set in this dialog are mapped to the
+          <emphasis>'fixup'</emphasis> commands in the PIX
+          configuration. Button <guimenuitem>'Add'</guimenuitem> adds
+          new parameter of the type chosen in the drop-down menu to
+          the left. Clicking button <emphasis>'Delete'</emphasis>
+          deletes corresponding parameter. Clicking button
+          <emphasis>'Set all to defaults'</emphasis> returns all
+          settings to their default values. </para>
+
+          <para>
+            <figure id="pix-fw-adv-logging" float="1">
+              <title>Configuring logging parameters.</title>
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="fw-pix-adv-logging.png" 
+                             format="png" align="Left" scale="33">
+                </imageobject>
+              </mediaobject>
+            </figure>
+          </para>
+
+          <para>This dialog helps configure logging parameters for the
+          PIX firewall:</para>
+
+          <para>
+            <itemizedlist>
+              <listitem>
+                <para><guimenuitem>Syslog</guimenuitem></para>
+
+                <para>
+                  <itemizedlist>
+                    <listitem>
+                      <para><guimenuitem>Syslog host</guimenuitem></para>
+
+                      <para>This is an address of the syslog host the
+                      firewall will send all logging to.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para><guimenuitem>syslog message queue size</guimenuitem></para>
+
+                      <para>The size of internal logging queue, in messages.</para>
+                    </listitem>
+                    <listitem>
+                      <para><guimenuitem>Facility</guimenuitem></para>
+
+                      <para> Syslog facility, See <xref linkend="log-facility"></para>
+                    </listitem>
+                    <listitem>
+                      <para><guimenuitem>Level</guimenuitem></para>
+
+                      <para> Syslog level, See <xref linkend="log-level"></para>
+                    </listitem>
+                  </itemizedlist>
+
+                </para>
+              </listitem>
+
+              <listitem>
+                <para><guimenuitem>Other logging destinations and levels</guimenuitem></para>
+
+                <para>
+                  <itemizedlist>
+                    <listitem>
+                      <para><guimenuitem>Internal buffer</guimenuitem></para>
+
+                      <para>Send syslog messages to an internal buffer
+                      that can be viewed with the show logging
+                      command. The level pull-down menu allows to set
+                      a minimal logging level of messages that are
+                      going to be recorded.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para><guimenuitem>Console</guimenuitem></para>
+
+                      <para> Specify that syslog messages appear on
+                      the PIX Firewall console as each message
+                      occurs. You can limit the types of messages that
+                      appear on the console with level.</para>
+                    </listitem>
+                  </itemizedlist>
+
+                </para>
+              </listitem>
+              <listitem>
+                <para><guimenuitem>Logging timestamps</guimenuitem></para>
+
+                <para>Specify that syslog messages sent to the syslog
+                server should have a time stamp value on each
+                message. </para>
+              </listitem>
+            </itemizedlist>
+          </para>
+
+
+          <para>
+            <figure id="pix-fw-adv-options" float="1">
+              <title>Configuring other parameters.</title>
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="fw-pix-adv-options.png" 
+                             format="png" align="Left" scale="33">
+                </imageobject>
+              </mediaobject>
+            </figure>
+          </para>
+
+          <para>This dialog helps configure some global parameters for
+          the PIX firewall. See PIX documentation for detailed
+          explanation of each command.</para>
+
+
+          <table frame="topbot" pgwide="0">
+            <title>Global parameters controlled through the 'Advanced' firewall dialog</title>
+
+            <tgroup cols="2">
+              <colspec colwidth="320pt" align="left">
+              <colspec colwidth="180pt" align="left">
+              <thead>
+                <row>
+                  <entry>GUI control</entry>
+                  <entry>PIX command</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry>Actively reset inbound TCP connections with RST</entry>
+                  <entry><emphasis>service resetinbound</emphasis></entry>
+                </row>
+                <row>
+                  <entry>Actively reset inbound TCP connections with RST on outside interface</entry>
+                  <entry><emphasis>service resetoutside</emphasis></entry>
+                </row>
+                <row>
+                  <entry>Force each TCP connection to linger in a shortened TIME_WAIT</entry>
+                  <entry><emphasis>sysopt connection timewait</emphasis></entry>
+                </row>
+                <row>
+                  <entry>Enable the IP Frag Guard feature</entry>
+                  <entry><emphasis>sysopt security fragguard</emphasis></entry>
+                </row>
+                <row>
+                  <entry>Enable TCP resource control for AAA Authentication proxy</entry>
+                  <entry><emphasis>floodguard enable</emphasis></entry>
+                </row>
+                <row>
+                  <entry>Specify that when an incoming packet
+              does a route lookup, the incoming interface is used to
+              determine which interface the packet should go to, and
+              which is the next hop. </entry>
+                  <entry><emphasis>sysopt route dnat</emphasis></entry>
+                </row>
+                <row>
+                  <entry>Disable inbound embedded DNS A record fixups</entry>
+                  <entry><emphasis>sysopt nodnsalias inbound</emphasis></entry>
+                </row>
+                <row>
+                  <entry>Disable outbound DNS A record replies</entry>
+                  <entry><emphasis>sysopt nodnsalias outbound</emphasis></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+
+
+        </sect3>
       </sect2>
 
     </sect1>
