@@ -3068,7 +3068,7 @@
         </figure>      
 
         <para>In Firewall Builder, TCP Service object is a
-        gneralization of TCP protocol. TCP header of a packet carries
+        generalization of TCP protocol. TCP header of a packet carries
         only one fixed value for the source port and one fixed value
         for destination port. In TCP Service object one can specify a
         range of values for the source and destination ports. This
@@ -3208,13 +3208,68 @@
           </tgroup>
         </table>
 
+        <para>TCP Service dialog provides the following controls:</para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Name:</para>
+
+              <para>This is the name of the object</para>
+            </listitem>
+            <listitem>
+              <para>Source port range:</para>
+
+              <para>These two controls define start and end of the
+              source port range; they accept values between 0 and
+              65535.</para>
+            </listitem>
+            <listitem>
+              <para>Destination port range:</para>
+
+              <para>These two controls define start and end of the
+              destination port range; they accept values between 0 and
+              65535.</para>
+            </listitem>
+            <listitem>
+              <para>TCP Flags:</para>
+
+              <para>TCP flags, see table above.</para>
+            </listitem>
+            <listitem>
+              <para>Comments:</para>
+
+              <para>This is free-style text field used for comments.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
       </sect2>
 
       <sect2>
         <title>UDP Service</title>
 
-        <para></para>
+        <para>UDP Service object is a generalization of UDP protocol
+        which is connectionless transport layer protocol. Many well
+        known applicaitons use UDP as their transport, such as DNS
+        (Domain Name System), DHCP (Dynamic Host Configuration
+        Protocol), NTP (Network Time Protocol), SNMP (Simple Network
+        Management Protocol) and so on.</para>
 
+        <para>Similarly to that in TCP, UDP uses port numbers to
+        distinguish multiple applications running on one machine from
+        one another. UDP packet header carries two port numbers:
+        source port and destination port. UDP Service object in
+        Firewall Builder allows for definition of ranges for both
+        source and destination port. The meaning of values assigned to
+        range start and end is the same as in TCP Service object:
+        ranges are inclusive, that is range start and end are
+        included, using '0' for both start and end of either range
+        means 'any port'. Screenshot <xref
+        linkend="udp-service-dialog1"> shows UDP Service object 'dns'
+        that represents Domain Name System protocol which uses
+        destination port 53.  </para>
+
+        <para>
         <figure id="udp-service-dialog1" float="1">
           <title>Editing UDP Service Object</title>
           <mediaobject>
@@ -3223,11 +3278,125 @@
             </imageobject>
           </mediaobject>
         </figure>      
+        </para>
+
+        <para>UDP Service dialog provides the following controls:</para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Name:</para>
+
+              <para>This is the name of the object</para>
+            </listitem>
+            <listitem>
+              <para>Source port range:</para>
+
+              <para>These two controls define start and end of the
+              source port range; they accept values between 0 and
+              65535.</para>
+            </listitem>
+            <listitem>
+              <para>Destination port range:</para>
+
+              <para>These two controls define start and end of the
+              destination port range; they accept values between 0 and
+              65535.</para>
+            </listitem>
+            <listitem>
+              <para>Comments:</para>
+
+              <para>This is free-style text field used for comments.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
 
       </sect2>
 
       <sect2>
         <title>Custom Service</title>
+
+        <para>custom Service object can be used to inject arbitrary
+        code into generated firewall script. Any combination of
+        options allowed in the target firewall command line language
+        which does not fit in a strict model of standard service
+        object types can be expressed using Custom Service object. For
+        example, iptables comes with a collection of patches called
+        "Patch-o-matic" which add ability to match against complex
+        combinations of packet parameters or header fields that are
+        not supported by a standard code. One of the patches adds an
+        ability to detect a port scan condition, where offending host
+        tries to connect to UDP or TCP ports on the firewall or hosts
+        behind it picking port numbers in turns trying to detect which
+        ports have an applications listening on and which are
+        'dead'. Normally firewall would inspect each attempt to
+        connect to port separately from others and would generate many
+        log records, one line per connection attempt. While this
+        behavior is normal, it still fails to recognize a pattern in
+        the actions of offending host, which may be important in
+        investigation of malicious activity since port scanning is
+        often a step in a preparation for more focused attack.
+        </para>
+
+        <para>Screenshot <xref linkend="custom-service-dialog1">
+        represents Custom Service object that uses capabilities of
+        'PSD' module from patch-o-matic. This module can match against
+        spread in time port scan attempts and has few parameters to
+        fine tune detection mechanism. Custom Object 'psd' defines
+        command line options specific for module 'psd' in the field
+        'Code'</para>
+
+        <para>In general, Custom service can store custom piece of
+        code for each supported firewall platform. When this object is
+        used in firewall policy, policy compiler picks appropriate
+        line of code depending on what target firewall platform the
+        code is being compiled for.</para>
+
+        <note>
+          <para> The code specified in the Custom Service is used
+          literally; no validation is done either by Firewall Builder
+          GUI or policy compilers. </para>
+        </note>
+
+        <para>
+        <figure id="custom-service-dialog1" float="1">
+          <title>Editing Custom Service Object</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="custom_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+        </para>
+        <para>Custom Service dialog provides the following controls:</para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Name:</para>
+
+              <para>This is the name of the object</para>
+            </listitem>
+            <listitem>
+              <para>Platform:</para>
+
+              <para>This is pull-down menu that shows list of all
+              firewall platform for which modules were installed and
+              loaded when the GUI started. </para>
+            </listitem>
+            <listitem>
+              <para>Code:</para>
+
+              <para>This is a line of code in the target firewall language.</para>
+            </listitem>
+            <listitem>
+              <para>Comments:</para>
+
+              <para>This is free-style text field used for comments.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
 
         <para></para>
       </sect2>
