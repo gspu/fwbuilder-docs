@@ -47,7 +47,7 @@
           <inlinemediaobject>
             <imageobject>
               <objectinfo>
-                <releaseinfo>$Release$</releaseinfo>
+                <releaseinfo>$Revision: 1.35 $</releaseinfo>
               </objectinfo>
               <imagedata>
             </imageobject>
@@ -58,7 +58,7 @@
           <inlinemediaobject>
             <imageobject>
               <objectinfo>
-                <releaseinfo>$Date</releaseinfo>
+                <releaseinfo>$Date: 2002-09-14 23:19:55 $</releaseinfo>
               </objectinfo>
               <imagedata>
             </imageobject>
