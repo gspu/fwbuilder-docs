@@ -10,6 +10,12 @@
       <ObjectGroup id="id3D6EA57D" name="netzone inside">
         <ObjectRef ref="id3D387B60"/>
       </ObjectGroup>
+      <ObjectGroup id="id3D724F65" name="test group">
+        <ObjectRef ref="id3D713A07"/>
+        <ObjectRef ref="id3D387E5E"/>
+        <ObjectRef ref="id3D3880B8"/>
+        <ObjectRef ref="id3D387B61"/>
+      </ObjectGroup>
     </ObjectGroup>
     <ObjectGroup id="stdid02" library="Standard" name="Hosts">
       <Host comment="" id="id3D387E5E" name="mail server">
@@ -733,5 +739,6 @@ clock timezone PDT -7
     <Interval comment="any day 6:00pm - 12:00am" from_day="-1" from_hour="18" from_minute="0" from_month="-1" from_weekday="-1" from_year="-1" id="int-afterhours" library="Standard" name="afterhours" to_day="-1" to_hour="23" to_minute="59" to_month="-1" to_weekday="-1" to_year="-1"/>
     <Interval comment="" from_day="-1" from_hour="0" from_minute="0" from_month="-1" from_weekday="6" from_year="-1" id="id3C63479C" library="Standard" name="Sat" to_day="-1" to_hour="23" to_minute="59" to_month="-1" to_weekday="6" to_year="-1"/>
     <Interval comment="" from_day="-1" from_hour="0" from_minute="0" from_month="-1" from_weekday="0" from_year="-1" id="id3C63479E" library="Standard" name="Sun" to_day="-1" to_hour="23" to_minute="59" to_month="-1" to_weekday="0" to_year="-1"/>
+    <Interval comment="start at 8:00am and end at 10:00am" from_day="-1" from_hour="8" from_minute="0" from_month="-1" from_weekday="-1" from_year="-1" id="id3D724F5C" name="test interval" to_day="-1" to_hour="10" to_minute="0" to_month="-1" to_weekday="-1" to_year="-1"/>
   </IntervalGroup>
 </FWObjectDatabase>

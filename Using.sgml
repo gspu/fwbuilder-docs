@@ -484,38 +484,147 @@
 
 <!-- *************************************************************** -->
     <sect1>
-      <title>Navigating Object Tree and Editing Objects</title>
+      <title>Object Tree</title>
 
-      <para>Object selected in the tree automatically appears in the
-      dialog area where it can be reviewed or modified. Objects are
-      opened on a single mouse click in the tree. In general, GUI has
-      been designed to "look and feel" like typical file browser
-      (e.g. Windows Explorer). It shows object groups as a collection
-      of icons, where each icon represents individual object. User can
-      navigate between objects either using mouse, or keyboard "arrow"
-      keys. Active object is highlighted with a different
-      color. Douple-clicking on the icon in the group view opens
-      corresponding object. Clicking right mouse button or spacebar on
-      the keyboard opens pop-up menu, which acts as a shortcut to a
-      frequently used operations such as "Open Object", "Copy","Cut"
-      and "Paste" </para>
+      <sect2>
+        <title>Standard Tree Structure</title>
 
-      <para>Dialogs for objects that can be edited have buttons
-      <guibutton>"Apply"</guibutton> and <guibutton>"Undo"</guibutton>
-      at the bottom. Initially these buttons are inactive, but once
-      object's parameters have been modified in the dialog, both
-      buttons get activated so that user can click
-      <guibutton>"Apply"</guibutton> to save new data, or
-      <guibutton>"Undo"</guibutton> to reload original values into the
-      dialog. If user tries to switch to another object without either
-      saving or reloading data in the current dialog, the program
-      shows pop-up dialog asking the user to take one of these
-      actions. There is also an option to make the program
-      automatically save modified data when user switches between
-      objects, see <link linkend="gui-behavior">below</link>.
+        <figure id="tree-structure" float="1">
+          <title>Standard Tree Structure</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="tree_structure1.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+
+        <para>Object tree provides standard places for all object
+        types so that they are arranged in a hierarchy. Types that
+        correspond to network objects (hosts, address ranges, networks
+        and groups of these) are located in the branch "Objects",
+        types that correspond to all services are in the branch
+        "Services", time intervals are in the branch "Time" and all
+        firewalls are in the branch "Firewalls". Newly created objects
+        are automatically placed in their corresponding position in
+        the tree. Each branch of the tree is automatically sorted by
+        object's name.</para>
+
+        <note>
+          <para>Future versions of Firewall Builder will support
+          creation of custom branches in the tree and placing of
+          objects and groups of objects in any branch.</para>
+        </note>
+      </sect2>
+
+      <sect2>
+        <title>Navigating Object Tree and Editing Objects</title>
+
+        <para>Object selected in the tree automatically appears in the
+        dialog area where it can be reviewed or modified. Objects are
+        opened on a single mouse click in the tree. Clicking right
+        button when mouse cursor is over object's label in the tree
+        brings pop-up menu. This menu is context-sensitive and
+        provides items for the following functions:</para>
+
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Duplicate:</para>
+
+              <para>This function creates a copy of the current
+              object, places it in the tree and opens it in the main
+              window. The new object has generic name "New Object",
+              but once you change the name and click
+              <guibutton>"Apply"</guibutton>, its name will
+              immediately change in the tree and branch it is located
+              in will be sorted alphabetically. This means that once
+              object's name changes, it "jumps" into another position
+              in the tree branch to keep branch sorted..</para>
+            </listitem>
+            <listitem>
+              <para>Copy:</para>
+
+              <para>This copies an object into clipboard.</para>
+            </listitem>
+            <listitem>
+              <para>Cut:</para>
+
+              <para>This copies an object into clipboard and removes
+              it from the tree.</para>
+            </listitem>
+            <listitem>
+              <para>Paste:</para>
+
+              <para>This creates new object which is a copy of the
+              current content of the clipboard.</para>
+            </listitem>
+            <listitem>
+              <para>Delete:</para>
+
+              <para>This deletes an object without making a copy in
+              the clipboard. This is unreversible operation and the
+              program shows pop-up dialog, asking user to
+              confirm. </para>
+            </listitem>
+            <listitem>
+              <para>Where used:</para>
+
+              <para>This scans the whole tree, including all groups
+              and policies of all firewalls, looking for references to
+              the current object. In the end the program shows pop-up
+              dialog with icons corresponding to groups and firewalls
+              that use current object. Double-clicking on the icon
+              opens corresponding object in the main window.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <para>Pop-up menu can also have items to add interface and
+        address objects, depending on what type of the object it is
+        called for (<xref linkend="popup-menu-insert">).
+        </para>
+
+        <para>In general, GUI has been designed to "look and feel"
+        like typical file browser (e.g. Windows Explorer). It shows
+        object groups as a collection of icons, where each icon
+        represents individual object (<xref
+        linkend="group-view">). User can navigate between objects
+        either using mouse, or keyboard "arrow" keys. Active object is
+        highlighted with a different color. Douple-clicking on the
+        icon in the group view opens corresponding object. Clicking
+        right mouse button or spacebar on the keyboard opens pop-up
+        menu, which acts as a shortcut to a frequently used operations
+        such as "Open Object", "Copy","Cut" and "Paste" </para>
+
+        <figure id="group-view" float="1">
+          <title>Group View</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="group_view1.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Dialogs for objects that can be edited have buttons
+        <guibutton>"Apply"</guibutton> and
+        <guibutton>"Undo"</guibutton> at the bottom. Initially these
+        buttons are inactive, but once object's parameters have been
+        modified in the dialog, or group members have been added or
+        removed, both buttons get activated so that user can click
+        <guibutton>"Apply"</guibutton> to save new data, or
+        <guibutton>"Undo"</guibutton> to reload original values into
+        the dialog. If user tries to switch to another object without
+        either saving or reloading data in the current dialog, the
+        program shows pop-up dialog asking the user to take one of
+        these actions. There is also an option to make the program
+        automatically save modified data when user switches between
+        objects, see <link linkend="gui-behavior">below</link>.
       </para>
 
+      </sect2>
     </sect1>
+
 <!-- *************************************************************** -->
     <sect1>
       <title>GUI Options</title>
@@ -1074,22 +1183,6 @@
 
     </sect1>
 
-<!-- *************************************************************** -->
-    <sect1>
-      <title>Objects Tree</title>
-
-      <sect2>
-        <title>Standard Tree Structure</title>
-
-        <para></para>
-      </sect2>
-
-      <sect2>
-        <title>Properties of the Tree Widget</title>
-
-        <para></para>
-      </sect2>
-    </sect1>
 
   </chapter>
 
