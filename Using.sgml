@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.49 $  $Date: 2003-01-05 06:37:12 $</edition>
+    <edition>$Revision: 1.50 $  $Date: 2003-01-06 05:50:54 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -1418,41 +1418,137 @@
         combination of each IP address and its MAC address. The reason
         for this change is as follows:</para>
 
-        <para>Let's assume the host whose Interface has Physical
-        Address is a router with several networks behind it. The
-        packet originated from this router will always have source
-        ethernet address of its interface, but source IP address may
-        be different. There may be three possible ways to build
-        security policy in this situation, all useful but serving
-        different purposes:</para>
+        <para>Suppose we have a very important host on the network. We
+        create a Host object, then add interface to it. Interface
+        should have both Address and Physical Address objects as shown
+        on <xref linkend="host-with-addr-and-physaddr"></para>
+
+
+        <figure id="host-with-addr-and-physaddr" float="1">
+          <title>the Host object with Address and Physical Address</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="using-physaddress-1.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Because this is very important host, we would like to be
+        sure that packets whose source IP is that of this host are
+        really coming from it and are not spoofed. The best way to
+        achieve this goal is to use strong authentication, for example
+        with IPSEC protocol. Using IPSEC is outside the scope of this
+        document though; our goal right now is to show that inspecting
+        MAC address of the packet can improve security.</para>
+
+        <para>The packet originated from this host always has source
+        IP address of its interface, but source MAC address is going
+        to be different if spoofing is going on. There may be three
+        possible ways to build security policy in this situation: </para>
 
         <para>
           <itemizedlist>
             <listitem><para>Using only Address object in the rule
             element. This means the firewall inspects only IP address
-            and ignores MAC address of the packets. In the case of the
-            router described above this may be sufficient, although in
-            more complex network configurations matching on MAC
-            address may be necessary.</para></listitem>
+            and ignores MAC address of the packets. </para>
 
-            <listitem><para>Using only Physical Address
-            object. Suppose there is another router on our network,
-            which may provide access to the same subnets as the first
-            one. This second router may in fact be a rogue host using
-            ARP spoofing to intercept all the traffic on the network
-            so it could inspect it and extract some information. By
-            inspecting the source MAC address we can distinguish
-            between packets reaching the firewall through one router
-            or another, even though the source IP address may be the
-            same.</para></listitem>
+              <figure id="only-addr" float="1">
+                <title>Policy rule using only Address object</title>
+                <mediaobject>
+                  <imageobject>
+                    <imagedata fileref="using-physaddress-4.jpg" format="jpg" align="Left" scale="33">
+                  </imageobject>
+                </mediaobject>
+              </figure>
 
-            <listitem><para>Using Interface object. This way we end up
-            with a rule that matches on a
+            </listitem>
+            <listitem><para>Using only Physical Address object. Rule
+            built this way permits all kinds of traffic coming from
+            the trusted host regardless of its IP address.</para>
+
+              <figure id="only-phaddr" float="1">
+                <title>Policy rule using only Physical Address object</title>
+                <mediaobject>
+                  <imageobject>
+                    <imagedata fileref="using-physaddress-5.jpg" format="jpg" align="Left" scale="33">
+                  </imageobject>
+                </mediaobject>
+              </figure>
+
+            </listitem>
+
+            <listitem><para>Using Host or Interface object. This way
+            we end up with a rule that matches on a
             <emphasis>combination</emphasis> of IP address and MAC
             address. This may be used as a sophisticated anti-spoofing
-            rule.</para></listitem>
+            rule.</para>
+
+              <figure id="using-host" float="1">
+                <title>Policy rule using Host object</title>
+                <mediaobject>
+                  <imageobject>
+                    <imagedata fileref="using-physaddress-6.jpg" format="jpg" align="Left" scale="33">
+                  </imageobject>
+                </mediaobject>
+              </figure>
+
+              <figure id="using-interface" float="1">
+                <title>Policy rule using Interface object</title>
+                <mediaobject>
+                  <imageobject>
+                    <imagedata fileref="using-physaddress-3.jpg" format="jpg" align="Left" scale="33">
+                  </imageobject>
+                </mediaobject>
+              </figure>
+
+            </listitem>
           </itemizedlist>
        </para>
+
+        <para>Using Address and Physical Address objects in a rule is
+        not the same as using Host or Interface object to which these
+        Address and Physical Address belong. As described in <xref
+        linkend="multiple-addresses">, using object with multiple
+        addresses or multiple objects in the rule element is like
+        bundling them together using logical operation
+        <emphasis>OR</emphasis>. If we were to put Address and
+        Physical Address in the rule like in <xref
+        linkend="addr-and-phaddr">, we would end up with policy
+        matching packets that have source address 10.1.1.1 or MAC
+        address 00:08:C7:29:D1:AC but not necessarily both at the same
+        time. Any host that manages to pretend to have IP address
+        10.1.1.1 would be able to send packets through our firewall
+        even if its MAC address is different. To achieve our goal and
+        make sure packets with source IP 10.1.1.1 really belong to our
+        important host, we should be checking its IP address and MAC
+        address at the same time and let packet through only if its IP
+        address <emphasis>AND</emphasis> MAC address are what we
+        expect them to be. That is why Firewall Builder treats
+        physical addresses differently and generates firewall code
+        that inspects both IP address and physical address.</para>
+
+        <figure id="addr-and-phaddr" float="1">
+          <title>Policy rule using Address and Physical Address objects</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="using-physaddress-7.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Firewall Builder generates firewall code to inspect MAC
+        address only for Host objects with option "MAC address
+        filtering" turned on. Even if the Host object has interfaces
+        with both Address and Physical Address child objects, but this
+        option is off, Physical Address objects will be ignored. This
+        is because Host objects created using Network Discovery Druid
+        ( <xref linkend="network-discovery"> )
+        are often populated with both IP address and MAC address
+        information which is available through SNMP query, but
+        inspection of MAC addresses is rarely needed. Administrator
+        can use option "MAC address filtering" in the Host object to
+        specify what Hosts he wants MAC addresses to be checked for.
+        </para>
 
       </sect2>
     </sect1>
@@ -2741,7 +2837,7 @@
 
   <!-- ***************************************************************
   -->
-  <chapter>
+  <chapter id="network-discovery">
     <title>Network Discovery: A Quick Way to Create Objects</title>
 
     <figure id="discovery-menu" float="1">
