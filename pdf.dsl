@@ -3,12 +3,6 @@
 ]>
 
 <!--
-<!ENTITY dbstyle PUBLIC "-//Norman Walsh//DOCUMENT DocBook Print Stylesheet//EN" CDATA DSSSL>
-<!ENTITY docbook.dsl PUBLIC "-//Norman Walsh//DOCUMENT DocBook Print Stylesheet//EN" CDATA DSSSL>
-<!ENTITY dbstyle SYSTEM "/usr/share/sgml/docbook/utils-0.6.9/docbook-utils.dsl" CDATA DSSSL>
--->
-
-<!--
 
   Custom DocBook stylesheet for producing Firewall Builder Tutorial
   
@@ -48,8 +42,8 @@
 (define %visual-acuity% "normal")
 (define %left-margin%   4pi)
 (define %right-margin%  3pi)
-(define %top-margin%    3pi)
-(define %bottom-margin% 3pi)
+(define %top-margin%    2pi)
+(define %bottom-margin% 2pi)
 <!-- (define %paper-type% "A5")   -->
 
 

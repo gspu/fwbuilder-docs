@@ -14,15 +14,13 @@
   
   <bookinfo>
 
-    <title>Firewall Builder</title>
-
     <title>Firewall Builder User's Guide</title>
 
     <affiliation>
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.19 $  $Date: 2003-05-03 07:27:49 $</edition>
+    <edition>$Revision: 1.20 $  $Date: 2003-05-08 02:44:53 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -31,7 +29,7 @@
 
     <legalnotice>
       <para>The information in this manual is subject to change
-      without notice, and should not be construed as a commitment by
+      without notice and should not be construed as a commitment by
       NetCitadel LLC. NetCitadel LLC assumes no responsibility or
       liability for any errors or inaccuracies that may appear in this
       manual.</para>
@@ -60,15 +58,15 @@
       </para>
 
       <para>
-        With Firewall Builder, you can manage the security policy of your
-        firewall efficiently and accurately, without the learning
+        With Firewall Builder, you can manage the security policy of
+        your firewall efficiently and accurately, without the learning
         curve usually associated with command line interfaces of many
         free and commercial firewalls. You do not have to think of a
         policy in terms of obscure port numbers, firewall interfaces
-        and make choices about what interface a certain rule should
+        and making choices about what interface a certain rule should
         belong to and so on. Instead, you create a set of objects
-        describing your firewall, subnets of your network and hosts on
-        them, and then implement your firewall policy by dragging objects into
+        describing your firewall, servers, subnets of your network and
+        then implement your firewall policy by dragging objects into
         policy rules. You can also take advantage of a large
         collection of predefined objects describing many standard
         protocols and services.Once a policy is built in the GUI, you
@@ -104,22 +102,22 @@
           </listitem>
 
           <listitem>
-            <para>The Network discovery tool, to automate the creation
-            of multiple objects </para>
+            <para>The Network discovery tool which automates the
+            creation of multiple objects </para>
           </listitem>
           
           <listitem>
-            <para>Object oriented approach to the policy management:
-            any change made to an object gets immediately reflected in all
-            policy rules of all firewalls using that
-            object. The configuration for multiple firewalls shares the
-            same object database.</para>
+            <para>An object oriented approach to the policy
+            management: any change made to an object gets immediately
+            reflected in all policy rules of all firewalls using that
+            object. The configuration for multiple firewalls shares
+            the same object database.</para>
           </listitem>
 
           <listitem>
             <para>The ability to turn a firewall policy into
             a configuration file or a script and then install it on a
-            firewall with just a few clicks of a mouse.</para>
+            firewall with just a few clicks of the mouse.</para>
           </listitem>
 
           <listitem>
@@ -166,7 +164,7 @@
       <para>Firewall Builder is an Open Source project. Source code
       for the API library, GUI and policy compilers for iptables,
       ipfilter and pf is available for download from our web site
-      http://www.fwbuilder.org/. Firewall Builder for PIX is a
+      at http://www.fwbuilder.org/. Firewall Builder for PIX is a
       licensed commercial product available as a binary package.
       </para>
 
@@ -250,8 +248,8 @@
       <title>The Main Window</title>
 
       <para>The main window is divided into two parts: the objects
-      tree and a dialog area. The object which is currently selected
-      in the tree is highlighted in a color and is shown in the dialog
+      tree and the dialog area. The object which is currently selected
+      in the tree is highlighted in color and is shown in the dialog
       in the right half of the main window. You can create more than
       one main window using the main menu
       <guimenuitem>"File"</guimenuitem>/<guimenuitem>"New
@@ -271,7 +269,7 @@
 
       <para>
       <figure id="main-win1">
-          <title>Main window</title>
+          <title>The main window</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="50">
@@ -294,7 +292,7 @@
       </para>
 
       <figure id="options1" float="0" pgwide="1">
-        <title>GUI Options Dialog</title>
+        <title>The GUI Options Dialog</title>
         <mediaobject>
           <imageobject>
             <imagedata fileref="options1.jpg" format="jpg" align="Left" scale="50">
@@ -413,7 +411,7 @@
                 switching between objects</para>
 
                 <para>The GUI shows a dialog for every opened object
-                in the same place (right half of the main
+                in the same place (the right half of the main
                 window). Normally if the user has made some changes to
                 the object's data and wants to switch to another
                 object without clicking on the
@@ -458,9 +456,9 @@
               <listitem>
                 <para>Show properties of objects in the tree</para>
 
-                <para>If this option is checked, then GUI shows
-                brief summary of object's properties, or one most
-                frequently used property, in an additional column in
+                <para>If this option is checked, then GUI shows a
+                brief summary of the object's properties, or one most
+                frequently used property in an additional column in
                 the tree view.</para>
               </listitem>
             </itemizedlist>
@@ -499,9 +497,9 @@
         the object's name.</para>
 
       <note>
-        <para>Future versions of Firewall Builder will support 
-          creation of custom branches in the tree and placing of
-          objects and groups of objects in any branch.</para>
+        <para>Future versions of Firewall Builder will support
+        creation of custom branches in the tree and placing of
+        objects and groups of objects in any branch.</para>
       </note>
 
       <para>The program can maintain all the objects in a single tree,
@@ -510,16 +508,16 @@
       by an individual tree; one tree is always called "User" and
       holds user-defined objects. The other tree is called "Standrard"
       and holds a collection of standard objects that come with the
-      program. Some of the standard objects are visible on the
-      screenshot <xref linkend="main-win2">. Standard objects
+      program. Some of the standard objects are visible in the
+      screenshot (<xref linkend="main-win2">.) Standard objects
       represent over 100 of frequently used protocols and services.
       There may be more libraries in the future. Splitting objects
       tree into "libraries" is just a convenient way to sort objects
-      in the tree, you can think of it as a kind of a "view". It only
-      affects representation of the data in the GUI; objects are all
-      equal in all other senses and you can use object from either
-      part of the tree in your policy. You do not need (and can't )
-      insert firewall in the "Standard" tree.  </para>
+      in the tree, you can think of it as a kind of the "view". It
+      only affects representation of the data in the GUI; objects are
+      all equal in all other senses and you can use an object from
+      either part of the tree in your policy. You do not need to (and
+      can not) insert the firewall in the "Standard" tree.  </para>
 
       <figure id="main-win2" float="1">
         <title>Standard Objects</title>
@@ -535,13 +533,14 @@
     <sect1 id="creating-objects">
       <title>Creating Objects</title>
 
-      <para>New objects can be created using the main menu
-        <guimenuitem>"Insert"</guimenuitem>. Certain objects can also
-        be created via a pop-up menu that can be opened by clicking
-        the right mouse button on the object in the tree.</para>
+      <para>New objects can be created using the
+      <guimenuitem>"Insert"</guimenuitem> main menu. Certain objects
+      can also be created via a pop-up menu that can be opened by
+      clicking the right mouse button on the object in the
+      tree.</para>
 
       <figure id="menu-insert" float="1">
-        <title>Creating Objects Using Main Menu 'Insert'</title>
+        <title>Creating Objects Using The 'Insert' Main Menu</title>
         <mediaobject>
           <imageobject>
             <imagedata fileref="scrn-menu1.jpg" format="jpg" align="Left" scale="50">
@@ -569,7 +568,7 @@
 
 
       <figure id="popup-menu-insert">
-        <title>Adding Objects Using Pop-up Menu</title>
+        <title>Adding Objects Using The Pop-up Menu</title>
         <informaltable frame="none">
           <tgroup cols="2">
             <colspec align="left" colwidth="1*">
@@ -597,16 +596,15 @@
         </informaltable>
       </figure>
 
-      <para>Just like items under the main menu
-        <guimenuitem>"Insert"</guimenuitem>, items in the popup menu
-        are context-sensitive. In particular, menu items that add
-        interfaces appear only when the object opened in the main
-        window is either the host or the firewall (<xref
-                                                         linkend="popup-menu-insert">). You can add interface objects
-        by hand (using the menu item <guimenuitem>"Add
-        Interface"</guimenuitem>) or import them via SNMP query (using
-        menu item <guimenuitem>"Add Interfaces via
-        SNMP"</guimenuitem>)
+      <para>Items of this menu are context-sensitive just like items
+      under the <guimenuitem>"Insert"</guimenuitem> main menu.  In
+      particular, menu items that add interfaces appear only when the
+      object opened in the main window is either the host or the
+      firewall (<xref linkend="popup-menu-insert">). You can add
+      interface objects by hand (using the <guimenuitem>"Add
+      Interface"</guimenuitem> menu item) or import them via SNMP
+      query (using the <guimenuitem>"Add Interfaces via
+      SNMP"</guimenuitem> menu item)
         </para>
 
     </sect1>
@@ -616,7 +614,7 @@
 
       <para>The object selected in the tree automatically appears in
         the dialog area where it can be reviewed or modified. Objects
-        are opened at a single mouse click in the tree. Clicking the
+        are opened by a single mouse click in the tree. Clicking the
         right button when the mouse cursor is over the object's label
         in the tree brings up the pop-up menu. This menu is
         context-sensitive and provides items for the following
@@ -637,24 +635,24 @@
           <listitem>
             <para>Copy:</para>
 
-            <para>This copies an object into the clipboard.</para>
+            <para>This copies an object onto the clipboard.</para>
           </listitem>
           <listitem>
             <para>Cut:</para>
 
-            <para>This copies an object into the clipboard and
+            <para>This copies an object onto the clipboard and
               removes it from the tree.</para>
           </listitem>
           <listitem>
             <para>Paste:</para>
 
             <para>This creates a new object which is a copy of the
-              current content of the clipboard.</para>
+              current content on the clipboard.</para>
           </listitem>
           <listitem>
             <para>Delete:</para>
 
-            <para>This deletes an object without making a copy in
+            <para>This deletes an object without making a copy on
               the clipboard. This is an unreversible operation and the
               program shows a pop-up dialog, asking the user to
               confirm. </para>
@@ -678,18 +676,17 @@
         called for (<xref linkend="popup-menu-insert">).
         </para>
 
-      <para>In general, GUI has been designed to "look and feel"
-        like a typical file browser (e.g. Windows Explorer). It shows
-        object groups as a collection of icons, where each icon
-        represents an individual object (<xref
-                                               linkend="group-view">). The user can navigate between objects
-        either using the mouse or keyboard "arrow" keys. The active
-        object is highlighted with a different color. The
-        douple-clicking on the icon in the group view opens the
-        corresponding object. Clicking the right mouse button or spacebar
-        on the keyboard opens a pop-up menu, which acts as a shortcut to
-        frequently used operations such as "Open Object",
-        "Copy","Cut" and "Paste" </para>
+      <para>In general, GUI has been designed to "look and feel" like
+      a typical file browser (e.g. Windows Explorer). It shows object
+      groups as a collection of icons, where each icon represents an
+      individual object (<xref linkend="group-view">).  The user can
+      navigate between objects either using the mouse or keyboard
+      "arrow" keys. The active object is highlighted with a different
+      color. Douple-clicking on the icon in the group view opens the
+      corresponding object. Clicking the right mouse button or
+      spacebar on the keyboard opens a pop-up menu, which acts as a
+      shortcut to frequently used operations such as "Open Object",
+      "Copy","Cut", and "Paste" </para>
 
       <figure id="group-view" float="1">
         <title>Group View</title>
@@ -742,20 +739,19 @@
       <title>The Host Object</title>
 
       <para>The host object in Firewall Builder is designed to
-        represent real hosts in the network: workstations, servers,
-        and any other network node with an address. Just like real
-        hosts, the host object can have interfaces, which in turn have
-        addresses. Both interfaces and addresses are represented by
-        objects, which are organized into a tree-like hierarchy.
-        Interface objects is sitting in the tree directly under the
-        host; the address objects are located under their
-        interfaces. Just like in real computers, in Firewall Builder
-        interface object can have either one or multiple addresses. An
-        example of a host with one interface, which has multiple
-        addresses is shown in <xref linkend="host-in-tree">. In fact
-        host may even have an interface with no addresses at all. We
-        will go over the features of interface and address objects
-        below. </para>
+      represent real hosts in the network: workstations, servers, and
+      any other network node with an address. Just like real hosts,
+      the host object can have interfaces, which in turn have
+      addresses. Both interfaces and addresses are represented by
+      objects, which are organized into a tree-like hierarchy.
+      Interface objects sit in the tree directly under the host, and
+      the address objects are located under their interfaces. Just
+      like in real computers, the Firewall Builder interface object
+      can have either one or multiple addresses. An example of a host
+      with one interface which has multiple addresses is shown in
+      <xref linkend="host-in-tree">. In fact, the host may even have
+      an interface with no addresses at all. We will go over the
+      features of interface and address objects below. </para>
 
       <figure id="host-in-tree" float="1">
         <title>A Host Object With One Interface And Multiple Virtual Addresses </title>
@@ -784,28 +780,27 @@
           </mediaobject>
         </figure>
 
-        <para>To speed up the process and make it simpler, creating
-          of a new host object is aided by the Druid which collects
-          all data needed for both the host and its interfaces and
-          then creates the object. The screenshot (<xref
-                                                         linkend="creating-host1">) represents the first page of the
-          Druid. First of all you need to enter the host
-          name. Generally this name does not have to be the same as
-          the real host's name, but if it is, then you can use DNS to
-          query for the host's IP address using its name. If the new
-          host object has a single interface (this, perhaps, is the
-          most common case) then you just need to fill the entry field
-          for its address and may be MAC address and click
-          <guibutton>"Next"</guibutton>. If the object's name is the
-          same as the real host name, then you can use the
-          <guibutton>"DNS Lookup"</guibutton> button to get the
-          address from DNS. </para>
+        <para>To speed up the process and make it simpler, creating a
+        new host object is aided by the Druid which collects all data
+        needed for both the host and its interfaces and then creates
+        the object. The screenshot (<xref linkend="creating-host1">)
+        represents the first page of the Druid. First of all you need
+        to enter the host name. Generally this name does not have to
+        be the same as the real host's name. If the new host object
+        has a single interface (this, perhaps, is the most common
+        case) then you just need to fill the entry field for its
+        address and maybe MAC address and click
+        <guibutton>"Next"</guibutton>. If the object's name is the
+        same as the real host name, then you can use the
+        <guibutton>"DNS Lookup"</guibutton> button to get the address
+        from DNS. </para>
 
         <para>In case the new host object should have multiple
-          interfaces, you need to check the option at the bottom of the
-          dialog and then switch to the next page of the Druid using the
-          <guibutton>"Next"</guibutton> button. The next page is
-          represented in screenshot <xref linkend="creating-host2">.</para>
+        interfaces, you need to check the option at the bottom of the
+        dialog and then switch to the next page of the Druid using the
+        <guibutton>"Next"</guibutton> button. The next page is
+        represented in the screenshot (<xref
+        linkend="creating-host2">.)</para>
 
         <figure id="creating-host2" float="1">
           <title>Adding Interfaces to the New Host Object</title>
@@ -817,13 +812,12 @@
         </figure>
 
         <para>Here you can add interfaces to the new host
-          object. Enter the interface name, its address and netmask in
-          the appropriate fields, and click
-          <guibutton>"Add"</guibutton> to add it to the list. The
-          <guibutton>"Update"</guibutton> button updates information
-          for the interface that is selected in the list, and the
-          <guibutton>"Delete"</guibutton> button deletes currently
-          selected interface.</para>
+        object. Enter the interface name, address, and netmask in the
+        appropriate fields, then click <guibutton>"Add"</guibutton> to
+        add it to the list. The <guibutton>"Update"</guibutton> button
+        updates information for the interface that is selected in the
+        list, and the <guibutton>"Delete"</guibutton> button deletes
+        the currently selected interface.</para>
 
         <note>
           <para>You can always add, modify and remove
@@ -856,16 +850,16 @@
             <listitem>
               <para>Name:</para>
 
-              <para>Host object name.</para>
+              <para>The Host object name.</para>
             </listitem>
             <listitem>
               <para>MAC address filtering:</para>
 
               <para>If this option is activated, the policy compiler
-              uses MAC addresses of all interfaces of this host in the
-              firewall rules.  Not all firewall platforms support MAC
-              address filtering, so this option may have no effect on
-              the generated firewall script. This is treated as a
+              uses the MAC addresses of all interfaces of this host in
+              the firewall rules.  Not all firewall platforms support
+              MAC address filtering, so this option may have no effect
+              on the generated firewall script. This is treated as a
               non-critical situation, and the policy compiler will
               only generate a warning while processing a firewall
               policy where such a host is used. See below <xref
@@ -954,14 +948,13 @@
               firewall </para>
           </listitem>
           <listitem>
-            <para>Option "Regular Interface"</para>
+            <para>The "Regular Interface" Option</para>
 
-            <para>Use this option if the interface has IP address
-              assigned to it manually. This is the default.
-              </para>
+            <para>Use this option if the interface has an IP address
+            assigned to it manually. This is the default.</para>
           </listitem>
           <listitem>
-            <para>Option "Address is assigned dynamically"</para>
+            <para>The "Address is assigned dynamically" Option</para>
 
             <para>Use this option if the interface has a dynamic
               address (obtained by means of DHCP or PPP or another
@@ -970,18 +963,18 @@
               policy. </para>
           </listitem>
           <listitem>
-            <para>Option "Unnumbered interface"</para>
+            <para>The "Unnumbered interface" Option</para>
 
-            <para>Use this option if interface can never have IP
-              address, such as ethernet interface used to run PPPoE
-              communication on some ADSL connections or tunnel
-              endpoint interface or an interface on a bridging
-              firewall. See below <xref linkend="types-of-interfaces">
-              for more detailed discussion of these different types of
-              interfaces. </para>
+            <para>Use this option if the interface can never have an
+            IP address, such as the ethernet interface used to run
+            PPPoE communication on some ADSL connections, tunnel
+            endpoint interface, or an interface on a bridging
+            firewall. See below <xref linkend="types-of-interfaces">
+            for more detailed discussion of these different types of
+            interfaces. </para>
           </listitem>
           <listitem>
-            <para>Checkbox "This is management interface"</para>
+            <para>"This is management interface" Checkbox</para>
 
             <para>Sometimes the host has several network interfaces in
               which case one of them can be marked as the 'management
@@ -1013,34 +1006,35 @@
         depending on its IP address: <emphasis>regular</emphasis>,
         <emphasis>dynamic</emphasis> and
         <emphasis>unnumbered</emphasis>. <emphasis>Regular</emphasis>
-        interface has IP address assigned statically, that is the
+        interface has an IP address assigned statically, that is the
         address does not change and Firewall Builder can use it in the
-        firewall policy rules. It may need to use this address if
-        policy rule controls access to or from the firewall itself.</para>
+        firewall policy rules. It may need to use this address if the
+        policy rule controls access to or from the firewall
+        itself.</para>
 
         <para><emphasis>Dynamic</emphasis> interface has its IP
         address assigned to it dynamically by DHCP or PPP protocol. In
         this case the address is not known beforehand and can not be
-        used in the policy rules. Some firewalls allow for using
-        interface name in the policy instead of its IP address;
-        firewall engine then picks its address either when policy is
-        activated or even at run-time. Some other firewalls support a
-        special syntax for rules that are supposed to match packets
+        used in the policy rules. Some firewalls allow for using the
+        interface name in the policy instead of its IP address; the
+        firewall engine then picks its address either when the policy
+        is activated or even at run-time. Some other firewalls support
+        a special syntax for rules that are supposed to match packets
         headed to or from the firewall machine. Examples of these two
         cases are OpenBSD PF and Netfilter. PF rules can be
-        constructed using interface names; PF automatically uses
+        constructed using interface names; PF automatically uses the
         current interface address when it loads rules into the
         memory. Netfilter supports special "chains" called "INPUT" and
         "OUPUT" that are guaranteed to inspect only packets headed for
         the firewall machine ("INPUT") or originated on it
         ("OUTPUT"). Both methods allow Firewall Builder to build
-        correct firewall policy rules that affect interface with
-        dynamic IP address, however interface must be marked as such
-        for policy compiler to use proper technique depending on the
-        target firewall platform.</para>
+        correct firewall policy rules that affect the interface with a
+        dynamic IP address, however the interface must be marked as
+        such for the policy compiler to use proper technique depending
+        on the target firewall platform.</para>
 
         <para><emphasis>Unnumbered</emphasis> interface can never have
-        IP address. Exapmples of such interfaces include endpoints of
+        an IP address. Exapmples of such interfaces include endpoints of
         various tunnels (GRE, PPPoE, somtimes IPSEC), interfaces of a
         bridging firewall and perhaps some other cases. Firewall
         Builder ignores interfaces marked as
@@ -1048,20 +1042,21 @@
         policy rules.</para>
 
         <para>Interfaces of all three types can have policy rules
-        associated with them. This means in the GUI any interface
-        object can have "Interface Policy" object situated under it in
-        the tree. The main difference is that
+        associated with them. This means that in the GUI, any
+        interface object can have "Interface Policy" object situated
+        under it in the tree. The main difference is that
         <emphasis>Regular</emphasis> interface can always be used in
-        the rule elements <emphasis>Source</emphasis> and
-        <emphasis>Destination</emphasis>, <emphasis>Dynamic</emphasis>
-        interface can be used there only on some firewall platforms,
-        and <emphasis>Unnumbered</emphasis> interface can never be
-        used in these policy rule elements.  For example, on iptables
-        and PF <emphasis>dynamic</emphasis> interface can be used in
+        the <emphasis>Source</emphasis> and
+        <emphasis>Destination</emphasis> rule elements,
+        <emphasis>Dynamic</emphasis> interface can be used there only
+        on some firewall platforms, and
+        <emphasis>Unnumbered</emphasis> interface can never be used in
+        these policy rule elements.  For example, in iptables and PF
+        <emphasis>dynamic</emphasis> interface can be used in
         rules. PF can automatically use the address it has at the
-        moment the firewall rules are loaded; iptables can not this,
-        but Firewall Builder provides emulation with the same
-        effect.</para>
+        moment the firewall rules are loaded; iptables can not do
+        this, but Firewall Builder provides emulation to work around
+        this limitation. </para>
 
       </sect2>
 
@@ -1103,9 +1098,9 @@
 
             <note>
               <para>A typical error is to interpret this object as an
-              address of the subnet to which interface of the host or
-              firewall belongs. This object represents an address of
-              interface, not a network address.  </para>
+              address of the subnet to which the interface of the host
+              or firewall belongs. This object represents an address
+              of the interface, not a network address.  </para>
             </note>
           </listitem>
           <listitem>
@@ -1140,10 +1135,9 @@
         </mediaobject>
       </figure>
 
-      <para>the Physical Address object describes hardware or media
-      address, that is the interface's address at the protocol layer
-      immediately `below' the network layer in the protocol stack. For
-      example for Ethernet this would be its MAC address.</para>
+      <para>the Physical Address object describes the hardware or
+      media address. For example for Ethernet this would be a MAC
+      address of the interface.</para>
 
       <para>
           <itemizedlist spacing="compact">
@@ -1174,41 +1168,42 @@
         </para>
 
       <sect2 id="using-mac-address">
-        <title>Using Physical Address Object in the Policy</title>
+        <title>Using The Physical Address Object in the Policy</title>
 
         <para>Only few firewall platforms really support physical
-        address filtering. Currently netfilter is only firewall
+        address filtering. Currently netfilter is the only firewall
         platform that can do it and is supported by Firewall
         Builder.</para>
 
         <para>As described in <xref linkend="multiple-addresses">, if
         the Interface object that has multiple Address and Physical
-        Address child objects is used in the policy or NAT rule
+        Address child objects is used in the policy or the NAT rule
         element (either <emphasis>Source</emphasis> or
-        <emphasis>Destination</emphasis>), then policy compiler tries
-        to generate a rule using all of them. <xref
+        <emphasis>Destination</emphasis>), then the policy compiler
+        tries to generate a rule using all of them. <xref
         linkend="multiple-addresses"> explains that compiler actually
         does this by generating multiple rules using each address in
         turn. This roughly corresponds to using logical operation "OR"
         on these addresses: if our interface had two addresses
         <emphasis>Address1</emphasis> and
-        <emphasis>Address2</emphasis>, then generated rule would match
-        if address in the packet is either
+        <emphasis>Address2</emphasis>, then the generated rule would
+        match if address in the packet is either
         <emphasis>Address1</emphasis> OR
-        <emphasis>Address2</emphasis>.  The case of Physical Address
-        is different though. If Interface has physical address, then
-        compiler tries to build a set of rules that matches on
+        <emphasis>Address2</emphasis>.  The case of a Physical Address
+        is different though. If the Interface has a physical address,
+        then compiler tries to build a set of rules that matches on
         combination of each IP address and its MAC address. The reason
         for this change is as follows:</para>
 
         <para>Suppose we have a very important host on the network. We
-        create a Host object, then add interface to it. Interface
-        should have both Address and Physical Address objects as shown
-        on <xref linkend="host-with-addr-and-physaddr"></para>
+        create a Host object, then add an interface to it. The
+        interface should have both Address and Physical Address
+        objects as shown on <xref
+        linkend="host-with-addr-and-physaddr"></para>
 
 
         <figure id="host-with-addr-and-physaddr" float="1">
-          <title>the Host object with Address and Physical Address</title>
+          <title>The Host object with Address and Physical Address</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="using-physaddress-1.jpg" format="jpg" align="Left" scale="50">
@@ -1216,24 +1211,26 @@
           </mediaobject>
         </figure>
 
-        <para>Because this is very important host, we would like to be
-        sure that packets whose source IP is that of this host are
+        <para>Because this is a very important host, we would like to
+        be sure that packets whose source IP is that of this host are
         really coming from it and are not spoofed. The best way to
         achieve this goal is to use strong authentication, for example
         with IPSEC protocol. Using IPSEC is outside the scope of this
         document though; our goal right now is to show that inspecting
         MAC address of the packet can improve security.</para>
 
-        <para>The packet originated from this host always has source
-        IP address of its interface, but source MAC address is going
-        to be different if spoofing is going on. There may be three
-        possible ways to build security policy in this situation: </para>
+        <para>Both the real packet originated from this host and a
+        spoofed packet have a source IP address of the interface of
+        this host, but a source MAC address is going to be different
+        if spoofing is going on. We can use this to catch and drop
+        spoofed packets. Here are three possible ways to build
+        security policy in this situation: </para>
 
         <para>
           <itemizedlist>
             <listitem><para>Using only Address object in the rule
             element. This means the firewall inspects only IP address
-            and ignores MAC address of the packets. </para>
+            and ignores the MAC address of the packets. </para>
 
               <figure id="only-addr" float="1">
                 <title>Policy rule using only Address object</title>
@@ -1245,9 +1242,9 @@
               </figure>
 
             </listitem>
-            <listitem><para>Using only Physical Address object. Rule
+            <listitem><para>Using only Physical Address object. A rule
             built this way permits all kinds of traffic coming from
-            the trusted host regardless of its IP address.</para>
+            the trusted host even if its IP address changes.</para>
 
               <figure id="only-phaddr" float="1">
                 <title>Policy rule using only Physical Address object</title>
@@ -1262,7 +1259,7 @@
 
             <listitem><para>Using Host or Interface object. This way
             we end up with a rule that matches on a
-            <emphasis>combination</emphasis> of IP address and MAC
+            <emphasis>combination</emphasis> of the IP address and MAC
             address. This may be used as a sophisticated anti-spoofing
             rule.</para>
 
@@ -1289,26 +1286,27 @@
        </para>
 
         <para>Using Address and Physical Address objects in a rule is
-        not the same as using Host or Interface object to which these
-        Address and Physical Address belong. As described in <xref
-        linkend="multiple-addresses">, using object with multiple
-        addresses or multiple objects in the rule element is like
-        bundling them together using logical operation
+        not the same as using a Host or Interface object to which
+        these Address and Physical Address belong. As described in
+        <xref linkend="multiple-addresses">, using an object with
+        multiple addresses or multiple objects in the rule element is
+        like bundling them together using logical operation
         <emphasis>OR</emphasis>. If we were to put Address and
         Physical Address in the rule like in <xref
         linkend="addr-and-phaddr">, we would end up with policy
-        matching packets that have source address 10.1.1.1 or MAC
-        address 00:08:C7:29:D1:AC but not necessarily both at the same
-        time. Any host that manages to pretend to have IP address
-        10.1.1.1 would be able to send packets through our firewall
-        even if its MAC address is different. To achieve our goal and
-        make sure packets with source IP 10.1.1.1 really belong to our
-        important host, we should be checking its IP address and MAC
-        address at the same time and let packet through only if its IP
-        address <emphasis>AND</emphasis> MAC address are what we
-        expect them to be. That is why Firewall Builder treats
-        physical addresses differently and generates firewall code
-        that inspects both IP address and physical address.</para>
+        matching packets that have the source address 10.1.1.1 or MAC
+        address 00:08:C7:29:D1:AC, but not necessarily both at the
+        same time. Any host that manages to pretend to have the IP
+        address 10.1.1.1 would be able to send packets through our
+        firewall even if its MAC address is different. To achieve our
+        goal and make sure packets with the source IP 10.1.1.1 really
+        belong to our important host, we should be checking its IP
+        address and MAC address at the same time and let a packet
+        through only if its IP address <emphasis>AND</emphasis> MAC
+        address are what we expect them to be. That is why Firewall
+        Builder treats physical addresses differently and generates
+        firewall code that inspects both IP address and physical
+        address.</para>
 
         <figure id="addr-and-phaddr" float="1">
           <title>Policy rule using Address and Physical Address objects</title>
@@ -1320,17 +1318,17 @@
         </figure>
 
         <para>Firewall Builder generates firewall code to inspect MAC
-        address only for Host objects with option "MAC address
-        filtering" turned on. Even if the Host object has interfaces
-        with both Address and Physical Address child objects, but this
-        option is off, Physical Address objects will be ignored. This
-        is because Host objects created using Network Discovery Druid
-        ( <xref linkend="network-discovery"> )
-        are often populated with both IP address and MAC address
-        information which is available through SNMP query, but
-        inspection of MAC addresses is rarely needed. Administrator
-        can use option "MAC address filtering" in the Host object to
-        specify what Hosts he wants MAC addresses to be checked for.
+        address only for Host objects with the option "MAC address
+        filtering" turned on. If this option is off, the Physical
+        Address object will be ignored even if it is present in the
+        Host object's Interface.  This is because Host objects created
+        using the Network Discovery Druid ( <xref
+        linkend="network-discovery"> ) are often populated with both
+        IP address and MAC address information which is available
+        through SNMP query, but inspection of MAC addresses is rarely
+        needed. The administrator can use the "MAC address filtering"
+        option in the Host object to specify what Hosts he wants MAC
+        addresses to be checked for.
         </para>
 
       </sect2>
@@ -1396,7 +1394,7 @@
         </mediaobject>
       </figure>
 
-      <para>the Address Range object describes a continuous range of IP
+      <para>The Address Range object describes a continuous range of IP
         addresses; its dialog provides the following entry fields:</para>
 
       <para>
@@ -1424,12 +1422,12 @@
         </itemizedlist>
         </para>
 
-      <para>The Address range is inclusive, that is both the start
+      <para>The Address range is inclusive, that is, both the start
         and the end addresses are included in the range.</para>
     </sect1>
 
     <sect1>
-      <title>Group of Objects</title>
+      <title>A Group of Objects</title>
 
       <figure id="group-dialog1" float="1">
         <title>Group of Objects</title>
@@ -1460,24 +1458,25 @@
           <listitem>
             <para>Using the popup menu:</para>
 
-            <para>You can use the "Copy"/"Paste" operations between the
-              tree and group dialog. Right mouse clicking on the object
-              in the tree brings a pop-up menu. Choose the "Copy" or
-              "Cut" item in this menu, then switch to the group dialog and
-              right mouse click in the icon field. This also brings
-              up a pop-up menu, where you choose  "Paste" item. This inserts
-              a reference to the object in the group.</para>
+            <para>You can use the "Copy"/"Paste" operations between
+            the tree and group dialog. Right mouse clicking on the
+            object in the tree brings a pop-up menu. Choose the "Copy"
+            or "Cut" item in this menu, then switch to the group
+            dialog and right mouse click in the icon field. This also
+            brings up a pop-up menu, where you choose the "Paste"
+            item. This inserts a reference to the object in the
+            group.</para>
           </listitem>
           <listitem>
-            <para>Using the main menu "Edit":</para>
+            <para>Using the "Edit" main menu:</para>
 
             <para>Just like in the case of a pop-up menu, select the
-              object in the tree, use the main menu
-              <guimenuitem>"Edit"</guimenuitem>/<guimenuitem>"Copy
-              Object"</guimenuitem>, then switch to the group dialog
-              and use the main menu
-              <guimenuitem>"Edit"</guimenuitem>/<guimenuitem>"Paste
-              Object"</guimenuitem>
+            object in the tree, use the
+            <guimenuitem>"Edit"</guimenuitem>/<guimenuitem>"Copy
+            Object"</guimenuitem> main menu, then switch to the group
+            dialog and use the
+            <guimenuitem>"Edit"</guimenuitem>/<guimenuitem>"Paste
+            Object"</guimenuitem> main menu
               </para>
           </listitem>
         </itemizedlist>
@@ -1485,19 +1484,19 @@
     </sect1>
 
     <sect1>
-      <title>Firewall Object</title>
+      <title>The Firewall Object</title>
 
       <sect2 id="creating_firewall">
         <title>Creating a Firewall Object</title>
 
-        <para>Similar for the creating of a Host Object; creating a
-          new Firewall Object is aided by the Druid. The first page of
-          this Druid is represented on a screenshot ( <xref
-                                                            linkend="creating-firewall1"> ). First of all you need to
-          specify the name for new firewall; then click
-          <guibutton>"Next"</guibutton>. This brings you to the next
-          page of the Druid (<xref
-                                   linkend="creating-firewall2">).</para>
+        <para>Similar to creating of a Host Object, creating a new
+        Firewall Object is aided by the Druid. The first page of this
+        Druid is represented in a screenshot ( <xref
+        linkend="creating-firewall1"> ). First of all you need to
+        specify the name for the new firewall; then click
+        <guibutton>"Next"</guibutton>. This brings you to the next
+        page of the Druid (<xref
+        linkend="creating-firewall2">).</para>
 
         <figure id="creating-firewall1" float="1">
           <title>First Page of the Druid</title>
@@ -1518,15 +1517,15 @@
         </figure>
 
         <para>This page is similar to that of the new Host object
-          druid page where you add interfaces. You enter the name,
-          address and netmask of the interface in appropriate fields,
-          then click <guibutton>"Add"</guibutton>. The
-          <guibutton>"Update"</guibutton> button updates parameters of
-          the currently selected interface and the
-          <guibutton>"Delete"</guibutton> button deletes it. Once all
-          the interfaces are configured, click on
-          <guibutton>"Next"</guibutton> to create a new firewall
-          object.</para>
+        druid page where you add interfaces. You enter the name,
+        address and netmask of the interface in the appropriate
+        fields, then click <guibutton>"Add"</guibutton>. The
+        <guibutton>"Update"</guibutton> button updates parameters of
+        the currently selected interface and the
+        <guibutton>"Delete"</guibutton> button deletes it. Once all
+        the interfaces are configured, click
+        <guibutton>"Next"</guibutton> to create a new firewall
+        object.</para>
 
         <note>
           <para>You can always add, modify and delete
@@ -1539,7 +1538,7 @@
         <title>Editing a Firewall Object</title>
 
         <figure id="firewall-dialog-general" float="1">
-          <title>Firewall Object, tab 'General'</title>
+          <title>Firewall Object, 'General' tab</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="firewall_dialog_general.jpg" format="jpg" align="Left" scale="50">
@@ -1622,7 +1621,7 @@
           variables.</para>
 
         <figure id="firewall-dialog-compile" float="1">
-          <title>Firewall Object, tab 'Compile/Install'</title>
+          <title>Firewall Object, 'Compile/Install' tab</title>
           <mediaobject>
             <imageobject>
               <imagedata fileref="firewall_dialog_compile.jpg" format="jpg" align="Left" scale="50">
@@ -1638,18 +1637,18 @@
               <para>Compiler:</para>
 
               <para>The full directory path and file name for the
-                policy compiler program that the GUI invokes when you
-                use the main menu item
-                <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Compile"</guimenuitem>. If
-                this field is left blank, then the GUI calls the
-                default policy compiler program which is preconfigured
-                for the firewall platform chosen in the 'General'
-                tab. Use this field if you use a non-standard policy
-                compiler, or if you use a wrapper script which calls a
-                policy compiler.</para>
+              policy compiler program that the GUI invokes when you
+              use the
+              <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Compile"</guimenuitem>
+              main menu item. If this field is left blank, then the
+              GUI calls the default policy compiler program which is
+              preconfigured for the firewall platform chosen in the
+              'General' tab. Use this field if you use a non-standard
+              policy compiler, or if you use a wrapper script which
+              calls a policy compiler.</para>
             </listitem>
             <listitem>
-              <para>Command line parameters for compiler:</para>
+              <para>Command line parameters for the compiler:</para>
 
               <para>This is where you can specify command line
                 parameters for the policy compiler. Here is the list
@@ -1661,26 +1660,26 @@
                 <itemizedlist>
                   <listitem>
                     <para><emphasis>"-f":</emphasis> specifies the
-                    data file name to be used by compiler;</para>
+                    data file name to be used by the compiler</para>
                   </listitem>
                   <listitem>
                     <para><emphasis>"-d":</emphasis> specifies the
-                    working directory where data the file is located
+                    working directory where the data file is located
                     and where produced firewall script should be
-                    placed;</para>
+                    placed</para>
                   </listitem>
                   <listitem>
                     <para><emphasis>"-v":</emphasis> turn on verbose
-                    diagnostics print during compile;</para>
+                    diagnostics print during compile</para>
                   </listitem>
                 </itemizedlist>
               </para>
               
               <para>
                 Normally the GUI automatically supplies "-f" and "-d"
-                options when it calls policy compiler.  See the man
-                page for the corresponding policy compiler for the
-                complete set of supported command line options.
+                options when it calls the policy compiler.  See the
+                manual page for the corresponding policy compiler for
+                the complete set of supported command line options.
               </para>
 
             </listitem>
@@ -1710,13 +1709,12 @@
             <listitem>
               <para>Command line parameters for the script:</para>
 
-              <para>This is where you specify command line
-                parameters for the install script. The GUI expects
-                install script to accept the same command line
-                parameters as all policy compilers (see above) and
-                automatically supplies "-f" and "-d" options.  You can
-                add more parameters in this entry field if your script
-                supports them.</para>
+              <para>This is where you specify command line parameters
+              for the install script. The GUI expects the install
+              script to accept the same command line parameters as all
+              policy compilers (see above) and automatically supplies
+              "-f" and "-d" options.  You can add more parameters in
+              this entry field if your script supports them.</para>
             </listitem>
             <listitem>
               <para>Options for fwbd:</para> 
@@ -1728,9 +1726,9 @@
           </itemizedlist>
           </para>
 
-        <para>Tabs <emphasis>'Firewall'</emphasis> and
-          <emphasis>'Network'</emphasis> provide fields specific to
-          the chosen firewall platform and host OS configurations. 
+        <para><emphasis>'Firewall'</emphasis> and
+        <emphasis>'Network'</emphasis> tabs provide fields specific to
+        the chosen firewall platform and host OS configurations.
         </para>
       </sect2>
 
@@ -1740,10 +1738,10 @@
     <sect1>
       <title>Configuring Target Firewall Software </title>
 
-      <para>Firewall object's dialog tab 'Firewall' provides a set of
-      controls to adjust behavior of the policy compiler and
-      underlying firewall software. This dialog tab changes when user
-      changes setting in the 'Firewall Platform' option in the 
+      <para>The Firewall object's 'Firewall' dialog tab provides a set
+      of controls to adjust the behavior of the policy compiler and
+      underlying firewall software. This dialog tab changes when the
+      user changes setting in the 'Firewall Platform' option in the
       'General' tab.</para>
 
 <!-- ===================================== Generic =============================== -->
@@ -1756,18 +1754,19 @@
         <sect3 id="rule-shadowing">
           <title>Rule Shadowing</title>
 
-          <para>Rule shadowing happens when certain rule is a superset
-          of a subsequent rule and any packets potentially matched by
-          the subsequent rule have already been matched by the prior
-          rule. For example, if rule #1 uses network object for source
-          and rule #2 uses host object located on that network for
-          source, rule #1 'shadows' rule #2 because any packet matched
-          by #1 will never be matched by #2. This may be important if,
-          say, rule #1 permits and #2 denies access to the same
-          destination. If rule #1 'shadows' rule #2, then rule #2 will
-          never fire. This situation is most often an error; the
-          compiler can detect it and abort processing of the policy
-          with appropriate error message.</para>
+          <para>Rule shadowing happens when a certain rule is a
+          superset of a subsequent rule and any packets potentially
+          matched by the subsequent rule have already been matched by
+          the prior rule. For example, if rule #1 uses the network
+          object for the source and rule #2 uses the host object
+          located on that network for the source, rule #1 'shadows'
+          rule #2 because any packet matched by #1 will never be
+          matched by #2. This may be important if, say, rule #1
+          permits and #2 denies access to the same destination. If
+          rule #1 'shadows' rule #2, then rule #2 will never
+          fire. This situation is most often an error; the compiler
+          can detect it and abort processing of the policy with an
+          appropriate error message.</para>
         </sect3>
 
         <sect3 id="duplicate-rules">
@@ -3131,7 +3130,7 @@
 
 
     <sect1 id="firewall-interface">
-      <title>Firewall's Interface</title>
+      <title>The Firewall's Interface</title>
 
       <figure id="firewall-interface1" float="1">
         <title>The Interface Object belonging to a firewall</title>
