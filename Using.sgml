@@ -7,6 +7,7 @@
 <!entity gtkmm-url        "http://gtkmm.sourceforge.net/">
 <!entity gtkmm-download   "http://www.hvrlab.org/pub/gtkmm/">
 <!entity ipt-howto        "http://www.netfilter.org/documentation/HOWTO//NAT-HOWTO.html">
+<!entity faq-url          "http://www.fwbuilder.org/pages/Documents/FAQ/FAQ.html">
 ]>
 
 <book id="Using">
@@ -28,8 +29,359 @@
     
   </bookinfo>
 
-  <chapter id="Intro">
+  <chapter id="Introduction">
     <title>Introduction</title>
 
+    <sect1>
+      <title>Introducing Firewall Builder</title>
+
+      <para>
+        Whether you are an experienced professional, switching from
+        Checkpoint Firewall-1 to Cisco PIX or to an Open Source
+        firewall, or a hobbyist trying to secure your home network,
+        Firewall Builder can help you manage your firewall policy in a
+        simpler and efficient way.
+      </para>
+
+      <para>
+        With Firewall Builder, you can manage security policy of your
+        firewall efficiently and accurately, without the learning
+        curve usually associated with command line interfaces of many
+        free and commercial firewalls. You do not have to think of a
+        policy in terms of obscure port numbers, firewall interfaces
+        and make choices about what interface certain rule should
+        belong to and so on. Instead, you create a set of objects
+        describing your firewall, subnets of your network and hosts on
+        them, then implement firewall policy by dragging objects into
+        policy rules. You can also take an advantage of a large
+        collection of predefined objects describing many standard
+        protocols and services.Once policy is built in the GUI, you
+        can compile it and install it on the firewall machine.
+      </para>
+
+      <para>Firewall Builder provides:</para>
+
+      <para><itemizedlist>
+          <listitem>
+            <para>Over 50 predefined objects for most popular and
+            widely used protocols and services</para>
+          </listitem>
+
+          <listitem>
+            <para>Ability to create custom objects describing
+            IP,ICMP,TCP,UDP or custom services</para>
+          </listitem>
+
+          <listitem>
+            <para>Ability to create objects to describe hosts,
+            networks and address ranges</para>
+          </listitem>
+
+          <listitem>
+            <para>Powerful wizards and other tools to help you
+            jumpstart your firewall policy, and do it right from the
+            first try. Wizards implement standard policies for typical
+            network layouts, which can later be extended and edited by
+            hand</para>
+          </listitem>
+
+          <listitem>
+            <para>Network discovery tool, to automate objects creation
+            task</para>
+          </listitem>
+
+          <listitem>
+            <para>Object oriented approach to the policy management:
+            change made to an object gets immediately reflected in all
+            policy rules of all firewalls using that
+            object. Configuration for multiple firewalls shares the
+            same object database.</para>
+          </listitem>
+
+          <listitem>
+            <para>Convenient GUI that supports standard Copy/Paste
+            operations for both text strings and network objects and
+            allows for policy editing using drag and drop</para>
+          </listitem>
+
+          <listitem>
+            <para>Support for several firewall platforms, including
+            Cisco PIX and Open Source firewalls iptables, ipfilter and
+            pf.</para>
+          </listitem>
+
+          <listitem>
+            <para>The ability to print single object or firewall
+            policy or the whole hierarchy, or export it to the text
+            file in either plain text or html format</para>
+          </listitem>
+
+        </itemizedlist>
+      </para> 
+
+      <figure id="example1">
+        <title>Sample firewall policy</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="scrn2.jpg" format="jpg" align="Left" scale="40">
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+
+
+    </sect1>
   </chapter>
+
+  <chapter id="Installation">
+    <title>Installation</title>
+
+    <sect1>
+      <title>Packaging</title>
+
+      <para>
+       Firewall Builder is Open Source project. Source code for the
+       API library, GUI and policy compilers for iptables, ipfilter
+       and pf is available for download from our web site
+       http://www.fwbuilder.org/. We do encourage people to compile
+       from the source code; building instructions are available on
+       the same web site in the section "Documents". Firewall Builder
+       can be compiled and works on the following OS and
+       distributions:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>RedHat Linux 7.2 and 7.3</para>
+        </listitem>
+        <listitem>
+          <para>Mandrake Linux 8.2 </para>
+        </listitem>
+        <listitem>
+          <para>SuSE Linux 7.3 and 8.0</para>
+        </listitem>
+        <listitem>
+          <para>FreeBSD 4.5 and 4.6</para>
+        </listitem>
+        <listitem>
+          <para>OpenBSD 3.0 and 3.1</para>
+        </listitem>
+        <listitem>
+          <para>Solaris 8</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>
+       Firewall Builder for PIX is available only as a binary package.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>General prerequisites</title>
+
+      <para>Certain libraries should be installed on your system
+      before you can install our pre-built binary packages. Here is
+      the list:</para>
+
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>libstdc++ version 2.9 or newer</para>
+          </listitem>
+          <listitem>
+            <para>gdk-pixbuf version 0.11 or newer</para>
+          </listitem>
+          <listitem>
+            <para>gtkmm version 1.2.8 or newer</para>
+          </listitem>
+          <listitem>
+            <para>libsigc++ version 1.0 or newer</para>
+          </listitem>
+          <listitem>
+            <para>libxml2 version 2.4.10 or newer</para>
+          </listitem>
+          <listitem>
+            <para>libxslt version 1.0.7 or newer</para>
+          </listitem>
+          <listitem>
+            <para>ucd-snmp version 4.2.3 or newer</para>
+          </listitem>
+          <listitem>
+            <para>openssl version 0.9.6b or newer</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+
+      <para>
+       Most of these packages come standard with popular Linux
+       distributions and may already be on your sysetm. In case they
+       are missing, you need to install them from your original OS
+       media. On the other hand, some packages are missing on some
+       distributions and therefore need to be downloaded and
+       installed. See below for specific instructions as of where you
+       can get these packages from for different OS and distributions.
+      </para>
+
+      <para>
+       You can always verify if certain package is installed on your
+       system using the following command:
+      </para>
+
+      <programlisting>
+       $ rpm -q gtkmm
+      </programlisting>
+
+      <para>
+       This command checks if package gtkmm is installed. If the
+       package is present, it prints its version, too.
+      </para>
+
+      <para>
+       Typical installation problems are addressed in the document "Firewall Builder
+       Frequently Asked Questions (FAQ)" which can be found at the following
+       <ulink url="&faq-url">URL</ulink>
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Installing pre-built binaries on RedHat Linux 7.2 and 7.3</title>
+
+      <para>
+       All prerequisite libraries, except gtkmm, come with RedHat 7.3,
+       so chances are you already have them. If your system is
+       configured as "Gnome Workstation" or Ximian Gnome is installed,
+       then you already have proper gtk+, gtkmm and libsigc++
+       packages. If you are using KDE, then you may need to add these
+       packages.
+      </para>
+
+      <para>
+       We build using gtkmm and libsigc++ packages that come with
+       Ximian Gnome.  These RPM can be downloaded from their ftp site
+       directly, or obtained as part of Ximian Gnome or using Red
+       Carpet. libsigc++ now comes on disk #2 with RedHat 7.3. Users
+       of RedHat 7.2 systems can also get it from the home page at
+       http://libsigc.sourceforge.net/
+      </para>
+
+      <para>
+       Firewall Builder implements number of features which make use
+       of SNMP, therefore you will need ucd-snmp RPM installed,
+       too. RPMs we distribute are built using ucd-snmp v4.2.3 (as of
+       Feb 2002)
+      </para>
+
+      <para>
+       List of recommended packages and where you can get them from:
+      </para>
+
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>gtkmm-1.2.8-1</para>
+            <para> ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/</para>
+          </listitem>
+          <listitem>
+            <para>gdk-pixbuf-0.16.0</para>
+            <para> Ximian Gnome or RedHat updates</para>
+          </listitem>
+          <listitem>
+            <para>libsigc++-1.0.4-1</para>
+            <para> RedHat 7.3 distribution or ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/    </para>
+          </listitem>
+          <listitem>
+            <para>libxml2-2.4.19</para>
+            <para> RedHat 7.3 distribution or ftp://ftp.gnome.org/pub/GNOME/stable/redhat/i386/libxml/ </para>
+          </listitem>
+          <listitem>
+            <para>libxslt-1.0.15-1</para>
+            <para> RedHat 7.3 distribution or ftp://ftp.gnome.org/pub/GNOME/stable/redhat/i386/libxslt/</para>
+          </listitem>
+          <listitem>
+            <para>ucd-snmp-4.2.3</para>
+            <para> RedHat distribution</para>
+          </listitem>
+          <listitem>
+            <para>ucd-snmp-utils-4.2.3</para>
+            <para> RedHat distribution</para>
+          </listitem>
+          <listitem>
+            <para>openssl-0.9.6b</para>
+            <para> RedHat distribution</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+
+      <para>Firewall Builder for PIX has the same requirements.</para>
+
+    </sect1>
+
+    <sect1>
+      <title>Installing pre-built binaries on Mandrake Linux 8.2</title>
+
+      <para>
+       Requirements for installing Firewall Builder on Mandrake are
+       very much the same as for RedHat.
+      </para>
+
+      <para>
+       Here is the list of recommended packages. All these packages
+       come with standard Mandrake distribution, but you may need to
+       add some of them if they are not installed. What packages are
+       going to need to be added depends on the configuration of
+       OS. Some of these packages can be found on CD #1, while some
+       others are on CD #2. Use rpmdrake to install these.
+      </para>
+
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>libglib1.2-1.2.10</para>
+          </listitem>
+          <listitem>
+            <para>libstdc++2.10-2.96</para>
+          </listitem>
+          <listitem>
+            <para>libgtkmm1.2-1.2.8</para>
+          </listitem>
+          <listitem>
+            <para>libgdk-pixbuf2-0.16.0</para>
+          </listitem>
+          <listitem>
+            <para>libsigc++1.0-4.0.4</para>
+          </listitem>
+          <listitem>
+            <para>libxml2-2.4.16</para>
+          </listitem>
+          <listitem>
+            <para>libxslt1-1.0.12</para>
+          </listitem>
+          <listitem>
+            <para>libxslt-proc-1.0.12</para>
+          </listitem>
+          <listitem>
+            <para>libsnmp0-4.2.3</para>
+          </listitem>
+          <listitem>
+            <para>ucd-snmp-utils-4.2.3</para>
+          </listitem>
+          <listitem>
+            <para>libopenssl0-0.9.6c</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+
+      <para>Firewall Builder for PIX has the same requirements.</para>
+
+    </sect1>
+
+
+  </chapter>
+
+  <chapter id="Tutorial">
+    <title></title>
+
+      <para></para>
+  </chapter>
+
 </book>
