@@ -1653,69 +1653,132 @@
           </mediaobject>
         </figure>
 
-        <para>Another platform-specific parameter of the interface is
-        a reference to Network Zone. Currently only Cisco PIX firewall
-        requires Network Zone. Dialog shows controls for the Network
-        Zone in a separate tab (<xref linkend="firewall-interface3">),
-        which appears only if the parent firewall object specifies
-        firewall platform which requires it. GUI dynamically generates
-        pull-down menu with all available network and group objects
-        and puts it in the Network Zone dialog. You need to choose one
-        object in the menu. Usually external interface (the one which
-        connects your firewall to the Internet) has Network Zone set
-        to <emphasis>"Any"</emphasis>. It is also recommended to
-        create a group objects to represent Network Zones of all other
-        interfaces of the firewall.</para>
+        <sect3>
+          <title>Network Zone</title>
 
-        <figure id="firewall-interface3" float="1">
-          <title>Network Zone dialog</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="firewall_interface3.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
+          <para>One of the platform-specific parameter of the
+          interface is a reference to Network Zone. Currently only
+          Cisco PIX firewall requires Network Zone. Interface dialog
+          shows controls for the Network Zone in a separate tab (<xref
+          linkend="firewall-interface3">), which appears only if the
+          parent firewall object specifies firewall platform which
+          requires it. GUI dynamically generates pull-down menu with
+          all available network and group objects and puts it in the
+          Network Zone dialog. You need to choose one object in the
+          menu. Usually external interface (the one which connects
+          your firewall to the Internet) has Network Zone set to
+          <emphasis>"Any"</emphasis>. It is also recommended to create
+          a group objects to represent Network Zones of all other
+          interfaces of the firewall.</para>
+
+          <figure id="firewall-interface3" float="1">
+            <title>Network Zone dialog</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="firewall_interface3.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>Consider network layout as on <xref
+          linkend="network-zones">. Here firewall has three
+          interfaces: 'outside', 'dmz' and 'inside'; behind the
+          firewall there is a router which in turn is connected to
+          three subnets 'subnet A', 'subnet B' and 'subnet C'. Subnet
+          A is shared between the router and the firewall (each device
+          has interface on this subnet). Let's suppose also that we
+          have created Network Objects for each subnet and called them
+          'subnet A', 'subnet B' and 'subnet C' (remember, spaces are
+          allowed in object names). 
+          </para>
+
+          <para>
+            <informaltable>
+              <tgroup cols="2">
+                <colspec colwidth="64pt" align="center">
+                <colspec colwidth="200pt" align="center">
+                <thead>
+                  <row>
+                    <entry>Interface</entry>
+                    <entry>Network Zone</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry><filename>outside</filename></entry>
+
+                    <entry><emphasis>ANY</emphasis></entry>
+                  </row>
+                  <row>
+                    <entry><filename>dmz</filename></entry>
+
+                    <entry><emphasis>subnet DMZ</emphasis></entry>
+                  </row>
+                  <row>
+                    <entry><filename>inside</filename></entry>
+
+                    <entry>
+                      <emphasis>subnet A,</emphasis>
+                      <emphasis>subnet B,</emphasis>
+                      <emphasis>subnet B</emphasis>
+                    </entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </informaltable>
+          </para>
+
+          <figure id="network-zones" float="1">
+            <title>Choosing Network Zones</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="fwbuilder-using-netzone1.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
 
-        <para><xref linkend="platform-specific-interface-parameters">
+          <para><xref linkend="platform-specific-interface-parameters">
         shows values for Security Level and Network Zone parameters
         for supported firewall platforms.</para>
 
-        <table pgwide="0" id="platform-specific-interface-parameters">
-          <title></title>
-          <tgroup cols="3">
-            <thead>
-              <row>
-                <entry><para>Firewall Platform</para></entry>
-                <entry><para>Security Level Values</para></entry>
-                <entry><para>Network Zone</para></entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry><para>iptables</para></entry>
-                <entry><para>External/Internal</para></entry>
-                <entry><para>N/A</para></entry>
-              </row>
-              <row>
-                <entry><para>ipfilter</para></entry>
-                <entry><para>External/Internal</para></entry>
-                <entry><para>N/A</para></entry>
-              </row>
-              <row>
-                <entry><para>pf</para></entry>
-                <entry><para>External/Internal</para></entry>
-                <entry><para>N/A</para></entry>
-              </row>
-              <row>
-                <entry><para>Cisco PIX</para></entry>
-                <entry><para>numeric, 0 - 100</para></entry>
-                <entry><para>a reference to a group or network object</para></entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
+          <table pgwide="0" id="platform-specific-interface-parameters">
+            <title></title>
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry><para>Firewall Platform</para></entry>
+                  <entry><para>Security Level Values</para></entry>
+                  <entry><para>Network Zone</para></entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry><para>iptables</para></entry>
+                  <entry><para>External/Internal</para></entry>
+                  <entry><para>N/A</para></entry>
+                </row>
+                <row>
+                  <entry><para>ipfilter</para></entry>
+                  <entry><para>External/Internal</para></entry>
+                  <entry><para>N/A</para></entry>
+                </row>
+                <row>
+                  <entry><para>pf</para></entry>
+                  <entry><para>External/Internal</para></entry>
+                  <entry><para>N/A</para></entry>
+                </row>
+                <row>
+                  <entry><para>Cisco PIX</para></entry>
+                  <entry><para>numeric, 0 - 100</para></entry>
+                  <entry><para>a reference to a group or network object</para></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
+
+        </sect3>
       </sect2>
 
       <sect2 id="global-policy">
