@@ -1480,26 +1480,27 @@
           </mediaobject>
         </figure>
 
-        <para>Dialog for the interface object that belongs to the
+        <para>Dialog for the interface object that belongs to a
         firewall is similar to that for the Host's interface (<xref
         linkend="host-interface">) but has few extra controls.
         </para>
 
         <para>Interfaces of the firewall have a parameter called
-        <emphasis>"Security Level"</emphasis> Depending on the
+        <emphasis>"Security Level"</emphasis>. Depending on the
         firewall platform, security level may either have two values
         <emphasis>"External"/"Internal"</emphasis> or a numeric value
-        in diapason 0-100, with 0 being least secure and 100 being
-        most secure levels. GUI dialog adjusts automatically and shows
-        appropriate controls depending on the choice of the firewall
-        platform in the interface's parent firewall object. 
+        in the range between 0 and 100, with 0 being least secure and
+        100 being most secure levels. GUI dialog adjusts automatically
+        and shows appropriate controls depending on the choice of the
+        firewall platform in the interface's parent firewall object.
         </para>
 
         <para><xref linkend="firewall-interface1"> shows a screenshot
         of the dialog for the interface object that belongs to
-        iptables firewall. <xref linkend="firewall-interface2"> shows
-        a screenshot of the dialof for the interface object that
-        belongs to Cisco PIX firewall.
+        iptables firewall object named "firewall-iptables". <xref
+        linkend="firewall-interface2"> shows a screenshot of the
+        dialof for the interface object that belongs to Cisco PIX
+        firewall object named "firewall-pix".
         </para>
 
         <figure id="firewall-interface2" float="1">
@@ -1674,215 +1675,400 @@
       <sect2>
         <title>Network Address Translation Rules</title>
 
-        <para></para>
-
-        <para><xref linkend="rule-elements"> lists rule elements
-        available in the policy, depending on the chosen target
-        firewall platform.
-        </para>
-      </sect2>
-
-      <sect2>
-        <title>Editing firewall Policy and NAT Rules</title>
-
-        <figure id="editing-policy1" float="1">
-          <title>Modifying Policy rules</title>
+        <figure id="nat-policy" float="1">
+          <title>Network Address Translation Rules</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="25">
+              <imagedata fileref="nat_policy.jpg" format="jpg" align="Left" scale="25">
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para>Rules can be added, removed or moved around in the
-        policy using commands in a popup menu which appears if you
-        click right mouse button on the rule element "Num" (the very
-        first rule element, counting from the left). Screenshot <xref
-        linkend="editing-policy1"> illustrates this menu. </para>
-
-        <para>This menu allows for adding new rule above or below of
-        the currently selected rule in the policy, removing rule,
-        moving current rule up and down, plus usual
-        <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
-        operations done on policy rules.</para>
-
-        <para>Functions of this pop-up menu are also duplicated in the
-        main menu <guimenuitem>"Rules"</guimenuitem></para>
-
-        <para>To add objects to the policy or NAT rule you can either
-        drag them from the tree and drop into corresponding rule
-        element, or use
-        <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
-        operation. Object can be copied into clipboard both from the
-        tree and from another policy rule, in both cases use pop-up
-        menu or main menu <guimenuitem>"Edit"</guimenuitem>.
-        </para>
-
-        <para>clicking right mouse button when cursor is over rule
-        element "Source","Destination" or "Service" brings
-        context-sensitive pop-up menu <xref
-        linkend="editing-policy2">.</para>
-
-        <figure id="editing-policy2" float="1">
-          <title>Modifying Object in the Policy Rule</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
-
-        <para>This menu provides items for the following functions:</para>
+        <para>Just like firewall policy, Network Address Translation
+        (NAT) rules are inspected by the firewall in the order they
+        appear in the NAT policy. Each NAT rule consists of the
+        following rule elements:</para>
 
         <para>
           <itemizedlist>
-            <listitem>
-              <para>Edit:</para>
+            <listitem><para>Original Source</para>
 
-              <para>this menu item opens currently selected object in the dialog</para>
+              <para>This is the object which the source address of
+              original packet should match for it to be translated by
+              this rule </para>
             </listitem>
-            <listitem>
-              <para>Edit in a new window:</para>
+            <listitem><para>Original Destination</para>
 
-              <para>This menu items creates new main window and opens
-              currently selected object in it. If more than one main
-              window currently exists, object will be opened in one of
-              the existing windows.</para>
+              <para>This is the object which the destination address
+              of original packet should match for it to be translated
+              by this rule </para>
             </listitem>
-            <listitem>
-              <para>Copy:</para>
+            <listitem><para>Original Service</para>
 
-              <para>Object is copied into clipboard.</para>
+              <para>This is the service which original packet should
+              match to be translated by this rule</para>
             </listitem>
-            <listitem>
-              <para>Cut:</para>
+            <listitem><para>Translated Source</para>
 
-              <para>Object is copied into clipboard and removed from the rule.</para>
+              <para>This object defines the address which sould be
+              used to substitute original packet's source address
+              </para>
             </listitem>
-            <listitem>
-              <para>Paste:</para>
+            <listitem><para>Translated Destination</para>
 
-              <para>Object is copied from the clipboard to the rule.</para>
+              <para>This object defines the address which should be
+              used to substitute destination address in the original
+              packet.</para>
             </listitem>
-            <listitem>
-              <para>Negate:</para>
+            <listitem><para>Translated Service</para>
 
-              <para>All objects in the selected rule element are negated.</para>
+              <para>This object defines the protocol and port numbers
+              which should be used to substitute those parameters in
+              the original packet</para>
+            </listitem>
+            <listitem><para>Comment</para>
             </listitem>
           </itemizedlist>
         </para>
 
-        <para>clicking right mouse button when cursor is over rule
-        element "Action" brings context-sensitive pop-up menu <xref
-        linkend="editing-policy3">.</para>
+        <para>Here is how it works:</para>
 
-        <figure id="editing-policy3" float="1">
-          <title>Modifying Action of the Policy Rule</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
+        <para>Original packet is compared with NAT rules, one at a
+        time, starting with the topmost rule. Once the rule which
+        matches packet's source and destination addresses and service
+        is found, firewall takes parameters from the second half of
+        that rule and makes substitutions for source and destination
+        addresses and port numbers. Some rule elements in the first
+        half of the rule may be left empty (they show "Any" in this
+        case), these elements match any value of corresponding
+        parameter of the packet.  Some rule elements in the second
+        half of the rule may also be left empty (in which case GUI
+        shows word "Original" in thie rule element). This tells the
+        firewall that no substitution should happen for those
+        elements. </para>
 
-        <para>This menu provides items for the following functions:</para>
+        <para>In fact firewall not only substitutes addresses and port
+        numbers, it also makes a record in its internal table to
+        remember the original packet and translated packet it just
+        produced. This way firewall can perform reverse translation
+        when reply packet comes back. </para>
 
-        <itemizedlist>
-          <listitem>
-            <para>Accept:</para>
+        <para>The NAT rules on the screenshot <xref
+        linkend="nat-policy"> tell the firewall to do the
+        following:</para>
 
-            <para>Rule will accept packet matching it</para>
-          </listitem>
-          <listitem>
-            <para>Deny:</para>
+        <para>
+          <itemizedlist>
+            <listitem>
+              <para>Rule #0:</para>
 
-            <para>Rule will drop packet matching it</para>
-          </listitem>
-          <listitem>
-            <para>Reject:</para>
+              <para>If original packet has destination address which
+              matches the addresses of an external interface of the
+              firewall object "firewall-iptables" and protocol TCP and
+              port 80 (matches service "http", protocol used by web
+              servers), then its destination address should be changed
+              to that of the object "mail server" and service should
+              be left the same. Note that this wule would have had the
+              same effect if "Translated Service" was left
+              "Original".</para>
+            </listitem>
+            <listitem>
+              <para>Rule #1:</para>
 
-            <para>Rule will drop packet matching it, and will also
+              <para>This rule is very much the same as #0, except it
+              works for packets headed for TCP port 25 (service "smtp"
+              which describes protocol used to send and receive
+              Internet email)</para>
+            </listitem>
+            <listitem>
+              <para>Rule #2:</para>
+
+              <para>This rule is like #0 and #1, except it works for
+              service "ssh"</para>
+            </listitem>
+            <listitem>
+              <para>Rule #3:</para>
+
+              <para>This rule follows the same pattern as #0-2, but
+              translates packets headed for external firewall's
+              address, TCP port 2222 and sends them to the standard
+              TCP port that belongs to service "ssh" on internal
+              machine "build server". This rule illustrates that you
+              can simultaneously translate both addresses and
+              services: it makes change to destination address of the
+              packet and the service.</para>
+            </listitem>
+            <listitem>
+              <para>Rule #4:</para>
+
+              <para>This rule matches packets that originated on
+              internal network (object "internal-net") and headed for
+              DMZ net (object "dmz-net"). Since all rule elements in
+              the second half of the rule are left blank, this rule
+              tells firewall that no translation is needed for these
+              packets.</para>
+            </listitem>
+            <listitem>
+              <para>Rule #5:</para>
+
+              <para>This rule defines another type of translation: all
+              packets originated on either internal network or on DMZ
+              net, going to any destination, should have their source
+              address replaced with address of firewall's external
+              interface. This type of translation rule sometimes is
+              called "Masuqerading" rule.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <para>Some firewall platforms support negation in NAT
+        rules. If it is supported, this feature can be activated
+        through pop-up menu <xref linkend="editing-policy2"> that
+        appears when you click right mouse button on the rule element
+        in NAT rule. <xref linkend="rule-elements"> shows what
+        firewall platforms support negation in NAT.</para>
+
+        <para>See below in "Tutorial" for detailed discussion of
+        different types of NAT rules.</para>
+
+        <para>You can create NAT rules and edit them using the same
+        methods as described in <xref linkend="editing-policy-and-nat"></para>
+
+      </sect2>
+
+      <sect2 id="editing-policy-and-nat">
+        <title>Editing firewall Policy and NAT Rules</title>
+
+        <sect3>
+          <title>Adding and removing rules</title>
+
+          <figure id="editing-policy1" float="1">
+            <title>Modifying Policy rules</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="editing_policy1.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>Rules can be added, removed or moved around in the
+          policy using commands in a popup menu which appears if you
+          click right mouse button on the rule element "Num" (the very
+          first rule element, counting from the left). Screenshot
+          <xref linkend="editing-policy1"> illustrates this
+          menu. </para>
+
+          <para>This menu allows for adding new rule above or below of
+          the currently selected rule in the policy, removing rule,
+          moving current rule up and down, plus usual
+          <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
+          operations done on policy rules.</para>
+
+          <para>Functions of this pop-up menu are also duplicated in
+          the main menu <guimenuitem>"Rules"</guimenuitem></para>
+
+          <para>You can also use drag and drop operation to move rules
+          up and down in the policy. Just drag the rule with the mouse
+          by its "number" rule element.</para>
+        </sect3>
+
+        <sect3>
+          <title>Adding, removing and modifying object in the policy and NAT rules</title>
+
+          <para>To add objects to the policy or NAT rule you can
+          either drag them from the tree and drop into corresponding
+          rule element, or use
+          <guimenuitem>"Copy"</guimenuitem>/<guimenuitem>"Paste"</guimenuitem>
+          operation. Object can be copied into clipboard both from the
+          tree and from another policy rule, in both cases use pop-up
+          menu or main menu <guimenuitem>"Edit"</guimenuitem>.</para>
+
+          <para>clicking right mouse button when cursor is over rule
+          element "Source","Destination" or "Service" brings
+          context-sensitive pop-up menu <xref
+          linkend="editing-policy2">. The same pop-up menu appears
+          when you do that over "Original Source", "Original
+          Destination", "Original Service", "Translated Source",
+          "Translated Destination" and "Translated Service" rule
+          elements in the NAT rule. </para>
+
+          <figure id="editing-policy2" float="1">
+            <title>Modifying Object in the Policy Rule</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="editing_policy2.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>This menu provides items for the following functions:</para>
+
+          <para>
+          <itemizedlist>
+              <listitem>
+                <para>Edit:</para>
+
+                <para>this menu item opens currently selected object in the dialog</para>
+              </listitem>
+              <listitem>
+                <para>Edit in a new window:</para>
+
+                <para>This menu items creates new main window and opens
+              currently selected object in it. If more than one main
+              window currently exists, object will be opened in one of
+              the existing windows.</para>
+              </listitem>
+              <listitem>
+                <para>Copy:</para>
+
+                <para>Object is copied into clipboard.</para>
+              </listitem>
+              <listitem>
+                <para>Cut:</para>
+
+                <para>Object is copied into clipboard and removed from the rule.</para>
+              </listitem>
+              <listitem>
+                <para>Paste:</para>
+
+                <para>Object is copied from the clipboard to the rule.</para>
+              </listitem>
+              <listitem>
+                <para>Negate:</para>
+
+                <para>All objects in the selected rule element are
+                negated. Rule element "Source" is negated in the rule
+                #1 on screenshot <xref linkend="editing-policy2"> </para>
+              </listitem>
+            </itemizedlist>
+        </para>
+
+        </sect3>
+
+        <sect3>
+          <title>Changing rule action</title>
+
+          <para>clicking right mouse button when cursor is over rule
+          element "Action" brings context-sensitive pop-up menu <xref
+          linkend="editing-policy3">.</para>
+
+          <figure id="editing-policy3" float="1">
+            <title>Modifying Action of the Policy Rule</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="editing_policy3.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>This menu provides items for the following functions:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Accept:</para>
+
+              <para>Rule will accept packet matching it</para>
+            </listitem>
+            <listitem>
+              <para>Deny:</para>
+
+              <para>Rule will drop packet matching it</para>
+            </listitem>
+            <listitem>
+              <para>Reject:</para>
+
+              <para>Rule will drop packet matching it, and will also
             send appropriate ICMP responce message back to
             source.</para>
-          </listitem>
-        </itemizedlist>
+            </listitem>
+          </itemizedlist>
 
+        </sect3>
 
-        <para>clicking right mouse button when cursor is over rule
+        <sect3>
+          <title>Changing rule direction</title>
+
+          <para>clicking right mouse button when cursor is over rule
         element "Direction" brings context-sensitive pop-up menu <xref
-        linkend="editing-policy4">.</para>
+                                                                       linkend="editing-policy4">.</para>
 
-        <figure id="editing-policy4" float="1">
-          <title>Modifying Direction of the Policy Rule</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
+          <figure id="editing-policy4" float="1">
+            <title>Modifying Direction of the Policy Rule</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="editing_policy4.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-        <para>This menu provides items for the following functions:</para>
+          <para>This menu provides items for the following functions:</para>
 
-        <itemizedlist>
-          <listitem>
-            <para>Inbound:</para>
+          <itemizedlist>
+            <listitem>
+              <para>Inbound:</para>
 
-            <para>Rule matches packets entering firewall</para>
-          </listitem>
-          <listitem>
-            <para>Outbound:</para>
+              <para>Rule matches packets entering firewall</para>
+            </listitem>
+            <listitem>
+              <para>Outbound:</para>
 
-            <para>Rule matches packet exiting firewall</para>
-          </listitem>
-          <listitem>
-            <para>Both:</para>
+              <para>Rule matches packet exiting firewall</para>
+            </listitem>
+            <listitem>
+              <para>Both:</para>
 
-            <para>Rule matches both entering and exiting packets</para>
-          </listitem>
-        </itemizedlist>
+              <para>Rule matches both entering and exiting packets</para>
+            </listitem>
+          </itemizedlist>
 
-        <para>clicking right mouse button when cursor is over rule
-        element "Options" brings context-sensitive pop-up menu <xref
-        linkend="editing-policy5">.</para>
+        </sect3>
 
-        <figure id="editing-policy5" float="1">
-          <title>Modifying Options of the Policy Rule</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
+        <sect3>
+          <title>Changing rule options and logging</title>
 
-        <para>This menu provides items for the following functions:</para>
+          <para>clicking right mouse button when cursor is over rule
+          element "Options" brings context-sensitive pop-up menu <xref
+          linkend="editing-policy5">.</para>
 
-        <itemizedlist>
-          <listitem>
-            <para>Modify Options:</para>
+          <figure id="editing-policy5" float="1">
+            <title>Modifying Options of the Policy Rule</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="editing_policy5.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-            <para>This menu items brings dialog which allows you to
-            modify certain options specific to the target firewall
-            platform and associated only with current rule. See <xref
-            linkend="policy-rule-options-dialogs"> for detailed
-            explanation. </para>
-          </listitem>
-          <listitem>
-            <para>Turn logging ON:</para>
+          <para>This menu provides items for the following functions:</para>
 
-            <para>Turns logging on for all packets matching this
-            rule. If target firewall platform does not support
-            selective logging of packets, this menu item is
-            disabled.</para>
-          </listitem>
-          <listitem>
-            <para>Turn logging OFF:</para>
+          <itemizedlist>
+            <listitem>
+              <para>Modify Options:</para>
 
-            <para>Turn logging off for packets matching this rule.  If
-            target firewall platform does not support selective
-            logging of packets, this menu item is disabled.</para>
-          </listitem>
-        </itemizedlist>
+              <para>This menu items brings dialog which allows you to
+              modify certain options specific to the target firewall
+              platform and associated only with current rule. See
+              <xref linkend="policy-rule-options-dialogs"> for
+              detailed explanation. </para>
+            </listitem>
+            <listitem>
+              <para>Turn logging ON:</para>
 
+              <para>Turns logging on for all packets matching this
+              rule. If target firewall platform does not support
+              selective logging of packets, this menu item is
+              disabled.</para>
+            </listitem>
+            <listitem>
+              <para>Turn logging OFF:</para>
+
+              <para>Turn logging off for packets matching this rule.
+              If target firewall platform does not support selective
+              logging of packets, this menu item is disabled.</para>
+            </listitem>
+          </itemizedlist>
+
+        </sect3>
 
       </sect2>
 
