@@ -447,19 +447,7 @@
       <title>The Main Window</title>
 
       <para>The main window is divided onto two parts: the objects
-      tree and a dialog area. Object selected in the tree
-      automatically appears in the dialog area where it can be
-      reviewed or modified. Objects are opened on a single mouse click
-      in the tree. In general, GUI has been designed to "look and
-      feel" like typical file browser (e.g. Windows Explorer). It
-      shows object groups as a collection of icons, where each icon
-      represents individual object. User can navigate between objects
-      either using mouse, or keyboard "arrow" keys. Active object is
-      highlighted with a different color. Douple-clicking on the icon
-      in the group view opens corresponding object. Clicking right
-      mouse button or spacebar on the keyboard opens pop-up menu,
-      which acts as a shortcut to a frequently used operations such as
-      "Open Object", "Copy","Cut" and "Paste" </para>
+      tree and a dialog area. </para>
 
       <figure id="main-win1">
         <title>Main window</title>
@@ -494,6 +482,40 @@
 
     </sect1>
 
+<!-- *************************************************************** -->
+    <sect1>
+      <title>Navigating Object Tree and Editing Objects</title>
+
+      <para>Object selected in the tree automatically appears in the
+      dialog area where it can be reviewed or modified. Objects are
+      opened on a single mouse click in the tree. In general, GUI has
+      been designed to "look and feel" like typical file browser
+      (e.g. Windows Explorer). It shows object groups as a collection
+      of icons, where each icon represents individual object. User can
+      navigate between objects either using mouse, or keyboard "arrow"
+      keys. Active object is highlighted with a different
+      color. Douple-clicking on the icon in the group view opens
+      corresponding object. Clicking right mouse button or spacebar on
+      the keyboard opens pop-up menu, which acts as a shortcut to a
+      frequently used operations such as "Open Object", "Copy","Cut"
+      and "Paste" </para>
+
+      <para>Dialogs for objects that can be edited have buttons
+      <guibutton>"Apply"</guibutton> and <guibutton>"Undo"</guibutton>
+      at the bottom. Initially these buttons are inactive, but once
+      object's parameters have been modified in the dialog, both
+      buttons get activated so that user can click
+      <guibutton>"Apply"</guibutton> to save new data, or
+      <guibutton>"Undo"</guibutton> to reload original values into the
+      dialog. If user tries to switch to another object without either
+      saving or reloading data in the current dialog, the program
+      shows pop-up dialog asking the user to take one of these
+      actions. There is also an option to make the program
+      automatically save modified data when user switches between
+      objects, see <link linkend="gui-behavior">below</link>.
+      </para>
+
+    </sect1>
 <!-- *************************************************************** -->
     <sect1>
       <title>GUI Options</title>
@@ -615,6 +637,7 @@
 
           <listitem>
             <para><guimenuitem>GUI / Behavior</guimenuitem></para>
+            <anchor id="gui-behavior">
 
             <itemizedlist>
               <listitem>
@@ -682,10 +705,105 @@
     <sect1>
       <title>Working With Objects</title>
 
-      <para></para>
+      <para>All objects visible to user have some common editable
+      fields, such as their name and comment. Object name can contain
+      white spaces and can be arbitrary long. Comment can contain any
+      text you wish, of any length.
+      </para>
+
+      <para>Dialogs for those objects that can have address use
+      standard GUI widget that visually separates four octets of IP
+      address and provides "on the fly" control for the validity of an
+      address.</para>
 
       <sect2>
         <title>Host Object</title>
+
+        <para>Host object in Firewall Builder is designed to represent
+        real hosts on the network: workstations, servers and any other
+        network node with an address. Just like real hosts, host
+        object can have interfaces, which in turn have addresses. Both
+        interfaces and addresses are represented by objects, which are
+        organized into a tree-like an hierarchy. This way, interface
+        object is sitting in the tree directly under host and address
+        objects are located under interfaces. Just like in real
+        devices, in Firewall Builder interface can have either one or
+        multiple addresses. An example of a host with one interface,
+        which has multiple addresses is shown on <xref
+        linkend="host-in-tree">. In fact host may even have intergace
+        with no addresses at all. We will go over features of
+        interface and address objects below.
+        </para>
+
+        <figure id="host-in-tree">
+          <title>Host Object With One Interface And Multiple Virtual Addresses </title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="host_in_tree.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+
+        <note>
+          <para>host object can not have any security or Network
+          Address Translation policy associated with it; only firewall
+          objects can have it.</para>
+        </note>
+
+        <para>Host object dialog is split onto two tabs: "General"
+        (<xref linkend="host-dialog1">) and "Sysinfo" (<xref
+        linkend="host-dialog2">). </para>
+
+        <figure id="host-dialog1">
+          <title>Editing Host Object</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Tab "General" holds GUI controls for the host name, SNMP
+        communities, comment text and an option that activates MAC
+        address filtering for this host. If this option is activated,
+        policy compiler uses MAC addresses of all interfaces of this
+        host to build firewall rules.  Not all underlying firewall
+        platforms support MAC address filtering, so this option may
+        have no effect on the generated firewall script. However this
+        is treated as non-critical situation and policy compiler will
+        only generate warning while processing firewall policy where
+        such host is used.</para>
+
+        <para>SNMP communities usually can not contain spaces. If your
+        host does not run SNMP agent, or you do not need to pull host
+        info using SNMP, then SNMP community strings may be left
+        blank.</para>
+
+        <figure id="host-dialog2">
+          <title>Host Object System Information</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="40">
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Tab "Sysinfo" holds data retrieved from the host via
+        SNMP query. There you can see strings that host returned for
+        standard SNMP MIB variables "Description", "Location" and
+        "Contact". These fields are read-only in the GUI.</para>
+
+      </sect2>
+
+      <sect2>
+        <title>Interface Object</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Address Object</title>
 
         <para></para>
       </sect2>
@@ -710,18 +828,6 @@
 
       <sect2>
         <title>Firewall Object</title>
-
-        <para></para>
-      </sect2>
-
-      <sect2>
-        <title>Interface Object</title>
-
-        <para></para>
-      </sect2>
-
-      <sect2>
-        <title>Address Object</title>
 
         <para></para>
       </sect2>
