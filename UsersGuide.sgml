@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.12 $  $Date: 2003-04-06 03:38:31 $</edition>
+    <edition>$Revision: 1.13 $  $Date: 2003-04-06 05:12:44 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -4587,7 +4587,7 @@
           <title>Directions </title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="directions.jpg"
+              <imagedata fileref="directions.png"
                   format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
@@ -4710,9 +4710,13 @@ PIX                  always             no             policy, NAT
         <emphasis>"Options"</emphasis> rule element).
         </para>
       </sect2>
+    </sect1>
+
+    <sect1 id="nat">
+      <title>Network Address Translation Rules</title>
 
       <sect2>
-        <title>Network Address Translation Rules</title>
+        <title>Basic NAT Rules</title>
 
         <figure id="nat-policy" float="1">
           <title>Network Address Translation Rules</title>
@@ -4773,8 +4777,8 @@ PIX                  always             no             policy, NAT
         <para>Here is how it works:</para>
 
         <para>The original packet is compared with NAT rules, one at a
-        time, starting with the topmost rule. Once the rule which
-        matches the packet's source and destination addresses and its
+        time, starting with the topmost rule. Once the rule that
+        matches packet's source and destination addresses and its
         service is found, the firewall takes parameters from the
         second half of that rule and makes substitutions for the
         source and destination addresses and port numbers. Some rule
@@ -4867,11 +4871,338 @@ PIX                  always             no             policy, NAT
         element in the NAT rule. <xref linkend="rule-elements"> shows
         what firewall platforms support negation in NAT.</para>
 
-        <para>See below in "Tutorial" for detailed discussion of
-        different types of NAT rules.</para>
-
         <para>You can create NAT rules and edit them using the same
         methods as described in <xref linkend="editing-policy-and-nat"></para>
+
+      </sect2>
+
+      <sect2>
+        <title>Source Address Translation</title>
+        <para>
+	Suppose your internal network is configured using so-called
+	private IP addresses as defined in RFC 1918. These addresses
+	are:
+      </para>
+
+        <para>
+	<itemizedlist>
+            <listitem>
+              <para>
+	    10.0.0.0 / 255.0.0.0
+	    </para>
+            </listitem>
+            <listitem>
+              <para>
+	      172.16.0.0 / 255.240.0.0
+	    </para>
+            </listitem>
+            <listitem>
+              <para>
+	      192.168.0.0 / 255.255.0.0
+	    </para>
+            </listitem>
+          </itemizedlist>
+      </para>
+
+        <para>
+        If your network uses addresses from one of these blocks, and
+        you want to provide Internet access for machines on this net,
+        then you may need Network Address Translation (NAT) configured
+        on the firewall. This particular type of NAT configuration is
+        often called Masquerading. When configured this way, the
+        firewall rewrites source IP address of each packet sent by
+        internal machines to the Internet, replacing private IP
+        address with the address of its external interface.
+      </para>
+
+        <para>
+        In Firewall Builder this type of the NAT rule is composed as
+        shown on <xref linkend="basic-nat-1">
+      </para>
+
+        <para>
+	<figure id="basic-nat-1">
+            <title>Source Address Translation Rule</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="basic-nat-1.png" 
+                           format="png" align="left" scale="50">
+              </imageobject>
+              <textobject>
+                <phrase></phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+      </para>
+
+
+        <para>
+        In this rule object representing internal network is placed in
+        "Original Source" and firewall's object is placed in
+        "Translated Source", indicating that we want source address of
+        the packets to be translated. As before, we do not need to
+        worry about reply packets because underlying firewall software
+        keeps track of translations done for all the connections
+        opened through the firewall and rewrites addresses in all
+        reply packets automatically.
+      </para>
+
+        <para>
+        <xref linkend="basic-nat-1"> uses firewall object in
+        Translated Source, which means source address of the packet
+        will be substituted with the addresses of firewall's
+        interfaces. Since the firewall has more than one interface,
+        this rule will use all of them in a such fasion that packets
+        exiting the firewall through interface
+        <emphasis>"eth1"</emphasis> will have their source address
+        translated into address of that interface, packets exiting
+        through <emphasis>"eth2"</emphasis> will have its interface
+        used for their source address and so on. Decision on which
+        interface given packet should exit the firewall through is
+        made by firewall's TCP/IP stack using its routing table.
+      </para>
+
+        <para>
+        One of the consequences of this design is that rule #0 on
+        <xref linkend="basic-nat-1"> provides translation for packets
+        coming from <emphasis>internal_net</emphasis> and going out to
+        the Internet, as well as those coming from
+        <emphasis>internal_net</emphasis> and going back to the same
+        net. The latter case may sound strange and useless, but we'll
+        see later that it may have some very practical applications
+        (see ... ).
+      </para>
+
+        <para>
+        But what if the firewall has three or more interfaces ? This
+        happens if it has multiple connections to the Internet or
+        other insecure subnets like DMZ. Following the same logic, the
+        translation will be performed using all interfaces of the
+        firewall. <xref linkend="src-nat"> (A) illistrates this.
+      </para>
+
+        <para>
+        There may be situations when we would not want to
+        automatically use all interfaces of the firewall for
+        translation.  Suppose firewall "firewall" has two insecure
+        interfaces, one of which connects it to the Internet, while
+        another one is connected to DMZ subnet which is using private
+        IP addresses on the net 10.2.1.0. We want to translate the
+        source address of packets going out to the Internet through
+        external interface<emphasis>eth1</emphasis> and do not want
+        any other translation to happen.  Rule #0 in <xref
+                                                           linkend="basic-nat-2"> does just that.
+      </para>
+
+        <para>
+	<figure id="basic-nat-2">
+            <title>Source Address Translation Rule Using Interface of the Firewall</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="basic-nat-2.png" 
+                           format="png" align="left" scale="50">
+              </imageobject>
+              <textobject>
+                <phrase></phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+      </para>
+
+
+        <para>
+        Rule #0 in <xref linkend="basic-nat-2"> uses firewall's
+        interface "eth1" for translation. This means that only packets
+        exiting through this interface will be translated; packets
+        exiting through <emphasis>"eth2"</emphasis> will keep their
+        original source address on the internal net. <xref
+                                                           linkend="src-nat"> (B) illistrates this.
+      </para>
+
+        <note>
+          <para>
+          Interface object can be used in the NAT rules even if the
+          address of this interface is obtained dynamically and is not
+          known beforehand.
+        </para>
+        </note>
+
+        <para>
+        Another possibility is when neither firewall itself, nor one
+        of its interfaces is used in Translated Source in the
+        rule. The translation is similar to the one in <xref
+                                                             linkend="src-nat"> (A) except the same address is used
+        regardless of the interface the packet exits firewall
+        through. This case is illustrated in <xref
+                                                   linkend="basic-nat-3"> and <xref linkend="src-nat"> (C).
+      </para>
+
+        <para>
+	<figure id="basic-nat-3">
+            <title>Source Address Translation Rule Using Host Object</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="basic-nat-3.png" 
+                           format="png" align="left" scale="50">
+              </imageobject>
+              <textobject>
+                <phrase></phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+      </para>
+
+
+        <para>
+	<figure id="src-nat">
+
+            <title>Translations done to packets going in different
+	  directions: (A) when firewall object is used in TSrc in the
+	  NAT rule; (B) when interface eth1 is used in TSrc in the NAT
+	  rule; (C) when host object with address 192.0.2.50 is used
+	  in TSrc in the NAT rule</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="src-translations.png" 
+                           format="png" align="left" scale="50">
+              </imageobject>
+              <textobject>
+                <phrase></phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+      </para>
+
+      </sect2>
+
+      <sect2>
+        <title>Destination Address Translation</title>
+
+        <para>
+        Suppose we have a network using private IP addresses behind
+        the firewall, and a server on it. We need to provide access to
+        this server from the Internet in a such way that connections
+        will be established to the address of the firewall. In this
+        case we need destination address of packets to be rewritten so
+        packets would reach the server on internal network. The
+        simplest rule that translates destination address of incoming
+        packets looks like the one on <xref linkend="basic-nat-10-0">:
+     </para>
+
+        <para>
+	<figure id="basic-nat-10-0">
+            <title>Simple Destination Address Translation Rule</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="basic-nat-10-0.png" 
+                           format="png" align="left" scale="50">
+              </imageobject>
+              <textobject>
+                <phrase></phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+      </para>
+
+        <para>
+        Basically this rule says "if destination address of the packet
+        matches one of the addresses of the firewall, replace it with
+        the address defined by the object "server". Note that since we
+        used firewall object in Original Destination, all addresses of
+        all interfaces of the firewall are used for translation. <xref
+                                                                       linkend="dst-nat"> (A) illustrates this. The red, green and
+        blue packets come to the firewall from different subnets and
+        all have destination addresses that match address of the
+        corresponding interface. If it were not for our NAT rule,
+        packets like that would have been accepted by the firewall and
+        sent to a process expecting them. However NAT rule comes to
+        play and changes destination address of all three packets to
+        10.3.14.100 (the address of server). Packets with this address
+        do not match any address belonging to the firewall and
+        therefore get sent out of the firewall according to the rules
+        of routing.
+      </para>
+
+        <para>
+        The rule in <xref linkend="basic-nat-10-0"> does not specify
+        any service for the translation and therefore translates
+        addresses in packets of all protocols. This actually makes
+        this rule rather impractical because it will translate and
+        bounce any packets that are headed for the firewall, making it
+        impossible to connect to the firewall itself using telnet or
+        any other protocol. This is especially inconvenient since as
+        we saw earlier translation happens for packets coming from all
+        directions; this means that you won't be able to connect to
+        the firewall even from inside of your network. To alleviate
+        this problem we just add an appropriate service object to the
+        rule as shown in <xref linkend="basic-nat-10">:
+      </para>
+        
+        <para>
+	<figure id="basic-nat-10">
+            <title>Translation limited to packets of HTTP protocol</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="basic-nat-10.png" 
+                           format="png" align="left" scale="50">
+              </imageobject>
+              <textobject>
+                <phrase></phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+      </para>
+
+        <para>
+        Rule #0 in <xref linkend="basic-nat-10"> has limited scope
+        because of the service object "http" in Original Service; it
+        matches and performs address translation only for packets of
+        HTTP protocol, while other packets are processed by TCP/IP
+        stack on the firewall as usual. Very often we only want to
+        translate address for packets coming from particular side of
+        the firewall, typically from the Internet, and do not change
+        other packets. Rule #0 on <xref linkend="basic-nat-11">
+        achieves this goal by using firewall's interface object in
+        Original Destination. Only packets with destination address
+        the same as that of interface eth1 of the firewall match this
+        rule and get their address translated. Packets coming from
+        other directions will have different destination address and
+        won't match the rule (see <xref linkend="dst-nat"> (B) ).
+      </para>
+
+        <para>
+	<figure id="basic-nat-11">
+            <title>Destination Address Translation Rule Using Interface of the Firewall</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="basic-nat-11.png" 
+                           format="png" align="left" scale="50">
+              </imageobject>
+              <textobject>
+                <phrase></phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+      </para>
+
+        <para>
+	<figure id="dst-nat">
+            <title>Translations done to packets going in different
+	  directions: (A) when firewall object is used in ODst in the
+	  NAT rule and (B) when interface eth1 is used in ODst in the
+	  NAT rule</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="dst-translations.png" 
+                           format="png" align="left" scale="50">
+              </imageobject>
+              <textobject>
+                <phrase></phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+        </para>
 
       </sect2>
 
@@ -5918,345 +6249,9 @@ PIX                  always             no             policy, NAT
   </chapter>
 
 
-  <chapter>
-    <title>Basic NAT rules</title>
-    <sect1>
-      <title>Source Address Translation</title>
-      <para>
-	Suppose your internal network is configured using so-called
-	private IP addresses as defined in RFC 1918. These addresses
-	are:
-      </para>
-
-      <para>
-	<itemizedlist>
-	  <listitem>
-	    <para>
-	    10.0.0.0 / 255.0.0.0
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para>
-	      172.16.0.0 / 255.240.0.0
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para>
-	      192.168.0.0 / 255.255.0.0
-	    </para>
-	  </listitem>
-	</itemizedlist>
-      </para>
-
-      <para>
-        If your network uses addresses from one of these blocks, and
-        you want to provide Internet access for machines on this net,
-        then you may need Network Address Translation (NAT) configured
-        on the firewall. This particular type of NAT configuration is
-        often called Masquerading. When configured this way, the
-        firewall rewrites source IP address of each packet sent by
-        internal machines to the Internet, replacing private IP
-        address with the address of its external interface.
-      </para>
-
-      <para>
-        In Firewall Builder this type of the NAT rule is composed as
-        shown on <xref linkend="basic-nat-1">
-      </para>
-
-      <para>
-	<figure id="basic-nat-1">
-	  <title>Source Address Translation Rule</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="basic-nat-1.png" 
-                  format="png" align="left" scale="50">
-	    </imageobject>
-	    <textobject>
-	      <phrase></phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
-      </para>
-
-
-      <para>
-        In this rule object representing internal network is placed in
-        "Original Source" and firewall's object is placed in
-        "Translated Source", indicating that we want source address of
-        the packets to be translated. As before, we do not need to
-        worry about reply packets because underlying firewall software
-        keeps track of translations done for all the connections
-        opened through the firewall and rewrites addresses in all
-        reply packets automatically.
-      </para>
-
-      <para>
-        <xref linkend="basic-nat-1"> uses firewall object in
-        Translated Source, which means source address of the packet
-        will be substituted with the addresses of firewall's
-        interfaces. Since the firewall has more than one interface,
-        this rule will use all of them in a such fasion that packets
-        exiting the firewall through interface
-        <emphasis>"eth1"</emphasis> will have their source address
-        translated into address of that interface, packets exiting
-        through <emphasis>"eth2"</emphasis> will have its interface
-        used for their source address and so on. Decision on which
-        interface given packet should exit the firewall through is
-        made by firewall's TCP/IP stack using its routing table.
-      </para>
-
-      <para>
-        One of the consequences of this design is that rule #0 on
-        <xref linkend="basic-nat-1"> provides translation for packets
-        coming from <emphasis>internal_net</emphasis> and going out to
-        the Internet, as well as those coming from
-        <emphasis>internal_net</emphasis> and going back to the same
-        net. The latter case may sound strange and useless, but we'll
-        see later that it may have some very practical applications
-        (see ... ).
-      </para>
-
-      <para>
-        But what if the firewall has three or more interfaces ? This
-        happens if it has multiple connections to the Internet or
-        other insecure subnets like DMZ. Following the same logic, the
-        translation will be performed using all interfaces of the
-        firewall. <xref linkend="src-nat"> (A) illistrates this.
-      </para>
-
-      <para>
-        There may be situations when we would not want to
-        automatically use all interfaces of the firewall for
-        translation.  Suppose firewall "firewall" has two insecure
-        interfaces, one of which connects it to the Internet, while
-        another one is connected to DMZ subnet which is using private
-        IP addresses on the net 10.2.1.0. We want to translate the
-        source address of packets going out to the Internet through
-        external interface<emphasis>eth1</emphasis> and do not want
-        any other translation to happen.  Rule #0 in <xref
-        linkend="basic-nat-2"> does just that.
-      </para>
-
-      <para>
-	<figure id="basic-nat-2">
-	  <title>Source Address Translation Rule Using Interface of the Firewall</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="basic-nat-2.png" 
-                  format="png" align="left" scale="50">
-	    </imageobject>
-	    <textobject>
-	      <phrase></phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
-      </para>
-
-
-      <para>
-        Rule #0 in <xref linkend="basic-nat-2"> uses firewall's
-        interface "eth1" for translation. This means that only packets
-        exiting through this interface will be translated; packets
-        exiting through <emphasis>"eth2"</emphasis> will keep their
-        original source address on the internal net. <xref
-        linkend="src-nat"> (B) illistrates this.
-      </para>
-
-      <note>
-        <para>
-          Interface object can be used in the NAT rules even if the
-          address of this interface is obtained dynamically and is not
-          known beforehand.
-        </para>
-      </note>
-
-      <para>
-        Another possibility is when neither firewall itself, nor one
-        of its interfaces is used in Translated Source in the
-        rule. The translation is similar to the one in <xref
-        linkend="src-nat"> (A) except the same address is used
-        regardless of the interface the packet exits firewall
-        through. This case is illustrated in <xref
-        linkend="basic-nat-3"> and <xref linkend="src-nat"> (C).
-      </para>
-
-      <para>
-	<figure id="basic-nat-3">
-	  <title>Source Address Translation Rule Using Host Object</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="basic-nat-3.png" 
-                  format="png" align="left" scale="50">
-	    </imageobject>
-	    <textobject>
-	      <phrase></phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
-      </para>
-
-
-      <para>
-	<figure id="src-nat">
-
-	  <title>Translations done to packets going in different
-	  directions: (A) when firewall object is used in TSrc in the
-	  NAT rule; (B) when interface eth1 is used in TSrc in the NAT
-	  rule; (C) when host object with address 192.0.2.50 is used
-	  in TSrc in the NAT rule</title>
-
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="src-translations.png" 
-                  format="png" align="left" scale="50">
-	    </imageobject>
-	    <textobject>
-	      <phrase></phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
-      </para>
-
-    </sect1>
-
-    <sect1>
-      <title>Destination Address Translation</title>
-
-      <para>
-        Suppose we have a network using private IP addresses behind
-        the firewall, and a server on it. We need to provide access to
-        this server from the Internet in a such way that connections
-        will be established to the address of the firewall. In this
-        case we need destination address of packets to be rewritten so
-        packets would reach the server on internal network. The
-        simplest rule that translates destination address of incoming
-        packets looks like the one on <xref linkend="basic-nat-10-0">:
-     </para>
-
-      <para>
-	<figure id="basic-nat-10-0">
-	  <title>Simple Destination Address Translation Rule</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="basic-nat-10-0.png" 
-                  format="png" align="left" scale="50">
-	    </imageobject>
-	    <textobject>
-	      <phrase></phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
-      </para>
-
-      <para>
-        Basically this rule says "if destination address of the packet
-        matches one of the addresses of the firewall, replace it with
-        the address defined by the object "server". Note that since we
-        used firewall object in Original Destination, all addresses of
-        all interfaces of the firewall are used for translation. <xref
-        linkend="dst-nat"> (A) illustrates this. The red, green and
-        blue packets come to the firewall from different subnets and
-        all have destination addresses that match address of the
-        corresponding interface. If it were not for our NAT rule,
-        packets like that would have been accepted by the firewall and
-        sent to a process expecting them. However NAT rule comes to
-        play and changes destination address of all three packets to
-        10.3.14.100 (the address of server). Packets with this address
-        do not match any address belonging to the firewall and
-        therefore get sent out of the firewall according to the rules
-        of routing.
-      </para>
-
-      <para>
-        The rule in <xref linkend="basic-nat-10-0"> does not specify
-        any service for the translation and therefore translates
-        addresses in packets of all protocols. This actually makes
-        this rule rather impractical because it will translate and
-        bounce any packets that are headed for the firewall, making it
-        impossible to connect to the firewall itself using telnet or
-        any other protocol. This is especially inconvenient since as
-        we saw earlier translation happens for packets coming from all
-        directions; this means that you won't be able to connect to
-        the firewall even from inside of your network. To alleviate
-        this problem we just add an appropriate service object to the
-        rule as shown in <xref linkend="basic-nat-10">:
-      </para>
-      
-      <para>
-	<figure id="basic-nat-10">
-	  <title>Translation limited to packets of HTTP protocol</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="basic-nat-10.png" 
-                  format="png" align="left" scale="50">
-	    </imageobject>
-	    <textobject>
-	      <phrase></phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
-      </para>
-
-      <para>
-        Rule #0 in <xref linkend="basic-nat-10"> has limited scope
-        because of the service object "http" in Original Service; it
-        matches and performs address translation only for packets of
-        HTTP protocol, while other packets are processed by TCP/IP
-        stack on the firewall as usual. Very often we only want to
-        translate address for packets coming from particular side of
-        the firewall, typically from the Internet, and do not change
-        other packets. Rule #0 on <xref linkend="basic-nat-11">
-        achieves this goal by using firewall's interface object in
-        Original Destination. Only packets with destination address
-        the same as that of interface eth1 of the firewall match this
-        rule and get their address translated. Packets coming from
-        other directions will have different destination address and
-        won't match the rule (see <xref linkend="dst-nat"> (B) ).
-      </para>
-
-      <para>
-	<figure id="basic-nat-11">
-	  <title>Destination Address Translation Rule Using Interface of the Firewall</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="basic-nat-11.png" 
-                  format="png" align="left" scale="50">
-	    </imageobject>
-	    <textobject>
-	      <phrase></phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
-      </para>
-
-      <para>
-	<figure id="dst-nat">
-	  <title>Translations done to packets going in different
-	  directions: (A) when firewall object is used in ODst in the
-	  NAT rule and (B) when interface eth1 is used in ODst in the
-	  NAT rule</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="dst-translations.png" 
-                  format="png" align="left" scale="50">
-	    </imageobject>
-	    <textobject>
-	      <phrase></phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
-      </para>
-
-
-    </sect1>
-
-  </chapter>
-
-
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-  <chapter id="nat">
+  <chapter id="nat-examples">
 
     <title>Examples of Network Address Translation Rules</title>
 
