@@ -489,7 +489,7 @@
       <sect2>
         <title>Standard Tree Structure</title>
 
-        <figure id="tree-structure" float="1">
+        <figure id="tree-structure" float="1" pgwide="0">
           <title>Standard Tree Structure</title>
           <mediaobject>
             <imageobject>
