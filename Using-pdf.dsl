@@ -28,6 +28,11 @@
 
 ;; customize the print stylesheet
 
+(define %section-autolabel%
+  ;; Are sections enumerated?
+  #t)
+
+
 (define %visual-acuity% "tiny")
 (define %left-margin%   4pi)
 (define %right-margin%  3pi)

@@ -453,7 +453,7 @@
 
 <!-- ############################################################### -->
   <chapter id="using-gui">
-    <title>Using Firewall Builder</title>
+    <title>Firewall Builder GUI</title>
 
 
 <!-- *************************************************************** -->
@@ -677,12 +677,13 @@
         </itemizedlist>
       </para>
     </sect1>
+  </chapter>
 
 <!-- *************************************************************** -->
-    <sect1>
+  <chapter>
       <title>Object Tree</title>
 
-      <sect2>
+      <sect1>
         <title>Standard Tree Structure</title>
 
         <figure id="tree-structure" float="1" pgwide="0">
@@ -732,10 +733,10 @@
             </imageobject>
           </mediaobject>
         </figure>
-      </sect2>
+      </sect1>
 
 
-      <sect2>
+      <sect1>
         <title>Creating Objects</title>
 
         <para>New object can be created using main menu
@@ -808,9 +809,9 @@
         menu item <guimenuitem>"Add Interfaces via SNMP"</guimenuitem>)
         </para>
 
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Navigating Object Tree and Editing Objects</title>
 
         <para>Object selected in the tree automatically appears in the
@@ -915,14 +916,14 @@
         objects, see <link linkend="gui-behavior">below</link>.
       </para>
 
-      </sect2>
-    </sect1>
+      </sect1>
+  </chapter>
 
 <!-- *************************************************************** -->
-    <sect1>
+  <chapter>
       <title>Working With Objects</title>
 
-      <sect2>
+      <sect1>
         <title>Common Properties</title>
 
         <para>All objects visible to user have some common editable
@@ -935,9 +936,9 @@
         address and provides "on the fly" control for the validity of
         an address.</para>
 
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Host Object</title>
 
         <para>Host object in Firewall Builder is designed to represent
@@ -971,7 +972,7 @@
           objects can have it.</para>
         </note>
 
-        <sect3>
+        <sect2>
           <title>Creating Host Object</title>
 
           <figure id="creating-host1" float="1">
@@ -1028,9 +1029,9 @@
             provided by the main window and the object tree
             view.</para>
           </note>
-        </sect3>
+        </sect2>
 
-        <sect3>
+        <sect2>
           <title>Editing Host Object</title>
 
           <para>Host object dialog is split onto two tabs: "General"
@@ -1104,10 +1105,10 @@
           standard SNMP MIB variables "Description", "Location" and
           "Contact". These fields are read-only in the GUI.</para>
 
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
 
-      <sect2 id="host-interface">
+      <sect1 id="host-interface">
         <title>Host's Interface</title>
 
         <figure id="host-interface1" float="1">
@@ -1180,9 +1181,9 @@
             </listitem>
           </itemizedlist>
         </para>
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Address Object</title>
 
         <figure id="address1" float="1">
@@ -1231,9 +1232,9 @@
             </listitem>
           </itemizedlist>
         </para>
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Network Object</title>
 
         <figure id="network-dialog1" float="1">
@@ -1279,9 +1280,9 @@
             </listitem>
           </itemizedlist>
         </para>
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Address Range Object</title>
 
         <figure id="address-range-dialog1" float="1">
@@ -1323,9 +1324,9 @@
 
         <para>Both range start and range end addresses are included in
         the range.</para>
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Group of Objects</title>
 
         <figure id="group-dialog1" float="1">
@@ -1379,12 +1380,12 @@
             </listitem>
           </itemizedlist>
         </para>
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Firewall Object</title>
 
-        <sect3>
+        <sect2>
           <title>Creating Firewall Object</title>
 
           <para>Similarly for the creating of the Host Object,
@@ -1430,8 +1431,8 @@
             window and object tree view.</para>
           </note>
 
-        </sect3>
-        <sect3>
+        </sect2>
+        <sect2>
           <title>Editing Firewall Object</title>
 
           <figure id="firewall-dialog-general" float="1">
@@ -1606,10 +1607,10 @@
           linkend="tab-network"> for the description of the dialogs
           for supported target host OS.
         </para>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Firewall's Interface</title>
 
         <figure id="firewall-interface1" float="1">
@@ -1653,7 +1654,7 @@
           </mediaobject>
         </figure>
 
-        <sect3>
+        <sect2>
           <title>Network Zone</title>
 
           <para>One of the platform-specific parameter of the
@@ -1786,10 +1787,10 @@
           </table>
 
 
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
 
-      <sect2 id="global-policy">
+      <sect1 id="global-policy">
         <title>Global Firewall Policy</title>
 
         <figure id="global-policy1" float="1">
@@ -1841,9 +1842,9 @@
         available in the policy, depending on the chosen target
         firewall platform.
         </para>
-      </sect2>
+      </sect1>
 
-      <sect2 id="interface-policy">
+      <sect1 id="interface-policy">
         <title>Interface Policy</title>
 
         <figure id="interface-policy1" float="1">
@@ -1882,9 +1883,9 @@
         and pencil" icon in the <emphasis>"Options"</emphasis> rule
         element). 
         </para>
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Network Address Translation Rules</title>
 
         <figure id="nat-policy" float="1">
@@ -2046,12 +2047,12 @@
         <para>You can create NAT rules and edit them using the same
         methods as described in <xref linkend="editing-policy-and-nat"></para>
 
-      </sect2>
+      </sect1>
 
-      <sect2 id="editing-policy-and-nat">
+      <sect1 id="editing-policy-and-nat">
         <title>Editing firewall Policy and NAT Rules</title>
 
-        <sect3>
+        <sect2>
           <title>Adding and removing rules</title>
 
           <figure id="editing-policy1" float="1">
@@ -2082,9 +2083,9 @@
           <para>You can also use drag and drop operation to move rules
           up and down in the policy. Just drag the rule with the mouse
           by its "number" rule element.</para>
-        </sect3>
+        </sect2>
 
-        <sect3>
+        <sect2>
           <title>Adding, removing and modifying object in the policy and NAT rules</title>
 
           <para>To add objects to the policy or NAT rule you can
@@ -2155,9 +2156,9 @@
             </itemizedlist>
         </para>
 
-        </sect3>
+        </sect2>
 
-        <sect3>
+        <sect2>
           <title>Changing rule action</title>
 
           <para>clicking right mouse button when cursor is over rule
@@ -2195,9 +2196,9 @@
             </listitem>
           </itemizedlist>
 
-        </sect3>
+        </sect2>
 
-        <sect3>
+        <sect2>
           <title>Changing rule direction</title>
 
           <para>clicking right mouse button when cursor is over rule
@@ -2233,9 +2234,9 @@
             </listitem>
           </itemizedlist>
 
-        </sect3>
+        </sect2>
 
-        <sect3>
+        <sect2>
           <title>Changing rule options and logging</title>
 
           <para>clicking right mouse button when cursor is over rule
@@ -2280,13 +2281,13 @@
             </listitem>
           </itemizedlist>
 
-        </sect3>
+        </sect2>
 
-      </sect2>
+      </sect1>
 
 
 
-      <sect2 id="rule-elements">
+      <sect1 id="rule-elements">
         <title>Support for Rule Elements and Features on Various Firewalls</title>
 
         <para>Certain fields in the rules are only available if target
@@ -2384,58 +2385,58 @@
           </table>
         </para>
 
-      </sect2>
-    </sect1>
+      </sect1>
+  </chapter>
 
 <!-- *************************************************************** -->
-    <sect1>
-      <title>Network Discovery: A Quick Way to Create Objects</title>
+  <chapter>
+    <title>Network Discovery: A Quick Way to Create Objects</title>
 
-      <figure id="discovery-menu" float="1">
-        <title>Calling Object Discovery Druid</title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="discovery_menu.jpg" format="jpg" align="Left" scale="25">
-          </imageobject>
-        </mediaobject>
-      </figure>
+    <figure id="discovery-menu" float="1">
+      <title>Calling Object Discovery Druid</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="discovery_menu.jpg" format="jpg" align="Left" scale="25">
+        </imageobject>
+      </mediaobject>
+    </figure>
       
-      <para>One of the distinguishing features that Firewall Builder
-      provides is a support for automated creating of objects. This
-      helps populate objects tree for large networks with lots of
-      hosts and subnets. It would have taken hours if user always had
-      to do it manually, while Objects Discovery Druid helps complete
-      this task in minutes. You can bring this Druid using main menu
-      <guimenuitem>"Tools"</guimenuitem>/<guimenuitem>"Discover
-      Objects"</guimenuitem> </para>
+    <para>One of the distinguishing features that Firewall Builder
+    provides is a support for automated creating of objects. This
+    helps populate objects tree for large networks with lots of hosts
+    and subnets. It would have taken hours if user always had to do it
+    manually, while Objects Discovery Druid helps complete this task
+    in minutes. You can bring this Druid using main menu
+    <guimenuitem>"Tools"</guimenuitem>/<guimenuitem>"Discover
+    Objects"</guimenuitem> </para>
 
-      <para>Druid supports three main methods for automated creation
-      of objects:</para>
+    <para>Druid supports three main methods for automated creation of
+    objects:</para>
 
-      <para>
+    <para>
         <itemizedlist spacing="compact">
-          <listitem><para>Reading file /etc/hosts</para></listitem>
-          <listitem><para>Import of DNS zone</para></listitem>
-          <listitem><para>Network discovery using SNMP queries</para></listitem>
-        </itemizedlist>
-      </para>
+        <listitem><para>Reading file /etc/hosts</para></listitem>
+        <listitem><para>Import of DNS zone</para></listitem>
+        <listitem><para>Network discovery using SNMP queries</para></listitem>
+      </itemizedlist>
+    </para>
+    
+    <para>You make a choice of the method on the first page of the
+    Druid <xref linkend="discovery-page1"></para>
 
-      <para>You make a choice of the method on the first page of the
-      Druid <xref linkend="discovery-page1"></para>
-
-      <figure id="discovery-page1" float="1">
-        <title>Calling Object Discovery Druid</title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="discovery_page1.jpg" format="jpg" align="Left" scale="25">
-          </imageobject>
-        </mediaobject>
-      </figure>
+    <figure id="discovery-page1" float="1">
+      <title>Calling Object Discovery Druid</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="discovery_page1.jpg" format="jpg" align="Left" scale="25">
+        </imageobject>
+      </mediaobject>
+    </figure>
       
-      <para>Just check the radio-button next to the method you want to
-      use and click button <guibutton>'Next'</guibutton></para>
+    <para>Just check the radio-button next to the method you want to
+    use and click button <guibutton>'Next'</guibutton></para>
 
-      <sect2>
+      <sect1>
         <title>Reading file /etc/hosts</title>
 
         <para>This method imports host records present in standard
@@ -2548,9 +2549,9 @@
         'f'. To find all names that end with 'domedomain.com', we
         could use regular expression '.*somedomain.com$' </para>
 
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>DNS zone import</title>
 
         <para>This method works only on those OS where there is a
@@ -2608,9 +2609,9 @@
         the same as the one presented on <xref
         linkend="discovery-hosts-2">. </para>
 
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Network Discovery</title>
 
         <figure id="discovery-snmp-seed" float="1">
@@ -2787,13 +2788,13 @@
         where you chose and create objects. That page is the same as
         the one presented on <xref linkend="discovery-hosts-2">.</para>
 
-      </sect2>
-    </sect1>
+      </sect1>
+  </chapter>
 
 <!-- *************************************************************** -->
-    <sect1>
+  <chapter>
       <title>Working With Services</title>
-      <sect2>
+      <sect1>
         <title>IP Service</title>
 
         <para>The simple IP service object is represented on
@@ -3003,9 +3004,9 @@
           </itemizedlist>
         </para>
 
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>ICMP Service</title>
 
         <para>ICMP Service object is a generalized representation of
@@ -3093,9 +3094,9 @@
           </itemizedlist>
 
         </para>
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>TCP Service</title>
 
         <para>TCP Service object is a generalization of TCP protocol
@@ -3282,7 +3283,7 @@
         <para>TCP Service dialog provides the following controls:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist  spacing="compact">
             <listitem>
               <para>Name:</para>
 
@@ -3314,9 +3315,9 @@
             </listitem>
           </itemizedlist>
         </para>
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>UDP Service</title>
 
         <para>UDP Service object is a generalization of UDP protocol
@@ -3354,7 +3355,7 @@
         <para>UDP Service dialog provides the following controls:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist  spacing="compact">
             <listitem>
               <para>Name:</para>
 
@@ -3382,9 +3383,9 @@
           </itemizedlist>
         </para>
 
-      </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Custom Service</title>
 
         <para>custom Service object can be used to inject arbitrary
@@ -3442,7 +3443,7 @@
         <para>Custom Service dialog provides the following controls:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist  spacing="compact">
             <listitem>
               <para>Name:</para>
 
@@ -3470,10 +3471,8 @@
 
 
         <para></para>
-      </sect2>
+      </sect1>
 
-
-    </sect1>
   </chapter>
 
 
