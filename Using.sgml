@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.53 $  $Date: 2003-02-01 23:56:28 $</edition>
+    <edition>$Revision: 1.54 $  $Date: 2003-02-02 08:17:15 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -1745,14 +1745,15 @@
         <title>The Interface Object belonging to a firewall</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="firewall_interface1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="firewall_interface1.jpg" 
+                format="jpg" align="Left" scale="33">
           </imageobject>
         </mediaobject>
       </figure>
 
       <para>The dialogue for the interface object that belongs to a
         firewall is similar to that for the Host's interface (<xref
-                                                                    linkend="host-interface">) but has a few extra controls.
+        linkend="host-interface">) but has a few extra controls.
         </para>
 
       <para>The interfaces of the firewall have a parameter called
@@ -1769,7 +1770,7 @@
       <para><xref linkend="firewall-interface1"> shows a screenshot
         of the dialogue for the interface object that belongs to an
         iptables firewall object named "firewall-iptables". <xref
-                                                                  linkend="firewall-interface2"> shows a screenshot of the
+        linkend="firewall-interface2"> shows a screenshot of the
         dialogue for the interface object that belongs to a Cisco PIX
         firewall object named "firewall-pix".
         </para>
@@ -1783,7 +1784,7 @@
         </mediaobject>
       </figure>
 
-      <sect2>
+      <sect2 id="network-zone">
         <title>Network Zone</title>
 
         <para>One of the platform-specific parameters of the
@@ -1812,17 +1813,16 @@
         </figure>
 
         <para>Consider the network layout as on <xref
-                                                      linkend="network-zones">. Here the firewall has three
-          interfaces: 'outside', 'dmz' and 'inside'. Behind the
-          firewall there is a router which in turn is connected to
-          three subnets 'subnet A', 'subnet B' and 'subnet C'. Subnet
-          A is shared between the router and the firewall (each device
-          has an interface on this subnet). Let's also suppose that we
-          have created Network Objects for each subnet and called them
-          'subnet DMZ', 'subnet A', 'subnet B' and 'subnet C'
-          (remember, spaces are allowed in object names). For this
-          setup, network zones should be configured as follows:
-          </para>
+        linkend="network-zones">. Here the firewall has three
+        interfaces: 'outside', 'dmz' and 'inside'. Behind the firewall
+        there is a router which in turn is connected to three subnets
+        'subnet A', 'subnet B' and 'subnet C'. Subnet A is shared
+        between the router and the firewall (each device has an
+        interface on this subnet). Let's also suppose that we have
+        created Network Objects for each subnet and called them
+        'subnet DMZ', 'subnet A', 'subnet B' and 'subnet C' (remember,
+        spaces are allowed in object names). For this setup, network
+        zones should be configured as follows: </para>
 
         <para>
             <informaltable frame="none">
@@ -1869,17 +1869,17 @@
           <title>Choosing Network Zones</title>
           <mediaobject>
             <imageobject>
-              <imagedata fileref="fwbuilder-using-netzone1.jpg" format="jpg" align="Left" scale="33">
+              <imagedata fileref="fwbuilder-using-netzone1.jpg" 
+                  format="jpg" align="Left" scale="33">
             </imageobject>
           </mediaobject>
         </figure>
 
 
-        <para><xref
-                    linkend="platform-specific-interface-parameters"> explains
-          differences in the way firewall platforms interpret values
-          in the Security Level and Network Zone parameters of the
-          firewall interfaces.</para>
+        <para><xref linkend="platform-specific-interface-parameters">
+        explains differences in the way firewall platforms interpret
+        values in the Security Level and Network Zone parameters of
+        the firewall interfaces.</para>
 
         <table pgwide="0" id="platform-specific-interface-parameters">
           <title></title>
@@ -4485,10 +4485,11 @@ PIX                  always             no             policy, NAT
 	  <title>Masquerading rule (this rule is part of NAT ruleset)</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-1.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-1.png" 
+                  format="png" align="left" scale="40">
 	    </imageobject>
 	    <textobject>
-	      <phrase>[Masquerading rule (this rule is part of NAT ruleset)]</phrase>
+	      <phrase>[Masquerading rule (part of NAT ruleset)]</phrase>
 	    </textobject>
 	  </mediaobject>
 	</figure>
@@ -4506,8 +4507,90 @@ PIX                  always             no             policy, NAT
       </para>
 
       <para>
-	The rule on <xref linkend="f-nat-1"> provides address
-	translation for all the packets, but to permit connections to
+        <xref linkend="f-nat-1"> uses firewall object in Translated
+        Source, which means firewall will substitute a source address
+        in the packet for the address of its external interface. But
+        what if the firewall has two or more external interfaces ?
+        This happens if it has multiple connections to the Internet or
+        other insecure subnets like DMZ. Generally speaking,
+        Masquerading rule translates source address of packets that go
+        from the more secure subnet to the less secure one. See <xref
+        linkend="firewall-interface"> for detailed explanation of
+        Security Levels of firewall's interfaces. If the firewall has
+        multiple interfaces and firewall object is used in the
+        Translated Source of the NAT rule like in <xref
+        linkend="f-nat-1">, then the firewall will translate source
+        address into address of the interface through which the packet
+        is going to exit (which is dictated by the routing
+        table). Firewall <emphasis>"fw2"</emphasis> on <xref
+        linkend="f-nat-1-1"> has two insecure interfaces:
+        <emphasis>"eth1"</emphasis> and <emphasis>"eth2"</emphasis>,
+        both use routable IP addresses. NAT rule #0 will automatically
+        translate source address of outgoing packets into the address
+        of either eth1 or eth2, depending on the routing which
+        dictates through which interface the packet is going to exit.
+      </para>
+
+      <para>
+	<figure id="f-nat-1-1">
+	  <title>NAT rule for the firewall with two external interfaces</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-1-1.png"
+                  format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase></phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+        There may be situations when we would not want to
+        automatically use all external interfaces of the firewall for
+        translation. Suppose firewall <emphasis>"fw2"</emphasis> has
+        two insecure interfaces, one of which connects it to the
+        Internet, while another one is connected to DMZ subnet which
+        is using private IP addresses on the net 192.168.2.0. We want
+        to do the same masquerading translation for all packets going
+        from internal network to the Internet as before, but do not
+        need to translate packets going from the internal net to
+        DMZ. <xref linkend="f-nat-1-2"> illustrates this configuration.
+      </para>
+
+     <para>
+	<figure id="f-nat-1-2">
+	  <title>Translation using only one interface of the firewall</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-1-2.png"
+                  format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase></phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+      <para>
+        Rule #0 in <xref linkend="f-nat-1-2"> uses firewall's
+        interface <emphasis>"eth1"</emphasis> for translation. This
+        means that only packets exiting through this interface will be
+        translated; packets exiting through
+        <emphasis>"eth2"</emphasis> will keep their original source
+        address on the internal net.
+      </para>
+
+      <note><para> Interface object can be used in the NAT rules even
+      if the address of this interface is obtained dynamically and is
+      not known beforehand.  </para></note>
+
+      <para>
+	The rules on <xref linkend="f-nat-1"> , <xref
+	linkend="f-nat-1-1"> and <xref linkend="f-nat-1-2"> provide
+	address translation for packets, but to permit connections to
 	the Internet a special Global Policy rule is needed. This rule
 	simply permits all connections from internal network to "any"
 	and should be placed somewhere close to the end of the policy,
@@ -4521,7 +4604,8 @@ PIX                  always             no             policy, NAT
 	(this rule is part of Global Policy)</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-2.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-2.png"
+                  format="png" align="left" scale="40">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Rule #3 permits connections from internal network to the Internet
@@ -4555,7 +4639,8 @@ PIX                  always             no             policy, NAT
 	  <title>NAT rule for the server behind the firewall</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-3.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-3.png"
+                  format="png" align="left" scale="40">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[NAT rule for the server behind the firewall]</phrase>
@@ -4574,19 +4659,81 @@ PIX                  always             no             policy, NAT
       </para>
 
       <para>
-	We also need a Global Policy rule to permit connections to the
-	server. This rule is shown on <xref linkend="f-nat-4">
+        Just like with masquerading rules, firewall with multiple
+        external (or insecure) interfaces automatically uses all of
+        them for this type of the NAT rule. Which one will actually be
+        used for a particular packet depends on the routing that
+        dictates which interface the packet enters the firewall
+        through.  Firewall <emphasis>"fw2"</emphasis> on <xref
+        linkend="f-nat-3-1"> has two external interfaces:
+        <emphasis>"eth1"</emphasis> and <emphasis>"eth2"</emphasis>,
+        both use routable IP addresses. NAT rule #1 provides
+        translation for packets entering the firewall through either
+        eth1 or eth2; in both cases destination address of the packet
+        is going to be rewritten and packet will be sent to the server
+        <emphasis>"hostA"</emphasis>.
+      </para>
+
+      <para>
+	<figure id="f-nat-3-1">
+	  <title>NAT rule for the server behind the firewall which has multiple insecure interfaces</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-3-1.png"
+                  format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase></phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+
+      <para>
+        This may not be desired effect in certain configurations
+        though. One such case is when the second insecure interface of
+        the firewall is connected to DMZ subnet using private
+        addresses. The translation is not necessary for the packets
+        going from DMZ to internal net and we avoid it by using
+        firewall's external interface <emphasis>"eth1"</emphasis>
+        instead of the firewall's object in the NAT rule as shown in
+        <xref linkend="f-nat-3-2">.
+      </para>
+
+
+      <para>
+	<figure id="f-nat-3-2">
+	  <title>NAT rule for the server behind the firewall, using interface object in the NAT rule</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="nat-3-2.png"
+                  format="png" align="left" scale="40">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[NAT rule for the server behind the firewall]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+
+
+      <para>
+	As before, we also need a Global Policy rule to permit
+	connections to the server. This rule is shown on <xref
+	linkend="f-nat-4">
       </para>
 
       <para>
 	<figure id="f-nat-4">
-	  <title>rule #1 permits access to the server (This rule is part of Global Policy)</title>
+	  <title>rule #0 permits access to the server (This rule is part of Global Policy)</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="nat-4.png" format="png" align="left" scale="40">
 	    </imageobject>
 	    <textobject>
-	      <phrase>[rule #1 permits access to the server (This rule is part of Global Policy)]</phrase>
+	      <phrase>[rule #0 permits access to the server (This rule is part of Global Policy)]</phrase>
 	    </textobject>
 	  </mediaobject>
 	</figure>
