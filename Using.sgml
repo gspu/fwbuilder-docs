@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.48 $  $Date: 2003-01-02 03:12:51 $</edition>
+    <edition>$Revision: 1.49 $  $Date: 2003-01-05 06:37:12 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -1399,18 +1399,19 @@
         Builder.</para>
 
         <para>As described in <xref linkend="multiple-addresses">, if
-        the Interface object is used in the policy or NAT rule element
-        (either <emphasis>Source</emphasis> or
-        <emphasis>Destination</emphasis>) and this Interface object
-        has both Address and Physical Address child objects, policy
-        compiler will try to generate a rule using both. <xref
-        linkend="multiple-addresses"> explains that all for hosts and
-        interfaces with multiple addresses compiler generates multiple
-        rules using each address in turn. This roughly corresponds to
-        using logical operation "OR" on these addresses: if our
-        interface had two addresses <emphasis>Address1</emphasis> and
+        the Interface object that has multiple Address and Physical
+        Address child objects is used in the policy or NAT rule
+        element (either <emphasis>Source</emphasis> or
+        <emphasis>Destination</emphasis>), then policy compiler tries
+        to generate a rule using all of them. <xref
+        linkend="multiple-addresses"> explains that compiler actually
+        does this by generating multiple rules using each address in
+        turn. This roughly corresponds to using logical operation "OR"
+        on these addresses: if our interface had two addresses
+        <emphasis>Address1</emphasis> and
         <emphasis>Address2</emphasis>, then generated rule would match
-        if address in the packet is <emphasis>Address1</emphasis> OR
+        if address in the packet is either
+        <emphasis>Address1</emphasis> OR
         <emphasis>Address2</emphasis>.  The case of Physical Address
         is different though. If Interface has physical address, then
         compiler tries to build a set of rules that matches on
@@ -1418,28 +1419,32 @@
         for this change is as follows:</para>
 
         <para>Let's assume the host whose Interface has Physical
-        Address is a router with several networks behind it. In this
-        case packet originated from this router will always have
-        source ethernet address of its interface, but source IP
-        address may be different. There may be three possible ways to
-        build security policy in this situation:</para>
+        Address is a router with several networks behind it. The
+        packet originated from this router will always have source
+        ethernet address of its interface, but source IP address may
+        be different. There may be three possible ways to build
+        security policy in this situation, all useful but serving
+        different purposes:</para>
 
         <para>
           <itemizedlist>
             <listitem><para>Using only Address object in the rule
-            element. In this case we match only on IP address and
-            ignore MAC address of the packets. In the case of the
+            element. This means the firewall inspects only IP address
+            and ignores MAC address of the packets. In the case of the
             router described above this may be sufficient, although in
             more complex network configurations matching on MAC
             address may be necessary.</para></listitem>
 
             <listitem><para>Using only Physical Address
-            object. Suppose there is the second router on our network,
+            object. Suppose there is another router on our network,
             which may provide access to the same subnets as the first
-            one. By matching on the source MAC address we can
-            distinguish between packets reaching the firewall through
-            one router or another, even though the source IP address
-            may be the same.</para></listitem>
+            one. This second router may in fact be a rogue host using
+            ARP spoofing to intercept all the traffic on the network
+            so it could inspect it and extract some information. By
+            inspecting the source MAC address we can distinguish
+            between packets reaching the firewall through one router
+            or another, even though the source IP address may be the
+            same.</para></listitem>
 
             <listitem><para>Using Interface object. This way we end up
             with a rule that matches on a
@@ -2652,18 +2657,28 @@
       and compiler uses all objects in the hierarchy down from the one
       used in the policy to build the rule.</para>
 
-      <figure id="multiple-addresses1" float="1">
-        <title>Using objects with multiple addresses in policy
-        rules</title>
+      <figure id="multiple-addresses-obj1" float="1">
+        <title>Host object with an interface that has multiple addresses</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="multiple-addresses1.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="multiple-addresses-obj1.jpg" format="jpg" align="Left" scale="33">
           </imageobject>
         </mediaobject>
       </figure>
     
 
-      <para>Consider example <xref linkend="multiple-addresses1">.
+      <figure id="multiple-addresses1" float="1">
+        <title>Using objects with multiple addresses in the policy
+        rules</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="multiple-addresses-rule1.jpg" format="jpg" align="Left" scale="33">
+          </imageobject>
+        </mediaobject>
+      </figure>
+    
+
+      <para>Consider example <xref linkend="multiple-addresses-obj1">, <xref linkend="multiple-addresses1">.
       Here interface <emphasis>eth0</emphasis> of the Host object
       <emphasis>"test server"</emphasis> has three IP addresses (named
       <emphasis>"test server:eth0:1"</emphasis> through
@@ -2678,7 +2693,7 @@
       that's impossible, so we have to use logical operation "OR", not
       "AND" here.) Basically rule #4 is equivalent to three separate
       rules, each of them using one address of <emphasis>"test
-      server"</emphasis> in turn. These three rules are represented on
+      server"</emphasis> in turn. These three rules are represented in
       <xref linkend="multiple-addresses2"> (original rule #4 also
       shown there, but it is disabled.)</para>
 
@@ -2686,15 +2701,37 @@
         <title>Equivalent rules</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="multiple-addresses2.jpg" format="jpg" align="Left" scale="33">
+            <imagedata fileref="multiple-addresses-rule2.jpg" format="jpg" align="Left" scale="33">
           </imageobject>
         </mediaobject>
       </figure>
     
-      <para>Firewall Builder takes care of the situation like this
-      automatically and generates firewall policy for the case on
+      <para>Firewall Builder takes care of this situation
+      automatically and generates firewall policy for the case in
       <xref linkend="multiple-addresses1"> as if user built policy in
-      the GUI as on <xref linkend="multiple-addresses2">. </para>
+      the GUI using three rules as in <xref
+      linkend="multiple-addresses2">. </para>
+
+      <para>In fact, the algorithm it uses is even more general. In
+      the example <xref linkend="multiple-addresses1"> host
+      <emphasis>"test server"</emphasis> has single interface with
+      multiple addresses which compiler used to generate target
+      firewall code. The policy compiler works in a similar way even
+      if host or firewall object used in the rule has multiple
+      interfaces and each interface, in turn, has multiple
+      addresses. If host (or firewall) object is used in the rule,
+      then the compiler scans all its interfaces, finds all their
+      addresses and uses them to generate firewall configuration. If
+      interface object is used in the rule, then the compiler uses all
+      its addresses. And finally, if Address or Physical Address
+      object is used in the rule, then compiler uses only it to
+      generate the target firewall configuration. In other words,
+      compiler always looks down the tree, starting from the object
+      found in the policy rule and uses parameters of all Address and
+      Physical Address objects it finds. Since Address and Physical
+      Address objects are the leaf nodes in the tree, they have no
+      other objects beneath them, so the compiler uses their
+      parameters to generate the target code. </para>
 
       <note><para>There is an exception to this algorithm, see <xref
         linkend="using-mac-address"></para></note>
