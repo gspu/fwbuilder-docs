@@ -23,7 +23,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.45 $  $Date: 2002-11-23 05:32:52 $</edition>
+    <edition>$Revision: 1.46 $  $Date: 2002-11-24 22:34:01 $</edition>
 
     <copyright>
       <year>2002</year>
@@ -3149,7 +3149,7 @@
             <listitem>
               <para>Comment:</para>
 
-              <para>This is free-style text field used for comments.</para>
+              <para>This is a free-style text field used for comments.</para>
             </listitem>
           </itemizedlist>
 
@@ -3171,23 +3171,23 @@
         destination IP addresses in the IP header, uniquely identify
         each connection. </para>
 
-        <para>Since port numbers are used to distnguish applications
+        <para>Since port numbers are used to distinguish applications
         using data stream provided by TCP protocol, each application
         should use unique port number. To ensure interoperability,
         these numbers must be assigned by a central authority in a
-        coordinated manner. Internet Assigned Numbers Authority
-        (IANA) does that; assigned TCP and UDP port numbers can be
-        looked up at the following URL
+        coordinated manner. Internet Assigned Numbers Authority (IANA)
+        does that; assigned TCP and UDP port numbers can be looked up
+        at the following URL:
         http://www.iana.org/assignments/port-numbers . Most Unix
-        systems also come with a file /etc/services which also
-        contains a list of assigned port numbers.</para>
+        systems also come with a file /etc/services which contains a
+        list of assigned port numbers.</para>
 
         <para>Firewall Builder comes with a collection of predefined
         TCP Service objects with port numbers already configured. You
         can simply use these objects in your policy rules and do not
         have to look up port numbers every time you need them. </para>
 
-        <para>Typical TCP Service object is represented on a
+        <para>Typical TCP Service object is represented in a
         screenshot <xref linkend="tcp-service-dialog1">.</para>
 
         <figure id="tcp-service-dialog1" float="1">
@@ -3202,20 +3202,19 @@
         <para>In Firewall Builder, TCP Service object is a
         generalization of TCP protocol. TCP header of a packet carries
         only one fixed value for the source port and one fixed value
-        for destination port. In TCP Service object one can specify a
-        range of values for the source and destination ports. This
-        allows single TCP Service object to describe either a family
-        of protocols using consequitive port numbers, or a protocol
-        that may use variable port numbers or simply many protocols
-        that use port numbers from a certain range. For example, on
-        Unix systems TCP sessions opened by priviliged process always
-        have their source port number assigned from the range below
-        1024, while unpriviliged processes use source port numbers
-        from the range starting from 1024 and above. One could create
-        TCP Service object in Firewall Builder with source ports
-        defined as shown on screenshot <xref
-        linkend="tcp-service-dialog2"> to describe all priviliged TCP
-        sessions.</para>
+        for the destination port. In TCP Service object allows a range
+        of values to be used for the source and destination
+        ports. This allows single TCP Service object to describe
+        either a family of protocols using consequitive port numbers,
+        or a protocol that may use variable port numbers or simply
+        many protocols that use port numbers from a certain range. For
+        example, on Unix systems TCP sessions opened by priviliged
+        process always have their source port number assigned from the
+        range below 1024, while unpriviliged processes use source port
+        numbers from the range starting from 1024 and above. TCP
+        Service object with source port range defined as shown in the
+        screenshot <xref linkend="tcp-service-dialog2"> describes
+        all priviliged TCP sessions.</para>
 
         <figure id="tcp-service-dialog2" float="1">
           <title>TCP Service Object: priviliged source ports</title>
@@ -3228,10 +3227,10 @@
 
         <para>Using '0' as both start and end values for a range means
         'any value' for that range. Source port range of the object
-        'priviliged TCP' starts from 0 and ends at 1023 (range are
-        inclusive in Firewall Builder), while its destination port
+        'priviliged TCP' starts from 0 and ends at 1023 (port ranges
+        are inclusive in Firewall Builder), while its destination port
         range start and end are both set to zero, which means 'any
-        destination port'. Thus this object describes any TCP protocol
+        destination port'. This object describes any TCP protocol
         with source port in range 0-1023 and any destination
         port.</para>
 
@@ -3239,18 +3238,18 @@
         protocol with particular destination port, just use the same
         port number for both start and end of destination port range
         (which effectively creates a range that consists of a single
-        value). Example on <xref linkend="tcp-service-dialog1"> shows
+        value). Example in <xref linkend="tcp-service-dialog1"> shows
         such service.</para>
 
         <para>TCP header also contains a collection of one-bit fields,
         or flags, that carry a variety of control information. For
-        example, the SYN and ACK fkags are used for connection
+        example, the SYN and ACK flags are used for connection
         establishment, and the FIN flag is used for connection
         termination. Certain combination of flags are not allowed
-        during the normal protocol operation bt may cause unpredicted
-        reaction from systems when encountered in real packets;
-        because of this reason firewall administrator may want to
-        block TCP packets with unwanted combination of flags. </para>
+        during the normal protocol operation but may cause unpredicted
+        reaction in some systems; because of this reason firewall
+        administrator may want to block TCP packets with unwanted
+        combination of flags. </para>
 
         <para>There are six flags in TCP header. We just briefly
         mention them here; more information can be found in <citetitle
@@ -3305,8 +3304,8 @@
         </informaltable>
 
         <para>Firewall Builder supports all six flags, although not
-        all target firewall platforms can match against combinations
-        of TCP or against flags at all (See <xref linkend="support-for-tcp-flags">).</para>
+        all target firewall platforms can match all combinations
+        of TCP flags or flags at all (See <xref linkend="support-for-tcp-flags">).</para>
 
         <table id="support-for-tcp-flags" pgwide="0">
           <title>Support for Matching against TCP flags</title>
@@ -3340,6 +3339,58 @@
           </tgroup>
         </table>
 
+      <para>
+        Usually firewall can not only match on a combination of flags,
+        but can also examine only given subset of all TCP
+        flags. Firewall builder provides two sets of checkboxes for
+        TCP flags and flag masks (see <xref
+        linkend="tcp-service-dialog3">). Checkboxes in the first row
+        control TCP flags that we want the firewall to examine and
+        checkboxes in the second row tell it whether they should be
+        set or cleared. Only flags whose checkboxes in the first row
+        are set will be looked at by the firewall; to remind about
+        this, Firewall Builder deactivates checkboxes in the second
+        row for the flags that are to be ignored.  Object in <xref
+        linkend="tcp-service-dialog3"> matches TCP packet with any
+        combination of port numbers, TCP flag SYN set and all other
+        flags cleared. Firewall will examine all TCP flags.
+      </para>
+
+      <para>
+        <figure id="tcp-service-dialog3" float="1">
+          <title>TCP Service Object: any TCP packet with SYN flag set and all other flags cleared.</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="tcp_service_dialog3.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+      </para>
+
+      <para>
+        Combination of flags and a mask can be used in a rule that
+        looks for some flags to be set or unset and ignore other ones
+        regardless of their state. For example we can create a rule
+        that detects so called "null scan" which is done using TCP
+        packets with all flags cleared. For this rule we create a TCP
+        Service object "tcp null scan" where all flag masks are set
+        but all TCP flags are cleared. This means we examine all flags
+        but match if they all are cleared. This object is represented
+        in <xref linkend="tcp-service-dialog4">.
+      </para>
+
+      <para>
+        <figure id="tcp-service-dialog4" float="1">
+          <title>"null scan" TCP Service Object: firewall examines all TCP flags and matches if all are cleared.</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="tcp_service_dialog4.jpg" format="jpg" align="Left" scale="33">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+      </para>
+
+
         <para>TCP Service dialog provides the following controls:</para>
 
         <para>
@@ -3366,12 +3417,12 @@
             <listitem>
               <para>TCP Flags:</para>
 
-              <para>TCP flags, see table above.</para>
+              <para>TCP flags and masks, see above.</para>
             </listitem>
             <listitem>
               <para>Comments:</para>
 
-              <para>This is free-style text field used for comments.</para>
+              <para>This is a free-style text field used for comments.</para>
             </listitem>
           </itemizedlist>
         </para>
@@ -3389,14 +3440,15 @@
 
         <para>Similarly to that in TCP, UDP uses port numbers to
         distinguish multiple applications running on one machine from
-        one another. UDP packet header carries two port numbers:
-        source port and destination port. UDP Service object in
+        one another. UDP packet header carries two port numbers: the
+        source port and the destination port. UDP Service object in
         Firewall Builder allows for definition of ranges for both
         source and destination port. The meaning of values assigned to
-        range start and end is the same as in TCP Service object:
-        ranges are inclusive, that is range start and end are
-        included, using '0' for both start and end of either range
-        means 'any port'. Screenshot <xref
+        the start and end of the range is the same as in TCP Service
+        object: ranges are inclusive, that is both start and end ports
+        of the range are included. Using '0' for both start and end of
+        the range means 'any port'. These rules work for both source
+        and destination ranges. Screenshot <xref
         linkend="udp-service-dialog1"> shows UDP Service object 'dns'
         that represents Domain Name System protocol which uses
         destination port 53.  </para>
@@ -3422,23 +3474,23 @@
               <para>This is the name of the object</para>
             </listitem>
             <listitem>
-              <para>Source port range:</para>
+              <para>The Source port range:</para>
 
-              <para>These two controls define start and end of the
-              source port range; they accept values between 0 and
+              <para>These two controls define the start and the end of
+              the source port range; they accept values between 0 and
               65535.</para>
             </listitem>
             <listitem>
-              <para>Destination port range:</para>
+              <para>The Destination port range:</para>
 
-              <para>These two controls define start and end of the
-              destination port range; they accept values between 0 and
-              65535.</para>
+              <para>These two controls define the start and the end of
+              the destination port range; they accept values between 0
+              and 65535.</para>
             </listitem>
             <listitem>
               <para>Comments:</para>
 
-              <para>This is free-style text field used for comments.</para>
+              <para>This is a free-style text field used for comments.</para>
             </listitem>
           </itemizedlist>
         </para>
@@ -3448,22 +3500,22 @@
       <sect1>
         <title>Custom Service</title>
 
-        <para>custom Service object can be used to inject arbitrary
-        code into generated firewall script. Any combination of
-        options allowed in the target firewall command line language
-        which does not fit in a strict model of standard service
-        object types can be expressed using Custom Service object. For
-        example, iptables comes with a collection of patches called
-        "Patch-o-matic" which add ability to match against complex
-        combinations of packet parameters or header fields that are
-        not supported by a standard code. One of the patches adds an
-        ability to detect a port scan condition, where offending host
-        tries to connect to UDP or TCP ports on the firewall or hosts
-        behind it picking port numbers in turns trying to detect which
-        ports have an applications listening on and which are
-        'dead'. Normally firewall would inspect each attempt to
-        connect to port separately from others and would generate many
-        log records, one line per connection attempt. While this
+        <para>The Custom Service object can be used to inject
+        arbitrary code into generated firewall script. Any combination
+        of options allowed in the target firewall command line
+        language which does not fit in a strict model of standard
+        service object types can be expressed using Custom Service
+        object. For example, iptables comes with a collection of
+        patches called "Patch-o-matic" which adds an ability to match
+        against complex combinations of packet parameters or header
+        fields that are not supported by a standard code. One of the
+        patches adds an ability to detect a port scan condition, where
+        offending host tries to connect to UDP or TCP ports on the
+        firewall or hosts behind it picking port numbers in turns
+        trying to detect which ports are active and which are
+        'dead'. Normally the firewall would inspect each attempt to
+        connect to a port separately from others and would generate
+        many log records, one line per connection attempt. While this
         behavior is normal, it still fails to recognize a pattern in
         the actions of offending host, which may be important in
         investigation of malicious activity since port scanning is
@@ -3473,12 +3525,12 @@
         <para>Screenshot <xref linkend="custom-service-dialog1">
         represents Custom Service object that uses capabilities of
         'PSD' module from patch-o-matic. This module can match against
-        spread in time port scan attempts and has few parameters to
-        fine tune detection mechanism. Custom Object 'psd' defines
-        command line options specific for module 'psd' in the field
-        'Code'</para>
+        port scan attempts that are spread in time and has few
+        parameters to fine tune detection mechanism. Custom Object
+        'psd' defines command line options specific for module 'psd'
+        in the field 'Code'</para>
 
-        <para>In general, Custom service can store custom piece of
+        <para>In general, Custom service can store arbitrary piece of
         code for each supported firewall platform. When this object is
         used in firewall policy, policy compiler picks appropriate
         line of code depending on what target firewall platform the
@@ -3512,8 +3564,8 @@
             <listitem>
               <para>Platform:</para>
 
-              <para>This is pull-down menu that shows list of all
-              firewall platform for which modules were installed and
+              <para>This is a pull-down menu that shows a list of all
+              firewall platforms for which modules were installed and
               loaded when the GUI started. </para>
             </listitem>
             <listitem>
@@ -3524,7 +3576,7 @@
             <listitem>
               <para>Comments:</para>
 
-              <para>This is free-style text field used for comments.</para>
+              <para>This is a free-style text field used for comments.</para>
             </listitem>
           </itemizedlist>
         </para>
