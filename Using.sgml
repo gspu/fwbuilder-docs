@@ -908,7 +908,7 @@
       <title>Working With Objects</title>
 
       <sect2>
-        <title>Common Object Properties</title>
+        <title>Common Properties</title>
 
         <para>All objects visible to user have some common editable
         fields, such as their name and comment. Object name can
@@ -950,84 +950,146 @@
           </mediaobject>
         </figure>
 
-
         <note>
           <para>host object can not have any security or Network
           Address Translation policy associated with it; only firewall
           objects can have it.</para>
         </note>
 
-        <para>Host object dialog is split onto two tabs: "General"
-        (<xref linkend="host-dialog1">) and "Sysinfo" (<xref
-        linkend="host-dialog2">). </para>
+        <sect3>
+          <title>Creating Host Object</title>
 
-        <figure id="host-dialog1" float="1">
+          <figure id="creating-host1" float="1">
+            <title>First Page of the Druid</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="creating_host1.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>To speed up process and make it simpler, creating of
+          the new host object is aided by the Druid which collects all
+          data needed for both host and its interfaces and then
+          creates the object. Screenshot <xref
+          linkend="creating-host1"> represents the first page of the
+          Druid. First of all you need to enter host name. Generally
+          this name does not have to be the same as the real host's
+          name, but if it is, then you can use DNS to query for host's
+          IP address using its name. If the new host object has single
+          interface (this, perhaps, is the most common case) then you
+          just need to fill entry field for its address and may be MAC
+          address and click <guibutton>"Next"</guibutton>. If object's
+          name is the same as real host name, then you can use button
+          <guibutton>"DNS Lookup"</guibutton> to get the address from
+          DNS. </para>
+
+          <para>In case the new host object should have multiple
+          interfaces, you need to check option at the bottom of the
+          dialog and then switch to the next page of the Druid using
+          button <guibutton>"Next"</guibutton>. The next page is
+          represented on screenshot <xref linkend="creating-host2">.</para>
+
+          <figure id="creating-host2" float="1">
+            <title>Adding Interfaces to the New Host Object</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="creating_host2.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>Here you can add interfaces to the new host
+          object. Enter interface name, its address and netmask in
+          appropriate fields and click <guibutton>"Add"</guibutton> to
+          add it to the list. Button <guibutton>"Update"</guibutton>
+          updates informtation for interface that is selected in the
+          list and button <guibutton>"Delete"</guibutton> deletes
+          currently selected interface.</para>
+
+          <note>
+            <para>You can always add, modidy and remove
+            interfaces of the new host object later using controls
+            provided by the main window and the object tree
+            view.</para>
+          </note>
+        </sect3>
+
+        <sect3>
           <title>Editing Host Object</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
 
-        <para>Tab "General" provides GUI controls for the following parameters:</para>
+          <para>Host object dialog is split onto two tabs: "General"
+          (<xref linkend="host-dialog1">) and "Sysinfo" (<xref
+          linkend="host-dialog2">). </para>
 
-        <para>
-<itemizedlist>
-            <listitem>
-              <para>Name:</para>
+          <figure id="host-dialog1" float="1">
+            <title>Editing Host Object</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="host_dialog1.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-              <para>Host object name.</para>
-            </listitem>
-            <listitem>
-              <para>MAC address filtering:</para>
+          <para>Tab "General" provides GUI controls for the following parameters:</para>
 
-              <para>If this option is activated, policy compiler uses
-              MAC addresses of all interfaces of this host instead of
-              their IP addresses to build firewall rules.  Not all
-              firewall platforms support MAC address filtering, so
-              this option may have no effect on the generated firewall
-              script. This is treated as non-critical situation and
-              policy compiler will only generate warning while
-              processing firewall policy where such host is
-              used.</para>
-            </listitem>
-            <listitem>
-              <para>SNMP communities:</para>
+          <para>
+            <itemizedlist>
+              <listitem>
+                <para>Name:</para>
 
-              <para>SNMP 'read' community is used if host runs SNMP
-              agent and you pull hosts "sysinfo" variables via SNMP
-              query. SNMP 'write' community currently is not used but
-              we may add features using it in the future.  SNMP
-              communities usually can not contain spaces. If your host
-              does not run SNMP agent, or you do not need to pull host
-              info using SNMP, then SNMP community strings may be left
-              blank.</para>
+                <para>Host object name.</para>
+              </listitem>
+              <listitem>
+                <para>MAC address filtering:</para>
 
-            </listitem>
-            <listitem>
-              <para>Comment:</para>
+                <para>If this option is activated, policy compiler
+                uses MAC addresses of all interfaces of this host
+                instead of their IP addresses to build firewall rules.
+                Not all firewall platforms support MAC address
+                filtering, so this option may have no effect on the
+                generated firewall script. This is treated as
+                non-critical situation and policy compiler will only
+                generate warning while processing firewall policy
+                where such host is used.</para>
+              </listitem>
+              <listitem>
+                <para>SNMP communities:</para>
 
-              <para>This is free-form text field which can be used to
+                <para>SNMP 'read' community is used if host runs SNMP
+                agent and you pull hosts "sysinfo" variables via SNMP
+                query. SNMP 'write' community currently is not used
+                but we may add features using it in the future.  SNMP
+                communities usually can not contain spaces. If your
+                host does not run SNMP agent, or you do not need to
+                pull host info using SNMP, then SNMP community strings
+                may be left blank.</para>
+
+              </listitem>
+              <listitem>
+                <para>Comment:</para>
+
+                <para>This is free-form text field which can be used to
               add comments.</para>
-            </listitem>
-          </itemizedlist>
+              </listitem>
+            </itemizedlist>
         </para>
 
-        <figure id="host-dialog2" float="1">
-          <title>Host Object System Information</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
+          <figure id="host-dialog2" float="1">
+            <title>Host Object System Information</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="host_dialog2.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-        <para>Tab "Sysinfo" holds data retrieved from the host via
-        SNMP query. There you can see strings that host returned for
-        standard SNMP MIB variables "Description", "Location" and
-        "Contact". These fields are read-only in the GUI.</para>
+          <para>Tab "Sysinfo" holds data retrieved from the host via
+          SNMP query. There you can see strings that host returned for
+          standard SNMP MIB variables "Description", "Location" and
+          "Contact". These fields are read-only in the GUI.</para>
 
+        </sect3>
       </sect2>
 
       <sect2 id="host-interface">
@@ -1307,182 +1369,229 @@
       <sect2>
         <title>Firewall Object</title>
 
-        <figure id="firewall-dialog-general" float="1">
-          <title>Firewall Object, tab 'General'</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="firewall_dialog_general.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
+        <sect3>
+          <title>Creating Firewall Object</title>
 
-        <para>Firewall Object represents firewall machine and is the
-        most complex object in Firewall Builder. Its dialog has the
-        following tabs: 'General', 'Sysinfo', 'Compile/Install',
-        'Firewall', 'Network'</para>
+          <para>Similarly for the creating of the Host Object,
+          creating of the new Firewall Object is aided by the
+          Druid. The first page of this Druid is represented on a
+          screenshot <xref linkend="creating-firewall1">. First of all
+          you need to specify the name for new firewall, then click
+          <guibutton>"Next"</guibutton>. This brings you to the next
+          page of the Druid (<xref linkend="creating-firewall2">).</para>
 
-        <para>
-          Tab <emphasis>General</emphasis> provides the following controls:
-        </para>
+          <figure id="creating-firewall1" float="1">
+            <title>First Page of the Druid</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="creating_firewall1.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-        <para>
-          <itemizedlist>
-            <listitem>
-              <para>Name:</para>
+          <figure id="creating-firewall2" float="1">
+            <title>Adding Interfaces to the new Firewall Object</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="creating_firewall2.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-              <para>This is the name of the object</para>
-            </listitem>
-            <listitem>
-              <para>Host OS:</para>
+          <para>This page is similar to that of the new Host object
+          druid page where you add interfaces. You enter name, address
+          and netmask of the interface in appropriate fields, then
+          click <guibutton>"Add"</guibutton>. Button
+          <guibutton>"Update"</guibutton> updates parameters of the
+          currently selected interface and button
+          <guibutton>"Delete"</guibutton> deletes it. Once all
+          interfaces are configured, click on
+          <guibutton>"Next"</guibutton> to create new firewall
+          object.</para>
 
-              <para>Modules that provide support for target OS and
-              firewall platforms are distributed separately from the
-              GUI and can be installed in a various combinations. This
-              pull-down menu provides choice of the host OS and is
-              dynamically updated depending on the combination of
-              installed modules. </para>
-            </listitem>
-            <listitem>
-              <para>Firewall platform:</para>
+          <note>
+            <para>You can always add, modify and delete
+            interfaces later using controls provided by the main
+            window and object tree view.</para>
+          </note>
 
-              <para>Like "Host OS" menu, this pull-down menu provides
-              choice of the target firewall platform and is
-              dynamically updated depending on a combination of
-              installed modules.</para>
-            </listitem>
-            <listitem>
-              <para>SNMP Communities:</para>
+        </sect3>
+        <sect3>
+          <title>Editing Firewall Object</title>
 
-              <para>SNMP community "read" is used to pull "sysinfo"
-              MIB variables from the firewall machine, provided it
-              runs SNMP agent. It is also used if you want to
-              automatically create interfaces for the firewall using
-              SNMP query. SNMP community "write" is not used at this
-              time.</para>
-            </listitem>
-            <listitem>
-              <para>Comment:</para>
+          <figure id="firewall-dialog-general" float="1">
+            <title>Firewall Object, tab 'General'</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="firewall_dialog_general.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-              <para>This is free-form text field used for comments</para>
-            </listitem>
-          </itemizedlist>
-        </para>
+          <para>Firewall Object represents firewall machine and is the
+          most complex object in Firewall Builder. Its dialog has the
+          following tabs: 'General', 'Sysinfo', 'Compile/Install',
+          'Firewall', 'Network'</para>
 
-        <figure id="firewall-dialog-sysinfo" float="1">
-          <title>Firewall Object, tab 'Sysinfo'</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="firewall_dialog_sysinfo.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
+          <para>Tab <emphasis>General</emphasis> provides the
+          following controls:</para>
 
-        <para>
-          This tab holds the following fields:
-        </para>
+          <para>
+            <itemizedlist>
+              <listitem>
+                <para>Name:</para>
 
-        <para>
+                <para>This is the name of the object</para>
+              </listitem>
+              <listitem>
+                <para>Host OS:</para>
+
+                <para>Modules that provide support for target OS and
+                firewall platforms are distributed separately from the
+                GUI and can be installed in a various
+                combinations. This pull-down menu provides choice of
+                the host OS and is dynamically updated depending on
+                the combination of installed modules. </para>
+              </listitem>
+              <listitem>
+                <para>Firewall platform:</para>
+
+                <para>Like "Host OS" menu, this pull-down menu
+                provides choice of the target firewall platform and is
+                dynamically updated depending on a combination of
+                installed modules.</para>
+              </listitem>
+              <listitem>
+                <para>SNMP Communities:</para>
+
+                <para>SNMP community "read" is used to pull "sysinfo"
+                MIB variables from the firewall machine, provided it
+                runs SNMP agent. It is also used if you want to
+                automatically create interfaces for the firewall using
+                SNMP query. SNMP community "write" is not used at this
+                time.</para>
+              </listitem>
+              <listitem>
+                <para>Comment:</para>
+
+                <para>This is free-form text field used for comments</para>
+              </listitem>
+            </itemizedlist>
+          </para>
+
+          <figure id="firewall-dialog-sysinfo" float="1">
+            <title>Firewall Object, tab 'Sysinfo'</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="firewall_dialog_sysinfo.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>This tab holds the following fields:</para>
+
+          <para>
            <itemizedlist>
-            <listitem><para>Description:</para></listitem>
-            <listitem><para>Location:</para></listitem>
-            <listitem><para>Contact:</para></listitem>
-          </itemizedlist>
-        </para>
+              <listitem><para>Description:</para></listitem>
+              <listitem><para>Location:</para></listitem>
+              <listitem><para>Contact:</para></listitem>
+            </itemizedlist>
+          </para>
 
-        <para>These fields present values of corresponding MIB
-        variables.</para>
+          <para>These fields present values of corresponding MIB
+          variables.</para>
 
-        <figure id="firewall-dialog-compile" float="1">
-          <title>Firewall Object, tab 'Compile/Install'</title>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="firewall_dialog_compile.jpg" format="jpg" align="Left" scale="25">
-            </imageobject>
-          </mediaobject>
-        </figure>
+          <figure id="firewall-dialog-compile" float="1">
+            <title>Firewall Object, tab 'Compile/Install'</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="firewall_dialog_compile.jpg" format="jpg" align="Left" scale="25">
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-        <para>
-          This tab holds the following fields:
-        </para>
+          <para>This tab holds the following fields:</para>
 
-        <para>
-          <itemizedlist>
-            <listitem>
-              <para>Compiler:</para>
+          <para>
+            <itemizedlist>
+              <listitem>
+                <para>Compiler:</para>
 
-              <para>The full directory path and file name for the
-              policy compiler program that the GUI invokes when you
-              use main menu item
-              <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Compile"</guimenuitem>. If
-              this field is left blank, then the GUI calls default
-              policy compiler program which is preconfigured for the
-              firewall platform chosen in the tab 'General'. Use this
-              field if you use non-standard policy compiler, or if you
-              use wrapper script which calls policy compiler.</para>
-            </listitem>
-            <listitem>
-              <para>Command line parameters for compiler:</para>
+                <para>The full directory path and file name for the
+                policy compiler program that the GUI invokes when you
+                use main menu item
+                <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Compile"</guimenuitem>. If
+                this field is left blank, then the GUI calls default
+                policy compiler program which is preconfigured for the
+                firewall platform chosen in the tab 'General'. Use
+                this field if you use non-standard policy compiler, or
+                if you use wrapper script which calls policy
+                compiler.</para>
+              </listitem>
+              <listitem>
+                <para>Command line parameters for compiler:</para>
 
-              <para>This is where you can specify command line
-              parameters for the policy compiler. Normally the GUI
-              supplies minimal necessary set of options, such as "-f"
-              for the data file name and "-d" for the working
-              directory. You may want to add "-v" here to turn on
-              verbose output of the policy compiler. See man page for
-              the corresponding policy compiler for the complete set
-              of supported command line options.
+                <para>This is where you can specify command line
+                parameters for the policy compiler. Normally the GUI
+                supplies minimal necessary set of options, such as
+                "-f" for the data file name and "-d" for the working
+                directory. You may want to add "-v" here to turn on
+                verbose output of the policy compiler. See man page
+                for the corresponding policy compiler for the complete
+                set of supported command line options.
               </para>
-            </listitem>
-            <listitem>
-              <para>Installer: install script</para>
+              </listitem>
+              <listitem>
+                <para>Installer: install script</para>
 
-              <para>In the future there will be two ways to install
-              and activate policy on the firewall machine: using
-              install script or fwbd daemon. The daemon is not
-              supported yet, so install script is the only method
-              available at this time. The GUI calls install script
-              when you use main menu item
-              <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Install"</guimenuitem></para>
-            </listitem>
-            <listitem>
-              <para>Istaller: fwbd daemon:</para>
+                <para>In the future there will be two ways to install
+                and activate policy on the firewall machine: using
+                install script or fwbd daemon. The daemon is not
+                supported yet, so install script is the only method
+                available at this time. The GUI calls install script
+                when you use main menu item
+                <guimenuitem>"Rules"</guimenuitem>/<guimenuitem>"Install"</guimenuitem></para>
+              </listitem>
+              <listitem>
+                <para>Istaller: fwbd daemon:</para>
 
-              <para><emphasis>Not supported</emphasis></para>
-            </listitem>
-            <listitem>
-              <para>Policy install script:</para>
+                <para><emphasis>Not supported</emphasis></para>
+              </listitem>
+              <listitem>
+                <para>Policy install script:</para>
 
-              <para>The full directory path and file name for the
-              install script.</para>
-            </listitem>
-            <listitem>
-              <para>Command line parameters for the script:</para>
+                <para>The full directory path and file name for the
+                install script.</para>
+              </listitem>
+              <listitem>
+                <para>Command line parameters for the script:</para>
 
-              <para>This is where you specify command line parameters
-              for the install script. Normally GUI supplies two
-              command line paremeters for the script: "-f" for the
-              data file name and "-d" for the working directory. You
-              can add more parameters in this entry field if your
-              script supports them.</para>
-            </listitem>
-            <listitem>
-              <para>Options for fwbd:</para> 
+                <para>This is where you specify command line
+                parameters for the install script. Normally GUI
+                supplies two command line paremeters for the script:
+                "-f" for the data file name and "-d" for the working
+                directory. You can add more parameters in this entry
+                field if your script supports them.</para>
+              </listitem>
+              <listitem>
+                <para>Options for fwbd:</para> 
 
-              <para>Since current version of Firewall Builder does not
-              come with fwbd and does not support it yet, these
-              options are reserved for future use.</para>
-            </listitem>
-          </itemizedlist>
+                <para>Since current version of Firewall Builder does
+                not come with fwbd and does not support it yet, these
+                options are reserved for future use.</para>
+              </listitem>
+            </itemizedlist>
+          </para>
+
+          <para>Tabs <emphasis>'Firewall'</emphasis> and
+          <emphasis>'Network'</emphasis> provide fields specific to
+          the chosen firewall platform and host OS configurations. See
+          <xref linkend="tab-firewall"> for the description of the
+          dialogs for all supported firewall platforms and <xref
+          linkend="tab-network"> for the description of the dialogs
+          for supported target host OS.
         </para>
-
-        <para>Tabs <emphasis>'Firewall'</emphasis> and
-        <emphasis>'Network'</emphasis> provide fields specific to the
-        chosen firewall platform and host OS configurations. See <xref
-        linkend="tab-firewall"> for the description of the dialogs for
-        all supported firewall platforms and <xref
-        linkend="tab-network"> for the description of the dialogs for
-        supported target host OS.
-        </para>
+        </sect3>
       </sect2>
 
       <sect2>
