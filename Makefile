@@ -1,6 +1,9 @@
-# $Id: Makefile,v 1.2 2002-09-02 05:30:32 vadim Exp $
+# $Id: Makefile,v 1.3 2002-09-13 17:52:50 vadim Exp $
 
 
+.PHONY: all html pdf
+
+.PHONY:  html/index.html pdf/Using.pdf
 
 all:  html  pdf
 
@@ -16,7 +19,7 @@ html/index.html:   Using.sgml Using-html.dsl
 	mkdir -p html
 	cp *.jpg html/
 	cp *.css html/
-	db2html -d `pwd`/Using-html.dsl -o html Using.sgml
+	docbook2html -d `pwd`/Using-html.dsl -o html Using.sgml
 
 
 
@@ -26,6 +29,6 @@ pdf/Using.pdf: Using.sgml
 	rm -rf pdf
 	mkdir -p pdf
 	cp *.jpg pdf/
-	db2pdf -d `pwd`/Using-pdf.dsl -o pdf Using.sgml
+	docbook2pdf -d `pwd`/Using-pdf.dsl -o pdf Using.sgml
 
 

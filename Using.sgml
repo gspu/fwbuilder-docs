@@ -23,6 +23,7 @@
       <firstname>Vadim</firstname>
       <surname>Kurland</surname>
       <affiliation>
+        <orgname>NetCitadel LLC</orgname>
         <address><email>vadim@fwbuilder.org</email></address>
       </affiliation>
     </author>
@@ -62,7 +63,7 @@
 
       <para>Firewall Builder provides:</para>
 
-      <para><itemizedlist>
+      <para><itemizedlist spacing="compact">
           <listitem>
             <para>Over 100 predefined objects for most popular and
             widely used protocols and services</para>
@@ -163,7 +164,7 @@
        on the following OS and distributions:
       </para>
 
-      <para><itemizedlist>
+      <para><itemizedlist spacing="compact">
         <listitem>
           <para>RedHat Linux 7.2 and 7.3</para>
         </listitem>
@@ -188,7 +189,7 @@
        Firewall Builder comes in a several packages:
       </para>
 
-      <para><itemizedlist>
+      <para><itemizedlist spacing="compact">
         <listitem>
           <para>Firewall Builder <emphasis>API library</emphasis>: package "libfwbuilder"</para>
         </listitem>
@@ -241,7 +242,7 @@
       the list:</para>
 
       <para>
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>libstdc++ version 2.9 or newer</para>
           </listitem>
@@ -335,7 +336,7 @@
       </para>
 
       <para>
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>gtkmm-1.2.8-1</para>
             <para> ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/</para>
@@ -394,7 +395,7 @@
       </para>
 
       <para>
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>libglib1.2-1.2.10</para>
           </listitem>
@@ -467,14 +468,16 @@
       <para>Drag and drop and Copy/Paste operations work across
       different windows.</para>
 
-      <figure id="main-win1" float="1">
-        <title>Main window</title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="25">
-          </imageobject>
-        </mediaobject>
-      </figure>
+      <para>
+      <figure id="main-win1">
+          <title>Main window</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="main_win1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </para>
 
     </sect1>
 
@@ -489,7 +492,7 @@
       Options dialog is represented on <xref linkend="options1">.
       </para>
 
-      <figure id="options1" float="1">
+      <figure id="options1" float="0" pgwide="1">
         <title>GUI Options Dialog</title>
         <mediaobject>
           <imageobject>
@@ -500,11 +503,11 @@
 
 
       <para>
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para><guimenuitem>General/Paths</guimenuitem></para>
 
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>Working directory:</para>
 
@@ -522,7 +525,7 @@
           <listitem>
             <para><guimenuitem>Network</guimenuitem></para>
 
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>SNMP Timeout and Retries</para>
 
@@ -547,7 +550,7 @@
           <listitem>
             <para><guimenuitem>GUI</guimenuitem></para>
 
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>Remember window size at exit</para>
 
@@ -584,7 +587,7 @@
            </para>
 
             <para>
-              <itemizedlist>
+              <itemizedlist spacing="compact">
                 <listitem><para>Off</para></listitem>
                 <listitem><para>Show properties in a tooltip pop-up window</para></listitem>
                 <listitem><para>Show properties on a main window's status bar</para></listitem>
@@ -601,7 +604,7 @@
             <para><guimenuitem>GUI / Behavior</guimenuitem></para>
             <anchor id="gui-behavior">
 
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>Automatically save data in dialogs while
                 switching between objects</para>
@@ -632,7 +635,7 @@
             objects either in one large tree, or in a separate tree
             for each library.</para>
 
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>Show object libraries in separate trees</para>
 
@@ -806,7 +809,7 @@
         provides items for the following functions (<xref linkend="popup-menu-insert">):</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Duplicate:</para>
 
@@ -1034,7 +1037,7 @@
           <para>Tab "General" provides GUI controls for the following parameters:</para>
 
           <para>
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>Name:</para>
 
@@ -1109,7 +1112,7 @@
         following parameters:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Name</para>
 
@@ -1183,7 +1186,7 @@
         its dialog provides the following entry fields:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Name</para>
 
@@ -1234,7 +1237,7 @@
         dialog provides the following entry fields:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Name:</para>
 
@@ -1282,7 +1285,7 @@
         addresses; its dialog provides the following entry fields:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Name:</para>
 
@@ -1329,7 +1332,7 @@
         </para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Using drag and drop:</para>
 
@@ -1437,7 +1440,7 @@
           following controls:</para>
 
           <para>
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>Name:</para>
 
@@ -1491,7 +1494,7 @@
           <para>This tab holds the following fields:</para>
 
           <para>
-           <itemizedlist>
+           <itemizedlist spacing="compact">
               <listitem><para>Description:</para></listitem>
               <listitem><para>Location:</para></listitem>
               <listitem><para>Contact:</para></listitem>
@@ -1513,7 +1516,7 @@
           <para>This tab holds the following fields:</para>
 
           <para>
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>Compiler:</para>
 
@@ -1816,7 +1819,7 @@
         following rule elements:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem><para>Original Source</para>
 
               <para>This is the object which the source address of
@@ -1884,7 +1887,7 @@
         following:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Rule #0:</para>
 
@@ -2030,7 +2033,7 @@
           <para>This menu provides items for the following functions:</para>
 
           <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
               <listitem>
                 <para>Edit:</para>
 
@@ -2089,7 +2092,7 @@
 
           <para>This menu provides items for the following functions:</para>
 
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Accept:</para>
 
@@ -2129,7 +2132,7 @@
 
           <para>This menu provides items for the following functions:</para>
 
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Inbound:</para>
 
@@ -2167,7 +2170,7 @@
 
           <para>This menu provides items for the following functions:</para>
 
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Modify Options:</para>
 
@@ -2327,7 +2330,7 @@
       of objects:</para>
 
       <para>
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem><para>Reading file /etc/hosts</para></listitem>
           <listitem><para>Import of DNS zone</para></listitem>
           <listitem><para>Network discovery using SNMP queries</para></listitem>
@@ -2405,7 +2408,7 @@
         <para>This page of the Druid also has following buttons:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para><guibutton>"Select All"</guibutton></para>
 
@@ -2601,7 +2604,7 @@
         linkend="discovery-snmp-options2">). Here is the list:</para>
 
         <para>
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>Run network scan recursively</para>
 
@@ -2634,7 +2637,8 @@
               addresses and tries to create objects for them.</para>
             </listitem>
             <listitem>
-              <para>Run reverse name lookup queries to determine host names</para>
+              <para>Run reverse name lookup queries to determine host
+              names</para>
 
               <para>If host discovered by crawler answers SNMP
               queries, then it will report is name, which crawler will
@@ -2709,13 +2713,251 @@
       <sect2>
         <title>IP Service</title>
 
-        <para></para>
+        <para>The simple IP service object is represented on
+        screenshot <xref linkend="ip-service-dialog1">. Firewall
+        Builder provides standard object types for well-known and
+        frequently used protocols such as ICMP (IP protocol number 1),
+        TCP (IP protocol number 6) and UDP (IP protocol number 17). IP
+        service object helps describe other protocols which are
+        neither ICMP nor TCP nor UDP. Protocol is defined by the 8-bit
+        field in the IP packet header. Screenshot <xref
+        linkend="ip-service-dialog1"> represents object 'ESP'
+        (Encapsulating Security Payload, part of IPSEC protocol
+        family) which uses IP protocol number 50. Protocols numbers
+        are assigned by IANA; one can look up the number for
+        particular protocol at the following URL:
+        http://www.iana.org/assignments/protocol-numbers/</para>
+
+        <para>Besides protocol number, header of the IP packet has
+        also a field called "options" which is variable-length list of
+        optional information for the packet. Not all firewalls can
+        examine options, and those that can usually have certain
+        limitations as of what options they can match
+        against. Firewall Builder tries to provide controls for many
+        popular options, supported by most sophisticated
+        firewalls. Not all options supported by Firewall Builder are
+        supported by all target firewall platforms (<xref
+        linkend="support-for-ip-options">).</para>
+
+        <para>IP packets sometimes may become fragmented. This happens
+        if original datagram was larger than what a physical network
+        layer can transmit. IP packet header has special fields
+        (called Flags and Fragmentation Offset) which help detect
+        fragmented packets and reassembly them. Many firewalls can
+        check these bits as well. Certain combinations of flags and
+        fragmentation offset can never happen during normal operation
+        but were seen to be used by attackers. Firewall Builder
+        provides two options for most commonly used cases related to
+        packet fragmentation: option 'all fragments' matches the
+        second and further fragments, while option 'short' is used to
+        match packets that are too short to contain even complete IP
+        header.</para>
+
+        <para>Standard IP Service objects that come with Firewall
+        Builder appear in the tree "Standard", in the branch
+        <guimenuitem>Services/IP</guimenuitem>.</para>
+
+        <table id="support-for-ip-options">
+          <title>Support for IP options and fragmentation on various firewall platforms</title>
+          <tgroup cols="7">
+            <colspec                 align="center">
+            <colspec colwidth="64pt" align="center">
+            <colspec colwidth="64pt" align="center">
+            <colspec colwidth="64pt" align="center">
+            <colspec                 align="center">
+            <colspec                 align="center">
+            <colspec                 align="center">
+            <thead>
+              <row>
+                <entry>Firewall</entry>
+                <entry>  lsrr   </entry>
+                <entry>  ssrr   </entry>
+                <entry>   rr    </entry>
+                <entry>timestamp</entry>
+                <entry>all fragments</entry>
+                <entry>'short' packets</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>iptables</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>-</entry>
+              </row>
+              <row>
+                <entry>ipfilter</entry>
+                <entry>-</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+                <entry>+</entry>
+              </row>
+              <row>
+                <entry>pf</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+              </row>
+              <row>
+                <entry>Cisco PIX</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+                <entry>-</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
+        <figure id="ip-service-dialog1" float="1">
+          <title>Editing IP Service Object</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="ip_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+
+        <para>IP Service dialog provides the following controls: </para>
+
+        <para>
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Name:</para>
+
+              <para>This is the name of the object</para>
+            </listitem>
+
+            <listitem>
+              <para>Protocol:</para>
+
+              <para>This is protocol number. </para>
+            </listitem>
+
+            <listitem>
+              <para>Options:</para>
+
+              <para>These flags represent IP header 'Options' flags:</para>
+
+              <para>
+                <simplelist>
+                  <member>lsrr (loose source route)</member>
+                  <member>ssrr (strict source route)</member>
+                  <member>rr (record route)</member>
+                  <member>timestamp</member>
+                  <member>all fragments</member>
+                  <member>short packet</member>
+                </simplelist>
+              </para>
+            </listitem>
+            <listitem>
+              <para>Comments:</para>
+
+              <para>This os free-style text field used for comments.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
       </sect2>
 
       <sect2>
         <title>ICMP Service</title>
 
-        <para></para>
+        <para>ICMP Service object is a generalized representation of
+        ICMP protocol. ICMP packets are often used to communicate
+        error messages which are acted upon by either IP layer or
+        higher layer protocols (TCP or UDP). ICMP can also be used as
+        a simple query protocol.  Firewall administrator needs to
+        understand the nature and purpose of ICMP in order to properly
+        configure firewall to block unwanted and permit useful ICMP
+        messages. ICMP packets have two header fields that distibguish
+        particular ICMP messages: the <emphasis>"type"</emphasis> and
+        <emphasis>"code"</emphasis> fields. There can be 15 different
+        ICMP types, each of which may use different values for its
+        <emphasis>"code"</emphasis> field to further specify the
+        condition. Firewall Builder provides dialog with built-in list
+        of all possible ICMP types and corresponding codes which helps
+        administrator to pick appropriate one without having to look
+        up these numbers in the book (<xref
+        linkend="icmp-service-dialog1">). Standard ICMP Service
+        objects that come with Firewall Builder appear in the tree
+        "Standard", in the branch <guimenuitem>Services/ICMP</guimenuitem>.
+        </para>
+
+        <figure id="icmp-service-dialog1" float="1">
+          <title>Editing ICMP Service Object</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="icmp_service_dialog1.jpg" format="jpg" align="Left" scale="25">
+            </imageobject>
+          </mediaobject>
+        </figure>      
+
+        <para>ICMP Service dialog provides the following controls:</para>
+
+        <para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Name:</para>
+              <para>This is the name of the object.</para>
+            </listitem>
+            <listitem>
+              <para>ICMP Type and Code:</para>
+
+              <itemizedlist spacing="compact">
+                <listitem>
+                  <para>Type:</para>
+
+                  <para>ICMP message type. This control consists of
+                  two widgets: numeric field and pull-down menu that
+                  represent list of possible types and their
+                  names. You can choose type either by number (using
+                  the numeric entry field) or by its description
+                  (using the pull-down menu).</para>
+                </listitem>
+
+                <listitem>
+                  <para>Code:</para>
+
+                  <para>ICMP message code. Just like the above, this
+                  control consists of two widgets: numeric field and
+                  pull-down menu that represent list of possible codes
+                  and their names. This menu changes when you choose
+                  different ICMP type since different types use
+                  different codes. You can choose code either by
+                  number (using the numeric entry field) or by its
+                  description (using the pull-down menu).</para>
+                </listitem>
+
+                <listitem>
+                  <para>Checkbox <guibutton>'Any Type'</guibutton></para>
+
+                  <para>Check this if you wish to create an object
+                  that would match with any ICMP type and code.</para>
+                </listitem>
+              </itemizedlist>
+
+            </listitem>
+
+            <listitem>
+              <para>Comment:</para>
+
+              <para>This is free-style text field used for comments.</para>
+            </listitem>
+          </itemizedlist>
+
+        </para>
       </sect2>
 
       <sect2>

@@ -1,6 +1,12 @@
 <!DOCTYPE style-sheet PUBLIC "-//James Clark//DTD DSSSL Style Sheet//EN" [
-<!ENTITY docbook.dsl PUBLIC "-//Norman Walsh//DOCUMENT DocBook Print Stylesheet//EN" CDATA DSSSL>
+<!ENTITY dbstyle SYSTEM "/usr/share/sgml/docbook/utils-0.6.9/docbook-utils.dsl" CDATA DSSSL>
 ]>
+
+<!--
+<!ENTITY dbstyle PUBLIC "-//Norman Walsh//DOCUMENT DocBook Print Stylesheet//EN" CDATA DSSSL>
+<!ENTITY docbook.dsl PUBLIC "-//Norman Walsh//DOCUMENT DocBook Print Stylesheet//EN" CDATA DSSSL>
+<!ENTITY dbstyle SYSTEM "/usr/share/sgml/docbook/utils-0.6.9/docbook-utils.dsl" CDATA DSSSL>
+-->
 
 <!--
 
@@ -23,17 +29,17 @@
 ;; customize the print stylesheet
 
 (define %visual-acuity% "tiny")
-(define %left-margin%   3pi)
+(define %left-margin%   4pi)
 (define %right-margin%  3pi)
-(define %top-margin%    3pi)
-(define %bottom-margin% 3pi)
-<!-- (define %paper-type% "A5") -->
+<!-- (define %top-margin%    3pi) -->
+<!-- (define %bottom-margin% 3pi) -->
+<!-- (define %paper-type% "A5")   -->
 
 
 </style-specification-body>
 </style-specification>
 
-<external-specification id="docbook" document="docbook.dsl">
+<external-specification id="docbook" document="dbstyle">
 
 </style-sheet>
 
