@@ -106,6 +106,19 @@
           <Option name="use_mac_addr_filter">True</Option>
         </HostOptions>
       </Host>
+      <Host id="id3E8F933C" name="server">
+        <Interface dyn="False" id="id3E8F933E" name="interface1" security_level="0" unnum="False">
+          <IPv4 address="10.3.14.10" id="id3E8F933F" name="server:interface1(ip)" netmask="255.255.255.255"/>
+        </Interface>
+        <Management address="0.0.0.0">
+          <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
+          <FWBDManagement enabled="False" identity="" port="-1"/>
+          <PolicyInstallScript arguments="" command="" enabled="False"/>
+        </Management>
+        <HostOptions>
+          <Option name="use_mac_addr">false</Option>
+        </HostOptions>
+      </Host>
     </ObjectGroup>
     <ObjectGroup id="stdid03" library="Standard" name="Networks">
       <Network comment="" id="id3D387B60" name="internal-net" address="10.3.14.0" netmask="255.255.255.0"/>
@@ -1281,19 +1294,19 @@ clock timezone PDT -7
       <NAT id="id3E8F8E69">
         <NATRule disabled="False" id="id3E8F8EA2" position="0">
           <OSrc neg="False">
-            <ObjectRef ref="id3D387B60"/>
+            <ObjectRef ref="sysid0"/>
           </OSrc>
           <ODst neg="False">
-            <ObjectRef ref="sysid0"/>
+            <ObjectRef ref="id3E8F8E68"/>
           </ODst>
           <OSrv neg="False">
             <ServiceRef ref="sysid1"/>
           </OSrv>
           <TSrc neg="False">
-            <ObjectRef ref="id3E8F8E68"/>
+            <ObjectRef ref="sysid0"/>
           </TSrc>
           <TDst neg="False">
-            <ObjectRef ref="sysid0"/>
+            <ObjectRef ref="id3E8F933C"/>
           </TDst>
           <TSrv neg="False">
             <ServiceRef ref="sysid1"/>
@@ -1480,7 +1493,7 @@ clock timezone PDT -7
           </PolicyRuleOptions>
         </PolicyRule>
       </Policy>
-      <Interface comment="" dyn="False" id="id3E8F8F36" label="" mgmt="False" name="eth0" network_zone="sysid0" security_level="0" unnum="False">
+      <Interface comment="" dyn="False" id="id3E8F8F36" label="" mgmt="False" name="eth1" network_zone="sysid0" security_level="0" unnum="False">
         <IPv4 address="192.0.2.22" comment="" id="id3E8F8F37" name="address" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3E8F8F38">
           <PolicyRule action="Deny" comment="Anti-spoofing rule" direction="Inbound" disabled="False" id="id3E8F8F39" log="True" position="0">
@@ -1523,7 +1536,7 @@ clock timezone PDT -7
           </PolicyRule>
         </InterfacePolicy>
       </Interface>
-      <Interface comment="" dyn="False" id="id3E8F8F51" label="" mgmt="True" name="eth1" network_zone="id3D387B60" security_level="100" unnum="False">
+      <Interface comment="" dyn="False" id="id3E8F8F51" label="" mgmt="True" name="eth0" network_zone="id3D387B60" security_level="100" unnum="False">
         <IPv4 address="10.3.14.1" comment="" id="id3E8F8F52" name="address" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3E8F8F53"/>
       </Interface>
