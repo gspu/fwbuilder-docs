@@ -781,7 +781,7 @@
     </Firewall>
     <Firewall comment="" host_OS="linux24" id="id3B8492D6" name="fw2" platform="iptables">
       <NAT id="id3B84930B">
-        <NATRule disabled="False" id="id3B84931C" position="0">
+        <NATRule comment="" disabled="False" id="id3E3DF6D9" position="0">
           <OSrc neg="False">
             <ObjectRef ref="id3B7D941A"/>
           </OSrc>
@@ -789,37 +789,16 @@
             <ObjectRef ref="sysid0"/>
           </ODst>
           <OSrv neg="False">
-            <ServiceRef ref="sysid1"/>
-          </OSrv>
-          <TSrc neg="False">
-            <ObjectRef ref="id3B8492D6"/>
-          </TSrc>
-          <TDst neg="False">
-            <ObjectRef ref="sysid0"/>
-          </TDst>
-          <TSrv neg="False">
-            <ServiceRef ref="sysid1"/>
-          </TSrv>
-          <NATRuleOptions/>
-        </NATRule>
-        <NATRule disabled="False" id="id3E3C593D" position="1">
-          <OSrc neg="False">
-            <ObjectRef ref="sysid0"/>
-          </OSrc>
-          <ODst neg="False">
-            <ObjectRef ref="id3B8492D6"/>
-          </ODst>
-          <OSrv neg="False">
-            <ServiceRef ref="sysid1"/>
+            <ServiceRef ref="tcp-HTTP"/>
           </OSrv>
           <TSrc neg="False">
             <ObjectRef ref="sysid0"/>
           </TSrc>
           <TDst neg="False">
-            <ObjectRef ref="id3B78A1B6"/>
+            <ObjectRef ref="id3B8492D6"/>
           </TDst>
           <TSrv neg="False">
-            <ServiceRef ref="sysid1"/>
+            <ServiceRef ref="id3B4FF09A"/>
           </TSrv>
           <NATRuleOptions/>
         </NATRule>
@@ -906,12 +885,9 @@
         <InterfacePolicy id="id3B84932C"/>
       </Interface>
       <Interface dyn="False" id="id3B84932D" name="eth1" security_level="0" unnum="False">
-        <IPv4 address="222.222.222.22" id="id3B84932D-ipv4" name="firewall_with_dmz_2" netmask="255.255.255.0"/>
+        <IPv4 address="192.0.2.22" comment="" id="id3B84932D-ipv4" name="fw2:eth1(ip1)" netmask="255.255.255.0"/>
+        <IPv4 address="192.0.2.44" comment="" id="id3E3DEBBB" name="fw2:eth1(ip2)" netmask="255.255.255.0"/>
         <InterfacePolicy id="id3B84932E"/>
-      </Interface>
-      <Interface dyn="False" id="id3B84932F" name="eth2" security_level="0" unnum="False">
-        <IPv4 address="222.222.111.11" comment="" id="id3B84932F-ipv4" name="eth2(IPv4)" netmask="255.255.255.0"/>
-        <InterfacePolicy id="id3B849330"/>
       </Interface>
       <Management address="222.222.111.11">
         <SNMPManagement enabled="False" snmp_read_community="public" snmp_write_community=""/>
@@ -1889,7 +1865,7 @@
             <ObjectRef ref="sysid0"/>
           </OSrc>
           <ODst neg="False">
-            <ObjectRef ref="id3B84932F"/>
+            <ObjectRef ref="sysid0"/>
           </ODst>
           <OSrv neg="False">
             <ServiceRef ref="sysid1"/>
@@ -2098,19 +2074,19 @@
             <ObjectRef ref="sysid0"/>
           </OSrc>
           <ODst neg="False">
-            <ObjectRef ref="id3E3C5B7D"/>
+            <ObjectRef ref="id3E3C5BD1"/>
           </ODst>
           <OSrv neg="False">
-            <ServiceRef ref="sysid1"/>
+            <ServiceRef ref="tcp-HTTP"/>
           </OSrv>
           <TSrc neg="False">
             <ObjectRef ref="sysid0"/>
           </TSrc>
           <TDst neg="False">
-            <ObjectRef ref="id3B78A1B6"/>
+            <ObjectRef ref="id3B83D740"/>
           </TDst>
           <TSrv neg="False">
-            <ServiceRef ref="sysid1"/>
+            <ServiceRef ref="id3B83D7B6"/>
           </TSrv>
           <NATRuleOptions/>
         </NATRule>
@@ -2137,15 +2113,15 @@
         </NATRule>
       </NAT>
       <Policy id="id3E3C5B9B">
-        <PolicyRule action="Deny" disabled="False" id="id3E3C5B9C" log="True" position="0">
+        <PolicyRule action="Accept" disabled="False" id="id3E3C5B9C" log="False" position="0">
           <Src neg="False">
             <ObjectRef ref="sysid0"/>
           </Src>
           <Dst neg="False">
-            <ObjectRef ref="id3B8495C3"/>
+            <ObjectRef ref="id3B83D740"/>
           </Dst>
           <Srv neg="False">
-            <ServiceRef ref="tcp-SMTP"/>
+            <ServiceRef ref="id3B83D7B6"/>
           </Srv>
           <When neg="False">
             <IntervalRef ref="sysid2"/>

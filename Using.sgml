@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.54 $  $Date: 2003-02-02 08:17:15 $</edition>
+    <edition>$Revision: 1.55 $  $Date: 2003-02-03 05:16:04 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -529,7 +529,7 @@
     </sect1>
 
 
-    <sect1>
+    <sect1 id="creating-objects">
       <title>Creating Objects</title>
 
       <para>New objects can be created using the main menu
@@ -1070,7 +1070,7 @@
 
     </sect1>
 
-    <sect1>
+    <sect1 id="address-object">
       <title>The Address Object</title>
 
       <figure id="address1" float="1">
@@ -1919,6 +1919,12 @@
 
       </sect2>
     </sect1>
+
+  </chapter>
+
+  <chapter>
+    <title>Firewall Policies</title>
+
 
     <sect1 id="policies-and-rules">
       <title>Policies and Rules</title>
@@ -3446,7 +3452,7 @@ PIX                  always             no             policy, NAT
         </para>
     </sect1>
 
-    <sect1>
+    <sect1 id="tcp-service">
       <title>TCP Service</title>
 
       <para>TCP Service object is a generalization of TCP protocol
@@ -3903,7 +3909,7 @@ PIX                  always             no             policy, NAT
 	  <title>Example of a rule permitting only certain protocols to the server and blocking everything else. </title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-1.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-1.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[]</phrase>
@@ -4020,7 +4026,7 @@ PIX                  always             no             policy, NAT
 	  <title>Example of a rule using object group. </title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-1-1.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-1-1.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[]</phrase>
@@ -4064,7 +4070,7 @@ PIX                  always             no             policy, NAT
 	  <title>IP Service object which represents fragmented packets.</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-2.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-2.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[IP Service object which represents fragmented packets]</phrase>
@@ -4111,7 +4117,7 @@ PIX                  always             no             policy, NAT
 	  <title>Rule options dialog for iptables firewall</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-3.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-3.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Rule options dialog for iptables firewall]</phrase>
@@ -4132,7 +4138,7 @@ PIX                  always             no             policy, NAT
 	  <title>Rule blocking all fragmented packets and TCP "christmas tree" packets</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-4.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-4.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Rule blocking all fragmented packets and TCP "christmas tree" packets]</phrase>
@@ -4205,7 +4211,7 @@ PIX                  always             no             policy, NAT
 	  <title>Anti-spoofing rule</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-5.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-5.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Anti-spoofing rule]</phrase>
@@ -4323,7 +4329,7 @@ PIX                  always             no             policy, NAT
 	  <title>Using action "Reject" with rule option</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-6.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-6.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Using action "Reject" with rule option]</phrase>
@@ -4337,7 +4343,7 @@ PIX                  always             no             policy, NAT
 	  <title>Adding rule option to make send TCP RST packet</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-7.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-7.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Adding rule option to make send TCP RST packet]</phrase>
@@ -4381,7 +4387,7 @@ PIX                  always             no             policy, NAT
 	    access to the Internet</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-8.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-8.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Using two rules to block access from DMZ to internal net and permit
@@ -4412,7 +4418,7 @@ PIX                  always             no             policy, NAT
 	net and permit access to the Internet</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="policy-9.png" format="png" align="left" scale="40">
+	      <imagedata fileref="policy-9.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Using rule with negation to block access from DMZ to internal
@@ -4486,7 +4492,7 @@ PIX                  always             no             policy, NAT
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="nat-1.png" 
-                  format="png" align="left" scale="40">
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Masquerading rule (part of NAT ruleset)]</phrase>
@@ -4537,7 +4543,7 @@ PIX                  always             no             policy, NAT
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="nat-1-1.png"
-                  format="png" align="left" scale="40">
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase></phrase>
@@ -4565,7 +4571,7 @@ PIX                  always             no             policy, NAT
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="nat-1-2.png"
-                  format="png" align="left" scale="40">
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase></phrase>
@@ -4605,7 +4611,7 @@ PIX                  always             no             policy, NAT
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="nat-2.png"
-                  format="png" align="left" scale="40">
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Rule #3 permits connections from internal network to the Internet
@@ -4640,7 +4646,7 @@ PIX                  always             no             policy, NAT
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="nat-3.png"
-                  format="png" align="left" scale="40">
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[NAT rule for the server behind the firewall]</phrase>
@@ -4680,7 +4686,7 @@ PIX                  always             no             policy, NAT
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="nat-3-1.png"
-                  format="png" align="left" scale="40">
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase></phrase>
@@ -4692,13 +4698,14 @@ PIX                  always             no             policy, NAT
 
       <para>
         This may not be desired effect in certain configurations
-        though. One such case is when the second insecure interface of
-        the firewall is connected to DMZ subnet using private
-        addresses. The translation is not necessary for the packets
-        going from DMZ to internal net and we avoid it by using
-        firewall's external interface <emphasis>"eth1"</emphasis>
-        instead of the firewall's object in the NAT rule as shown in
-        <xref linkend="f-nat-3-2">.
+        though. One such case is when the second insecure
+        interface<emphasis>"eth2"</emphasis> of the firewall is
+        connected to a DMZ subnet using private addresses. The
+        translation is not necessary for the packets going from DMZ to
+        internal net and we avoid it by using firewall's external
+        interface <emphasis>"eth1"</emphasis> instead of the
+        firewall's object in the NAT rule #1 as shown in <xref
+        linkend="f-nat-3-2">.
       </para>
 
 
@@ -4708,7 +4715,7 @@ PIX                  always             no             policy, NAT
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="nat-3-2.png"
-                  format="png" align="left" scale="40">
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[NAT rule for the server behind the firewall]</phrase>
@@ -4730,7 +4737,7 @@ PIX                  always             no             policy, NAT
 	  <title>rule #0 permits access to the server (This rule is part of Global Policy)</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-4.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-4.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[rule #0 permits access to the server (This rule is part of Global Policy)]</phrase>
@@ -4739,16 +4746,14 @@ PIX                  always             no             policy, NAT
 	</figure>
       </para>
 
-      <para>
-	Configuration on <xref linkend="f-nat-3"> and <xref
-	linkend="f-nat-4"> can be combined with configuration on <xref
-	linkend="f-nat-1"> and <xref linkend="f-nat-2"> Such
-	combination illustrate a situation when machines on the local
-	network can go out to the Internet, and at the same time
-	server located on internal network can provide service for the
-	Internet users - all using single IP address of the firewall's
-	external interface! This configuration can be useful for those
-	with cable or DSL connection and single IP address.
+      <para> <xref linkend="f-nat-3-2"> also illustrates how
+      configuration <xref linkend="f-nat-3"> could be combined with
+      configuration <xref linkend="f-nat-1">. Such combination allows
+      machines on the local network to go out to the Internet, and at
+      the same time users on the Internet can access server located on
+      the internal network - all using single IP address of the
+      firewall's external interface! This configuration can be useful
+      for those with cable or DSL connection and single IP address.
       </para>
     </sect1>
 
@@ -4759,49 +4764,83 @@ PIX                  always             no             policy, NAT
       
       <para>
 	Those who have more than one IP address allocated by their ISP
-	may want to configure the firewall in a such way that extra
-	addresses be mapped to different servers inside their
-	network. This can be done using slightly different NAT rule.
+	may want to configure the firewall to map extra addresses to 
+	different servers inside their network. This can be done using
+	slightly different NAT rule.
       </para>
 
       <para>
-	First of all, we create additional "Host" object with IP
-	address which we are going to use for the translation. This
-	object can have any name, but for simplicity I call it
-	"hostA-nat" since it will be used to configure NAT rule for
-	hostA in our example. The rule which provides translation from
-	address "hostA-nat" to "hostA" is shown on <xref
-	linkend="f-nat-6">
+       First of all, we add virtual addresses to appropriate interface
+       of the firewall. See <xref linkend="creating-objects"> and
+       <xref linkend="address-object"> for an explanation on how
+       address can be added to the interface. Since our goal is to use
+       these additional IP addresses for NAT, we will add them to the
+       external interface of the firewall. <xref linkend="f-nat-5">
+       shows firewall <emphasis>fw2</emphasis> with external interface
+       <emphasis>eth1</emphasis> that has two IP addresses: 192.0.2.22
+       and 192.2.0.44. These two addresses are represented by
+       corresponding Address objects with names
+       <emphasis>fw2:eth1(ip1)</emphasis> and
+       <emphasis>fw2:eth1(ip2)</emphasis>. The choice of the name for
+       the Address object is completely up to administrator, although
+       we usually recommend our users choose descriptive names which
+       can be easily recognized when objects are used in the policy
+       and NAT rules.
       </para>
+
+      <note> 
+      <para>Firewall script created by Firewall Builder adds virtual
+      addresses created in the GUI to the real interfaces of the
+      firewall machine. This means that you do not need to configure
+      these virtual addresses in two places - in the configuration of
+      the firewall machine and in the GUI. Adding them in the GUI
+      should be sufficient. Should you need to remove a virtual
+      address, you just remove it in the GUI. It will be removed from
+      the interface on the firewall machine when you run regenerated
+      firewall script.  </para>
+
+      <para>Firewall Builder uses appopriate command line utilities to
+      add virtual addresses to interfaces depending on the OS the
+      firewall runs on. For example, for the firewall running on Linux
+      it uses <emphasis>/sbin/ip</emphasis> tool, while for the
+      firewall running on FreeBSD or OpenBSD it uses
+      <emphasis>ifconfig</emphasis>. Policy compilers that generate
+      firewall script are aware not only of the names of tools that
+      are available on the target OS, but also of the differences in
+      the command line syntax specific to that OS.</para>
+      </note>
+
 
       <para>
 	<figure id="f-nat-5">
-	  <title>Additional object used for "Original Destination" in the NAT rule</title>
+	  <title>Firewall has two IP addresses on its external interface eth1</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-5.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-5.png" 
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
-	      <phrase>[Additional object used for "Original Destination" in the NAT rule]</phrase>
+	      <phrase></phrase>
 	    </textobject>
 	  </mediaobject>
 	</figure>
       </para>
-
 
       <para>
-	<figure id="f-nat-6">
-	  <title>NAT rule for the server behind the firewall with different address used for access</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="nat-6.png" format="png" align="left" scale="40">
-	    </imageobject>
-	    <textobject>
-	      <phrase>[NAT rule for the server behind the firewall with different address used for access]</phrase>
-	    </textobject>
-	  </mediaobject>
-	</figure>
+        <xref linkend="f-nat-5"> also shows how different addresses
+        assigned to the firewall's external interface can be used for
+        different purposes. NAT rule #0 uses address 192.0.2.22
+        represented by the object <emphasis>fw2:eth1(ip1)</emphasis>
+        for masquerading translation for machines on internal network
+        trying to access services on the Internet. NAT rule #1 uses
+        address 192.0.2.44 represented by the object
+        <emphasis>fw2:eth1(ip2)</emphasis> to provide access to the
+        server <emphasis>hostA</emphasis>. These two NAT rules are
+        just like those explained in the previous two chapters, except
+        they use Address objects instead of the Firewall or Interface
+        objects.
       </para>
+
 
       <para>
 	Finally we need a Global Policy rule to permit connections to
@@ -4809,52 +4848,7 @@ PIX                  always             no             policy, NAT
 	case - see <xref linkend="f-nat-4">
       </para>
 
-      <para>
-	Using different address for translation requires additional
-	set up to be done on the firewall to ensure packets would
-	reach firewall while headed for that address. There are two
-	approaches to this problem:
-      </para>
-      
-      <para>
-	One way to do it is to basically take care of ARP requests
-	sent by the router in front of the firewall. This can be done
-	either by setting up static ARP entries on the router or on
-	the firewall, so the additional address we use for translation
-	will get mapped to the same MAC address of the firewall's
-	external interface.  Here are the commands we would need to
-	run on Linux firewall to map address 222.222.222.33 to the MAC
-	address of the interface eth1 and add appropriate routing
-	entry pointing to the internal interface eth0:
-      </para>
-
-      <programlisting>
-	route add 222.222.222.33 dev eth0
-	arp -Ds 222.222.222.33 eth1 pub
-      </programlisting>
-
-      <para>
-	Another way is to use tool <application>/sbin/ip</application>
-	to assign an "alias" ip address to the same interface of the
-	firewall:
-      </para>
-
-      <programlisting>
-	ip addr add 222.222.222.33 dev eth0 scope link
-      </programlisting>
-
-      <para>
-	Tool <application>/sbin/ip</application> is a part of the
-	package <application>iproute</application>.
-      </para>
-
-      <para>
-	Firewall Builder provides simple way of doing this. Just check
-	option "Create virtual addresses for NAT rules" in the
-	"Firewall" tab in Firewall dialog and policy compiler will
-	include all the neccesary code in the firewall script.
-      </para>
-      </sect1>
+    </sect1>
 
 
     <!-- ********************************************************* -->
@@ -4880,10 +4874,18 @@ PIX                  always             no             policy, NAT
       </para>
 
       <para>
-	First of all, additional Service object needs to be
-	created. This object would have its port number set to that
-	used by the real server.  <xref linkend="f-nat-7"> illustrates
-	this object's setup:
+	First of all, additional Service object needs to be created.
+	Since our goal is to provide access to the web server running
+	on TCP port #8080, we need to create a TCP Object with
+	destination port equal to 8080. The source port number does
+	not matter in this case, therefore we leave source port
+	setting at zero in our new object. We also do not set any TCP
+	flags since we are not going to build rules matching on
+	those. Basically, all we need is an object that defines
+	destination port 8080. See <xref linkend="creating-objects"> and
+       <xref linkend="tcp-service"> for an explanation on how create
+       and edit TCP Service object. <xref linkend="f-nat-7">
+       illustrates this object's setup.
       </para>
 
       <para>
@@ -4891,7 +4893,7 @@ PIX                  always             no             policy, NAT
 	  <title>TCP Service object for port tranlsation rule</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-7.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-7.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[TCP Service object for port tranlsation rule]</phrase>
@@ -4912,7 +4914,7 @@ PIX                  always             no             policy, NAT
 	  <title>NAT rule with port translation</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-8.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-8.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[NAT rule with port translation]</phrase>
@@ -4923,9 +4925,11 @@ PIX                  always             no             policy, NAT
 
       <para>
 	Of course we need Global Policy rule as well to permit
-	connections to our server. Since Policy rules are consulted
-	after NAT, Policy rule should use TCP Service object
-	"tcp-8080" instead of "http". See <xref linkend="f-nat-9">
+	connections to our server. As described in <xref
+	linkend="policies-and-rules">, Firewall Builder operates
+	assuming policy rules are consulted after NAT. This means
+	policy rule should use TCP Service object "tcp-8080" instead
+	of "http". See <xref linkend="f-nat-9">
       </para>
 
 
@@ -4934,7 +4938,7 @@ PIX                  always             no             policy, NAT
 	  <title>Global Policy rule which permits access to the server</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-9.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-9.png" format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Global Policy rule which permits access to the server]</phrase>
@@ -4954,16 +4958,16 @@ PIX                  always             no             policy, NAT
       </para>
 
       <para>
-	This problem occurs when machines on internal LAN try
-	to access a server (let's say web server) which is actually
-	located on the same LAN and DNAT'ed through the firewall. If
-	internal users access it by its external DNAT'ed address, then
-	they send their TCP packets through the firewall, which
-	translates them and sends them to the server on LAN. Server,
-	however, replies back to the clients directly, because they
-	are on the same network. Since the reply has server's real
-	address in the source, clients do not recognize it and
-	connection can not be established.
+	This problem occurs when machines on internal LAN try to
+	access a server (let's say a web server) which is actually
+	located on the same LAN and NAT'ed through the firewall for
+	exaternal access. If internal users access it by its external
+	NAT'ed address, then they send their TCP packets through the
+	firewall, which translates them and sends them to the server
+	on LAN. Server, however, replies back to the clients directly,
+	because they are on the same network. Since the reply has
+	server's real address in the source, clients do not recognize
+	it and connection can not be established.
       </para>
 
       <para>
@@ -4977,15 +4981,21 @@ PIX                  always             no             policy, NAT
       </para>
 
       <para>
-	In order to implement this rule, you need to create a Host
-	object with address the same as that of firewall's internal
-	interface, then add NAT rule as shown on diagram below. Rule
-	#0 on the diagram adds source address translation, while rule
-	#1 is just a usual NAT rule that provides access to the web
-	server from outside. The order of these two rules does not
-	matter. In reality translation defined by rule #1 happens
-	first, but for the sake of illustration I put them in reverse
-	order on the diagram.
+	In order to implement this rule we will use interface objects
+	of the firewall as shown in <xref linkend="f-nat-11">.  Rule
+	#0 is just a usual NAT rule that provides access to the web
+	server from outside, while rule #1 adds source address
+	translation and does the trick we want.  Firewall's interface
+	<emphasis>eth0</emphasis> is internal and belongs to the same
+	subnet the server <emphasis>hostA</emphasis> belongs to. For
+	all packets going from hosts on
+        <emphasis>internal_net</emphasis> to the server
+        <emphasis>hostA</emphasis> rule #1 substitutes the source
+        address with the address of interface
+        <emphasis>eth0</emphasis>.  This makes the server reply back
+        to the firewall, which in turn provides reverse translation
+        before it sends these reply packets back to client hosts on
+        <emphasis>internal_net</emphasis>
       </para>
 
       <para>
@@ -4993,7 +5003,8 @@ PIX                  always             no             policy, NAT
 	  <title>DNAT back to the same LAN</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-11.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-11.png"
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[DNAT back to the same LAN]</phrase>
@@ -5009,7 +5020,7 @@ PIX                  always             no             policy, NAT
       <title>Redirecting the traffic</title>
  
       <para>
-	this is a special case of NAT where packet's destination
+	This is a special case of NAT where packet's destination
 	address gets changed to that of the firewall itself. This may
 	be useful if you, for example, run transparent web proxy on
 	the firewall box. The rule goes to NAT ruleset and should have
@@ -5026,16 +5037,22 @@ PIX                  always             no             policy, NAT
 	it would match first.  <xref linkend="f-nat-10"> shows
 	redirection rule which bounces all HTTP connections opened by
 	users on "internal_net" to the Squid proxy server running on
-	the firewall box on port 3128. Obviously squid has to be
-	configured properly to work as transparent proxy.
+	the firewall box on port 3128.
       </para>
+
+      <note><para>
+        Squid needs to be configured as a transparent proxy or
+        otherwise it won't work. Please see Squid documentation and
+        FAQ for instructions.
+      </para></note>
 
       <para>
 	<figure id="f-nat-10">
 	  <title>Redirect rule</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-10.png" format="png" align="left" scale="40">
+	      <imagedata fileref="nat-10.png"
+                  format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
 	      <phrase>[Redirect rule]</phrase>
