@@ -58,9 +58,9 @@
       </Host>
       <Host comment="" id="id3D713A07" name="test server">
         <Interface dyn="False" id="id3D713A0D" name="eth0" security_level="0" unnum="False">
-          <IPv4 address="10.3.14.50" comment="" id="id3D713A0E" name="addr1" netmask="255.255.255.0"/>
-          <IPv4 address="10.3.14.51" comment="" id="id3D713A0F" name="addr2" netmask="255.255.255.0"/>
-          <IPv4 address="10.3.14.52" comment="" id="id3D713A10" name="addr3" netmask="255.255.255.0"/>
+          <IPv4 address="10.3.14.50" comment="" id="id3D713A0E" name="test server:eth0:1" netmask="255.255.255.0"/>
+          <IPv4 address="10.3.14.51" comment="" id="id3D713A0F" name="test server:eth0:2" netmask="255.255.255.0"/>
+          <IPv4 address="10.3.14.52" comment="" id="id3D713A10" name="test server:eth0:3" netmask="255.255.255.0"/>
         </Interface>
         <Management address="10.3.14.30">
           <SNMPManagement enabled="False" snmp_read_community="public" snmp_write_community=""/>
@@ -73,6 +73,19 @@
           <Option name="snmp_location">Garage</Option>
           <Option name="use_mac_addr">false</Option>
           <Option name="use_mac_addr_filter">False</Option>
+        </HostOptions>
+      </Host>
+      <Host id="id3E1392C3" name="dmz host">
+        <Interface comment="" dyn="False" id="id3E1392C7" label="" mgmt="False" name="eth0" security_level="0" unnum="False">
+          <IPv4 address="10.2.2.100" comment="" id="id3E1392C8" name="dmz host:eth0" netmask="255.255.255.255"/>
+        </Interface>
+        <Management address="0.0.0.0">
+          <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
+          <FWBDManagement enabled="False" identity="" port="-1"/>
+          <PolicyInstallScript arguments="" command="" enabled="False"/>
+        </Management>
+        <HostOptions>
+          <Option name="use_mac_addr">false</Option>
         </HostOptions>
       </Host>
     </ObjectGroup>
@@ -875,7 +888,7 @@ clock timezone PDT -7
             <Option name="stateless">True</Option>
           </PolicyRuleOptions>
         </PolicyRule>
-        <PolicyRule action="Accept" disabled="False" id="id3D77C1CE" log="True" position="1">
+        <PolicyRule action="Accept" disabled="False" id="id3D77C1CE" log="False" position="1">
           <Src neg="False">
             <ObjectRef ref="id3D387B60"/>
             <ObjectRef ref="id3D387B61"/>
@@ -892,7 +905,7 @@ clock timezone PDT -7
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Accept" comment="" disabled="False" id="id3D77C1DA" log="True" position="2">
+        <PolicyRule action="Accept" comment="" disabled="False" id="id3D77C1DA" log="False" position="2">
           <Src neg="False">
             <ObjectRef ref="id3D387B60"/>
             <ObjectRef ref="id3D387B61"/>
@@ -908,7 +921,7 @@ clock timezone PDT -7
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Accept" comment="" disabled="False" id="id3D77C1E5" log="True" position="3">
+        <PolicyRule action="Accept" comment="" disabled="False" id="id3D77C1E5" log="False" position="3">
           <Src neg="False">
             <ObjectRef ref="sysid0"/>
           </Src>
@@ -927,7 +940,67 @@ clock timezone PDT -7
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Accept" disabled="False" id="id3D77C1F3" log="False" position="4">
+        <PolicyRule action="Accept" disabled="True" id="id3E13932C" log="False" position="4">
+          <Src neg="False">
+            <ObjectRef ref="id3E1392C3"/>
+          </Src>
+          <Dst neg="False">
+            <ObjectRef ref="id3D713A07"/>
+          </Dst>
+          <Srv neg="False">
+            <ServiceRef ref="sysid1"/>
+          </Srv>
+          <When neg="False">
+            <IntervalRef ref="sysid2"/>
+          </When>
+          <PolicyRuleOptions/>
+        </PolicyRule>
+        <PolicyRule action="Accept" comment="" disabled="False" id="id3E13963C" log="False" position="5">
+          <Src neg="False">
+            <ObjectRef ref="id3E1392C8"/>
+          </Src>
+          <Dst neg="False">
+            <ObjectRef ref="id3D713A0E"/>
+          </Dst>
+          <Srv neg="False">
+            <ServiceRef ref="sysid1"/>
+          </Srv>
+          <When neg="False">
+            <IntervalRef ref="sysid2"/>
+          </When>
+          <PolicyRuleOptions/>
+        </PolicyRule>
+        <PolicyRule action="Accept" comment="" disabled="False" id="id3E13964A" log="False" position="6">
+          <Src neg="False">
+            <ObjectRef ref="id3E1392C8"/>
+          </Src>
+          <Dst neg="False">
+            <ObjectRef ref="id3D713A0F"/>
+          </Dst>
+          <Srv neg="False">
+            <ServiceRef ref="sysid1"/>
+          </Srv>
+          <When neg="False">
+            <IntervalRef ref="sysid2"/>
+          </When>
+          <PolicyRuleOptions/>
+        </PolicyRule>
+        <PolicyRule action="Accept" disabled="False" id="id3E13961F" log="False" position="7">
+          <Src neg="False">
+            <ObjectRef ref="id3E1392C8"/>
+          </Src>
+          <Dst neg="False">
+            <ObjectRef ref="id3D713A10"/>
+          </Dst>
+          <Srv neg="False">
+            <ServiceRef ref="sysid1"/>
+          </Srv>
+          <When neg="False">
+            <IntervalRef ref="sysid2"/>
+          </When>
+          <PolicyRuleOptions/>
+        </PolicyRule>
+        <PolicyRule action="Accept" disabled="False" id="id3D77C1F3" log="False" position="8">
           <Src neg="False">
             <ObjectRef ref="sysid0"/>
           </Src>
@@ -942,7 +1015,7 @@ clock timezone PDT -7
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Accept" disabled="False" id="id3D77C1FD" log="True" position="5">
+        <PolicyRule action="Accept" disabled="False" id="id3D77C1FD" log="False" position="9">
           <Src neg="False">
             <ObjectRef ref="sysid0"/>
           </Src>
@@ -957,7 +1030,7 @@ clock timezone PDT -7
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Accept" disabled="False" id="id3D77C207" log="False" position="6">
+        <PolicyRule action="Accept" disabled="False" id="id3D77C207" log="False" position="10">
           <Src neg="False">
             <ObjectRef ref="sysid0"/>
           </Src>
@@ -972,7 +1045,7 @@ clock timezone PDT -7
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Accept" comment="'masquerading' rule" disabled="False" id="id3D77C211" log="False" position="7">
+        <PolicyRule action="Accept" comment="'masquerading' rule" disabled="False" id="id3D77C211" log="False" position="11">
           <Src neg="False">
             <ObjectRef ref="id3D387B60"/>
           </Src>
@@ -987,7 +1060,7 @@ clock timezone PDT -7
           </When>
           <PolicyRuleOptions/>
         </PolicyRule>
-        <PolicyRule action="Deny" comment="'catch all' rule" disabled="False" id="id3D77C21B" log="True" position="8">
+        <PolicyRule action="Deny" comment="'catch all' rule" disabled="False" id="id3D77C21B" log="True" position="12">
           <Src neg="False">
             <ObjectRef ref="sysid0"/>
           </Src>
