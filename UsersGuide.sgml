@@ -22,7 +22,7 @@
       <orgname>NetCitadel LLC</orgname>
     </affiliation>
 
-    <edition>$Revision: 1.16 $  $Date: 2003-04-22 04:43:31 $</edition>
+    <edition>$Revision: 1.17 $  $Date: 2003-04-24 00:11:34 $</edition>
 
     <copyright>
       <year>2003</year>
@@ -6859,57 +6859,58 @@ PIX                  always             no             policy, NAT
     <sect1>
       <title>Destination NAT Onto the Same Network</title>
  
-      <para>
-	This situation is described in iptables HOWTO <ulink url="&ipt-howto">&ipt-howto</ulink>
+      <para> This situation is described in iptables HOWTO <ulink
+      url="&ipt-howto">&ipt-howto</ulink>
+      </para>
+
+      <para> This problem occurs when machines on internal LAN try to
+      access a server (let's say a web server) which is actually
+      located on the same LAN and NAT'ed through the firewall for
+      external access. If internal users access it by its external
+      NAT'ed address, then they send their TCP packets through the
+      firewall, which translates them and sends them to the server on
+      LAN. Server, however, replies back to the clients directly,
+      because they are on the same network. Since the reply has
+      server's real address in the source, clients do not recognize it
+      and connection can not be established.
+      </para>
+
+      <para> To resolve this problem you need to make NAT rule replace
+      source address of the packet with address of firewall's internal
+      interface. This should happen in addition to the translation of
+      the destination address described in the previous chapters.  If
+      the source address of the packet that hits the server belongs to
+      the firewall, the server replies to it; the firewall then
+      translates again before sending the packet back to the
+      client. Client sees the address it expects and connection gets
+      established.
+      </para>
+
+      <para>Fortunately Firewall Builder supports this kind of a dual
+      translation NAT rule. The rule #0 in <xref
+      linkend="dnat-back-to-same-net"> does just that: it translates
+      both source and destination address of the packet.
+      </para>
+
+      <para> Firewall's interface <emphasis>eth0</emphasis> is
+      internal and is connected to the same subnet the server
+      <emphasis>web server</emphasis> belongs to. For any packet
+      headed for any address of the firewall, TCP port 80, the rule #0
+      substitutes its source address with the address of interface
+      <emphasis>eth0</emphasis> and its destination address with the
+      address of <emphasis>web server</emphasis>. The packet reaches
+      the server because its destination address has been changed.
+      This also makes the server reply back to the firewall, which in
+      turn provides reverse translation before it sends these reply
+      packets back to client hosts.
       </para>
 
       <para>
-	This problem occurs when machines on internal LAN try to
-	access a server (let's say a web server) which is actually
-	located on the same LAN and NAT'ed through the firewall for
-	exaternal access. If internal users access it by its external
-	NAT'ed address, then they send their TCP packets through the
-	firewall, which translates them and sends them to the server
-	on LAN. Server, however, replies back to the clients directly,
-	because they are on the same network. Since the reply has
-	server's real address in the source, clients do not recognize
-	it and connection can not be established.
-      </para>
-
-      <para>
-	To resolve this problem you need to add yet another NAT rule
-	to the policy to force translation on packets going from
-	clients to the server so that source address in these packets
-	will be replaced with address of the firewall. In this case
-	server will reply back to the firewall, which will translate
-	again before sending back to the client. Client will see the
-	address it expects and connection will get established. 
-      </para>
-
-      <para>
-	In order to implement this rule we will use interface objects
-	of the firewall as shown in <xref linkend="f-nat-11">.  Rule
-	#0 is just a usual NAT rule that provides access to the web
-	server from outside, while rule #1 adds source address
-	translation and does the trick we want.  Firewall's interface
-	<emphasis>eth0</emphasis> is internal and belongs to the same
-	subnet the server <emphasis>hostA</emphasis> belongs to. For
-	all packets going from hosts on
-        <emphasis>internal_net</emphasis> to the server
-        <emphasis>hostA</emphasis> rule #1 substitutes the source
-        address with the address of interface
-        <emphasis>eth0</emphasis>.  This makes the server reply back
-        to the firewall, which in turn provides reverse translation
-        before it sends these reply packets back to client hosts on
-        <emphasis>internal_net</emphasis>
-      </para>
-
-      <para>
-	<figure id="f-nat-11">
+	<figure id="dnat-back-to-same-net">
 	  <title>DNAT back to the same LAN</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="nat-11.png"
+	      <imagedata fileref="dnat-back-to-same-net.png"
                   format="png" align="left" scale="50">
 	    </imageobject>
 	    <textobject>
@@ -6919,6 +6920,49 @@ PIX                  always             no             policy, NAT
 	</figure>
       </para>
 
+      <para>Rule in <xref linkend="dnat-back-to-same-net"> replaces
+      source address of all packets regardless of their origin.
+      Because of this, the web server sees all connections as if they
+      were coming from the firewall rather than from the real
+      clients. If having real client addresses in the web server log
+      is necessary, the scope of this rule can be narrowed by placing
+      object representing internal network in the <emphasis>Original
+      Source</emphasis>. Since the source address needs to be
+      translated only in the connections coming from the internal net,
+      dual translation rule should only be needed for these
+      connections. Connections coming from the Internet can be
+      translated as usual. Combination of rules that implement this
+      configuration is shown in <xref
+      linkend="dnat-back-to-same-net-2">. Rule #0 does dual
+      translation, while rule #1 does a simple destination address
+      translation. Dual translation rule must be the first in the pair
+      because if it weren't, another one would match connections
+      coming from the internal net and translate destination address
+      without chaning the source address.
+      </para>
+
+      <para>
+	<figure id="dnat-back-to-same-net-2">
+	  <title>Using dual translation only for connections coming from internal network</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="dnat-back-to-same-net-2.png"
+                  format="png" align="left" scale="50">
+	    </imageobject>
+	    <textobject>
+	      <phrase>[DNAT back to the same LAN]</phrase>
+	    </textobject>
+	  </mediaobject>
+	</figure>
+      </para>
+
+
+      <note>
+        <para>Not all firewall platforms provide features Firewall
+        Builder needs to implement dual translation rules. Currently
+        dual translation rules are supported only with iptables and
+        OpenBSD PF.</para>
+      </note>
     </sect1>
 
     <!-- ********************************************************* -->
