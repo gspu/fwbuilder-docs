@@ -448,7 +448,24 @@
       <title>The Main Window</title>
 
       <para>The main window is divided onto two parts: the objects
-      tree and a dialog area. </para>
+      tree and a dialog area. Object which is surrently selected in
+      the tree is highlighted with a color and is shown in the dialog
+      in the right half of the main window. You can create more than
+      one main window using main menu
+      <guimenuitem>"File"</guimenuitem>/<guimenuitem>"New
+      Window"</guimenuitem>. All windows are synchronized and work
+      with the same object tree. Changes made to the object in one
+      window are immediately reflected in all windows where it is
+      visible, both in the tree and in the dialog. We recommend using
+      multi-window mode if you work with firewall with very large
+      policy. In this case opening the policy may take some time and
+      switching between the policy view and individual objects can
+      slow the work down. Opening the policy in one window and working
+      with individual objects in another helps avoid this problem.
+      </para>
+
+      <para>Drag and drop and Copy/Paste operations work across
+      different windows.</para>
 
       <figure id="main-win1" float="1">
         <title>Main window</title>
