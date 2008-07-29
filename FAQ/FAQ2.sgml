@@ -42,7 +42,7 @@
 
     <revhistory>
       <revision>
-        <revnumber>$Id: FAQ2.sgml 39 2008-06-02 15:38:21Z vadim $</revnumber>
+        <revnumber>$Id$</revnumber>
         <date></date>
         <authorinitials>vadim</authorinitials> 
       </revision>
@@ -2011,7 +2011,7 @@ Device or resource busy
 
     </qandadiv>
 
-  <!-- ******************** Chapter 6 ************************************************* -->
+  <!-- ******************** Chapter 6 ************************************ -->
 
     <qandadiv>
       <title>GUI</title>
@@ -2036,7 +2036,7 @@ Device or resource busy
     </qandadiv>
 
 
-  <!-- ******************** Chapter 6 ************************************************* -->
+  <!-- ******************** Chapter 6 ************************************ -->
 
     <qandadiv>
       <title>Using RCS</title>
@@ -2054,6 +2054,24 @@ Device or resource busy
           of RCS to claim that the RCS file is in use.  To fix this,
           remove the semaphore file.  A semaphore file name typically
           begins with , or ends with _.</para>
+
+          <para>If not that, then it could be another manifestation of
+            bug #1908351</para>
+
+          <para>
+            See if there is a file with the name starting and ending
+            with a comma in the RCS dirtectory (like
+            ",file.fwb,"). The file should have length of zero
+            bytes. This file is a lock file, it is created and deleted
+            by RCS tools.  Bug 1908351 caused this lock file to be
+            left behind. When that happens, ci won't check file in
+            because it thinks another copy of ci is already
+            running. Likewise, co won't check the file out for the
+            same reason. If such file exists (zero bytes in length and
+            name starting or ending with a comma), just delete it
+            and try to check your data file out again.
+          </para>
+
         </answer>
       </qandaentry>
 
