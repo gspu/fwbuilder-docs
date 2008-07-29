@@ -1,0 +1,2369 @@
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+<!entity fwbuilder-url    "http://www.fwbuilder.org/">
+<!entity netcitadel-url   "/netcitadel/index.html">
+<!entity guide-url        "http://www.fwbuilder.org/UsersGuide.pdf">
+<!entity cookb-url        "/guides/firewall_builder_cookbook.html">
+<!entity build-url        "/guides/firewall_builder_installation.html">
+<!entity iptables-url     "http://www.iptables.org/">
+<!entity ipfilter-url     "http://coombs.anu.edu.au/~avalon/">
+<!entity pf-url           "http://www.benzedrine.cx/pf.html">
+<!entity qt-url           "http://www.trolltech.com/">
+<!entity sveasoft-url     "http://www.sveasoft.com/">
+<!entity gtkmm-url        "http://gtkmm.sourceforge.net/">
+<!entity gtkmm-download   "http://www.hvrlab.org/pub/gtkmm/">
+<!entity cvs-checkout     "http://sourceforge.net/cvs/?group_id=5314">
+<!entity sf-files         "http://sourceforge.net/project/showfiles.php?group_id=5314">
+<!entity nightly-builds   "http://www.fwbuilder.org/nightly_builds/">
+<!entity gtkmm-ximian     "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/gtkmm-1.2.9-1.ximian.1.src.rpm">
+<!entity libsigcpp-ximian "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/libsigc++-1.0.4-1.ximian.4.src.rpm">
+<!entity installer-howto  "/guides/firewall_builder_howtos.html#000156">
+<!entity nf_conntrack_page "http://www.netfilter.org/projects/patch-o-matic/pom-extra.html#pom-extra-nf_conntrack">
+<!entity nf_conntrack_discussion "http://lists.netfilter.org/pipermail/netfilter-devel/2006-July/024879.html">
+<!entity debugview_download "http://www.microsoft.com/technet/sysinternals/utilities/debugview.mspx">
+]>
+
+<article class="FAQ" id="FAQ">
+  <?dbhtml filename="FAQ2.html">
+
+  <articleinfo>
+
+    <title>Firewall Builder</title>
+    <subtitle> Frequently Asked Questions for Firewall Builder 2.0 and 2.1</subtitle>
+
+    <author>
+      <firstname>Vadim</firstname>
+      <surname>Kurland</surname>
+      <affiliation>
+	<address>
+	  <email>vadim@fwbuilder.org</email>
+	</address>
+      </affiliation>
+    </author>
+
+    <revhistory>
+      <revision>
+        <revnumber>$Id: FAQ2.sgml 39 2008-06-02 15:38:21Z vadim $</revnumber>
+        <date></date>
+        <authorinitials>vadim</authorinitials> 
+      </revision>
+    </revhistory>
+
+    <abstract>
+      
+<!--      <title>Abstract</title> -->
+      
+      <para>
+	Firewall Builder consists of an object-oriented GUI and a set
+	of policy compilers for various firewall platforms. In
+	Firewall Builder, a firewall policy is a set of rules; each
+	rule consists of abstract objects that represent real network
+	objects and services (hosts, routers, firewalls, networks,
+	protocols). Firewall Builder helps users maintain a database
+	of objects and allows policy editing using simple
+	drag-and-drop operations.
+      </para>
+
+      <para>
+	Object databases are stored in XML format.  The GUI and policy
+	compilers are completely independent. The GUI requires only
+	minimal changes in order to add support for a new firewall
+	platform even though a new policy compiler must be
+	written. This provides for a consistent abstract model and the
+	same GUI for different firewall platforms. Standardized XML
+	data format opens possibility for many user interfaces and
+	policy compiler implementations, all interchangeable.
+      </para>
+
+      <para>
+	We have policy compilers for the popular free firewalls
+	iptables (<ulink url="&iptables-url">&iptables-url</ulink>),
+	ipfilter (<ulink url="&ipfilter-url">&ipfilter-url</ulink>),
+	pf (<ulink url="&pf-url">&pf-url</ulink>), as well as for
+	Cisco PIX and FWSM and IOS access lists.  Because of the
+	modular architecture, the same Firewall Builder instance can
+	be used to manage firewalls built on a variety of platforms.
+      </para>
+
+      <para>
+	The GUI is written using <ulink url="&qt-url"> QT</ulink>. 
+      </para>
+
+      <para>
+	Solutions to many typical problems and answers to many
+	questions can be found in Firewall Builder Users
+	Guide <ulink url="&guide-url">&guide-url</ulink> and 
+        <ulink url="&cookb-url">Firewall Builder Cookbook</ulink>
+      </para>
+
+    </abstract>
+
+  </articleinfo>
+
+
+
+  <!-- ******************** Chapter 1 ************************************************* -->
+
+  <qandaset>
+    <qandadiv>
+      <title>System requirements, using binary packages, compiling from source</title>
+
+
+
+      <qandaentry>
+	<question>
+	  <para>What firewall platforms are supported ?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    We support iptables (Linux kernels 2.4.x and
+	    2.6.x). Linksys firewall appliance WRT-54G/GS running
+	    Sveasoft ( <ulink
+	    url="&sveasoft-url">&sveasoft-url</ulink> ) firmware is
+	    also supported. As of version 1.0.1 we support ipfilter
+	    (available for variety of OS, including FreeBSD, OpenBSD,
+	    Solaris and others) and added support for pf (OpenBSD
+	    3.0). Version 1.0.10 and later support ipfw. 
+	  </para>
+
+
+          <para>
+            <table>
+              <title>Firewall Builder can generate configuration for the following firewalls and OS:</title>
+              <tgroup cols="2">
+                <thead>
+                  <row>
+                    <entry>Firewall</entry>
+                    <entry>OS</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry>iptables</entry>
+                    <entry>Linux (kernel 2.4.x and 2.6.x)</entry>
+                  </row>
+                  <row>
+                    <entry>ipfilter</entry>
+                    <entry>FreeBSD, OpenBSD, Solaris</entry>
+                  </row>
+                  <row>
+                    <entry>ipfw</entry>
+                    <entry>FreeBSD, MacOS X</entry>
+                  </row>
+                  <row>
+                    <entry>pf</entry>
+                    <entry>OpenBSD </entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table>
+          </para>
+
+
+	</answer>
+      </qandaentry>
+
+
+      <qandaentry>
+	<question>
+	  <para>What OS does fwbuilder run on ?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    Our main development OS is Linux, we also build and
+	    maintain FreeBSD ports
+	  </para>
+
+          <para>
+            I do not update this list very often so it may be out of date.
+          </para>
+
+          <para>
+            <table>
+              <title>Operating Systems Firewall Builder has been ported to</title>
+              <tgroup cols="4">
+                <thead>
+                  <row>
+                    <entry>OS</entry>
+                    <entry>Distributions and versions</entry>
+                    <entry>Are binary packages available</entry>
+                    <entry>Is it included in distribution</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry>Linux</entry>
+                    <entry>RedHat, Fedora, Mandrake, SuSe</entry>
+                    <entry>yes</entry>
+                    <entry>in "extensions"</entry>
+                  </row>
+                  <row>
+                    <entry>Linux</entry>
+                    <entry>Debian</entry>
+                    <entry>yes</entry>
+                    <entry>2.1.8-1 in lenny and sid,  2.0.9-1.2 in etch, 
+and 2.0.3-2 in sarge</entry>
+                  </row>
+                  <row>
+                    <entry>Linux</entry>
+                    <entry>Ubuntu</entry>
+                    <entry>yes</entry>
+                    <entry>yes (v2.1.11)</entry>
+                  </row>
+                  <row>
+                    <entry>Solaris</entry>
+                    <entry>8</entry>
+                    <entry>no</entry>
+                    <entry>no</entry>
+                  </row>
+                  <row>
+                    <entry>FreeBSD</entry>
+                    <entry></entry>
+                    <entry></entry>
+                    <entry>in ports</entry>
+                  </row>
+                  <row>
+                    <entry>OpenBSD</entry>
+                    <entry></entry>
+                    <entry></entry>
+                    <entry>in ports</entry>
+                  </row>
+                  <row>
+                    <entry>Mac OS X</entry>
+                    <entry>Tiger and Leopard</entry>
+                    <entry>yes</entry>
+                    <entry><ulink url="&netcitadel-url">binary packages available here</ulink></entry>
+                  </row>
+                  <row>
+                    <entry>Windows</entry>
+                    <entry>2000, XP, Vista</entry>
+                    <entry>yes</entry>
+                    <entry><ulink url="&netcitadel-url">binary packages available here</ulink></entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table>
+          </para>
+
+
+	</answer>
+      </qandaentry>
+
+
+      <qandaentry>
+	<question>
+	  <para>What are the system requirements for Firewall Builder ?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    These are listed in the file "Build" in the docs
+	    directory. It is fwbuilder/doc/Build if you unpack
+	    source tarball, or can be found online: <ulink
+	    url="&build-url">"Installation Guide"</ulink>
+	  </para>
+	</answer>
+
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>Where can I download source code and binary packages from?</para>
+        </question>
+        <answer>
+          <para>
+            Binary packages and a source code for the recent release
+            can be downloaded from the "Downloads" page on the
+            project's web site <ulink
+            url="&fwbuilder-url">&fwbuilder-url</ulink> or from <ulink
+            url="&sf-files">Source Forge </ulink>. 
+          </para>
+        </answer>
+      </qandaentry>
+
+
+      <qandaentry>
+        <question>
+          <para>Where can I download the latest source code and nightly builds from?</para>
+        </question>
+        <answer>
+          <para>
+            Binary packages and a source code for the very latest code
+            can be downloaded from the "CVS" section on our <ulink
+            url="&sf-files">Source Forge </ulink> site. Nightly builds
+            and experimental packages are available on our ftp site
+            <ulink
+            url="&nightly-builds">&nightly-builds</ulink>. Nightly
+            builds include latest bug fixes and are great way to test
+            and see what is going to be included in the next
+            release. At the same time nightly builds are certainly a
+            cutting edge of the project and may break. Be sure to make
+            backup copy of your data before you use it! We usually put
+            the latest copy of the ChangeLog file in the same
+            directory, remember to always check it before you
+            download.
+          </para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+	<question>
+	  <para>I want to use binary package. What do I need
+	  to download and install?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    We distribute binary packages for some Linux
+	    distributions. You would need to download and install the
+	    following packages (actual names of the package files vary
+	    depending on the naming convention for given
+	    distribution).
+	  </para>
+
+	  <para><emphasis>Starting with version 2.1.18, policy
+	  compilers are included in the same binary package as the
+	  GUI. This means you only need to download and install API
+	  library package "libfwbuilder" and combined GUI+compilers
+	  package "fwbuilder".</emphasis>
+	  </para>
+
+          <para>
+            For example, for Fedora Core8  you would need the following
+            packages:
+          </para>
+
+          <para>
+            <itemizedlist spacing="compact">
+              <listitem><para>libfwbuilder-2.1.18-1.fc8.i386.rpm</para></listitem>
+              <listitem><para>fwbuilder-2.1.18-1.fc8.i386.rpm</para></listitem>
+            </itemizedlist>
+          </para>
+
+          <para>this set of packages gives you the library, GUI and
+          full set of policy compilers for iptables, ipfilter, pf,
+          ipfw, Cisco PIX and Cisco IOS ACL.</para>
+
+
+	  <para>
+            <emphasis>Prior to version 2.1.18, you needed to install the
+            following packages:</emphasis>
+          </para>
+
+          <para>
+	    <itemizedlist spacing="compact">
+	      <listitem><para>The API: libfwbuilder</para></listitem>
+	      <listitem><para>GUI: fwbuilder</para></listitem>
+	      <listitem><para>Policy compiler for your firewall:</para>
+                <itemizedlist spacing="compact">
+                  <listitem>
+                    <para>For iptables you need fwbuilder-ipt</para>
+                  </listitem>
+                  <listitem>
+                    <para>For ipfilter you need fwbuilder-ipf</para>
+                  </listitem>
+                  <listitem>
+                    <para>For OpenBSD pf you need fwbuilder-pf</para>
+                  </listitem>
+                  <listitem>
+                    <para>For Cisco PIX you need fwbuilder-pix</para>
+                  </listitem>
+                </itemizedlist>
+	      </listitem>
+	    </itemizedlist>
+	  </para>
+
+          <para>
+            For example, for RedHat 9.0 you would need the following
+            packages:
+          </para>
+
+          <para>
+            <itemizedlist spacing="compact">
+              <listitem><para>libfwbuilder-2.0.2-1.rh9.i386.rpm</para></listitem>
+              <listitem><para>fwbuilder-2.0.2-1.rh9.i386.rpm</para></listitem>
+              <listitem><para>fwbuilder-ipt-2.0.2-1.rh9.i386.rpm</para></listitem>
+            </itemizedlist>
+          </para>
+
+          <para>this set of packages gives you the library, GUI and
+          policy compiler for iptables.</para>
+
+	  <para>
+	    You may also want to check what is available under
+	    "Contrib" in the download area. There are useful install,
+	    boot-time startup and other scripts contributed by users
+	    and beta-testers. Binary packages for Debian and
+	    SuSe are also available in "Contrib" area.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+      <qandaentry>
+        <question><para>Is there an automated way to install all dependencies?</para>
+        </question>
+
+        <answer>
+          <para>The answer depends on what OS and distribution this is
+          done.</para>
+
+          <variablelist>
+            <varlistentry>
+              <term>Mandrake Linux</term>
+              <listitem>
+                <para>One of our users suggested the following procedure
+                  that works on Mandrake Linux:
+                </para>
+                <para>
+                  <itemizedlist>
+                    <listitem>
+                      <para>copy or download fwbuilder files to a dir on
+                        target machine</para>
+                    </listitem>
+                    <listitem>
+                      <para>Start the rpm source manager (from the mandrake
+                        control center) and add a new local source pointing to
+                        the dir where you've just put the rpms save and
+                        quit</para>
+                    </listitem>
+                    <listitem>
+                      <para>Open rpmdrake (again from the mandrake control
+                        center) to install new software. Search on fwbuilder
+                        and select the three RPMS you want to
+                        install. rpmdrake resolves all dependencies.</para>
+                    </listitem>
+                    <listitem>
+                      <para>Start install. </para>
+                    </listitem>
+                  </itemizedlist>
+                </para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>FreeBSD</term>
+              <listitem>
+                <para>On FreeBSD you need to install ports libfwbuilder and
+                  fwbuilder. Just update your ports tree, then descend into
+                  the directory
+                  <emphasis>/usr/ports/security/fwbuilder</emphasis> and type
+                  <emphasis>"make install"</emphasis>. This should install
+                  both libfwbuilder and fwbuilder, as well as all missing
+                  dependencies.
+                </para>
+
+                <para> To install the nightly build, download files
+                  libfwbuilder-port.tar and fwbuilder-port.tar from the
+                  nightly builds ftp site and unpack them in directories
+                  /usr/ports/security/libfwbuilder and
+                  /usr/ports/security/fwbuilder. Then download source code
+                  (files libfwbuilder-2.0.2.tar.gz and fwbuilder-2.0.2.tar.gz
+                  ) from the same site and put them in the
+                  /usr/ports/distfiles directory. Now go to
+                  /usr/ports/security/fwbuilder and type <emphasis>make
+                    install</emphasis>, it should install both libfwbuilder and
+                  fwbuilder, as well as missing packages they depend on.
+                </para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>Windows and Mac OS X</term>
+              <listitem>
+                <para>Native packages for Windows and Mac OS X have no
+                dependencies.
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+
+        </answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+	<question>
+	  <para>Firewall Builder uses QT; does it need KDE?</para>
+	</question>
+
+	<answer>
+	  <para>
+            Although Firewall Builder GUI is based on QT, it works
+            both with and without KDE.
+	  </para>
+	</answer>
+      </qandaentry>
+
+      <qandaentry>
+	<question>
+	  <para>Does it need Gnome?</para>
+	</question>
+
+	<answer>
+	  <para>
+            Firewall Builder does not need Gnome; it may work both
+            with and without Gnome.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+
+
+      <qandaentry>
+	<question>
+	  <para>
+	    How do I build Firewall Builder from source?
+	  </para>
+	</question>
+
+	<answer>
+	  <para>
+	    first of all, you need to obtain source. One way is to
+	    download source tarball from our download page. You need
+	    to grab two packages: libfwbuilder-N.N.N.tar.gz and
+	    fwbuilder-M.M.M.tar.gz , where N.N.N and M.M.M are respective
+	    versions of both packages/
+	  </para>
+	  
+	  <para>
+	    Or, if you want to try the code we are currently working
+	    on, you can do anonymous CVS checkout from our site on
+	    Sourceforge. Just open this URL: <ulink
+	    url="&cvs-checkout">&cvs-checkout</ulink> and follow
+	    instructions. In this case make sure you get both
+	    libfwbuilder and fwbuilder modules.
+	  </para>
+
+	  <para>
+	    In either case, once you got source and unpacked it on
+	    your machine, you need to check that all dependencies are
+	    satisfied and you have all the libraries fwbuilde ruses
+	    installed on your machine. You can check list of libraries
+	    in the <ulink url="&build-url">Installation Guilde</ulink>
+	  </para>
+
+	  <para>
+	    Now you can build.  First go to the directory libfwbuilder
+	    and run script ./autogen.sh. This script checks
+	    dependencies and customises our code for your system. This
+	    script accepts the following parameters:
+	  </para>
+
+	  <para>
+
+	    <itemizedlist>
+	      <listitem>
+		<para>--prefix       - specify directory prefix where you want libfwbuilder installed</para>
+	      </listitem>
+	      <listitem>
+		<para>--with-templatedir=DIR  - specify directory for template files and DTD</para>
+	      </listitem>
+	      <listitem>
+		<para>--without-openssl          - compile libfwbuilder without encryption support (certain functions won't work, such as support for fwbd daemon)</para>
+	      </listitem>
+	      <listitem>
+		<para>--with-openssl-prefix=PREFIX - specify prefix directory where openssl library is installed</para>
+	      </listitem>
+	      <listitem>
+		<para>--without-ucd-snmp         - compile libfwbuilder without support for SNMP (certain functions won't work, such as network discovery)</para>
+	      </listitem>
+	    </itemizedlist>
+	  </para>
+
+	  <para>
+	    If system you are using for build has additional libraries
+	    installed in /usr/local/lib, then you either need to add
+	    this directory to your LD_LIBRARY_PATH environment
+	    variable, or supply path for each lbrary as a parameter
+	    for autogen.sh. Unfortunately at this time our script does
+	    not support specification of the installation path for all
+	    the libraries we use, so setting LD_LIBRARY_PATH is
+	    probably safier way.
+	  </para>
+
+	  <para>
+	    If your system has all the libraries installed in the
+	    standard place, or has dynamic linker configured so that
+	    it can find libraries wherever they are installed, then
+	    you do not need to worry about LD_LIBRARY_PATH.
+	  </para>
+
+	  <para>
+	    Once you are done with autogen.sh, run "make all" in
+	    libfwbuilder directory and see that it does not end with
+	    an error. If it does, then either autogen.sh could not find
+	    some library, or there is something peculiar about your
+	    system that we do not support yet. Please verify again
+	    that you have all the libraries needed (check with
+	    Build) and that autogen.sh worked fine. If nothing
+	    helps, report the problem to us.
+	  </para>
+
+	  <para>
+	    After "make all" have worked to the end and did not
+	    produce any errors, you need to install the library. By
+	    default it installs in /usr/local/lib and
+	    libfwbuilder-config script installs in /usr/local/bin. You
+	    will need root priviliges to install there, so become root
+	    and run "make install" in the directory libfwbuilder. If
+	    you do not wish to install in /usr/local, you can use
+	    parameter --prefix=PREFIX when you run autogen.sh
+	  </para>
+
+	  <para>
+	    Once libfwbuilder is installed, you can move on and
+	    compile fwbuilder. The procedure is the same: go to the
+	    directory fwbuilder, run "./autogen.sh", then "make all"
+	    and "make install".
+	  </para>
+
+	</answer>
+      </qandaentry>
+
+
+
+
+
+      <qandaentry>
+	<question>
+	  <para>I am trying to compile Firewall Builder from
+	    source, but autogen.sh complains "libfwbuilder not
+	    installed"</para>
+	</question>
+
+	<answer>
+	  <para>
+	    As of version 0.9.6 the code has been split into three
+	    major parts: API, GUI and policy compilers. You need to
+	    download, compile and install API for the rest to
+	    compile. The API comes in a separate source archive
+	    called libfwbuilder-0.10.0.tar.gz. Compile and install
+	    it as usual, using "./autogen.sh; make; make install"
+	    procedure.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+
+
+      <qandaentry>
+        <question>
+          <para>I am trying to install fwbuilder RPM but I get a bunch
+          of errors "Failed dependencies: ...". What do I need to do ?
+          </para>
+        </question>
+
+        <answer>
+          <para>You need to install prerequisite libraries. See the
+          list of RPMs in the <ulink url="&build-url">Installation
+          Guide</ulink></para>
+
+          <note>
+            <para>
+              Do not use options <emphasis>"--force"</emphasis> or
+              <emphasis>"--nodeps"</emphasis> when you install
+              fwbuilder RPMs. If rpm complains about unsatisfied
+              dependencies, this means your system is missing some
+              libraries, or wrong versions are installed. Forcing the
+              package install won't fix that, most likely it will fail
+              in one way or another.
+            </para>
+          </note>
+        </answer>
+      </qandaentry>
+
+
+
+    </qandadiv>
+
+
+  <!-- ******************** Chapter 2 ************************************************* -->
+
+    <qandadiv>
+      <title>Running the program</title>
+
+
+      <qandaentry>
+	<question>
+	  <para>
+	    Now, that I installed all the packages, how do I start the program?
+	    (yes, this is frequently asked question)
+	  </para>
+	</question>
+
+	<answer>
+	  <para>
+	    Just type "fwbuilder" on the command line prompt (in xterm or gnome-terminal)
+	  </para>
+	</answer>
+      </qandaentry>
+      
+
+
+
+
+      <qandaentry>
+	<question>
+	  <para>fwbuilder binary does not start. You get an error
+	  <emphasis>"fwbuilder: cannot connect to X server
+	  localhost:0.0"</emphasis> or similar
+          </para>
+	</question>
+
+	<answer>
+	  <para>
+            Firewall Builder GUI is an X application, that is, it
+            needs X server to display it on the screen. The program
+            determines how to connect to the X server using
+            environment variable DISPLAY; you probably do not have
+            this environment variable if you get an error like
+            that. The simplest way to avoid this problem is to start
+            fwbuilder from the shell window in Gnome or KDE
+            environment.
+	  </para>
+
+	  <para>
+            It may also be that the environment variable DISPLAY is
+            set, but the program fwbuilder can not connect to the X
+            server. In this situation you won't be able to run any
+            application using X, check if that's the case by trying to
+            start "xclock". This may be happening because of many
+            different reasons, such as X server is not running, X
+            authenitcation failure, or DISPLAY variable reassigned its
+            value by the shell login script or many others. This
+            problem falls outside the scope of this document, please
+            search on the Internet for the answer. Here are few URLs
+            to make troubleshooting easier:
+	  </para>
+
+          <para>
+	    <itemizedlist>
+	      <listitem><para>http://www.openssh.org/faq.html</para></listitem>
+              <listitem><para>http://en.tldp.org/HOWTO/XDMCP-HOWTO/ssh.html</para></listitem>
+              <listitem><para>http://en.tldp.org/LDP/intro-linux/html/sect_10_03.html</para></listitem>
+            </itemizedlist>
+          </para>
+
+	</answer>
+      </qandaentry>
+
+
+
+
+      <qandaentry>
+
+	<question>
+	  <para>fwbuilder binary does not start. You get an error
+	    <emphasis>"fwbuilder: error while loading shared
+	      libriaries: libfwbuilder.so.0: cannot load shared object
+	      file: no such file or directory."</emphasis>
+          </para>
+	</question>
+
+	<answer>
+	  <para>
+	    Then the GUI binary (fwbuilder) can not find API library
+	    libfwbuilder. If you are using our binary packages,
+	    then make sure you download and install package called
+	    libfwbuilder. If you compiled from sources, then perhaps you
+	    installed libfwbuilder with default prefix <filename>
+	      /usr/local/</filename>, therefore library went to <filename>
+	      /usr/local/lib</filename>. Dynamic linker ldd can not find it
+	    there.
+	  </para>
+
+	  <para>
+	    You have the following options:
+	  </para>
+
+	  <para>
+	    <itemizedlist>
+	      <listitem>
+		<para>create environment variable LD_LIBRARY_PATH with value
+		  <filename>/usr/local/lib</filename> and run fwbuilder
+		  from this environment.</para>
+	      </listitem>
+	      <listitem>
+		<para>add <filename>/usr/local/lib</filename> to the file
+		  <filename>/etc/ld.so.conf</filename> and run ldconfig so it
+		  will rescan dynamic libraries and add them to its
+		  cache.</para>
+	      </listitem>
+	      <listitem>
+		<para>recompile libfwbuilder and fwbuilder with prefix
+		<filename> /usr/</filename>, this will install
+		<filename>libfwbuilder.so.0</filename> in
+		<filename>/usr/lib</filename>. <filename>ldd</filename>
+		will find it there without any changes to environment
+		variables or <filename>/etc/ld.so.conf</filename>
+		file.  To change prefix you need to run autogen.sh with
+		command line parameter
+		<filename>"--prefix=/usr"</filename>.  Do this both
+		for libfwbuilder and fwbuilder.</para>
+	      </listitem>
+	    </itemizedlist>
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+      <qandaentry>
+
+	<question>
+	  <para>fwbuilder binary does not start. You get an error
+	    <emphasis>"fwbuilder: error while loading shared libraries: fwbuilder: undefined symbol: _ZN7QActionC1EP7QObjectPKc"</emphasis>
+          </para>
+	</question>
+
+	<answer>
+	  <para>
+            The erorr points at a missing symbol in QT
+            library. Firewall Builder requires QT v3.2 or 3.3; error
+            like this happens when the program tries to load QT v3.1.
+            Use ldd to find out which QT library the binary is trying
+            to load:
+          </para>
+
+          <programlisting format="linespecific">
+
+ldd /usr/bin/fwbuilder | grep qt 
+ 
+I have QT 3.3.2 so I get this: 
+ 
+$ ldd /usr/bin/fwbuilder | grep qt 
+libqt-mt.so.3 => /usr/lib/qt-3.3/lib/libqt-mt.so.3 (0x00d09000) 
+
+          </programlisting>
+	</answer>
+      </qandaentry>
+
+
+
+
+
+      <qandaentry>
+	<question>
+	  <para>When I run fwbuilder I get the following message:
+	  <emphasis>"Could not locate any modules for target firewall
+	  plattforms. You won't be able to compile firewall
+	  policy"</emphasis>.</para>
+	</question>
+
+	<answer>
+          <para>You need to install a package that provides support
+          for your firewall platform.</para>
+
+          <para><itemizedlist spacing="compact">
+              <listitem>
+                <para>For iptables you need fwbuilder-ipt</para>
+              </listitem>
+              <listitem>
+                <para>For ipfilter you need fwbuilder-ipf</para>
+              </listitem>
+              <listitem>
+                <para>For OpenBSD pf you need fwbuilder-pf</para>
+              </listitem>
+                  <listitem>
+                <para>For Cisco PIX you need fwbuilder-pix</para>
+              </listitem>
+            </itemizedlist>
+          </para>
+        </answer>
+      </qandaentry>
+
+
+
+
+      <qandaentry>
+	<question>
+	  <para>fwbuilder or one of policy compilers crashes. What
+	    to do ?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    Please file a bug on Sourceforge. Provide information we might
+	    need to fix the problem:
+	  </para>
+
+          <itemizedlist>
+            <listitem>
+              <para>what version of fwbuilder do you run, did
+            you install prebuilt binary packages or compiled it
+            yourself ?
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>Provide the output of the following
+            commands:
+              </para>
+              <programlisting>
+                cat /etc/issue
+
+                rpm -qa | grep qt
+                rpm -qa | grep libxml
+                rpm -qa | grep libxslt
+
+                ldd /usr/bin/fwbuilder
+                ldd /usr/bin/fwb_ipf
+                ldd /usr/bin/fwb_iptables
+              </programlisting>
+            </listitem>
+
+            <listitem>
+              <para>Download script "check_libs.sh" from
+            Contrib area on our Sourceforge page and run it as
+            follows:
+              </para>
+              <programlisting>
+                check_libs.sh fwbuilder
+              </programlisting>
+              <para>
+                include its output in your bug report.
+              </para>
+            </listitem>
+          </itemizedlist>
+
+	  <para>
+	    Also send us core file and .xml file with your objects. 
+	  </para>
+
+	</answer>
+      </qandaentry>
+
+      <qandaentry>
+	<question>
+	  <para>
+	    Firewall policy does not compile. I get error "Exec error
+	    (fwb_iptables) No such file or directory."
+	  </para>
+	</question>
+
+	<answer>
+	  <para>
+	    You need to install corresponding policy compiler. Our
+	    prebuilt compilers come in a separate RPMs named like
+	    this: fwbuilder-ipt-2.0.2-1rh9.i386.rpm
+	  </para>
+
+	</answer>
+      </qandaentry>
+
+
+
+
+      <qandaentry>
+	<question>
+	  <para>I get "I/O Error" while compiling policy. There is
+	    no other indication of error though.</para>
+	</question>
+
+	<answer>
+	  <para>
+	    Did you install package with corresponding compiler ? Our
+	    prebuilt compilers come in a separate RPMs named like
+	    this: fwbuilder-ipt-2.0.2-1rh9.i386.rpm
+	  </para>
+
+	  <para>
+	    Check if compiler dumped core. If you can't find it, you
+	    may try to run compiler manually, providing the following
+	    command line parameters:
+	  </para>
+
+
+	  <programlisting>
+	    $ fwb_ipt  -f path_to_objects.xml   firewall_object_name
+	  </programlisting>
+
+	  <para>
+	    All policy compilers have the same command line format.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+	<question>
+	  <para>fwbuilder crashes on my Debian or  SuSe
+	    system. What do I do ?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    We can not guarantee that Firewall Builder would work
+	    flawlessly on Debian or SuSe since we do not have access
+	    to these distributions for testing.
+	  </para>
+
+	  <para>
+	    Sometimes we recieve packages built for these
+	    distributions by volunteers.  In this case we post these
+	    packages in "Contribs" area on the project's page on
+	    Sourceforge. We do not verify or even try these packages
+	    and completely rely on people who submit them. We usually
+	    post information about authors, so if you have questions
+	    you can contact them directly.
+	  </para>
+
+	  <para>
+	    We welcome help from anyone who can test Firewall Builder
+	    on these distributions and provide feedback
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+      <qandaentry>
+        <question>
+          <para>Data file created in the older version of fwbuilder
+          can not be loaded in the latest one</para>
+        </question>
+
+        <answer>
+          <para>Sometimes this happens when you skip several versions
+          trying to upgrade the program. There used to be a bug in the
+          upgrade procedure somewhere around version 1.0.4 which broke
+          automatic upgrades from versions before 1.0.4 to versions
+          after that. If this happens to you, upgrade your data file
+          using script <emphasis>fwb-upgrade.sh</emphasis> that you
+          can find in Contrib/Scripts area on our SourceForge
+          site.</para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>When I run fwbuilder I get the following message: "QSplitter::setProperty( "handleWidth", value ) failed: property invalid, read-only or does not exist"</para>
+        </question>
+
+        <answer>
+          <para>This is a warning that appears because the version of
+          QT on your machine is older than what was used to generate
+          fwbuilder GUI. This warning is harmless and can be
+          ignored.</para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>
+          Policy compiler stops with an error ios_base::failbit set on
+          Windows</para>
+        </question>
+
+        <answer>
+          <para>It looks something like this:</para>
+
+              <programlisting>
+---------------------------------------
+fwb_ipfw -f C:/Documents and Settings/User/data.fwb -d C:/Documents
+and Settings/User -r C:\FWBuilder\resources fw
+
+ Compiling policy for fw ...
+  Detecting rule shadowing
+ Begin processing
+ Policy compiled successfully 
+ios_base::failbit set
+------------------------------------------
+          </programlisting>
+
+          <para>First of all, check available free disk space. Also
+          check if the output file ( fw.fw ) is opened in another
+          program while compiler is running. That is, if you looked at
+          it after the previous compiler run and opened it in Notepad,
+          it becomes locked and compiler won't be able to overwrite it
+          with the new copy until you close Notepad.
+          </para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>Firewall Builder GUI crashes on FreeBSD while using SNMP operations</para>
+        </question>
+
+        <answer>
+          <para>This is a known problem caused by new version of
+          net-snmp library. I could not reproduce this, but a user
+          suggested that the fix is to make sure that the value of
+          "suffixprinting" in /usr/local/etc/snmp must not be set to
+          1</para>
+        </answer>
+
+      </qandaentry>
+
+
+      <qandaentry>
+        <question>
+          <para>Firewall Builder GUI crashes on Windows</para>
+        </question>
+
+        <answer>
+          <para>Run-time problems on Windows are hard to debug
+          remotely. In order to make this little bit easier, fwbuilder
+          GUI has built-in debugging capability. You need to download
+          and run debugView program (you can download it
+            <ulink url="&debugview_download">here </ulink>).
+          </para>
+
+          <para> Basically, you start debugView, then you start
+          fwbuilder GUI from the MsDOS command line prompt like this:
+          </para>
+
+          <programlisting>
+c:\FWBuilder21\fwbuilder21.exe -d
+          </programlisting>
+
+          <para>
+            This will launch fwbuilder in debug mode and debugView
+            will start printing bunch of lines in its window. Follow
+            steps that lead to the crash all they way until it
+            crashes. Then in debugView save the output to a file, make
+            a zip archive with it and send it to
+            support@netcitadel.com
+          </para>
+
+        </answer>
+
+      </qandaentry>
+
+
+    </qandadiv>
+
+
+  
+  <!-- ******************** Chapter 3 ************************************************* -->
+
+      <qandadiv>
+	<title>Building firewall policy</title>
+
+
+      <qandaentry>
+        <question>
+          <para>Is there any way to import iptables (or ipfilter,
+        pf, ipfw or PIX) rules to Firewall Builder?</para>
+        </question>
+
+        <answer>
+          <para>Firewall Builder v2.1 GUI has built-in policy importer
+          that can import iptables policy saved with iptables-save
+          script. It can also import Cisco IOS access lists
+          configuration saved using "show run" command. You can access
+          importer via main menu <emphasis>"File / Import
+          Policy"</emphasis> Currently there is no way to import
+          existing ipfilter, pf or ipfw firewall configuration into
+          Firewall Builder.</para>
+        </answer>
+      </qandaentry>
+
+
+
+
+      <qandaentry>
+	<question>
+	  <para>Do I need to add rules for "ACK" packets?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    Firewall Builder uses "stateful inspection" feature of
+	    underlying firewall platform. In case of iptables it loads
+	    module ip_conntrack which is tracking connections opened
+	    through the firewall and by the firewall itself. Since this
+	    module "remembers" each connection, there is no need in
+	    additional rule for "ACK" or "reply" packets. In fact, this
+	    module does lot more than keeping track of opened TCP sessions
+	    as it does similar thing to other protocols as well, where
+	    possible. Firewall Builder also loads some other modules to
+	    keep track of complex protocols, e.g. it loads module
+	    ip_nat_ftp to support FTP.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+      <qandaentry>
+	<question>
+	  <para>I see the firewall objects has multiple policies
+	    associated with it. How do these policies relate to each
+	    other and in what order does policy compiler scan them to
+	    generate firewall code?</para>
+	</question>
+
+
+	<answer>
+
+          <para>Each firewall has a Global Policy, a policy associated
+          with each interface and a NAT policy.</para>
+
+	  <para>
+	    Global Policy rules apply to packets crossing the
+	    firewall, regardless of the interface they ingress and
+	    egress through. In case of iptables this is equivalent to
+	    writing a rule without "-i interface" or "-o interface"
+	    clause. Rule like this will match packets using only their
+	    addresses and protocol information. Interface policy
+	    rules, on the other hand, always get "-i interface" or "-o
+	    interface", depending on their direction setting.
+          </para>
+
+          <note>
+            <para>One common misconception is that interface rules
+            somehow control access to that interface. This is not the
+            case.</para>
+          </note>
+
+	  <para>
+	    Since Interface Policy rules are associated with certain
+	    network interface of the firewall and support direction,
+	    they provide a mechanism for dealing with situations
+	    where knowing both interface and direction is neccessary,
+	    for example setting up anti-spoofing rules. Since
+	    situations like this are rare, we recommend placing most
+	    of the firewall rules in the Global Policy and only those
+	    rules which can not be implemented in any other way into
+	    Interface Policy.
+	  </para>
+
+	  <para>
+	    There are firewalls which require that all rules are
+	    always associated with interfaces. Even in this case you
+	    can place policy rules in the Global Policy because our
+	    compiler can properly deduct correct interface the rule
+	    should be associated with.
+	  </para>
+
+	  <para>
+	    When policy compiler generates code for the target platform,
+	    it first scans NAT rules, then Interface Policies, then Global
+	    Policy. This determines the order in which lines of the target
+	    code are generated.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+        <question>
+          <para>What does the option "Assume firewall is part of any" do?</para>
+        </question>
+
+        <answer>
+          <para>
+            The option "Assume firewall is any" is needed for those
+            firewalls where rules that control access to the firewall
+            machine and rules that control access to machines behind
+            the firewall use different syntax or different
+            commands. Currently two plaforms require and use this
+            option: iptables and Cisco PIX.
+          </para>
+
+          <para>
+            In iptables, rules controlling access to the firewall
+            should go into INPUT chain (or rules controlling packets
+            originated on the firewall should go to OUTPUT chain),
+            while rules that control traffic going through the
+            firewall go into the FORWARD chain. Generally, a rule may
+            yield code for either chain depending on the addresses
+            used in SRC and DST. If address used in DST matches one of
+            the addresses of the firewall, then code goes into INPUT
+            chain. There are two ways to interpret "any" though. We
+            can say that "any" means anything, including the
+            firewall. In this case this rule should put code into both
+            INPUT and FORWARD chain. If we do not assume that firewall
+            is part of any, then the generated code goes only into the
+            FORWARD chain.
+          </para>
+
+          <para>
+            The algorithms used by the policy compiler are the same
+            regardless of the network configuration, so this logic
+            applies in the case when firewall protects local host,
+            too.</para>
+        </answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+        <question>
+         <para> My firewall has 3 networks cards - internal (eth0),
+         DMZ (eth1) and external (eth2). I want to perform NAT when
+         accessing the DMZ from the *internal* network but the
+         ipt-compiler insists on specifying '-o eth2' in the iptables
+         command. Why does it do that? How can I persuade it to
+         specify '-o eth1'?</para>
+        </question>
+
+        <answer>
+         <para> mark interface DMZ as external</para>
+        </answer>
+      </qandaentry>
+
+
+      <qandaentry>
+        <question><para>Unnumbered interfaces - what do we need them for ?</para>
+        </question>
+
+        <answer>
+          <para>We need them to be able to assign rules to an
+          interface, but skip it in src or dst if firewall object is
+          used in src/dst rule elements. This may be useful in
+          configurations with VPN (imagine unnumbered VPN interface
+          through which packets exit the tunnel).</para>
+        </answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+        <question>
+          <para>Why don't you set default policy in chains to ACCEPT
+          so that access to the firewall won't be blocked as soon as
+          firewall script issues "iptables -F" to clean up chains? 
+          This disconnects my ssh session...</para>
+        </question>
+
+        <answer>
+          <para>
+            I won't do this because I believe that currently the
+            script does "The Right Thing". Here is why:
+          </para>
+
+          <para>
+            The script sets default policy in all chains to "DROP"
+            before it clears all the rules. This is necessary because
+            firewall and possibly machines behind it become wide open
+            as soon as script clears the policy. Script needs to wipe
+            out old rules before it installs new ones, so setting
+            default policy to DROP is the only way to ensure there is
+            no time window during which firewall does not offer any
+            protection. One may argue that this window is really
+            short, because script immediately loads new rules, but
+            this is not always so. What if some rule contained an
+            error and did not load? What if script has been
+            interrupted and did not activate whole bunch of rules? In
+            the end, it is always better to block access and thus
+            prevent potential security problems, even if this comes at
+            a price of some inconvenience.
+          </para>
+        </answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+        <question>
+          <para>what is "rule shading"? ( "shadowing" )</para>
+        </question>
+
+        <answer>
+          <para>Shadowing happens because a rule is a superset of a
+          subsequent rule and any packets potentially matched by the
+          subsequent rule have already been matched by the prior
+          rule.</para>
+        </answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+        <question>
+          <para>
+          Policy compiler stops processing rules with error message
+          "Cannot create virtual address NN.NN.NN.NN"
+          </para>
+        </question>
+
+        <answer>
+          <para>
+            This happens when you are using an option "Create virtual
+            addresses for NAT rules". The problem is that policy
+            compiler needs to be able to determine interface of the
+            firewall to assign virtual address to. In order to do that
+            it scans all interfaces trying to find subnet requested NAT
+            address is on. Sometimes firewall's interface has an address
+            which belongs to a different network than NAT address
+            specified in the rule; in this case compiler can not
+            identify an interface and aborts.
+          </para>
+
+          <para>
+            The NAT rule still can be built without "-i" or "-o" option,
+            but automatic assignment of virtual address is
+            impossible. You need to turn off option "Create virtual
+            addresses for NAT rules" in the tab "Firewall" of firewall
+            dialog and configure this address manually.
+          </para>
+        </answer>
+
+      </qandaentry>
+
+
+    </qandadiv>
+
+  <!-- ******************** Chapter 4 ************************************************* -->
+
+    <qandadiv>
+      <title>Installing policy on the firewall</title>
+
+      <qandaentry>
+	
+	<question>
+	  <para>The XML file I save, is it transformed into iptables
+	    script and sent to the firewall automatically when I click
+	    on "Compile"? Or do I have to restart something to see the
+	    changes applied?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    "Compile" only calls compiler, which produces a file
+	    called after the name of the firewall object, with ".fw"
+	    extension. This file contains a firewall sript which needs
+	    to be activated. There are three ways to activate it: 1)
+	    you can simply copy it to the firewall machine and then
+	    run it by hand; 2) you can use built-in installer and 3)
+	    you can use a shell script to copy this file to where it
+	    should be and then run it. Built-in installer uses ssh to
+	    communicate with the firewall, you can activate it by
+	    clicking menu Policy/Install (or corresponding toolbar
+	    icon). You can use your own installer script if you put
+	    the full directory path and file name for it in the
+	    "Policy Install Script" field in "Compile/Install" tab of
+	    the firewall's settings dialog. Then menu item
+	    "Rules/Install" will call your script.
+          </para>
+
+          <para>
+            You do not need to reboot your firewall to activate the
+            new policy. Iptables script generated by Firewall Builder
+            has a code to do a "clean up" job by removing all previous
+            iptables settings, before it loads new ones.
+	  </para>
+	</answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>How do I use built-in policy installer in fwbuilder 2.x ?</para>
+        </question>
+
+        <answer>
+          <para>
+            The following HOWTO article describes the ways to use
+            Built-in installer in fwbuilder 2.0 and 2.1:
+            <ulink url="&installer-howto">&installer-howto</ulink>.
+          </para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>A note about option "save .fwb file on the firewall"
+            in the built-in policy installer.</para>
+        </question>
+
+        <answer>
+          <para>
+            This option was added by popular request, it copies .fwb
+            file over to the same directory on the firewall alongside
+            with generated firewall script. Many people, it seems, use
+            this as a simple way to create a backup copy of their data
+            file so they can easily restore it if their management
+            workstation crashes. This can also be useful if they want
+            to quickly roll back to the version of the data file that
+            was used to generate firewall script running on the
+            firewall.
+          </para>
+
+          <para>
+            I would like to point out that this feature should be used
+            carefully. This option (making a backup copy of fwb file
+            on the firewall itself) makes sense when fwbuilder is used
+            to manage only one firewall, and especially when the GUI
+            runs on the firewall itself which means the fwb file is
+            already present on the machine. However, this option may
+            turn into potential problem if fwbuilder is used to manage
+            multiple firewalls and all the objects and configurations
+            are kept in the same fwb file residing on the remote
+            workstation. If the fwb file was copied to every firewall
+            as part of installation, each firewall would end up
+            holding information about policy of every other
+            firewall. This elevates risk in case of break-in into one
+            of the firewall and should be avoided.
+          </para>
+
+          <para>
+            Fwbuilder is not really a backup tool, and copying the
+            data file over to the firewall has its drawbacks. Please
+            consider making regular backups of the data file using
+            other means.
+          </para>
+
+          <para>
+            Built-in revision control system (RCS) in the Firewall
+            Builder GUI allows administrator to maintain versioning of
+            their data file. It is a good practice to check the file
+            in (with appropriate log record) after every significant
+            change is made to objects or rules. This provides a way
+            for simple roll-back in the future if needed. Using RCS
+            does not eliminate the need to make backups.
+          </para>
+
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+	<question>
+	  <para>I have ipchains installed on my RedHat 7.1
+	    system. How do I switch to iptables and start using
+	    firewall script generated by Firewall Builder?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    You do not need to uninstall ipchains, but you need to
+	    deactivate it.
+	  </para>
+
+	  <para>
+	    As root, run the following command:
+	  </para>
+
+	  <programlisting>
+	    # chkconfig --level 2345 ipchains off
+	  </programlisting>
+
+	  <para>
+	    if you do not want to reboot at this point, run the
+	    following to stop and remove ipchains from the memory:
+	  </para>
+
+	  <programlisting>
+	    # /etc/rc.d/init.d/ipchains stop
+	    # rmmod ipchains
+	  </programlisting>
+
+	  <para>
+	    Now simply run iptables script created by fwbuilder to
+	    activate your firewall. This will immediately activate
+	    your new firewall policy; you can always check if your new
+	    rules are loaded using command "iptables -L -n".  
+          </para>
+
+          <para>
+            There still is a problem of activating the policy at a
+            boot time. Different OS deal with it using deifferent
+            scripts that get installed in the directory
+            /etc/rc.d/init.d (scripts in this directory are called in
+            sequence when machine boots.)  RedHat's standard iptables
+            setup depends on their scripts iptables-save and
+            iptables-restore. If you wish to stick with RedHat's
+            standard scripts, simply run these commands:
+	  </para>
+
+	  <programlisting>
+	    # /etc/rc.d/init.d/iptables save
+	    # chkconfig --level 2345 iptables on
+	  </programlisting>
+
+	  <para>
+	    This will save your configuration to RedHat's standard
+	    file /etc/sysconfig/iptables in iptables-save format
+	    (which is different!) and then will restart it every time
+	    you reboot your firewall.
+	  </para>
+	  
+	  <para>
+	    If you do not want to use their scripts, you can use
+	    script "firewall-initscript" available in the "Downloads"
+	    area on our web site. This script comes with a README file
+	    which describes its usage.
+	  </para>
+	</answer>
+      </qandaentry>
+    </qandadiv>
+
+  <!-- ******************** Chapter 5 ************************************************* -->
+
+    <qandadiv>
+      <title>Running firewall script</title>
+
+      <qandaentry>
+	<question>
+	  <para>Do I need to compile iptables into the kernel?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    Iptables can either be compiled into the kernel or as a
+	    modules, it does not really matter. If some of the modules
+	    are missing, then respective feature won't work and you
+	    will get an error trying to load generates script. For
+	    example, if you compile everything into the kernel and
+	    leave ipt_LOG module out, then logging will stop working
+	    and you will get errors trying to load rules with logging
+	    turned on. Look into iptables HOWTO and Tutorial for more
+	    details as this problem is not really specific to Firewall
+	    Builder.
+	  </para>
+
+	  <para>
+	    Here is (incomplete) list of modules taken from my
+	    firewall :
+	  </para>
+
+	  <itemizedlist>
+	    <listitem> <para>ipt_limit</para> </listitem>
+	    <listitem> <para>ipt_REJECT</para> </listitem>
+	    <listitem> <para>ipt_multiport</para> </listitem>
+	    <listitem> <para>ipt_MASQUERADE</para> </listitem>
+	    <listitem> <para>ipt_REDIRECT</para> </listitem>
+	    <listitem> <para>ipt_state</para> </listitem>
+	    <listitem> <para>ipt_LOG</para> </listitem>
+	    <listitem> <para>iptable_drop</para> </listitem>
+	    <listitem> <para>iptable_filter</para> </listitem>
+	    <listitem> <para>iptable_nat</para> </listitem>
+	    <listitem> <para>ip_conntrack</para> </listitem>
+	    <listitem> <para>ip_nat_ftp</para> </listitem>
+	    <listitem> <para>ip_tables</para> </listitem>
+	    <listitem> <para>ip_conntrack_ftp</para> </listitem>
+	  </itemizedlist>
+
+	  <para>
+	    RedHat Linux comes with all iptables code compiled as
+	    modules.
+	  </para>
+	</answer>
+      </qandaentry>
+
+      <qandaentry>
+	<question>
+	  <para>I get some error when I run generates script, how can
+	  I figure out which rule causes this error?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    You can turn debugging on (look for a checkbox in the tab
+	    "Firewall" in firewall dialog). This simple generates
+	    firewall script with shell option "-x" so it will print all
+	    commands while executing. This way you can see which command
+	    causes the error and trace it back to the policy rule.
+	    </para>
+	</answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+	<question>
+	  <para>
+	    (Linux / iptables only) I've generated script for iptables
+	    firewall using Firewall Builder, but when I run it I get
+	    an error "ip: command not found".  What is this command
+	    for and what package should I install?
+	  </para>
+	</question>
+
+	<answer>
+	  <para>
+	    This tool is part of the package 'iproute'; we use it to manage
+	    virtual IP addresses needed for some NAT rules.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+        <question>
+
+          <para>I get the following error when I run generated script
+          for iptables firewall: "iptables v1.2.8: can't initialize
+          iptables table 'drop': Table does not exits (do you need to
+          insmod?) Perhaps iptables or your kernel needs to be
+          upgraded."</para>
+        </question>
+
+        <answer>
+          <para>You get this error because you used option "Log all
+          dropped packets" (there is a checkbox in the 'Firewall'
+          tab). This option requires "dropped" patch from
+          patch-o-matic. You either need to turn this option off, or
+          apply corresponding patch and recompile both ketnel modules
+          and command-line utilities for iptables.</para>
+        </answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+        <question>
+          <para>You are trying to execute iptables script generated by
+          fwbuilder but get an error message "Interface eth0 does not
+          exist" or similar.</para>
+        </question>
+
+        <answer>
+          <para>There are several conditions that may cause this error.</para>
+
+          <para>The script generated by fwbuilder uses tool
+          <emphasis>/sbin/ip</emphasis> to verify configuration of the
+          firewall interfaces and make sure that interfaces of the
+          real firewall machine correspond to the interface objects
+          created in the GUI. You may get this error if the tool
+          <emphasis>/sbin/ip</emphasis> is not installed on your
+          system. All modern Linux distributions come with the package
+          <emphasis>iproute2</emphasis> which includes
+          <emphasis>/sbin/ip</emphasis>; check if
+          <emphasis>iproute2</emphasis> is installed and
+          <emphasis>/sbin/ip</emphasis> exsits.</para>
+
+          <para>Another case when you may encounter this error is when
+          firewall script is executed prematurely during the boot
+          sequence and interface really does not exist at that
+          time. For example, interface ppp0 is created only when the
+          system is configured for PPP and daemon pppd is running. If
+          firewall script is activated before the daemon started
+          during the boot sequence, interface ppp0 is not there yet,
+          which leads to this error. Make sure you start firewall
+          script after all interfaces has been initialized.</para>
+
+        </answer>
+      </qandaentry>
+
+
+      <qandaentry>
+        <question>
+          <para>My firewall has virtual interface eth0:1. In fwbuilder
+          I added the interface, however, when I want to apply the new
+          rules I get the error "Interface eth0:1 does not
+          exist"</para>
+        </question>
+
+        <answer>
+          <para><emphasis>eth0:1</emphasis> is not a real interface on
+          Linux, it is just a label for a second IP address of the
+          interface <emphasis>eth0</emphasis>. One way to solve this
+          is not to create it in the OS (remove file
+          <emphasis>/etc/sysconfig/network-scripts/ifcfg-eth0:1</emphasis>
+          and restart networking), but rather add its IP address in
+          the Firewall Builder GUI as a second address to interface
+          <emphasis>eth0</emphasis>.</para>
+
+          <para>In any case you should not add interface
+          <emphasis>"eth0:1"</emphasis> in fwbuilder because it really
+          does not exist. Iptables will not recognize this interface
+          either, so even if fwbuilder let you use it, you would get
+          an error from iptables. You see
+          <emphasis>"eth0:1"</emphasis> in the output of ifconfig only
+          because ifconfig has been modified on Linux to show virtual
+          IP addresses as pseudo-interfaces. The command <emphasis>"ip
+          addr show"</emphasis> will reveal that the
+          <emphasis>eth0:1</emphasis> is really a label on the second
+          IP address of <emphasis>eth0</emphasis>. </para>
+        </answer>
+
+      </qandaentry>
+      
+
+      <qandaentry>
+        <question>
+          <para>Does the script generated by Firewall Builder configure
+          interfaces of the firewall ?</para>
+        </question>
+
+        <answer>
+          <para>iptables:</para>
+
+          <para>Policy compiler for iptables generates a shell script
+          that configures interfaces of the firewall using information
+          entered in the GUI, adds virtual addresses if needed and
+          activates firewall policy. Script checks pre-existing
+          configuration of the interfaces and does not make any
+          changes if all addresses are already configured. This means
+          it won't break anything if you use standard configuration
+          tools provided by your OS and then run this script.</para>
+
+          <para>ipfilter:</para>
+
+          <para>Policy compiler for ipfilter generates three files:
+          "firewall.fw", "firewall-ipf.conf" and "firewall-nat.conf"
+          (where 'firewall' is the name of the firewall opbject).  The
+          first file, "firewall.fw", is a shell script that configures
+          interfaces and loads firewall policy from the other two
+          files using /sbin/ipf and /sbin/ipnat. So, if you use this
+          autogenerated shell script, then the answer is yes,
+          interfaces will be configured. If you don't use this script
+          and rely on the standard scripts provided by FreeBSD, then
+          the answer is no.</para>
+
+          <para>pf:</para>
+
+          <para>Just like in case of ipfilter, policy compiler for pf
+          creates initialization script in the file "firewall.fw" and
+          a configuration file "firewall.conf". If you use generated
+          script "firewall.fw", then it will configure interfaces of
+          the firewall and load the policy. If you do not use it and
+          simply copy "firewall.conf" file and rename it as
+          "/etc/pf.conf", then you need to make all configuration
+          using standard scripts available in OpenBSD (/etc/rc.conf).
+          </para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>Generated script fails to load module nf_conntrack
+          when it is executed on the firewall</para>
+        </question>
+
+        <answer>
+          <para>This problem is specific to iptables. The asnwer below
+          has been written in September 2006, most likely the
+          situation and relevant recommendations are going to change
+          in the future as module nf_conntrack matures and gets wider
+          deployment.
+          </para>
+
+          <para>Here is an example of an error message:
+          </para>
+
+	  <programlisting>
+FATAL: Error inserting nf_conntrack_ipv4
+(/lib/modules/2.6.13-15.11-default/kernel/net/ipv4/netfilter/nf_conntrack_ipv4.ko):
+Device or resource busy
+          </programlisting>
+
+          <para>
+            Here is the <ulink url="&nf_conntrack_page">link</ulink>
+            to the nf_conntrack page in patch-o-matic catalog. Here is the
+            <ulink url="&nf_conntrack_discussion">link</ulink> to the
+            discussion on netfilter-devel mailing list.
+          </para>
+
+          <para>
+            It appears you can load either ip_conntrack or
+            nf_conntrack but not both at the same time since
+            nf_conntrack is a replacement for ip_conntrack. As of this
+            writing, nf_conntrack does not support NAT just yet and is
+            marked as having status "TESTING" on the patch-o-matic
+            catalog page.
+          </para>
+
+          <para>
+            This actually represent a problem for fwbuilder. I would
+            like to avoid having to write extensive GUI to let user
+            choose which modules they want to load. One of the reasons
+            is that the GUI may be working on one machine, while
+            generated firewall script will be executed on another.  In
+            this situation the GUI can not determine which modules are
+            available on the firewall. Currently generated script
+            simply tries to load all modules but it aborts if it
+            detects an error in the command that does it (modprobe).
+          </para>
+
+          <para>
+            Until better solution is found, you would probably need to
+            remove module that conflicts with others or disable
+            feature that makes generated script load modules and write
+            your own script to load modules you need. You can for
+            example add commands to load modules explicitly to the
+            "prolog" section of the generated script.
+          </para>
+        </answer>
+      </qandaentry>
+
+
+
+    </qandadiv>
+
+  <!-- ******************** Chapter 6 ************************************************* -->
+
+    <qandadiv>
+      <title>Logging</title>
+
+      <qandaentry>
+	<question>
+	  <para>I do not see log records in /var/log/messages, what's
+	  wrong?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    RedHat Linux comes with syslog preconfigured to write all log
+	    messages with level "info" and higher to /var/log/messages,
+	    while iptables script generated by Firewall Builder by default
+	    logs everything as "debug". You need either to edit
+	    /etc/syslog.conf to make all "debug" messages to be logged, or
+	    change log level to "info" in iptables tab in firewall dialog
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+      <qandaentry>
+	<question>
+	  <para>I've got logging working, but I think it sends too
+	    much information to the log so I can not really find what
+	    I am interested in. Is there a way to make it more
+	    readable?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    You can use our script logwatcher.pl available in Contrib
+	    area. It reads log file /var/log/messages and shows only the
+	    following fields from each log line:
+	  </para>
+
+	  <para>
+	    <itemizedlist>
+	      <listitem>
+		<para>Date and time</para>
+	      </listitem>
+	      <listitem>
+		<para>rule number (assuming you use default setting for the
+		  rule prefix which looks like this: "RULE %N -- %A")</para>
+	      </listitem>
+	      <listitem>
+		<para>rule action (Deny/Reject/Accept)</para>
+	      </listitem>
+	      <listitem>
+		<para>interface</para>
+	      </listitem>
+	      <listitem>
+		<para>protocol</para>
+	      </listitem>
+	      <listitem>
+		<para>source address and source port</para>
+	      </listitem>
+	      <listitem>
+		<para>destination address and destination port</para>
+	      </listitem>
+	      <listitem>
+		<para>ICMP type and code for ICMP packets</para>
+	      </listitem>
+	    </itemizedlist>
+	  </para>
+
+	  <para>
+	    Note though that this script drops some data logged by
+	    iptables to improve readability. You may miss some important
+	    information because of this, so in case of real problem always
+	    look in the original log!
+	  </para>
+
+	  <para>
+	    Another, more elaborate version of the same script is
+	    logwatcher2.pl. It is also available in Contrib area.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+	<question>
+	  <para>How can I get a list of connections opened through the
+	    firewall at any given moment of time ?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    You can use our script connwatcher.pl available in Contrib
+	    area. It prints the contents of the connections table every
+	    second, sort of like top shows processes active in the system.
+	  </para>
+	</answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+	<question>
+	  <para>How can I make particular rule send special text to
+	  the log when packet hits it?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    You can use rule options dialog and add unique log prefix
+	    for this rule. Open rule options dialog by right mouse
+	    clicking on rule element in the "Options" column. This way
+	    you can make rules generate special lines in the log,
+	    which you can later process with automated script, to
+	    simply use while troubleshooting your policy.
+	  </para>
+	</answer>
+      </qandaentry>
+
+    </qandadiv>
+
+  <!-- ******************** Chapter 6 ************************************************* -->
+
+    <qandadiv>
+      <title>GUI</title>
+
+      <qandaentry>
+	<question>
+	  <para>GUI keeps asking me a question whether I want to save
+	  data in the dialog when I switch from one object to
+	  another. This is annoying, how can I get rid of it?</para>
+	</question>
+
+	<answer>
+	  <para>
+	    Open Preferences dialog (under menu "Edit") and check
+	    checkbox "Automatically save data in dialogs while
+	    switching between objects" in the first tab of the dialog
+	    that appears.
+	  </para>
+	</answer>
+      </qandaentry>
+
+    </qandadiv>
+
+
+  <!-- ******************** Chapter 6 ************************************************* -->
+
+    <qandadiv>
+      <title>Using RCS</title>
+
+      <qandaentry>
+        <question>
+          <para>I can not open my data file, I get error
+          <emphasis>"Error checking file out: co: RCS file
+          c:/fwbuilder/RCS/file.fwb is in use"</emphasis></para>
+        </question>
+
+        <answer>
+          <para>A catastrophe (e.g.  a system crash) can cause RCS to
+          leave behind a semaphore file that causes later invocations
+          of RCS to claim that the RCS file is in use.  To fix this,
+          remove the semaphore file.  A semaphore file name typically
+          begins with , or ends with _.</para>
+        </answer>
+      </qandaentry>
+
+
+      <qandaentry>
+        <question>
+          <para>I can not open my data file, I get error
+          <emphasis>"Error checking file out:"</emphasis></para>
+        </question>
+
+        <answer>
+          <para>Such non-descriptive error message is ususally caused
+          by hard unrecoverable errors experienced by RCS
+          tools. Unfortunately these tools not always report errors in
+          the best way possible and when this happens, Firewall
+          Builder GUI can not provide any better diagnostics than it
+          gets from the tool. Such poor diagnostics of errors happens
+          more frequently on Windows than on other platforms. </para>
+
+          <para>Here are few things to check and try:
+          </para>
+
+	  <para>
+	    <itemizedlist spacing="compact">
+
+	      <listitem><para>First of all, check file
+	      permissions. The data file (.fwb) should be
+	      read-only. RCS repository file (.fwb,v) should also be
+	      read-only. Repository file may be located in
+	      subdirectory RCS but that depends on the OS. It may be
+	      located in the same directory with corresponding data
+	      file (.fwb) as well.</para></listitem>
+
+	      <listitem><para>Try to check the file out manually to
+	          see if you can get better diagnostics:</para>
+                
+                <para>
+                  If you use Windows, start MSDOS window and in it
+                  navigate to the folder where you keep your files,
+                  then execute the following command:
+                </para>
+
+                <programlisting format="linespecific">
+c:\FWBuilder\co.exe -l filename.fwb
+                </programlisting>
+
+                <para>If it checks the file out successfully, it just
+                  prints revision number and 'done'. Otherwise it will
+                  print some error.</para>
+
+                <para>After you do that, you need to check the file in
+                  to RCS again. Do it like this:</para>
+
+                <programlisting format="linespecific">
+c:\FWBuilder\ci.exe -u filename.fwb
+                </programlisting>
+
+                <para>Since the file hasn't changed, it should just
+                  check it in without asking you for the RCS log
+                  record. If you can successfully check it out and then
+                  check it in again from the command line, then the GUI
+                  should work too.</para>
+
+                <para>On Linux, *BSD and Mac OS X the process is
+                  exactly the same, except for the path to the
+                  checkout and checkin commands:</para>
+
+                <para>To check the file out use</para>
+                <programlisting format="linespecific">
+co -l filename.fwb
+                </programlisting>
+
+                <para>To check the file in use</para>
+                <programlisting format="linespecific">
+ci -u filename.fwb
+                </programlisting>
+
+              </listitem>
+            </itemizedlist>
+          </para>
+        </answer>
+      </qandaentry>
+
+
+      <qandaentry>
+        <question>
+          <para>How can start using Revision Control System with my data file ?</para>
+        </question>
+
+        <answer>
+          <para>Use main menu item <emphasis>File/Add file to RCS</emphasis></para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>How can I examine revision history of my data file ?</para>
+        </question>
+
+        <answer>
+          <para>List of revisions and corresponding RCS log entries
+          appear in the right panel of the Open File dialog when you
+          highlight a file that has been added to RCS. Once the file
+          has been opened, you can always see revision history and
+          corresponding RCS log using main menu
+          <emphasis>File/Properties</emphasis></para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>How do I create a branch in RCS ?</para>
+        </question>
+
+        <answer>
+          <para>Branch is created automatically when you open one of
+          the old versions of the file using list of versions that
+          appears in the right panel of the Open File dialog</para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>I've made changes to my data file and really messed it
+          up. How can I revert to the previous version that I have in
+          RCS ?</para>
+        </question>
+
+        <answer>
+          <para>If you haven't checked changed file in to RCS, you can
+          use main menu <emphasis>File/Discard</emphasis>. This
+          deletes your current file (even if it was saved to disk) and
+          replaces it with the head revision from RCS.
+          </para>
+
+          <para>If you have checked changed file in to RCS, you
+          can revert to the previous revision:</para>
+
+          <para>
+            <itemizedlist>
+              <listitem><para>Close the file</para></listitem>
+              <listitem><para>Use main menu <emphasis>File/Open</emphasis></para></listitem>
+              <listitem><para>Locate your file and chose previous revision in the list that appears when you highlight the file in Open File dialog</para></listitem>
+              <listitem><para>Click <emphasis>"Open"</emphasis></para></listitem>
+           </itemizedlist>
+          </para>
+
+          <para>This operation will create a branch in RCS and you
+          will continue working with your file from that point in its
+          revision history </para>
+        </answer>
+      </qandaentry>
+     
+    </qandadiv>
+
+
+  <!-- ******************** Chapter 7 ************************************************* -->
+
+    <qandadiv>
+      <title>Managing data files</title>
+
+      <qandaentry>
+        <question>
+          <para>I have several data files (.fwb) with multiple
+          objects. How can I merge them together so I could continue
+          working with one file instead of many?</para>
+        </question>
+
+        <answer>
+          <para>Open one file in the Firewall Builder GUI, then use
+          main menu function "File/Import library" to import other
+          files one at a time. Despite its name, this function can
+          import both regular data files (.fwb) and library files
+          (.fwl).</para>
+
+          <para>Note that the program identifies objects by their
+          iternal unique IDs rather than by name. This means two
+          objects can have the same name, which is probably
+          inconvenient and should be avoided, but is not at problem
+          per se. On the other hand, if you happen to have objects
+          with the same ID in two data files, you can not import one
+          such file into another. In fact, if you try to do that, the
+          program will detect the conflict and present you with a
+          dialog asking you to choose which object of the two you want
+          to keep. This may be a problem if these two objects have
+          different parameters (such as for example two network
+          objects with the same ID but different IP
+          address). Situation like this may happen if you make a copy
+          of the data file and continue working with both the original
+          and the copy, making changes to objects in both. With time,
+          two files will probaly drift apart and at some point it will
+          become impossible to merge them back. Such "forking" of the
+          data files should be avoided.
+          </para>
+        </answer>
+      </qandaentry>
+
+      <qandaentry>
+        <question>
+          <para>Some time ago, when I've got a new firewall that I
+          needed to configure, I created a copy of my data file and
+          started managing my second firewall using this file. I
+          continued to manage my original firewall using my old file,
+          too. Now I want to merge these two files to be able to
+          manage both firewalls from one file. How can I do
+          this?</para>
+        </question>
+
+        <answer>
+          <para>As described in the previous question, the program
+          identifies objects by their internal unique IDs. If you make
+          a copy of the data file, you create copies of all objects it
+          contains. Copies inherit IDs of the original objects, this
+          means you now have two data files, each of which has objects
+          with the same ID. If you now make any change to an object in
+          one of these files, changing its parameter, you create
+          potential conflict in case you want to merge these two files
+          together in the future. It is not recommended to make such
+          "forks" of the data files. You can create many firewall
+          objects in the same file and manage multiple firewalls that
+          way. There should be no reason to work with two distinct
+          copies of the same data file. </para>
+
+          <para>However if this happened and you want to merge such
+          conflicting files, use main menu function "Tools/Find
+          Conflicting Objects in Two Data Files" to find all conflicts
+          before you try to merge. This function lets you open two
+          data files and finds all objects that have the same ID but
+          different other attributes. It shows you such objects side
+          by side and in the end can generate a report and save it in
+          a text file. The procedure is as follows:
+          </para>
+
+          <para>
+            <itemizedlist>
+              <listitem><para>Pick one of your files as "base".
+                  Rename it because this will be your combined data
+                  file in the end.</para></listitem>
+
+              <listitem><para>use main menu function "Tools/Find
+                Conflicting Objects in Two Data Files" to generate
+                reports of conflicting objects. To do that compare the
+                base file against every other file, generate and store
+                reports. You do not need to open any file to use this
+                function, just click menu item and follow
+                instructions.</para></listitem>
+
+              <listitem><para>The next step is done in each data file
+                separately, we will merge them after that is
+                done.</para></listitem>
+
+              <listitem><para>Study reports and fix conflicting
+                  objects. Some of these objects may have different
+                  addresses, some have different port ranges and so
+                  on. All this should be cleaned up.</para>
+
+                <para>You may either fix addresses / ports and so on
+                  if they have been changed by mistake, or create new
+                  objects with different names and parameters as
+                  appropriate and use them in rules. If you need to
+                  replace objects, use Find/Replace function. You can
+                  create new object by duplicating the old one.
+                  Duplicate creates new object with different ID but
+                  the same parameters. Note that rules will still
+                  point at the old object, you need to use
+                  Find/Replace to make them point at the new one.</para>
+
+                <para>Delete old conflicting objects after you create
+                  new ones to replace them.</para>
+
+                <para>If you have firewall objects in the copy files
+                  that were created by editing the same original object,
+                  it likely they eded up with the same ID as well. These
+                  need to be recreated to make them different. The
+                  simplest way is to duplicate them and delete the
+                  original.</para>
+              </listitem>
+
+              <listitem><para>At this point you should run your data
+              files through "Find conflicting objects" function again
+                  to make sure there are no conflicts.</para>
+              </listitem>
+
+              <listitem><para>Open your base file and use File/import
+                  to import other data files into it, one by one.</para>
+              </listitem>
+            </itemizedlist>
+          </para>          
+        </answer>
+      </qandaentry>
+
+    </qandadiv>
+  </qandaset>
+
+</article>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
