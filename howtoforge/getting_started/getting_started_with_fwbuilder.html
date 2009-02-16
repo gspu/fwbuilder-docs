@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Firewall Builder: Getting Started Guide | HowtoForge - Linux Howtos and Tutorials</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+	text-decoration: underline;
+}
+-->
+</style>
+</head>
+<body>
+
+  <h2>Getting Started with Firewall Builder</h2>
+
+  <table border=0>
+    <tr>
+      <td><img src="http://www.fwbuilder.org/images/icon_128x128.png" height="128" width="128" /></td>
+      <td>Revision $Id:$<br/>
+        Author: vadim [at] fwbuilder [dot] org<br/>
+        <a href="http://www.fwbuilder.org">http://www.fwbuilder.org</a>
+      </td>
+    </tr>
+  </table>
+  <p>
+    This guide presents an introduction to Firewall
+      Builder. <b>Firewall Builder</b> (also known
+      as <b>fwbuilder</b>) is a GUI firewall configuration and
+      management tool that supports <b>iptables (netfilter), ipfilter,
+      pf, ipfw, Cisco PIX (FWSM, ASA) and Cisco routers extended
+      access lists</b>. Both professional network administrators and
+      hobbyists managing firewalls with policies more complex that is
+      allowed by simple web based UI can simplify management tasks
+      with the application. The program runs on Linux, FreeBSD,
+      OpenBSD, Windows and Mac OS X and can manage both local and
+      remote firewalls.
+  </p>
+
+  <p>
+    Firewall Builder is packaged with most Linux distributions. If the
+    package is not available in the base distribution, it usually can
+    be found in "extras". You need to install package that has
+    supporting API library <b>libfwbuilder</b> and
+    package <b>fwbuilder</b> that contains Firewall Builder GUI and
+    policy compilers. You can use your favorite package management
+    tool sucn as <b>yum</b> or <b>aptotude</b> to find and install
+    them. On FreeBSD and OpenBSD Firewall Builder is part of ports,
+    you can find it in <b>/usr/ports/security/fwbuilder</b>.
+  </p>
+
+  <p>
+    If the OS you are using does not come with pre-built binary
+    fwbuilder package, you can always build it yourself using our
+    online <a href="http://www.fwbuilder.org/guides/firewall_builder_installation.html">installation
+    instructions</a>. Pre-built binary packages and source code tar.gz
+    archives can be downloaded
+    from <a href="http://www.fwbuilder.org/docs/firewall_builder_packages.html">from
+    this page</a>.
+  </p>
+
+  <p>
+    OS that ship fwbuilder package usually include system menu item
+    that makes it easy to start the program. However if the menu item
+    is not there or you have built the program from source, you can
+    always launch it from the command line by just typing "fwbuilder"
+    on the shell prompt:
+  </p>
+
+  <p class="command">
+    $ fwbuilder
+  </p>
+
+  <p>
+    The program starts and opens main window and greeting dialog. The
+    dialog provides links to the project web site where you can find
+    more tutorials, FAQ, Firewall Builder CookBoook and other
+    documentation, as well as bug tracking system and links to user
+    forums and mailing list. Clicking on the link in the dialog opens
+    corresponding web page in your web browser. This works the same on
+    all supported OS: Linux, Windows and Mac OS X. You can always open
+    this dialog later using an item in the main menu "Help".
+  </p>
+
+  <img src="pict_010.png">
+
+  <p>
+    Lets create our first firewall object. To do this, we'll use
+    object creation menu that appears when you click on the icon in
+    the small toolbar right above the object tree. Choose menu item
+    "New Firewall" from the menu that appears.
+  </p>
+
+  <img src="pict_020.png">
+
+  <p>
+    The program presents wizard-like dialog that will guide you
+    through the process of creation of the new firewall object.  In
+    the first page of the wizard you can enter the name for the new
+    firewall object (here it is "guardian"), its platform ("iptables")
+    and host OS ("Linux").
+  </p>
+
+  <p>
+    There are two ways new firewall can be created: you can use one of
+    the preconfigured template firewall objects or create it from
+    scratch. This tutotiral demonstrates the first method (using
+    template object). To do this, check checkbox "Use preconfigured
+    template firewall objects". Template can be taken from the library
+    of template objects that comes with Firewall Builder package or
+    from a file provided by the user. The latter is useful when
+    administrator wants to distribute a library of predefined
+    templates to other users in the enterprise. We are using one of
+    the standard templates in this guide and therefore leave
+    standard template library path and name in the "Template file:"
+    input field. Click "Next" to move on to the next page of the
+    wizard.
+  </p>
+
+  <p>
+    Note that template firewall object comes completely configured,
+    including addresses and netmasks of its interfaces and some basic
+    policy and NAT rules. This configuration is intended as a starting
+    point only. You should reconfigure addresses of interfaces to
+    match those used on your network and most likely will have to
+    adjust rules to match your security policy.
+  </p>
+
+  <img src="pict_030.png">
+
+  <p>
+    This page of the wizard shows template objects and their
+    configuration. Standard template objects represent firewalls with
+    two or three interfaces, a host with one interface, web server or
+    Cisco router. Choose firewall with three interfaces for this
+    guide. Note that template comes with completely configured
+    firewall object, including set of interfaces and their ip
+    addresses and some basic firewall policy. You will see how
+    addresses can be changed later on in this guide. Click "Finish" to
+    create a new firewall object using chosen template.
+  </p>
+
+  <img src="pict_040.png">
+
+  <p>
+    Here is our new firewall object. Its name is <b>guardian</b>, it
+    appears in the object tree in the left hand side of the main
+    window in the folder <b>Firewalls</b>. When an object is selected
+    in the tree, a brief summary of its properties appears in the
+    panel under the tree. Double-clicking on the object in the tree
+    opens it in the editor panel at the bottom of the right hand side
+    panel of the main window. The editor for the firewall object
+    allows the user to change its name, platform and host OS and also
+    provides buttons that open dialogs for "advanced" settings for the
+    firewall platform and host OS. We will inspect these little later
+    in this tutorial.
+  </p>
+
+  <p>
+    Unfortunately not all columns of the policy view fit in the
+    screenshot because of the limitations on the size of the
+    images. You can always resize the main window to make it bigger.
+  </p>
+
+  <img src="pict_050.png">
+
+  <p>
+    Now would be a good time to save the data to a disk file. This is
+    done in a usual way ising main menu <b>File/Save As</b>.
+
+
+
+</body>
+</html>
