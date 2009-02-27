@@ -12,7 +12,7 @@
   Eveyone knows about netfilter/iptables, a powerful firewall
   framework and command line tool that is part of every Linux
   distribution. Unfortunately, managing security policy with it
-  remains non-trivial task for several of reasons. Partially this is
+  remains non-trivial task for several reasons. Partially this is
   because of the complex syntax of the command line interface and
   multitude of the available options and parameters. Another reason is
   that administrator has to understand internal path of the packet
@@ -42,9 +42,6 @@
 
 <h2>Introduction</h2>
 
-<img src="http://www.fwbuilder.org/slideshows/tutorial_3//pict_060.png"/>
-<img src="http://www.fwbuilder.org/slideshows/tutorial_3//pict_220.png"/>
-
 <p>
   Firewall Builder is a GUI firewall configuration and management tool
   that supports <em>iptables (netfilter), ipfilter, pf, ipfw, Cisco
@@ -63,14 +60,16 @@
   commercial firewall management systems. All configuration management
   operations can be performed from one central place, Firewall Builder
   GUI. You create and manage collection of objects that describe
-  network addresses, hosts and firewalls, as well as services and then
-  build firewall policy and NAT rules using these objects. Policy
+  network addresses, hosts and firewalls, as well as services, and
+  then build firewall policy and NAT rules using these objects. Policy
   rules are defined in terms of "Source" and "Destination" addresses
   and "Service" and can have additional parameters such as interface
   association, direction, time interval and optional
   platform-dependent attributes. NAT rules are defined by addresses
-  and services before and after translation. 
+  and services before and after translation.
 </p>
+
+<img src="http://www.fwbuilder.org/images/intro/rule1.png" alt="Example of policy rule"/>
 
 <p>
   Rules are built with simple drag and drop operations and then
@@ -83,6 +82,13 @@
   and also helps integrate Firewall Builder with existing automation
   scripts.
 </p>
+
+<p>
+  The program comes with a collection of over 100 standard objects
+  that can be used to describe popular TCP, UDP and ICMP servcies.
+</p>
+
+<img src="http://www.fwbuilder.org/images/intro/services.png" alt="Fragment of the standard TCP objects library"/>
 
 <p>
   Firewall Builder implements many best practices in firewall policy
@@ -130,4 +136,35 @@
 
 <h2>Quick Tour</h2>
 
+<img src="http://www.fwbuilder.org/images/intro/main_window.png" alt="Main window"/>
+
 <p>
+  The main window of the program includes objects tree on the left
+  (1), brief information about object selected in the tree (2),
+  current firewall policy view (3) and a dialog panel where you can
+  edit objects parameters (4).
+</p>
+
+<p>
+  As all Open Source projects, Firewall Builder depends on the user
+  community who provide testing, bug reports and other forms of
+  feedback. You can file bug reports and feature requests
+  using <a href="https://sourceforge.net/tracker2/?group_id=5314&atid=1070394">bug
+  tracking
+  system</a>. Our <a href="https://lists.sourceforge.net/lists/listinfo/fwbuilder-discussion">mailing
+  list </a> is great place to ask for help and discuss the program
+  with other users.
+</p>
+
+<p>
+  This was just a brief introduction to the FIrewall Builder. If you
+  are interested in the program, you can find more information on the
+  project web site at <a href="http://www.fwbuilder.org">
+  http://www.fwbuilder.org</a>. Slideshows
+  <a href="http://www.fwbuilder.org/slideshows/brief_introduction/slide_1.html">Introduction
+  to Firewall Builder 3.0 for the impatient</a> and
+  <a href="http://www.fwbuilder.org/slideshows/tutorial_3//slide_1.html">Getting
+  starter with Firewall Builder</a> can help you get more familiar
+  with the program.
+
+</p>
