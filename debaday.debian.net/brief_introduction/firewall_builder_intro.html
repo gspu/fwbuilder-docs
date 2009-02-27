@@ -1,3 +1,4 @@
+<h1>Firewall Builder: Manage Firewalls Professionally </h1>
 
 <p>
   <a href="http://www.fwbuilder.org">Firewall Builder</a> is available
@@ -8,35 +9,84 @@
 </p>
 
 <p>
+  Eveyone knows about netfilter/iptables, a powerful firewall
+  framework and command line tool that is part of every Linux
+  distribution. Unfortunately, managing security policy with it
+  remains non-trivial task for several of reasons. Partially this is
+  because of the complex syntax of the command line interface and
+  multitude of the available options and parameters. Another reason is
+  that administrator has to understand internal path of the packet
+  inside Linux kernel and its interaction with different parts of
+  netfilter in order to build rules correctly. This is not a problem
+  specific to iptables though, other popular Open Source firewall
+  platforms, such as OpenBSD PF, ipfilter and ipfw present similar
+  challenges.
+</p>
+
+<p>
+  What is needed is a tool that could let administrator define
+  security policy on a higher level of abstraction and hide internal
+  structure of the target firewall platform. For example, such tool
+  should decide which iptables chain is right for each generated
+  iptables rule automatically, without administrator's input. It
+  should also pick the right iptables targets for both policy and NAT
+  (Network Address Translation) rules as well as properly use most
+  popular iptables modules, all automatically. Such tool should also
+  implement best practices in policy design and help administrator
+  deploy and activate generated policy on the firewall.
+</p>
+
+<p>
+  Firewall Builder does just that.
+</p>
+
+<h2>Introduction</h2>
+
+<img src="http://www.fwbuilder.org/slideshows/tutorial_3//pict_060.png"/>
+<img src="http://www.fwbuilder.org/slideshows/tutorial_3//pict_220.png"/>
+
+<p>
   Firewall Builder is a GUI firewall configuration and management tool
   that supports <em>iptables (netfilter), ipfilter, pf, ipfw, Cisco
-  PIX (FWSM, ASA) and Cisco routers extended access lists</em>. Both
-  network administrators and hobbyists managing firewalls with
-  policies more complex that is allowed by simple web based UI can
-  simplify management tasks with the application. The program can
-  manage both local and remote firewalls.
+  PIX (FWSM, ASA) and Cisco routers extended access lists</em>. It
+  presents all supported firewalls to the administrator in terms of
+  unified abstract firewall that takes the best features from all of
+  them and hides their specifics and inconveniences. Firewall Builder
+  is more complex than many basic firewall configuration GUIs such as
+  Firestarter, but on the other hand one can build very complex
+  policies with Firewall Builder and fully utilize flexibility and
+  power of iptables and other supported firewalls.
 </p>
 
 <p>
-  Firewall Builder can generate configuration file for any supported
-  target firewall platform from the same policy created in its
-  GUI. This provides for both consistent policy management solution
-  for heterogeneous environments and possible migration path.
+  General idea should be familiar to anyone who ever worked with
+  commercial firewall management systems. All configuration management
+  operations can be performed from one central place, Firewall Builder
+  GUI. You create and manage collection of objects that describe
+  network addresses, hosts and firewalls, as well as services and then
+  build firewall policy and NAT rules using these objects. Policy
+  rules are defined in terms of "Source" and "Destination" addresses
+  and "Service" and can have additional parameters such as interface
+  association, direction, time interval and optional
+  platform-dependent attributes. NAT rules are defined by addresses
+  and services before and after translation. 
 </p>
 
 <p>
-  All configuration management operations can be performed from one
-  central place, Firewall Builder GUI. You can create configuration,
-  track its changes using built-in revision control system and deploy
-  it to one or several firewall machines. Yet, it creates
-  configuration for all supported firewall platforms in their standard
-  format, which makes it easy to integrate with existing automation
+  Rules are built with simple drag and drop operations and then
+  firewall configuration can be generated with one click of a
+  mouse. In the end, Firewall Builder produces a script or
+  configuration file in the language of the target firewall. For
+  iptables, it creates shell script that loads iptables rules, while
+  for other platforms it creates configuration file suitable for
+  them. This makes it simple to deploy and activate generated policy
+  and also helps integrate Firewall Builder with existing automation
   scripts.
 </p>
 
 <p>
   Firewall Builder implements many best practices in firewall policy
-  design and firewall management procedures. Here are some examples:
+  design and firewall management procedures. Here just a few examples:
 </p>
 
 <p>
@@ -78,216 +128,6 @@
   </ul>
 </p>
 
-<p>
-  Firewall Builder helps administrator manage many firewalls using the
-  same network object database. Change made to an object is
-  immediately reflected in the policy of all firewalls using this
-  object. Administrator only needs to recompile and install policies
-  on actual firewall machines.  This object-oriented approach
-  simplifies policy design and management for both dedicated firewalls
-  and on-server firewalls. This aids in implementaion of security in
-  depth.
-</p>
+<h2>Quick Tour</h2>
 
 <p>
-  Built-in interactive installer uses ssh to communicated with the
-  firewall and can automatically copy generated policy and activate
-  it. Installer supports batch mode of operation and can update policy
-  on multiple firewalls in one session.
-</p>
-
-<p>
-  In Firewall Builder, administrator works with an abstraction of
-  firewall policy and NAT rules; software effectively
-  &quot;hides&quot; specifics of particular target firewall platform
-  and helps administrator focus on implementation of security
-  policy. Backend software components, or policy compilers, can
-  determine many parameters of policy rules using information
-  available through network and service objects and therefore generate
-  fairly complex code for the target firewall, relieving administrator
-  from having to remember all its details and limitations.
-</p>
-
-<p>
-  Policy compilers also run sanity checks on firewall rules and make
-  sure typical errors are caught before generated policy is
-  deployed.
-</p>
-
-<p>
-  Here is a brief introduction to Firewall Builder. We are going to
-  build very simple firewall policy to protect a desktop machine but
-  permit ssh access to it in just a few steps. This demonstration
-  covers the whole process starting with launching the program for the
-  first time all the way through to the point where newly created
-  iptables policy is installed and is functioning. Screenshots have
-  been taken on Ubuntu 8.10 Intrepid machine running Gnome desktop.
-</p>
-
-<p>
-To start Firewall Builder use main menu Systsm/Administration
-</p>          
-
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_010.png" alt="" />
-
-<p>
-  When program starts, it presents "welcome" dialog that lists urls to
-  all sorts of helpful information you can find on the project web
-  site. This includes FIrewall Builder Cookbook, FAQ, "getting
-  started" tutorial and other documents.
-</p>          
-
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_020.png" alt="" />
-
-<p>
-  To create firewall object using main menu "Object/New object" or
-  button in the toolbar.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_030.png" alt="" />
-
-<p>
-  The program presents the first page of the firewall creation
-  "wizard" dialog where you can assign it a name and choose firewall
-  platform and host OS. Here the name will be "guardian", platform
-  "iptables" and host OS "Linux 2.4/2.6". We will create new firewall
-  using one of the preconfigured template objects. Once these choices
-  are done, click "Next" at the bottom of the dialog.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_040.png" alt="" />
-
-
-<p>
-  Here the program presents the list of available template
-  objects. Since the goal is to create policy to protect desktop
-  workstation, we'll choose "Host firewall template 1". The comment at
-  the bottom of the dialog explains the purpose of the template and
-  what security policy rules are included. After you select the
-  template, click "Finish" and the bottom of the dialog to create
-  firewall object.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_050.png" alt="" />
-
-
-<p>
-  At this point we already have fully configured firewall object that
-  has two interfaces (eth0 and loopback), ethernet interface eth0 is
-  supposed to obtain IP address dynamically via DHCP. The object also
-  comes with basic firewall policy that blocks all access to the
-  machine except for ssh and permits all kinds of connections
-  initiated from the machine.
-</p>
-
-<p>
-  The rules of this preconfigured template firewall object are rather
-  simple, however they can be easily extended or modified. The
-  template used in this demonstration is probably the smallest and
-  simplest of all template objects that come with the package. Other
-  templates can be used to create firewalls with two or three
-  interfaces, with or without DMZ, with static or dynamic
-  interfaces. There are also templates for Cisco router and a basic
-  web server in the collection.
-</p>
-
-<p>
-  We need to configure a couple of parameters before we can activate
-  the policy. Click on "Firewall Settings..." button to open firewall
-  settings dialog.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_060.png" alt="" />
-
-
-<p>
-  Choose tab "Installer" in the dialog that comes up and enter
-  directory where firewall script should be installed, the name of the
-  account used to manage the firewall and ip address 127.0.0.1 in the
-  field for the address used to communicate with the firewall. We use
-  root account to install and activate policy. Make sure that root
-  login via ssh is permitted by your sshd configuration. We use
-  loopback address because the program will manage policy of the same
-  machine it is running on. Once done, click "OK" to save parameters.
-</p>
-
-<p>
-  Document <a href="http://www.fwbuilder.org/guides/firewall_builder_policy_installer.html">Using
-Built-in Policy Installer in Firewall Builder</a> explains how to use
-regular user account with sudo rather than root to install and
-activate policy.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_070.png" alt="" />
-
-
-<p>
-  Now we can compile and install policy. Click right mouse button on
-  the firewall object "guardian" in the tree and use menu item
-  "Install" in the pop-up menu.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_080.png" alt=""/>
-
-
-<p>
-  The program will want to save the data to a file before it can
-  proceed. Here I am choosing existing test file "test2.fwb".
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_090.png" alt="" />
-
-
-<p>
-  Once data is saved, the program runs policy compiler and shows its
-  progress in the progress log panel of the dialog. Once compiler
-  finishes, click "Next" at the bottom of the dialog.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_100.png" alt="" />
-
-
-<p>
-  The program can use either password or ssh key pair to authenticate
-  when it logs in to the firewall to install and activate new
-  policy. If you use password, enter it in this dialog. However it is
-  recommended to use ssh key pair to authenticate rather than root
-  password. If your keys are configured, the program will use
-  them. Next screenshots demonstrate how it looks like when
-  authentication is done via ssh keys. Since we will use keys, leave
-  "password" input field blank in this dialog.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_110.png" alt="" />
-
-
-<p>
-  The program tries to log in to the local host as root using ssh. Ssh
-  ssh client brings this dialog up and asks you to enter private key
-  passphrase. Note that this dialog is not part of Firewall Builder,
-  it is part of ssh client.
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_130.png" alt="" />
-
-
-<p>
-  Once authentication is done, the program copies generated script to
-  the firewall and activates it there. The progress of the installer
-  can be seen in the right hand side panel of the dialog.
-</p>
-
-<p>
-  At this point our new firewall policy is installed and
-  activated. See <a href="http://www.fwbuilder.org/guides/firewall_builder_howtos.html#000071">this
-  HOWTO document</a> that demonstrates how to make the computer
-  activate new policy after reboot.
-</p>
-
-<p>
-  This was very brief introduction to the Firewall Builder.  More
-  detailed demonstration of the capabilities of the program can be
-  found
-  in <a href="http://www.fwbuilder.org/slideshows/tutorial_3/slide_1.html">Getting
-  Started with Firewall Builder 3.0</a>
-</p>
-
-<p>
-  Built-in policy installer that is part of the Firewall Builder GUI
-  is explained in the
-  document <a href="http://www.fwbuilder.org/guides/firewall_builder_policy_installer.html">"Using
-  Built-in Policy Installer in Firewall Builder"</a>
-</p>          
-<img src="http://www.fwbuilder.org/slideshows/brief_introduction/pict_140.png" alt="" />
-
-
