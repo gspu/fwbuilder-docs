@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Firewall Builder: Using Built-In Revision Control in Firewall Builder | HowtoForge - Linux Howtos and Tutorials</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+	text-decoration: underline;
+}
+-->
+</style>
+</head>
+<body>
+
+  <h2>Using Built-In Revision Control in Firewall Builder</h2>
+
+  <table border=0>
+    <tr>
+      <td><img src="http://www.fwbuilder.org/images/icon_128x128.png" height="128" width="128" /></td>
+      <td>Revision 1.0<br/>
+        Author: vadim@fwbuilder.org<br/>
+        <a href="http://www.fwbuilder.org">http://www.fwbuilder.org</a>
+      </td>
+    </tr>
+  </table>
+
+  <p>
+    Firewall Builder was introduced in the
+      article <a href="http://www.howtoforge.com/getting-started-with-firewall-builder">
+      Getting Started With Firewall Builder</a> on this site
+      earlier. There, we looked at the basic functions of fwbuilder
+      and created simple firewall configuration. This article
+      demonstrates one of the more advanced features of Firewall
+      Builder - built-in Revision Control System (RCS).
+  </p>
+
+  <p>
+    Firewall Builder GUI has built-in revision control
+    system that can be used to keep track of changes in
+    the objects and policy rules. If data file has been
+    added to the revision control system, every time it
+    is saved, the system asks the user to enter a
+    comment that describes changes done in the file in
+    this session and stores it along with the data. The
+    program also assigns new revision number to the data
+    file using standard software versioning system whith
+    major and minor version numbers separated by a
+    dot. When you open this data file next time, the
+    program presents a list of revisions alnogside with
+    dates and comments, letting you choose which revision
+    you want to use. You can open the latest revision and
+    continue working with the file from the point where
+    you left off last time, or open one of the older
+    revisions to inspect how the configuration looked
+    like in the past and possibly create a branch in the
+    revision control system. Here we take a closer look
+    at the built-in revision control system.
+  </p>
+
+  <p>
+    We start with a regular data file which we open in
+    the Firewall Builder GUI as usual. Note that the
+    name of the file appears in the titlebar of the main
+    window, here it is <em>[test2.fwb]</em>:
+  </p>
+
+  <img src="rcs_screenshot_1.png"/>
+  
+  <p>
+    You can always see additional information about the
+    file using main menu <em>File/Properties</em>.  There
+    is not much the program can report about this file
+    that we do not know already. It shows full path where
+    it is located on the file system and the date and time
+    of last modification, but otherwise since it has not
+    been added to the revision control system, there is no
+    additional information it can report.
+  </p>
+
+  <img src="rcs_screenshot_3.png"/>
+
+  <p>
+    To start tracking revisions of this data file, use
+    menu <em>File/Add File to RCS</em>, the program
+    creates all necessary files and reports result in a
+    pop-up dialog. If for some reason adding file to the
+    revision control has failed, the program reports error
+    in the same pop-up dialog.
+    <a href="http://www.fwbuilder.org/docs/firewall_builder_faq.html#AEN652">Firewall
+      Builder FAQ <b>"Using RCS"</b></a> has a list of
+    typical problems that may occur at this point.
+  </p>
+
+  <table border=0>
+    <tr>
+      <td>
+        <img src="rcs_screenshot_4.png"/>
+      </td>
+      <td>
+        <span class="horizontalSpacer"/>
+      </td>
+      <td valign="top">
+        <img src="rcs_screenshot_5.png"/>
+      </td>
+    </tr>
+  </table>
+
+  <p>
+    Few things have changed in the GUI after the file has
+    been added to the revision control system. First,
+    besides its name the titlebar now shows its
+    revision. Inital revision number after the file has just
+    been added to the revision control is <em>1.1</em>.
+  </p>
+
+  <img src="rcs_screenshot_6.png"/>
+
+  <p>
+    The File/Properties dialog shows that the file is now
+    being tracked by revision control system and its
+    current revision is <em>1.1</em>. There is only one
+    revision in the history and the comment
+    is <em>"Initial revision"</em> which is added
+    automatically by the program.
+  </p>
+
+  <img src="rcs_screenshot_7.png"/>
+
+  <p>
+    Let's see how revision control system keeps track of
+    the changes done in the data file. To demonstrate
+    this, I am going to make a change in one of the
+    objects, save the data file and check it (this creates
+    new revision), then I'll close it and open it again,
+    first the latest revision where the change is present,
+    and then previous revision where the change is absent.
+  </p>
+
+  <p>
+    Here is the rule set of this firewall I have started
+    with, it is very simple and consists of just 5 rules:
+  </p>
+
+  <img src="rcs_screenshot_8.png"/>
+
+  <p>
+    Now I added one more rule (to permit <em>HTTP</em> to the firewall).
+    This is rule #3, it is colored yellow:
+  </p>
+
+  <img src="rcs_screenshot_9.png"/>
+
+  <p>
+    Now I save ths file using menu <em>File/Save</em> and
+    exit the program. Before I can do that, however, the
+    program tries to check the file in to the RCS and
+    presents a dialog where I can add a comment to
+    document the change I made. I enter the comment and
+    press <em>Check file in</em> button to complete
+    operation. The file is now checked in and the program
+    exits.
+  </p>
+
+  <img src="rcs_screenshot_10.png"/>
+
+  <p>
+    Now I restart the program and try to open the same
+    file using <em>File/Open</em>. Since the file is now
+    in RCS, the program presents the dialog with the list
+    of its revisions. Each revision has a comment
+    associated with it, shown at the bottom of the
+    dialog. Note also that each revision also shows the
+    user name of the user who checked it in which is very
+    useful in a multi-user environment.
+  </p>
+
+  <table border=0>
+    <tr>
+      <td>
+        <img src="rcs_screenshot_11.png"/>
+      </td>
+      <td>
+        <span class="horizontalSpacer"/>
+      </td>
+      <td valign="top">
+        <img src="rcs_screenshot_12.png"/>
+      </td>
+    </tr>
+  </table>
+
+  <p>
+    If I choose revision <em>1.2</em> (the latest) and
+    open the file using button <em>Open</em>, I get my
+    rules including rule that permits HTTP to the
+    firewall:
+  </p>
+
+  <img src="rcs_screenshot_13.png"/>
+
+  <p>
+    If I choose revision <em>1.1</em> and open the file, I
+    get the policy that looks like this (note revision
+    number in the main window titlebar, it
+    is <em>1.1</em>):
+  </p>
+
+  <img src="rcs_screenshot_14.png"/>
+
+  <p>
+    The rule to permit HTTP to the firewall is not there
+    because I opened old revision of the data
+    file. Essentially, I rolled back the change I made in
+    rev <em>1.2</em>. If I only wanted to look how rules
+    looked like in rev 1.1, then I can now just close the
+    file and open its latest revision to continue working
+    with it. I can not only just look at the rules in the
+    old revision, I can compile them and install on the
+    firewall if that is what I need to do. Note that this
+    can break things if some protocols were added to the
+    firewall rules later, but this can be useful if you
+    need to test things as they were few days ago.
+  </p>
+
+  <p>
+    However if I want to roll back the change and continue
+    without it, all I need to do is make the change in
+    this revision (1.1) and then save and check it
+    in. This will create a branch in RCS and I will be
+    able to continue working with it later. The previous
+    change, checked in as rev 1.2 will always be there
+    though and I will always be able to revert to it if I
+    want. The program does not merge branches, merging
+    changes in XML files is a complex task and is not
+    implemented at this time.
+  </p>
+  
+  <p>
+    To illustrate creation of a branch, I am making a
+    change to the revision 1.1 of the data file as shown
+    on the next screenshot:
+  </p>
+
+  <img src="rcs_screenshot_15.png"/>
+
+  <p>
+    I then save and check this file in with appropriate
+    comment. To check it in I use
+    menu <em>File/Commit</em>. I then close the file
+    using <em>File/Close</em> and reopen it again
+    using <em>File/Open</em>. This acoomplishes the same
+    operation as in the example above in this document,
+    except I do not close the program. When I try to open
+    it, the program shows the branch and new
+    revision <em>1.1.1.1</em> that I just created. Note
+    that the time of the revision <em>1.1.1.1</em> is
+    later than the time of revision <em>1.2</em>:
+  </p>
+
+  <img src="rcs_screenshot_16.png"/>
+
+  <p>
+    Now if I open rev <em>1.1.1.1</em> and continue
+    working with and check new changes in, the program
+    will create revision <em>1.1.1.2</em> and so on.
+  </p>
+
+  <p>
+    This document demonstrates how built-in revision
+    control system (RCS) in Firewall Builder GUI can be
+    used to document changes in the file. It can also be
+    used to roll back changes to previous revision both
+    temporary or permanently. Using RCS helps establish
+    accountability if several administrators can make
+    changes to the policy of firewalls because RCS keeps
+    track of the user name of user who checked changes
+    in. RCS in Firewall Builder works on all supported OS,
+    that is Linux, FreeBSD, OpenBSD, Windows and Mac OS
+    X. On Linux, *BSD and Mac OS X it relies on
+    system-wide installed <em>rcs</em> package, while on
+    Windows rcs tools are installed as part of the
+    Firewall Builder package. In general, I recommend
+    always using RCS even in simple cases when only one
+    administrator uses the tool. Ability to document
+    changes and roll back if necessary are great
+    advantages that help a lot to improve the process of
+    security policy management.
+  </p>
+
+</body>
+</html>
