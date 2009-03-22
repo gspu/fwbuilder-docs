@@ -17,9 +17,9 @@
 <!entity gtkmm-ximian     "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/gtkmm-1.2.9-1.ximian.1.src.rpm">
 <!entity libsigcpp-ximian "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/libsigc++-1.0.4-1.ximian.4.src.rpm">
 <!entity installer-howto  "/guides/firewall_builder_howtos.html#000156">
-<!entity nf_conntrack_page "http://www.netfilter.org/projects/patch-o-matic/pom-extra.html#pom-extra-nf_conntrack">
-<!entity nf_conntrack_discussion "http://lists.netfilter.org/pipermail/netfilter-devel/2006-July/024879.html">
-<!entity debugview_download "http://www.microsoft.com/technet/sysinternals/utilities/debugview.mspx">
+<!entity nf-conntrack-page "http://www.netfilter.org/projects/patch-o-matic/pom-extra.html#pom-extra-nf_conntrack">
+<!entity nf-conntrack-discussion "http://lists.netfilter.org/pipermail/netfilter-devel/2006-July/024879.html">
+<!entity debugview-download "http://www.microsoft.com/technet/sysinternals/utilities/debugview.mspx">
 ]>
 
 <article class="FAQ" id="FAQ">
@@ -115,21 +115,12 @@
 	</question>
 
 	<answer>
-	  <para>
-	    We support iptables (Linux kernels 2.4.x and
-	    2.6.x). Linksys firewall appliance WRT-54G/GS running
-	    Sveasoft ( <ulink
-	    url="&sveasoft-url">&sveasoft-url</ulink> ) firmware is
-	    also supported. As of version 1.0.1 we support ipfilter
-	    (available for variety of OS, including FreeBSD, OpenBSD,
-	    Solaris and others) and added support for pf (OpenBSD
-	    3.0). Version 1.0.10 and later support ipfw. 
-	  </para>
 
 
           <para>
             <table>
-              <title>Firewall Builder can generate configuration for the following firewalls and OS:</title>
+              <title>Firewall Builder can generate configuration for
+              the following firewalls and OS:</title>
               <tgroup cols="2">
                 <thead>
                   <row>
@@ -140,7 +131,9 @@
                 <tbody>
                   <row>
                     <entry>iptables</entry>
-                    <entry>Linux (kernel 2.4.x and 2.6.x)</entry>
+                    <entry>Linux (kernel 2.4.x and 2.6.x), including
+                    OpenWRT, DD-WRT, Sveasoft firmware for embedded
+                    systems</entry>
                   </row>
                   <row>
                     <entry>ipfilter</entry>
@@ -152,7 +145,15 @@
                   </row>
                   <row>
                     <entry>pf</entry>
-                    <entry>OpenBSD </entry>
+                    <entry>OpenBSD 3.x, 4.x </entry>
+                  </row>
+                  <row>
+                    <entry>Cisco PIX</entry>
+                    <entry>Cisco ASA appliance (PIX)  v6.x, 7.x, FWSM module</entry>
+                  </row>
+                  <row>
+                    <entry>Cisco IOS access lists</entry>
+                    <entry>IOS v12.x</entry>
                   </row>
                 </tbody>
               </tgroup>
@@ -202,14 +203,13 @@
                     <entry>Linux</entry>
                     <entry>Debian</entry>
                     <entry>yes</entry>
-                    <entry>2.1.8-1 in lenny and sid,  2.0.9-1.2 in etch, 
-and 2.0.3-2 in sarge</entry>
+                    <entry>yes</entry>
                   </row>
                   <row>
                     <entry>Linux</entry>
                     <entry>Ubuntu</entry>
                     <entry>yes</entry>
-                    <entry>yes (v2.1.11)</entry>
+                    <entry>yes</entry>
                   </row>
                   <row>
                     <entry>Solaris</entry>
@@ -322,22 +322,33 @@ and 2.0.3-2 in sarge</entry>
 	    distribution).
 	  </para>
 
-	  <para><emphasis>Starting with version 2.1.18, policy
-	  compilers are included in the same binary package as the
-	  GUI. This means you only need to download and install API
-	  library package "libfwbuilder" and combined GUI+compilers
-	  package "fwbuilder".</emphasis>
+          <note>
+	    <para>Starting with version 2.1.18, policy compilers are
+	      included in the same binary package as the GUI. This
+	      means you only need to download and install API library
+	      package "libfwbuilder" and combined GUI+compilers
+	      package "fwbuilder".
 	  </para>
+          </note>
 
           <para>
-            For example, for Fedora Core8  you would need the following
+            For example, for Fedora you would need the following
             packages:
           </para>
 
           <para>
+            <emphasis>for Firewall Builder v2.1:</emphasis>
             <itemizedlist spacing="compact">
               <listitem><para>libfwbuilder-2.1.18-1.fc8.i386.rpm</para></listitem>
               <listitem><para>fwbuilder-2.1.18-1.fc8.i386.rpm</para></listitem>
+            </itemizedlist>
+          </para>
+
+          <para>
+            <emphasis>for Firewall Builder v3.0:</emphasis>
+            <itemizedlist spacing="compact">
+              <listitem><para>libfwbuilder-3.0.3-b688.fc9.i386.rpm</para></listitem>
+              <listitem><para>fwbuilder-3.0.3-b688.fc9.i386.rpm</para></listitem>
             </itemizedlist>
           </para>
 
@@ -407,7 +418,25 @@ and 2.0.3-2 in sarge</entry>
 
         <answer>
           <para>The answer depends on what OS and distribution this is
-          done.</para>
+          done and whether you use pre-built binary packages or
+          compile from source.</para>
+
+          <para>
+            Pre-built binary RPM and DEB packages define dependency
+            packages they need, so the corresponding package manager
+            tool will install dependencies automatically. Use your
+            favorite package manager to do this ( <emphasis>yum</emphasis>,
+            <emphasis>apt-get</emphasis>,
+            <emphasis>aptitude</emphasis>, <emphasis>synaptic</emphasis>
+            and so on).
+          </para>
+
+          <para>
+            If you build from source,
+	    see <ulink url="&build-url">"Installation Guide"</ulink>
+	    on our web site for the list of packages you need to
+	    install.
+          </para>
 
           <variablelist>
             <varlistentry>
@@ -522,105 +551,9 @@ and 2.0.3-2 in sarge</entry>
 
 	<answer>
 	  <para>
-	    first of all, you need to obtain source. One way is to
-	    download source tarball from our download page. You need
-	    to grab two packages: libfwbuilder-N.N.N.tar.gz and
-	    fwbuilder-M.M.M.tar.gz , where N.N.N and M.M.M are respective
-	    versions of both packages/
-	  </para>
-	  
-	  <para>
-	    Or, if you want to try the code we are currently working
-	    on, you can do anonymous CVS checkout from our site on
-	    Sourceforge. Just open this URL: <ulink
-	    url="&cvs-checkout">&cvs-checkout</ulink> and follow
-	    instructions. In this case make sure you get both
-	    libfwbuilder and fwbuilder modules.
-	  </para>
-
-	  <para>
-	    In either case, once you got source and unpacked it on
-	    your machine, you need to check that all dependencies are
-	    satisfied and you have all the libraries fwbuilde ruses
-	    installed on your machine. You can check list of libraries
-	    in the <ulink url="&build-url">Installation Guilde</ulink>
-	  </para>
-
-	  <para>
-	    Now you can build.  First go to the directory libfwbuilder
-	    and run script ./autogen.sh. This script checks
-	    dependencies and customises our code for your system. This
-	    script accepts the following parameters:
-	  </para>
-
-	  <para>
-
-	    <itemizedlist>
-	      <listitem>
-		<para>--prefix       - specify directory prefix where you want libfwbuilder installed</para>
-	      </listitem>
-	      <listitem>
-		<para>--with-templatedir=DIR  - specify directory for template files and DTD</para>
-	      </listitem>
-	      <listitem>
-		<para>--without-openssl          - compile libfwbuilder without encryption support (certain functions won't work, such as support for fwbd daemon)</para>
-	      </listitem>
-	      <listitem>
-		<para>--with-openssl-prefix=PREFIX - specify prefix directory where openssl library is installed</para>
-	      </listitem>
-	      <listitem>
-		<para>--without-ucd-snmp         - compile libfwbuilder without support for SNMP (certain functions won't work, such as network discovery)</para>
-	      </listitem>
-	    </itemizedlist>
-	  </para>
-
-	  <para>
-	    If system you are using for build has additional libraries
-	    installed in /usr/local/lib, then you either need to add
-	    this directory to your LD_LIBRARY_PATH environment
-	    variable, or supply path for each lbrary as a parameter
-	    for autogen.sh. Unfortunately at this time our script does
-	    not support specification of the installation path for all
-	    the libraries we use, so setting LD_LIBRARY_PATH is
-	    probably safier way.
-	  </para>
-
-	  <para>
-	    If your system has all the libraries installed in the
-	    standard place, or has dynamic linker configured so that
-	    it can find libraries wherever they are installed, then
-	    you do not need to worry about LD_LIBRARY_PATH.
-	  </para>
-
-	  <para>
-	    Once you are done with autogen.sh, run "make all" in
-	    libfwbuilder directory and see that it does not end with
-	    an error. If it does, then either autogen.sh could not find
-	    some library, or there is something peculiar about your
-	    system that we do not support yet. Please verify again
-	    that you have all the libraries needed (check with
-	    Build) and that autogen.sh worked fine. If nothing
-	    helps, report the problem to us.
-	  </para>
-
-	  <para>
-	    After "make all" have worked to the end and did not
-	    produce any errors, you need to install the library. By
-	    default it installs in /usr/local/lib and
-	    libfwbuilder-config script installs in /usr/local/bin. You
-	    will need root priviliges to install there, so become root
-	    and run "make install" in the directory libfwbuilder. If
-	    you do not wish to install in /usr/local, you can use
-	    parameter --prefix=PREFIX when you run autogen.sh
-	  </para>
-
-	  <para>
-	    Once libfwbuilder is installed, you can move on and
-	    compile fwbuilder. The procedure is the same: go to the
-	    directory fwbuilder, run "./autogen.sh", then "make all"
-	    and "make install".
-	  </para>
-
+            See <ulink url="&build-url">"Installation Guide"</ulink>
+	    on our web site.
+          </para>
 	</answer>
       </qandaentry>
 
@@ -698,7 +631,10 @@ and 2.0.3-2 in sarge</entry>
 
 	<answer>
 	  <para>
-	    Just type "fwbuilder" on the command line prompt (in xterm or gnome-terminal)
+	    Just type "fwbuilder" on the command line prompt (in xterm
+	    or gnome-terminal). If Firewall Builder was installed
+	    using pre-built binary RPM or DEB packages, it should
+	    appear in the system menu under "System / Administration".
 	  </para>
 	</answer>
       </qandaentry>
@@ -821,6 +757,17 @@ and 2.0.3-2 in sarge</entry>
 	</question>
 
 	<answer>
+          <para>
+          </para>
+
+          <note>
+            <para>The answer applies to Firewall Builder v2.1 which
+              used QT3. Firewall Builder 3.0 and later is built using
+              QT4. Make sure QT4 is installed on your system. If you
+              use KDE graphical environment, then you already have
+              it.</para>
+          </note>
+
 	  <para>
             The erorr points at a missing symbol in QT
             library. Firewall Builder requires QT v3.2 or 3.3; error
@@ -855,6 +802,16 @@ libqt-mt.so.3 => /usr/lib/qt-3.3/lib/libqt-mt.so.3 (0x00d09000)
 	</question>
 
 	<answer>
+
+          <para>
+          </para>
+
+          <note>
+            <para>The answer applies to Firewall Builder v1. Latest
+              versions include all policy compilers in the main
+              package and can not have this problem.</para>
+          </note>
+
           <para>You need to install a package that provides support
           for your firewall platform.</para>
 
@@ -874,6 +831,31 @@ libqt-mt.so.3 => /usr/lib/qt-3.3/lib/libqt-mt.so.3 (0x00d09000)
             </itemizedlist>
           </para>
         </answer>
+      </qandaentry>
+
+
+
+      <qandaentry>
+
+	<question>
+	  <para>fwbuilder binary does not start. You get an error
+	    <emphasis>"fwbuilder: error while loading shared libraries: /usr/local/lib/libfwbuilder.so.8: cannot restore segment prot after reloc: Permission denied"</emphasis>
+          </para>
+	</question>
+
+	<answer>
+
+	  <para>
+            The problem is caused by SELinux security settings, to
+            work around it try the following command:
+          </para>
+
+          <programlisting format="linespecific">
+
+chcon -t texrel_shlib_t /usr/lib/libfwbuilder.so*
+
+          </programlisting>
+	</answer>
       </qandaentry>
 
 
@@ -1111,7 +1093,7 @@ ios_base::failbit set
           remotely. In order to make this little bit easier, fwbuilder
           GUI has built-in debugging capability. You need to download
           and run debugView program (you can download it
-            <ulink url="&debugview_download">here </ulink>).
+            <ulink url="&debugview-download">here </ulink>).
           </para>
 
           <para> Basically, you start debugView, then you start
@@ -1847,9 +1829,9 @@ Device or resource busy
           </programlisting>
 
           <para>
-            Here is the <ulink url="&nf_conntrack_page">link</ulink>
+            Here is the <ulink url="&nf-conntrack-page">link</ulink>
             to the nf_conntrack page in patch-o-matic catalog. Here is the
-            <ulink url="&nf_conntrack_discussion">link</ulink> to the
+            <ulink url="&nf-conntrack-discussion">link</ulink> to the
             discussion on netfilter-devel mailing list.
           </para>
 
