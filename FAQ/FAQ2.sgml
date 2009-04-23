@@ -1283,7 +1283,7 @@ c:\FWBuilder30\fwbuilder.exe -d
         <answer>
           <para>
             The following HOWTO article describes the ways to use
-            Built-in installer in fwbuilder 2.0 and 2.1:
+            Built-in installer in fwbuilder:
             <ulink url="&installer-howto">&installer-howto</ulink>.
           </para>
         </answer>
