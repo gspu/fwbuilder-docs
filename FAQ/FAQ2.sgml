@@ -16,7 +16,7 @@
 <!entity nightly-builds   "http://www.fwbuilder.org/nightly_builds/">
 <!entity gtkmm-ximian     "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/gtkmm-1.2.9-1.ximian.1.src.rpm">
 <!entity libsigcpp-ximian "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/libsigc++-1.0.4-1.ximian.4.src.rpm">
-<!entity installer-howto  "/guides/firewall_builder_howtos.html#000156">
+<!entity installer-howto  "http://www.fwbuilder.org/guides/firewall_builder_policy_installer.html">
 <!entity nf-conntrack-page "http://www.netfilter.org/projects/patch-o-matic/pom-extra.html#pom-extra-nf_conntrack">
 <!entity nf-conntrack-discussion "http://lists.netfilter.org/pipermail/netfilter-devel/2006-July/024879.html">
 <!entity debugview-download "http://www.microsoft.com/technet/sysinternals/utilities/debugview.mspx">
@@ -919,89 +919,6 @@ chcon -t texrel_shlib_t /usr/lib/libfwbuilder.so*
 	</answer>
       </qandaentry>
 
-      <qandaentry>
-	<question>
-	  <para>
-	    Firewall policy does not compile. I get error "Exec error
-	    (fwb_iptables) No such file or directory."
-	  </para>
-	</question>
-
-	<answer>
-	  <para>
-	    You need to install corresponding policy compiler. Our
-	    prebuilt compilers come in a separate RPMs named like
-	    this: fwbuilder-ipt-2.0.2-1rh9.i386.rpm
-	  </para>
-
-	</answer>
-      </qandaentry>
-
-
-
-
-      <qandaentry>
-	<question>
-	  <para>I get "I/O Error" while compiling policy. There is
-	    no other indication of error though.</para>
-	</question>
-
-	<answer>
-	  <para>
-	    Did you install package with corresponding compiler ? Our
-	    prebuilt compilers come in a separate RPMs named like
-	    this: fwbuilder-ipt-2.0.2-1rh9.i386.rpm
-	  </para>
-
-	  <para>
-	    Check if compiler dumped core. If you can't find it, you
-	    may try to run compiler manually, providing the following
-	    command line parameters:
-	  </para>
-
-
-	  <programlisting>
-	    $ fwb_ipt  -f path_to_objects.xml   firewall_object_name
-	  </programlisting>
-
-	  <para>
-	    All policy compilers have the same command line format.
-	  </para>
-	</answer>
-      </qandaentry>
-
-
-
-      <qandaentry>
-	<question>
-	  <para>fwbuilder crashes on my Debian or  SuSe
-	    system. What do I do ?</para>
-	</question>
-
-	<answer>
-	  <para>
-	    We can not guarantee that Firewall Builder would work
-	    flawlessly on Debian or SuSe since we do not have access
-	    to these distributions for testing.
-	  </para>
-
-	  <para>
-	    Sometimes we recieve packages built for these
-	    distributions by volunteers.  In this case we post these
-	    packages in "Contribs" area on the project's page on
-	    Sourceforge. We do not verify or even try these packages
-	    and completely rely on people who submit them. We usually
-	    post information about authors, so if you have questions
-	    you can contact them directly.
-	  </para>
-
-	  <para>
-	    We welcome help from anyone who can test Firewall Builder
-	    on these distributions and provide feedback
-	  </para>
-	</answer>
-      </qandaentry>
-
 
       <qandaentry>
         <question>
@@ -1101,7 +1018,7 @@ ios_base::failbit set
           </para>
 
           <programlisting>
-c:\FWBuilder21\fwbuilder21.exe -d
+c:\FWBuilder30\fwbuilder.exe -d
           </programlisting>
 
           <para>
@@ -1135,7 +1052,7 @@ c:\FWBuilder21\fwbuilder21.exe -d
         </question>
 
         <answer>
-          <para>Firewall Builder v2.1 GUI has built-in policy importer
+          <para>Firewall Builder GUI has built-in policy importer
           that can import iptables policy saved with iptables-save
           script. It can also import Cisco IOS access lists
           configuration saved using "show run" command. You can access
@@ -1167,67 +1084,6 @@ c:\FWBuilder21\fwbuilder21.exe -d
 	    possible. Firewall Builder also loads some other modules to
 	    keep track of complex protocols, e.g. it loads module
 	    ip_nat_ftp to support FTP.
-	  </para>
-	</answer>
-      </qandaentry>
-
-
-      <qandaentry>
-	<question>
-	  <para>I see the firewall objects has multiple policies
-	    associated with it. How do these policies relate to each
-	    other and in what order does policy compiler scan them to
-	    generate firewall code?</para>
-	</question>
-
-
-	<answer>
-
-          <para>Each firewall has a Global Policy, a policy associated
-          with each interface and a NAT policy.</para>
-
-	  <para>
-	    Global Policy rules apply to packets crossing the
-	    firewall, regardless of the interface they ingress and
-	    egress through. In case of iptables this is equivalent to
-	    writing a rule without "-i interface" or "-o interface"
-	    clause. Rule like this will match packets using only their
-	    addresses and protocol information. Interface policy
-	    rules, on the other hand, always get "-i interface" or "-o
-	    interface", depending on their direction setting.
-          </para>
-
-          <note>
-            <para>One common misconception is that interface rules
-            somehow control access to that interface. This is not the
-            case.</para>
-          </note>
-
-	  <para>
-	    Since Interface Policy rules are associated with certain
-	    network interface of the firewall and support direction,
-	    they provide a mechanism for dealing with situations
-	    where knowing both interface and direction is neccessary,
-	    for example setting up anti-spoofing rules. Since
-	    situations like this are rare, we recommend placing most
-	    of the firewall rules in the Global Policy and only those
-	    rules which can not be implemented in any other way into
-	    Interface Policy.
-	  </para>
-
-	  <para>
-	    There are firewalls which require that all rules are
-	    always associated with interfaces. Even in this case you
-	    can place policy rules in the Global Policy because our
-	    compiler can properly deduct correct interface the rule
-	    should be associated with.
-	  </para>
-
-	  <para>
-	    When policy compiler generates code for the target platform,
-	    it first scans NAT rules, then Interface Policies, then Global
-	    Policy. This determines the order in which lines of the target
-	    code are generated.
 	  </para>
 	</answer>
       </qandaentry>
@@ -1274,22 +1130,6 @@ c:\FWBuilder21\fwbuilder21.exe -d
         </answer>
       </qandaentry>
 
-
-
-      <qandaentry>
-        <question>
-         <para> My firewall has 3 networks cards - internal (eth0),
-         DMZ (eth1) and external (eth2). I want to perform NAT when
-         accessing the DMZ from the *internal* network but the
-         ipt-compiler insists on specifying '-o eth2' in the iptables
-         command. Why does it do that? How can I persuade it to
-         specify '-o eth1'?</para>
-        </question>
-
-        <answer>
-         <para> mark interface DMZ as external</para>
-        </answer>
-      </qandaentry>
 
 
       <qandaentry>
@@ -1437,7 +1277,7 @@ c:\FWBuilder21\fwbuilder21.exe -d
 
       <qandaentry>
         <question>
-          <para>How do I use built-in policy installer in fwbuilder 2.x ?</para>
+          <para>How do I use built-in policy installer in fwbuilder ?</para>
         </question>
 
         <answer>
