@@ -6239,7 +6239,7 @@ Device or resource busy
         <para><itemizedlist spacing="compact">
             <listitem>
               <para>Check if you have a NAT rule if your protected network is
-              using “private” IP addresses.</para>
+              using "private" IP addresses.</para>
             </listitem>
 
             <listitem>
