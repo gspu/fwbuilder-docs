@@ -1475,7 +1475,7 @@
                 <para>Name: the name of the interface object in Firewall Builder must match exactly the name of the interface of the firewall machine it represents. This will be something like "eth0", "eth1", "en0", "br0", and so on.</para>
 	      </listitem>
               <listitem>
-                <para>Label: On most OS's this field is not used and serves the purpose of a descriptive label.  The label is mandatory for Cisco PIX though, where it must reﬂect the network topology. Firewall Builder GUI uses the label, if it is not blank, to show interfaces in the tree. One of the suggested uses for this field is to mark interfaces to reflect the network topology ('outside', 'inside') or interface purpose ('web frontend' or 'backup subnet').</para>
+                <para>Label: On most OS's this field is not used and serves the purpose of a descriptive label.  The label is mandatory for Cisco PIX though, where it must reflect the network topology. Firewall Builder GUI uses the label, if it is not blank, to show interfaces in the tree. One of the suggested uses for this field is to mark interfaces to reflect the network topology ('outside', 'inside') or interface purpose ('web frontend' or 'backup subnet').</para>
 	      </listitem>
               <listitem>
                 <para>Address: If the interface has a static IP address, specify it here.</para>
