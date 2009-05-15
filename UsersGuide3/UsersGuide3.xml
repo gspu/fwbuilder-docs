@@ -6180,11 +6180,11 @@ Device or resource busy
             </listitem>
           </itemizedlist></para>
 
-        <para>If your firewall runs iptables you can use option “Clamp MSS to
-        MTU” in the firewall settings dialog to work around it.</para>
+        <para>If your firewall runs iptables you can use option "Clamp MSS to
+        MTU" in the firewall settings dialog to work around it.</para>
 
-        <para>For the PF firewalls similar option is called “Enforce maximum
-        MSS” and is located in the “Scrub rule options” tab of firewall
+        <para>For the PF firewalls similar option is called "Enforce maximum
+        MSS" and is located in the "Scrub rule options" tab of firewall
         settings dialog. It allows for setting MSS value of TCP sessions
         opened through the firewall; try values between 1460 or 1464 (1464 is
         the maximum MSS value that can be used on PPPoE connections without
@@ -6211,7 +6211,7 @@ Device or resource busy
 
             <listitem>
               <para>check if ip forwarding is turned on (pull down menu in the
-              “Network” tab of the firewall object dialog).</para>
+              "Network" tab of the firewall object dialog).</para>
             </listitem>
 
             <listitem>
@@ -6228,7 +6228,7 @@ Device or resource busy
             </listitem>
 
             <listitem>
-              <para>Use option “Log everything” to make all rules generate log
+              <para>Use option "Log everything" to make all rules generate log
               entries, this sometimes helps pinpoint a rule that drops
               packets.</para>
             </listitem>
