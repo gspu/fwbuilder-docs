@@ -35,7 +35,6 @@
 </head>
 
 <body>
-  
 
   <h1>Using Addressable Objects in Firewall Builder</h1>
 
@@ -178,6 +177,19 @@
     whole subnet.
   </blockquote>
 
+  <p>
+    This iptables rule was placed in the <b>INPUT</b>
+    chain because object in the "Destination" was an
+    address of an interface of the firewall. While
+    processing the policy for the iptables target firewall
+    platform, Firewall Builder compares addresses in
+    source and destination of a rule to the addresses of
+    all interfaces of the firewall to find rules that
+    control access to and from the firewall and places
+    them into <b>INPUT</b> or <b>OUTPUT</b> chains. This
+    is only necessary for iptables.
+  </p>
+
   <h3>IPv4 Address Object When Used as Stand-alone Object</h3>
 
   <p>
@@ -252,6 +264,49 @@
     the <b>Addresses</b> folder in the tree (right mouse
     click on the Interface object in the tree to open
     the menu).
+  </p>
+
+  <p>
+    Policy compilers treat IPv6 addresses in policy rules
+    according to the same algorithms as those for IPv4
+    rules. For example, just like with IPv4, compiler
+    for iptables checks if address matches address of
+    any interface of the firewall to determine if the
+    rule should be placed in <b>INPUT</b>
+    or <b>OUTPUT</b> chain.
+  </p>
+
+  <p>
+    Consider rule as shown on the screenshot below where
+    we use two IPv6 address objects. One object belongs
+    to the interface <b>inside</b> of the firewall while
+    another is IPv6 address of the project's web site.
+  </p>
+
+  <img src="ipv6_1_rule_1.png"/>
+
+  <p>
+    For iptables, Firewall Builder generates the
+    following commands from this rule:
+  </p>
+
+  <p>
+    <p class="command">
+      $IP6TABLES -A INPUT -p tcp -m tcp  -d fe80::21d:9ff:fe8b:8e94  --dport 80  -m state --state NEW  -j ACCEPT <br>
+      $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  -m state --state NEW  -j ACCEPT <br>
+    </p>
+  </p>
+
+  <p>
+    The rule that matches address described by
+    object <b>guardian-2:eth1:ipv6</b> went to
+    the <b>INPUT</b> chain because compiler detected that
+    this rule matches packets that are headed for the
+    firewall itself, which iptables inspects in
+    the <b>INPUT</b> chain. Rule that matches address
+    described by the object <b>ipv6.fwbuilder.org</b>
+    went to the <b>FORWARD</b> chain because these packets
+    go through the firewall.
   </p>
 
   <h2>The Physical Address Object</h2>
@@ -443,7 +498,7 @@
     is generated:
     <p class="command">
       $IPTABLES -A FORWARD  -s 10.3.14.44  -m state --state NEW  -j ACCEPT <br>
-      $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW  -j ACCEPT 
+      $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW  -j ACCEPT <br>
     </p>
   </p>
 
@@ -573,7 +628,7 @@
     to switch to the page where you can enter interfates
     and their addresses.
   </p>
-
+  
   <img src="creating_host2.png"/>
 
   <p>
@@ -690,9 +745,9 @@
   <p>
     <p class="command">
       $IPTABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW  -j Cid6066X5981.1 <br>
-      $IPTABLES -A Cid6066X5981.1  -d 10.3.14.44  -j ACCEPT  <br>
-      $IPTABLES -A Cid6066X5981.1  -d 10.3.14.55  -j ACCEPT  <br>
-      $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT  <br>
+      $IPTABLES -A Cid6066X5981.1  -d 10.3.14.44  -j ACCEPT <br>
+      $IPTABLES -A Cid6066X5981.1  -d 10.3.14.55  -j ACCEPT <br>
+      $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT <br>
     </p>
   </p>
 
@@ -713,17 +768,17 @@
 
   <p>
     <p class="command">
-      # ================ IPv4 <br>
- <br>
-      $IPTABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW  -j Cid6066X5981.1  <br>
-      $IPTABLES -A Cid6066X5981.1  -d 10.3.14.44  -j ACCEPT  <br>
-      $IPTABLES -A Cid6066X5981.1  -d 10.3.14.55  -j ACCEPT  <br>
-      $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT  <br>
- <br>
-      # ================ IPv6 <br>
- <br>
-      $IP6TABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW  -j Cid6066X5981.1  <br>
-      $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT  <br>
+      # ================ IPv4<br>
+<br>
+      $IPTABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW  -j Cid6066X5981.1 <br>
+      $IPTABLES -A Cid6066X5981.1  -d 10.3.14.44  -j ACCEPT <br>
+      $IPTABLES -A Cid6066X5981.1  -d 10.3.14.55  -j ACCEPT <br>
+      $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT <br>
+<br>
+      # ================ IPv6<br>
+<br>
+      $IP6TABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW  -j Cid6066X5981.1 <br>
+      $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT <br>
     </p>
   </p>
 
@@ -787,7 +842,7 @@
         with. Compiler for PF generates "set skip
         on <interface_name>" clause for unprotected
           interfaces.
-        </li>
+      </li>
 
       <li>Regular Interface: Use this option if the
         interface has an IP address assigned to it
@@ -882,10 +937,175 @@
         associated with based on the addresses used in
         the destination of the rule.
       </li>
-      </ul>
-    </p>                      
+    </ul>
+  </p>                      
 
-    <h2>IPv4 Network Object</h2>
+  <h3>Using Interface Object in Rules</h3>
+
+  <p></p>
+
+  <p>
+    Policy rules in Firewall Builder have special rule
+    element or column called "Interface". You can drag
+    and drop, or copy/paste interface object into this
+    column of a rule to make the firewall match not only
+    source and destination address and service, but also
+    interface of the firewall through which packets
+    enter or exit it. The direction is defined by the
+    setting in the column "Direction". Consider the
+    following example:
+  </p>
+
+  <img src="rules_with_interface_1.png"/>
+
+  <p>
+    Rule #0 is "anti-spoofing" rule which relies on the
+    ability to define interface and direction. It
+    matches packets with source addresses equal to the
+    addresses of the firewall's interfaces or internal
+    network. This packets are coming in from outside,
+    which is determined by comparing the interface
+    through which they enter the firewall. Packets with
+    addresses like these can not normally come from
+    outside, and so if they do, they must be spoofed and
+    should be dropped. This is what this rule does, it
+    drops and logs these packets. Rule #1 permits
+    connections originating from the internal network
+    going out, but it makes sure these packets enter the
+    firewall through its internal interface. 
+  </p>
+
+  <p>
+    these two rules generate the following iptables script:
+
+    <p class="command">
+      # <br>
+      # Rule 0 (eth0)<br>
+      # <br>
+      $IPTABLES -N In_RULE_0<br>
+      $IPTABLES -A FORWARD  -i eth0  -s 192.0.2.1  -j In_RULE_0 <br>
+      $IPTABLES -A FORWARD  -i eth0  -s 172.16.22.1  -j In_RULE_0 <br>
+      $IPTABLES -A FORWARD  -i eth0  -s 192.168.2.1  -j In_RULE_0 <br>
+      $IPTABLES -A FORWARD  -i eth0  -s 172.16.22.0/24  -j In_RULE_0 <br>
+      $IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "<br>
+      $IPTABLES -A In_RULE_0  -j DROP <br>
+      # <br>
+      # Rule 1 (eth1)<br>
+      # <br>
+      $IPTABLES -A FORWARD  -i eth1  -s 172.16.22.0/24  -m state --state NEW  -j ACCEPT <br>
+    </p>
+  </p>
+
+  <p>
+    Here all iptables command got <b>"-i eth0"</b>
+    or <b>"-i eth1"</b> clause which makes iptables
+    compare the interface and direction.
+  </p>
+
+  <p>
+    Here is what we get if we compile the same rules for PF:
+
+    <p class="command">
+      # Tables: (1)<br>
+      table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 172.16.22.1 , 192.168.2.1 } <br>
+<br>
+      # <br>
+      # Rule  0 (eth0)<br>
+      # <br>
+      block in   log  quick on en0 inet  from &lt;tbl.r9999.d&gt;  to any<br>
+      block in   log  quick on en0 inet  from 172.16.22.0/24  to any<br>
+      # <br>
+      # Rule  1 (eth1)<br>
+      # <br>
+      pass in   quick on en1 inet  from 172.16.22.0/24  to any keep state<br>
+      # <br>
+    </p>
+  </p>
+
+  <p>
+    For PF, compiler generated <b>block in quick log on
+      eth0</b> clause to make the rule match interface and
+    direction.
+  </p>
+
+  <p>
+    In case of Cisco IOS access lists, defining
+    interface in the rule makes compiler place code
+    generated for this rule into ACL attached to the
+    given interface. Compiler for IOS ACL always
+    generates both inbound and outbound access lists for
+    each interface, but if the rule specifies both
+    interface and direction "Inbound" or "Outbound",
+    generated configuration goes only in to
+    corresponding access list. Here is the output
+    produced for the rules shown above for Cisco IOS
+    ACL:
+
+    <p class="command">
+      ip access-list extended inside_in<br>
+      ! Rule  1 (eth1)<br>
+      ! <br>
+      permit ip 172.16.22.0 0.0.0.255 any  <br>
+      exit<br>
+<br>
+      ip access-list extended outside_in<br>
+      ! Rule  0 (eth0)<br>
+      ! <br>
+      deny   ip host 192.0.2.1 any  log <br>
+      deny   ip host 192.168.2.1 any  log <br>
+      deny   ip 172.16.22.0 0.0.0.255 any  log <br>
+      exit<br>
+<br>
+      interface FastEthernet1<br>
+      ip access-group inside_in in<br>
+      exit<br>
+      interface FastEthernet0<br>
+      ip access-group outside_in in<br>
+      exit<br>
+    </p>
+  </p>
+
+  <h3>Using Interface Object in Rules of Bridging iptables Firewall</h3>
+
+  <p></p>
+
+  <p>
+    In case of the "normal" iptables firewall, fwbuilder
+    adds <b>"-i eth0"</b> or <b>"-o eth0"</b> parameter
+    to the generated iptables command to make it match
+    interface and direction. If radio-button 
+    <b>"Bridge port"</b> is turned on in the interface
+    object, compilers use different option to make
+    iptables match packets crossing bridge ports. Here
+    is the interface <b>"eth1"</b> which is configured
+    as a bridge port:
+  </p>
+
+  <img src="bridge_interface_dialog_1.png"/>
+  
+  <p>
+    Consider then the following rule in the policy of
+    the firewall this interface belongs to:
+  </p>
+
+  <img src="rules_with_interface_2.png"/>
+
+  <p>
+    This rule matches interface "eth1" and generates the
+    following iptables command:
+
+    <p class="command">
+      $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24  -d 172.16.22.255  -m state --state NEW  -j ACCEPT 
+    </p>
+  </p>
+
+  <p>
+    Since  interface is now a bridge port, compiler uses
+    <b>-m physdev --physdev-in eth1</b> to match it.
+  </p>
+
+
+  <h2>IPv4 Network Object</h2>
 
   <p></p>
 
@@ -948,8 +1168,8 @@
     Here is the output produced for PF:
 
     <p class="command">
-      pass in   quick inet proto tcp  from 172.16.22.0/24  to any port 80 keep state <br>
-      pass out  quick inet proto tcp  from 172.16.22.0/24  to any port 80 keep state <br>
+      pass in   quick inet proto tcp  from 172.16.22.0/24  to any port 80 keep state<br>
+      pass out  quick inet proto tcp  from 172.16.22.0/24  to any port 80 keep state<br>
     </p>
   </p>
 
@@ -959,9 +1179,9 @@
     generated access lists):
 
     <p class="command">
-      ip access-list extended outside_out <br>
-      permit tcp 172.16.22.0 0.0.0.255 any  eq 80  <br>
-      exit <br>
+      ip access-list extended outside_out<br>
+      permit tcp 172.16.22.0 0.0.0.255 any  eq 80 <br>
+      exit<br>
     </p>
   </p>
 
@@ -978,8 +1198,8 @@
     access list attached to interface <b>inside</b>.
 
     <p class="command">
-      access-list inside_acl_in permit tcp 172.16.22.0 255.255.255.0 any eq 80  <br>
-      access-group inside_acl_in in interface inside <br>
+      access-list inside_acl_in permit tcp 172.16.22.0 255.255.255.0 any eq 80 <br>
+      access-group inside_acl_in in interface inside<br>
     </p>
   </p>
 
@@ -1018,8 +1238,8 @@
     Here is what we get for PF:
 
     <p class="command">
-      pass in   quick inet6 proto tcp  from 2001:470:1f0e:162::/64  to any port 80 keep state <br>
-      pass out  quick inet6 proto tcp  from 2001:470:1f0e:162::/64  to any port 80 keep state <br>
+      pass in   quick inet6 proto tcp  from 2001:470:1f0e:162::/64  to any port 80 keep state<br>
+      pass out  quick inet6 proto tcp  from 2001:470:1f0e:162::/64  to any port 80 keep state<br>
     </p>
   </p>
 
@@ -1028,13 +1248,13 @@
     one ACL is shown):
 
     <p class="command">
-      ipv6 access-list ipv6_outside_out <br>
-      permit tcp 2001:470:1f0e:162::/64 any  eq 80  <br>
-      exit <br>
- <br>
-      interface eth0 <br>
-      ipv6 traffic-filter ipv6_outside_out out <br>
-      exit <br>
+      ipv6 access-list ipv6_outside_out<br>
+      permit tcp 2001:470:1f0e:162::/64 any  eq 80 <br>
+      exit<br>
+<br>
+      interface eth0<br>
+      ipv6 traffic-filter ipv6_outside_out out<br>
+      exit<br>
     </p>
   </p>
 
@@ -1044,7 +1264,7 @@
   </p>
 
   <h2>Address Range Object</h2>
-
+  
   <p></p>
 
   <img src="address_range_1.png"/>
@@ -1097,11 +1317,11 @@
 
   <p>
     <p class="command">
-      $IPTABLES -A FORWARD  -s 192.168.1.100/30  -m state --state NEW  -j ACCEPT  <br>
-      $IPTABLES -A FORWARD  -s 192.168.1.104/29  -m state --state NEW  -j ACCEPT  <br>
-      $IPTABLES -A FORWARD  -s 192.168.1.112/28  -m state --state NEW  -j ACCEPT  <br>
-      $IPTABLES -A FORWARD  -s 192.168.1.128/27  -m state --state NEW  -j ACCEPT  <br>
-      $IPTABLES -A FORWARD  -s 192.168.1.160  -m state --state NEW  -j ACCEPT  <br>
+      $IPTABLES -A FORWARD  -s 192.168.1.100/30  -m state --state NEW  -j ACCEPT <br>
+      $IPTABLES -A FORWARD  -s 192.168.1.104/29  -m state --state NEW  -j ACCEPT <br>
+      $IPTABLES -A FORWARD  -s 192.168.1.112/28  -m state --state NEW  -j ACCEPT <br>
+      $IPTABLES -A FORWARD  -s 192.168.1.128/27  -m state --state NEW  -j ACCEPT <br>
+      $IPTABLES -A FORWARD  -s 192.168.1.160  -m state --state NEW  -j ACCEPT <br>
     </p>
   </p>
 
@@ -1113,9 +1333,9 @@
 
   <p>
     <p class="command">
-      table &lt;tbl.r0.s&gt; { 192.168.1.100/30 , 192.168.1.104/29 , 192.168.1.112/28 , 192.168.1.128/27 , 192.168.1.160 }  <br>
- <br>
-      pass in   quick inet  from &lt;tbl.r0.s&gt;  to any keep state <br>
+      table &lt;tbl.r0.s&gt; { 192.168.1.100/30 , 192.168.1.104/29 , 192.168.1.112/28 , 192.168.1.128/27 , 192.168.1.160 } <br>
+<br>
+      pass in   quick inet  from &lt;tbl.r0.s&gt;  to any keep state<br>
     </p>
   </p>
 
@@ -1129,21 +1349,21 @@
     attached to all of them. Here we show only one generated
     ACL:
   </p>
-
+  
   <p>
     <p class="command">
- <br>
-      ip access-list extended inside_in <br>
-      !  <br>
-      ! Rule  0 (global) <br>
-      !  <br>
-      !  <br>
-      permit ip 192.168.1.100 0.0.0.3 any   <br>
-      permit ip 192.168.1.104 0.0.0.7 any   <br>
-      permit ip 192.168.1.112 0.0.0.15 any   <br>
-      permit ip 192.168.1.128 0.0.0.31 any   <br>
-      permit ip host 192.168.1.160 any   <br>
-      exit <br>
+<br>
+      ip access-list extended inside_in<br>
+      ! <br>
+      ! Rule  0 (global)<br>
+      ! <br>
+      ! <br>
+      permit ip 192.168.1.100 0.0.0.3 any  <br>
+      permit ip 192.168.1.104 0.0.0.7 any  <br>
+      permit ip 192.168.1.112 0.0.0.15 any  <br>
+      permit ip 192.168.1.128 0.0.0.31 any  <br>
+      permit ip host 192.168.1.160 any  <br>
+      exit<br>
     </p>
   </p>
 
@@ -1191,6 +1411,177 @@
       </li>
     </ul>
   </p>
+
+
+  <h2>Special case addresses</h2>
+
+  <p></p>
+
+  <p>
+    Policy compilers treat some addresses in policy rules
+    in special ways, depending on the requirements of the
+    target firewall platform. For example, compiler for
+    iptables checks if address found in "Destination" or
+    "Source" of a rule matches address of any interface of
+    the firewall to determine if the rule should be placed
+    in <b>INPUT</b> or <b>OUTPUT</b> chain. Compiler for
+    PIX will use command <b>ssh &lt;address&gt;
+      &lt;netmask&gt; inside</b> when it detects such
+    address in the destnation of a rule where service is
+    TCP Service object <b>"SSH"</b>. There are other
+    special cases as well.
+  </p>
+
+  <h3>Boradcast and Multicast Addresses, iptables Firewall</h3>
+
+  <p></p>
+
+  <p>
+    One important special case is broadcast and multicast
+    addresses. It is important to place rules in the
+    correct chain in generated iptables script because
+    even though these addresses are not equal to those of
+    the firewall's interfaces, iptables processes packets
+    with broadcast or multicast destination in
+    the <b>INPUT</b> chain. Firewall Builder is aware of
+    this and generates correct iptables commands.
+  </p>
+
+  <p>
+    In order to match broadcast or multicast addresses in
+    the rules, we need to create objects to describe
+    them. The choice of object type to describe broadcast
+    or multicast address depends on whether this is just a
+    single address, a range or a block. Address object is
+    good to define single address, Address Range is good
+    for ranges, and Network object is good to describe a
+    block. For example, one can use Address object with
+    address "255.255.255.255" to describe a broadcast.
+    Address Range with addresses "224.0.0.5 - 224.0.0.6"
+    would work well to describe two multicast groups used
+    by OSPF and network object with address "224.0.0.0"
+    and netmask "240.0.0.0" can be used to describe whole
+    multicast address block.
+  </p>
+
+  <p>
+    Here are few examples:
+  </p>
+
+
+  <img src="multicast_object_1.png"/>
+
+  <p>
+    Object <b>"all multicasts"</b> is part of
+    the <b>Standard Objects</b> library that comes with
+    the program and describes entire address block
+    allocated for multicasts. Consider simple policy
+    rule that permits all multicasts:
+  </p>
+
+  <img src="multicast_rule_1.png"/>
+
+  <p>
+    For iptables, this rule translates into the following
+    script:
+  </p>
+  
+  <p>
+    <p class="command">
+      $IPTABLES -A INPUT  -d 224.0.0.0/4  -m state --state NEW  -j ACCEPT 
+    </p>
+  </p>
+
+  <p>
+    The rule went into the <b>INPUT</b> chain because
+    iptables processes multicast in it.
+  </p>
+
+  <p>
+    Here is another example, this time it involves
+    broadcast addresses. Interface <b>inside</b> of the
+    test firewall has address 172.16.22.1 with netmask
+    255.255.255.0. This defines subnet
+    172.16.22.0/255.255.255.0 with broadcast address
+    172.16.22.255. We create Address object with the name
+    "net-172.16.22 broadcast" and address "172.16.22.255"
+    and use it in the destination field of a policy rule.
+    Another rule in the same example will match broadcast
+    address "255.255.255.255"; an Address Range Object
+    that defines this address is present in the Standard
+    Objects library under the name "broadcast". Here are
+    the rules:
+  </p>
+  
+  <img src="broadcast_rules_1.png"/>
+
+  <p>
+    these two rules translate into the following script
+    for iptables:
+  </p>
+  
+  <p>
+    <p class="command">
+      # Rule 0 (global)<br>
+      # <br>
+      $IPTABLES -A INPUT  -d 255.255.255.255  -m state --state NEW  -j ACCEPT <br>
+      # <br>
+      # Rule 1 (global)<br>
+      # <br>
+      $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT <br>
+    </p>
+  </p>
+
+  <p>
+    Both rules went into INPUT chain as expected.
+  </p>
+
+
+
+  <h3>Boradcast and Multicast Addresses and Bridging iptables Firewall</h3>
+
+  <p></p>
+
+  <p>
+    Compilers treat broadcast and multicast addresses
+    differently if the firewall object describes bridging
+    firewall. In this case checkbox <b>"Bridging
+      firewall"</b> should be turned on in the firewall
+    settings dialog and one or more interface objects
+    should be marked as <b>"Bridge port"</b>:
+  </p>
+
+  <img src="bridge_interface_dialog_1.png"/>
+
+  <p>
+    Now the rule that should match broadcast destination
+    address will be treated differently:
+  </p>
+
+  <img src="broadcast_rules_2.png"/>
+
+  <p>
+    this produces the following iptables commands:
+
+    <p class="command">
+      $IPTABLES -A FORWARD  -d 172.16.22.255  -m state --state NEW  -j ACCEPT <br>
+      $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT <br>
+    </p>
+  </p>
+
+  <p>
+    Rules went into both <b>INPUT</b> and <b>FORWARD</b>
+    chains because bridging firewall passes broadcasts
+    through, but at the same time accepts them as packets
+    headed for itself as well. Since the rule did not
+    specify which interface it should look at, fwbuilder
+    assumed that generated rule should inspect packets
+    crossing all interfaces, both bridge ports and
+    "normal" ones and therefore placed rule in
+    both <b>INPUT</b> and <b>FORWARD</b> chains.
+  </p>
+
+  
 
 </body>
 </head>
