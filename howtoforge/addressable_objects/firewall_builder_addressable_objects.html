@@ -1065,6 +1065,201 @@
     </p>
   </p>
 
+
+              <p>
+                So far examples in this chapter demonstrated how to
+                use interface objects to associate policy rules with
+                interfaces to match packets crossing certain
+                interface. Interface object can be used in "soruce"
+                and "destination" of rules just like any other
+                addressable object. In this case, fwbuilder replaces
+                interface object with a set of its addresses, picking
+                only those addresses that match address family (IPv4
+                or IPv6) assigned to the rule set. Here is how this
+                looks like. We start with a firewall configuration
+                where interface <b>eth1</b> has two ip addresses, one
+                IPv4 and another is IPv6. Note that this could be a
+                host object as well because interface can belong
+                either to a firewall or a host object.
+              </p>
+
+              <img src="interface-2.png"/>
+
+              <p>
+                Interface <b>eth1</b> has IPv4 address 172.16.22.1 and
+                IPv6 address fe80::21d:9ff:fe8b:8e94; it is used in a
+                simple policy rule as follows:
+              </p>
+
+              <img src="interface-rule-1.png"/>
+
+              <p>
+                Policy rule set is configured as a mixed IPv4+IPv6
+                rule set. For the iptables, compilers generate the
+                following code:
+              </p>
+
+              <p>
+                <p class="command">
+# ================ IPv4 <br>
+# Rule 0 (global) <br>
+#  <br>
+$IPTABLES -A INPUT -p tcp -m tcp  -d 172.16.22.1  --dport 22  -m state --state NEW  -j ACCEPT  <br>
+ <br>
+# ================ IPv6 <br>
+ <br>
+# Rule 1 (global) <br>
+#  <br>
+$IP6TABLES -A INPUT -p tcp -m tcp  -d fe80::21d:9ff:fe8b:8e94  --dport 22  -m state --state NEW  -j ACCEPT  <br>
+                </p>
+              </p>
+
+              <p>
+                For PF we get the following:
+                <br/>
+                <p class="command">
+# Rule  0 (global) <br>
+#  <br>
+#  <br>
+pass in   quick inet proto tcp  from any  to 172.16.22.1 port 22 keep state <br>
+pass out  quick inet proto tcp  from any  to 172.16.22.1 port 22 keep state <br>
+ <br>
+# Rule  0 (global) <br>
+#  <br>
+#  <br>
+pass in   quick inet6 proto tcp  from any  to fe80::21d:9ff:fe8b:8e94 port 22 keep state <br>
+pass out  quick inet6 proto tcp  from any  to fe80::21d:9ff:fe8b:8e94 port 22 keep state <br>
+                </p>
+              </p>
+
+              <p>
+                Since interface has two addresses, one IPv4 and
+                another IPv6, compiler generated commands in both IPv4
+                section and in IPv6 section of the script, but it used
+                only the right address of the interface in each. Other
+                than that, interface object behaves just like a set of
+                addresses when used in the source or destination
+                element of a rule. It can also be used in NAT rules,
+                here is an example:
+              </p>
+              
+              <img src="interface-nat-rule-1.png"/>
+
+              <p>
+                this generates the following code for iptables:
+
+                <p class="command">
+# Rule 0 (NAT) <br>
+#  <br>
+$IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24 -j SNAT --to-source 192.0.2.1  <br>
+#  <br>
+# Rule 1 (NAT) <br>
+#  <br>
+$IPTABLES -t nat -A PREROUTING  -p tcp -m tcp   -d 192.0.2.1 --dport 80 -j DNAT --to-destination 172.16.22.100  <br>
+                </p>
+              </p>
+
+              <p>
+                And for PF:
+                <br/>
+                <p class="command">
+# Rule  0 (NAT) <br>
+#  <br>
+nat on eth0 proto {tcp udp icmp} from 172.16.22.0/24 to any -> 192.0.2.1  <br>
+#  <br>
+# Rule  1 (NAT) <br>
+#  <br>
+rdr on eth0 proto tcp from any to 192.0.2.1 port 80 -> 172.16.22.100 port 80  <br>
+                </p>
+              </p>
+
+              <h3>Using Interface Object with Dynamic Address in Rules</h3>
+
+                <p></p>
+
+              <p>
+                Examples above demonstrated what happens when an
+                interface with one or several IP addresses is used in
+                policy and NAT rules. Lets look at the case when
+                interface has address assigned dynamically. This means
+                the address is unknwown to fwbuilder policy compiler
+                when it generates configuration script. Compiler uses
+                features of the target firewall to work around this.
+                Here is the configration of the interface
+                object <b>eth0</b>, the radio-button "Address is
+                assigned dynamically" is checked.
+              </p>
+
+              <img src="interface-3.png"/>
+                
+              <p>
+                The following policy rule uses interface <b>eth0</b>
+                in destination:
+              </p>
+
+              <img src="interface-rule-3.png"/>
+
+              <p>
+                Here is what we get for iptables
+                <br/>
+
+                <p class="command">
+getaddr eth0  i_eth0 <br>
+getaddr6 eth0  i_eth0_v6 <br>
+ <br>
+# ================ IPv4 <br>
+ <br>
+# Rule 0 (global) <br>
+#  <br>
+test -n "$i_eth0" && $IPTABLES -A INPUT -p tcp -m tcp  -d $i_eth0  --dport 22  -m state --state NEW  -j ACCEPT  <br>
+ <br>
+# ================ IPv6 <br>
+ <br>
+# Rule 0 (global) <br>
+#  <br>
+test -n "$i_eth0_v6" && $IP6TABLES -A INPUT -p tcp -m tcp  -d $i_eth0_v6  --dport 22  -m state --state NEW  -j ACCEPT  <br>
+                </p>
+              </p>
+
+              <p>
+                Shell functions <b>getaddr</b> and <b>getaddr6</b> are
+                defined earlier in the script. Generated script
+                determines IPv4 and IPv6 ip addresses of the
+                interface <b>eth0</b> at the time of execution and
+                then uses the values in iptables commands. If
+                interface does not have an address, corresponding
+                variable gets an empty string for its value and
+                iptables command using it is skipped.
+              </p>
+
+              <p>
+                PF allows for using interface name in rules and gets
+                its current ip address automatically. Here is what is
+                generated for PF:
+
+                <p class="command">
+# Rule  0 (global) <br>
+#  <br>
+pass in   quick inet proto tcp  from any  to (en0) port 22 keep state <br>
+pass out  quick inet proto tcp  from any  to (en0) port 22 keep state <br>
+ <br>
+# Rule  0 (global) <br>
+#  <br>
+pass in   quick inet6 proto tcp  from any  to (en0) port 22 keep state  <br>
+pass out  quick inet6 proto tcp  from any  to (en0) port 22 keep state <br>
+                </p>
+              </p>
+
+              <p>
+                We still get two separate parts for IPv4 and IPv6
+                because the rule set is configured as IPv4+IPv6 mix,
+                but in both cases compiler just used interface name
+                because its actual IP address is dynamic and was unknown
+                at the time when configuration was generated.
+              </p>
+
+
+
   <h3>Using Interface Object in Rules of Bridging iptables Firewall</h3>
 
   <p></p>
