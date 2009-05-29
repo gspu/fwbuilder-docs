@@ -1029,6 +1029,25 @@
 
   </p>
 
+  <blockquote>
+    Note that "external" interface option may be
+    deprecated in the future versions of the program
+  </blockquote>
+
+  <p>
+    In PIX, access lists must always be attached to
+    interfaces. Policy compiler for PIX uses information
+    about network zones of interfaces to decide which
+    interface a rule should be associated with if its
+    "interface" column does not specify one (is left set
+    to "All"). Instead of placing this rule in access
+    lists attached to all interfaces, it compares
+    addresses in "source" and "destination" of the rule
+    with network zones of interfaces and uses only
+    interfaces that match. This helps generate PIX
+    configuration that is more compact.
+  </p>
+
 
 
 
