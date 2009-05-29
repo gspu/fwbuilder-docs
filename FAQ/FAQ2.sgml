@@ -20,6 +20,8 @@
 <!entity nf-conntrack-page "http://www.netfilter.org/projects/patch-o-matic/pom-extra.html#pom-extra-nf_conntrack">
 <!entity nf-conntrack-discussion "http://lists.netfilter.org/pipermail/netfilter-devel/2006-July/024879.html">
 <!entity debugview-download "http://www.microsoft.com/technet/sysinternals/utilities/debugview.mspx">
+<!entity check_libs_script "http://www.fwbuilder.org/downloads/scripts/check_libs.sh">
+<!entity contact_us_page "http://www.fwbuilder.org/contact.html">
 ]>
 
 <article class="FAQ" id="FAQ">
@@ -869,51 +871,9 @@ chcon -t texrel_shlib_t /usr/lib/libfwbuilder.so*
 
 	<answer>
 	  <para>
-	    Please file a bug on Sourceforge. Provide information we might
-	    need to fix the problem:
-	  </para>
-
-          <itemizedlist>
-            <listitem>
-              <para>what version of fwbuilder do you run, did
-            you install prebuilt binary packages or compiled it
-            yourself ?
-              </para>
-            </listitem>
-
-            <listitem>
-              <para>Provide the output of the following
-            commands:
-              </para>
-              <programlisting>
-                cat /etc/issue
-
-                rpm -qa | grep qt
-                rpm -qa | grep libxml
-                rpm -qa | grep libxslt
-
-                ldd /usr/bin/fwbuilder
-                ldd /usr/bin/fwb_ipf
-                ldd /usr/bin/fwb_iptables
-              </programlisting>
-            </listitem>
-
-            <listitem>
-              <para>Download script "check_libs.sh" from
-            Contrib area on our Sourceforge page and run it as
-            follows:
-              </para>
-              <programlisting>
-                check_libs.sh fwbuilder
-              </programlisting>
-              <para>
-                include its output in your bug report.
-              </para>
-            </listitem>
-          </itemizedlist>
-
-	  <para>
-	    Also send us core file and .xml file with your objects. 
+	    Please file a bug on Sourceforge and provide information
+	    we might need to fix the problem. See the list on the
+            <ulink url="&contact-us-page">Contact Us</ulink> page.
 	  </para>
 
 	</answer>
