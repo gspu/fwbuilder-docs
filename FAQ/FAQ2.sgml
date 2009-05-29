@@ -873,7 +873,7 @@ chcon -t texrel_shlib_t /usr/lib/libfwbuilder.so*
 	  <para>
 	    Please file a bug on Sourceforge and provide information
 	    we might need to fix the problem. See the list on the
-            <ulink url="&contact-us-page">Contact Us</ulink> page.
+            <ulink url="&contact_us_page">Contact Us</ulink> page.
 	  </para>
 
 	</answer>
