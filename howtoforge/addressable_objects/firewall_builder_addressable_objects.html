@@ -940,6 +940,99 @@
     </ul>
   </p>                      
 
+
+
+
+  <h3>More about Security Levels and Network Zones </h3>
+
+  <p></p>
+
+  <p>
+    Consider the network layout shown in the following
+    screenshot.
+  </p>
+
+  <img src="fwbuilder-using-netzone1.jpg"/>
+
+  <p>
+    Here the firewall has three interfaces: ’outside’,
+    ’dmz’, and ’inside’. Behind the firewall there is a
+    router which in turn is connected to three subnets
+    ’subnet A’, ’subnet B’, and ’subnet C’. Subnet A is
+    shared between the router and the firewall (each
+    device has an interface on this subnet). Let’s also
+    suppose that we have created Network Objects for
+    each subnet and called them ’subnet DMZ’, ’subnet
+    A’, ’subnet B’ and ’subnet C’ (remember, spaces are
+    allowed in object names). For this setup, network
+    zones should be configured as follows:
+  </p>
+
+  <p>
+    <table border=1 cellspacing=0>
+      <tr>
+        <th>Interface</th> <th>Network Zone</th>
+      </tr>
+
+      <tr>
+        <td>outside</td>   <td>ANY </td>
+      </tr>
+
+      <tr>
+        <td>dmz</td> <td>subnet DMZ </td>
+      </tr>
+
+      <tr>
+        <td>inside</td> <td>subnet A, subnet B, subnet C </td>
+      </tr>
+    </table>
+  </p>
+
+  <p>
+    Since the network zone for the ’inside’ interface
+    consists of multiple objects, a group must be
+    created so that you could use this group as a
+    Network Zone object.
+  </p>
+
+
+  <p>
+    The following explains the differences in the way
+    firewall platforms interpret values in the Security
+    Level and Network Zone parameters of the firewall
+    interfaces.
+  </p>
+
+  <p>
+    <table border=1 cellspacing=0>
+      <tr>
+        <th>Firewall Platform</th> <th>Security Level Values</th> <th>Network Zone</th>
+      </tr>
+
+      <tr>
+        <td>iptables</td> <td>two values: ’External’ or ’Internal’ </td> <td>N/A </td>
+      </tr>
+
+      <tr>
+        <td>ipfilter</td> <td>two values: ’External’ or ’Internal’</td> <td>N/A </td>
+      </tr>
+
+      <tr>
+        <td>pf</td> <td> two values: ’External’ or ’Internal’ </td> <td>N/A </td>
+      </tr>
+
+      <tr>
+        <td>Cisco PIX</td> <td> numeric, 0 - 100</td> <td> a reference to a group or network object </td>
+      </tr>
+    </table>
+
+
+  </p>
+
+
+
+
+
   <h3>Using Interface Object in Rules</h3>
 
   <p></p>
