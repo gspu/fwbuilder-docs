@@ -1,0 +1,210 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Firewall Builder: Using Firewall Object | HowtoForge - Linux Howtos and Tutorials</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 12px;
+        text-decoration: underline;
+}
+-->
+</style>
+</head>
+
+<body>
+
+
+  <h1>Handling of Broadcast and Multicast Addresses</h1>
+
+  <p></p>
+
+  <p>
+    Policy compilers treat some addresses in policy rules
+    in special ways, depending on the requirements of the
+    target firewall platform. For example, compiler for
+    iptables checks if address found in "Destination" or
+    "Source" of a rule matches address of any interface of
+    the firewall to determine if the rule should be placed
+    in <b>INPUT</b> or <b>OUTPUT</b> chain. Compiler for
+    PIX will use command <b>ssh &lt;address&gt;
+      &lt;netmask&gt; inside</b> when it detects such
+    address in the destnation of a rule where service is
+    TCP Service object <b>"SSH"</b>. There are other
+    special cases as well.
+  </p>
+
+  <h2>Boradcast and Multicast Addresses, iptables Firewall</h2>
+
+  <p></p>
+
+  <p>
+    One important special case is broadcast and multicast
+    addresses. It is important to place rules in the
+    correct chain in generated iptables script because
+    even though these addresses are not equal to those of
+    the firewall's interfaces, iptables processes packets
+    with broadcast or multicast destination in
+    the <b>INPUT</b> chain. Firewall Builder is aware of
+    this and generates correct iptables commands.
+  </p>
+
+  <p>
+    In order to match broadcast or multicast addresses in
+    the rules, we need to create objects to describe
+    them. The choice of object type to describe broadcast
+    or multicast address depends on whether this is just a
+    single address, a range or a block. Address object is
+    good to define single address, Address Range is good
+    for ranges, and Network object is good to describe a
+    block. For example, one can use Address object with
+    address "255.255.255.255" to describe a broadcast.
+    Address Range with addresses "224.0.0.5 - 224.0.0.6"
+    would work well to describe two multicast groups used
+    by OSPF and network object with address "224.0.0.0"
+    and netmask "240.0.0.0" can be used to describe whole
+    multicast address block.
+  </p>
+
+  <p>
+    Here are few examples:
+  </p>
+
+
+  <img src="multicast_object_1.png"/>
+
+  <p>
+    Object <b>"all multicasts"</b> is part of
+    the <b>Standard Objects</b> library that comes with
+    the program and describes entire address block
+    allocated for multicasts. Consider simple policy
+    rule that permits all multicasts:
+  </p>
+
+  <img src="multicast_rule_1.png"/>
+
+  <p>
+    For iptables, this rule translates into the following
+    script:
+  </p>
+  
+  <p>
+    <p class="command">
+      $IPTABLES -A INPUT  -d 224.0.0.0/4  -m state --state NEW  -j ACCEPT 
+    </p>
+  </p>
+
+  <p>
+    The rule went into the <b>INPUT</b> chain because
+    iptables processes multicast in it.
+  </p>
+
+  <p>
+    Here is another example, this time it involves
+    broadcast addresses. Interface <b>inside</b> of the
+    test firewall has address 172.16.22.1 with netmask
+    255.255.255.0. This defines subnet
+    172.16.22.0/255.255.255.0 with broadcast address
+    172.16.22.255. We create Address object with the name
+    "net-172.16.22 broadcast" and address "172.16.22.255"
+    and use it in the destination field of a policy rule.
+    Another rule in the same example will match broadcast
+    address "255.255.255.255"; an Address Range Object
+    that defines this address is present in the Standard
+    Objects library under the name "broadcast". Here are
+    the rules:
+  </p>
+  
+  <img src="broadcast_rules_1.png"/>
+
+  <p>
+    these two rules translate into the following script
+    for iptables:
+  </p>
+  
+  <p>
+    <p class="command">
+      # Rule 0 (global)<br>
+      # <br>
+      $IPTABLES -A INPUT  -d 255.255.255.255  -m state --state NEW  -j ACCEPT <br>
+      # <br>
+      # Rule 1 (global)<br>
+      # <br>
+      $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT <br>
+    </p>
+  </p>
+
+  <p>
+    Both rules went into INPUT chain as expected.
+  </p>
+
+
+
+  <h2>Boradcast and Multicast Addresses and Bridging iptables Firewall</h2>
+
+  <p></p>
+
+  <p>
+    Compilers treat broadcast and multicast addresses
+    differently if the firewall object describes bridging
+    firewall. In this case checkbox <b>"Bridging
+      firewall"</b> should be turned on in the firewall
+    settings dialog and one or more interface objects
+    should be marked as <b>"Bridge port"</b>:
+  </p>
+
+  <img src="bridge_interface_dialog_1.png"/>
+
+  <p>
+    Now the rule that should match broadcast destination
+    address will be treated differently:
+  </p>
+
+  <img src="broadcast_rules_2.png"/>
+
+  <p>
+    this produces the following iptables commands:
+
+    <p class="command">
+      $IPTABLES -A FORWARD  -d 172.16.22.255  -m state --state NEW  -j ACCEPT <br>
+      $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT <br>
+    </p>
+  </p>
+
+  <p>
+    Rules went into both <b>INPUT</b> and <b>FORWARD</b>
+    chains because bridging firewall passes broadcasts
+    through, but at the same time accepts them as packets
+    headed for itself as well. Since the rule did not
+    specify which interface it should look at, fwbuilder
+    assumed that generated rule should inspect packets
+    crossing all interfaces, both bridge ports and
+    "normal" ones and therefore placed rule in
+    both <b>INPUT</b> and <b>FORWARD</b> chains.
+  </p>
+
+</body>
+</html>
