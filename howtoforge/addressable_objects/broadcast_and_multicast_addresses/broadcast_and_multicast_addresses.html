@@ -84,18 +84,12 @@
   <p></p>
 
   <p>
-    Policy compilers treat some addresses in policy rules
-    in special ways, depending on the requirements of the
-    target firewall platform. For example, compiler for
-    iptables checks if address found in "Destination" or
-    "Source" of a rule matches address of any interface of
-    the firewall to determine if the rule should be placed
-    in <b>INPUT</b> or <b>OUTPUT</b> chain. Compiler for
-    PIX will use command <b>ssh &lt;address&gt;
-      &lt;netmask&gt; inside</b> when it detects such
-    address in the destnation of a rule where service is
-    TCP Service object <b>"SSH"</b>. There are other
-    special cases as well.
+    Some firewall platforms require Firewall Builder to recognize and
+    treat boradcast and multicast addresses in a special way. In
+    particular, iptables processes packets with broadcast and
+    multicast destination addresses in the <b>INPUT</b> chain and
+    Firewall Builder policy compilers should take this into account
+    while generating iptables script.
   </p>
 
   <h2>Boradcast and Multicast Addresses, iptables Firewall</h2>
@@ -103,30 +97,17 @@
   <p></p>
 
   <p>
-    One important special case is broadcast and multicast
-    addresses. It is important to place rules in the
-    correct chain in generated iptables script because
-    even though these addresses are not equal to those of
-    the firewall's interfaces, iptables processes packets
-    with broadcast or multicast destination in
-    the <b>INPUT</b> chain. Firewall Builder is aware of
-    this and generates correct iptables commands.
-  </p>
-
-  <p>
-    In order to match broadcast or multicast addresses in
-    the rules, we need to create objects to describe
-    them. The choice of object type to describe broadcast
-    or multicast address depends on whether this is just a
-    single address, a range or a block. Address object is
-    good to define single address, Address Range is good
-    for ranges, and Network object is good to describe a
-    block. For example, one can use Address object with
-    address "255.255.255.255" to describe a broadcast.
-    Address Range with addresses "224.0.0.5 - 224.0.0.6"
-    would work well to describe two multicast groups used
-    by OSPF and network object with address "224.0.0.0"
-    and netmask "240.0.0.0" can be used to describe whole
+    In order to match broadcast or multicast addresses in the rules,
+    we need to create objects to describe them. The choice of object
+    type to describe broadcast or multicast address depends on whether
+    this is just a single address, a range or a block. Address object
+    is good to define single address, Address Range is good for sets
+    of consequtive addresses, and Network object is good to describe a
+    block. For example, one can use Address object with address
+    "255.255.255.255" to describe a broadcast.  Address Range with
+    addresses "224.0.0.5 - 224.0.0.6" would work well to describe two
+    multicast groups used by OSPF. Network object with address
+    "224.0.0.0" and netmask "240.0.0.0" can be used to describe whole
     multicast address block.
   </p>
 
