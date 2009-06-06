@@ -22,7 +22,9 @@
 <xsl:template match="h1">
   <xsl:text>
 
-  ================ Start section 1
+  </xsl:text>
+  <xsl:comment>================ Start section 1</xsl:comment>
+  <xsl:text>
   </xsl:text>
   <xsl:element name="title">
     <xsl:apply-templates select="node()"/>
@@ -32,7 +34,9 @@
 <xsl:template match="h2">
   <xsl:text>
 
-  ================ Start section 2
+  </xsl:text>
+  <xsl:comment>================ Start section 2</xsl:comment>
+  <xsl:text>
   </xsl:text>
   <xsl:element name="title">
     <xsl:apply-templates select="node()"/>
@@ -45,7 +49,9 @@
 <xsl:template match="h3">
   <xsl:text>
 
-  ================ Start section 3
+  </xsl:text>
+  <xsl:comment>================ Start section 3</xsl:comment>
+  <xsl:text>
   </xsl:text>
   <xsl:element name="title">
     <xsl:apply-templates select="node()"/>
@@ -54,6 +60,12 @@
 
 
 <xsl:template match="b">
+  <xsl:element name="emphasis">
+    <xsl:apply-templates select="node()"/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="em">
   <xsl:element name="emphasis">
     <xsl:apply-templates select="node()"/>
   </xsl:element>
@@ -121,10 +133,25 @@
   </xsl:text>
   <xsl:element name="figure">
     <xsl:attribute name="float">1</xsl:attribute>
+    <xsl:element name="title">
+    </xsl:element>
     <xsl:element name="graphic">
       <xsl:attribute name="scale">50</xsl:attribute>
-      <xsl:attribute name="filereg"><xsl:value-of select="$file"/></xsl:attribute>
+      <xsl:attribute name="fileref"><xsl:value-of select="$file"/></xsl:attribute>
     </xsl:element>
+  </xsl:element>
+</xsl:template>
+
+
+
+<xsl:template match="a">
+  <xsl:variable name="url" select="@href"/>
+  <xsl:text>
+
+  </xsl:text>
+  <xsl:element name="ulink">
+    <xsl:attribute name="url"><xsl:value-of select="$url"/></xsl:attribute>
+    <xsl:apply-templates select="node()"/>
   </xsl:element>
 </xsl:template>
 
