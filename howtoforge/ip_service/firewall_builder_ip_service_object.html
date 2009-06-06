@@ -1,0 +1,375 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Firewall Builder: The IP Service Object | HowtoForge - Linux Howtos and Tutorials</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 12px;
+        text-decoration: underline;
+}
+-->
+</style>
+</head>
+
+<body>
+
+  <h1>Using IP Service Object in Firewall Builder</h1>
+
+  <table border=0>
+    <tr>
+      <td><img src="http://www.fwbuilder.org/images/icon_128x128.png" height="128" width="128" /></td>
+      <td>Author: vadim@fwbuilder.org<br/>
+        <a href="http://www.fwbuilder.org">http://www.fwbuilder.org</a>
+      </td>
+    </tr>
+  </table>
+
+  <p>
+    This article continues the series of articles on Fireall Builder,
+    a graphical firewall configuration and management tool that
+    supports many Open Source firewall platforms as well as Cisco IOS
+    access lists and Cisco ASA (PIX).  Firewall Builder was introduced
+    on this site earlier with articles
+    <a href="http://www.howtoforge.com/getting-started-with-firewall-builder">
+    Getting Started With Firewall Builder</a>, 
+
+    <a href="http://www.howtoforge.com/using-built-in-revision-control-in-firewall-builder">Using
+    Built-In Revision Control In Firewall Builder</a>, 
+
+    <a href="http://www.howtoforge.com/using-built-in-policy-installer-in-firewall-builder">
+      Using Built-in Policy Installer in Firewall Builder</a>, 
+
+    <a href="http://www.howtoforge.com/using-firewall-object-in-firewall-builder">
+      Using Firewall Object In Firewall Builder</a>.
+
+    This article demonstrates how you can work with <b>IP Service</b>
+    object in Firewall Builder.
+  </p>
+
+  <p>
+    More information on Firewall Builder, pre-built binary packages
+    and source code, documentation and <b>Firewall Builder
+    Cookbook</b> can be found on the project web site
+    at <a href="http://www.fwbuilder.org">
+    www.fwbuilder.org</a>. Watch <a href="http://blog.fwbuilder.org">Project
+    Blog</a> for announcements and articles on all aspects of using
+    Firewall Builder.
+  </p>
+
+
+  <h1>Using IP Service Object in Firewall Builder</h1>
+
+              <p>
+                In Firewall Builder, service objects represent IP,
+                ICMP, TCP, and UDP services such as "host unreachable"
+                in ICMP, HTTP in TCP, GRE in IP, or DNS in
+                UDP. Firewall Builder provides service objects for over a
+                hundred of well-known and frequently used services in
+                ICMP (IP protocol number 1), TCP (IP protocol number
+                6), and UDP (IP protocol number 17).
+              </p>
+
+              <h2>IP Service </h2>
+
+              <p>
+                The IP service object describes protocols that are not
+                ICMP, TCP, or UDP. (ICMP, TCP, and UDP have their own
+                service objects.) An IP protocol is defined by the
+                8-bit field in the IP packet header. The screenshot
+                below represents the ESP object (Encapsulating
+                Security Payload, part of the IPSEC protocol family)
+                which uses the IP protocol number 50.
+              </p>
+
+              <img src="ip_service_1.png"/>
+
+              <blockquote>
+                Note: Protocol numbers are assigned by IANA; one can
+                look up the number for a par ticular protocol at the
+                following URL:
+                http://www.iana.org/assignments/protocol-numbers/
+              </blockquote>
+
+              <p>
+                Besides the protocol number, the header of the IP
+                packet also has a field called "options" which is a
+                variable-length list of optional information for the
+                packet. Not all firewalls can examine options, and
+                those that can usually have certain limitations as to
+                what options they can match against. Firewall Builder
+                tries to provide controls for many popular options
+                supported by the most sophisticated firewalls. Not all
+                options supported by Firewall Builder are supported by
+                all target firewall platforms:
+              </p>
+
+              <p>
+                Support for IP options and fragmentation on various firewall platforms 
+                <p>
+                  <table border=1 cellpadding=0 cellspacing=0
+                         style="text-align:center;">
+                    <tr>
+                      <th width="40">Firewall</th><th width="40">lsrr</th> <th width="40">ssrr</th> <th width="40">rr</th> <th width="40">ttimestamp</th> <th width="40">all fragments</th>  <th width="40">"short" packets</th> 
+                    </tr>
+                    <tr>
+                      <td>iptables</td> <td>+</td> <td>+</td> <td>+</td> <td>+</td> <td>+</td> <td>-</td> 
+                    </tr>
+
+                    <tr>
+                      <td>ipfilter</td> <td>-</td> <td>+</td> <td>+</td> <td>+</td> <td>+</td> <td>+</td> 
+                    </tr>
+
+                    <tr>
+                      <td>pf</td> <td>-</td> <td>-</td> <td>-</td> <td>-</td> <td>+</td> <td>-</td> 
+                    </tr>
+
+                    <tr>
+                      <td>Cisco PIX</td> <td>-</td> <td>-</td> <td>-</td> <td>-</td> <td>-</td>  <td>-</td>
+                    </tr>
+                  </table>
+                </p>
+              </p>
+
+              <h3>Source route options LSRR, SSRR </h3>
+
+              <p>
+                Normally IP routing is dynamic with each router making
+                decisions about which next hop router to send the
+                packet to.  However, another option exists where the
+                sender can choose the route. In the case of the Loose
+                Source Route, the sender (host) can specify a list of
+                routers the packet must traverse, but it may also pass
+                through other routers between any two addresses in the
+                list. The Strict Source Route works very much the same
+                way, except the packet must traverse only through the
+                specified addresses. Source routing can potentially be
+                used to reach hosts behind the firewall even if these
+                hosts use private IP addresses which normally are not
+                reachable over the Internet.
+              </p>
+
+              <h3>Record route option RR</h3>
+
+              <p>
+                This option causes every router that handles the
+                packet on the way to add its IP address to a list in
+                the options field. This option is used by the ping
+                utility when it is called with the "-R" command line
+                switch; it can potentially be exploited to discover
+                the internal network addressing and layout behind the
+                firewall.  Although the risk is low, some firewall
+                administrators prefer to block packets with this
+                option set.
+              </p>
+
+              <h3>Timestamp option</h3>
+
+              <p>
+                This option tells routers that handle the packet to
+                record their timestamps and sometimes addresses (like
+                in the case of the record route option). This option
+                is seldom used, but can potentially be exploited to
+                gather information about the protected network, so
+                some firewall administrators prefer to block packets
+                with this option set.
+              </p>
+
+              <h3>Fragment options</h3>
+
+              <p>
+                IP packets may sometimes become fragmented. This
+                happens if the original datagram is larger than what a
+                physical network layer can transmit. The IP packet
+                header has special fields (called "Flags" and
+                "Fragmentation Offset") that detect fragmented packets
+                and help reassemble them. Many firewalls can check
+                these bits as well. Certain combinations of ﬂags and
+                fragmentation offsets can never happen during a normal
+                operation but were seen to be used by
+                attackers. Firewall Builder provides two options for
+                most commonly used cases related to packet
+                fragmentation: the ’all fragments’ option matches the
+                second and further fragments, while the ’short’ option
+                is used to match packets that are too short to contain
+                even a complete IP header.
+              </p>
+
+              <p>
+                Standard IP Service objects that come with Firewall
+                Builder appear in the Standard objects library, in
+                the <b>Services/IP</b> branch.
+              </p>
+
+              <h3>Support for TOS and DSCP</h3>
+
+              <p>
+                Some firewalls can match IP packets based on the TOS
+                ("Type Of Service") or DSCP ("Differentiated Services
+                Code Point") bits setting. These bits are used to
+                define "quality of service". Since TOS and DSCP use
+                the same byte in the IP header, these two are mutually
+                exclusive. The dialog for the IP service uses radio
+                buttons to choose between TOS and DSCP and provides an
+                entry field for the actual code. The code is usually
+                either a hexadecimal number or a class code such as
+                "BE", "EF", "AFxx" or "CSx" that will be used verbatim
+                in the generated firewall configuration.
+              </p>
+
+              <h2>Using IP service objects in policy rules</h2>
+
+              <p>
+                Consider the following IP Service objects:
+              </p>
+
+              <table border=0>
+                <tr>
+                  <td><img src="ip_service_2.png"/></td>
+                  <td><img src="ip_service_5.png"/></td>
+                </tr>
+                <tr>
+                  <td><img src="ip_service_3.png"/></td>
+                  <td><img src="ip_service_4.png"/></td>
+                </tr>
+              </table>
+
+              <p>
+                Object <b>EF</b> has DSCP matching turned on, matching
+                traffic class <b>EF</b>. Object <b>TOS 0x10</b> matches
+                packets with TOS bits set to 0x10 (low delay).
+                Object <b>all_fragments</b> has flag "all fragments"
+                turned on, and finally object
+                <b>lsrr</b> matches "loose source routing"
+                option. Here is what we get for iptables when we use
+                these objects in policy rules as follows:
+              </p>
+
+              <img src="ip_service_rule_1.png"/>
+
+              <p></p>
+
+              <p class="command">
+ <br>
+# Rule 0 (global) <br>
+#  <br>
+$IPTABLES -N RULE_0 <br>
+$IPTABLES -A FORWARD -p all  -f   -j RULE_0  <br>
+$IPTABLES -A FORWARD -p all  -m ipv4options  --lsrr  -j RULE_0  <br>
+$IPTABLES -A RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY " <br>
+$IPTABLES -A RULE_0  -j DROP  <br>
+#  <br>
+# Rule 1 (global) <br>
+#  <br>
+$IPTABLES -A FORWARD  -o + -p all  -m dscp --dscp-class EF  -m state --state NEW  -j ACCEPT  <br>
+$IPTABLES -A FORWARD  -o + -p all  -m tos --tos 0x10  -m state --state NEW  -j ACCEPT  <br>
+ <br>
+              </p>
+
+              <p>
+                Compiler for iptables uses module <b>ipv4options</b>
+                to match <b>lsrr</b>, command line option <b>-f</b> to
+                match all fragments, module <b>tos</b> to match TOS
+                and module <b>dscp</b> to match dscp class.
+              </p>
+
+              <p>
+                When compiled for IPv6, these rules yield the
+                following iptables commands:
+              </p>
+
+              <p class="command">
+ <br>
+# Rule 0 (global) <br>
+#  <br>
+$IP6TABLES -N RULE_0 <br>
+$IP6TABLES -A FORWARD  -m frag --fragmore  -j RULE_0  <br>
+$IP6TABLES -A RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY " <br>
+$IP6TABLES -A RULE_0  -j DROP  <br>
+#  <br>
+# Rule 1 (global) <br>
+#  <br>
+$IP6TABLES -A FORWARD  -o +  -m dscp --dscp-class EF  -m state --state NEW  -j ACCEPT  <br>
+$IP6TABLES -A FORWARD  -o +  -m tos --tos 0x10  -m state --state NEW  -j ACCEPT  <br>
+ <br>
+              </p>
+
+              <p>
+                <b>ip6tables</b> does not have command line
+                flag <b>-f</b>, instead it uses module <b>frag</b> to
+                match fragments. Fwbuilder currently does not support
+                ip6tables module <b>ipv6header</b> and source routing
+                options do not exist in IPv6 so object "lsrr" can not
+                be used in rules.
+              </p>
+
+              <p>
+                PF can not match DSCP bits and source routing options
+                but can match TOS. Trying the same IPService object "tos 0x10"
+                in policy rules for PF:
+              </p>
+
+              <img src="ip_service_rule_2.png"/>
+
+              <p></p>
+
+              <p class="command">
+ <br>
+pass out  quick inet  from any  to (eth0)  tos 0x10 keep state <br>
+ <br>
+              </p>
+
+
+              <p>
+                Cisco IOS access lists can not match source route
+                options but can match fragments, TOS and DSCP bits.
+                Here is what we get if we try to compile the same
+                rules using the same IPService objects for Cisco IOS
+                access lists target firewall platform:
+              </p>
+
+              <img src="ip_service_rule_3.png"/>
+
+              <p></p>
+
+              <p class="command">
+ <br>
+ip access-list extended e1_0_out <br>
+!  <br>
+! Rule  0 (global) <br>
+!  <br>
+  deny   ip any  any  log fragments  <br>
+!  <br>
+! Rule  1 (global) <br>
+!  <br>
+  permit ip any  any  tos 0x10 <br>
+  permit ip any  any  dscp EF <br>
+exit <br>
+ <br>
+              </p>
+
+</body>
+</html>
+
