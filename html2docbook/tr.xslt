@@ -28,7 +28,7 @@
   chapter
   </xsl:comment>
   <xsl:text>
-  </xsl:text>
+      </xsl:text>
   <xsl:element name="title">
     <xsl:apply-templates select="node()"/>
   </xsl:element>
@@ -43,7 +43,7 @@
   sect1
   </xsl:comment>
   <xsl:text>
-  </xsl:text>
+        </xsl:text>
   <xsl:element name="title">
     <xsl:apply-templates select="node()"/>
   </xsl:element>
@@ -61,7 +61,7 @@
   sect2
   </xsl:comment>
   <xsl:text>
-  </xsl:text>
+        </xsl:text>
   <xsl:element name="title">
     <xsl:apply-templates select="node()"/>
   </xsl:element>
@@ -98,9 +98,11 @@
 <xsl:template match="blockquote">
   <xsl:text>
 
-  </xsl:text>
-  <xsl:element name="remark">
-    <xsl:apply-templates select="node()"/>
+        </xsl:text>
+  <xsl:element name="note">
+    <xsl:element name="para">
+      <xsl:apply-templates select="node()"/>
+    </xsl:element>
   </xsl:element>
   <xsl:text>
   </xsl:text>
@@ -139,7 +141,7 @@
   <xsl:variable name="file" select="@src"/>
   <xsl:text>
 
-  </xsl:text>
+        </xsl:text>
   <xsl:element name="figure">
     <xsl:attribute name="float">1</xsl:attribute>
     <xsl:element name="title">
@@ -168,7 +170,7 @@
 <xsl:template match="table">
   <xsl:text>
 
-  </xsl:text>
+        </xsl:text>
   <xsl:element name="table">
     <xsl:apply-templates select="node()"/>
   </xsl:element>
@@ -179,7 +181,7 @@
 <xsl:template match="tr">
   <xsl:text>
 
-  </xsl:text>
+        </xsl:text>
   <xsl:element name="row">
     <xsl:apply-templates select="node()"/>
   </xsl:element>
@@ -190,7 +192,7 @@
 <xsl:template match="td">
   <xsl:text>
 
-  </xsl:text>
+        </xsl:text>
   <xsl:element name="entry">
     <xsl:apply-templates select="node()"/>
   </xsl:element>
@@ -201,7 +203,7 @@
 <xsl:template match="th">
   <xsl:text>
 
-  </xsl:text>
+        </xsl:text>
   <xsl:element name="entry">
     <xsl:apply-templates select="node()"/>
   </xsl:element>
