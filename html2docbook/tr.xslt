@@ -23,7 +23,10 @@
   <xsl:text>
 
   </xsl:text>
-  <xsl:comment>================ Start chapter</xsl:comment>
+  <xsl:comment>
+  /chapter
+  chapter
+  </xsl:comment>
   <xsl:text>
   </xsl:text>
   <xsl:element name="title">
@@ -35,7 +38,10 @@
   <xsl:text>
 
   </xsl:text>
-  <xsl:comment>================ Start section 1</xsl:comment>
+  <xsl:comment>
+  /sect1
+  sect1
+  </xsl:comment>
   <xsl:text>
   </xsl:text>
   <xsl:element name="title">
@@ -50,7 +56,10 @@
   <xsl:text>
 
   </xsl:text>
-  <xsl:comment>================ Start section 2</xsl:comment>
+  <xsl:comment>
+  /sect2
+  sect2
+  </xsl:comment>
   <xsl:text>
   </xsl:text>
   <xsl:element name="title">
