@@ -165,6 +165,49 @@
 </xsl:template>
 
 
+<xsl:template match="table">
+  <xsl:text>
+
+  </xsl:text>
+  <xsl:element name="table">
+    <xsl:apply-templates select="node()"/>
+  </xsl:element>
+</xsl:template>
+
+
+
+<xsl:template match="tr">
+  <xsl:text>
+
+  </xsl:text>
+  <xsl:element name="row">
+    <xsl:apply-templates select="node()"/>
+  </xsl:element>
+</xsl:template>
+
+
+
+<xsl:template match="td">
+  <xsl:text>
+
+  </xsl:text>
+  <xsl:element name="entry">
+    <xsl:apply-templates select="node()"/>
+  </xsl:element>
+</xsl:template>
+
+
+
+<xsl:template match="th">
+  <xsl:text>
+
+  </xsl:text>
+  <xsl:element name="entry">
+    <xsl:apply-templates select="node()"/>
+  </xsl:element>
+</xsl:template>
+
+
 
 <xsl:template match="p">
   <xsl:text>
