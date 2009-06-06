@@ -6,7 +6,7 @@
 
 
 <xsl:output method="xml" version="1.0" 
-   doctype-system="fwbuilder.dtd" indent="yes" encoding="utf-8"/>
+   doctype-system="http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" indent="yes" encoding="utf-8"/>
 
 <xsl:template match="node() | @*">
   <xsl:copy>
