@@ -214,7 +214,7 @@
 <xsl:template match="p">
   <xsl:text>
 
-  </xsl:text>
+        </xsl:text>
   <xsl:element name="para">
   <xsl:text>
   </xsl:text>
