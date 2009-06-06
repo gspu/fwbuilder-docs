@@ -23,7 +23,7 @@
   <xsl:text>
 
   </xsl:text>
-  <xsl:comment>================ Start section 1</xsl:comment>
+  <xsl:comment>================ Start chapter</xsl:comment>
   <xsl:text>
   </xsl:text>
   <xsl:element name="title">
@@ -35,7 +35,7 @@
   <xsl:text>
 
   </xsl:text>
-  <xsl:comment>================ Start section 2</xsl:comment>
+  <xsl:comment>================ Start section 1</xsl:comment>
   <xsl:text>
   </xsl:text>
   <xsl:element name="title">
@@ -50,7 +50,7 @@
   <xsl:text>
 
   </xsl:text>
-  <xsl:comment>================ Start section 3</xsl:comment>
+  <xsl:comment>================ Start section 2</xsl:comment>
   <xsl:text>
   </xsl:text>
   <xsl:element name="title">
@@ -171,6 +171,27 @@
   <xsl:text>
   </xsl:text>
 </xsl:template>
+
+
+<xsl:template match="body">
+  <xsl:text>
+
+  </xsl:text>
+  <xsl:element name="book">
+    <xsl:attribute name="id">Using</xsl:attribute>
+    <xsl:apply-templates select="node()"/>
+  </xsl:element>
+</xsl:template>
+
+
+
+<xsl:template match="html">
+  <xsl:text>
+
+  </xsl:text>
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
 
 
 </xsl:stylesheet>
