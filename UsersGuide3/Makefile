@@ -29,5 +29,5 @@ pdf/UsersGuide3.pdf: UsersGuide3.xml
 	mkdir -p pdf
 	cp *.jpg pdf/
 	cp *.png pdf/
-	docbook2pdf -d `pwd`/pdf.dsl -o pdf UsersGuide3.xml
+	docbook2pdf -o pdf UsersGuide3.xml
 
