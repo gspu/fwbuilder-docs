@@ -7431,7 +7431,7 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
                 work. If this is not desired, you can turn this
                 automation off by un-checking this option.
               
-  </para>
+        </para>
   
 
         <para>
@@ -7446,14 +7446,13 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
                 remove addresses it controls when you remove them in
                 Firewall Builder GUI.
               
-  </para>
+        </para>
   
 
 	</sect4>
 
 	<sect4>
         <title>"No NAT" rules</title>
-
   
 
         <para>
@@ -7467,16 +7466,15 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
                 the same servers from internal network. Here is how it
                 looks like:
               
-  </para>
+        </para>
   
         <figure float="1"><title/><graphic scale="50" fileref="fwobj-dnat-3.png"/></figure>
 
         <para>
-  
-                      Firewall object <emphasis>fw-1</emphasis> has 4
-                      interfaces:
-                    
-  </para>
+          
+          Firewall object <emphasis>fw-1</emphasis> has 4
+          interfaces:
+        </para>
   
                     
 
@@ -7492,7 +7490,7 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
         <entry>Network zone</entry>
 
         <entry>Address</entry>
-                      </row>
+        </row>
 
         <row>
 
@@ -7528,35 +7526,29 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
         <entry>loopback</entry>
 
         <entry>127.0.0.1</entry>
-                      </row></tbody></tgroup></table>
+        </row>
+        </tbody></tgroup></table>
 
         <para>
-  
-                Internal interface <emphasis>eth1</emphasis> also has IPv6 address
-                but it is not used in this example.
-              
-  </para>
+          Internal interface <emphasis>eth1</emphasis> also has IPv6 address
+          but it is not used in this example.
+        </para>
   
 
         <para>
-  
-                Here is a set of NAT rules to permit access to the
-                server <emphasis>dmz_server</emphasis> in DMZ (192.168.2.10) from
-                outside using external address of the firewall and
-                direct access to it from internal network without NAT.
-                Internal network obtains access to the Internet using
-                source address translation (rule #2):
-              
-  </para>
+          Here is a NAT rule to permit access to the DMZ network
+          (192.168.2.10) from internal network directly without
+          NAT.
+        </para>
   
 
         <figure float="1"><title/><graphic scale="50" fileref="dnat-rule-4.png"/></figure>
 
         <para>
   
-                Here is the script generated for iptables:
+          Here is the script generated for iptables:
               
-  </para>
+        </para>
   
 
   <screen>
@@ -7567,12 +7559,12 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
 $IPTABLES -t nat -A POSTROUTING   -s 172.16.22.0/24 -d 192.168.2.0/24 -j ACCEPT  
 $IPTABLES -t nat -A PREROUTING   -s 172.16.22.0/24 -d 192.168.2.0/24 -j ACCEPT  
 
-              </screen>
+  </screen>
 
-        <para>
-  
-                For PF we get this:
-              
+  <para>
+    
+    For PF we get this:
+    
   </para>
   
 
