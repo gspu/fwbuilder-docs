@@ -6079,7 +6079,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
 	<para>The Action is the action taken on a rule that matches on the Source, Destination, Service, Interface, Direction, and Time fields.</para>
 
-        <para>The policy rule action can be one of the following options. Not all firewalls support all options, but the GUI will only allow options that are valid for the indicated firewall target. In addition, the same action may have a different name on different firewalls.</para>
+        <para>The policy rule action can be one of the options listed in <xref linkend="action-options" />. Not all firewalls support all options, but the GUI will only allow options that are valid for the indicated firewall target. In addition, the same action may have a different name on different platforms.</para>
 
 	<para>Some actions can have parameters. To set a parameter for an action, first select the action, then double-click on the icon. (You can also right-click and select <guimenuitem>parameters</guimenuitem>.) The parameters dialog appears:</para>
 
@@ -6089,7 +6089,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         </figure>
 
 
-        <itemizedlist spacing="compact">
+        <itemizedlist spacing="compact" id="action-options">
           <listitem>
             <para>Accept:</para>
 
@@ -6105,7 +6105,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           <listitem>
             <para>Reject:</para>
 
-            <para>Packet is dropped and appropriate ICMP message is sent back to sender. No subsequent rules are applied. This action has a parameter that lets you specify how the firewall reacts to the packet. Options include TCP RST and a number of ICMP messages.</para>
+            <para>Packet is dropped and an appropriate message is sent back to the sender. No subsequent rules are applied. This action has a parameter that lets you specify how the firewall reacts to the packet. Parameter options include TCP RST and a number of ICMP messages.</para>
           </listitem>
 
           <listitem>
@@ -6118,13 +6118,13 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           <listitem>
             <para>Queue/Pipe:</para>
 
-            <para>Passes the packet to user space process for inspection, it is translated into QUEUE for iptables and divert for ipfw. This action is only supported by compilers for iptables and ipfw. This action has no parameters.</para>
+            <para>Passes the packet to a user space process for inspection. It is translated into QUEUE for iptables and "divert" for ipfw. This action is only supported by compilers for iptables and ipfw. This action has no parameters.</para>
           </listitem>
 
           <listitem>
             <para>Tag/Mark:</para>
 
-            <para>Associates an internal tag with the packet. The tag can later be inspected using service object TagService. This action is translated into MARK target with corresponding --set-mark parameter and optionally additional rule with CONNMARK --save-mark target for iptables. If option that activates CONNMARK target is used, compiler also adds a rule at the very top of the policy to restore the mark. Rules are placed in INPUT,OUTPUT and FORWARD chain of the "mangle" table, this ensures that DNAT happens before rules placed in the mangle table see the packet. PREROUTING chain in mangle table is executed before PREROUTING chain in the NAT table, so placing tagging rules in the PREROUTING chain would make them fire before DNAT. POSTROUTING chain of the mangle table, as well as its FORWARD and OUTPUT  chains, work before corresponding chains of the NAT table. In all cases the goal is to make sure DNAT  rules process the packet before, and SNAT rules process it after filtering and tagging rules.</para>
+            <para>Associates a tag with the packet. The tag can later be inspected using service object TagService. This action is translated into MARK target with corresponding --set-mark parameter and optionally additional an rule with a CONNMARK --save-mark target for iptables. If the option that activates CONNMARK target is used, the compiler also adds a rule at the very top of the policy to restore the mark. Rules are placed in INPUT,OUTPUT and FORWARD chain of the "mangle" table, which ensures that DNAT happens before rules in the mangle table see the packet. The PREROUTING chain in the mangle table is executed before the PREROUTING chain in the NAT table, so placing tagging rules in the PREROUTING chain would make them fire before DNAT. The POSTROUTING chain of the mangle table, as well as its FORWARD and OUTPUT chains, work before corresponding chains of the NAT table. In all cases the goal is to make sure DNAT rules process the packet before, and SNAT rules process it after, filtering and tagging rules.</para>
 
 	    <para>For PF this action is translated into tag. Supported only by compilers for iptables and PF. This action's parameter lets you specify which TagService service object to apply to the matching packet.</para>
           </listitem>
@@ -6132,44 +6132,33 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           <listitem>
             <para>Classify:</para>
 
-            <para>Allows the firewall to define a QoS class for the packet that matches the rule. It is translated into CLASSIFY for iptables, with parameter --set-class. For PF it is translated into queue. Compiler for ipfw can use pipe, queue or divert depending on how the action is configured by the administrator in the GUI. This action is only supported by compilers for iptables, PF and ipfw. This action has a parameter that lets you specify a Classify string.</para>
+            <para>Allows the firewall to define a QoS class for the packet that matches the rule. It is translated into CLASSIFY for iptables, with parameter --set-class. For PF it is translated into "queue". The compiler for ipfw can use "pipe", "queue" or "divert" depending on how the action is configured in the GUI. This action is only supported by compilers for iptables, PF and ipfw. This action has a parameter that lets you specify a Classify string.</para>
           </listitem>
 
           <listitem>
             <para>Custom:</para>
 
-            <para>Allows administrator to define arbitrary piece of code to be used in place of an action. Supported by compilers for iptables, ipf and ipfw. Parameter lets you specify the string.</para>
+            <para>Allows you to specify an arbitrary piece of code to be used in place of an action. Supported by compilers for iptables, ipf and ipfw. A parameter lets you specify the string.</para>
           </listitem>
 
           <listitem>
             <para>Branch/Chain/Anchor:</para>
 
-            <para>Used to create a branch in the rule set. It works on target platforms that provide suitable syntax and allow control to return to the higher level rule set if the branch cannot make a final decision about the packet. For iptables this action is translated into user-defined chain. The name of the chain is the name of the branch chosen by administrator. For PF this action is translated into an anchor with the name the same as the name of the branch defined by the administrator. This action is only supported by compilers for iptables and PF. Parameter lets you specify which other rule set to branch into on packet match.</para>
+            <para>Used to branch to a different rule set. It works on target platforms that provide suitable syntax and allow control to return to the higher level rule set if the branch cannot make a final decision about the packet. For iptables this action is translated into a user-defined chain. The name of the chain is the name of the branch chosen by the administrator. For PF this action is translated into an anchor with the same name as the branch rule set. This action is only supported by compilers for iptables and PF. A parameter lets you specify which other rule set to branch into.</para>
           </listitem>
 
           <listitem>
             <para>Routing:</para>
 
-            <para>Makes the firewall route matching packets through an interface or a gateway specified in the parameters of the action. This action is translated into ROUTE target for iptables and route option for PF and ipfilter. Compilers for PF and ipfilter support fastroute, route-to, reply-to and dup-to options. Parameters let you change the inbound and outbound interface and route the packet through a specified gateway. You can also tell the firewall to continue inspecting the packet after a match, and you can tell the firewall to make these changes to a <emphasis>copy</emphasis> of the packet while allowing the original packet to proceed normally.</para>
+            <para>Makes the firewall route matching packets through a specified interface or a gateway. This action is translated into ROUTE target for iptables and route option for PF and ipfilter. Compilers for PF and ipfilter support "fastroute", "route-to", "reply-to" and "dup-to" options. Parameters let you change the inbound and outbound interface and route the packet through a specified gateway. You can also tell the firewall to continue inspecting the packet after a match, and you can tell the firewall to make these changes to a <emphasis>copy</emphasis> of the packet while allowing the original packet to proceed normally.</para>
           </listitem>
 
           <listitem>
             <para>Continue:</para>
 
-            <para>Essentially an empty action. Can be used when you want to assign an option, such as logging, to a match but take no other action in that rule. The action has no parameters.</para>
+            <para>Essentially an empty action. Can be used when you want to assign an option, such as logging, to a match but take no other action in that rule. This action has no parameters.</para>
           </listitem>
         </itemizedlist>
-
-	<para>
-        <emphasis>Accept</emphasis>, <emphasis>Deny</emphasis> or
-        <emphasis>Reject</emphasis> are the primary firewall actions. If a rule's action is Accept, then a
-        packet with the source and destination addresses and service matching
-        the rule is permitted through. If a rule's action is Deny, such packet
-        is silently dropped. If a rule's action is Reject, then the packet is
-        dropped and an appropriate ICMP message is sent back to the sender.
-        For target platforms that support it, there might be an option to send
-        a TCP RST packet back in response for TCP services. <xref
-        linkend="actions" /> illustrates rule actions.</para>
 
         <figure float="1" id="actions">
           <title>Rule Actions</title>
@@ -6189,16 +6178,16 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
 	<para>The <guilabel>Options</guilabel> field allows you to specify certain options with regard to packets that match the rule. Almost all platforms have options related to logging, and some platforms have more extensive options. Click <guibutton>Help</guibutton> in the Options dialog for platform-specific help.</para>
 
-	<para>If the options of a particular rule have been changed their default, a <inlinegraphic scale="70" fileref="option-icon.png"/> appears in the Option field for that rule. Keep in mind that not all rules have the same default options. For example, by default a Deny rule is stateless, because there is no reason to keep state on a connection that won't be allowed. So, if you turn on state for a Deny rule, you'll see the icon.</para>
+	<para>If the options of a particular rule have been changed from their default, a <inlinegraphic scale="70" fileref="option-icon.png"/> appears in the Option field for that rule. Keep in mind that not all rules have the same default options. For example, by default a Deny rule is stateless, because there is no reason to keep state on a connection that won't be allowed. So, if you turn on state for a Deny rule, you'll see the icon.</para>
 
-	<para>An Accept rule has the opposite behaviour. By default, state is kept for Accept rules, so no icon appears when state is on. If you turn state keeping off, if you change the default behaviour for that rule, then the icon is displayed.</para>
+	<para>An Accept rule has the opposite behaviour. By default, state is kept for Accept rules, so no icon appears when state is on. If you turn state keeping off, in other words, if you change the default behaviour for that rule, then the icon is displayed.</para>
 
       </sect2>
 
       <sect2>
 	<title>Working with multiple policy rule sets</title>
 
-	  <para>Every Firewall object created in Firewall Builder has a single Policy rule set to start. For many firewalls, this is all you need. However, with Firewall Builder, you can create multiple access policy rule sets and branch between them. This can help you modularize your policy.</para>
+	  <para>Every Firewall object created in Firewall Builder has a single Policy rule set to start. For many firewalls, this is all you need. However, with Firewall Builder, you can create multiple access policy rule sets, and, if you platform supports it, branch between them. This can help you modularize your policy.</para>
 
 	  <para>Here we have Firewall object "fw" with three policy rule sets, Policy, Policy_2 and mgmt:</para>
 
@@ -6220,19 +6209,19 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
 	<para>The IPv4/IPv6 pull-down menu lets you select whether the rule set should be compiled for IPv4 only (ignoring any IPv6-related rules), IPv6 only (ignoring any IPv4-related rules), or for both IPv4 and IPv6. If both IPv4 and IPv6 are selected, the compiler "does the right thing" and puts each rule into the correct part of the configuration.</para>
 
-      <para>Compilers treat the "top" rule set differently, depending on the firewall platform. Only one rule set of each type (Policy and NAT), should be marked as "top." The "top" rule set is always used (if it has any rules). Other rule sets are only used if they are the targets of branching.</para>
+      <para>Only one rule set can be tagged as the "top" rule set. The "top" rule set is the primary rule set that is assigned to the device. Only one rule set of each type, can be marked as "top". The "top" rule set is always used (if it has any rules). Other rule sets are only used if they are the targets of branching. (In Firewall Builder 3.X, only the Policy rule set can branch.)</para>
 
       <itemizedlist>
           <listitem>
-            <para>iptables: rules defined in such rule set will go into built-in chains INPUT,OUTPUT,FORWARD etc. Rules defined in rule sets where this checkbox is not checked go into a user-defined chain with the same name as the rule set.</para>
+            <para>iptables: rules defined in the "top" rule set will go into built-in chains INPUT,OUTPUT,FORWARD. Rules defined in rule sets where this checkbox is not checked go into a user-defined chain with the same name as the rule set.</para>
           </listitem>
 
           <listitem>
-            <para>PF: rules defined in the rule set with "top rule set" checkbox turned off go into an anchor with the name of the rule set.</para>
+            <para>PF: rules defined in the rule set with <guilabel>top rule set</guilabel> checkbox turned off go into an anchor with the name of the rule set.</para>
           </listitem>
 
           <listitem>
-            <para>Cisco IOS access lists: if <guilabel>top rule set</guilabel> checkbox is turned off, the rules go into access list with the name prefixed with the name of the rule set; this access list will not be assigned to interfaces via "ip access-group" command. Rulesets with checkbox "top rule set" checked generate ACLs with names consisting of the shortened name of interface and direction abbreviation ("in" or "out"). Only these lists are assigned to interfaces.</para>
+            <para>Cisco IOS access lists: if the <guilabel>top rule set</guilabel> checkbox is turned off, the rules go into access list with the name prefixed with the name of the rule set; this access list will not be assigned to interfaces via "ip access-group" command. Rulesets with checkbox "<guilabel>top rule set</guilabel> checked generate ACLs with names consisting of the shortened name of interface and direction abbreviation ("in" or "out"). Only these lists are assigned to interfaces.</para>
           </listitem>
         </itemizedlist>
 
@@ -6243,7 +6232,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
               <graphic scale="70" fileref="policy-rulesets3.png" />
         </figure>
 
-	<para>A packet directed to the "mgmt" rule set leaves the main rule set and begins matching against rules in the "mgmt" rule set. The packet ends processing the "mgmt" rule set. It does not get passed back to the "top" rule set.</para>
+	<para>A packet directed to the "mgmt" rule set leaves the main rule set and begins matching against rules in the "mgmt" rule set. If it matches in the "mgmt" rule set, then that action is taken. If it does not match in the "mgmt" rule set, then processing is passed back to the calling rule set.</para>
       </sect2>
     </sect1>
 
@@ -6255,9 +6244,9 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       <sect2>
         <title>Basic NAT Rules</title>
 				
-				<para>Address translation is useful when you need to provide Internet access to machines on the internal network using private address space (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16 as defined in RFC1918). Private addresses are not routable on the Internet, which means clients out on the Net cannot connect to servers with private addresses. Conversely, machines on the network using one of these addresses cannot connect to servers on the Internet directly. In order to allow internal machines to establish connections with external machines, we need the firewall to convert the private addresses to public addresses and vice versa. In other words, we need the firewall to perform Network Address Translation (NAT). In Firewall Builder, NAT rules are added in the NAT ruleset, located under the firewall object in the tree:</para>
-				
-				        <figure float="1" id="nat-rule-set-in-fw">
+	<para>Address translation is useful when you need to provide Internet access to machines on the internal network using private address space (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16 as defined in RFC1918). Private addresses are not routable on the Internet, which means clients out on the Internet cannot connect to servers with private addresses. Conversely, machines on the network using one of these addresses cannot connect to servers on the Internet directly. In order to allow internal machines to establish connections with external machines, we need the firewall to convert the private addresses to public addresses and vice versa. In other words, we need the firewall to perform Network Address Translation (NAT). In Firewall Builder, NAT rules are added in the NAT ruleset, located under the firewall object in the tree:</para>
+
+      <figure float="1" id="nat-rule-set-in-fw">
           <title>NAT rule set</title>
               <graphic scale="50" fileref="fwobj-rulesets-nat.png" />
         </figure>
@@ -6282,26 +6271,25 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
             <listitem>
               <para>Original Dst</para>
 
-              <para>An address object to compare to the the source address of the incoming packet.</para>
+              <para>An address object to compare to the the destination address of the incoming packet.</para>
             </listitem>
 
             <listitem>
               <para>Original Srv</para>
 
-              <para>The service that the original packet should match
-              to be translated by this rule.</para>
+              <para>One or more service objects to compare to the packet's service.</para>
             </listitem>
 
             <listitem>
               <para>Translated Src</para>
 
-              <para>If the original source, destination, and service all matched, this object is the new source address of the packet.</para>
+              <para>If the original source, destination, and service all matched, this object becomes the new source address of the packet.</para>
             </listitem>
 
             <listitem>
               <para>Translated Dst</para>
 
-              <para>If the original source, destination, and service all matched, this object is the new destination address of the packet.</para>
+              <para>If the original source, destination, and service all matched, this object becomes the new destination address of the packet.</para>
             </listitem>
 
             <listitem>
@@ -6313,7 +6301,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
             <listitem>
               <para>Options</para>
 
-              <para>This field lets you specify platform-specific options for the packet. Right-click in the field and select <guimenuitem>Rule Options</guimenuitem> to see options for your platform. Click <guibutton>Help</guibutton> in the Options dialog to see help for available parameters. See <xref linkend="options" /> for more information.</para>
+              <para>This field lets you specify platform-specific options for the packet. Right-click in the field and select <guimenuitem>Rule Options</guimenuitem> to see options for your platform. Click <guibutton>Help</guibutton> in the Options dialog to see help for available parameters for your platform. See <xref linkend="options" /> for more information.</para>
             </listitem>
 
             <listitem>
@@ -6327,7 +6315,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         starting with the topmost rule. Once a rule that matches a packet's
         source address, destination address and service is found, the
         firewall takes parameters from the second half of that rule and makes
-        the indicated substitutions. Some rule elements in the first half of the rule may be set to match <emphasis>any</emphasis> address or port. Some rule elements in the
+        the indicated substitutions. Some rule elements in the first half of the rule may be set to match "any", which means that that element matches no matter what is in the packet. Some rule elements in the
         second half of the rule may be set to <emphasis>original</emphasis>, which means that parameter is not changed even if the rule matches. (No substitution happens for that element.)</para>
 
         <para>In addition to making the substitution, the firewall also makes a record in its internal table of the original and modified values. The firewall uses this information to perform a reverse translation when the reply packet comes back.</para>
@@ -6426,25 +6414,20 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
   
 
         <para>
-  
                   Source address translation is useful when you need
-                  to provide Internet access to machines on the
-                  internal network using private address space
-                  (e.g., as defined in RFC1918). The firewall
+                  to let machines using private address space
+                  (e.g., as defined in RFC1918) access the Internet. The firewall
                   manipulates the source address of IP packets to make them
                   appear to come from one of the public addresses
-                  assigned to the firewall instead of coming from a real, private
+                  assigned to the firewall instead of coming from the actual, private
                   address on the internal network.
-                
-  </para>
+	</para>
   
 
         <para>
-  
                   In the following examples we will use a firewall
                   object configured as follows:
-                
-  </para>
+	</para>
   
 
         <figure float="1"><title/><graphic scale="50" fileref="fwobj-dnat-2.png"/></figure>
@@ -6452,11 +6435,11 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         <para>
   
                   The external interface of the firewall is <emphasis>eth0</emphasis>,
-                  it has static IP address 192.0.2.1 (this is an
+                  it has a static IP address 192.0.2.1 (this is an
                   example address, normally external interface would
                   have a publicly routable address).
                 
-  </para>
+	</para>
   
 
         <para>
@@ -6464,29 +6447,25 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
                   The simplest source address translation rule looks
                   like this:
                 
-  </para>
+	</para>
   
 
         <figure float="1"><title/><graphic scale="50" fileref="snat-rule-1.png"/></figure>
 
         <para>
-  
                   We put the interface of the firewall into <guilabel>Translated
-                  Source</guilabel> and an object representing the internal network in the 
-                  <guilabel>Original Source</guilabel> element of the rule. This tells
-                  the firewall to replace source address of packets
-                  that match the "Original" side of the rule with
-                  address of the interface <emphasis>eth0</emphasis>.
-                
-  </para>
+                  Src</guilabel> and an object representing the internal network in the 
+                  <guilabel>Original Src</guilabel> element of the rule. This tells
+                  the firewall to replace the source address of packets
+                  that match the "Original" side of the rule with the 
+                  address of the interface <emphasis>eth0</emphasis>.  
+	</para>
   
 
         <para>
-  
                   This rule translates into the following simple
                   iptables command:
-                
-  </para>
+	</para>
   
 
   <screen>
@@ -6499,20 +6478,16 @@ $IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24  \
                 </screen>
 
         <para>
-  
-                  Note that fwbuilder uses chain <emphasis>POSTROUTING</emphasis>
+                  Note that Firewall Builder uses the chain <emphasis>POSTROUTING</emphasis>
                   for the source address translation rules. It will
                   use <emphasis>PREROUTING</emphasis> for the destination
-                  translation rules.
-                
-  </para>
+                  translation rules.   
+	</para>
   
 
         <para>
-  
-                  For PF, fwbuilder uses <emphasis>nat</emphasis> rule:
-                
-  </para>
+                  For PF, Firewall Builder uses <emphasis>nat</emphasis> rule:       
+	</para>
   
 
   <screen>
@@ -6524,14 +6499,12 @@ nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.1
                 </screen>
 
         <para>
-  
-                  Finally, for PIX, fwbuilder knows to use global pool
+                  Finally, for PIX, Firewall Builder knows to use global pool
                   in combination with "nat" command and automatically
                   determines which interfaces to
                   associate <emphasis>global</emphasis> and <emphasis>nat</emphasis> commands
-                  with:
-                
-  </para>
+                  with:  
+	</para>
   
 
   <screen>
@@ -6545,13 +6518,11 @@ nat (inside) 1 access-list id43442X30286.0 tcp 0 0
                 </screen>
 
         <para>
-  
                   Note that the generated PIX configuration has been
                   optimized and the "global" command takes address
                   from the interface "outside" regardless of how this
                   address is assigned, statically or dynamically.
-                
-  </para>
+	</para>
   
 
 	</sect4>
@@ -6559,30 +6530,24 @@ nat (inside) 1 access-list id43442X30286.0 tcp 0 0
 	<sect4>
         <title>Source Address Translation Using Interface with Dynamic Address</title>
 
-  
-
         <para>
-  
                   The generated configurations in the previous examples
                   used the IP address of the external interface for
                   translation. Let's see what configuration Firewall
                   Builder will produce if the external interface has a
                   dynamic address that is not known at the time when
                   configuration is generated.
-                
-  </para>
+	</para>
   
 
         <figure float="1"><title/><graphic scale="50" fileref="fwobj-snat-2.png"/></figure>
 
         <para>
-  
                   The NAT rule looks exactly the same as in examples
                   above: we still put interface <emphasis>eth0</emphasis> in
-                  <guilabel>Translated Source</guilabel> even though its address is
-                  unknown.
-                
-  </para>
+                  <guilabel>Translated Srce</guilabel> even though its address is
+                  unknown. 
+	</para>
   
 
         <para>
@@ -6591,7 +6556,7 @@ nat (inside) 1 access-list id43442X30286.0 tcp 0 0
                   requested with a dynamic interface. Firewall Builder
                   generates the following command:
                 
-  </para>
+	</para>
   
 
   <screen>
@@ -6608,7 +6573,7 @@ $IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24 -j MASQUERADE
                   interface, <emphasis>(en0)</emphasis>, which makes it take the address
                   of the interface automatically:
                 
-  </para>
+	</para>
   
 
   <screen>
@@ -6628,7 +6593,7 @@ nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; (en0)
                   of whether the address is assigned statically or
                   dynamically.
                 
-  </para>
+	</para>
   
 
 	</sect4>
