@@ -427,7 +427,7 @@ make install
   <chapter id="gettingstarted">
     <title>Getting Started</title>
 
-    <para>This chapter introduces you to the Firewall Builder program. It walks you through using the tool from starting it to building and installing an actual firewall configuration.</para> 
+    <para>This chapter introduces you to the Firewall Builder program. It walks you through using the tool, from starting it to building and installing an actual firewall configuration.</para> 
 
     <para>The Firewall Builder package for most Linux distributions creates a menu item that makes starting the program easy. (On Ubuntu, it's <guimenuitem>System > Administration > Firewall Builder</guimenuitem>.) However, if the menu item is not there, you can always launch it from the command line by just typing <command>fwbuilder</command> at the shell prompt.</para>
 
@@ -437,7 +437,7 @@ make install
 	<graphic scale="50" fileref="pict_020.png"/>
       </figure>
 
-     <para>Let's create our first firewall object. To do this, we'll use the object creation menu that appears when you click on the icon in the small toolbar right above the object tree. Choose <guimenuitem>New Firewall</guimenuitem> from the menu that appears.</para>
+     <para>Let's create our first firewall object. To do this, we'll use the object creation menu, accessed by clicking this icon above the object tree: <inlinegraphic scale="70" fileref="new-object-icon.png"/>. Choose <guimenuitem>New Firewall</guimenuitem> from the menu that appears.</para>
 
       <figure id="pict_030">
         <title>Select New Firewall</title>
@@ -446,20 +446,20 @@ make install
 
       <para>The first page of the New Firewall wizard appears. In this page of the wizard we can enter the name for the new firewall object (here it is "guardian"), its platform ("iptables") and its host OS ("Linux 2.4/2.6").</para>
 
-      <para>The name of the new firewall object can be anything you want. However, if you want to use SNMP to populate the interface objects, or if you want to use DNS lookups to populate IP address objects, you must name the firewall object the same name as the actual firewall machine.</para>
-
-      <para>There are three ways a new firewall can be created: you can use a pre-configured template firewall object, create it from scratch, or use SNMP to create a firewall object with interfaces but an empty policy.</para>
-
-      <para>The Getting Started chapter demonstrates the first method (using template object). To do this, check <guilabel>Use pre-configured template firewall objects</guilabel> checkbox. Firewall Builder comes with a default set of objects, and we'll be using one of those there. Alternatively, an administrator can distribute a library of predefined templates to other users in the enterprise.</para>
-
-      <para>We are going to use one of the standard templates distributed with Firewall Builder, so we'll leave the standard template library path and name in the <guilabel>Template file</guilabel> input field. Click <guibutton>Next</guibutton> to move on to the next page of the wizard.</para>
-
-      <para>Note that the template firewall object comes completely configured, including addresses and netmasks for its interfaces and some basic policy and NAT rules. This configuration is intended as a starting point only. You should reconfigure addresses of interfaces to match those used on your network. You most likely will have to adjust rules to match your security policy. See <xref linkend="change-ip-address-in-template" /> for instructions.</para>
-
 	<figure id="pict_040">
           <title>Define firewall platform</title>
              <graphic scale="70" fileref="pict_040.png" />
         </figure>
+
+      <para>The name of the new firewall object can be anything you want. However, if you want to use SNMP to populate the interface objects, or if you want to use DNS lookups to populate IP address objects, you must name the firewall object the same name as the actual firewall machine.</para>
+
+      <para>There are three ways a new firewall can be created: you can use a pre-configured template firewall object, create it from scratch, or use SNMP to create a firewall object with interfaces but an empty policy.</para>
+
+      <para>The Getting Started chapter demonstrates the first method, using a template object. (Other methods are described in <xref linkend="firewall-object" />.) To do this, check <guilabel>Use pre-configured template firewall objects</guilabel> checkbox. Firewall Builder comes with a default set of objects, and we'll be using one of those there. Alternatively, an administrator can distribute a library of predefined templates to other users in the enterprise, as described in <xref linkend="new-library" />.</para>
+
+      <para>We are going to use one of the standard templates distributed with Firewall Builder, so we'll leave the standard template library path and name in the <guilabel>Template file</guilabel> input field. Click <guibutton>Next</guibutton> to move on to the next page of the wizard.</para>
+
+      <para>Note that the template firewall object comes completely configured, including addresses and netmasks for its interfaces and some basic policy and NAT rules. This configuration is intended as a starting point only. You should reconfigure addresses of interfaces to match those used on your network. You most likely will have to adjust rules to match your security policy. See <xref linkend="change-ip-address-in-template" /> for instructions.</para>
 
       <para>This page of the wizard shows template objects and their configuration. Standard template objects represent firewalls with two or three interfaces, a host with one interface, a web server or a Cisco router. We'll choose <guilabel>fw template 3</guilabel>, a firewall with three interfaces, for this example. Click <guibutton>Finish</guibutton> to create a new firewall object using the chosen template. </para>
 
@@ -468,7 +468,7 @@ make install
               <graphic scale="70" fileref="pict_050.png" />
       </figure>
 
-      <para>Here is our new firewall object. Its name is "guardian", it appears in the object tree in the left hand side of the main window in the folder "Firewalls". When an object is selected in the tree, a brief summary of its properties appears in the panel under the tree. Double-clicking on the object in the tree opens it in the editor panel at the bottom-right panel of the main window. The editor for the firewall object allows us to change its name, platform and host OS, and also provides buttons that open dialogs for "advanced" settings for the firewall platform and host OS. We will inspect these little later in this chapter. </para>
+      <para>Our new firewall object is show in <xref linkend="pict_060" />. Its name is "guardian", and it appears in the object tree in the left hand side of the main window in the folder "Firewalls". When an object is selected in the tree, a brief summary of its properties appears in the panel under the tree. Double-clicking on the object in the tree opens it in the editor panel at the bottom-right panel of the main window. The editor for the firewall object allows us to change its name, platform and host OS, and also provides buttons that open dialogs for "advanced" settings for the firewall platform and host OS. We will inspect these little later in this chapter. </para>
 
       <figure id="pict_060">
           <title>New Firewall</title>
@@ -564,7 +564,7 @@ make install
               <graphic scale="70" fileref="pict_103.png" />
       </figure>
 
-      <para>Interfaces of the firewall are represented by objects located below the Firewall object in the tree. We refer to them as "children" of the firewall object. This picture shows properties of interface eth0. To open it in the editor double-click on it in the tree. If editor panel is already open and shows some object, it is sufficient to select the new object in the tree to reveal it in the editor panel (no need to double-click).</para>
+      <para>Interfaces of the firewall are represented by objects located below the Firewall object in the tree. We refer to them as "children" of the firewall object. <xref linkend="pict_104" /> shows properties of interface eth0. To open it in the editor, double-click on it in the tree. If editor panel is already open and shows some object, it is sufficient to select the new object in the tree to reveal it in the editor panel (no need to double-click).</para>
 
       <para>IP and MAC addresses of interfaces are represented by child objects in the tree located below the corresponding interface.</para>
 
@@ -589,11 +589,7 @@ make install
 	<listitem><para><guilabel>Regular Interface</guilabel>: Use this option if the interface has an IP address assigned to it manually.
 	</para></listitem>
 	<listitem><para><guilabel>Address is assigned dynamically</guilabel>: Use this option if the interface has a dynamic address obtained via DHCP, PPP or another protocol. In this case an address is unknown when when Firewall Builder generates the Firewall policy. Some firewalls allow for using the interface name in the policy instead of the IP address; the firewall engine then picks its address either when the policy is activated or even at run-time.</para>
-	<para>Some other firewalls support special syntax for rules that are supposed to match packets headed to or from the firewall machine. Examples of these two cases are OpenBSD PF and Netfilter. PF rules can be constructed using interface names; PF automatically uses the current interface address when it loads rules into the memory. Netfilter supports special "chains" called "INPUT" and "OUPUT" that are guaranteed to inspect only packets headed for the firewall machine ("INPUT") or originating on it ("OUTPUT"). Both methods allow Firewall Builder to build correct firewall policy rules for an interface with a dynamic IP address. </para>
-	<para>For the policy compiler to use the proper technique, the interface must be marked correctly. In cases where the rule has to use the actual IP address of the interface (for anti-spoofing rules, for example), the compiler emulates this feature by adding a shell script fragment that determines the address when firewall script is executed, and then uses the address in rules. Such emulation is only possible on platforms where firewall configuration is in the form of the shell script, most notably this is iptables script on Linux.
-	</para></listitem>
-	<listitem><para><guilabel>Address is assigned dynamically</guilabel>: Use this option if the interface has a dynamic address (obtained by means of DHCP or PPP or another protocol). In this case an address is unknown at the moment when Firewall Builder generates the Firewall policy.
-	</para></listitem>
+	</listitem>
 	<listitem><para><guilabel>Unnumbered interface</guilabel>: Use this option if the interface can never have an IP address, such as the Ethernet interface used to run PPPoE communication on some ADSL connections, or tunnel endpoint interface (GRE, PPPoE, sometimes IPSEC). Although unnumbered interfaces do not have addresses, firewall policy rules and access lists can be associated with them.
 	</para></listitem>
 	<listitem><para><guilabel>Bridge port</guilabel>: This option is used for a port of a bridged firewall. Compilers skip bridge ports when they pick interfaces to attach policy and NAT rules to. For target firewall platforms that support bridging and require special configuration parameters to match bridged packets, compilers use this attribute to generate proper configurations. For example, in the case of iptables, the compiler uses <emphasis> -m physdev --physdev-in</emphasis> or <emphasis> -m physdev --physdev-out</emphasis> for bridge port interfaces.
@@ -616,7 +612,7 @@ make install
               <graphic scale="70" fileref="pict_110.png" />
       </figure>
 
-      <para>This is the IP address of the internal interface of the firewall. The address used in this template is "192.168.1.1" with netmask "255.255.255.0". This is a rather typical address used for small and home networks. Some commercial firewall appliances come pre-configured with this address.</para>
+      <para>This is the IP address of the internal interface of the firewall. The address used in this template is "192.168.1.1" with netmask "255.255.255.0". This is a typical address used for small and home networks. Some commercial firewall appliances come pre-configured with this address.</para>
 
       <para>If your network uses an address different from the "192.168.1.0/24" address used in the template, you should change the address of the interface in the editor panel and click <guibutton>Apply</guibutton>. In addition, you also will need to replace the network object "net-192.168.1.0" used in several Policy and NAT rules of the newly created firewall with a network object that has an address matching your network configuration. See <xref linkend="change-ip-address-in-template" /> for instructions.</para>
 
@@ -632,14 +628,14 @@ make install
               <graphic scale="70" fileref="pict_130.png" />
       </figure>
 
-      <para>Let's inspect the properties of the firewall object. Double-click on the firewall "guardian" in the tree to open it in the editor panel, then click the <guibutton>Firewall Settings</guibutton> button in the editor. This opens a new dialog that looks like this. Notice <guibutton>Help</guibutton> button in this dialog. Clicking this button opens help.</para>
+      <para>Let's inspect the properties of the firewall object. Double-click on the firewall "guardian" in the tree to open it in the editor panel, then click the <guibutton>Firewall Settings</guibutton> button in the editor. This opens a new dialog that looks like <xref linkend="pict_140" />.</para>
 
       <figure id="pict_140">
           <title>Firewall Compiler properties</title>
               <graphic scale="60" fileref="pict_140.png" />
       </figure>
 
-      <para>The online help explains all attributes and parameters located in each tab of the <guilabel>advanced settings</guilabel> dialog. Explore it, as many parameters are important and affect the generated firewall script in different ways.</para>
+      <para>Click the <guibutton>Help</guibutton> button to open help fir this dialog. The online help explains all attributes and parameters located in each tab of the <guilabel>advanced settings</guilabel> dialog. Explore it, as many parameters are important and affect the generated firewall script in different ways.</para>
 
       <para>The next few images show other tabs of the <guilabel>advanced settings</guilabel> dialog. You can find detailed explanations of all parameters in the online help.</para>
 
@@ -683,7 +679,7 @@ make install
               <graphic scale="50" fileref="pict_190.png" />
       </figure>
 
-      <para>Let's take a look at the policy of the template firewall. These rules are intended to be an example, a starting point to help you create your own policy. Most likely you will want to modify the rules to suite your requirements. Explanations of the rules given here are brief because the goal of Getting Started is only to demonstrate how to use Firewall Builder.</para>
+      <para>Let's take a look at the policy of the template firewall shown in <xref linkend="pict_200" />. These rules are intended to be an example, a starting point to help you create your own policy. Most likely you will want to modify the rules to suite your requirements. Explanations of the rules given here are brief because the goal of Getting Started is only to demonstrate how to use Firewall Builder.</para>
 
       <itemizedlist>
 	<listitem><para><guilabel>Rule 0</guilabel>: This is an anti-spoofing rule. It blocks incoming packets on the external interface that have source addresses that belong to the firewall or your internal or DMZ networks. The rule is associated with outside interface and has <guilabel>Direction</guilabel> set to "Inbound".
@@ -744,7 +740,7 @@ make install
               <graphic scale="50" fileref="pict_240.png" />
       </figure>
 
-      <para>Firewall Builder calls the appropriate policy compiler (which is an external program that can be called from the command line, if desired). The dialog displays compiler progress and results. </para>
+      <para>Firewall Builder calls the appropriate policy compiler. The dialog displays compiler progress and results. </para>
 
       <figure id="pict_250">
           <title>Compile status dialog</title>
@@ -765,7 +761,7 @@ make install
               <graphic scale="50" fileref="pict_270.png" />
       </figure>
 
-      <para>To use the installer, right-click on the firewall object in the tree and select <guimenuitem>Install</guimenuitem>. Firewall Builder will compile the policy (if it is not compiled already) and then open a dialog where you can configure the parameters of the installer. Here you need to enter a password to authenticate to the firewall.</para>
+      <para>To use the installer, right-click on the firewall object in the tree and select <guimenuitem>Install</guimenuitem>. Firewall Builder will compile the policy (if it is not compiled already) and then open a dialog where you can configure the parameters of the installer. Here you need to enter a password to authenticate to the firewall. Section <xref linkend="compile-install-policy" /> has detailed instructions for setting up and using the installer.</para>
 
       <figure id="pict_280">
           <title>Policy installer</title>
@@ -5532,7 +5528,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
               <graphic scale="70" fileref="find-replace1.png" />
         </figure>
 
-      <para>Further imagine that you are reassigning all the IP addresses in 192.168.2.0/24 to be in the 192.168.3.0/24 subnet. Otherwise your network will be the same; the devices in that subnet will now be in another subnet.</para>
+      <para>Further, imagine that you are reassigning all the IP addresses in 192.168.2.0/24 to be in the 192.168.3.0/24 subnet and that you need to modify the firewall rules to match.</para>
 
       <para>One way to handle this is to manually browse through every rule in your firewall, removing the .2.0 addresses where you find them and replacing them with the equivalent .3.0 addresses. Or, you could do a Find and Replace.</para>
 
@@ -5543,7 +5539,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
               <graphic scale="50" fileref="find-replace2.png" />
         </figure>
 
-      <para>To replace every net-192.168.2.0 object with the net-192.168.3.0 object, first create the new network object. Then, drag (or Copy/Paste) a net-192.168.2.0 object into the <guilabel>Find object</guilabel> field and the net-192.168.3.0 object <guilabel>Replace object</guilabel>field. Then, set the <guilabel>Scope for search and replace</guilabel> pull-down menu to <guimenuitem>policy of the opened firewall</guimenuitem>, as shown here:</para>
+      <para>To replace every net-192.168.2.0 object with the net-192.168.3.0 object, first create the new network object. Then, drag (or Copy/Paste) a net-192.168.2.0 object into the <guilabel>Find object</guilabel> field and the net-192.168.3.0 object into the <guilabel>Replace object</guilabel> field. Then, set the <guilabel>Scope for search and replace</guilabel> pull-down menu to <guimenuitem>policy of the opened firewall</guimenuitem>, as shown here:</para>
 
             <figure float="1" id="find-replace3">
           <title>Objects to find and replace</title>
@@ -5722,11 +5718,11 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
       <para>Filtering by the object name uses the POSIX regular expressions
       syntax described in the manual page regex(7). For example, to find all
-      records whose names start with 'f' we could use the regular expression
-      '^f'. The '^' symbol matches the beginning of the string, so this
-      regular expression matches any name that starts with 'f'. To find all
-      names that end with 'somedomain.com', we could use the regular
-      expression '.*somedomain.com$'</para>
+      records whose names start with "f" we could use the regular expression
+      "^f". The "^" symbol matches the beginning of the string, so this
+      regular expression matches any name that starts with "f". To find all
+      names that end with somedomain.com", we could use the regular
+      expression ".*somedomain.com$"</para>
 
       <para>Once you have reviewed the discovered networks, decide which ones you want to turn into Network objects. Then, copy those networks to the right column.</para>
 
@@ -6079,7 +6075,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
 	<para>The Action is the action taken on a rule that matches on the Source, Destination, Service, Interface, Direction, and Time fields.</para>
 
-        <para>The policy rule action can be one of the options listed in <xref linkend="action-options" />. Not all firewalls support all options, but the GUI will only allow options that are valid for the indicated firewall target. In addition, the same action may have a different name on different platforms.</para>
+        <para>The policy rule action can be one of the options listed below. Not all firewalls support all options, but the GUI will only allow options that are valid for the indicated firewall target. In addition, the same action may have a different name on different platforms.</para>
 
 	<para>Some actions can have parameters. To set a parameter for an action, first select the action, then double-click on the icon. (You can also right-click and select <guimenuitem>parameters</guimenuitem>.) The parameters dialog appears:</para>
 
@@ -6089,7 +6085,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         </figure>
 
 
-        <itemizedlist spacing="compact" id="action-options">
+        <itemizedlist spacing="compact">
           <listitem>
             <para>Accept:</para>
 
