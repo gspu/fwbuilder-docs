@@ -17,7 +17,6 @@ html/index.html:   UsersGuide3.xml html.dsl
 	mkdir -p html
 	cp *.jpg html/
 	cp *.png html/
-	cp *.css html/
 	docbook2html -d `pwd`/html.dsl -o html UsersGuide3.xml
 
 
