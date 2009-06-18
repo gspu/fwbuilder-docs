@@ -147,3 +147,8 @@
 }
 
 table.CALSTABLE       { table-layout: auto; }
+table.CALSTABLE COL   { width: 50%; }
+table.CALSTABLE TD    { border-bottom: 1px solid #C0C0C0;  
+                      }
+table.CALSTABLE TH    { border-bottom: 1px solid black;  
+                      }
