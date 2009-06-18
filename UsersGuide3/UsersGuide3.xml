@@ -174,7 +174,7 @@
 
 	<para>These distributions do not come with QT4 and third-party binary RPMs of QT v4.3.x and 4.4.x are hard to come by. We distribute binary RPMs of Firewall Builder 3.0 statically linked with QT 4.4.1 for these distributions. These RPMs are posted in the downloads area on the SourceForge project site. These RPMs have the same standard names: <filename>libfwbuilder-3.0.0-1.i386.el5.rpm</filename> and <filename>fwbuilder-3.0.0-1.i386.el5.rpm</filename>, they just have no dependency on QT RPMs.</para>
 
-	<para>If fwbuilder statically linked with QT crashes on start on your CentOS system, check if you have the following font packages installed: bitmap-fonts or bitstream-vera-fonts. Either one should make fwbuilder work (but I am told bitstream-vera fonts look better). See bug report <ulink url="http://sourceforge.net/tracker/?func=detail%26aid=2595205%26group_id=5314%26atid=1070394"><citetitle>#2595205</citetitle></ulink> on SourceForge for more details.</para>
+	<para>If fwbuilder statically linked with QT crashes on start on your CentOS system, check if you have the following font packages installed: bitmap-fonts or bitstream-vera-fonts. Either one should make fwbuilder work (but we are told bitstream-vera fonts look better). See bug report <ulink url="http://sourceforge.net/tracker/?func=detail%26aid=2595205%26group_id=5314%26atid=1070394"><citetitle>#2595205</citetitle></ulink> on SourceForge for more details.</para>
 
       <para>To install Firewall Builder, go to your download directory and run the following command (replace the filenames with the names of the files you actually downloaded:</para>
 
@@ -1495,8 +1495,7 @@ make install
 	      </row>
 	      <row>
 		<entry>Duplicate</entry>
-		<entry>Creates a copy of the current object, places
-            it in the specified tree and opens it in the main window. (If no user-created libraries exist, then Firewall Builder puts the object in the User tree by default.) The new object has
+		<entry>Places a copy of the object into the specified library. (If no user-created libraries exist, then Firewall Builder puts the object in the User tree by default.) The new object has
             the same name as the original object, unless that object name is already in use in that tree. If so, a "-1" is appended to the object name.</entry>
 	      </row>
 	      <row>
@@ -1515,7 +1514,7 @@ make install
 	      <row>
 		<entry>Delete</entry>
 		<entry>Deletes an object without making a copy on the
-            clipboard. If the Deleted Objects tree has been turned on, the object will show up there.</entry>
+            clipboard. If the Deleted Objects tree has been turned on, the object shows up there.</entry>
 	      </row>
 	      <row>
 		<entry>Find</entry>
@@ -1524,11 +1523,11 @@ make install
 	      </row>
 	      <row>
 		<entry>Used Where</entry>
-		<entry>This scans the whole tree, including all groups and policies
-            of all firewalls, looking for references to the current object. In
+		<entry>Scans the whole tree, including all groups and policies
+            of all firewalls, looking for references to the object. In
             the end the program shows a pop-up dialog with icons corresponding
-            to groups and firewalls that use the current object. Double-clicking
-            on the icon opens the corresponding object in the main
+            to groups and firewalls that use the object. Double-clicking
+            an icon opens the corresponding object in the main
             window.</entry>
 	      </row>
 	      <row>
@@ -1544,8 +1543,7 @@ make install
 
       <para>In general, the GUI has been designed to "look and feel" like a
       typical file browser (for example, Windows Explorer). It shows object groups as
-      a collection of icons, where each icon represents an individual object
-      (<xref linkend="interface-dialog" />). The user can navigate between objects
+      a collection of icons, where each icon represents an individual object. You can navigate between objects
       either using the mouse or keyboard arrow keys. The active object is
       highlighted with a different color. Double-clicking on the icon in the
       group view opens the corresponding object. Right-clicking opens a pop-up menu that has <guimenuitem>Open Object</guimenuitem>,
@@ -1595,7 +1593,7 @@ make install
   </para>
 
   <figure float="1">
-    <title>slide1</title>
+    <title>Data file</title>
     <graphic scale="50" fileref="multifile_slide_1.png"/>
   </figure>
 
@@ -1636,7 +1634,7 @@ make install
     Here we have both windows shown. The size of the main windows was
     rather small to keep the size of the screen shots down, so two windows do not
     fit well. However even with such a cramped layout we can move objects
-    from one to another using copy/paste or drag&amp;drop operations. In this
+    from one to another using copy/paste or drag-and-drop operations. In this
     example we are going to drag firewall object "test" from the top window
     to the bottom one. We are going to drop it onto the folder "Firewalls"
     in the tree.
@@ -1687,16 +1685,16 @@ make install
       <para>There are the following types of objects in Firewall Builder:</para>
       <itemizedlist spacing="compact">
               <listitem>
-                <para>Addressable objects: <xref linkend="addressable-objects" /> describes objects that have, either directly or indirectly, an address of some kind. This category includes the physical objects (firewalls, hosts, interfaces) as well as some logical objects (networks, address ranges, individual addresses). Addressable objects can be grouped together into Object groups. See  <xref linkend="addressable-objects" />.</para>
+                <para>Addressable objects: <xref linkend="addressable-objects" /> describes objects that have, either directly or indirectly, an address of some kind. This category includes the physical objects (firewalls, hosts, interfaces) as well as some logical objects (networks, address ranges, individual addresses). Addressable objects can be grouped together into Object groups.</para>
 		</listitem>
 	      <listitem>
-                <para>Service objects: <xref linkend="working-with-services" /> describes objects that represent services. They include IP, TCP, UDP, and ICMP services, as well as user services. Service objects can be grouped together into Service groups. See  <xref linkend="working-with-services" />.</para>
+                <para>Service objects: <xref linkend="working-with-services" /> describes objects that represent services. They include IP, TCP, UDP, and ICMP services, as well as user services. Service objects can be grouped together into Service groups.</para>
 		</listitem>
 	      <listitem>
-                <para>Time Interval objects: These represent a discreet or recurring period of time. They can be used as part of a rule in the firewall. For example, you could have a rule that matches on weekends, but not during the week. See <xref linkend="time-interval-objects" />.</para>
+                <para>Time Interval objects: Described in <xref linkend="time-interval-objects" />, these represent a discreet or recurring period of time. They can be used as part of a rule in the firewall. For example, you could have a rule that matches on weekends, but not during the week.</para>
 		</listitem>
 	      <listitem>
-		<para>Rule set objects: These represent the various rule sets in a firewall. By default, a firewall starts with one access policy, one NAT, and one routing rule set, but you can add more of each. Rule set objects only exist as child objects of a firewall. See  <xref linkend="rule-set-objects" />.</para></listitem>
+		<para>Rule set objects: Described in <xref linkend="rule-set-objects" />, these represent the various rule sets in a firewall. By default, a firewall starts with one access policy, one NAT, and one routing rule set, but you can add more of each. Rule set objects only exist as child objects of a firewall.</para></listitem>
 	</itemizedlist>
 
       <para>All objects in Firewall Builder have some characteristics in common.</para>
@@ -1726,7 +1724,7 @@ make install
                 <para>From a template: Firewall Builder comes with several pre-defined templates. You can use these to create a firewall that is close to your configuration, then modify it to fit your needs. This method is shown in <xref linkend="gettingstarted" />.</para>
 		</listitem>
               <listitem>
-                <para>Manually: You can provide interface IP address, subnet mask, gateway, and other parameters manually. You can add this information when you create the firewall, or  you can add it later. <xref linkend="creating_firewall_manually" /> describes this process.</para>
+                <para>Manually: You can provide interface IP address, subnet mask, gateway, and other parameters manually. You can add this information when you create the firewall, or  you can add it later. <xref linkend="creating_firewall_manually" /> (below) describes this process.</para>
 	      </listitem>
               <listitem>
                 <para>Via SNMP: Firewall builder uses SNMP queries to learn about the network. <xref linkend="firewall-snmp" /> describes this process.</para>
@@ -1803,7 +1801,7 @@ make install
               <graphic scale="70" fileref="new_firewall_wizard_4.png" />
         </figure>
 
-	  <para>Start by checking the checkbox <guilabel>Use SNMP</guilabel> on the second page of the wizard and enter your SNMP 'read' community. Then click <guibutton>Discover interfaces using SNMP</guibutton>.</para>
+	  <para>Start by checking the <guilabel>Use SNMP to discover interfaces of the firewall</guilabel> checkbox on the second page of the wizard and enter your SNMP 'read' community. Then click <guibutton>Discover interfaces using SNMP</guibutton>.</para>
 
         <figure float="1" id="new_firewall_snmp2">
           <title>Discovering interfaces via SNMP</title>
@@ -2213,7 +2211,7 @@ pass out  quick inet6 proto tcp  from any  to fe80::21d:9ff:fe8b:8e94 port 22 \
 keep state
       </screen>
 
-      <para>Since the interface has two addresses, one IPv4 and another IPv6, the compiler generates commands in both the IPv4 and IPv6 sections of the script, but it used only the appropriate address in each. Other than that, the interface object behaves just like a set of addresses when used in the source or destination element of a rule. It can also be used in NAT rules. Here is an example:</para>
+      <para>Since the interface has two addresses, one IPv4 and another IPv6, the compiler generates commands in both the IPv4 and IPv6 sections of the script, but it uses only the appropriate address in each. Other than that, the interface object behaves just like a set of addresses when used in the source or destination element of a rule. It can also be used in NAT rules. Here is an example:</para>
 
       <figure float="1" id="interface-nat-rule-1">
         <title>IPv4 Address object assigned to an interface</title>
@@ -2249,7 +2247,7 @@ rdr on eth0 proto tcp from any to 192.0.2.1 port 80 -> 172.16.22.100 port 80
     <sect3>
       <title>Using Interface Object with Dynamic Address in Rules</title>
 
-		<para>The examples above demonstrated what happens when an interface with one or several IP addresses is used in policy and NAT rules. Let's look at the case when an interface has an address assigned dynamically. This means the address is unknown to the Firewall Builder policy compiler when it generates the configuration script. The compiler uses features of the target firewall to work around this. Here is the configuration of the interface object eth0. The radio-button <guilabel>Address is assigned dynamically</guilabel> is checked.</para>
+		<para>The examples above demonstrated what happens when an interface with one or several IP addresses is used in policy and NAT rules. Let's look at the case when an interface has an address assigned dynamically. This means the address is unknown to the Firewall Builder policy compiler when it generates the configuration script. The compiler uses features of the target firewall to work around this. Here is the configuration of the interface object eth0. The radio-button <guilabel>Address is assigned dynamically</guilabel> is selected.</para>
 
       <figure float="1" id="interface-3">
         <title>Interface with dynamic address</title>
@@ -2717,7 +2715,7 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
           <listitem>
             <para>Via SNMP</para>
 
-            <para>This method works the same as for a Firewall object. The Host object must have the same name as the actual device and it must respond to SNMP.</para>
+            <para>This method works the same as for a Firewall object. The Host object must have the same name as the actual device and the host must respond to SNMP.</para>
           </listitem>
         </itemizedlist>
 
@@ -3204,7 +3202,7 @@ done
 </screen>
       </figure>
 
-      <para> First, the generated script checks if the file specified in the Address Table object exists on the firewall machine. If the file is not found, the script aborts execution to avoid loading incomplete iptables rules. However the script can not verify that the file is the one you intended it to be, it just assumes that if the file with this name exists it is the right one and tries to interpret it as a list of IP addresses, with one address per line. Then the script reads the file line by line, skipping comments, and assigns IP addresses to the shell variable at_address_table_1, which it then uses in the iptables command.</para>
+      <para> First, the generated script checks if the file specified in the Address Table object exists on the firewall machine. If the file is not found, the script aborts execution to avoid loading incomplete iptables rules. However, the script cannot verify that the file is the one you intended it to be, it just assumes that if the file with this name exists it is the right one and tries to interpret it as a list of IP addresses, with one address per line. Then the script reads the file line by line, skipping comments, and assigns IP addresses to the shell variable at_address_table_1, which it then uses in the iptables command.</para>
 
       <para>Since the compiler did not see the addresses from the file, it could not detect that one of them matched an address of the firewall and all iptables commands went to the FORWARD chain. The file /home/vadim/addr-table-1.tbl should be located on the firewall where the generated iptables script will be executed so the script can find it.</para>
 
@@ -3411,7 +3409,7 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
           </listitem>
         </itemizedlist>
 
-	<para> The <guilabel>DNS Record"</guilabel> parameter is the name of the A or AAAA record we want to resolve. In this example it is the host name of the Firewall Builder project web site "www.fwbuilder.org". Note that IPv6 web server for the project is accessible as "ipv6.fwbuilder.org" so we are going to need second DNS Name object for IPv6 examples. <guilabel>Compile Time</guilabel> and <guilabel>Run Time</guilabel> options have the same meaning as those in the Address Table object, that is, compile time DNS Name object is converted to the IP address by the policy compiler, while run time DNS Name object is not. In the latter case, the compiler puts DNS record name into the generated script or configuration file and leaves it up to the firewall to resolve it when the script is activated.</para>
+	<para> The <guilabel>DNS Record</guilabel> parameter is the name of the A or AAAA record we want to resolve. In this example it is the host name of the Firewall Builder project web site "www.fwbuilder.org". Note that IPv6 web server for the project is accessible as "ipv6.fwbuilder.org" so we are going to need second DNS Name object for IPv6 examples. <guilabel>Compile Time</guilabel> and <guilabel>Run Time</guilabel> options have the same meaning as those in the Address Table object, that is, compile time DNS Name object is converted to the IP address by the policy compiler, while run time DNS Name object is not. In the latter case, the compiler puts DNS record name into the generated script or configuration file and leaves it up to the firewall to resolve it when the script is activated.</para>
 
 	<para>Both compile time and run DNS Name objects are supported on all target firewall platforms.</para>
 
@@ -3875,7 +3873,7 @@ $IP6TABLES -A FORWARD  -o +  -m tos --tos 0x10  -m state --state NEW  -j ACCEPT
                 flag <emphasis>-f</emphasis>, instead it uses module <emphasis>frag</emphasis> to
                 match fragments. Firewall Builder currently does not support
                 ip6tables module <emphasis>ipv6header</emphasis>, and source routing
-                options do not exist in IPv6, so object "lsrr" can not
+                options do not exist in IPv6, so object "lsrr" cannot
                 be used in rules.
               
           </para>
@@ -3905,7 +3903,7 @@ pass out  quick inet  from any  to (eth0)  tos 0x10 keep state
 
           <para>
   
-                Cisco IOS access lists can not match source route
+                Cisco IOS access lists cannot match source route
                 options but can match fragments and TOS and DSCP bits.
                 Here is what we get if we try to compile the same
                 rules using the same IP Service objects for Cisco IOS:
@@ -4364,14 +4362,14 @@ pass in   quick inet6 proto icmp6  from any  to any
                 all target firewall platforms can match all
                 combinations of TCP flags or any flags at all. For
                 example, iptables, pf, ipfilter and ipfw can match
-                flags and their combinations, but Cisco PIX can not.
+                flags and their combinations, but Cisco PIX cannot.
               
           </para>
   
 
           <para>
   
-                Usually the firewall can not only match a combination
+                Usually the firewall cannot only match a combination
                 of flags, but can also examine only a given subset of
                 TCP flags. Firewall Builder provides two sets of
                 checkboxes for TCP flags and flag masks (see screenshot
@@ -4588,7 +4586,7 @@ pass out  quick inet6 proto tcp  from any  to 2001:470:1f0e:162::2 port 80 keep 
           <para>
   
                 To make the rule slightly more realistic, we made it
-                stateless using its options dialog (double click in
+                stateless using its options dialog (double-click in
                 the column "Options" of this rule and check checkbox
                 "Stateless" in the first tab of the dialog). Let's see
                 what the program generates when this rule is compiled
@@ -4657,7 +4655,7 @@ exit
   
                 Some of the supported firewalls understand special
                 flag "established" intended to match reply packets of
-                the tcp session. Stateless systems, such as Cisco IOS
+                the TCP session. Stateless systems, such as Cisco IOS
                 extended access lists, match combination of tcp flags
                 where flag "ACK" is set but flag "SYN" is cleared when
                 this keyword is used in the acl rule. Stateful
@@ -4875,7 +4873,7 @@ $IPTABLES -A FORWARD  -i + -p udp -m udp  --dport 53  -m state --state NEW  -j A
 
           <para>
   
-                This rule got <emphasis>"-i +"</emphasis> clause because direction
+                This rule got a <emphasis>"-i +"</emphasis> clause because direction
                 was set to <emphasis>Inbound</emphasis> but <emphasis>"Interface"</emphasis>
                 column was left empty. To enforce inbound direction
                 compiler uses "-i" option but since interface was not
@@ -5190,7 +5188,7 @@ block out  quick inet  from   to any user 500
         <para>
   
                   The following example uses iptables module
-                  "recent". Quoting from iptables manual, this module
+                  "recent". Quoting from the iptables manual, this module
                   "allows you to dynamically create a list of IP
                   addresses and then match against that list in a few
                   different ways". We can use this module to throttle
@@ -6217,7 +6215,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           </listitem>
 
           <listitem>
-            <para>Cisco IOS access lists: if the <guilabel>top rule set</guilabel> checkbox is turned off, the rules go into access list with the name prefixed with the name of the rule set; this access list will not be assigned to interfaces via "ip access-group" command. Rulesets with checkbox "<guilabel>top rule set</guilabel> checked generate ACLs with names consisting of the shortened name of interface and direction abbreviation ("in" or "out"). Only these lists are assigned to interfaces.</para>
+            <para>Cisco IOS access lists: if the <guilabel>top rule set</guilabel> checkbox is turned off, the rules go into access list with the name prefixed with the name of the rule set; this access list will not be assigned to interfaces via "ip access-group" command. Rulesets with checkbox <guilabel>top rule set</guilabel> checked generate ACLs with names consisting of the shortened name of interface and direction abbreviation ("in" or "out"). Only these lists are assigned to interfaces.</para>
           </listitem>
         </itemizedlist>
 
@@ -6358,8 +6356,8 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         replacing the private IP address with the address of its external
         interface.</para>
 
-        <para>In Firewall Builder this type of the NAT rule is composed as
-        shown in Rule 1 above.</para>
+        <para>In Firewall Builder this type of NAT rule is composed as
+        shown in Rule 1 in <xref linkend="nat-policy" />.</para>
 
         <para>In this rule objects representing internal networks are placed in
         <guilabel>Original Src</guilabel> and the firewall's outside interface object is placed in <guilabel>Translated
@@ -6369,7 +6367,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         for all the connections opened through the firewall and rewrites
         addresses in all reply packets automatically.</para>
 
-        <para><xref linkend="nat-policy" />, Rule 1 uses the firewall interface object in
+        <para>In <xref linkend="nat-policy" />, Rule 1 uses the firewall interface object in
         the Translated Src, which means the source address of the packet will be
         substituted with the address of firewall outside interface. If there is more than one external interface, the decision of which interface to use is made by the firewall's routing table.</para>
 
@@ -6541,7 +6539,7 @@ nat (inside) 1 access-list id43442X30286.0 tcp 0 0
         <para>
                   The NAT rule looks exactly the same as in examples
                   above: we still put interface <emphasis>eth0</emphasis> in
-                  <guilabel>Translated Srce</guilabel> even though its address is
+                  <guilabel>Translated Src</guilabel> even though its address is
                   unknown. 
 	</para>
   
@@ -6816,7 +6814,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         <title>Destination Address Translation</title>
 
         <para>Suppose we have a network using private IP addresses behind the
-        firewall, and a server on it. We need to provide access to this server
+        firewall, and the network contains a server. We need to provide access to this server
         from the Internet in a such way that connections will be established
         to the address of the firewall. In this case we need destination
         address of packets to be rewritten so packets would reach the server
@@ -7138,8 +7136,8 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
                 destination. To help you solve this problem, Firewall
                 Builder can automatically add virtual address to the
                 firewall's interface when you use an address in a NAT
-                rule. This is controlled by a checkbox "Add virtual
-                addresses for NAT" in the "Script" tab of the
+                rule. This is controlled by a checkbox <guilabel>Add virtual
+                addresses for NAT</guilabel> in the "Script" tab of the
                 firewall's platform "advanced" settings dialog. If
                 this checkbox is turned on, and you use an address
                 object that does not belong to any interface of the
@@ -7344,7 +7342,7 @@ static (inside,outside) interface  access-list id29402X30286.0 tcp 0 0
         <para>
   
                 This service object does not have any source port
-                specification, only destination port is defined. Now
+                specification. Only the destination port is defined. Now
                 we can use it in the NAT rule as follows:
               
   </para>
@@ -7817,7 +7815,7 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
       firewall platform supports them. For example, the iptables firewall
       provides controls for logging of matched packets, while Cisco PIX does
       not; PIX always logs every packet it drops. Where possible, the policy
-      compilers are trying to emulate the missing feature. For example,
+      compiler tries to emulate the missing feature. For example,
       OpenBSD PF does not support negation natively, but the policy compiler
       provides a workaround and tries to emulate
       this feature for PF. Another example is policy rules with "Outbound"
@@ -8109,7 +8107,7 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
                 exit the program. Before we can do that, however, the
                 program tries to check the file in to the RCS and
                 presents a dialog where we can add a comment to
-                document the change we made. I enter the comment and
+                document the change we made. We enter the comment and
                 click <guibutton>Check file in</guibutton> to complete the
                 operation. The file is now checked in and the program
                 exits.
@@ -8187,7 +8185,7 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
   <para>
   
-                However if we want to roll back the change and continue
+                However, if we want to roll back the change and continue
                 without it, all we need to do is make the change in
                 this revision (1.1) and then save and check it
                 in. This will create a branch in RCS and we will be
@@ -9710,7 +9708,7 @@ SSH session terminated, exit status: 1
                 This is the same dialog as when we tried to install to a
                 single firewall, except the batch mode dialog does not
                 offer an input fields for the alternative address and
-                some other parameters. You can not enter alternative
+                some other parameters. You cannot enter alternative
                 addresses in the install dialog while running it in
                 batch mode because it will talk to multiple firewalls
                 and one alternative address is not going to be useful.
@@ -9989,7 +9987,7 @@ SSH session terminated, exit status: 1
                   address of the interface when it changes. As of the
                   moment of this writing, on ipfilter and ipfw
                   firewalls address of the dynamic interface has to be
-                  entered in the GUI, or it can not be used in the
+                  entered in the GUI, or it cannot be used in the
                   rule. This limitation will be removed in the future
                   versions of the product.
                 
@@ -10674,7 +10672,7 @@ SSH session terminated, exit status: 1
       DMZ net "mail_relay_1" to hosts on the Internet, but do not want to open
       access from it to machines on our internal network represented by the
       object "internal-network". Since we want it to connect to hosts on the
-      Internet and can not predict their addresses, we have to use "any" as a
+      Internet and cannot predict their addresses, we have to use "any" as a
       destination in the policy rule. Unfortunately "any" includes our
       internal net as well, which is going to open undesired hole in the
       firewall.</para>
@@ -10942,7 +10940,7 @@ the item "Add IPv6 address".</para>
 
 	  <para>Rule #1 blocking packets going from any source to any destination also blocks packet originating on the firewall (provided option "Assume firewall is part of any" is on). The combination of these two rules permits only outgoing HTTP connections from the firewall and nothing else.</para>
 
-	  <para>Although we permit outgoing HTTP connections here, we should probably permit outgoing DNS queries as well. The browser running on this machine would not be able to connect to a web site if it can not resolve the name via DNS. Here is the corrected policy:</para>
+	  <para>Although we permit outgoing HTTP connections here, we should probably permit outgoing DNS queries as well. The browser running on this machine would not be able to connect to a web site if it cannot resolve the name via DNS. Here is the corrected policy:</para>
 
         <figure id="policy-20">
           <title>HTTP and DNS</title>
@@ -11588,7 +11586,7 @@ rdr proto tcp from 172.16.22.0/24 to any port 80 -&gt; 127.0.0.1 port 3128
       the server on LAN. The server, however, replies back to the clients
       directly because they are on the same network. Since the reply has
       server's real address in the source, clients do not recognize it and
-      the connection can not be established.</para>
+      the connection cannot be established.</para>
 
       <para>To resolve this problem you need to make NAT rule to replace the source
       address of the packet with the address of firewall's internal interface.
@@ -11675,7 +11673,7 @@ rdr proto tcp from 172.16.22.0/24 to any port 80 -&gt; 127.0.0.1 port 3128
 
 	<para>This example shows how the option "Ignore empty groups" can be used to build a rule controlling access to or from an often-changing group of computers. Suppose we need to set up a rule to control access to or from a group of computers. In principle this should be easy: we create a Host object for each computer, then create a group and put all these Host objects in it. We can use this group in the Source or Destination of the policy rule to achieve our goal. If we ever need to add a new machine to the control list, we create a new Host object and add it to the group; if we need to remove the machine from the list, we just remove it from the group. But what should happen if after the last machine has been removed the group becomes empty? If the empty group is in the Source of the rule, shouldn't the compiler treat it as Any? This is confusing, to say the least.</para>
 
-	<para>Here is how it works in Firewall Builder. The behavior of the compiler is controlled by the checkbox "Ignore empty groups in rules" in the "Compiler" tab of the Firewall Settings dialog. If this checkbox is off, then compiler treats empty groups as an error and stops processing of the ruleset as soon as it encounters such group. This is the default setting. However, if this checkbox is on, then compiler simply removes empty group from the rule and continues processing. This makes sense, since an empty group defines no objects and if the rule element has some other objects in it, removing an empty group does not change its meaning. It becomes tricky when the empty group is the only object in the rule element though. In this case, removing the group from the rule element makes it empty, which is equivalent to Any. All of the sudden, instead of controlling access to or from a group of hosts, the rule expands its action to any host! To avoid this unexpected side effect, compiler drops a rule if rule element becomes empty after the last empty group has been removed. Again, it works this way only if the checkbox "Ignore empty groups" is on.</para>
+	<para>Here is how it works in Firewall Builder. The behavior of the compiler is controlled by the <guilabel>Ignore empty groups in rules</guilabel> checkbox in the "Compiler" tab of the Firewall Settings dialog. If this checkbox is off, then compiler treats empty groups as an error and stops processing of the ruleset as soon as it encounters such group. This is the default setting. However, if this checkbox is on, then compiler simply removes empty group from the rule and continues processing. This makes sense, since an empty group defines no objects and if the rule element has some other objects in it, removing an empty group does not change its meaning. It becomes tricky when the empty group is the only object in the rule element though. In this case, removing the group from the rule element makes it empty, which is equivalent to Any. All of the sudden, instead of controlling access to or from a group of hosts, the rule expands its action to any host! To avoid this unexpected side effect, compiler drops a rule if rule element becomes empty after the last empty group has been removed. Again, it works this way only if the checkbox "Ignore empty groups" is on.</para>
 
 	<para>For example, this feature can be used to set up a rule to control Internet access from a bunch of a student computers. Suppose some students may be denied access once in a while, in which case their machine is removed from the group. If at some point of time all machines were removed from the group, the compiler would simply ignore this rule instead of inadvertently creating a hole in the policy.</para>
     </sect2>
@@ -11760,7 +11758,7 @@ rdr proto tcp from 172.16.22.0/24 to any port 80 -&gt; 127.0.0.1 port 3128
         fwbuilder from the shell window in Gnome or KDE environment.</para>
 
         <para>It may also be that the environment variable DISPLAY is set, but
-        the program fwbuilder can not connect to the X server. In this
+        the program fwbuilder cannot connect to the X server. In this
         situation you won't be able to run any application using X, check if
         that's the case by trying to start "xclock". This may be happening
         because of many different reasons, such as X server is not running, X
@@ -11793,12 +11791,12 @@ rdr proto tcp from 172.16.22.0/24 to any port 80 -&gt; 127.0.0.1 port 3128
         loading shared libraries: libfwbuilder.so.0: cannot load shared
         object file: no such file or directory."</emphasis></para>
 
-        <para>Then the GUI binary (fwbuilder) can not find API library
+        <para>Then the GUI binary (fwbuilder) cannot find API library
         libfwbuilder. If you are using our binary packages, then make sure you
         download and install package called libfwbuilder. If you compiled from
         sources, then perhaps you installed libfwbuilder with default prefix
         /usr/local/, therefore library went to /usr/local/lib. Dynamic linker
-        ldd can not find it there.</para>
+        ldd cannot find it there.</para>
 
         <para>You have the following options:</para>
 
@@ -11847,7 +11845,7 @@ rdr proto tcp from 172.16.22.0/24 to any port 80 -&gt; 127.0.0.1 port 3128
 	<sect2>
 	  <title>Older data file cannot be loaded in Firewall Builder</title>
 
-	<para><emphasis>Data file created in the older version of fwbuilder can not be loaded in the latest one</emphasis></para>
+	<para><emphasis>Data file created in the older version of fwbuilder cannot be loaded in the latest one</emphasis></para>
 
 	  <para>Sometimes this happens when you skip several versions trying to upgrade the program. There used to be a bug in the upgrade procedure somewhere around version 1.0.4 which broke automatic upgrades from versions before 1.0.4 to versions after that. If this happens to you, upgrade your data file using script fwb-upgrade.sh that you can find in Contrib/Scripts area on our SourceForge site.</para>
 	</sect2>
@@ -11888,7 +11886,7 @@ ios_base::failbit set
 
 	<para><emphasis>Policy compiler stops processing rules with error message "Cannot create virtual address NN.NN.NN.NN"</emphasis></para>
 
-	<para>This happens when you are using an option "Create virtual addresses for NAT rules". The problem is that policy compiler needs to be able to determine interface of the firewall to assign virtual address to. In order to do that it scans all interfaces trying to find subnet requested NAT address is on. Sometimes firewall's interface has an address which belongs to a different network than NAT address specified in the rule; in this case compiler can not identify an interface and aborts.</para>
+	<para>This happens when you are using an option "Create virtual addresses for NAT rules". The problem is that policy compiler needs to be able to determine interface of the firewall to assign virtual address to. In order to do that it scans all interfaces trying to find subnet requested NAT address is on. Sometimes firewall's interface has an address which belongs to a different network than NAT address specified in the rule; in this case compiler cannot identify an interface and aborts.</para>
 
 	<para>The NAT rule still can be built without "-i" or "-o" option, but automatic assignment of virtual address is impossible. You need to turn off option "Create virtual addresses for NAT rules" in the tab "Firewall" of firewall dialog and configure this address manually. </para>
       </sect2>
@@ -11951,7 +11949,7 @@ Device or resource busy
 
 	<para>It appears you can load either ip_conntrack or nf_conntrack but not both at the same time since nf_conntrack is a replacement for ip_conntrack. As of this writing, nf_conntrack does not support NAT just yet and is marked as having status "TESTING" on the patch-o-matic catalog page.</para>
 
-	<para>This actually represent a problem for fwbuilder. I would like to avoid having to write extensive GUI to let user choose which modules they want to load. One of the reasons is that the GUI may be working on one machine, while generated firewall script will be executed on another. In this situation the GUI can not determine which modules are available on the firewall. Currently generated script simply tries to load all modules but it aborts if it detects an error in the command that does it (modprobe).</para>
+	<para>This actually represent a problem for fwbuilder. I would like to avoid having to write extensive GUI to let user choose which modules they want to load. One of the reasons is that the GUI may be working on one machine, while generated firewall script will be executed on another. In this situation the GUI cannot determine which modules are available on the firewall. Currently generated script simply tries to load all modules but it aborts if it detects an error in the command that does it (modprobe).</para>
 
 	<para>Until better solution is found, you would probably need to remove module that conflicts with others or disable feature that makes generated script load modules and write your own script to load modules you need. You can for example add commands to load modules explicitly to the "prolog" section of the generated script.</para>
       </sect2>
@@ -12072,7 +12070,7 @@ iptables-save &gt; iptables_config.conf
                   interfaces, their names and addresses. The program
                   can infer their names when it encounters
                   "-i &lt;interface&gt;" or "-o &lt;interface&gt;" clauses in the
-                  iptables configuration lines. It can not reliably
+                  iptables configuration lines. It cannot reliably
                   detect their addresses though. You need to manually rename the
                   firewall object and add IP addresses to interfaces
                   after the import.
@@ -12577,7 +12575,7 @@ interface Ethernet1/2
       <sect2>
 	<title>"Error checking file out: co: RCS file c:/fwbuilder/RCS/file.fwb is in use"</title>
 
-	<para><emphasis>I can not open my data file, I get error "Error checking file out: co: RCS file c:/fwbuilder/RCS/file.fwb is in use"</emphasis></para>
+	<para><emphasis>I cannot open my data file, I get error "Error checking file out: co: RCS file c:/fwbuilder/RCS/file.fwb is in use"</emphasis></para>
 
 	<para>A catastrophe (e.g. a system crash) can cause RCS to leave behind a semaphore file that causes later invocations of RCS to claim that the RCS file is in use. To fix this, remove the semaphore file. A semaphore file name typically begins with , or ends with _.</para>
 
@@ -12587,9 +12585,9 @@ interface Ethernet1/2
       </sect2>
       <sect2>
 	<title>"Error checking file out:"</title>
-	<para><emphasis>I can not open my data file, I get error "Error checking file out:"</emphasis></para>
+	<para><emphasis>I cannot open my data file, I get error "Error checking file out:"</emphasis></para>
 
-	<para>Such non-descriptive error message is usually caused by hard unrecoverable errors experienced by RCS tools. Unfortunately these tools not always report errors in the best way possible and when this happens, Firewall Builder GUI can not provide any better diagnostics than it gets from the tool. Such poor diagnostics of errors happens more frequently on Windows than on other platforms.</para>
+	<para>Such non-descriptive error message is usually caused by hard unrecoverable errors experienced by RCS tools. Unfortunately these tools not always report errors in the best way possible and when this happens, Firewall Builder GUI cannot provide any better diagnostics than it gets from the tool. Such poor diagnostics of errors happens more frequently on Windows than on other platforms.</para>
 
 	<para>Here are few things to check and try:</para>
 	<itemizedlist>
@@ -12708,10 +12706,10 @@ interface Ethernet1/2
       </sect2>
 
       <sect2>
-        <title>Can not access Internet from behind firewall</title>
+        <title>Cannot access Internet from behind firewall</title>
 
 	<para><emphasis>I compiled and activated firewall policy, but workstations
-        behind the firewall still can not access the Internet.</emphasis></para>
+        behind the firewall still cannot access the Internet.</emphasis></para>
 
         <para>Here are few troubleshooting steps:</para>
 
