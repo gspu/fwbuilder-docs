@@ -53,7 +53,7 @@
 
 (define %stylesheet%
   ;; Name of the stylesheet to use
-  "../css/users_guide_3.css"
+  "users_guide_3.css"
 )
 
 (define %css-liststyle-alist%
