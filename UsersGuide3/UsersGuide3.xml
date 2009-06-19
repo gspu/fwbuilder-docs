@@ -5719,7 +5719,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       records whose names start with "f" we could use the regular expression
       "^f". The "^" symbol matches the beginning of the string, so this
       regular expression matches any name that starts with "f". To find all
-      names that end with somedomain.com", we could use the regular
+      names that end with "somedomain.com", we could use the regular
       expression ".*somedomain.com$"</para>
 
       <para>Once you have reviewed the discovered networks, decide which ones you want to turn into Network objects. Then, copy those networks to the right column.</para>
@@ -5932,45 +5932,60 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
     <sect1 id="policies-and-rules">
       <title>Policies and Rules</title>
 
-      <para>Each firewall object has several sets of rules associated with it:
-      Access Policy (just "Policy" in the GUI), Network Address Translation (NAT), and Routing 
-      rules. Rules in the access policy control
-      access to and from the firewall machine and the machines behind it.  
-      NAT rules describe address and port transformations that the firewall
-      should make to packets flowing through it. Routing rules establish static routes in the firewall.</para>
+      <para>Each firewall object has several sets of rules associated
+      with it: Access Policy (just "Policy" in the GUI), Network
+      Address Translation (NAT), and Routing rules. Rules in the
+      access policy control access to and from the firewall machine
+      and the machines behind it.  NAT rules describe address and port
+      transformations that the firewall should make to packets flowing
+      through it. Routing rules establish static routes in the
+      firewall.</para>
 
-      <para>Firewall software varies widely in the way it can process packets.
-      For example, some firewalls
-      perform address and port transformations first and then apply policy
-      rules, while some others do it the other way around. There are many
-      other variations and features specific to particular implementations. In
-      Firewall Builder though, you work with an abstract firewall that
-      looks and behaves  the same regardless of the target firewall platform. You can build and install firewall polices for one platform, then switch the target and use the exact same policies to generate rules for an entirely different platform. (This assumes both platforms support the features you need.)</para>
+      <para>Firewall software varies widely in the way it can process
+      packets.  For example, some firewalls perform address and port
+      transformations first and then apply policy rules, while some
+      others do it the other way around. There are many other
+      variations and features specific to particular
+      implementations. In Firewall Builder though, you work with an
+      abstract firewall that looks and behaves the same regardless of
+      the target firewall platform. You can build and install firewall
+      polices for one platform, then switch the target and use the
+      exact same policies to generate rules for an entirely different
+      platform. (This assumes both platforms support the features you
+      need.)</para>
 
-      <para>Firewall Builder compensates for differences in implementation between firewall platforms. 
-      For example, Cisco PIX applies its Access List rules
-      to the packet before it performs address and port transformations
-      according to the NAT rules. As a result, a policy rule that
-      controls access to a server behind the firewall doing NAT should be
-      written using the firewall object instead of the server object. The
-      meaning of such a rule is not obvious at a glance since you have to keep
-      in mind all the NAT rules as well as remember that this policy rule
-      controls access not to the firewall machine, but rather to the server
-      behind it. Firewall Builder compensates for variations like this by using
-      smart algorithms to transform rules defined in the GUI into 
-      rules that achieve the desired effect in the target firewall platform. Using Firewall Builder, you can write your rules as if NAT translation will happen before the access rules are applied.</para>
-
-      <para><xref linkend="policies-seq" /> represents the logical sequence in
-      which rules defined in Firewall Builder affect the network packet. This
-      diagram describes an abstract firewall that Firewall Builder represents
-      for the user. In some cases the target firewall may work the same way,
-      in some other cases it won't. Either way, you can build your rules as if all your firewalls, regardless of platform, work like <xref linkend="policies-seq" />.</para>
+      <para>Firewall Builder compensates for differences in
+      implementation between firewall platforms.  For example, Cisco
+      PIX applies its Access List rules to the packet before it
+      performs address and port transformations according to the NAT
+      rules. As a result, a policy rule that controls access to a
+      server behind the firewall doing NAT should be written using the
+      firewall object instead of the server object. The meaning of
+      such a rule is not obvious at a glance since you have to keep in
+      mind all the NAT rules as well as remember that this policy rule
+      controls access not to the firewall machine, but rather to the
+      server behind it. Firewall Builder compensates for variations
+      like this by using smart algorithms to transform rules defined
+      in the GUI into rules that achieve the desired effect in the
+      target firewall platform. Using Firewall Builder, you can write
+      your rules as if NAT translation will happen before the access
+      rules are applied.</para>
 
       <figure float="1" id="policies-seq">
         <title>The sequence in which NAT and Policy rules are applied to the packet
         in Firewall Builder</title>
-            <graphic scale="90" fileref="policies-seq.png" />
+            <graphic width="150" fileref="policies-seq.png" />
       </figure>
+
+      <para><xref linkend="policies-seq" /> represents the logical
+      sequence in which rules defined in Firewall Builder affect the
+      network packet. This diagram describes an abstract firewall that
+      Firewall Builder represents for the user. In some cases the
+      target firewall may work the same way, in some other cases it
+      won't. Either way, you can build your rules as if all your
+      firewalls, regardless of platform, work like
+      <xref linkend="policies-seq" />.
+      </para>
 
     </sect1>
 
@@ -5982,19 +5997,29 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
             <graphic scale="60" fileref="scrn2-2.png" />
       </figure>
 
-      <para>The main Firewall access policy consists of a set of rules. Packets are
-      analysed by comparing their parameters with rules in the policy, one after the other, from top to bottom. 
-      The first rule that matches the packet has it's <guilabel>Action</guilabel> applied to the packet.</para>
+      <para>The main Firewall access policy consists of a set of
+      rules. Packets are analysed by comparing their parameters with
+      rules in the policy, one after the other, from top to bottom.
+      The first rule that matches the packet has
+      it's <guilabel>Action</guilabel> applied to the packet.</para>
 
-      <para>Each rule includes a standard set of
-      parameters, or <emphasis>Rule Elements</emphasis>, that are used for comparison with the packet. Rule elements include "Source", "Destination",
-      "Service", "Interface", "Direction", and "Time". For example, if a packet entering the firewall
-      has a source address that matches the object in the <guilabel>Source</guilabel> field of
-      the rule, its destination address matches the object in <guilabel>Destination</guilabel>,
-      its protocol and port numbers match the object in <guilabel>Service</guilabel>, the interface it passes through matches the <guilabel>Interface</guilabel> field, 
-      its direction matches that specified in <guilabel>Direction</guilabel>, and it's time matches <guilabel>Time</guilabel>, then
-      the firewall will take action, specified in the <guilabel>Action</guilabel> field of the
-      matching rule. Of course, a field with "Any" or "All" in it will match all packets for that field.</para>
+      <para>Each rule includes a standard set of parameters,
+      or <emphasis>Rule Elements</emphasis>, that are used for
+      comparison with the packet. Rule elements include "Source",
+      "Destination", "Service", "Interface", "Direction", and
+      "Time". For example, if a packet entering the firewall has a
+      source address that matches the object in
+      the <guilabel>Source</guilabel> field of the rule, its
+      destination address matches the object
+      in <guilabel>Destination</guilabel>, its protocol and port
+      numbers match the object in <guilabel>Service</guilabel>, the
+      interface it passes through matches
+      the <guilabel>Interface</guilabel> field, its direction matches
+      that specified in <guilabel>Direction</guilabel>, and it's time
+      matches <guilabel>Time</guilabel>, then the firewall will take
+      action, specified in the <guilabel>Action</guilabel> field of
+      the matching rule. Of course, a field with "Any" or "All" in it
+      will match all packets for that field.</para>
 
       <para>For example, in <xref linkend="global-policy1" />, rule #0 says
       that all fragmented packets should be dropped (the rule uses service
