@@ -98,6 +98,24 @@
   #t)
 -->
 
+
+<!--
+ $html-body-start$ inserts text right after opening <body> tag before
+the first <div> added by docbook. Text inside literal() is interpreted
+as XML so "<!-- ... -->" gets eaten. See
+http://sources.redhat.com/ml/docbook-apps/2000-q4/msg00336.html
+-->
+
+(define ($html-body-start$)
+  (literal " ")
+  )
+
+(define ($html-body-end$)
+  (literal " ")
+  )
+
+
+
 </style-specification-body>
 </style-specification>
 <external-specification id="docbook" document="dbstyle">
