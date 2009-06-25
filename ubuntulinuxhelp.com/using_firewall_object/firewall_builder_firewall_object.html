@@ -1,0 +1,536 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Firewall Builder: Using Firewall Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 12px;
+        text-decoration: underline;
+}
+-->
+</style>
+</head>
+
+<body>
+  
+  <h1>Using Firewall Object in Firewall Builder</h1>
+
+  <table border=0>
+    <tr>
+      <td><img src="http://www.fwbuilder.org/images/icon_128x128.png" height="128" width="128" /></td>
+      <td>Revision 1.0<br/>
+        Author: vadim@fwbuilder.org<br/>
+        <a href="http://www.fwbuilder.org">http://www.fwbuilder.org</a>
+      </td>
+    </tr>
+  </table>
+
+  <p>
+    This article continues the series of articles on Fireall Builder,
+    a graphical firewall configuration and management tool that
+    supports many Open Source firewall platforms as well as Cisco IOS
+    access lists and Cisco ASA (PIX).  Firewall Builder was introduced
+    on this site earlier with articles
+    <a href="http://ubuntulinuxhelp.com/getting-started-with-firewall-builder/">
+      Getting Started With Firewall Builder</a>
+      and <a href="http://ubuntulinuxhelp.com/using-built-in-policy-importer-in-firewall-builder/">Using
+      Built-in Policy Importer in Firewall Builder</a>.
+  </p>
+
+  <p>
+    More information on Firewall Builder, pre-built binary packages
+    and source code, documentation and <b>Firewall Builder
+    Cookbook</b> can be found on the project web site
+    at <a href="http://www.fwbuilder.org">
+    www.fwbuilder.org</a>. Watch <a href="http://blog.fwbuilder.org">Project
+    Blog</a> for announcements and articles on all aspects of using
+    Firewall Builder.
+  </p>
+
+  <p>
+    Firewall Builder supports variety of object types,
+    both simple such as address, network, host, or IP,
+    TCP, UDP and ICMP services, as well as more
+    sophisticated such as Firewall, Host, Address table,
+    DNS name, User service. Firewall object is central
+    to the program and is in the focus of this article.
+  </p>
+
+
+  <h2>General Description</h2>
+
+  <p>
+    A firewall object is designed to represent a real
+    firewall device in your network. This firewall object
+    will have interface and IP address objects that
+    mirror the real interfaces and IP addresses of the
+    actual device.  In addition, the firewall object is
+    where you create the access policy rule sets, NAT
+    rule sets, and routing rule sets that you assign to
+    your firewall device.
+  </p>
+
+  <p>
+    By default, a firewall has one Policy rule set, one
+    NAT rule set, and one routing rule set. However, you
+    can create more than one rule set using branching
+    rules (for firewalls that support them). On the
+    other hand, you don’t have to populate all the rule
+    sets. You can, for example, create a Policy ruleset
+    and leave the NAT and Routing rule sets empty. We
+    explains more about policies and rule sets below.
+  </p>
+
+  <p>
+    To speed up the creation of a firewall object,
+    Firewall Builder has a wizard that walks you through
+    creating the object. The wizard has three options
+    for creating a firewall object:
+  </p>
+
+  <p>
+    <ul>
+      <li>From a template: Firewall Builder comes with
+        several pre-defined templates. You can use these
+        to create a firewall that is close to your
+        configuration, the modify it to fit your
+        needs. This method is demonstrated in the
+        "Getting Started with Firewall Builder"
+        <a href="http://www.fwbuilder.org/slideshows/tutorial_3/slide_1.html">here</a>
+        or <a href="http://ubuntulinuxhelp.com/getting-started-with-firewall-builder/">here</a>.
+      </li>
+
+      <li>Manually: You can provide interface IP
+        address, subnet mask, gateway, and other
+        parameters manually. You can add this
+        information when you create the firewall, or you
+        can add it later.
+      </li>
+
+      <li>Via SNMP: Firewall Builder uses SNMP queries
+        to learn about the network.
+      </li>
+    </ul>
+  </p>
+
+
+  <h2>Creating Firewall Object Manually</h2>
+
+  <p>
+    To start the firewall object creation wizard,
+    right-click the Firewalls folder in the User tree
+    and select New Firewall.
+  </p>
+
+  <p>
+    The first page of this wizard is displayed.
+  </p>
+
+  <img src="new_firewall_wizard_1.png"/>
+  
+  <p>
+    Give the firewall object a name. Usually, this name
+    will be the same name as the device, but it doesn’t
+    have to be if you’re assigning interfaces
+    manually. (If you will use SNMP or DNS to populate
+    the interfaces, then the name must be the same as
+    the device name.) Then specify the firewall software
+    and OS. Leave the Use pre-configured template firewall
+    objects checkbox unchecked.  Click Next.
+  </p>
+
+  <img src="new_firewall_wizard_2.png"/>
+
+  <p>
+    Select Configure interfaces manually and click Next.
+  </p>
+
+  <img src="new_firewall_wizard_3.png"/>
+
+  <p>
+    Use this screen to add firewall interfaces. Populate
+    the following fields for an interface, then click Add
+    to add the interface. Then, populate the fields again
+    for the next interface. If you make a mistake, click
+    on the interface in the list, make your changes,
+    then click Update.
+  </p>
+
+  <p>
+    <ul>
+      <li>Interface type: Indicate the type of
+        interface. We explain interface types in more
+        detail below.  Briefly, though, a Regular
+        interface has a static IP addresses, a Dynamic
+        address interface has a dynamic address provided
+        by something like DHCP, an Unnumbered interface
+        never has an IP address (PPPoE connection, for
+        example), and a Bridge por t is an interface
+        that is bridged in the firewall.
+      </li>
+
+      <li>Name: The name of the interface object in
+        Firewall Builder must match exactly the name of
+        the interface of the firewall machine it
+        represents. This will be something like "eth0",
+        "eth1", "en0", "br0", and so on.
+      </li>
+
+      <li>Label: On most OS’s this field is not used and
+        serves the purpose of a descriptive label. The
+        label is mandatory for Cisco PIX though, where
+        it must reflect the network topology. Firewall
+        Builder GUI uses the label, if it is not blank,
+        to label interfaces in the tree. One of the
+        suggested uses for this field is to mark
+        interfaces to reflect the network topology
+        (’outside’, ’inside’) or interface purpose (’web
+        frontend’ or ’backup subnet’).
+      </li>
+
+      <li>Address: If the interface has a static IP
+        address, specify it here. (In Firewall Builder
+        version 3, this must be an IPv4 address. If you
+        need it to be an IPv6 address, create the
+        interface without an IP address, then add the
+        IPv6 address after you have created the firewall
+        object.)
+      </li>
+
+      <li>Netmask: Use either a traditional netmask
+        (255.255.255.0) or slash notation (24, without
+        the actual slash) to specify the interface
+        netmask.
+      </li>
+
+      <li>MAC: If you like, you can also specify the
+        interface physical address. The MAC address is
+        not necessary, but it can be used to combat
+        spoofing. If the feature is turned on and
+        available, and interface object with MAC address
+        is used in a policy rule, then the firewall will
+        only accept packets from the given IP address if
+        the MAC address also matches the one specified.
+      </li>
+    </ul>
+  </p>
+
+  <p>
+    Once all the interfaces are configured, click Finish
+    to create the new firewall object.
+  </p>
+
+  <p>
+    <b>Note:</b> You can always add, modify and delete
+    interfaces later using controls provided in the main
+    window.
+  </p>
+
+  <h2>Creating Firewall Object using SNMP discovery</h2>
+
+  <p>
+    If your firewall runs SNMP daemon, you can save
+    yourself some time by using SNMP discovery to
+    automatically create interfaces of the new firewall
+    object.
+  </p>
+
+  <img src="new_firewall_wizard_4.png"/>
+
+  <p>
+    Start by checking checkbox "Use SNMP" on the second
+    page of the wizard and enter SNMP "read" community,
+    then click button "Discover interfaces using SNMP".
+  </p>
+  
+  <img src="new_firewall_wizard_5.png"/>
+
+  <p>
+    Firewall Builder will run series of SNMP queries to
+    the firewall to read the list of interfaces and
+    their addresses. Both IPv4 and IPv6 address can be
+    imported. For IPv6 the firewall must support IP-MIB
+    RFC4293. Once discovery process finishes, click
+    "Next".
+  </p>
+
+  <img src="new_firewall_wizard_6.png"/>
+
+  <p>
+    Next page of the wizard offers an opportunity to
+    review discovered interfaces and make adjustments if
+    necessary. To change something, highlight an
+    interface, edit its parameters in the dialog, then
+    click "Update". Finally when the process is done and
+    you click "Finish" in the wizard, the program
+    creates new firewall object in the tree and adds all
+    configured interfaces and their addresses.
+  </p>
+
+
+
+
+
+  <h2>Editing Firewall Object</h2>
+
+  <p>
+    The Firewall Object represents the firewall machine
+    and is the most complex object in Firewall Builder.
+    It has three sets of controls that you can modify,
+    not including the policy rule sets. All these
+    controls become available when you double-click the
+    firewall object in the tree.
+  </p>
+
+  <img src="edit_firewall_base_controls.png"/>
+
+  <p>
+    The base controls let you specify the basic settings
+    of the firewall, such as the name and firewall
+    platform.
+  </p>
+
+  <p>
+    <ul>
+      <li>Name: Specify/change the name of the firewall object. 
+      </li>
+
+      <li>Platform: Specify/change the firewall software. 
+      </li>
+
+      <li>Version: Specify/change the version number of
+        the firewall software. In most cases, you can leave
+        this set to any.
+      </li>
+
+      <li>Host OS: Specify/change the host operating
+        system of the firewall device.
+      </li>
+
+      <li>Inactive firewall: Check this box to make the
+        firewall inactive. The firewall name will change to
+        a regular font (instead of bold) to indicate that
+        it is inactive, and the firewall will not be
+        available for compiling or
+        installation. Essentially, it’s a way to "comment
+        out" the firewall without deleting it.
+      </li>
+
+      <li>Host OS Settings: Opens the Advanced Settings
+        dialog for the indicated Host OS.
+      </li>
+
+      <li>Firewall Settings: Opens the Advanced Settings
+        dialog for the platform/firewall software.
+      </li>
+    </ul>
+  </p>
+
+  <h2>Host OS Settings Dialog</h2>
+
+  <p>
+    For explanations of the various controls, click the
+    Help button in the dialog.
+  </p>
+
+  <img src="edit_firewall_hostos_options.png"/>
+
+
+  <h2>Firewall Settings Dialog</h2>
+
+  <p>
+    For explanations of the various controls, click the
+    Help button in the dialog.
+  </p>
+
+  <img src="edit_firewall_firewall_settings.png"/>
+
+  <h2>Interface Object</h2>
+
+  <img src="interface-1.png"/>
+
+  <p>
+    Interface objects belong to firewall or host
+    objects. Interface objects cannot exist alone.  The
+    dialog for the interface object that belongs to the
+    firewall or host provides controls for the parameters
+    described here.
+  </p>
+
+  <p>
+    <ul>
+      <li>Name: The name of the interface object in
+        Firewall Builder must match exactly the name of
+        the interface of the firewall machine it
+        represents. This will be something like "eth0",
+        "eth1", "en0", "br0", and so on.
+      </li>
+
+      <li>Label: On most OS’s this field is not used and
+        serves the purpose of a descriptive
+        label. Firewall Builder GUI uses a label, if it
+        is not blank, to show interfaces in the
+        tree. One of the suggested uses for this field is
+        to mark interfaces to reflect the network
+        topology (’outside’, ’inside’) or the purpose
+        (’web frontend’ or ’backup subnet’). The label
+        is mandatory for Cisco PIX though, where it must
+        reflect the network topology.
+      </li>
+
+      <li>Management interface: When firewall has
+        several network interfaces, one of them can be
+        marked as the ’management interface’. The
+        management interface is used for all
+        communication between Firewall Builder and the
+        firewall. For example, built-in policy installer
+        uses address of the management interface to
+        connect to the firewall via ssh when it copies
+        generated script or configuration
+        file to it.
+      </li>
+
+      <li>External interface (insecure): Marks an
+        interface that connects to the Internet.
+      </li>
+
+      <li>Unprotected interface: Marks interface to
+        which Firewall Builder should not assign any
+        access lists or firewall rules. Unprotected
+        interfaces are recognized by policy compilers
+        for Cisco IOS access lists and PF. Compiler for
+        IOS ACL just skips unprotected interfaces and
+        does not assign any ACL to them when it choses
+        which interface to associate given ACL
+        with. Compiler for PF generates "set skip
+        on &lt;interface_name&gt;" clause for unprotected
+          interfaces.
+      </li>
+
+      <li>Regular Interface: Use this option if the
+        interface has an IP address assigned to it
+        manually (static IP address).
+      </li>
+
+      <li>Address is assigned dynamically: Use this
+        option if the interface has a dynamic address
+        (obtained by means of DHCP or PPP or another
+        protocol). In this case an address is unknown at
+        the moment when Firewall Builder generates the
+        Firewall policy. Some firewalls allow for using
+        the interface name in the policy instead of its
+        IP address; the firewall engine then picks its
+        address either when the policy is activated or
+        even at run-time. Some other firewalls support
+        special syntax for rules that are supposed to
+        match packets headed to or from the firewall
+        machine. Examples of these two cases are OpenBSD
+        PF and Netfilter. PF rules can be constructed
+        using interface names; PF automatically uses the
+        current interface address when it loads rules
+        into the memory. Netfilter supports special
+        "chains" called "INPUT" and "OUPUT" that are
+        guaranteed to inspect only packets headed for
+        the firewall machine ("INPUT") or originated on
+        it ("OUTPUT"). Both methods allow Firewall
+        Builder to build correct firewall policy rules
+        that affect the interface with a dynamic IP
+        address, however the interface must be marked as
+        such for the policy compiler to use proper
+        technique depending on the target firewall
+        platform. In cases where the rule has to use
+        actual IP address of the interface (example:
+        anti-spoofing rules), compiler emulates this
+        feature by adding shell script fragment to
+        determine the address at the time when firewall
+        script is executed and then uses the address in
+        rules. Such emulation is only possible on
+        platforms where firewall configuration is in the
+        form of the shell script, most notably this is
+        iptables script on Linux.
+      </li>
+
+      <li>Unnumbered interface: Use this option if the
+        interface can never have an IP address, such as
+        the Ethernet interface used to run PPPoE
+        communication on some ADSL connections, or
+        tunnel endpoint interface. Although unnumbered
+        interface does not have an address, firewall
+        policy rules or access lists can be associated
+        with it.
+      </li>
+
+      <li>Bridge port: This option is used for port of
+        bridged firewall. Compilers skip bridge ports
+        when they pick interfaces to attach policy and
+        nat rules to. For target firewall platforms that
+        support bridging and require special
+        configuration parameters to match bridged
+        packets, compilers use this attribute to
+        generate proper configuration. For example, in
+        case of iptables compiler uses <b> -m
+          physdev --physdev-in</b> or <b> -m physdev --physdev-out</b>
+        for bridge port interfaces.
+      </li>
+
+      <li>Security level: Depending on the firewall
+        platform, the security level is either
+        External/Internal or a numeric value between 0
+        and 100, with 0 being least secure and 100 being
+        most secure levels. This field in the GUI dialog
+        automatically shows controls appropriate to the
+        current firewall. Not all firewall support the
+        concept of a security zone.
+      </li>
+
+      <li>Network zone: Network zone of this interface,
+        used only with Cisco PIX (ASA). Network zone
+        drop-down list shows all network objects and
+        groups of addresses and networks present in the
+        tree.  Choose one of them to tell the compiler
+        which networks and blocks of addresses can be
+        reached through this interface. Usually the
+        external interface (the one which connects your
+        firewall to the Internet) has the Network Zone
+        set to Any. It is also recommended that you
+        create a group of objects to represent Network
+        Zones for all other interfaces on the firewall.
+        The compiler uses this information to decide
+        which interface each ACL rule should be
+        associated with based on the addresses used in
+        the destination of the rule.
+      </li>
+      </ul>
+    </p>
+
+  <p>
+    We will take a look at other object types in the
+    next article.
+  </p>
+  
+</body>
+</html>
+
