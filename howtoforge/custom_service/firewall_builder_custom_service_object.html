@@ -226,7 +226,7 @@
 
                 <p>
                   Here are the iptables commands generated for these two
-                  rules:
+                  rules (code copied from the custom service object is in red):
                 </p>
 
                 <p class="command">
@@ -234,14 +234,15 @@
 # Rule 0 (global) <br>
 #  <br>
 $IPTABLES -N In_RULE_0 <br>
-$IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 \ <br>
-      -m recent --rcheck --seconds 60 --hitcount 2  -j In_RULE_0  <br>
+$IPTABLES -A INPUT  -i + -p tcp -m tcp \<br>
+ <font color="red"> --dport 22 -m recent --rcheck --seconds 60 --hitcount 2</font>  -j In_RULE_0  <br>
 $IPTABLES -A In_RULE_0   -j LOG  --log-level info --log-prefix "RULE 0 -- DENY " <br>
 $IPTABLES -A In_RULE_0  -j DROP  <br>
 #  <br>
 # Rule 1 (global) <br>
 #  <br>
-$IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \ <br>
+$IPTABLES -A INPUT  -i + -p tcp -m tcp \ <br>
+ <font color="red"> --dport 22 -m recent --set</font> \ <br>
       -m state --state NEW  -j ACCEPT  <br>
 #  <br>
  <br>
@@ -290,7 +291,8 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \ <br>
                   opens dialog with its parameters (if any). Custom
                   Action has one parameter, it is a free style string
                   where you enter the code you want to appear in
-                  generated command:
+                  generated command. The following screenshot shows
+                  both the rule and the editor panel:
                 </p>
 
                 <img src="custom_service_rule_2.png"/>
@@ -306,10 +308,10 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \ <br>
 # Rule 0 (global) <br>
 #  <br>
 $IPTABLES -N In_RULE_0 <br>
-$IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 \ <br>
-      -m recent --rcheck --seconds 60 --hitcount 2  -j In_RULE_0  <br>
+$IPTABLES -A INPUT  -i + -p tcp -m tcp \ <br>
+ <font color="red"> --dport 22 -m recent --rcheck --seconds 60 --hitcount 2</font>  -j In_RULE_0  <br>
 $IPTABLES -A In_RULE_0   -j LOG  --log-level info --log-prefix "RULE 0 -- CUSTOM " <br>
-$IPTABLES -A In_RULE_0 -j TARPIT <br>
+ $IPTABLES -A In_RULE_0 <font color="red">-j TARPIT</font> <br>
 #  <br>
 # Rule 1 (global) <br>
 #  <br>
@@ -323,7 +325,20 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \ <br>
                   Now the first rule ends up sending packet to the
                   "TARPIT" target rather than "DROP" which is what we wanted.
                 </p>
-
+                
+                <p>
+                  Custom service object and custom action implement
+                  mechanism used to generate target firewall
+                  configurations that use unique and rare features not
+                  covered by generalized core fwbuilder firewall
+                  model. This is the way to generate iptables commands
+                  using numerous iptables modules that perform unusual
+                  operations not available in other firewall
+                  platforms. This method can also be used to generate
+                  configuration using new modules and features before
+                  fwbuilder catches up and implements support for them
+                  in its core feature set.
+                </p>
 
 	      </div>
 
