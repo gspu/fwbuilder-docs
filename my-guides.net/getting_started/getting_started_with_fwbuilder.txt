@@ -1,7 +1,7 @@
 Getting Started with Firewall Builder
 
-   [icon_128x128.png] Author: vadim@fwbuilder.org 
-                      http://www.fwbuilder.org    
+   Author: vadim@fwbuilder.org 
+   http://www.fwbuilder.org    
 
    This guide presents an introduction to Firewall Builder. Firewall Builder
    (also known as fwbuilder) is a GUI firewall configuration and management
