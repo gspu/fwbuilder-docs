@@ -35,7 +35,7 @@
   <h3>Introduction</h3>
 
   <p>
-    Eveyone knows about netfilter/iptables, a powerful firewall
+    Everyone knows about netfilter/iptables, a powerful firewall
     framework and command line tool that is part of every Linux
     distribution. Unfortunately, managing security policy with it
     remains non-trivial task for several reasons. Partially this is
@@ -52,7 +52,7 @@
     ipfilter, ipfw, Cisco PIX and IOS present similar challenges. Even
     experienced administrators who spend a lot of time writing
     firewall policies or access lists for these make mistakes
-    sometimes. Unortunately, such mistakes often cause outages and end
+    sometimes. Unfortunately, such mistakes often cause outages and end
     up rather costly. Automatic configuration generation reduces
     probability of human error caused by a typo or misunderstanding of
     the syntax or internal structure of the target firewall platform.
@@ -126,7 +126,7 @@
   <p>
     The program starts and opens main window and greeting dialog. The
     dialog provides links to the project web site where you can find
-    more tutorials, FAQ, Firewall Builder CookBoook and other
+    more tutorials, FAQ, Firewall Builder Cookbook and other
     documentation, as well as bug tracking system and links to user
     forums and mailing list. Clicking on the link in the dialog opens
     corresponding web page in your web browser. This works the same on
@@ -158,7 +158,7 @@
   <p>
     There are two ways new firewall can be created: you can use one of
     the preconfigured template firewall objects or create it from
-    scratch. This tutotiral demonstrates the first method (using
+    scratch. This tutorial demonstrates the first method (using
     template object). To do this, check checkbox "Use preconfigured
     template firewall objects". Template can be taken from the library
     of template objects that comes with Firewall Builder package or
@@ -231,8 +231,8 @@
   </p>
 
   <p>
-    Objects in the tree are orginized in libraries, you can switch
-    between libraries usinf drop-down menu above the tree. Firewall
+    Objects in the tree are organized in libraries, you can switch
+    between libraries using drop-down menu above the tree. Firewall
     Builder comes with a collection of address, network, service and
     time interval objects in the library called "Standard". Lets take
     a look at them. Notice that the background color of the panel that
@@ -350,7 +350,7 @@
         reﬂect the network topology.</li>
 
       <li>"Management interface": Sometimes the host has several network
-        interfaces in which case one of them can be marked as the ’manaagement
+        interfaces in which case one of them can be marked as the ’management
         interface’. The management interface is used for all communication
         between Firewall Builder and the host.</li>
 
@@ -380,7 +380,7 @@
         Cisco PIX (ASA)</li>
 
       <li>"Network zone": network zone of this interface, used only with
-        Cisco PIX (ASA). Network zone drop-down list shows all network obejcts
+        Cisco PIX (ASA). Network zone drop-down list shows all network objects
         and groups of addresses and networks present in the tree. Choose one
         of them to tell the compiler which networks and blocks of addresses
         can be reached through this interface. Compiler uses this information
@@ -483,7 +483,7 @@
   
   <p>
     Now hit "Replace all" button. Pop-up dialog should appear and
-    report how many replacemens the program had to make in all rules
+    report how many replacements the program had to make in all rules
     of the firewall. Note that the replacement is done not only in the
     policy rules, but in NAT rules as well.
   </p>
@@ -513,8 +513,8 @@
   <img src="pict_240.png">
 
   <p>
-    Online help explains all attributes and paramaters located in each
-    tab of the firewall settings dialog. I enourage you to explore it
+    Online help explains all attributes and parameters located in each
+    tab of the firewall settings dialog. I encourage you to explore it
     as many parameters are important and affect generated iptables
     script in different ways.
   </p>
@@ -623,7 +623,7 @@
       <li>
         Policy can be either IPv4, or IPv4 or combined IPv4 and
         IPv6. In the latter case you can use a mix of IPv4 and IPv6
-        addess objects in the same policy (in different rules) and
+        address objects in the same policy (in different rules) and
         Firewall Builder will automatically figure out which one is
         which and will sort them out.
       </li>
@@ -714,7 +714,7 @@
   </pre>
 
   <p>
-    Here is how generated script looks liie. This is just a fragment
+    Here is how generated script looks like. This is just a fragment
     from the middle to show some generated iptables commands. 
   </p>
 

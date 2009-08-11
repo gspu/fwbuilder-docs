@@ -15,7 +15,7 @@ Getting Started with Firewall Builder
 
   Introduction
 
-   Eveyone knows about netfilter/iptables, a powerful firewall framework and
+   Everyone knows about netfilter/iptables, a powerful firewall framework and
    command line tool that is part of every Linux distribution. Unfortunately,
    managing security policy with it remains non-trivial task for several
    reasons. Partially this is because of the complex syntax of the command
@@ -28,10 +28,11 @@ Getting Started with Firewall Builder
    Source and commercial firewall platforms, such as OpenBSD PF, ipfilter,
    ipfw, Cisco PIX and IOS present similar challenges. Even experienced
    administrators who spend a lot of time writing firewall policies or access
-   lists for these make mistakes sometimes. Unortunately, such mistakes often
-   cause outages and end up rather costly. Automatic configuration generation
-   reduces probability of human error caused by a typo or misunderstanding of
-   the syntax or internal structure of the target firewall platform.
+   lists for these make mistakes sometimes. Unfortunately, such mistakes
+   often cause outages and end up rather costly. Automatic configuration
+   generation reduces probability of human error caused by a typo or
+   misunderstanding of the syntax or internal structure of the target
+   firewall platform.
 
    What is needed is a tool that could let administrator define security
    policy on a higher level of abstraction and hide internal structure of the
@@ -78,7 +79,7 @@ Getting Started with Firewall Builder
 
    The program starts and opens main window and greeting dialog. The dialog
    provides links to the project web site where you can find more tutorials,
-   FAQ, Firewall Builder CookBoook and other documentation, as well as bug
+   FAQ, Firewall Builder Cookbook and other documentation, as well as bug
    tracking system and links to user forums and mailing list. Clicking on the
    link in the dialog opens corresponding web page in your web browser. This
    works the same on all supported OS: Linux, Windows and Mac OS X. You can
@@ -102,7 +103,7 @@ Getting Started with Firewall Builder
 
    There are two ways new firewall can be created: you can use one of the
    preconfigured template firewall objects or create it from scratch. This
-   tutotiral demonstrates the first method (using template object). To do
+   tutorial demonstrates the first method (using template object). To do
    this, check checkbox "Use preconfigured template firewall objects".
    Template can be taken from the library of template objects that comes with
    Firewall Builder package or from a file provided by the user. The latter
@@ -155,8 +156,8 @@ Getting Started with Firewall Builder
    standard with the program. You can use these preconfigured objects to
    build policy and NAT rules for your firewall.
 
-   Objects in the tree are orginized in libraries, you can switch between
-   libraries usinf drop-down menu above the tree. Firewall Builder comes with
+   Objects in the tree are organized in libraries, you can switch between
+   libraries using drop-down menu above the tree. Firewall Builder comes with
    a collection of address, network, service and time interval objects in the
    library called "Standard". Lets take a look at them. Notice that the
    background color of the panel that shows objects tree depends on the
@@ -242,7 +243,7 @@ Getting Started with Firewall Builder
        subnet'). The label is mandatory for Cisco PIX though, where it must
        reflect the network topology.
      * "Management interface": Sometimes the host has several network
-       interfaces in which case one of them can be marked as the 'manaagement
+       interfaces in which case one of them can be marked as the 'management
        interface'. The management interface is used for all communication
        between Firewall Builder and the host.
      * "External interface (insecure)": marks an interface that connects to
@@ -264,7 +265,7 @@ Getting Started with Firewall Builder
      * "Security level": security level of this interface, used only with
        Cisco PIX (ASA)
      * "Network zone": network zone of this interface, used only with Cisco
-       PIX (ASA). Network zone drop-down list shows all network obejcts and
+       PIX (ASA). Network zone drop-down list shows all network objects and
        groups of addresses and networks present in the tree. Choose one of
        them to tell the compiler which networks and blocks of addresses can
        be reached through this interface. Compiler uses this information to
@@ -341,7 +342,7 @@ Getting Started with Firewall Builder
    [pict_220.png]
 
    Now hit "Replace all" button. Pop-up dialog should appear and report how
-   many replacemens the program had to make in all rules of the firewall.
+   many replacements the program had to make in all rules of the firewall.
    Note that the replacement is done not only in the policy rules, but in NAT
    rules as well.
 
@@ -361,8 +362,8 @@ Getting Started with Firewall Builder
 
    [pict_240.png]
 
-   Online help explains all attributes and paramaters located in each tab of
-   the firewall settings dialog. I enourage you to explore it as many
+   Online help explains all attributes and parameters located in each tab of
+   the firewall settings dialog. I encourage you to explore it as many
    parameters are important and affect generated iptables script in different
    ways.
 
@@ -431,7 +432,7 @@ Getting Started with Firewall Builder
    if you double click on it in the tree.
 
      * Policy can be either IPv4, or IPv4 or combined IPv4 and IPv6. In the
-       latter case you can use a mix of IPv4 and IPv6 addess objects in the
+       latter case you can use a mix of IPv4 and IPv6 address objects in the
        same policy (in different rules) and Firewall Builder will
        automatically figure out which one is which and will sort them out.
      * Policy can translate to only mangle table, or a combination of filter
@@ -489,7 +490,7 @@ Getting Started with Firewall Builder
  -rw-r--r-- 1 vadim vadim 24696 2009-02-16 16:41 test2.fwb
   
 
-   Here is how generated script looks liie. This is just a fragment from the
+   Here is how generated script looks like. This is just a fragment from the
    middle to show some generated iptables commands.
 
  # ================ IPv4
