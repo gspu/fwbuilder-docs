@@ -41,7 +41,10 @@
   from commercial firewalls. Administrator has to understand internal
   structure and logic of the given firewall system in order to be able
   to design and maintain its configuration with required level of
-  confidence and reliability.
+  confidence and reliability. Many firewall appliances based on
+  iptables or pf offer web-based GUI interface that helps configure
+  these, but still closely reflects the structure and ideas of the the
+  underlying configuration language.
 </p>
 
 
@@ -52,25 +55,25 @@
   not only CLI syntax and multitude of options, but also complexity of
   the internal logic of the firewall that administrator has to
   understand. For example, with iptables administrator must understand
-  very clearly the concept of chains and their relationship with the
-  source and destination address of the packet and direction in which
-  packet crosses the firewall. The concept of chains is very powerful,
-  it makes iptables configuration flexible, enables grouping of the
-  rules, passing control from one group to another and so
-  on. Administrator who understands these concepts can design policy
-  that can deliver good performance and is relatively easy to
-  maintain. But those who haven't mastered the concept get lost in the
-  maize of tables and chains rather quickly. No wonder that the
-  poster-sized printout of the iptables packet flow diagram is usually
-  pinned to the wall in the office of any iptables firewall
-  administrator.
+  very clearly concepts of tables and chains and their relationship
+  with the source and destination address of the packet, direction in
+  which packet crosses the firewall and the operation that needs to be
+  performed. The concept of chains is very powerful, it makes iptables
+  configuration flexible, enables grouping of the rules, passing
+  control from one group to another and so on. Administrator who
+  understands these concepts can design policy that can deliver good
+  performance and is relatively easy to maintain. But those who
+  haven't mastered the concept get lost in the maize of tables and
+  chains rather quickly. No wonder the poster-sized printout of the
+  iptables packet flow diagram is usually pinned to the wall in the
+  office of any iptables firewall administrator.
 </p>
 
 <p>
-  Unfortunately, these great features are purely internal details
-  of the iptables implementation and the knowledge gained in this area
-  does not help administrator manage, say, Cisco PIX or OpenBSD PF
-  firewall.
+  Unfortunately, these great features are purely internal details of
+  the iptables implementation and the knowledge gained in this area
+  does not help administrator manage, say, Cisco ASA (PIX) or OpenBSD
+  PF firewall.
 </p>
 
 <p>
@@ -99,15 +102,15 @@
 
 <p>
   Every firewall platform has its own set of complexities. Knowledge
-  of these separates experts in the field from those who only need to
-  create minimal configurations or manage configurations written by
-  others. Unfortunately, as organization grows and adds more services
-  and network segments, sooner or later firewall configuration reaches
-  the level where expert in the given platform becomes a necessity. As
-  the result, network or security administrator spends a lot of time
-  training themselves in the low level details of the firewall
-  configuration instead of focusing on the security policy and its
-  proper implementation.
+  of these details separates experts in the field from those who only
+  need to create minimal configurations or manage configurations
+  written by others. Unfortunately, as organization grows and adds
+  more services and network segments, sooner or later firewall
+  configuration reaches the level where expert in the given platform
+  becomes a necessity. As the result, network or security
+  administrator spends a lot of time training themselves in the low
+  level details of the firewall configuration instead of focusing on
+  the security policy and its proper implementation.
 </p>
 
 
@@ -140,35 +143,25 @@
   activated on many different components on the network, including
   servers, routers and dedicated firewalls. This means security policy
   becomes distributed and its implementation requires coordinated
-  changes in configurations of all these components. Network or
-  security administrators (or both) have to make changes to iptables
-  configurations on Linux servers, perhaps PF configurations on BSD
-  servers, Cisco routers access lists and configurations of dedicated
-  firewalls. Doing each one of these right separately is not a trivial
-  task in itself, but making changes across the whole system is a
-  challenge. Now administrators need to modify configurations of
-  several devices in entirely different languages, making sure all of
-  them are coordinated and implement the same rules dictated by the
-  overarching security policy.
+  changes in configurations of all these components.
 </p>
 
-
 <p>
-  Target firewalls sometimes differ in very fundamental principles of
-  operation. This can make managing policies in the multi-vendor
-  environment challenging because administrators have to break their
-  habits while switching from one platform to another and back. This
-  inevitably leads to human errors in the configurations they write
-  and as a consequence, network outages. For example, many firewall
-  platforms process rules top-down, with the first matching rule
-  making decision and stopping processing. These are iptables, PIX,
-  Cisco routers access lists.  However PF by default does it in the
-  opposite way, with each matching rule not stopping processing and
-  the last one making final decision. There is no "right" way of doing
-  this and both approaches will do the right thing, provided
-  configuration is written with understanding of how the firewall
-  works. However, if an administrator is used to some method, it is
-  hard to switch back and forth while managing different
+  Unfortunately, target firewalls sometimes differ in the very
+  fundamental principles of operation. This can make managing policies
+  in the multi-vendor environment challenging because administrators
+  have to break their habits while switching from one platform to
+  another and back. This inevitably leads to human errors in the
+  configurations they write and as a consequence, network outages. For
+  example, many firewall platforms process rules top-down, with the
+  first matching rule making decision and stopping processing. These
+  are iptables, PIX, Cisco routers access lists.  However PF by
+  default does it in the opposite way, with each matching rule not
+  stopping processing and the last one making final decision. There is
+  no "right" way of doing this and both approaches will do the right
+  thing, provided configuration is written with understanding of how
+  the firewall works. However, if an administrator is used to some
+  method, it is hard to switch back and forth while managing different
   firewalls. Another example of similar discrepancy is the order in
   which access control and nat rules work on a packet. Iptables, PF
   and many others do nat first, so that access control rules "see"
@@ -178,6 +171,23 @@
   in a different manner than, say, iptables rules for Linux or pf
   rules for OpenBSD firewalls.
 </p>
+
+<p>
+  Network or security administrators in the large organization or a
+  data center often have to make coordinated changes to iptables
+  configurations on Linux servers, perhaps PF configurations on BSD
+  servers, Cisco routers access lists and configurations of dedicated
+  firewalls. Doing each one of these separately is not a trivial task
+  in itself, but making changes across the whole system is a
+  challenge. Now administrators need to modify configurations of
+  several devices in entirely different languages, making sure all of
+  them are coordinated and implement the same rules dictated by the
+  overarching security policy. Complexity of each configuration
+  change, multiplied by the number of devices and differences in their
+  configuration languages leads to significant increase in the risk of
+  error that can lead to downtime.
+</p>
+
 
 
 <h2>Solution</h2>
