@@ -7141,19 +7141,23 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         on internal network. The simplest rule that translates destination
         address of incoming packets looks like the one on <xref linkend="nat-policy" />, Rule 2.</para>
 
-        <para>Basically this rule says "if destination address of the packet
-        matches the external address of the firewall, replace it with the
-        address defined by the object "server on dmz". If we had used the "firewall" object as the original destination, instead of the interface, then all external interfaces would be mapped to the DMZ server. <xref
-        linkend="dst-nat" /> (A) illustrates this. The red, green and blue
-        packets come to the firewall from different subnets and all have
-        destination addresses that match address of the corresponding
-        interface. If it were not for our NAT rule, packets like that would
-        have been accepted by the firewall and sent to a process expecting
-        them. However NAT rule comes to play and changes destination address
-        of all three packets to 10.3.14.100 (the address of server). Packets
-        with this address do not match any address belonging to the firewall
-        and therefore get sent out of the firewall according to the rules of
-        routing.</para>
+        <para>Basically this rule says "if destination address of the
+        packet matches the external address of the firewall, replace
+        it with the address defined by the object <emphasis>server on
+        dmz</emphasis>". If we had used the "firewall" object as the
+        original destination, instead of the interface, then all
+        external interfaces would be mapped to the DMZ
+        server. <xref linkend="dst-nat" /> (A) illustrates this. The
+        red, green and blue packets come to the firewall from
+        different subnets and all have destination addresses that
+        match address of the corresponding interface. If it were not
+        for our NAT rule, packets like that would have been accepted
+        by the firewall and sent to a process expecting them. However
+        NAT rule comes to play and changes destination address of all
+        three packets to 10.3.14.100 (the address of server). Packets
+        with this address do not match any address belonging to the
+        firewall and therefore get sent out of the firewall according
+        to the rules of routing.</para>
 
         <para>A rule that does not specify
         any service for the translation translates addresses in
