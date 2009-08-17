@@ -91,8 +91,6 @@
   </p>
 
 
-  <img src="scrn2-2.png"/>
-
   <p>
     One of the fundamental principles on which Firewall Builder is
     based is that it does not aim at just supporting one particular
@@ -179,21 +177,25 @@
     matches <em>Time</em>, then the firewall will take action,
     specified in the <em>Action</em> field of the matching rule. Of
     course, a field with "Any" or "All" in it will match all packets
-    for that field.</p>
+    for that field.
+  </p>
+
+
+  <img src="scrn2-2.png"/>
+
 
   <p>
-    For example, in <xref linkend="global-policy1" />, rule #0 says
-    that all fragmented packets should be dropped (the rule uses
-    service object <em>ip_fragments</em> and the
-    <em>Deny</em> action). Rule #1 says that connections from
-    the internal network (object <em>internal-net</em>) to the
-    firewall itself (object <em>firewall-pix</em>) using
-    protocols <em>telnet</em> and <em>snmp</em> are
-    allowed (action <em>Accept</em>). The "Catch all" rule #8
-    denies all packets that have not been matched by any rule above
-    it. The access policy in <xref linkend="global-policy1" /> is built to
-    allow only specific services and deny everything else, which is a good
-    practice.</p>
+    For example in the screenshot above, rule #0 says that all
+    fragmented packets should be dropped (the rule uses service
+    object <em>ip_fragments</em> and the
+    <em>Deny</em> action). Rule #1 says that connections from the
+    internal network (object <em>internal-net</em>) to the firewall
+    itself (object <em>firewall-pix</em>) using
+    protocols <em>telnet</em> and <em>snmp</em> are allowed
+    (action <em>Accept</em>). The "Catch all" rule #8 denies all
+    packets that have not been matched by any rule above it. The
+    access policy in the screenshot is built to allow only specific
+    services and deny everything else, which is a good practice.</p>
 
   <p>
     Access Policy rules represent access control because they define
@@ -301,9 +303,8 @@
     "inbound" on firewall's internal interface and "outbound" on its
     external interface. Likewise, packets that come from the Internet
     are "inbound" on the firewall's external interface and "outbound"
-    on its internal interface. <xref linkend="f-directions" />
-    illustrates directions for packets entering or exiting the
-    firewall interface.
+    on its internal interface. The following diagram illustrates
+    directions for packets entering or exiting the firewall interface:
   </p>
 
   <img src="directions.png" />
