@@ -94,6 +94,33 @@
   <img src="scrn2-2.png"/>
 
   <p>
+    One of the fundamental principles on which Firewall Builder is
+    based is that it does not aim at just supporting one particular
+    firewall platform. Since the goal is to be able to generate
+    configuration for many different firewalls from the same
+    representation in the GUI, Firewall Builder works with an abstract
+    high level model of a firewall which incorporates features found
+    in all target firewalls. In other words, Firewall Builder is not
+    another iptables GUI, or PF GUI, or PIX GUI. Firewall Builder
+    works with a firewall that is neither one of these, and yet at the
+    same time it is all of them combined. It has useful features found
+    in all of the target platforms. If a feature that it implements is
+    not supported in some target firewall, it tries to emulate it (if
+    possible) to make it look like that target does support it.
+  </p>
+
+  <p>
+    That said, policy rules described in this article will look very
+    familiar to anyone who ever worked with Firewall-1, PIX, iptables,
+    PF and so on. These rules are just generalization of the ideas and
+    features found in all of those firewalls. The GUI helps
+    administrator create and manage rule sets and policy compilers
+    then translate them into configuration language of the chosen
+    target firewall platform.
+  </p>
+
+
+  <p>
     The main Firewall access policy consists of a set of
     rules. Packets are analysed by comparing their parameters with
     rules in the policy, one after the other, from top to bottom.  The
