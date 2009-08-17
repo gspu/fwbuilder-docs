@@ -96,42 +96,50 @@
   <p>
     One of the fundamental principles on which Firewall Builder is
     based is that it does not aim at just supporting one particular
-    firewall platform. Since the goal is to be able to generate
+    firewall platform. The goal is to be able to generate
     configuration for many different firewalls from the same
-    representation in the GUI, Firewall Builder works with an abstract
-    high level model of a firewall which incorporates features found
-    in all target firewalls. In other words, Firewall Builder is not
-    another iptables GUI, or PF GUI, or PIX GUI. Firewall Builder
-    works with a firewall that is neither one of these, and yet at the
-    same time it is all of them combined. It has useful features found
-    in all of the target platforms. If a feature that it implements is
-    not supported in some target firewall, it tries to emulate it (if
-    possible) to make it look like that target does support it.
+    representation in the GUI. To do this, Firewall Builder works with
+    an abstract high level model of a firewall which incorporates
+    features found in all target firewalls. In other words, Firewall
+    Builder is not another iptables GUI, or PF GUI, or PIX
+    GUI. Firewall Builder works with a firewall that is neither one of
+    these, and yet at the same time it is all of them combined. It has
+    useful features found in all of the target platforms. If a feature
+    that it implements is not supported in some target firewall, it
+    tries to emulate it (if possible) to make it look like the target
+    really supports it.
   </p>
 
   <p>
-    Target firewalls sometimes differ in the very fundamental
-    principles of operation. This can make managing policies in the
-    multi-vendor environment challenging. For example, most of the
+    Target firewalls sometimes differ in very fundamental principles
+    of operation. This can make managing policies in the multi-vendor
+    environment challenging because administrators have to break their
+    habits while switching from one platform to another and back. This
+    inevitably leads to human errors in the configurations they write
+    and as a consequence, network outages. For example, most of the
     platforms supported by fwbuilder process rules top-down, with the
     first matching rule making decision and stopping
     processing. However PF by default does it in the opposite way,
     with each matching rule not stopping processing and the last one
-    making final decision. There is no "right" way of doing this, but
-    if an administrator is used to some method, it is hard to switch
-    back and forth while managing different firewalls. Another example
-    of similar discrepancy is the order in which access control and
-    nat rules work on a packet. Most firewalls supported by fwbuilder
-    do nat first, so that access control rules "see" translated
-    addresses in the packet. PIX, on the other hand, does it in the
-    opposite order, with access control rules working on the packet
-    before nat.
+    making final decision. There is no "right" way of doing this and
+    both approaches will do the right thing, provided configuration is
+    written with understanding of how the firewall works. However, if
+    an administrator is used to some method, it is hard to switch back
+    and forth while managing different firewalls. Another example of
+    similar discrepancy is the order in which access control and nat
+    rules work on a packet. Most firewalls supported by fwbuilder do
+    nat first, so that access control rules "see" translated addresses
+    in the packet. PIX, on the other hand, does it in the opposite
+    order, with access control rules working on the packet before nat.
+    This means access lists on PIX should be written in a different
+    manner than, say, iptables rules for Linux or pf rules for OpenBSD
+    firewalls.
   </p>
 
   <p>
     Since Firewall Builder works with an abstract firewall, all these
     discrepancies go away and administrator always sees consistent
-    model regardless of the choosen target firewall platform. For PIX,
+    model regardless of the chosen target firewall platform. For PIX,
     the program can make it look like NAT is done after access control
     rules (but this is optional). For PF, the program always uses PF
     option that switches it to the non-default "first match" behavior.
