@@ -181,21 +181,23 @@
   </p>
 
 
-  <img src="scrn2-2.png"/>
-
+  <img src="policy_example_1.png"/>
 
   <p>
-    For example in the screenshot above, rule #0 says that all
-    fragmented packets should be dropped (the rule uses service
-    object <em>ip_fragments</em> and the
-    <em>Deny</em> action). Rule #1 says that connections from the
-    internal network (object <em>internal-net</em>) to the firewall
-    itself (object <em>firewall-pix</em>) using
-    protocols <em>telnet</em> and <em>snmp</em> are allowed
-    (action <em>Accept</em>). The "Catch all" rule #8 denies all
+    For example in the screenshot above, rule #0 is "anti-spoofing",
+    it denies all packets coming throuh the outside interface with
+    source address claiming to be that of the firewall itself or
+    internal network it protects. This rule utilizes interface and
+    direction matching in addition to the source address. 
+
+    rule #2 says that connection from the internal network
+    (object <em>net-192.168.1.0</em>) to the firewall itself
+    (object <em>firewall</em>) using <em>ssh</em> is allowed
+    (action <em>Accept</em>). The "Catch all" rule #6 denies all
     packets that have not been matched by any rule above it. The
     access policy in the screenshot is built to allow only specific
-    services and deny everything else, which is a good practice.</p>
+    services and deny everything else, which is a good practice.
+  </p>
 
   <p>
     Access Policy rules represent access control because they define
