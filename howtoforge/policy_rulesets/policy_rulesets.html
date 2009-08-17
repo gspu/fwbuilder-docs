@@ -1,0 +1,606 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Firewall Builder: Using Built-in Policy Importer | HowtoForge - Linux Howtos and Tutorials</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 12px;
+        text-decoration: underline;
+}
+-->
+</style>
+</head>
+
+<body>
+  
+
+  <h1>Firewall Access Policy Rulesets</h1>
+
+
+  <table border=0>
+    <tr>
+      <td><img src="http://www.fwbuilder.org/images/icon_128x128.png" height="128" width="128" /></td>
+      <td>Author: vadim@fwbuilder.org<br/>
+        <a href="http://www.fwbuilder.org">http://www.fwbuilder.org</a>
+      </td>
+    </tr>
+  </table>
+
+
+  <p>
+    This article continues the series of articles on Firewall Builder,
+    a graphical firewall configuration and management tool that
+    supports many Open Source firewall platforms as well as Cisco IOS
+    access lists and Cisco ASA (PIX).  Firewall Builder was introduced
+    on this site earlier with articles
+    <a href="http://www.howtoforge.com/getting-started-with-firewall-builder">
+    Getting Started With Firewall Builder</a>, 
+
+    <a href="http://www.howtoforge.com/using-built-in-revision-control-in-firewall-builder">Using
+    Built-In Revision Control In Firewall Builder</a>, 
+
+    <a href="http://www.howtoforge.com/using-built-in-policy-installer-in-firewall-builder">
+      Using Built-in Policy Installer in Firewall Builder</a>, 
+
+    <a href="http://www.howtoforge.com/using-firewall-object-in-firewall-builder">
+      Using Firewall Object In Firewall Builder</a>.
+  </p>
+
+  <p>
+    This article explains key principles of the policy (access
+    control) rule sets in Firewall Builder. I plan to demonstrate
+    examples of policy rules and how they translate into iptables, pf
+    and Cisco IOS and PIX configurations in one of the next article of
+    the series.
+  </p>
+
+  <p>
+    More information on Firewall Builder, pre-built binary packages
+    and source code, documentation can be found on
+    <a href="http://www.fwbuilder.org/">
+    the project web site at http://www.fwbuilder.org/</a>. Numerous
+    <a href="http://www.fwbuilder.org/docs/users_guide/book1.htm">
+    examples of iptables, pf and other rules are available
+    in <b>Firewall Builder Users Guide</b></a>.
+    Follow <a href="http://blog.fwbuilder.org/"> Firewall Builder
+    Project Blog</a> for announcements and articles on all aspects of
+    using Firewall Builder.
+  </p>
+
+
+  <img src="scrn2-2.png"/>
+
+  <p>
+    The main Firewall access policy consists of a set of
+    rules. Packets are analysed by comparing their parameters with
+    rules in the policy, one after the other, from top to bottom.  The
+    first rule that matches the packet has it's <em>Action</em>
+    applied to the packet.</p>
+
+  <p>
+    Each rule includes a standard set of parameters, or <em>Rule
+    Elements</em>, that are used for comparison with the
+    packet. Rule elements include "Source", "Destination", "Service",
+    "Interface", "Direction", and "Time". For example, if a packet
+    entering the firewall has a source address that matches the object
+    in the <em>Source</em> field of the rule, its destination address
+    matches the object in <em>Destination</em>, its protocol and port
+    numbers match the object in <em>Service</em>, the interface it
+    passes through matches the <em>Interface</em> field, its direction
+    matches that specified in <em>Direction</em>, and it's time
+    matches <em>Time</em>, then the firewall will take action,
+    specified in the <em>Action</em> field of the matching rule. Of
+    course, a field with "Any" or "All" in it will match all packets
+    for that field.</p>
+
+  <p>
+    For example, in <xref linkend="global-policy1" />, rule #0 says
+    that all fragmented packets should be dropped (the rule uses
+    service object <em>ip_fragments</em> and the
+    <em>Deny</em> action). Rule #1 says that connections from
+    the internal network (object <em>internal-net</em>) to the
+    firewall itself (object <em>firewall-pix</em>) using
+    protocols <em>telnet</em> and <em>snmp</em> are
+    allowed (action <em>Accept</em>). The "Catch all" rule #8
+    denies all packets that have not been matched by any rule above
+    it. The access policy in <xref linkend="global-policy1" /> is built to
+    allow only specific services and deny everything else, which is a good
+    practice.</p>
+
+  <p>
+    Access Policy rules represent access control because they define
+    which packets will be permitted and which will be denied. Access
+    Policy rules operate on the packet's source and destination
+    addresses and protocol parameters. These rules work regardless of
+    the interface and direction of the packet, unless a particular
+    interface or direction, or set of interfaces, is assigned to the
+    rule.</p>
+
+  <h2>Source and Destination</h2>
+
+  <p>
+    The <em>Source</em> and <em>Destination</em> fields allow
+    you to match a packet to a rule based on source and
+    destination IP address.
+  </p>
+
+  <p>
+    Either field may be set to "any", which means that the packet will
+    match on that field regardless. Or, you can set a field to a
+    particular IPv4 address (Address object), IPv6 address (Address
+    IPv6 object), the IP address or addresses associated with all
+    interfaces of a host (Host object), a range of IP addresses
+    (Address Range object), all the addresses in a particular subnet
+    (Network object), an address configured as DNS "A" record for a
+    given host name (DNS Name object), or a group of any of the
+    above. You can place more than one object in either field,
+    too. These object types have been covered in the articles
+    published on this site 
+    <a href="http://www.howtoforge.com/using-ip-and-mac-address-objects-in-firewall-builder">here</a>,
+    <a href="http://www.howtoforge.com/using-network-address-range-objects-and-groups-of-addresses-objects-in-firewall-builder">here</a>,
+    <a href="http://www.howtoforge.com/using-address-table-object-in-firewall-builder">here</a>,
+    <a href="http://www.howtoforge.com/using-dns-name-object-in-firewall-builder">here</a>,
+    <a href="http://www.howtoforge.com/using-the-host-object-in-firewall-builder">here</a> and
+    <a href="http://www.howtoforge.com/using-the-interface-object-in-firewall-builder">here</a>.
+    You can find detailed description of all object types and their
+    usage in policy and NAT rules in the <strong>Firewall Builder
+    Users Guide</strong> which you can download from our web site
+    at <a href="http://www.fwbuilder.org">http://www.fwbuilder.org</a>. We
+    have
+    both <a href="http://www.fwbuilder.org/docs/UsersGuide3.pdf">PDF</a>
+    and <a href="http://www.fwbuilder.org/docs/users_guide/book1.htm">HTML</a>
+    versions.
+  </p>
+
+  <p>
+    In addition, you can "negate" an object by dragging it to a field,
+    then selecting <em>Negate</em> from the right-click menu. In the
+    following screenshot, the RFC 1918 address range object has been
+    negated, so the rule matches any destination address that
+    is <em>not</em> part of private address space.
+  </p>
+
+  <i>Destination matches any IP that is <em>not</em> an RFC 1918
+  address</i>
+  <img src="policy_rule_negate_rfc1918.png" />
+
+  <h2>Service</h2>
+
+  <p>
+    The <em>Service</em> field is also used to match packets to
+    rules. Use Service Objects to specify what services should be
+    matched. The service object types have been discussed in the series of articles on this site:
+    <a href="http://www.howtoforge.com/using-ip-service-object-in-firewall-builder">IP Service</a>,
+    <a href="http://www.howtoforge.com/using-tcp-and-udp-service-object-in-firewall-builder">TCP or UDP Service</a>,
+    <a href="http://www.howtoforge.com/using-icmp-and-icmp6-service-objects-in-firewall-builder">ICMP or ICMP6 Service</a> and
+    <a href="http://www.howtoforge.com/using-custom-service-object-in-firewall-builder">Custom Service</a>.
+
+  </p>
+
+  <p>
+    As in the Source and Destination fields, you can "negate" an
+    object by dragging it to a field, then selecting <em>Negate</em>
+    from the right-click menu.
+  </p>
+  
+  <h2>Interface</h2>
+
+  <p>
+    By default, all rules created in Firewall Builder affect all
+    firewall interfaces, regardless of the target platform. However,
+    sometimes you want to assign a rule only to a particular interface
+    or set of interfaces. To populate this field, drag an interface
+    object from the firewall object the rule set belongs to.
+  </p>
+
+  <p>
+    If you also want to assign a "direction" to the rule, use the next
+    field.
+  </p>
+
+  <p>
+    This field applies to <em>firewall</em> interfaces only, not host
+    interfaces.
+  </p>
+
+
+  <h2>Direction</h2>
+
+  <p>
+    The "direction" for a rule is defined with respect to the firewall
+    machine, not to the network behind it. For example, packets that
+    leave the internal network through the firewall are considered
+    "inbound" on firewall's internal interface and "outbound" on its
+    external interface. Likewise, packets that come from the Internet
+    are "inbound" on the firewall's external interface and "outbound"
+    on its internal interface. <xref linkend="f-directions" />
+    illustrates directions for packets entering or exiting the
+    firewall interface.
+  </p>
+
+  <img src="directions.png" />
+
+
+
+  <h2>Action</h2>
+
+  <p>
+    The Action is the action taken on a rule that matches on the
+    Source, Destination, Service, Interface, Direction, and Time
+    fields.
+  </p>
+
+  <p>
+    The policy rule action can be one of the options listed below. Not
+    all firewalls support all options, but the GUI will only allow
+    options that are valid for the indicated firewall target. In
+    addition, the same action may have a different name on different
+    platforms.
+  </p>
+
+  <p>
+    Some actions can have parameters. To set a parameter for an
+    action, first select the action, then double-click on the
+    icon. (You can also right-click and select <em>parameters</em>.)
+    The parameters dialog appears:
+  </p>
+
+  <img src="action-parameters-reject.png" />
+
+  <ul>
+    <li>
+      <p>Accept:</p>
+
+      <p>
+        Allows the packet through the firewall. No
+        subsequent rules are applied. This action has no
+        parameters.
+      </p>
+    </li>
+
+    <li>
+      <p>Deny:</p>
+
+      <p>
+        Silently drops the packet. No subsequent rules are
+        applied. This action has no parameters.
+      </p>
+    </li>
+
+    <li>
+      <p>Reject:</p>
+
+      <p>
+        Packet is dropped and an appropriate message is sent
+        back to the sender. No subsequent rules are
+        applied. This action has a parameter that lets you
+        specify how the firewall reacts to the packet. Parameter
+        options include TCP RST and a number of ICMP
+        messages.
+      </p>
+    </li>
+
+    <li>
+      <p>Accounting/Count:</p>
+
+      <p>
+        Counts packets that match the rule, but makes no
+	decision on the packet. Even if the packet matches, the
+	inspection process continues with other rules below
+	it. This action has a parameter for specifying the rule
+	name for accounting.
+      </p>
+    </li>
+
+    <li>
+      <p>Queue/Pipe:</p>
+
+      <p>
+        Passes the packet to a user space process for
+        inspection. It is translated into QUEUE for iptables and
+        "divert" for ipfw. This action is only supported by
+        compilers for iptables and ipfw. This action has no
+        parameters.
+      </p>
+    </li>
+
+    <li>
+      <p>Tag/Mark:</p>
+
+      <p>
+        Associates a tag with the packet. The tag can later be
+        inspected using service object TagService. This action
+        is translated into MARK target with
+        corresponding --set-mark parameter and optionally
+        additional an rule with a CONNMARK --save-mark target
+        for iptables. If the option that activates CONNMARK
+        target is used, the compiler also adds a rule at the
+        very top of the policy to restore the mark. Rules are
+        placed in INPUT,OUTPUT and FORWARD chain of the "mangle"
+        table, which ensures that DNAT happens before rules in
+        the mangle table see the packet. The PREROUTING chain in
+        the mangle table is executed before the PREROUTING chain
+        in the NAT table, so placing tagging rules in the
+        PREROUTING chain would make them fire before DNAT. The
+        POSTROUTING chain of the mangle table, as well as its
+        FORWARD and OUTPUT chains, work before corresponding
+        chains of the NAT table. In all cases the goal is to
+        make sure DNAT rules process the packet before, and SNAT
+        rules process it after, filtering and tagging
+        rules.
+      </p>
+
+      <p>
+        For PF this action is translated into tag. Supported
+	only by compilers for iptables and PF. This action's
+	parameter lets you specify which TagService service
+	object to apply to the matching packet.
+      </p>
+    </li>
+
+    <li>
+      <p>Classify:</p>
+
+      <p>
+        Allows the firewall to define a QoS class for the packet
+        that matches the rule. It is translated into CLASSIFY
+        for iptables, with parameter --set-class. For PF it is
+        translated into "queue". The compiler for ipfw can use
+        "pipe", "queue" or "divert" depending on how the action
+        is configured in the GUI. This action is only supported
+        by compilers for iptables, PF and ipfw. This action has
+        a parameter that lets you specify a Classify
+        string.
+      </p>
+    </li>
+
+    <li>
+      <p>Custom:</p>
+
+      <p>
+        Allows you to specify an arbitrary piece of code to be
+        used in place of an action. Supported by compilers for
+        iptables, ipf and ipfw. A parameter lets you specify the
+        string.
+      </p>
+    </li>
+
+    <li>
+      <p>Branch/Chain/Anchor:</p>
+
+      <p>
+        Used to branch to a different rule set. It works on
+        target platforms that provide suitable syntax and allow
+        control to return to the higher level rule set if the
+        branch cannot make a final decision about the
+        packet. For iptables this action is translated into a
+        user-defined chain. The name of the chain is the name of
+        the branch chosen by the administrator. For PF this
+        action is translated into an anchor with the same name
+        as the branch rule set. This action is only supported by
+        compilers for iptables and PF. A parameter lets you
+        specify which other rule set to branch into.
+      </p>
+    </li>
+
+    <li>
+      <p>Routing:</p>
+
+      <p>
+        Makes the firewall route matching packets through a
+        specified interface or a gateway. This action is
+        translated into ROUTE target for iptables and route
+        option for PF and ipfilter. Compilers for PF and
+        ipfilter support "fastroute", "route-to", "reply-to" and
+        "dup-to" options. Parameters let you change the inbound
+        and outbound interface and route the packet through a
+        specified gateway. You can also tell the firewall to
+        continue inspecting the packet after a match, and you
+        can tell the firewall to make these changes to
+        a <em>copy</em> of the packet while allowing the
+        original packet to proceed normally.
+      </p>
+    </li>
+
+    <li>
+      <p>Continue:</p>
+
+      <p>
+        Essentially an empty action. Can be used when you want
+        to assign an option, such as logging, to a match but
+        take no other action in that rule. This action has no
+        parameters.
+      </p>
+    </li>
+  </ul>
+
+  <img srcfileref="actions.png" />
+
+  <h2>Time</h2>
+
+  <p>
+    The <em>Time</em> field allows you to restrict a match to a
+    particular time interval. Currently only iptables target firewall
+    platform supports time restrictions as part of the policy rules.
+  </p>
+
+
+  <h2>Options</h2>
+
+  <p>
+    The <em>Options</em> field allows you to specify certain options
+    with regard to packets that match the rule. Almost all platforms
+    have options related to logging, and some platforms have more
+    extensive options. Click <em>Help</em> in the Options dialog for
+    platform-specific help.
+  </p>
+
+  <p>
+    If the options of a particular rule have been changed from their
+    default, an icon <img src="option-icon.png"/> appears in the
+    Option field for that rule. Keep in mind that not all rules have
+    the same default options. For example, by default a <em>Deny</em>
+    rule is stateless, because there is no reason to keep state on a
+    connection that won't be allowed and there will be no reply or
+    other packets to match the state. So, if you turn on state for a
+    Deny rule, you'll see the icon.
+  </p>
+
+  <p>
+    An <em>Accept</em> rule has the opposite behaviour. By default,
+    state is kept for <em>Accept</em> rules, so no icon appears when
+    state is on. If you turn state keeping off, in other words, if you
+    change the behaviour for that rule to make it different from the
+    default, then the icon is displayed.
+  </p>
+
+
+  <h2>Working with multiple policy rule sets</h2>
+
+  <p>
+    Every Firewall object created in Firewall Builder has a single
+    Policy rule set to start. For many firewalls, this is all you
+    need. However, with Firewall Builder, you can create multiple
+    access policy rule sets, and, if you platform supports it, branch
+    between them. This can help you modularize your policy.
+  </p>
+
+  <p>
+    Here we have Firewall object "fw" with three policy rule sets,
+    Policy, Policy_2 and mgmt:
+  </p>
+
+  <img src="policy-rulesets1.png" />
+
+  <p>
+    To create an additional rule set, right-click on the Firewall
+    object in the tree and select <em>Add Policy Rule Set</em>.
+  </p>
+
+  <p>
+    All Policy rule sets have configurable parameters. To see a Policy
+    rule set's parameters, double-click on it in the tree to open it
+    in the editor.
+  </p>
+
+  <img src="policy-rulesets2.png" />
+
+  <p>
+    This dialog has a <em>Name</em>, <em>IPv4/IPv6 setting</em> and
+    a <em>Top ruleset</em> checkbox. For <strong>iptables
+    firewalls</strong>, there is also a pair of radio buttons that
+    indicates whether the policy should affect <em>filter+mangle</em>
+    tables or just <em>mangle</em> table.
+  </p>
+
+  <p>
+    The <strong>IPv4/IPv6</strong> pull-down menu lets you select
+    whether the rule set should be compiled for <strong>IPv4</strong>
+    only (ignoring any IPv6-related rules), <strong>IPv6</strong> only
+    (ignoring any IPv4-related rules), or for both <strong>IPv4 and
+    IPv6</strong>. If both IPv4 and IPv6 are selected, the compiler
+    "does the right thing" and puts each rule into the correct part of
+    the configuration.
+  </p>
+
+  <p>
+    Only one rule set can be tagged as the <strong>"top" rule
+    set</strong>. The "top" rule set is the primary rule set that is
+    assigned to the device. Only one rule set of each type, can be
+    marked as "top". The "top" rule set is always used (if it has any
+    rules). Other rule sets are only used if they are the targets of
+    branching. (In Firewall Builder 3.X, only the Policy rule set can
+    branch.)
+  </p>
+
+  <ul>
+    <li>
+      <p><b>iptables</b>: rules defined in the "top" rule set will go
+        into built-in chains <b>INPUT,OUTPUT,FORWARD</b>. Rules defined in
+        rule sets where this checkbox is not checked go into a
+        user-defined chain with the same name as the rule set.</p>
+    </li>
+
+    <li>
+      <p><b>PF</b>: rules defined in the rule set with <em>top rule
+          set</em> checkbox turned off go into an anchor with the name
+          of the rule set.</p>
+    </li>
+
+    <li>
+      <p>
+        <b>Cisco IOS access lists</b>: if the <em>top rule set</em>
+        checkbox is turned off, the rules go into access list with the
+        name prefixed with the name of the rule set; this access list
+        will not be assigned to interfaces via "ip access-group"
+        command. Rulesets with checkbox <em>top rule set</em> checked
+        generate ACLs with names consisting of the shortened name of
+        interface and direction abbreviation ("in" or "out"). Only
+        these lists are assigned to interfaces.
+      </p>
+    </li>
+  </ul>
+
+  <p>
+    You can fork processing between rule sets with the
+    "Branch/Chain/Anchor" (depending on platform) Action in a rule. In
+    the next screenshot, the rule causes packets headed for the
+    "fw-mgmt" host to be passed to the "mgmt" rule set.
+  </p>
+
+  <img src="policy-rulesets3.png" />
+
+  <p>A packet directed to the "mgmt" rule set leaves the main rule set
+    and begins matching against rules in the "mgmt" rule set. If it
+    matches in the "mgmt" rule set, then that action is taken. If it
+    does not match in the "mgmt" rule set, then processing is passed
+    back to the calling rule set.
+  </p>
+
+
+  <p>
+    References:
+    <ul>
+      <li><a href="http://www.fwbuilder.org/">Project web site: http://www.fwbuilder.org/</a></li>
+
+      <li><a href="http://www.fwbuilder.org/docs/UsersGuide3.pdf">Firewall Builder Users Guide (PDF)</a></li>
+      <li><a href="http://www.fwbuilder.org/docs/users_guide/book1.htm">Firewall Builder Users Guide (HTML)</a></li>
+
+      <li><a href="http://www.fwbuilder.org/guides/firewall_builder_cookbook.html">
+          <b>Examples of iptables, pf and other rules: Firewall
+            Builder Cookbook</b></a></li>
+
+      <li><a href="http://blog.fwbuilder.org/">Project announcements
+          and status: Firewall Builder Project Blog</a></li>
+
+
+    </ul>
+  </p>
+
+
+
+</body>
+</html>
