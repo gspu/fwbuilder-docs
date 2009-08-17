@@ -5994,7 +5994,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
       <figure float="1" id="global-policy1">
         <title>Access Policy</title>
-            <graphic scale="60" fileref="scrn2-2.png" />
+            <graphic scale="60" fileref="policy_example_1.png" />
       </figure>
 
       <para>The main Firewall access policy consists of a set of
@@ -6021,18 +6021,22 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       the matching rule. Of course, a field with "Any" or "All" in it
       will match all packets for that field.</para>
 
-      <para>For example, in <xref linkend="global-policy1" />, rule #0 says
-      that all fragmented packets should be dropped (the rule uses service
-      object <emphasis>ip_fragments</emphasis> and the
-      <emphasis>Deny</emphasis> action). Rule #1 says that connections from
-      the internal network (object <emphasis>internal-net</emphasis>) to the
-      firewall itself (object <emphasis>firewall-pix</emphasis>) using
-      protocols <emphasis>telnet</emphasis> and <emphasis>snmp</emphasis> are
-      allowed (action <emphasis>Accept</emphasis>). The "Catch all" rule #8
-      denies all packets that have not been matched by any rule above
-      it. The access policy in <xref linkend="global-policy1" /> is built to
-      allow only specific services and deny everything else, which is a good
-      practice.</para>
+      <para>
+        For example, in <xref linkend="global-policy1" />, rule #0 is
+        "anti-spoofing", it denies all packets coming throuh the
+        outside interface with source address claiming to be that of
+        the firewall itself or internal network it protects. This rule
+        utilizes interface and direction matching in addition to the
+        source address. Rule #2 says that connection from the internal
+        network (object <emphasis>net-192.168.1.0</emphasis>) to the
+        firewall itself (object <emphasis>firewall</emphasis>)
+        using <emphasis>ssh</emphasis> is allowed
+        (action <emphasis>Accept</emphasis>). The "Catch all" rule #6
+        denies all packets that have not been matched by any rule
+        above it. The access policy in <xref linkend="global-policy1"
+        /> is built to allow only specific services and deny
+        everything else, which is a good practice.
+      </para>
 
       <para>Access Policy rules represent access control because they
       define which packets will be permitted and which will be
