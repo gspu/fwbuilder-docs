@@ -110,6 +110,37 @@
   </p>
 
   <p>
+    Target firewalls sometimes differ in the very fundamental
+    principles of operation. This can make managing policies in the
+    multi-vendor environment challenging. For example, most of the
+    platforms supported by fwbuilder process rules top-down, with the
+    first matching rule making decision and stopping
+    processing. However PF by default does it in the opposite way,
+    with each matching rule not stopping processing and the last one
+    making final decision. There is no "right" way of doing this, but
+    if an administrator is used to some method, it is hard to switch
+    back and forth while managing different firewalls. Another example
+    of similar discrepancy is the order in which access control and
+    nat rules work on a packet. Most firewalls supported by fwbuilder
+    do nat first, so that access control rules "see" translated
+    addresses in the packet. PIX, on the other hand, does it in the
+    opposite order, with access control rules working on the packet
+    before nat.
+  </p>
+
+  <p>
+    Since Firewall Builder works with an abstract firewall, all these
+    discrepancies go away and administrator always sees consistent
+    model regardless of the choosen target firewall platform. For PIX,
+    the program can make it look like NAT is done after access control
+    rules (but this is optional). For PF, the program always uses PF
+    option that switches it to the non-default "first match" behavior.
+    In the end, the program takes care of translating the firewall
+    model it presents to the user into configuration of the actual
+    target firewall.
+  </p>
+
+  <p>
     That said, policy rules described in this article will look very
     familiar to anyone who ever worked with Firewall-1, PIX, iptables,
     PF and so on. These rules are just generalization of the ideas and
@@ -118,7 +149,6 @@
     then translate them into configuration language of the chosen
     target firewall platform.
   </p>
-
 
   <p>
     The main Firewall access policy consists of a set of
