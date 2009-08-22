@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE FWObjectDatabase SYSTEM "fwbuilder.dtd">
-<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="10" lastModified="1250966003" id="root">
-  <Library id="sysid99" name="Deleted Objects" comment="" ro="False"/>
+<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="10" lastModified="1250966223" id="root">
+  <Library id="sysid99" name="Deleted Objects" comment="" ro="False">
+    <Interface id="id6336X26754" bridgeport="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="Serial1/0" comment="" ro="False">
+      <IPv4 id="id6338X26754" name="pix:Serial1/0:ip" comment="Configure IP address and netmask for this interface" ro="False" address="172.16.1.1" netmask="255.255.255.252"/>
+    </Interface>
+  </Library>
   <Library id="id1791X26754" color="#d2ffd0" name="User" comment="" ro="False">
     <ObjectGroup id="id1792X26754" name="Objects" comment="" ro="False">
       <ObjectGroup id="id1793X26754" name="Addresses" comment="" ro="False"/>
@@ -11,7 +15,7 @@
       <ObjectGroup id="id1797X26754" name="Hosts" comment="" ro="False">
         <Host id="id7723X26754" name="mail server" comment="This object represents a PC with a single network interface" ro="False">
           <Interface id="id7725X26754" bridgeport="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
-            <IPv4 id="id7726X26754" name="mail server:eth0:ip" comment="" ro="False" address="192.168.1.1" netmask="255.255.255.0"/>
+            <IPv4 id="id7726X26754" name="mail server:eth0:ip" comment="" ro="False" address="192.168.1.100" netmask="255.255.255.0"/>
           </Interface>
           <Management address="0.0.0.0">
             <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
@@ -23,7 +27,9 @@
           </HostOptions>
         </Host>
       </ObjectGroup>
-      <ObjectGroup id="id1798X26754" name="Networks" comment="" ro="False"/>
+      <ObjectGroup id="id1798X26754" name="Networks" comment="" ro="False">
+        <Network id="id10644X26754" name="New Network" comment="" ro="False" address="0.0.0.0" netmask="255.255.255.255"/>
+      </ObjectGroup>
       <ObjectGroup id="id1799X26754" name="Address Ranges" comment="" ro="False"/>
     </ObjectGroup>
     <ServiceGroup id="id1800X26754" name="Services" comment="" ro="False">
@@ -37,7 +43,7 @@
       <ServiceGroup id="id1808X26754" name="TagServices" comment="" ro="False"/>
     </ServiceGroup>
     <ObjectGroup id="id1809X26754" name="Firewalls" comment="" ro="False">
-      <Firewall id="id2985X26754" host_OS="linux24" lastCompiled="0" lastInstalled="0" lastModified="1250965873" platform="iptables" version="" name="linux" comment="This firewall has two interfaces. Eth0 faces outside and has a dynamic address; eth1 faces inside.&#10;Policy includes basic rules to permit unrestricted outbound access and anti-spoofing rules. Access to the firewall is permitted only from internal network and only using SSH. The firewall uses one of the machines on internal network for DNS. Internal network is configured with address 192.168.1.0/255.255.255.0" ro="False">
+      <Firewall id="id2985X26754" host_OS="linux24" lastCompiled="1250966054" lastInstalled="0" lastModified="1250965873" platform="iptables" version="" name="linux" comment="This firewall has two interfaces. Eth0 faces outside and has a dynamic address; eth1 faces inside.&#10;Policy includes basic rules to permit unrestricted outbound access and anti-spoofing rules. Access to the firewall is permitted only from internal network and only using SSH. The firewall uses one of the machines on internal network for DNS. Internal network is configured with address 192.168.1.0/255.255.255.0" ro="False">
         <NAT id="id3077X26754" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id3078X26754" disabled="False" position="0" comment="">
             <OSrc neg="False">
@@ -252,7 +258,7 @@
           <Option name="verify_interfaces">true</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id3258X26754" host_OS="openbsd" inactive="False" lastCompiled="0" lastInstalled="0" lastModified="1250965861" platform="pf" version="" name="pf" comment="This firewall has two interfaces. Eth0 faces outside and has a dynamic address; eth1 faces inside.&#10;Policy includes basic rules to permit unrestricted outbound access and anti-spoofing rules. Access to the firewall is permitted only from internal network and only using SSH. The firewall uses one of the machines on internal network for DNS. Internal network is configured with address 192.168.1.0/255.255.255.0" ro="False">
+      <Firewall id="id3258X26754" host_OS="openbsd" inactive="False" lastCompiled="1250966054" lastInstalled="0" lastModified="1250965861" platform="pf" version="" name="pf" comment="This firewall has two interfaces. Eth0 faces outside and has a dynamic address; eth1 faces inside.&#10;Policy includes basic rules to permit unrestricted outbound access and anti-spoofing rules. Access to the firewall is permitted only from internal network and only using SSH. The firewall uses one of the machines on internal network for DNS. Internal network is configured with address 192.168.1.0/255.255.255.0" ro="False">
         <NAT id="id3350X26754" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id3351X26754" disabled="False" position="0" comment="">
             <OSrc neg="False">
@@ -468,7 +474,7 @@
           <Option name="verify_interfaces">true</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id4885X26754" host_OS="ios" inactive="False" lastCompiled="0" lastInstalled="0" lastModified="0" platform="iosacl" version="12.x" name="ios" comment="An example of Cisco router" ro="False">
+      <Firewall id="id4885X26754" host_OS="ios" inactive="False" lastCompiled="1250966189" lastInstalled="0" lastModified="1250966187" platform="iosacl" version="12.x" name="ios" comment="An example of Cisco router" ro="False">
         <NAT id="id4941X26754" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True"/>
         <Policy id="id4891X26754" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <PolicyRule id="id4892X26754" disabled="False" log="True" position="0" action="Deny" direction="Inbound" comment="anti-spoofing rule">
@@ -557,14 +563,14 @@
         <Interface id="id4943X26754" bridgeport="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="Ethernet1/0" comment="" ro="False">
           <IPv4 id="id4945X26754" name="ios:Ethernet1/0:ip" comment="" ro="False" address="192.0.2.1" netmask="255.255.255.0"/>
         </Interface>
-        <Interface id="id4946X26754" bridgeport="False" dyn="False" label="" security_level="50" unnum="False" unprotected="False" name="Ethernet1/1" comment="" ro="False">
-          <IPv4 id="id4948X26754" name="ios:Ethernet1/1:ip" comment="Configure IP address and netmask for this interface" ro="False" address="0.0.0.0" netmask="0.0.0.0"/>
+        <Interface id="id4946X26754" bridgeport="False" dyn="False" label="" mgmt="False" security_level="100" unnum="False" unprotected="False" name="Ethernet1/1" comment="" ro="False">
+          <IPv4 id="id4948X26754" name="ios:Ethernet1/1:ip" comment="Configure IP address and netmask for this interface" ro="False" address="192.168.2.1" netmask="255.255.255.0"/>
         </Interface>
         <Interface id="id4949X26754" bridgeport="False" dyn="False" label="" mgmt="True" security_level="100" unnum="False" unprotected="False" name="FastEthernet0/0" comment="" ro="False">
           <IPv4 id="id4951X26754" name="ios:FastEthernet0/0:ip" comment="" ro="False" address="192.168.1.1" netmask="255.255.255.0"/>
         </Interface>
         <Interface id="id4952X26754" bridgeport="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="Serial1/0" comment="" ro="False">
-          <IPv4 id="id4954X26754" name="ios:Serial1/0:ip" comment="Configure IP address and netmask for this interface" ro="False" address="0.0.0.0" netmask="0.0.0.0"/>
+          <IPv4 id="id4954X26754" name="ios:Serial1/0:ip" comment="Configure IP address and netmask for this interface" ro="False" address="172.16.1.1" netmask="255.255.255.252"/>
         </Interface>
         <Management address="192.168.1.1">
           <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
@@ -642,7 +648,7 @@
           <Option name="verify_interfaces">true</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id6269X26754" host_OS="pix_os" inactive="False" lastCompiled="0" lastInstalled="0" lastModified="1250965971" platform="pix" version="7.0" name="pix" comment="An example of Cisco router" ro="False">
+      <Firewall id="id6269X26754" host_OS="pix_os" inactive="False" lastCompiled="0" lastInstalled="0" lastModified="1250966292" platform="pix" version="7.0" name="pix" comment="An example of Cisco router" ro="False">
         <NAT id="id6325X26754" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True"/>
         <Policy id="id6275X26754" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <PolicyRule id="id6276X26754" disabled="False" log="True" position="0" action="Deny" direction="Inbound" comment="anti-spoofing rule">
@@ -728,17 +734,14 @@
           </PolicyRule>
         </Policy>
         <Routing id="id6326X26754" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True"/>
-        <Interface id="id6327X26754" bridgeport="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="Ethernet1/0" comment="" ro="False">
+        <Interface id="id6327X26754" bridgeport="False" dyn="False" label="" mgmt="False" network_zone="sysid0" security_level="0" unnum="False" unprotected="False" name="Ethernet1/0" comment="" ro="False">
           <IPv4 id="id6329X26754" name="pix:Ethernet1/0:ip" comment="" ro="False" address="192.0.2.1" netmask="255.255.255.0"/>
         </Interface>
-        <Interface id="id6330X26754" bridgeport="False" dyn="False" label="" security_level="50" unnum="False" unprotected="False" name="Ethernet1/1" comment="" ro="False">
-          <IPv4 id="id6332X26754" name="pix:Ethernet1/1:ip" comment="Configure IP address and netmask for this interface" ro="False" address="0.0.0.0" netmask="0.0.0.0"/>
+        <Interface id="id6330X26754" bridgeport="False" dyn="False" label="" mgmt="False" network_zone="id3DC75CE7-2" security_level="50" unnum="False" unprotected="False" name="Ethernet1/1" comment="" ro="False">
+          <IPv4 id="id6332X26754" name="pix:Ethernet1/1:ip" comment="DMZ" ro="False" address="192.168.2.1" netmask="255.255.255.0"/>
         </Interface>
-        <Interface id="id6333X26754" bridgeport="False" dyn="False" label="" mgmt="True" security_level="100" unnum="False" unprotected="False" name="FastEthernet0/0" comment="" ro="False">
+        <Interface id="id6333X26754" bridgeport="False" dyn="False" label="" mgmt="True" network_zone="id3DC75CE7-1" security_level="100" unnum="False" unprotected="False" name="FastEthernet0/0" comment="" ro="False">
           <IPv4 id="id6335X26754" name="pix:FastEthernet0/0:ip" comment="" ro="False" address="192.168.1.1" netmask="255.255.255.0"/>
-        </Interface>
-        <Interface id="id6336X26754" bridgeport="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="Serial1/0" comment="" ro="False">
-          <IPv4 id="id6338X26754" name="pix:Serial1/0:ip" comment="Configure IP address and netmask for this interface" ro="False" address="0.0.0.0" netmask="0.0.0.0"/>
         </Interface>
         <Management address="192.168.1.1">
           <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
@@ -823,6 +826,7 @@
     <ObjectGroup id="stdid01" name="Objects" comment="" ro="False">
       <ObjectGroup id="stdid03" name="Networks" comment="" ro="False">
         <Network id="id3DC75CE7-1" name="net-192.168.1.0" comment="192.168.1.0/24 - Address often used for home and small office networks.&#10;" ro="False" address="192.168.1.0" netmask="255.255.255.0"/>
+        <Network id="id3DC75CE7-2" name="net-192.168.2.0" comment="192.168.2.0/24 - Address often used for home and small office networks.&#10;" ro="False" address="192.168.2.0" netmask="255.255.255.0"/>
       </ObjectGroup>
     </ObjectGroup>
     <AnyNetwork id="sysid0" name="Any" comment="Any Network" ro="False" address="0.0.0.0" netmask="0.0.0.0"/>
