@@ -10757,38 +10757,67 @@ SSH session terminated, exit status: 1
     <sect2>
       <title>Interchangeable and non-interchangeable objects</title>
 
-      <para>In the previous example we put object "hostA" into the Destination
-      field of the policy rule #0 because our goal was to permit protocols
-      SMTP and FTP to that host and not to any other one. This actually
-      reflects general principle Firewall Builder is based on: put the object
-      you want to control access for in the Source or Destination field of the
-      policy rule. Two different objects with the same address may or may not
-      be interchangeable, depending on their type and other parameters. One of
-      the frequent mistakes is to create Host object with IP address of the
-      firewall, then use it in the policy and expect Firewall Builder to build
-      policy controlling access to the firewall. Unfortunately it does not
-      always work that way. If you wish to control access to or from the
-      firewall machine, then put Firewall object into the policy rule.</para>
+      <!-- TODO: Need examples for this section -->
 
-      <para>Another example of two objects which may on the first glance
-      represent the same thing, but in fact are not interchangeable, is IP
-      service object with protocol number set to 1 and ICMP service object
-      with type and code set to "any". Both objects might represent the same
-      type of service, namely "Any ICMP message". IP protocol 1 is in fact
-      ICMP, so one would expect the behaviour of the firewall to be the same
-      regardless of what type of service object is used. However, target
-      firewall software typically uses special syntax for indication of
-      different protocols, so using proper syntax for ICMP protocol turns
-      certain features on, like for example session state tracking. Using just
-      IP with protocol number 1 will most likely not turn these features on
-      and therefore will lead to unexpected results.</para>
+      <para>In the previous example we put object "mail server" into
+      the Destination field of the policy rule #0 because our goal was
+      to permit protocol SMTP to that host and not to any other
+      one. This actually reflects general principle Firewall Builder
+      is based on: put the object you want to control access for in
+      the Source or Destination field of the policy rule. Two
+      different objects with the same address may or may not be
+      interchangeable, depending on their type and other
+      parameters. One of the frequent mistakes is to create Host
+      object with IP address of the firewall, then use it in the
+      policy and expect Firewall Builder to build policy controlling
+      access to the firewall. Unfortunately it does not always work
+      that way. If you wish to control access to or from the firewall
+      machine, then put Firewall object into the policy rule.</para>
 
-      <para>On the other hand, two objects of the same type with different
-      names but the same values of all other parameters are perfectly
-      interchangeable. Using different objects to describe the same object may
-      be confusing, but the final firewall policy will be correct. Firewall
-      Builder leaves design of the objects up to the firewall
-      administrator.</para>
+      <para>Another example of two objects which may on the first
+      glance represent the same thing, but in fact are not
+      interchangeable, is IP service object with protocol number set
+      to 1 and ICMP service object with type and code set to
+      "any". Both objects might represent the same type of service,
+      namely "Any ICMP message". IP protocol 1 is in fact ICMP, so one
+      would expect the behaviour of the firewall to be the same
+      regardless of what type of service object is used. However,
+      target firewall software typically uses special syntax for
+      indication of different protocols, so using proper syntax for
+      ICMP protocol turns certain features on, like for example
+      session state tracking and association of the ICMP packets to
+      known sessions these packets might carry error messages
+      for. Using just IP with protocol number 1 will most likely not
+      turn these features on and therefore will lead to unexpected
+      results.</para>
+
+      <para>Interface object and its ip address are interchangeable in
+      rules, provided the interface has only one address. If interface
+      object has several address child objects, then using the
+      interface object in a rule is equivalent to using all of its
+      addresses in the same place. If interface has only one address,
+      then the result will be the same whether you put interface
+      object or its address in the rule. Also, using firewall object
+      in the rule should yield the same policy script as if you put
+      all its interfaces in the same place instead. This one comes
+      with a caveat though: many firewall platforms offer special
+      syntax for rules that control access to or from the firewall
+      itself and fwbuilder takes advantage of this syntax, so the
+      result may not look exactly the same, but should be equivalent
+      in function. Some platforms, such as iptables, require using
+      different chain to control access to and from
+      firewall. Fwbuilder compares ip addresses used in source and
+      destination of rules to addresses of all interfaces of the
+      firewall and uses proper chains even if the address object in
+      the rule is not the firewall object itself.
+      </para>
+
+      <para>Two objects of the same type with different names but the
+      same values of all other parameters are always
+      interchangeable. Using different objects to describe the same
+      object may be confusing, but the final firewall policy will be
+      correct. Firewall Builder leaves design of the objects up to the
+      firewall administrator.</para>
     </sect2>
 
     <!-- ********************************************************* -->
