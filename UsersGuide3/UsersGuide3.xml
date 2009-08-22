@@ -10590,35 +10590,52 @@ SSH session terminated, exit status: 1
 
   <chapter id="cookbook">
     <title>Firewall Builder Cookbook</title>
-     <para>The solutions to many security and firewall issues aren't always obvious. This chapter provides cookbook-like examples.</para>
 
-<sect1 id="policy">
-    <title>Examples of Access Policy Rules</title>
+    <para>The solutions to many security and firewall issues aren't
+    always obvious. This chapter provides cookbook-like
+    examples.</para>
 
-    <!-- ********************************************************* -->
 
-    <sect2 id="change-ip-address-in-template">
-      <title>How to change IP addresses in the firewall configuration created from a template</title>
+    <sect1 id="change-ip-address-in-template">
 
-      <para>When a firewall object is created from a template, its IP addresses possibly do not match addresses used in your setup. This section demonstrates how these addresses can be changed.</para>
+      <title>How to change IP addresses in the firewall configuration
+      created from a template</title>
 
-      <para>We start with firewall object created in <xref linkend="gettingstarted" />. This object has been created from a three-interface template and the IP address used for the internal network is 192.168.1.0/255.255.255.0. Suppose we need to change it to 172.16.22.0/255.255.255.0. We need to change the IP address of the internal interface of the firewall, as well as the address used in the policy and NAT rules.</para>
+      <para>When a firewall object is created from a template, its IP
+      addresses possibly do not match addresses used in your
+      setup. This section demonstrates how these addresses can be
+      changed.</para>
 
-      <para>To begin, find the IP address of the internal interface of the firewall in the tree and double-click it to open it in the editor.</para>
+      <para>We start with firewall object created in
+      <xref linkend="gettingstarted" />. This object has been created
+      from a three-interface template and the IP address used for the
+      internal network is 192.168.1.0/255.255.255.0. Suppose we need
+      to change it to 172.16.22.0/255.255.255.0. We need to change the
+      IP address of the internal interface of the firewall, as well as
+      the address used in the policy and NAT rules.</para>
+
+      <para>To begin, find the IP address of the internal interface of
+      the firewall in the tree and double-click it to open it in the
+      editor.</para>
 
       <figure id="replace-network-template1">
           <title>New firewall</title>
               <graphic scale="50" fileref="pict_1.png" />
         </figure>
 
-      <para>Edit the IP address (and possibly the netmask if needed), then click <guilabel>"Apply"</guilabel>. This changes the IP address of the interface of the firewall.</para>
+      <para>Edit the IP address (and possibly the netmask if needed),
+      then click <guilabel>"Apply"</guilabel>. This changes the IP
+      address of the interface of the firewall.</para>
 
       <figure id="replace-network-template2">
           <title>Edit the network address</title>
               <graphic scale="60" fileref="pict_10.png" />
         </figure>
 
-      <para>Now we need to change the IP address used in the rules. To do this, we create a new Network object with the correct address and replace object net-192.168.1.0 in all rules with this new network object.</para>
+      <para>Now we need to change the IP address used in the rules. To
+      do this, we create a new Network object with the correct address
+      and replace object net-192.168.1.0 in all rules with this new
+      network object.</para>
 
       <para>Use <guimenu>New Object</guimenu> menu to create Network object.</para>
 
@@ -10627,58 +10644,85 @@ SSH session terminated, exit status: 1
               <graphic scale="70" fileref="pict_20.png" />
         </figure>
 
-      <para>A new Network object is created with default name "New Network" and IP address 0.0.0.0. </para>
+      <para>A new Network object is created with default name "New
+      Network" and IP address 0.0.0.0. </para>
 
       <figure id="replace-network-template4">
           <title>New object</title>
               <graphic scale="60" fileref="pict_30.png" />
         </figure>
 
-      <para>Edit object name and address, then click <guibutton>Apply</guibutton>.</para>
+      <para>Edit object name and address, then
+      click <guibutton>Apply</guibutton>.</para>
 
       <figure id="replace-network-template5">
           <title>Edit name and address</title>
               <graphic scale="60" fileref="pict_40.png" />
         </figure>
 
-      <para>Select <guimenuitem>Object/Find</guimenuitem> to activate the search and replace dialog.</para>
+      <para>Select <guimenuitem>Object/Find</guimenuitem> to activate
+      the search and replace dialog.</para>
 
       <figure id="replace-network-template6">
           <title>Activate Find dialog</title>
               <graphic scale="60" fileref="pict_50.png" />
         </figure>
 
-      <para>Drag and drop the object "net-192.168.1.0" from a policy rule or from its location in the "Standard" library to the left object field in the search and replace dialog. </para>
+      <para>Drag and drop the object "net-192.168.1.0" from a policy
+      rule or from its location in the "Standard" library to the left
+      object field in the search and replace dialog. </para>
 
       <figure id="replace-network-template7">
           <title>Drag original object to the Find field</title>
               <graphic scale="50" fileref="pict_60.png" />
         </figure>
 
-      <para>Locate the new Network object you just created and drag and drop it to the right object field in the search and replace dialog.</para>
+      <para>Locate the new Network object you just created and drag
+      and drop it to the right object field in the search and replace
+      dialog.</para>
 
       <figure id="replace-network-template8">
           <title>Drag new object to the Replace field</title>
               <graphic scale="50" fileref="pict_70.png" />
         </figure>
 
-      <para>Change the scope to <guimenuitem>Policy of all firewalls</guimenuitem> and click <guibutton>Replace all</guibutton>. If you have many firewalls in the tree and you only want to replace in this one, use scope <guimenuitem>policy of the opened firewall</guimenuitem> instead. A pop-up dialog appears telling you how many replacements have been done.</para>
+      <para>Change the scope to <guimenuitem>Policy of all
+      firewalls</guimenuitem> and click <guibutton>Replace
+      all</guibutton>. If you have many firewalls in the tree and you
+      only want to replace in this one, use scope <guimenuitem>policy
+      of the opened firewall</guimenuitem> instead. A pop-up dialog
+      appears telling you how many replacements have been done.</para>
 
       <figure id="replace-network-template9">
           <title>Drag new object to the Replace field</title>
               <graphic scale="80" fileref="pict_80.png" />
         </figure>
 
-      <para>Note how the search and replace function replaced object "net-192.168.1.0" with "internal net" in the NAT rules as well.</para>
-      <para>If the IP address used for DMZ network in this template does not match your configuration, you can change it using the same procedure.
-</para>
+      <para>Note how the search and replace function replaced object
+      "net-192.168.1.0" with "internal net" in the NAT rules as
+      well.</para>
+
+      <para>If the IP address used for DMZ network in this template
+      does not match your configuration, you can change it using the
+      same procedure.
+      </para>
 
       <figure id="replace-network-template10">
           <title>New object used in all rule sets</title>
               <graphic scale="60" fileref="pict_90.png" />
         </figure>
 
-    </sect2>
+    </sect1>
+
+
+
+    <sect1 id="policy">
+
+    <title>Examples of Access Policy Rules</title>
+
+    <!-- ********************************************************* -->
+
+
     <sect2>
       <title>Letting certain protocols through, while blocking everything
       else</title>
