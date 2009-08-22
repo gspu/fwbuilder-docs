@@ -11470,7 +11470,7 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any
         Groups not only make policy rules more readable, another great
         advantage of object groups is that they are reusable. You can
         now have many different rules using this same group object. If
-        you even need to add another host or address to the group, you
+        you ever need to add another host or address to the group, you
         only need to do it once and all rules will automatically pick
         the change after recompile.
       </para>
