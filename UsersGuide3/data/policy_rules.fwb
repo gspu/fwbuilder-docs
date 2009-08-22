@@ -1087,7 +1087,7 @@
           <Option name="verify_interfaces">true</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id6269X26754" host_OS="pix_os" inactive="False" lastCompiled="1250977405" lastInstalled="0" lastModified="1250977435" platform="pix" version="7.0" name="pix" comment="An example of Cisco router" ro="False">
+      <Firewall id="id6269X26754" host_OS="pix_os" inactive="False" lastCompiled="1250977465" lastInstalled="0" lastModified="1250977435" platform="pix" version="7.0" name="pix" comment="An example of Cisco router" ro="False">
         <NAT id="id6325X26754" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True"/>
         <Policy id="id6275X26754" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <PolicyRule id="id22519X27745" disabled="False" group="" log="False" position="0" action="Accept" direction="Both" comment="">
@@ -2212,7 +2212,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id28460X27745" host_OS="pix_os" inactive="False" lastCompiled="0" lastInstalled="0" lastModified="1250977449" platform="pix" version="7.0" name="pix-dynamic" comment="An example of Cisco router" ro="False">
+      <Firewall id="id28460X27745" host_OS="pix_os" inactive="False" lastCompiled="1250977466" lastInstalled="0" lastModified="1250977449" platform="pix" version="7.0" name="pix-dynamic" comment="An example of Cisco router" ro="False">
         <NAT id="id28588X27745" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True"/>
         <Policy id="id28466X27745" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <PolicyRule id="id28467X27745" disabled="False" group="" log="False" position="0" action="Accept" direction="Both" comment="">
