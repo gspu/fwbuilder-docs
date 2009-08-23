@@ -100,10 +100,9 @@
   </p>
 
   <p>
-    To illustrate generated configurations for platforms other
-    than iptables/Linux in this chapter, I am using similarly
-    configured firewall objects with different platform and host
-    OS settings.
+    To illustrate generated configurations for platforms other than
+    iptables/Linux in this article, I am using similarly configured
+    firewall objects with different platform and host OS settings.
   </p>
 
   <img src="policy-examples-fw-linux.png" />
@@ -121,7 +120,7 @@
     private address block, the rules described here are
     insufficient and should be accompanied with corresponding NAT
     (Network Address Translation) rules. We discuss NAT rules in
-    the next chapter.
+    the next article.
   </p>
 
   <img src="policy-1-3.png" />
@@ -130,22 +129,41 @@
     Here are the iptables command generated for this example:
   </p>
 
-  <p class="command">
-# Rule 0 (global)<br>
-# <br>
-$IPTABLES -A INPUT  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT <br>
-$IPTABLES -A OUTPUT  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT <br>
-$IPTABLES -A FORWARD  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT <br>
-# <br>
-# Rule 1 (global)<br>
-# <br>
-$IPTABLES -N RULE_1<br>
-$IPTABLES -A OUTPUT  -j RULE_1 <br>
-$IPTABLES -A INPUT  -j RULE_1 <br>
-$IPTABLES -A FORWARD  -j RULE_1 <br>
-$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "<br>
-$IPTABLES -A RULE_1  -j DROP <br>
-      </p>
+  <pre class="command">
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A OUTPUT  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A FORWARD  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N RULE_1
+$IPTABLES -A OUTPUT  -j RULE_1 
+$IPTABLES -A INPUT  -j RULE_1 
+$IPTABLES -A FORWARD  -j RULE_1 
+$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
+$IPTABLES -A RULE_1  -j DROP 
+      </pre>
+
+  <p>
+    Rules that utilize module <emphasis>state</emphasis> and match
+    states <emphasis>ESTABLISHED,RELATED</emphasis> permit reply
+    packets, such as TCP ACKs, UDP reply packets and ICMP messages
+    associated with known sessions. These rules are automatically
+    added at the beginning of generated iptables script if the
+    option "Accept ESTABLISHED and RELATED packets before the
+    first rule" is turned on in the firewall object "Advanced"
+    settings dialog. If you turn this option off, the rule will
+    not be added automatically and you'll have to add it
+    yourself. You can use Custom Service
+    object <emphasis>ESTABLISHED</emphasis> you can find in
+    the <emphasis>Standard</emphasis> objects library to do this.
+  </p>
 
   <p>
     The first rule was placed in all three
@@ -175,18 +193,98 @@ $IPTABLES -A RULE_1  -j DROP <br>
   </p>
 
   <p>
+    Lets see what gets generated for iptables if option "Assume
+    firewall is part of any" is turned off:
+  </p>
+
+  <pre class="command">
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N RULE_1
+$IPTABLES -A FORWARD  -j RULE_1 
+$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
+$IPTABLES -A RULE_1  -j DROP 
+  </pre>
+
+  <p>
+    Automatically added rules that match packets in states
+    ESTABLISHED,RELATED are not affected by the "Assume firewall is
+    part of any" option and always match in chains INPUT, OUTPUT and
+    FORWARD.
+  </p>
+
+  <p>
+    Since the compiler does not assume firewall matches "any" anymore,
+    the rule with "any" is destination yields iptables command only in
+    the FORWARD chain. This applies both to the rule that permits
+    outgoing connections from internal LAN and to the "Catch all" rule
+    #1. The choice of the setting for this option is up to the policy
+    designer. Some people find it more intuitive to leave it off and
+    add rules to control access to and from the firewall
+    explicitly. Note that default policy for all chains is set to DROP
+    with the following commands at the very top of the generated
+    iptables script:
+  </p>
+
+  <pre class="command">
+$IPTABLES -P OUTPUT  DROP
+$IPTABLES -P INPUT   DROP
+$IPTABLES -P FORWARD DROP
+  </pre>
+
+  <p>
+    This means that if you do not add rules to permit access to the
+    firewall and turn option "Assume firewall is part of any" off,
+    then all generated iptables rules will be in the FORWARD chain and
+    all access to the firewall itself will be blocked by the default
+    policy in the INPUT chain. On the other hand, if the option
+    "Assume firewall is part of any" is on, then the rule permitting
+    access from internal network to "any" gets side effect of
+    permitting access to the firewall as well. It is up to you to
+    decide whether this is a good or bad thing. You can always
+    restrict access to the firewall and control it with a few rules
+    somewhere close to the beginning of the policy regardless of the
+    setting of this option.
+  </p>
+
+  <p>
+    Even if you choose to turn option "Assume firewall is part of any"
+    off and do not add any rules to permit access to the firewall in
+    your policy rule set, you can use another option in the firewall
+    object "advanced" settings dialog for this. The option is called
+    "Always permit ssh access to the firewall from management station"
+    and allows you to enter single ip address or subnet and then
+    automatically adds a rule to the generated script to permit ssh
+    access to the firewall from this address. We demonstrate this
+    feature in one of the following articles.
+  </p>
+
+  <p>
+    <strong>Examples below have been compiled with the option "Assume
+    firewall is part of any" turned on.</strong>
+  </p>
+
+  <p>
     Here is the PF configuration created for the same rules:
   </p>
 
-  <p class="command">
-# Rule  0 (global)<br>
-# <br>
-pass  quick inet  from 192.168.1.0/24  to any keep state <br>
-# <br>
-# Rule  1 (global)<br>
-# <br>
-block  log  quick inet  from any  to any <br>
-  </p>
+  <pre class="command">
+# Rule  0 (global)
+# 
+pass  quick inet  from 192.168.1.0/24  to any keep state 
+# 
+# Rule  1 (global)
+# 
+block  log  quick inet  from any  to any 
+  </pre>
       
   <p>
     Firewall Builder always generates PF configuration using
@@ -203,26 +301,26 @@ block  log  quick inet  from any  to any <br>
     combination of rules:
   </p>
 
-  <p class="command">
-! Rule  0 (global)<br>
-! <br>
-access-list inside_acl_in  remark 0 (global)<br>
-access-list inside_acl_in permit ip 192.168.1.0 255.255.255.0 any <br>
-! <br>
-! Rule  1 (global)<br>
-! <br>
-access-list outside_acl_in  remark 1 (global)<br>
-access-list outside_acl_in deny   ip any any log 4 interval 300 <br>
-access-list dmz50_acl_in  remark 1 (global)<br>
-access-list dmz50_acl_in deny   ip any any log 4 interval 300 <br>
-access-list inside_acl_in  remark 1 (global)<br>
-access-list inside_acl_in deny   ip any any log 4 interval 300 <br>
-<br>
-<br>
-access-group dmz50_acl_in in interface dmz50<br>
-access-group inside_acl_in in interface inside<br>
-access-group outside_acl_in in interface outside<br>
-  </p>
+  <pre class="command">
+! Rule  0 (global)
+! 
+access-list inside_acl_in  remark 0 (global)
+access-list inside_acl_in permit ip 192.168.1.0 255.255.255.0 any 
+! 
+! Rule  1 (global)
+! 
+access-list outside_acl_in  remark 1 (global)
+access-list outside_acl_in deny   ip any any log 4 interval 300 
+access-list dmz50_acl_in  remark 1 (global)
+access-list dmz50_acl_in deny   ip any any log 4 interval 300 
+access-list inside_acl_in  remark 1 (global)
+access-list inside_acl_in deny   ip any any log 4 interval 300 
+
+
+access-group dmz50_acl_in in interface dmz50
+access-group inside_acl_in in interface inside
+access-group outside_acl_in in interface outside
+  </pre>
 
   <p>
     Since source address in the rule #0 is limited to the internal
@@ -238,7 +336,6 @@ access-group outside_acl_in in interface outside<br>
     right next to the ACL rules here for presentation.
   </p>
   
-
   <!-- ********************************************************* -->
 
   <h2>Letting certain protocols through, while blocking everything
@@ -272,58 +369,40 @@ access-group outside_acl_in in interface outside<br>
     Here is iptables script generated for these two simple rules:
   </p>
 
-  <p class="command">
-$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT<br>
-$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT<br>
-$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT<br>
-<br>
-# Rule 0 (global)<br>
-# <br>
-$IPTABLES -A OUTPUT -p tcp -m tcp  -d 192.168.1.100  \<br>
-    --dport 25  -m state --state NEW  -j ACCEPT <br>
-$IPTABLES -A FORWARD -p tcp -m tcp  -d 192.168.1.100 \<br>
-    --dport 25  -m state --state NEW  -j ACCEPT <br>
-# <br>
-# Rule 1 (global)<br>
-# <br>
-$IPTABLES -N RULE_1<br>
-$IPTABLES -A OUTPUT  -m state --state NEW  -j RULE_1 <br>
-$IPTABLES -A INPUT  -m state --state NEW  -j RULE_1 <br>
-$IPTABLES -A FORWARD  -m state --state NEW  -j RULE_1 <br>
-$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "<br>
-$IPTABLES -A RULE_1  -j DROP <br>
-  </p>
+  <pre class="command">
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-  <p>
-    Rules that utilize module <emphasis>state</emphasis> and match
-    states <emphasis>ESTABLISHED,RELATED</emphasis> permit reply
-    packets, such as TCP ACKs, UDP reply packets and ICMP messages
-    associated with known sessions. These rules are automatically
-    added at the beginning of generated iptables script if the
-    option "Accept ESTABLISHED and RELATED packets before the
-    first rule" is turned on in the firewall object "Advanced"
-    settings dialog. If you turn this option off, the rule will
-    not be added automatically and you'll have to add it
-    yourself. You can use Custom Service
-    object <emphasis>ESTABLISHED</emphasis> you can find in
-    the <emphasis>Standard</emphasis> objects library to do this.
-  </p>
+# Rule 0 (global)
+# 
+$IPTABLES -A OUTPUT -p tcp -m tcp  -d 192.168.1.100  \
+    --dport 25  -m state --state NEW  -j ACCEPT 
+$IPTABLES -A FORWARD -p tcp -m tcp  -d 192.168.1.100 \
+    --dport 25  -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N RULE_1
+$IPTABLES -A OUTPUT  -m state --state NEW  -j RULE_1 
+$IPTABLES -A INPUT  -m state --state NEW  -j RULE_1 
+$IPTABLES -A FORWARD  -m state --state NEW  -j RULE_1 
+$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
+$IPTABLES -A RULE_1  -j DROP 
+  </pre>
 
   <p>
     Generated iptables rules were placed in
-    both <emphasis>OUTPUT</emphasis>
-    and <emphasis>FORWARD</emphasis> chains because option "Assume
-    firewall is part of any" was turned on in the "Advanced"
-    settings dialog of this firewall object. This option directs
-    policy compiler to assume that
-    object <emphasis>"Any"</emphasis> matches firewall itself as
-    well. In other words, using "Any" in Source of the rule was
-    equivalent to using a combination of any address and the
-    firewall. Resultant iptables commands should be placed in
-    the <emphasis>OUTPUT</emphasis> chain to match packets
-    generated by the firewall and <emphasis>FORWARD</emphasis> to
-    match packets crossing the firewall. If you turn this option
-    off, the program will only generate iptables rules in
+    both <emphasis>OUTPUT</emphasis> and <emphasis>FORWARD</emphasis>
+    chains because option "Assume firewall is part of any" was turned
+    on in the "Advanced" settings dialog of this firewall object.  In
+    other words, using "Any" in Source of the rule was equivalent to
+    using a combination of any address and the firewall. Resultant
+    iptables commands should be placed in
+    the <emphasis>OUTPUT</emphasis> chain to match packets generated
+    by the firewall and <emphasis>FORWARD</emphasis> to match packets
+    crossing the firewall. If you turn this option off, the program
+    will only generate iptables rules in
     the <emphasis>FORWARD</emphasis> chain for this rule.
   </p>
 
@@ -331,15 +410,15 @@ $IPTABLES -A RULE_1  -j DROP <br>
     Here is the code generated for PF for the same rule:
   </p>
 
-  <p class="command">
-# Rule  0 (global)<br>
-# <br>
-pass  quick inet proto tcp  from any  to 192.168.1.100 port 25 keep state <br>
-# <br>
-# Rule  1 (global)<br>
-# <br>
-block  log  quick inet  from any  to any <br>
-  </p>
+  <pre class="command">
+# Rule  0 (global)
+# 
+pass  quick inet proto tcp  from any  to 192.168.1.100 port 25 keep state 
+# 
+# Rule  1 (global)
+# 
+block  log  quick inet  from any  to any 
+  </pre>
 
   <p>
     In PF we do not have to worry about chains and there is no
@@ -351,25 +430,25 @@ block  log  quick inet  from any  to any <br>
     Here is the code generated for PIX for the same rule:
   </p>
 
-  <p class="command">
-! Rule  0 (global)<br>
-! <br>
-access-list outside_acl_in  remark 0 (global)<br>
-access-list outside_acl_in permit tcp any host 192.168.1.100 eq 25 <br>
-access-list dmz50_acl_in  remark 0 (global)<br>
-access-list dmz50_acl_in permit tcp any host 192.168.1.100 eq 25 <br>
-access-list inside_acl_in  remark 0 (global)<br>
-access-list inside_acl_in permit tcp any host 192.168.1.100 eq 25 <br>
-! <br>
-! Rule  1 (global)<br>
-! <br>
-access-list outside_acl_in  remark 1 (global)<br>
-access-list outside_acl_in deny   ip any any log 0 interval 300 <br>
-access-list dmz50_acl_in  remark 1 (global)<br>
-access-list dmz50_acl_in deny   ip any any log 0 interval 300 <br>
-access-list inside_acl_in  remark 1 (global)<br>
-access-list inside_acl_in deny   ip any any log 0 interval 300 <br>
-  </p>
+  <pre class="command">
+! Rule  0 (global)
+! 
+access-list outside_acl_in  remark 0 (global)
+access-list outside_acl_in permit tcp any host 192.168.1.100 eq 25 
+access-list dmz50_acl_in  remark 0 (global)
+access-list dmz50_acl_in permit tcp any host 192.168.1.100 eq 25 
+access-list inside_acl_in  remark 0 (global)
+access-list inside_acl_in permit tcp any host 192.168.1.100 eq 25 
+! 
+! Rule  1 (global)
+! 
+access-list outside_acl_in  remark 1 (global)
+access-list outside_acl_in deny   ip any any log 0 interval 300 
+access-list dmz50_acl_in  remark 1 (global)
+access-list dmz50_acl_in deny   ip any any log 0 interval 300 
+access-list inside_acl_in  remark 1 (global)
+access-list inside_acl_in deny   ip any any log 0 interval 300 
+  </pre>
 
   <p>
     In PIX, all access lists must be attached to interfaces of the
@@ -405,12 +484,12 @@ access-list inside_acl_in deny   ip any any log 0 interval 300 <br>
     Here is the code generated for iptables from this rule:
   </p>
 
-  <p class="command">
-# Rule 0 (global)<br>
-# <br>
-$IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   -d 192.168.1.100  \<br>
-    --dport 25  -m state --state NEW  -j ACCEPT <br>
-  </p>
+  <pre class="command">
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   -d 192.168.1.100  \
+    --dport 25  -m state --state NEW  -j ACCEPT 
+  </pre>
 
   <p>
     Since source rule element was limited to the host on DMZ,
@@ -422,17 +501,17 @@ $IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   -d 192.168.1.100  \<br>
     Lets look at the configuration generated for PIX from the same rule:
   </p>
 
-  <p class="command">
-! Rule  0 (global)<br>
-! <br>
-access-list dmz50_acl_in  remark 0 (global)<br>
-access-list dmz50_acl_in permit tcp host 192.168.2.22 host 192.168.1.100 eq 25 <br>
-<br>
-<br>
-access-group dmz50_acl_in in interface dmz50<br>
-access-group inside_acl_in in interface inside<br>
-access-group outside_acl_in in interface outside<br>
-  </p>
+  <pre class="command">
+! Rule  0 (global)
+! 
+access-list dmz50_acl_in  remark 0 (global)
+access-list dmz50_acl_in permit tcp host 192.168.2.22 host 192.168.1.100 eq 25 
+
+
+access-group dmz50_acl_in in interface dmz50
+access-group inside_acl_in in interface inside
+access-group outside_acl_in in interface outside
+  </pre>
 
   <p>
     the rule was placed only in the access list attached to the
@@ -442,77 +521,9 @@ access-group outside_acl_in in interface outside<br>
     discuss below.
   </p>
 
-
 <!-- ********************************************************* -->
-
-  <h2>Interchangeable and non-interchangeable objects</h2>
-
-  <!-- TODO: Need examples for this section -->
-
-  <p>In the previous example we put object "mail server" into
-    the Destination field of the policy rule #0 because our goal was
-    to permit protocol SMTP to that host and not to any other
-    one. This actually reflects general principle Firewall Builder
-    is based on: put the object you want to control access for in
-    the Source or Destination field of the policy rule. Two
-    different objects with the same address may or may not be
-    interchangeable, depending on their type and other
-    parameters. One of the frequent mistakes is to create Host
-    object with IP address of the firewall, then use it in the
-    policy and expect Firewall Builder to build policy controlling
-    access to the firewall. Unfortunately it does not always work
-    that way. If you wish to control access to or from the firewall
-    machine, then put Firewall object into the policy rule.</p>
-
-  <p>Another example of two objects which may on the first
-    glance represent the same thing, but in fact are not
-    interchangeable, is IP service object with protocol number set
-    to 1 and ICMP service object with type and code set to
-    "any". Both objects might represent the same type of service,
-    namely "Any ICMP message". IP protocol 1 is in fact ICMP, so one
-    would expect the behaviour of the firewall to be the same
-    regardless of what type of service object is used. However,
-    target firewall software typically uses special syntax for
-    indication of different protocols, so using proper syntax for
-    ICMP protocol turns certain features on, like for example
-    session state tracking and association of the ICMP packets to
-    known sessions these packets might carry error messages
-    for. Using just IP with protocol number 1 will most likely not
-    turn these features on and therefore will lead to unexpected
-    results.</p>
-
-  <p>Interface object and its ip address are interchangeable in
-    rules, provided the interface has only one address. If interface
-    object has several address child objects, then using the
-    interface object in a rule is equivalent to using all of its
-    addresses in the same place. If interface has only one address,
-    then the result will be the same whether you put interface
-    object or its address in the rule. Also, using firewall object
-    in the rule should yield the same policy script as if you put
-    all its interfaces in the same place instead. This one comes
-    with a caveat though: many firewall platforms offer special
-    syntax for rules that control access to or from the firewall
-    itself and fwbuilder takes advantage of this syntax, so the
-    result may not look exactly the same, but should be equivalent
-    in function. Some platforms, such as iptables, require using
-    different chain to control access to and from
-    firewall. Fwbuilder compares ip addresses used in source and
-    destination of rules to addresses of all interfaces of the
-    firewall and uses proper chains even if the address object in
-    the rule is not the firewall object itself.
-  </p>
-
-  <p>Two objects of the same type with different names but the
-    same values of all other parameters are always
-    interchangeable. Using different objects to describe the same
-    object may be confusing, but the final firewall policy will be
-    correct. Firewall Builder leaves design of the objects up to the
-    firewall administrator.</p>
-<!-- ********************************************************* -->
-
 
   <h2>Anti-spoofing rules</h2>
-
 
   <p>
     Generally speaking, IP spoofing is a technique of generating
@@ -558,21 +569,21 @@ access-group outside_acl_in in interface outside<br>
     Here are the iptables commands generated for this rule:
   </p>
 
-  <p class="command">
-# Rule 0 (eth0)<br>
-# <br>
-# anti spoofing rule<br>
-# <br>
-$IPTABLES -N In_RULE_0<br>
-$IPTABLES -A INPUT  -i eth0   -s 192.0.2.1   -j In_RULE_0 <br>
-$IPTABLES -A INPUT  -i eth0   -s 192.168.1.1   -j In_RULE_0 <br>
-$IPTABLES -A INPUT  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 <br>
-$IPTABLES -A FORWARD  -i eth0   -s 192.0.2.1   -j In_RULE_0 <br>
-$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0 <br>
-$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 <br>
-$IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "<br>
-$IPTABLES -A In_RULE_0  -j DROP <br>
-  </p>
+  <pre class="command">
+# Rule 0 (eth0)
+# 
+# anti spoofing rule
+# 
+$IPTABLES -N In_RULE_0
+$IPTABLES -A INPUT  -i eth0   -s 192.0.2.1   -j In_RULE_0 
+$IPTABLES -A INPUT  -i eth0   -s 192.168.1.1   -j In_RULE_0 
+$IPTABLES -A INPUT  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.0.2.1   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
+$IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "
+$IPTABLES -A In_RULE_0  -j DROP 
+  </pre>
 
   <p>
     Iptables commands were placed in INPUT and FORWARD chains to
@@ -588,17 +599,17 @@ $IPTABLES -A In_RULE_0  -j DROP <br>
     Lets see what gets generated for the same rule for PF:
   </p>
 
-  <p class="command">
-# Tables: (1)<br>
-table &lt;tbl.r0.s&gt; { 192.0.2.1 , 192.168.1.1 } <br>
-<br>
-# Rule  0 (en0)<br>
-# anti spoofing rule<br>
-# <br>
-block in   log  quick on en0 inet  from &lt;tbl.r0.s&gt;  to any <br>
-block in   log  quick on en0 inet  from 192.168.1.0/24  to any <br>
-# <br>
-  </p>
+  <pre class="command">
+# Tables: (1)
+table &lt;tbl.r0.s&gt; { 192.0.2.1 , 192.168.1.1 } 
+
+# Rule  0 (en0)
+# anti spoofing rule
+# 
+block in   log  quick on en0 inet  from &lt;tbl.r0.s&gt;  to any 
+block in   log  quick on en0 inet  from 192.168.1.0/24  to any 
+# 
+  </pre>
   
   <p>
     Here compiler uses tables to make generated PF code more
@@ -611,19 +622,19 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any <br>
     Here is the same rule, compiled for PIX:
   </p>
 
-  <p class="command">
-! Rule  0 (Ethernet1/0)<br>
-! anti-spoofing rule<br>
-! <br>
-access-list outside_acl_in  remark 0 (Ethernet1/0)<br>
-access-list outside_acl_in  remark anti-spoofing rule<br>
-access-list outside_acl_in deny   ip host 192.0.2.1 any <br>
-access-list outside_acl_in deny   ip host 192.168.2.1 any <br>
-access-list outside_acl_in deny   ip host 192.168.1.1 any <br>
-access-list outside_acl_in deny   ip 192.168.1.0 255.255.255.0 any<br>
-<br>
-access-group outside_acl_in in interface outside<br>
-  </p>
+  <pre class="command">
+! Rule  0 (Ethernet1/0)
+! anti-spoofing rule
+! 
+access-list outside_acl_in  remark 0 (Ethernet1/0)
+access-list outside_acl_in  remark anti-spoofing rule
+access-list outside_acl_in deny   ip host 192.0.2.1 any 
+access-list outside_acl_in deny   ip host 192.168.2.1 any 
+access-list outside_acl_in deny   ip host 192.168.1.1 any 
+access-list outside_acl_in deny   ip 192.168.1.0 255.255.255.0 any
+
+access-group outside_acl_in in interface outside
+  </pre>
 
 <!-- ********************************************************* -->
 
@@ -655,24 +666,24 @@ access-group outside_acl_in in interface outside<br>
     Generated iptables script looks like this:
   </p>
 
-  <p class="command">
-getaddr eth0  i_eth0<br>
-<br>
-<br>
-# Rule 0 (eth0)<br>
-# <br>
-# anti spoofing rule<br>
-# <br>
-$IPTABLES -N In_RULE_0<br>
-test -n "$i_eth0" && $IPTABLES -A INPUT  -i eth0   -s $i_eth0   -j In_RULE_0 <br>
-$IPTABLES -A INPUT  -i eth0   -s 192.168.1.1   -j In_RULE_0 <br>
-$IPTABLES -A INPUT  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 <br>
-test -n "$i_eth0" && $IPTABLES -A FORWARD  -i eth0   -s $i_eth0   -j In_RULE_0 <br>
-$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0 <br>
-$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 <br>
-$IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "<br>
-$IPTABLES -A In_RULE_0  -j DROP <br>
-  </p>
+  <pre class="command">
+getaddr eth0  i_eth0
+
+
+# Rule 0 (eth0)
+# 
+# anti spoofing rule
+# 
+$IPTABLES -N In_RULE_0
+test -n "$i_eth0" && $IPTABLES -A INPUT  -i eth0   -s $i_eth0   -j In_RULE_0 
+$IPTABLES -A INPUT  -i eth0   -s 192.168.1.1   -j In_RULE_0 
+$IPTABLES -A INPUT  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
+test -n "$i_eth0" && $IPTABLES -A FORWARD  -i eth0   -s $i_eth0   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
+$IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "
+$IPTABLES -A In_RULE_0  -j DROP 
+  </pre>
 
   <p>
     The script defines shell
@@ -690,15 +701,15 @@ $IPTABLES -A In_RULE_0  -j DROP <br>
     Here is what is generated for PF:
   </p>
 
-  <p class="command">
-table &lt;tbl.r0.d&gt; { en0 , 192.168.1.1 } <br>
-<br>
-# Rule  0 (en0)<br>
-# anti spoofing rule<br>
-# <br>
-block in   log  quick on en0 inet  from &lt;tbl.r0.d&gt;  to any <br>
-block in   log  quick on en0 inet  from 192.168.1.0/24  to any <br>
-  </p>
+  <pre class="command">
+table &lt;tbl.r0.d&gt; { en0 , 192.168.1.1 } 
+
+# Rule  0 (en0)
+# anti spoofing rule
+# 
+block in   log  quick on en0 inet  from &lt;tbl.r0.d&gt;  to any 
+block in   log  quick on en0 inet  from 192.168.1.0/24  to any 
+  </pre>
 
   <p>
     In PF, one can place interface name ("en0") in the table and
@@ -767,16 +778,15 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any <br>
     Here is iptables commands generated for this example:
   </p>
 
-  <p class="command">
-# Rule 0 (global)<br>
-# <br>
-$IPTABLES -N Cid17843X27745.0<br>
-$IPTABLES -A INPUT -p tcp -m tcp  --dport 22 \<br>
-       -m state --state NEW  -j Cid17843X27745.0 <br>
-$IPTABLES -A Cid17843X27745.0  -s 192.168.1.110   -j ACCEPT <br>
-$IPTABLES -A Cid17843X27745.0  -s 192.168.1.111   -j ACCEPT <br>
-$IPTABLES -A Cid17843X27745.0  -s 192.168.1.112   -j ACCEPT <br>
-  </p>
+  <pre class="command">
+# Rule 0 (global)
+# 
+$IPTABLES -N Cid17843X27745.0
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22 -m state --state NEW  -j Cid17843X27745.0 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.110   -j ACCEPT 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.111   -j ACCEPT 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.112   -j ACCEPT 
+  </pre>
 
   <p>
     Generated iptables command is placed only in
@@ -815,14 +825,14 @@ $IPTABLES -A Cid17843X27745.0  -s 192.168.1.112   -j ACCEPT <br>
   </p>
 
 
-  <p class="command">
-table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.168.1.1 } <br>
-table &lt;tbl.r0.s&gt; { 192.168.1.110 , 192.168.1.111 , 192.168.1.112 } <br>
-<br>
-# Rule  0 (global)<br>
-# <br>
-pass  quick inet proto tcp  from &lt;tbl.r0.s&gt;  to &lt;tbl.r0.d&gt; port 22 keep state <br>
-  </p>
+  <pre class="command">
+table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.168.1.1 } 
+table &lt;tbl.r0.s&gt; { 192.168.1.110 , 192.168.1.111 , 192.168.1.112 } 
+
+# Rule  0 (global)
+# 
+pass  quick inet proto tcp  from &lt;tbl.r0.s&gt;  to &lt;tbl.r0.d&gt; port 22 keep state 
+  </pre>
 
   <p>
     Policy compiler for PF extensively uses tables to produce
@@ -833,22 +843,22 @@ pass  quick inet proto tcp  from &lt;tbl.r0.s&gt;  to &lt;tbl.r0.d&gt; port 22 k
     Here is the config generated for PIX:
   </p>
 
-  <p class="command">
-object-group network inside.id20599X27745.src.net.0<br>
-  network-object  host 192.168.1.110 <br>
-  network-object  host 192.168.1.111 <br>
-  network-object  host 192.168.1.112 <br>
-exit<br>
-<br>
-! Rule  0 (global)<br>
-! <br>
-access-list inside_acl_in  remark 0 (global)<br>
-access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0<br>
-      host 192.0.2.1 eq 22 <br>
-access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0<br>
-      host 192.168.1.1 eq 22 <br>
-! <br>
-  </p>
+  <pre class="command">
+object-group network inside.id20599X27745.src.net.0
+  network-object  host 192.168.1.110 
+  network-object  host 192.168.1.111 
+  network-object  host 192.168.1.112 
+exit
+
+! Rule  0 (global)
+! 
+access-list inside_acl_in  remark 0 (global)
+access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
+      host 192.0.2.1 eq 22 
+access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
+      host 192.168.1.1 eq 22 
+! 
+  </pre>
 
   <p>
     Just like in case of iptables, it is not that a group object
@@ -900,12 +910,12 @@ access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
     iptables:
   </p>
 
-  <p class="command">
-# Rule 0 (global)<br>
-# <br>
-$IPTABLES -A INPUT  -s 192.168.1.110/31   -m state --state NEW  -j ACCEPT <br>
-$IPTABLES -A INPUT  -s 192.168.1.112   -m state --state NEW  -j ACCEPT <br>
-  </p>
+  <pre class="command">
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT  -s 192.168.1.110/31   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A INPUT  -s 192.168.1.112   -m state --state NEW  -j ACCEPT
+  </pre>
 
   <p>
     Again, the difference may not be very great when we have only
