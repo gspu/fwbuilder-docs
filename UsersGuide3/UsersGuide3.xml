@@ -10823,6 +10823,10 @@ SSH session terminated, exit status: 1
       </para>
 
       <screen>
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
 # Rule 0 (global)
 # 
 $IPTABLES -A INPUT  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
@@ -10838,6 +10842,21 @@ $IPTABLES -A FORWARD  -j RULE_1
 $IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
 $IPTABLES -A RULE_1  -j DROP 
       </screen>
+
+      <para>
+        Rules that utilize module <emphasis>state</emphasis> and match
+        states <emphasis>ESTABLISHED,RELATED</emphasis> permit reply
+        packets, such as TCP ACKs, UDP reply packets and ICMP messages
+        associated with known sessions. These rules are automatically
+        added at the beginning of generated iptables script if the
+        option "Accept ESTABLISHED and RELATED packets before the
+        first rule" is turned on in the firewall object "Advanced"
+        settings dialog. If you turn this option off, the rule will
+        not be added automatically and you'll have to add it
+        yourself. You can use Custom Service
+        object <emphasis>ESTABLISHED</emphasis> you can find in
+        the <emphasis>Standard</emphasis> objects library to do this.
+      </para>
 
       <para>
         The first rule was placed in all three
@@ -10992,21 +11011,6 @@ $IPTABLES -A FORWARD  -m state --state NEW  -j RULE_1
 $IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
 $IPTABLES -A RULE_1  -j DROP 
       </screen>
-
-      <para>
-        Rules that utilize module <emphasis>state</emphasis> and match
-        states <emphasis>ESTABLISHED,RELATED</emphasis> permit reply
-        packets, such as TCP ACKs, UDP reply packets and ICMP messages
-        associated with known sessions. These rules are automatically
-        added at the beginning of generated iptables script if the
-        option "Accept ESTABLISHED and RELATED packets before the
-        first rule" is turned on in the firewall object "Advanced"
-        settings dialog. If you turn this option off, the rule will
-        not be added automatically and you'll have to add it
-        yourself. You can use Custom Service
-        object <emphasis>ESTABLISHED</emphasis> you can find in
-        the <emphasis>Standard</emphasis> objects library to do this.
-      </para>
 
       <para>
         Generated iptables rules were placed in
