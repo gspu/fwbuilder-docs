@@ -10891,20 +10891,20 @@ $IPTABLES -A RULE_1  -j DROP
       </para>
 
       <screen>
-        $IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
-        $IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
-        $IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-        # Rule 0 (global)
-        # 
-        $IPTABLES -A FORWARD  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
-        # 
-        # Rule 1 (global)
-        # 
-        $IPTABLES -N RULE_1
-        $IPTABLES -A FORWARD  -j RULE_1 
-        $IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
-        $IPTABLES -A RULE_1  -j DROP 
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N RULE_1
+$IPTABLES -A FORWARD  -j RULE_1 
+$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
+$IPTABLES -A RULE_1  -j DROP 
       </screen>
 
       <para>
@@ -10928,9 +10928,9 @@ $IPTABLES -A RULE_1  -j DROP
       </para>
 
       <screen>
-        $IPTABLES -P OUTPUT  DROP
-        $IPTABLES -P INPUT   DROP
-        $IPTABLES -P FORWARD DROP
+$IPTABLES -P OUTPUT  DROP
+$IPTABLES -P INPUT   DROP
+$IPTABLES -P FORWARD DROP
       </screen>
 
       <para>
