@@ -10886,6 +10886,88 @@ $IPTABLES -A RULE_1  -j DROP
       </para>
 
       <para>
+        Lets see what gets generated for iptables if option "Assume
+        firewall is part of any" is turned off:
+      </para>
+
+      <screen>
+        $IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+        $IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+        $IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+        # Rule 0 (global)
+        # 
+        $IPTABLES -A FORWARD  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+        # 
+        # Rule 1 (global)
+        # 
+        $IPTABLES -N RULE_1
+        $IPTABLES -A FORWARD  -j RULE_1 
+        $IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
+        $IPTABLES -A RULE_1  -j DROP 
+      </screen>
+
+      <para>
+        Automatically added rules that match packets in states
+        ESTABLISHED,RELATED are not affected by the "Assume firewall
+        is part of any" option and always match in chains INPUT,
+        OUTPUT and FORWARD.
+      </para>
+
+      <para>
+        Since the compiler does not assume firewall matches "any" anymore,
+        the rule with "any" is destination yields iptables command only in
+        the FORWARD chain. This applies both to the rule that permits
+        outgoing connections from internal LAN and to the "Catch all" rule
+        #1. The choice of the setting for this option is up to the policy
+        designer. Some people find it more intuitive to leave it off and add
+        rules to control access to and from the firewall explicitly. Note
+        that default policy for all chains is set to DROP with the
+        following commands at the very top of the generated iptables
+        script:
+      </para>
+
+      <screen>
+        $IPTABLES -P OUTPUT  DROP
+        $IPTABLES -P INPUT   DROP
+        $IPTABLES -P FORWARD DROP
+      </screen>
+
+      <para>
+        This means that if you do not add rules to permit access to
+        the firewall and turn option "Assume firewall is part of any"
+        off, then all generated iptables rules will be in the FORWARD
+        chain and all access to the firewall itself will be blocked by
+        the default policy in the INPUT chain. On the other hand, if
+        the option "Assume firewall is part of any" is on, then the
+        rule permitting access from internal network to "any" gets
+        side effect of permitting access to the firewall as well. It
+        is up to you to decide whether this is a good or bad
+        thing. You can always restrict access to the firewall and
+        control it with a few rules somewhere close to the beginning
+        of the policy regardless of the setting of this option. We
+        look at the examples of rules controlling access to the
+        firewall in <xref linkend="control-access-to-fw"/>.
+      </para>
+
+      <para>
+        Even if you choose to turn option "Assume firewall is part of any"
+        off and do not add any rules to permit access to the firewall in
+        your policy rule set, you can use another option in the firewall
+        object "advanced" settings dialog for this. The option is called
+        "Always permit ssh access to the firewall from management station"
+        and allows you to enter single ip address or subnet and then
+        automatically adds a rule to the generated script to permit ssh
+        access to the firewall from this address. We demonstrate this
+        feature in one of the examples below.
+      </para>
+
+      <para>
+        <emphasis>Examples below have been compiled with the option
+          "Assume firewall is part of any" turned on.</emphasis>
+      </para>
+
+      <para>
         Here is the PF configuration created for the same rules:
       </para>
 
@@ -11508,8 +11590,7 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any
 # Rule 0 (global)
 # 
 $IPTABLES -N Cid17843X27745.0
-$IPTABLES -A INPUT -p tcp -m tcp  --dport 22 \
-     -m state --state NEW  -j Cid17843X27745.0 
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22 -m state --state NEW  -j Cid17843X27745.0 
 $IPTABLES -A Cid17843X27745.0  -s 192.168.1.110   -j ACCEPT 
 $IPTABLES -A Cid17843X27745.0  -s 192.168.1.111   -j ACCEPT 
 $IPTABLES -A Cid17843X27745.0  -s 192.168.1.112   -j ACCEPT 
@@ -12039,7 +12120,8 @@ the item "Add IPv6 address".</para>
       </sect2>
 
       <sect2>
-	<title>Running multiple services on the same machine on different virtual addresses and different ports</title>
+	<title>Running multiple services on the same machine on
+	different virtual addresses and different ports</title>
 
 	  <para> Here is an example of how Firewall Builder can be used to build a firewall protecting a server. Suppose we run several secure web servers on the same machine and use virtual IP addresses to be able to supply different certificates for each one.</para>
 
@@ -12102,7 +12184,7 @@ the item "Add IPv6 address".</para>
 	<para>The Service object group object DNS can be found in the "Standard" objects tree, under Services/Groups. This group consist of both the UDP object domain and TCP object domain. Both objects define destination port 53 and ignore source port. Since we do not specify the source port, these objects match both queries sent by the domain name server (source port is 53) and the resolver on the workstations on the local net (source port is >1024). We need to use objects representing both UDP and TCP protocols because DNS falls back to TCP if the answer for the query is too big and won't fit in the standard UDP datagram. DNS zone transfers also use TCP protocol.</para>
       </sect2>
 
-      <sect2>
+      <sect2 id="control-access-to-fw">
 	<title>Controlling access to the firewall</title>
 
 	  <para>Suppose we need to permit SSH access to the firewall. In the simplest case we just create a rule with firewall object (fw) in Destination and a service object SSH in Service. Service object SSH can be found in the Standard objects tree, under Services/TCP. Here is the rule:</para>
