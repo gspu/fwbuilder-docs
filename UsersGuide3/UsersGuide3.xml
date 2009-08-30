@@ -12652,7 +12652,7 @@ pass  quick inet proto tcp  from 192.168.2.22  to ! &lt;tbl.r0.d&gt; port 25 kee
         iptables and pf. Tagging sometimes can also be used to
         interact with packet processing not intended to enforce
         security policy, such as traffic shaping or QoS. Packet tags
-        assigned by iptables can be later be used for traffic shaping
+        assigned by iptables can later be used for traffic shaping
         with Linux utility "tc".
       </para> 
 
