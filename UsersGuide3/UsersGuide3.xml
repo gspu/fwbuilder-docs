@@ -12996,7 +12996,7 @@ $IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT
 echo "Rule Policy_ipv6 2 (global)"
 # 
 $IP6TABLES -A OUTPUT  -m state --state NEW  -j ACCEPT 
-$IP6TABLES -A FORWARD  -s 2001:db8::/32   -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A FORWARD  -s 2001:db8:ffff:ffff::/64   -m state --state NEW  -j ACCEPT 
 # 
 # Rule Policy_ipv6 3 (global)
 # 

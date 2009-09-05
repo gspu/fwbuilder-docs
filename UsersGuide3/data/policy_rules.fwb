@@ -192,7 +192,7 @@
         <Network id="id60911X9037" name="outside network" comment="" ro="False" address="192.0.2.0" netmask="255.255.255.0"/>
         <Network id="id182542X9037" name="inside network 2" comment="" ro="False" address="192.168.10.0" netmask="255.255.255.0"/>
         <Network id="id182543X9037" name="inside network 3" comment="" ro="False" address="192.168.20.0" netmask="255.255.255.0"/>
-        <NetworkIPv6 id="id11752X5067" name="local ipv6 net" comment="" ro="False" address="2001:db8::" netmask="32"/>
+        <NetworkIPv6 id="id11752X5067" name="local ipv6 net" comment="" ro="False" address="2001:db8:ffff:ffff::" netmask="64"/>
       </ObjectGroup>
       <ObjectGroup id="id1799X26754" name="Address Ranges" comment="" ro="False">
         <AddressRange id="id21544X27745" name="management_range" comment="" ro="False" start_address="192.168.1.110" end_address="192.168.1.112"/>
@@ -1849,7 +1849,7 @@
           <Option name="xlate_ss">0</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id11479X26754" host_OS="linux24" inactive="False" lastCompiled="1251669630" lastInstalled="0" lastModified="1252170285" platform="iptables" version="" name="fw" comment="" ro="False">
+      <Firewall id="id11479X26754" host_OS="linux24" inactive="False" lastCompiled="1251669630" lastInstalled="0" lastModified="1252171160" platform="iptables" version="" name="fw" comment="" ro="False">
         <NAT id="id11571X26754" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id11572X26754" disabled="False" position="0" comment="">
             <OSrc neg="False">
@@ -2503,11 +2503,11 @@
         <Routing id="id11586X26754" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True"/>
         <Interface id="id11587X26754" bridgeport="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="eth2" comment="" ro="False">
           <IPv4 id="id11600X26754" name="fw:eth2:ip" comment="" ro="False" address="192.0.2.1" netmask="255.255.255.0"/>
-          <IPv6 id="id9334X5067" name="fw:eth2:ipv6" comment="" ro="False" address="2001:db8::1" netmask="32"/>
+          <IPv6 id="id9334X5067" name="fw:eth2:ipv6" comment="" ro="False" address="2001:db8:1:1::1" netmask="64"/>
         </Interface>
         <Interface id="id11588X26754" bridgeport="False" dyn="False" label="" mgmt="True" security_level="100" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
           <IPv4 id="id11590X26754" name="fw:eth1:ip" comment="" ro="False" address="192.168.1.1" netmask="255.255.255.0"/>
-          <IPv6 id="id9335X5067" name="fw:eth1:ipv6" comment="" ro="False" address="2001:db8:ffff:ffff::1" netmask="32"/>
+          <IPv6 id="id9335X5067" name="fw:eth1:ipv6" comment="" ro="False" address="2001:db8:ffff:ffff::1" netmask="64"/>
         </Interface>
         <Interface id="id11591X26754" bridgeport="False" dyn="False" label="" mgmt="False" security_level="100" unnum="False" unprotected="False" name="lo" comment="" ro="False">
           <IPv4 id="id11593X26754" name="fw:lo:ip" comment="" ro="False" address="127.0.0.1" netmask="255.0.0.0"/>
