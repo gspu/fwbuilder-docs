@@ -12773,45 +12773,85 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
        <sect2 id="ipv6-policy">
 	<title>Adding IPv6 Rules to a Policy</title>
 	
-	<para>We start with a firewall object that has some basic IPv4
-policy. First, we need to add IPv6 addresses to its interfaces. Open
-context menu associated with interface object in the tree and click on
-the item "Add IPv6 address".</para>
+	<para>
+          We start with a firewall object that has some basic IPv4
+          policy. First, we need to add IPv6 addresses to its
+          interfaces. Open context menu associated with interface
+          object in the tree and click on the item "Add IPv6
+          address".
+        </para>
 
       <figure id="ipv6_slide_1">
           <title>Add IPv6 addresses to IPv4 Policy</title>
               <graphic scale="70" fileref="ipv6_slide_1.png" />
         </figure>
 
-      <para>Enter the address and netmask length (Use your own address!) </para>
+      <para>
+        Enter the address and netmask length (Use your own address!)
+      </para>
 
         <figure id="ipv6_slide_2">
           <title>Enter address and netmask</title>
               <graphic scale="70" fileref="ipv6_slide_2.png" />
         </figure>
 
-      <para>Add IPv6 to internal interface </para>
+        <para>
+          Add IPv6 to internal interface
+        </para>
 
         <figure id="ipv6_slide_3">
           <title>Internal Interface</title>
               <graphic scale="70" fileref="ipv6_slide_3.png" />
         </figure>
 
-      <para> Inspect the regular Policy object. To see its parameters, double-click on it in the tree to open it in the editor. This object has a <guilabel>Name</guilabel>, <guilabel>IPv4/IPv6 setting</guilabel> and a <guilabel>Top ruleset</guilabel> checkbox. For iptables firewalls, there is also a pair of radio buttons that indicates whether the policy should affect <guilabel>filter+mangle</guilabel> tables or just <guilabel>mangle</guilabel> table.</para>
-
-      <para>Compilers treat the "top" rule set differently, depending on the firewall platform:</para>
+        <para>
+          Inspect the regular Policy object. To see its parameters,
+          double-click on it in the tree to open it in the
+          editor. This object has
+          a <guilabel>Name</guilabel>, <guilabel>IPv4/IPv6
+          setting</guilabel> and a <guilabel>Top ruleset</guilabel>
+          checkbox. For iptables firewalls, there is also a pair of
+          radio buttons that indicates whether the policy should
+          affect <guilabel>filter+mangle</guilabel> tables or
+          just <guilabel>mangle</guilabel> table.
+        </para>
+        
+        <para>
+          Compilers treat the "top" rule set differently, depending on
+          the firewall platform:
+        </para>
 
       <itemizedlist>
           <listitem>
-            <para>iptables: rules defined in such rule set will go into built-in chains INPUT,OUTPUT,FORWARD etc. Rules defined in rule sets where this checkbox is not checked go into user-defined chain with the name the same as the name of the rule set.</para>
+            <para>
+              iptables: rules defined in such rule set will go into
+              built-in chains INPUT,OUTPUT,FORWARD etc. Rules defined
+              in rule sets where this checkbox is not checked go into
+              user-defined chain with the name the same as the name of
+              the rule set.
+            </para>
           </listitem>
 
           <listitem>
-            <para>PF: rules defined in the rule set with "top rule set" checkbox turned off go into an anchor with the name of the rule set.</para>
+            <para>
+              PF: rules defined in the rule set with "top rule set"
+              checkbox turned off go into an anchor with the name of
+              the rule set.
+            </para>
           </listitem>
 
           <listitem>
-            <para>Cisco IOS access lists: if <guilabel>top rule set</guilabel> checkbox is turned off, the rules go into access list with the name prefixed with the name of the rule set; this access list will not be assigned to interfaces via "ip access-group" command. Rulesets with checkbox "top rule set" checked generate ACLs with names consisting of the shortened name of interface and direction abbreviation ("in" or "out"). Only these lists are assigned to interfaces.</para>
+            <para>
+              Cisco IOS access lists: if <guilabel>top rule
+              set</guilabel> checkbox is turned off, the rules go into
+              access list with the name prefixed with the name of the
+              rule set; this access list will not be assigned to
+              interfaces via "ip access-group" command. Rulesets with
+              checkbox "top rule set" checked generate ACLs with names
+              consisting of the shortened name of interface and
+              direction abbreviation ("in" or "out"). Only these lists
+              are assigned to interfaces.
+            </para>
           </listitem>
         </itemizedlist>
 
@@ -12820,56 +12860,158 @@ the item "Add IPv6 address".</para>
               <graphic scale="70" fileref="ipv6_slide_4.png" />
         </figure>
 
-	<para>To add new policy, right-click on the firewall object in the tree to open the context menu and use menu item <guimenuitem>Add Policy Rule Set</guimenuitem>.</para>
+        <figure id="ipv6_slide_4_1">
+          <title>IPv4/IPv6 rule set configuration</title>
+              <graphic scale="70" fileref="ipv6_slide_4_1.png" />
+        </figure>
+
+	<para>
+          To add new policy, right-click on the firewall object in the
+          tree to open the context menu and use menu
+          item <guimenuitem>Add Policy Rule Set</guimenuitem>.
+        </para>
 
         <figure id="ipv6_slide_5">
           <title>Add policy rule set</title>
               <graphic scale="70" fileref="ipv6_slide_5.png" />
         </figure>
 
-	<para>Assign a unique name to the new policy object, make it IPv6 and check the <guilabel>top ruleset</guilabel> checkbox, then click <guibutton>Apply</guibutton>. </para>
+	<para>
+          Assign a unique name to the new policy object, make it IPv6
+          and check the <guilabel>top ruleset</guilabel> checkbox,
+          then click <guibutton>Apply</guibutton>.
+        </para>
 
         <figure id="ipv6_slide_6">
           <title>Set rule set parameters</title>
               <graphic scale="70" fileref="ipv6_slide_6.png" />
         </figure>
 
-	<para>We forgot to create network object to represent our local IPv6 network. Click <guimenuitem>New Network IPv6</guimenuitem> in the new object menu.</para>
+	<para>
+          We forgot to create network object to represent our local
+          IPv6 network. Click <guimenuitem>New Network
+          IPv6</guimenuitem> in the new object menu.
+        </para>
 
         <figure id="ipv6_slide_7">
-          <title>IPv6 network object</title>
+          <title>Create IPv6 network object</title>
               <graphic scale="70" fileref="ipv6_slide_7.png" />
         </figure>
 
-	<para>Enter the name and address of this network. We are using the link-local address for illustration purposes. </para>
+	<para>
+          Enter the name and address of this network. We are using the
+          link-local address for illustration purposes.
+        </para>
 
         <figure id="ipv6_slide_8">
-          <title>Object name and address</title>
+          <title>IPv6 network object name and address</title>
               <graphic scale="70" fileref="ipv6_slide_8.png" />
         </figure>
 
-	<para>Now click on the new policy object in the tree ("Policy_ipv6") and add some rules as usual. Here we have added a rule to permit all on loopback, a rule to permit incoming HTTP and ICMP6 to the firewall and a rule to permit outgoing sessions from the internal network (object "local ipv6 net") and the firewall itself.</para>
+	<para>
+          Now click on the new policy object in the tree
+          ("Policy_ipv6") and add some rules as usual. Here we have
+          added a rule to permit all on loopback, a rule to permit
+          incoming HTTP and ICMP6 to the firewall and a rule to permit
+          outgoing sessions from the internal network (object "local
+          ipv6 net") and the firewall itself.
+        </para>
 
         <figure id="ipv6_slide_9">
           <title>Add policy rules</title>
               <graphic scale="70" fileref="ipv6_slide_9.png" />
         </figure>
 
-	<para>Now compile the policy. Note that in the progress output the compiler declares that it compiles rules for IPv6. This particular rule set really does not have any rules that would generate iptables commands for the "mangle" table, however it has 4 rules to go to the ipv6 filter table. </para>
+	<para>
+          Now compile the policy. Note that in the progress output the
+          compiler shows that it first processes IPv4 policy rule set,
+          then compiles IPv6 policy rule set. I still have bunch of
+          rules in the IPv4 policy from the previous examples in this
+          section but the IPv6 policy is small and only has 4 rules as
+          shown on the screenshot above. This particular rule set does
+          not have any rules that would generate iptables commands for
+          the "mangle" table, however it has 4 rules to go to the ipv6
+          filter table.
+        </para>
 
-        <figure id="ipv6_slide_10">
-          <title>Compile policy</title>
-              <graphic scale="50" fileref="ipv6_slide_10.png" />
-        </figure>
+        <screen>
+$ fwb_ipt -v -f policy_rules.fwb fw
+ *** Loading data ... done
+ Compiling rules for 'nat' table
+ processing 1 rules
+ rule 0 (NAT)
+ Compiling ruleset Policy for 'mangle' table
+ processing 1 rules
+ rule 0 (eth2)
+ Compiling ruleset Policy for 'filter' table
+ processing 17 rules
+ rule 1 (global)
+ rule 2 (global)
+ rule 3 (global)
+ rule 4 (global)
+ rule 5 (global)
+ rule 6 (global)
+ rule 7 (global)
+ rule 8 (global)
+ rule 9 (global)
+ rule 10 (global)
+ rule 11 (eth2)
+ rule 12 (lo)
+ rule 13 (global)
+ rule 14 (global)
+ rule 15 (global)
+ rule 16 (global)
+ rule 17 (global)
+ Compiling ruleset Policy_ipv6 for 'mangle' table, IPv6
+ Compiling ruleset Policy_ipv6 for 'filter' table, IPv6
+ processing 4 rules
+ rule Policy_ipv6 1 (global)
+ rule Policy_ipv6 2 (global)
+ rule Policy_ipv6 3 (global)
+ Compiled successfully
+        </screen>
 
-	<para>Here is a fragment of the generated script. The script uses the ip6tables routine to load rules into the kernel. Rule 1 has iptables rules in the OUTPUT chain because the firewall object has option "Assume firewall is part of any" turned on by default.</para>
+	<para>
+          Here is a fragment of the generated script. The script uses
+          the ip6tables routine to load rules into the kernel. Rule 1
+          has iptables rules in the OUTPUT chain because the firewall
+          object has option "Assume firewall is part of any" turned on
+          by default.
+        </para>
 
-        <figure id="ipv6_slide_11">
-          <title>Generated script</title>
-              <graphic scale="60" fileref="ipv6_slide_11.png" />
-        </figure>
 
-	<para>Now you can install the policy on your firewall.</para>
+        <screen>
+# ================ Table 'filter', rule set Policy_ipv6
+# Policy compiler errors and warnings:
+# 
+# Rule Policy_ipv6 1 (global)
+# 
+echo "Rule Policy_ipv6 1 (global)"
+# 
+$IP6TABLES -A INPUT -p tcp -m tcp  --dport 80  -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_ipv6 2 (global)
+# 
+echo "Rule Policy_ipv6 2 (global)"
+# 
+$IP6TABLES -A OUTPUT  -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A FORWARD  -s 2001:db8::/32   -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_ipv6 3 (global)
+# 
+echo "Rule Policy_ipv6 3 (global)"
+# 
+$IP6TABLES -N Policy_ipv6_3
+$IP6TABLES -A FORWARD  -j Policy_ipv6_3 
+$IP6TABLES -A Policy_ipv6_3  -j LOG  --log-level info --log-prefix "RULE 3 -- DENY "
+$IP6TABLES -A Policy_ipv6_3  -j DROP 
+        </screen>
+
+	<para>
+          Now you can install the policy on your firewall.
+        </para>
+
       </sect2>
 
       <sect2>
