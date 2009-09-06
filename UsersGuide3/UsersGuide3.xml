@@ -13187,7 +13187,7 @@ pass in quick inet6 proto icmp6  from any  to &lt;tbl.r1.dx&gt; keep state
         </figure>
 
         <para>
-          In this exmaple router has just two interfaces,
+          In this example router has just two interfaces,
           FastEthernet0/0 and FastEthernet0/1, both interfaces have
           only IPv4 addresses when we start. Generated configuration
           looks like this:
