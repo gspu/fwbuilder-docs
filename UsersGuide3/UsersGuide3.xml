@@ -12804,10 +12804,31 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
               <graphic scale="70" fileref="ipv6_slide_3.png" />
         </figure>
 
+	<para>
+          We also need to create network object to represent our local
+          IPv6 network. Click <guimenuitem>New Network
+          IPv6</guimenuitem> in the new object menu.
+        </para>
+
+        <figure id="ipv6_slide_7">
+          <title>Create IPv6 network object</title>
+              <graphic scale="70" fileref="ipv6_slide_7.png" />
+        </figure>
+
+	<para>
+          Enter the name and address of this network. We are using the
+          link-local address for illustration purposes.
+        </para>
+
+        <figure id="ipv6_slide_8">
+          <title>IPv6 network object name and address</title>
+              <graphic scale="70" fileref="ipv6_slide_8.png" />
+        </figure>
+
         <para>
           Inspect the regular Policy object. To see its parameters,
           double-click on it in the tree to open it in the
-          editor. This object has
+          editor (see screenshot below). This object has
           a <guilabel>Name</guilabel>, <guilabel>IPv4/IPv6
           setting</guilabel> and a <guilabel>Top ruleset</guilabel>
           checkbox. For iptables firewalls, there is also a pair of
@@ -12816,12 +12837,72 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
           just <guilabel>mangle</guilabel> table.
         </para>
         
+        <figure id="ipv6_slide_4">
+          <title>Policy parameters</title>
+              <graphic scale="70" fileref="ipv6_slide_4.png" />
+        </figure>
+
         <para>
-          Compilers treat the "top" rule set differently, depending on
-          the firewall platform:
+          The <emphasis>IPv4/IPv6</emphasis> setting tells the
+          compiler how it should interpret addresses of objects that
+          appear in the rules. Possible configurations are "IPv4
+          only", "IPv6 only" and "Mixed IPv4 and IPv6":
         </para>
 
-      <itemizedlist>
+        <figure id="ipv6_slide_4_1">
+          <title>IPv4/IPv6 rule set configuration</title>
+              <graphic scale="70" fileref="ipv6_slide_4_1.png" />
+        </figure>
+
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis>"IPv4 only rule set"</emphasis> - Only
+              addressable objects with IPv4 addresses will be used in
+              the rules. If an object with ipv6 address appears in
+              rules, it is ignored. IPv6-only services such as ICMPv6
+              are also ignored. TCP and UDP services are used since
+              they apply for both IPv4 and IPv6 rules.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <emphasis>"IPv6 only rule set"</emphasis> - The
+              opposite, only objects with ipv6 addresses are used and
+              those with ipv4 addresses are ignored. IPv6-only
+              services such as ICMPv6 are used but IPv4-only services
+              such as ICMP are ignored. TCP and UDP services are used
+              since they apply for both IPv4 and IPv6 rules.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <emphasis>"Mixed IPv4 and IPv6 only rule set"</emphasis>
+              - compiler makes two passes over the same rules, first
+              to produce IPV4 configuration and then to produce IPV6
+              configuration. On each pass it uses only address objects
+              with addresses matching address family of the pass. This
+              is the best configuration for transitional
+              configurations when IPv6 rules are gradually added to
+              existing IPv4 configuration. Note that if you add IPv6
+              address to an interface of a firewall or a host object
+              used in the rules, compiler will use IPv4 addresses of
+              the interface on IPv4 pass and new IPv6 address of the
+              same interface on the IPv6 pass. This principle also
+              applies to the mixed groups of addresses and services.
+            </para>
+          </listitem>
+        </itemizedlist>
+
+
+        <para>
+          Compilers treat the <emphasis>"top rule set"</emphasis>
+          parameter differently, depending on the firewall platform:
+        </para>
+
+        <itemizedlist>
           <listitem>
             <para>
               iptables: rules defined in such rule set will go into
@@ -12855,16 +12936,6 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
           </listitem>
         </itemizedlist>
 
-        <figure id="ipv6_slide_4">
-          <title>Policy parameters</title>
-              <graphic scale="70" fileref="ipv6_slide_4.png" />
-        </figure>
-
-        <figure id="ipv6_slide_4_1">
-          <title>IPv4/IPv6 rule set configuration</title>
-              <graphic scale="70" fileref="ipv6_slide_4_1.png" />
-        </figure>
-
 	<para>
           To add new policy, right-click on the firewall object in the
           tree to open the context menu and use menu
@@ -12885,27 +12956,6 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
         <figure id="ipv6_slide_6">
           <title>Set rule set parameters</title>
               <graphic scale="70" fileref="ipv6_slide_6.png" />
-        </figure>
-
-	<para>
-          We forgot to create network object to represent our local
-          IPv6 network. Click <guimenuitem>New Network
-          IPv6</guimenuitem> in the new object menu.
-        </para>
-
-        <figure id="ipv6_slide_7">
-          <title>Create IPv6 network object</title>
-              <graphic scale="70" fileref="ipv6_slide_7.png" />
-        </figure>
-
-	<para>
-          Enter the name and address of this network. We are using the
-          link-local address for illustration purposes.
-        </para>
-
-        <figure id="ipv6_slide_8">
-          <title>IPv6 network object name and address</title>
-              <graphic scale="70" fileref="ipv6_slide_8.png" />
         </figure>
 
 	<para>
@@ -13009,7 +13059,288 @@ $IP6TABLES -A Policy_ipv6_3  -j DROP
         </screen>
 
 	<para>
-          Now you can install the policy on your firewall.
+          Lets try to compile policy rule set configured as mixed
+          IPv4+IPv6. To illustrate, I am using two simple rules. I am
+          also going to use this example to illustrate one more
+          important aspect of Firewall Builder when dealing with IPv6
+          rule sets, that is, the rule that matches on an interface
+          (column "Interface" is not "any") will compile for IPv6 only
+          if this interface has IPv6 address.
+        </para>
+
+        <figure id="ipv6_slide_6_1">
+          <title>Mixed IPv4/IPv6 rule set parameters</title>
+              <graphic scale="70" fileref="ipv6_slide_6_1.png" />
+        </figure>
+
+        <para>
+          Rule #0 permits everything on loopback. Loopback interface
+          of the firewall has two addresses: 127.0.0.1/8 and
+          ::1/128. Rule #1 permits http and any ICMPv6 to the
+          firewall. Here is generated iptables script for these two
+          rules:
+        </para>
+
+        <screen>
+# ================ IPv4
+
+# ================ Table 'filter', rule set Policy_mix
+# Policy compiler errors and warnings:
+# 
+# Rule Policy_mix 0 (lo)
+# 
+$IPTABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_mix 1 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 80  -m state --state NEW  -j ACCEPT 
+
+# ================ IPv6
+
+# ================ Table 'filter', rule set Policy_mix
+# Policy compiler errors and warnings:
+# 
+# Rule Policy_mix 0 (lo)
+# 
+$IP6TABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_mix 1 (global)
+# 
+$IP6TABLES -A INPUT -p tcp -m tcp  --dport 80  -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT 
+        </screen>
+
+
+        <para>
+          The script has two parts, one for IPv4 and another for IPv6,
+          generated from the same rule set "Policy_mix". The IPv4 part
+          has only IPv4 addresses and services. The rule that permits
+          ICMPv6 to the firewall is missing in this part of the script
+          because ICMPv6 does not match address family. The rule that
+          permits HTTP to the firewall is there though.  The second
+          (IPv6) part of the script both permits HTTP and ICMPv6 to
+          the firewall.
+        </para>
+
+        <para>
+          If loopback interface of the firewall did not have an
+          address ::1/128, then the IPv6 part of the generated script
+          would not have rules permitting anything on loopback (those
+          with "-i lo" and "-o lo"). This may not be very obvious and
+          may be confusing at first, but this behavior is very useful
+          during transition from purely IPv4 network to a mix of IPv4
+          and IPv6 when you enable IPv6 only on some interfaces but
+          not others.
+        </para>
+
+        <para>
+          Finally, lets look at the generated PF configuration for the
+          same rules in the same mixed policy rule set:
+        </para>
+
+        <screen>
+
+table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 192.168.1.1 } 
+table &lt;tbl.r1.dx&gt; { 2001:db8:1:1::1 , 2001:db8:ffff:ffff::1 } 
+
+# Rule  Policy_mix 0 (lo)
+# 
+pass quick on lo inet  from any  to any keep state
+# 
+# Rule  Policy_mix 1 (global)
+# 
+pass in quick inet proto tcp  from any  to &lt;tbl.r9999.d&gt; port 80 keep state
+ 
+
+# Rule  Policy_mix 0 (lo)
+# 
+pass quick on lo inet6  from any  to any keep state
+# 
+# Rule  Policy_mix 1 (global)
+# 
+pass in quick inet6 proto tcp  from any  to &lt;tbl.r1.dx&gt; port 80 keep state
+pass in quick inet6 proto icmp6  from any  to &lt;tbl.r1.dx&gt; keep state
+
+        </screen>
+
+       </sect2>
+
+       <sect2>
+         <title>Using mixed IPv4+IPv6 rule set to simplify adoption of
+          IPv6</title>
+
+        <para>
+          Mixed IPv4/IPv6 rule sets can be especially useful in the
+          configuration of the routers access lists where rules can
+          become rather complicated when IPv6 is added to existing
+          IPv4 network . Here is simplified example of a Cisco router
+          access list configuration that we migrate from IPv4 only to
+          mixed IPv4+IPv6. We start with simple two rules that use
+          only IPv4 address and service objects:
+        </para>
+
+        <figure id="ipv6_slide_19">
+          <title>IPv4 only rule set</title>
+              <graphic scale="70" fileref="ipv6_slide_19.png" />
+        </figure>
+
+        <para>
+          In this exmaple router has just two interfaces,
+          FastEthernet0/0 and FastEthernet0/1, both interfaces have
+          only IPv4 addresses when we start. Generated configuration
+          looks like this:
+        </para>
+
+        <screen>
+! ================ IPv4
+! Policy compiler errors and warnings:
+! 
+no ip access-list extended fe0_0_in
+no ip access-list extended fe0_1_in
+
+ip access-list extended fe0_0_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+exit
+
+ip access-list extended fe0_1_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+  permit tcp any  192.168.1.0 0.0.0.255 eq 80 
+exit
+
+interface FastEthernet0/0
+  ip access-group fe0_0_in in
+exit
+interface FastEthernet0/1
+  ip access-group fe0_1_in in
+exit
+        </screen>
+
+        <para>
+          Here rule #0 permits ICMP ping requests to the firewall
+          through all interfaces and rule #1 permits http to internal
+          network through interface FastEthernet0/1 (external),
+          direction inbound. As the result, we get two access lists
+          "fe0_0_in" and "fw0_1_in", one for each interface, that
+          reflect these rules.
+        </para>
+
+
+        <para>
+          Suppose we need to add IPv6 to this network. To do this, I
+          add IPv6 addresses to the interfaces of the router and
+          create network object to describe IPv6 internal network.  I
+          then add new IPv6 network object to the rule #1 to permit
+          HTTP to internal net both on IPv4 and IPv6. Rule #0 should
+          also permit ICMPv6 neighbor solicitation and advertisement
+          messages, as well as ICMP v6 ping since it is different from
+          IPv4 ICMP ping. Lets permit any ICMPv6 to the internal
+          network as well. I'll just add IPv6 objects to existing
+          rules, mark rule set as "Mixed IPv4 and IPv6" and let the
+          program sort it out. Here is how updated rules look like:
+        </para>
+
+
+        <figure id="ipv6_slide_20">
+          <title>Mixed IPv4/IPv6 rule set</title>
+              <graphic scale="70" fileref="ipv6_slide_20.png" />
+        </figure>
+
+        <para>
+          Now router has the same two interfaces, FastEthernet0/0 and
+          FastEthernet0/1, but both interfaces have IPv4 and IPv6
+          addresses. Here is the result:
+        </para>
+
+        <screen>
+! ================ IPv4
+! Policy compiler errors and warnings:
+! 
+no ip access-list extended fe0_0_in
+no ip access-list extended fe0_1_in
+
+ip access-list extended fe0_0_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+exit
+
+ip access-list extended fe0_1_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+  permit tcp any  192.168.1.0 0.0.0.255 eq 80 
+exit
+
+
+interface FastEthernet0/0
+  ip access-group fe0_0_in in
+exit
+interface FastEthernet0/1
+  ip access-group fe0_1_in in
+exit
+
+! ================ IPv6
+! Policy compiler errors and warnings:
+! 
+no ipv6 access-list ipv6_fe0_0_in
+no ipv6 access-list ipv6_fe0_1_in
+
+ipv6 access-list ipv6_fe0_0_in
+  permit icmp any  host 2001:db8:1:1::1 135 
+  permit icmp any  host 2001:db8:1:1::1 136 
+  permit icmp any  host 2001:db8:1:1::1 128 
+  permit icmp any  host 2001:db8:ffff:ffff::1 135 
+  permit icmp any  host 2001:db8:ffff:ffff::1 136 
+  permit icmp any  host 2001:db8:ffff:ffff::1 128 
+exit
+
+ipv6 access-list ipv6_fe0_1_in
+  permit icmp any  host 2001:db8:1:1::1 135 
+  permit icmp any  host 2001:db8:1:1::1 136 
+  permit icmp any  host 2001:db8:1:1::1 128 
+  permit icmp any  host 2001:db8:ffff:ffff::1 135 
+  permit icmp any  host 2001:db8:ffff:ffff::1 136 
+  permit icmp any  host 2001:db8:ffff:ffff::1 128 
+  permit tcp any  2001:db8:ffff:ffff::/64 eq 80 
+  permit icmp any  2001:db8:ffff:ffff::/64 
+exit
+
+interface FastEthernet0/0
+  ipv6 traffic-filter ipv6_fe0_0_in in
+exit
+interface FastEthernet0/1
+  ipv6 traffic-filter ipv6_fe0_1_in in
+exit
+        </screen>
+
+        <para>
+          The IPv4 part looks exactly the same as before, but we also
+          have additional IPv6 access lists. For IPv6, rule #1 permits
+          ICMPv6 neighbor solicitation, neighbor advertisement and
+          ipv6 ping request messages to the firewall through all
+          interfaces, direction inbound, and rule #1 permits http and
+          all ICMPv6 to the internal network through FastEthernet0/1,
+          inbound. Generated ipv6 access lists "ipv6_fe0_0_in" and
+          "ipv6_fe0_1_in" reflect this. ACL ipv6_fe0_0_in permits icmp
+          types 128, 135 and 136 to ipv6 addresses that belong to the
+          firewall and ACL ipv6_fe0_1_in permits the same icmp
+          messages to the firewall, plus tcp port 80 and any ipv6 icmp
+          to the internal ipv6 network.
+        </para>
+
+        <para>
+          The program automatically separated IPv4 and IPv6 objects
+          and created two sets of access lists to implement policies
+          for both address families. This simplifies adoption of IPv6
+          into existing network because you don't have to reimplement
+          access lists and firewall rules written for IPv4 again and
+          then maintain two rule sets coordinated as you make
+          changes. Instead, the structure of existing policy rule set
+          is preserved, you just add IPv6 objects to the same rules
+          and the program generates both IPv4 and IPv6 configurations
+          from it.
         </para>
 
       </sect2>
