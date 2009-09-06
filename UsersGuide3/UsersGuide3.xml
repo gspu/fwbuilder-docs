@@ -13173,12 +13173,26 @@ pass in quick inet6 proto icmp6  from any  to &lt;tbl.r1.dx&gt; keep state
 
         <para>
           Mixed IPv4/IPv6 rule sets can be especially useful in the
-          configuration of the routers access lists where rules can
-          become rather complicated when IPv6 is added to existing
-          IPv4 network . Here is simplified example of a Cisco router
-          access list configuration that we migrate from IPv4 only to
-          mixed IPv4+IPv6. We start with simple two rules that use
-          only IPv4 address and service objects:
+          configuration of the routers access lists and firewall
+          policies where rules can become rather complicated when IPv6
+          is added to existing IPv4 network. Since most firewalls and
+          routers require different syntax for ipv6 ACL and rules,
+          administrator has to implement second rule set for IPv6,
+          carefully trying to copy existing IPv4 rules to preserve
+          general structure and meaning of the security policy. Things
+          get even more complicated after that because every change in
+          the policy should now be reflected in two sets of ACL or
+          firewall rules. Keeping these synchronized can quickly turn
+          into major task that can significantly elevate probability
+          of human error and network outage. Mixed IPv4+IPv6 rule sets
+          in Firewall Builder help solve this problem.
+        </para>
+
+        <para>
+          Lets illustrate this using simplified example of a Cisco
+          router access list configuration that we migrate from IPv4
+          only to mixed IPv4+IPv6. We start with simple two rules that
+          use only IPv4 address and service objects:
         </para>
 
         <figure id="ipv6_slide_19">
