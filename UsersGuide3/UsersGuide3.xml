@@ -12977,11 +12977,8 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
           compiler shows that it first processes IPv4 policy rule set,
           then compiles IPv6 policy rule set. I still have bunch of
           rules in the IPv4 policy from the previous examples in this
-          section but the IPv6 policy is small and only has 4 rules as
-          shown on the screenshot above. This particular rule set does
-          not have any rules that would generate iptables commands for
-          the "mangle" table, however it has 4 rules to go to the ipv6
-          filter table.
+          section but the IPv6 policy is small and only has a few
+          rules as shown on the screenshot above.
         </para>
 
         <screen>
@@ -13023,16 +13020,21 @@ $ fwb_ipt -v -f policy_rules.fwb fw
 
 	<para>
           Here is a fragment of the generated script. The script uses
-          the ip6tables routine to load rules into the kernel. Rule 1
-          has iptables rules in the OUTPUT chain because the firewall
-          object has option "Assume firewall is part of any" turned on
-          by default.
+          the ip6tables routine to load rules into the kernel. Option
+          "Assume firewall is part of any" was turned off in this
+          firewall object so the rule #1 generated only iptables
+          commands in the INPUT chain.
         </para>
 
 
         <screen>
 # ================ Table 'filter', rule set Policy_ipv6
 # Policy compiler errors and warnings:
+# 
+# Rule Policy_ipv6 0 (lo)
+# 
+$IP6TABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
 # 
 # Rule Policy_ipv6 1 (global)
 # 
@@ -13060,12 +13062,7 @@ $IP6TABLES -A Policy_ipv6_3  -j DROP
 
 	<para>
           Lets try to compile policy rule set configured as mixed
-          IPv4+IPv6. To illustrate, I am using two simple rules. I am
-          also going to use this example to illustrate one more
-          important aspect of Firewall Builder when dealing with IPv6
-          rule sets, that is, the rule that matches on an interface
-          (column "Interface" is not "any") will compile for IPv6 only
-          if this interface has IPv6 address.
+          IPv4+IPv6. To illustrate, I am using two simple rules.
         </para>
 
         <figure id="ipv6_slide_6_1">
@@ -13122,6 +13119,12 @@ $IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT
           permits HTTP to the firewall is there though.  The second
           (IPv6) part of the script both permits HTTP and ICMPv6 to
           the firewall.
+        </para>
+
+        <para>
+          Note: the rule that matches on an interface (column
+          "Interface" is not "any") will compile for IPv6 only if this
+          interface has IPv6 address.
         </para>
 
         <para>
