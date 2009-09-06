@@ -12782,7 +12782,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
         </para>
 
       <figure id="ipv6_slide_1">
-          <title>Add IPv6 addresses to IPv4 Policy</title>
+          <title>Add IPv6 addresses to an interface</title>
               <graphic scale="70" fileref="ipv6_slide_1.png" />
         </figure>
 
