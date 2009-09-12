@@ -92,11 +92,9 @@
   #f)
 -->
 
-<!--
  (define %use-id-as-filename%
   ;; Use ID attributes as name for component HTML files?
   #t)
--->
 
 
 <!--
