@@ -13366,9 +13366,17 @@ exit
 	<title>Running multiple services on the same machine on
 	different virtual addresses and different ports</title>
 
-	  <para> Here is an example of how Firewall Builder can be used to build a firewall protecting a server. Suppose we run several secure web servers on the same machine and use virtual IP addresses to be able to supply different certificates for each one.</para>
+	  <para> Here is an example of how Firewall Builder can be
+	  used to build a firewall protecting a server. Suppose we run
+	  several secure web servers on the same machine and use
+	  virtual IP addresses to be able to supply different
+	  certificates for each one.</para>
 
-	  <para>In addition, we run webmin on the same machine that we use to manage it. We need to permit access on protocol HTTPS to virtual addresses web servers are using from anywhere, and limited access to the webmin port on a specific address.</para>
+	  <para>In addition, we run webmin on the same machine that we
+	  use to manage it. We need to permit access on protocol HTTPS
+	  to virtual addresses web servers are using from anywhere,
+	  and limited access to the webmin port on a specific
+	  address.</para>
 
 	  <para>Here is the firewall object:</para>
 
@@ -13384,63 +13392,114 @@ exit
               <graphic scale="70" fileref="ex2-server-2.png" />
         </figure>
 
-	  <para> Access to webmin service is only permitted from the local network, while access to the secure web servers running on virtual addresses fxp0-ip1, fxp0-ip2 and fxp0-ip3 is permitted from anywhere.</para>
+	  <para> Access to webmin service is only permitted from the
+	  local network, while access to the secure web servers
+	  running on virtual addresses fxp0-ip1, fxp0-ip2 and fxp0-ip3
+	  is permitted from anywhere.</para>
 
-	  <para>The following screenshot illustrates how the TCP Service object webmin is created.</para>
+	  <para>The following screenshot illustrates how the TCP
+	  Service object webmin is created.</para>
 
         <figure id="ex2-server-3">
           <title>webmin object</title>
               <graphic scale="70" fileref="ex2-server-3.png" />
         </figure>
 
-	<para>Webmin uses port 10000, so we put this port number in both the beginning and end of the destination port range. We do not need to do any inspection of the TCP flags and leave all of them unchecked in this object.</para>
+	<para>Webmin uses port 10000, so we put this port number in
+	both the beginning and end of the destination port range. We
+	do not need to do any inspection of the TCP flags and leave
+	all of them unchecked in this object.</para>
       </sect2>
 
       <sect2>
 	<title>Using firewall as DHCP and DNS server for the local net</title>
 
-	<para>It is often convenient to use a firewall as a DHCP and DNS server for the local net, especially in small installations like that in a home office. It is not really difficult, but building rules properly requires understanding of how DHCP and DNS work.</para>
+	<para>It is often convenient to use a firewall as a DHCP and
+	DNS server for the local net, especially in small
+	installations like that in a home office. It is not really
+	difficult, but building rules properly requires understanding
+	of how DHCP and DNS work.</para>
 
-	<para>The following combination of rules permits machines on the local net to use the firewall as DHCP server:</para>
+	<para>The following combination of rules permits machines on
+	the local net to use the firewall as DHCP server:</para>
 
         <figure id="policy-10-2">
           <title>Rules with DHCP</title>
               <graphic scale="70" fileref="policy-10-2.png" />
         </figure>
 
-	<para> The first rule permits two types of DHCP requests: the initial discovery request that is sent to the broadcast address 255.255.255.255 and the renewal request that is sent to the firewall's address. The address range object "broadcast" can be found in the Standard objects tree, under Objects/Address Ranges; this object defines broadcast address 255.255.255.255. The second rule in the pair permits DHCP replies sent by the firewall. The Service object "DHCP" can be found in the "Standard" objects tree, under Services/Groups.</para>
+	<para> The first rule permits two types of DHCP requests: the
+	initial discovery request that is sent to the broadcast
+	address 255.255.255.255 and the renewal request that is sent
+	to the firewall's address. The address range object
+	"broadcast" can be found in the Standard objects tree, under
+	Objects/Address Ranges; this object defines broadcast address
+	255.255.255.255. The second rule in the pair permits DHCP
+	replies sent by the firewall. The Service object "DHCP" can be
+	found in the "Standard" objects tree, under
+	Services/Groups.</para>
 
-	<para>We could make these rules more narrow if we used the internal interface of the firewall in place of the firewall object. Assuming interface eth0 is connected to internal net, the rules would look like this:</para>
+	<para>We could make these rules more narrow if we used the
+	internal interface of the firewall in place of the firewall
+	object. Assuming interface eth0 is connected to internal net,
+	the rules would look like this:</para>
 
         <figure id="policy-11">
           <title>Rules with DHCP using Firewall interface</title>
               <graphic scale="70" fileref="policy-11.png" />
         </figure>
 
-	<para>To permit the local network to use the firewall as a DNS server, we need to permit DNS queries directed to the firewall, DNS replies sent by the firewall, DNS queries sent by the firewall to servers on the Internet and replies sent back to it. The following pair of rules does just that:</para>
+	<para>To permit the local network to use the firewall as a DNS
+	server, we need to permit DNS queries directed to the
+	firewall, DNS replies sent by the firewall, DNS queries sent
+	by the firewall to servers on the Internet and replies sent
+	back to it. The following pair of rules does just that:</para>
 
         <figure id="policy-12">
           <title>Rules with DNS</title>
               <graphic scale="70" fileref="policy-12.png" />
         </figure>
 
-	<para>The Service object group object DNS can be found in the "Standard" objects tree, under Services/Groups. This group consist of both the UDP object domain and TCP object domain. Both objects define destination port 53 and ignore source port. Since we do not specify the source port, these objects match both queries sent by the domain name server (source port is 53) and the resolver on the workstations on the local net (source port is >1024). We need to use objects representing both UDP and TCP protocols because DNS falls back to TCP if the answer for the query is too big and won't fit in the standard UDP datagram. DNS zone transfers also use TCP protocol.</para>
+	<para>The Service object group object DNS can be found in the
+	"Standard" objects tree, under Services/Groups. This group
+	consist of both the UDP object domain and TCP object
+	domain. Both objects define destination port 53 and ignore
+	source port. Since we do not specify the source port, these
+	objects match both queries sent by the domain name server
+	(source port is 53) and the resolver on the workstations on
+	the local net (source port is >1024). We need to use objects
+	representing both UDP and TCP protocols because DNS falls back
+	to TCP if the answer for the query is too big and won't fit in
+	the standard UDP datagram. DNS zone transfers also use TCP
+	protocol.</para>
       </sect2>
 
 
       <sect2>
 	<title>Controlling outgoing connections from the firewall</title>
 
-	  <para>This example shows the rule that permits only certain types of outgoing connections. To permit outgoing web access but nothing else, we put the firewall object in Source and corresponding service object in Service:</para>
+	  <para>This example shows the rule that permits only certain
+	  types of outgoing connections. To permit outgoing web access
+	  but nothing else, we put the firewall object in Source and
+	  corresponding service object in Service:</para>
 
         <figure id="policy-19">
           <title>HTTP only</title>
               <graphic scale="70" fileref="policy-19.png" />
         </figure>
 
-	  <para>Rule #1 blocking packets going from any source to any destination also blocks packet originating on the firewall (provided option "Assume firewall is part of any" is on). The combination of these two rules permits only outgoing HTTP connections from the firewall and nothing else.</para>
+	  <para>Rule #1 blocking packets going from any source to any
+	  destination also blocks packet originating on the firewall
+	  (provided option "Assume firewall is part of any" is
+	  on). The combination of these two rules permits only
+	  outgoing HTTP connections from the firewall and nothing
+	  else.</para>
 
-	  <para>Although we permit outgoing HTTP connections here, we should probably permit outgoing DNS queries as well. The browser running on this machine would not be able to connect to a web site if it cannot resolve the name via DNS. Here is the corrected policy:</para>
+	  <para>Although we permit outgoing HTTP connections here, we
+	  should probably permit outgoing DNS queries as well. The
+	  browser running on this machine would not be able to connect
+	  to a web site if it cannot resolve the name via DNS. Here is
+	  the corrected policy:</para>
 
         <figure id="policy-20">
           <title>HTTP and DNS</title>
@@ -13452,138 +13511,484 @@ exit
 	  the <guilabel>"Standard"</guilabel> tree
 	  under <guimenuitem>Services/Groups</guimenuitem>.</para>
 
-	  <para>We may also want to permit protocols used for troubleshooting, such as ping. In order to permit it, we just add ICMP Service object "ping request" to the list of services permitted by rule #0:</para>
+	  <para>We may also want to permit protocols used for
+	  troubleshooting, such as ping. In order to permit it, we
+	  just add ICMP Service object "ping request" to the list of
+	  services permitted by rule #0:</para>
 
         <figure id="policy-21">
           <title>HTTP,DNS and ping</title>
               <graphic scale="70" fileref="policy-21.png" />
         </figure>
 
-	  <note><para>In Firewall Builder, a firewall object represents any machine that runs firewall software. This is not necessarily a dedicated firewall protecting a local network, but may actually be a server or a laptop. For example, rules permitting HTTP to the dedicated firewall machine may not be very practical because running the web server on it would be risky, but if the firewall object represents a web server with iptables or ipfilter running on it, such rules make perfect sense. The rule permitting outbound HTTP access from the firewall machine&mdash;explained in this example&mdash;can be used as a part of the policy protecting a laptop or a workstation.</para></note>
+	  <note><para>In Firewall Builder, a firewall object
+	  represents any machine that runs firewall software. This is
+	  not necessarily a dedicated firewall protecting a local
+	  network, but may actually be a server or a laptop. For
+	  example, rules permitting HTTP to the dedicated firewall
+	  machine may not be very practical because running the web
+	  server on it would be risky, but if the firewall object
+	  represents a web server with iptables or ipfilter running on
+	  it, such rules make perfect sense. The rule permitting
+	  outbound HTTP access from the firewall
+	  machine&mdash;explained in this example&mdash;can be used as
+	  a part of the policy protecting a laptop or a
+	  workstation.</para></note>
       </sect2>
 
+      <!-- ================================================================ -->
       <sect2>
-	<title>Blocking ssh scans using a branching rule</title>
+        <title>Branching rules</title>
 
-	  <para>We start with an existing firewall policy. The rules we are going to add to block ssh scans do not depend on other rules in the policy.</para>
+        <para>
+          Many firewall platforms support mechanism by which control
+          can be passed from one group of rules to another, much like
+          in programming languages control can be passed to a
+          subroutine. The rule set that gets control in such operation
+          can then make final decision about the packet and accept or
+          deny it, or it can return control back to the rule set that
+          was running before. Firewall Builder provides the same
+          mechanism using branching action that is
+          called <emphasis>"Chain"</emphasis> for iptables firewalls
+          and <emphasis>"Anchor"</emphasis> for PF firewalls to reuse
+          familiar the names using in iptables and pf respectively.
+        </para>
 
-        <figure id="block-ssh-scan-using-branch1">
-          <title>Starting policy</title>
-              <graphic scale="50" fileref="slide_1.png" />
+        <note>
+          <para>
+            Platform-specific action
+            names <emphasis>"Chain"</emphasis>
+            and <emphasis>"Anchor"</emphasis> will disappear in
+            Firewall Builder v4.0. The name of the action that creates
+            a branch in the rule set processing sequence will be just
+            <emphasis>"Branch"</emphasis> regardless of the chosen
+            target firewall platform.
+          </para>
+        </note>
+
+        <para>
+          Branching rules can be used to create optimized rule sets or
+          to improve readability or both. Consider example shown in
+          the following screenshot:
+        </para>
+
+        <figure id="branch_rule_1">
+          <title>Firewall object with two policy rule sets</title>
+          <graphic scale="50" fileref="branch_rule_1.png" />
+        </figure>
+        
+        <para>
+          Firewall fw2 has two rule sets: "Policy" and "rate_limit". I
+          am going to demonstrate how the second rule set can be used
+          to rate limit packets that match different rules in the main
+          rule set "Policy".
+        </para>
+
+        <note>
+          <para>
+            <xref linkend="ipv6_slide_5"/> demonstrated how to add
+            policy rule set object to the firewall.
+          </para>
+        </note>
+
+        <para>
+          Lets create a rule to match ssh sessions to the firewall and
+          instead of accepting or dropping them right away, pass
+          control to the rule set "rate_limit" that will accept them
+          only if they are not opened too fast. First, create this
+          rule and choose action "Chain", then double click on the
+          action and drag rule set object "rate_limit" into the well
+          in the action dialog as shown in the screenshot:
+        </para>
+
+        <figure id="branch_rule_2">
+          <title>Rule with action "Chain"</title>
+          <graphic scale="50" fileref="branch_rule_2.png" />
+        </figure>
+        
+        <para>
+          Now we can configure rate limiting rule in the "rate_limit"
+          rule set. I am going to use iptables module "hashlimit" to
+          configure rather sophisticated rate limiting. When I
+          recreate the same example for PF below, the options will look
+          different.
+        </para>
+
+        <figure id="branch_rule_3">
+          <title>Rate limiting rule </title>
+          <graphic scale="50" fileref="branch_rule_3.png" />
         </figure>
 
-	  <para>First, we create a new policy rule set with name "block_ssh". This rule set is not the "top ruleset", so generated iptables rules will be placed in the chain "block_ssh". We do not need to add any rules here. Rules will be added to this chain by an external script.</para>
+        <para>
+          Here is iptables script generated by the program for these
+          rules:
+        </para>
 
-        <figure id="block-ssh-scan-using-branch2">
+        <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -N rate_limit
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -j rate_limit 
+
+# ================ Table 'filter', rule set rate_limit
+# 
+# Rule rate_limit 0 (global)
+# 
+$IPTABLES -A rate_limit  -m state --state NEW  \
+    -m hashlimit --hashlimit 5/minute --hashlimit-mode srcip \
+    --hashlimit-name htable_rule_0 -j ACCEPT 
+        </screen>
+
+        <para>
+          Those familiar with iptables will notice that Firewall
+          Builder created user-defined chain with the name of the
+          second rule set ("rate_limit") and used "-j" option to pass
+          control to it from the top-level rule.
+        </para>
+
+        <para>
+          Branching from a single rule is not very interesting. I
+          could just use the same options with the rule #0 in the top
+          level Policy rule set and get the same result, except
+          instead of the user defined chain "rate_limit" this all
+          would have been done in the same iptables command. However
+          branching to a dedicated rule set becomes more useful if I
+          want to use the same rate limiting to control access to
+          several servers behind the firewall on entirely different
+          protocols. Here is new example:
+        </para>
+
+        <figure id="branch_rule_4">
+          <title>Several rules branching to the same rule set "rate_limit"</title>
+          <graphic scale="50" fileref="branch_rule_4.png" />
+        </figure>
+        
+        <para>
+          Here is how generated iptables script looks like:
+        </para>
+        
+        <screen>
+# ================ Table 'filter', rule set Policy
+# 
+# Rule 0 (global)
+# 
+$IPTABLES -N rate_limit
+$IPTABLES -A INPUT -p tcp -m tcp --dport 22 -j rate_limit 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp -d 192.168.1.100 --dport 25 -j rate_limit 
+# 
+# Rule 2 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp -d 192.168.1.200 --dport 80 -j rate_limit 
+
+# ================ Table 'filter', rule set rate_limit
+# 
+# Rule rate_limit 0 (global)
+# 
+$IPTABLES -A rate_limit  -m state --state NEW  \
+    -m hashlimit --hashlimit 5/minute --hashlimit-mode srcip \
+    --hashlimit-name htable_rule_0 -j ACCEPT 
+        </screen>
+
+        <para>
+          Here are three iptables rules that match different addresses
+          and services but pass control to the same chain
+          "rate_limit". Now if I need to tune my rate limiting
+          parameters for all destinations, I can do it in one place
+          instead of three.
+        </para>
+
+        <para>
+          The rule #0 in the "rate_limit" rule set matches packets
+          only if they come at the rate no more than 5 per minute per
+          source IP address. Packets that match these criteria will be
+          accepted, but those that don't will not match the
+          rule. Since this rule is the last in the branch rule set,
+          control will return to the top level and firewall will
+          continue examining the packet with rules below the one that
+          passed control to "rate_limit" rule set. Eventually it may
+          hit the "catch all" rule and get dropped, but more complex
+          policies may do something else with these packets such as
+          try different rate limiting criteria or mark them for
+          traffic shaping.
+        </para>
+
+        <para>
+          Action that creates a branch is available in Firewall
+          Builder only if target firewall platform provides some kind
+          of mechanism to support it. In iptables it is user-defined
+          chains, in PF it is anchors. Unfortunately branching can not
+          be implemented in Cisco IOS access lists and PIX. Lets try
+          to recompile the same rules for PF. First, we'll need to
+          change rate limiting parameters because its implementation
+          in PF is different from that in iptables.
+        </para>
+        
+        <figure id="branch_rule_5">
+          <title>Rate limiting rule for PF</title>
+          <graphic scale="50" fileref="branch_rule_5.png" />
+        </figure>
+
+        <para>
+          I am using the same three rules in the main Policy to rate
+          limit connections to the firewall itself and two servers
+          behind it. Generated PF config is split so that main policy
+          rules are in the file <emphasis>"fw2-pf.conf"</emphasis> and
+          rules for the ruleset <emphasis>"rate_limit"</emphasis> are
+          in the
+          file <emphasis>"fw2-pf-rate_limit.conf"</emphasis>. When
+          configuration with multiple rule sets is compiled for PF,
+          each new branch rule set has its own separate file with the
+          name composed from the name of the firewall object and the
+          name of the rule set object.
+        </para>
+
+        <para>File <emphasis>fw2-pf.conf</emphasis>:</para>
+
+        <screen>
+# Tables: (1)
+table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 192.168.1.1 } 
+
+# Policy compiler errors and warnings:
+# 
+# Rule  0 (global)
+# 
+anchor rate_limit in  inet proto tcp  from any  to &lt;tbl.r9999.d&gt; port 22 
+# 
+# Rule  1 (global)
+# 
+anchor rate_limit inet proto tcp  from any  to 192.168.1.100 port 25 
+# 
+# Rule  2 (global)
+# 
+anchor rate_limit inet proto tcp  from any  to 192.168.1.200 port 80 
+        </screen>
+
+        <para>File <emphasis>fw2-pf-rate_limit.conf</emphasis>:</para>
+
+        <screen>
+# Tables: (0)
+
+# Policy compiler errors and warnings:
+# 
+# Rule  rate_limit 0 (global)
+# 
+pass  quick inet  from any  to any keep state  (  max-src-conn 10, max-src-conn-rate 5/60 ) 
+        </screen>
+
+        <para>
+          Firewall Builder also generates a shell script to load these
+          rules. The script is in the file with the name the same as
+          the name of the firewall, with extension ".fw":
+        </para>
+
+        <para>Here is the code that loads rules in the
+        file <emphasis>fw2-pf.fw</emphasis>:</para>
+
+        <screen>
+
+$PFCTL -f ${FWDIR}/fw2-pf.conf || exit 1
+$PFCTL -a rate_limit -f ${FWDIR}/fw2-pf-rate_limit.conf || exit 1
+        </screen>
+
+        <para>
+          Rules from the
+          file <emphasis>"fw2-pf-rate_limit.conf"</emphasis> are
+          loaded into anchor "rate_limit".
+        </para>
+
+
+      </sect2>
+
+
+      <!-- ================================================================ -->
+
+      <sect2>
+	<title>Using branch rule set with external script that adds
+	rules "on the fly"</title>
+
+        <para>
+          Branch rule sets created in the Firewall Builder GUI get
+          translated into user-defined chains (iptables) or anchors
+          (pf) in the generated configuration. It is not required
+          however that you put any rules in this branch rule set. If
+          it is left empty, it won't make packet checks and return
+          back to the top level rule that called it right away. Such
+          empty rule set can be very useful if you populate it with
+          rules using some external script after firewall policy has
+          been loaded. In the following example I use this idea to add
+          firewall policy rules dynamically to block ssh scanners. The
+          goal is to build policy rules to do the following:
+        </para>
+
+	<orderedlist numeration="arabic">
+	  <listitem>
+            <para>
+              Always permit ssh from internal network to the
+              firewall. Our algorithm for identification of ssh
+              scanners is based on the log records of failed login
+              attempts, so it is important to have a rule to permit
+              ssh from inside.  Without this rule, if administrator
+              made a typo entering the password, this could trigger
+              the next rule for the source address they tried to
+              connect from and block them.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              If source ip address of the ssh client that tries to
+              connect was identified as ssh scanner, block connection
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              permit all other ssh connections from all sources
+            </para>
+          </listitem>
+        </orderedlist>
+
+        <para>
+          This policy is rather permissive but it can easily be
+          modified to suite more strict security requirements.
+        </para>
+
+	<para>
+          I start with an existing firewall policy. The rules I am
+	  going to add to block ssh scans do not depend on other rules
+	  in the policy.  First, I create a new policy rule set with
+	  name "block_ssh". This rule set is not the "top ruleset", so
+	  generated iptables rules will be placed in the chain
+	  "block_ssh". I do not add any rules here. Rules will be
+	  added to this chain by an external script.
+        </para>
+
+        <figure id="block-ssh-scan-using-branch-1">
           <title>Create "block_ssh" rule set</title>
-              <graphic scale="50" fileref="slide_2.png" />
+          <graphic scale="50" fileref="block_ssh_1.png" />
         </figure>
 
-	  <para>Create rule #3 in the main policy, the destination is the firewall itself, the service is "ssh", the direction "Inbound" and action is "Chain". Open the action in the editor by double-clicking on it, then drag the object representing rule set "block_ssh" into the well in the action editor panel. The idea is to first permit ssh to the firewall from internal net (rule #2), then to pass control to chain "block_ssh". If that chain does not block the ssh session, use another rule to permit it.</para>
+	<para>
+          Create rule #0 in the main policy to permit ssh to the
+	  firewall from internal network, then another one where the
+	  destination the firewall itself, the service is "ssh", the
+	  direction "Inbound" and action is "Chain". Open the action
+	  in the editor by double-clicking on it, then drag the object
+	  representing rule set "block_ssh" into the well in the
+	  action editor panel. The idea is to first permit ssh to the
+	  firewall from internal net (rule #0), but for attempts to
+	  connect to the firewall on ssh port from other sources pass
+	  control to chain "block_ssh". If that chain does not block
+	  the ssh session, the next rule #2 permits it.
+        </para>
 
-        <figure id="block-ssh-scan-using-branch3">
+        <figure id="block-ssh-scan-using-branch-2">
           <title>Set the "chain" action</title>
-              <graphic scale="50" fileref="slide_3.png" />
+          <graphic scale="50" fileref="block_ssh_2.png" />
         </figure>
 
-	  <para>Add rule #4 to permit ssh to the firewall from all sources. This rule will act on the packet only if it is not blocked by rule #3. Our script will add addresses of scanners to the chain "block_ssh" so that rule #3 will block attempts to connect from these addresses. Connections coming from addresses not in the list in chain "block_ssh" will be permitted by rule #4.</para>
+	<para>
+          Here is what the iptables commands generated for rules
+	  0-1 look like. Note that although the script creates chain
+	  "block_ssh", it does not put any rules in it.
+        </para>
 
-        <figure id="block-ssh-scan-using-branch4">
-          <title>Add a "permit" rule</title>
-              <graphic scale="50" fileref="slide_4.png" />
-        </figure>
+        <screen>
+# ================ Table 'filter', rule set Policy
+# Policy compiler errors and warnings:
+# 
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp  -s 192.168.1.0/24 \
+      --dport 22  -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N block_ssh
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -j block_ssh 
+# 
+# Rule 2 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT 
+        </screen>
 
-	  <para>Here is what the iptables commands generated for rules 2-4 look like. Note that although the script creates chain "block_ssh", it does not put any rules in it.</para>
 
-        <figure id="block-ssh-scan-using-branch5">
-          <title>iptables commands</title>
-              <graphic scale="50" fileref="slide_5.png" />
-        </figure>
-
-	  <para>We use swatch to watch the log and add iptables rules with addresses of scanners to the chain "block_ssh". The screen shot below shows the contents of the swatch config file /root/.swatchrc. This configuration makes swatch detect log lines added by ssh when an attempt is made to log in using an invalid user account or invalid password. Swatch then runs script /root/swatch/block_ssh_scanner.sh.</para>
+	<para>
+          I am using swatch to watch the log and add iptables rules
+	  with addresses of scanners to the chain "block_ssh". The
+	  screen shot below shows the contents of the swatch config
+	  file /root/.swatchrc. This configuration makes swatch detect
+	  log lines added by ssh when an attempt is made to log in
+	  using an invalid user account or invalid password. Swatch
+	  then runs script /root/swatch/block_ssh_scanner.sh.
+        </para>
 
         <figure id="block-ssh-scan-using-branch6">
           <title>swatch</title>
-              <graphic scale="50" fileref="slide_6.png" />
+          <graphic scale="50" fileref="slide_6.png" />
         </figure>
 
-	  <para>This script adds an iptables rule to chain "block_ssh" and also adds the address of the scanner to the file /root/swatch/ssh_scan_addresses to avoid duplications in the future.</para>
+	<para>
+          This script adds an iptables rule to chain "block_ssh" and
+	  also adds the address of the scanner to the file
+	  /root/swatch/ssh_scan_addresses to avoid duplications in the
+	  future.
+        </para>
 
         <figure id="block-ssh-scan-using-branch7">
           <title>script</title>
-              <graphic scale="50" fileref="slide_7.png" />
+          <graphic scale="50" fileref="slide_7.png" />
         </figure>
 
-	  <para>Here is the command line you can use to start the swatch daemon. Add this command to the /etc/rc.d/rc.local script to start it when you reboot your machine.</para>
+	<para>
+          Here is the command line you can use to start the
+	  swatch daemon. Add this command to the /etc/rc.d/rc.local
+	  script to start it when you reboot your machine.
+        </para>
 
         <figure id="block-ssh-scan-using-branch8">
           <title>command line</title>
-              <graphic scale="50" fileref="slide_8.png" />
+          <graphic scale="50" fileref="slide_8.png" />
         </figure>
 
-	  <para>This method of blocking ssh scan attacks is effective but might be too "sharp". It will block access from legitimate machines outside your network as soon as you mistype your password even once. This can be dangerous because you'll block yourself until you either restart the firewall or remove the blocked address from iptables rules in chain "block_ssh". Ssh access to the firewall from the internal network is always permitted because of the rule #2, so this setup will not cut you off the firewall completely. Using ssh keys for authentication instead of the password when you log in from outside is a good way to avoid this problem.</para>
-	  <para>An even better method is to use iptables module "recent" to block ssh access only for limited period of time. Ssh scanners will stop the scan and go away if you block its access for 10min or so, and even if you mistype your password, you'll be cut off for a limited time only.</para>
+	<para>
+          This method of blocking ssh scan attacks is effective
+	  but might be too "sharp". It will block access from
+	  legitimate machines outside your network as soon as you
+	  mistype your password even once. This can be dangerous
+	  because you'll block yourself until you either restart the
+	  firewall or remove the blocked address from iptables rules
+	  in chain "block_ssh". Ssh access to the firewall from the
+	  internal network is always permitted because of the rule #0,
+	  so this setup will not cut you off the firewall
+	  completely. Using ssh keys for authentication instead of the
+	  password when you log in from outside is a good way to avoid
+	  this problem.
+        </para>
+
+        <note>
+	  <para>
+            This example was intended to demonstrate how branch rule
+            set can be used in combination with external script that
+            populates rule set. There are better ways to block ssh
+            scanners, for example using iptables module "recent" which
+            solves a problem of blocking legitimate client addresses
+            after user mistypes the password. Module "recent" can
+            block an address for a limited period of time, which
+            should be enough for the ssh scanner to time out and go
+            away, yet the user who mistyped their password will be
+            able to log in again some time later. The shell script
+            that adds iptables commands to the chain "block_ssh" or
+            addresses to the module recent table can also be improved
+            to only add them after they appear in the ssh log a few
+            times to avoid blocking client addresses after single
+            error entering password.
+          </para>
+        </note>
+
       </sect2>
 
-      <sect2>
-	<title>Using two branching rules to pass control to the same rule set</title>
-
-	  <para>In this section we'll demonstrate how the same policy rule set can be used in two different rules so that a complex rule can be reused. The rule created in this example is specific to the iptables firewall, however the concept of using the same rule set as a target in several branching rules applies to all firewall platforms.</para>
-
-	  <para>First, create a new policy rule set, give it name "rate_limit" and make it not "top ruleset" so that generated iptables rules go into the chain "rate_limit".</para>
-
-        <figure id="two-branching-rules1">
-          <title>New policy rule set</title>
-              <graphic scale="50" fileref="2branch_slide_1.png" />
-        </figure>
-
-	  <para>Add a rule to this ruleset with a destination the firewall object itself, direction "Inbound" and action "Accept".</para>
-
-        <figure id="two-branching-rules2">
-          <title>New rule</title>
-              <graphic scale="50" fileref="2branch_slide_2.png" />
-        </figure>
-
-	  <para>Double-click in the cell "Options" of this rule to open options in the editor panel. Navigate to the "hashlimit" tab and set a rate limiting parameters there. Click <guibutton>Apply</guibutton>.</para>
-
-        <figure id="two-branching-rules3">
-          <title>Set rate limit</title>
-              <graphic scale="50" fileref="2branch_slide_3.png" />
-        </figure>
-
-	  <para>Now in the main policy create a rule to permit SMTP to the firewall, but instead of action "Accept" use action "Chain" and then drag and drop ruleset object "rate_limit" to the well in the editor for this action. This will pass control to the rule in rule set "rate_limit" when the destination address matches the firewall and the service is SMTP.</para>
-
-        <figure id="two-branching-rules4">
-          <title>Chain to rate_limit rule set</title>
-              <graphic scale="50" fileref="2branch_slide_4.png" />
-        </figure>
-
-	  <para>Create another rule with the firewall object as the destination and a service of HTTP. Use action "Chain" and drag ruleset "rate_limit" into the well in the editor for this action.</para>
-
-	  <para>Obviously rules #4 and #5 could be merged into one rule, using two service objects in it. We're keeping them separate in order to demonstrate how the same rule set can be used as a target in multiple branching rules. In real policies these two rules could be sufficiently different to make merging them impractical, for example if they control access to different servers for different services.</para>
-
-        <figure id="two-branching-rules5">
-          <title>Create new rule</title>
-              <graphic scale="50" fileref="2branch_slide_5.png" />
-        </figure>
-
-	  <para>Here is how the generated iptables script looks for rules #4 and #5. Both rules pass control to chain "rate_limit".</para>
-
-         <figure id="two-branching-rules6">
-          <title>iptables script for top rule set</title>
-              <graphic scale="50" fileref="2branch_slide_6.png" />
-        </figure>
-
-	  <para>Here is the code generated for the rule in chain "rate_limit".</para>
-
-	  <para>Using the firewall object in the Destination in rule #0 in rate_limit is redundant because we already matched the destination in the rules that passed control to this ruleset. However, optimization of the generated script was not the goal of this example.</para>
-
-         <figure id="two-branching-rules7">
-          <title>iptables code for "rate_limit" chain</title>
-              <graphic scale="50" fileref="2branch_slide_7.png" />
-        </figure>
-
-      </sect2>
     </sect1>
 
     <sect1 id="nat-cookbook">
@@ -13593,74 +13998,63 @@ exit
         <title>"1-1" NAT</title>
 
   
-
         <para>
-  
-                  Examples above were "hiding" multiple internal
-                  addresses behind just one external address. We a had whole
-                  network (potentially 254 hosts) use the same
-                  external address to access the Internet. Sometimes it is
-                  necessary to do translation where each internal host
-                  has a dedicated corresponding address on the outside.
-                  This is often called "1-1" NAT. Here is how this is
-                  done in fwbuilder when a whole network of the same
-                  dimension is available on the outside:
-                
-  </para>
+          Examples above were "hiding" multiple internal addresses
+          behind just one external address. We a had whole network
+          (potentially 254 hosts) use the same external address to
+          access the Internet. Sometimes it is necessary to do
+          translation where each internal host has a dedicated
+          corresponding address on the outside.  This is often called
+          "1-1" NAT. Here is how this is done in fwbuilder when a
+          whole network of the same dimension is available on the
+          outside:
+        </para>
   
 
         <figure float="1"><title/><graphic scale="50" fileref="snat-rule-2.png"/></figure>
 
         <para>
-  
-                  Network object <emphasis>ext net</emphasis> defines network
-                  "192.0.2.0/24", which is the same size as the internal
-                  network (this is a hypothetical example). Here is
-                  iptables command produced for this rule:
-                
-  </para>
+          Network object <emphasis>ext net</emphasis> defines network
+          "192.0.2.0/24", which is the same size as the internal
+          network (this is a hypothetical example). Here is iptables
+          command produced for this rule:
+        </para>
   
 
-  <screen>
+        <screen>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING   -s 172.16.22.0/24 -j NETMAP --to 192.0.2.0/24 
 
-                </screen>
+        </screen>
 
         <para>
-  
-                  NETMAP target maps a whole network of addresses onto
-                  another network of addresses.
-                
-  </para>
+          NETMAP target maps a whole network of addresses onto another
+          network of addresses.
+        </para>
   
 
         <para>
-  
-                  In PF the following "nat" command is used:
-                
-  </para>
+          In PF the following "nat" command is used:
+        </para>
   
 
-  <screen>
+        <screen>
 
 # Rule  0 (NAT)
 # 
 nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/24 
 
-                </screen>
+        </screen>
 
         <para>
-  
-                  For PIX, fwbuilder generates a "global" address pool
-                  the size of the 192.0.2.0/24 network:
-                
-  </para>
+          For PIX, fwbuilder generates a "global" address pool the
+          size of the 192.0.2.0/24 network:
+        </para>
   
 
-  <screen>
+        <screen>
 
 ! Rule  0 (NAT)
 ! 
@@ -13668,34 +14062,29 @@ global (outside) 1 192.0.2.0 netmask 255.255.255.0
 access-list id54756X30286.0 permit ip 172.16.22.0 255.255.255.0  any 
 nat (inside) 1 access-list id54756X30286.0 tcp 0 0
 
-                </screen>
+        </screen>
 
 	</sect2>
 
    	<sect2>
-        <title>Using Address of "wrong" Interface for Source Address Translation</title>
+          <title>Using Address of "wrong" Interface for Source Address Translation</title>
 
-  
-
-        <para>
-  
-                  Normally, generated iptables SNAT rule includes a "-o
-                  &lt;interface&gt;" clause to make it more specific
-                  and only translate packets that really leave the
-                  network. Firewall Builder guesses which interface to
-                  put in the "-o" parameter by looking at the object
-                  in the Translated Source of the NAT rule. If this
-                  object is the firewall's interface or an address of one
-                  of its interfaces, then it uses that interface for
-                  the "-o" parameter. There is one configuration that
-                  requires the "-o" parameter to be different from the
-                  address used for SNAT translation. This
-                  configuration is useful when you have small block of
-                  publicly routable addresses and want to host a
-                  server in DMZ, but the block is so small that
-                  subnetting it does not make sense.
-                
-  </para>
+          <para>
+            Normally, generated iptables SNAT rule includes a "-o
+            &lt;interface&gt;" clause to make it more specific and
+            only translate packets that really leave the
+            network. Firewall Builder guesses which interface to put
+            in the "-o" parameter by looking at the object in the
+            Translated Source of the NAT rule. If this object is the
+            firewall's interface or an address of one of its
+            interfaces, then it uses that interface for the "-o"
+            parameter. There is one configuration that requires the
+            "-o" parameter to be different from the address used for
+            SNAT translation. This configuration is useful when you
+            have small block of publicly routable addresses and want
+            to host a server in DMZ, but the block is so small that
+            subnetting it does not make sense.
+          </para>
   
 
          <figure float="1"><title/><graphic scale="50" fileref="fwobj-snat-3.png"/></figure>
