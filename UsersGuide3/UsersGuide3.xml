@@ -13915,31 +13915,56 @@ $IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT
 
 
 	<para>
-          I am using swatch to watch the log and add iptables rules
-	  with addresses of scanners to the chain "block_ssh". The
-	  screen shot below shows the contents of the swatch config
-	  file /root/.swatchrc. This configuration makes swatch detect
-	  log lines added by ssh when an attempt is made to log in
-	  using an invalid user account or invalid password. Swatch
-	  then runs script /root/swatch/block_ssh_scanner.sh.
+          I am using <emphasis>swatch</emphasis> to watch the log and
+	  add iptables rules with addresses of scanners to the chain
+	  "block_ssh". The screen shot below shows the contents of the
+	  swatch config file /root/.swatchrc. This configuration makes
+	  swatch detect log lines added by ssh when an attempt is made
+	  to log in using an invalid user account or invalid
+	  password. Swatch then runs script
+	  /root/swatch/block_ssh_scanner.sh.
         </para>
 
-        <figure id="block-ssh-scan-using-branch6">
-          <title>swatch</title>
-          <graphic scale="50" fileref="slide_6.png" />
-        </figure>
+        <screen>
+# cat /root/.swatchrc
+
+watchfor /sshd\[\d+\]: Failed password for invalid user (\S+) from (\S+)/
+echo bold
+exec "/root/swatch/block_ssh_scanner.sh $2"
+
+watchfor /sshd\[\d+\]: Failed password for (\S+) from (\S+)/
+echo bold
+exec "/root/swatch/block_ssh_scanner.sh $2"
+
+watchfor /sshd\[\d+\]: Did not receive identification string from (\S+)/
+echo bold
+exec "/root/swatch/block_ssh_scanner.sh $1"
+
+watchfor /sshd\[\d+\]: Invalid user (\S+) from (\S+)/
+echo bold
+exec "/root/swatch/block_ssh_scanner.sh $2"
+        </screen>
 
 	<para>
-          This script adds an iptables rule to chain "block_ssh" and
-	  also adds the address of the scanner to the file
-	  /root/swatch/ssh_scan_addresses to avoid duplications in the
-	  future.
+          The following script adds an iptables rule to chain
+	  "block_ssh" and also adds the address of the scanner to the
+	  file /root/swatch/ssh_scan_addresses to avoid duplications
+	  in the future.
         </para>
 
-        <figure id="block-ssh-scan-using-branch7">
-          <title>script</title>
-          <graphic scale="50" fileref="slide_7.png" />
-        </figure>
+        <screen>
+# cat /root/swatch/block_ssh_scanner.sh
+#!/bin/sh
+
+addr=$1
+test -z "$addr" && exit 1
+grep $addr /root/swatch/ssh_scan_addresses && exit 0
+
+cmd="iptables -A block_ssh -s $addr -j DROP"
+echo "$cmd" >> /root/swatch/ssh_scan_addresses
+$cmd
+        </screen>
+
 
 	<para>
           Here is the command line you can use to start the
@@ -13947,10 +13972,9 @@ $IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT
 	  script to start it when you reboot your machine.
         </para>
 
-        <figure id="block-ssh-scan-using-branch8">
-          <title>command line</title>
-          <graphic scale="50" fileref="slide_8.png" />
-        </figure>
+        <screen>
+/usr/bin/swatch --daemon --tail-file=/var/log/secure --use-cpan-file-tail &lt;/dev/null &
+        </screen>
 
 	<para>
           This method of blocking ssh scan attacks is effective
