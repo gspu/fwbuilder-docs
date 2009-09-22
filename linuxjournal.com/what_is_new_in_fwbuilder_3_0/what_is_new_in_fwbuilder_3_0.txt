@@ -1,0 +1,203 @@
+
+What is new in Firewall Builder 3.0
+
+
+New platform: Cisco IOS extended access lists
+
+Support for IPv6:
+
+ - new object types AddressIPv6, NetworkIPv6, ICMP6Sevice
+ - rule sets have address family attribute
+ - talk about ipv4-only, ipv6-only and mixed rule sets
+
+
+UI is now MDI. Multiple files, copying objects from one file to
+another using copy/paste or drag & drop. Screenshot.
+
+Changing font and icon size in rules (as a measure to make the GUI
+more suitable for laptops). Althoguh since dialogs do not stretch
+it still is too big for small screens so may be not mention this.
+
+Rule grouping: group several rules in the rule set and collapse the
+group to hide it. Remembers which groups are collapesed and which were
+opened between sessions. Screenshot.
+
+Firewall can have multiple rule sets, translates into different
+user-defined chains (iptables), anchors (PF) or access lists (IOS ACL
+and PIX). Screenshot and small example for iptables or pf.
+
+Branching rules for iptables and PF. No need to talk about multiple
+rules pointing to the same branch (or may be mention this?). Screenshot.
+
+Packet tagging for iptables, pf (what other platforms support this?)
+
+Redesgined command-line tool fwbedit (is this worth mentioning? )
+
+
+
+Mick Bauer introduced Firewall Builder to the readers of Linux Journal
+back in 2003 with his article "Using Firewall Builder". A lot of time
+has passed since 2003, the project evolved, the appearance of the GUI
+has changed, many features have been added.
+
+
+
+
+
+Open Source firewall implementations have gained momentum in the
+recent years and now offer viable alternative to the commercial
+systems. These implementations include iptables (netfilter) on Linux,
+PF on OpenBSD and FreeBSD, ipfilter and ipfw on FreeBSD.  These
+systems provide very respectable feature set and good performance but
+only command line or plain text configuration files in the way of
+management. The syntax is often rather complex, very different between
+these implementations and definitely different from commercial
+firewalls. Administrator has to understand internal structure and
+logic of the given firewall system in order to be able to design and
+maintain its configuration with required level of confidence and
+reliability.  For example, for iptables you need to understand
+internal packet flow in the netfilter engine to choose chains and
+targets correctly. Using chain "INPUT" instead of "FORWARD" can mean
+the difference between working and broken firewall rule. In some cases
+this simple error can cause the server behind the dedicated firewall
+to become inaccessible and at the same time a hole allowing access to
+the firewall itself opened.
+
+Many firewall appliances based on iptables or PF offer web-based GUI
+interface that helps configure these, but still closely reflects the
+structure and ideas of the the underlying configuration language.
+
+Complex configuration language and the need for the administrator to
+be aware of the internal packet flow in the packet inspection engine
+makes management of these firewalls difficult. This is especially so
+in the multi-vendor installation where administrator manages routers
+access lists, several dedicated firewalls and perhaps local firewall
+rules on servers. Constant switching between different configuration
+languages leads to errors. Coordinated changes across multiple devices
+in the network become difficult and risky. When a new service is
+added, the same policy rule should be implemented using different
+languages for different devices and these devices often operate on
+very different principles. Operator has to be an expert in all
+platforms they manage in order to be able to make the same change
+everywhere. An error leads to either service downtime or a hole in the
+security policy and both can be very constly.
+
+One of the ways to help the situation is to switch to automated
+generation of the configuration. Several commercial systems and Open
+Source projects try to approach this problem. Automatic generation of
+the configuration has many advantages over manual process. Automated
+system can present configuration as a combination of standardized
+blocks or objects that present information in an abstract way. When
+administrator works with such abstracted system, they do not need to
+switch between configuration paradigms of different vendors in order
+to implement the same rule, they just work with the same abstract
+firewall all the time.  Firewall Builder implements this approach to
+the generation of firewall configuration.
+
+Firewall Builder is a GUI firewall configuration and management
+tool. It helps administrator design and build complex firewall rules
+for several Open Source and commercial hardware and software
+platforms. With Firewall Builder, you can create configuration for
+iptables, PF, ipfilter, ipfw, Cisco IOS extended access lists and
+Cisco ASA (PIX). You can create configuration for a server if you wish
+to protect it with local firewall rules or for a dedicated firewall
+machine. You can configure policies for several servers, dedicated
+firewall and several routers, all from the same GUI running on your
+workstation or laptop. Finally, once all rules have been created or
+edited, you can use the same program to update configuration of all
+devices using ssh for secure connection.
+
+Firewall Builder is an Open Source project hosted on SourceForge at
+https://sourceforge.net/projects/fwbuilder . It is rather old project,
+it has been around since 2001. During this time the program evolved
+into mature production-ready tool used by hundreds of system
+administrators every day. The most recent version, 3.0, has been
+released in the fall of 2008 and since then saw a few maintenance
+releases that provided bug fixes and minor improvements. This article
+focuses on the features that were introduced in Firewall Builder 3.0.
+
+
+
+How to get Firewall Builder
+
+Firewall Builder comes with most major Linux distriobutions, such as
+Debian, Ubuntu, Fedora, OpenSUSE and Mandriva. You can install it
+using your favorite package manager, just look for the package
+"fwbuilder" and its dependencies. Since these distributions work on
+their own schedule which does not conicide with Firewall Builder
+releases, packages they offer are usually one or two revisions behind
+the latest released package. Because of this, we offer our own
+repositories of deb and rpm fwbuilder packages. These are signed with
+our GPG key for the verification. We offer two repositories of each:
+"stable" and "testing". Stable repository provides the latest stable
+release of Firewall Builder, whereas testing repository is used to
+distribute packages to the beta testers while we work on the next
+version. Instructions how to set up your system to use our
+repositories are available here on our web site:
+http://www.fwbuilder.org/docs/firewall_builder_packages.html
+
+Firewall Builder is built using QT4 libraries but does not depend on
+either KDE or Gnome environment. it will work under both equally well.
+
+Once the program has been installed, you can launch it from a command
+line using its name "fwbuilder" or via main Gnome or KDE menu under
+"System / Administration".
+
+
+
+Brief overview
+
+Before I get to looking at the new additions in Firewall Builder 3.0,
+I would like to briefly introduce the program and its main features.
+
+main_window.png
+
+The main window of the program includes objects tree on the left (1),
+brief information about object selected in the tree (2), current
+firewall policy view (3) and a dialog panel where you can edit objects
+parameters (4). All servers, firewalls, routers, subnets, address
+ranges and individual addresses are represented by corresponding
+objects in the tree. Each object has attributes that describe its
+parameters; the combination of these attributes is different depending
+on the object type. Once you create objects to represent your network,
+you can create firewall object and start building security policy
+rules. Firewall Builder 3.0 comes with several templates for the
+typical firewall configurations. The simplest way to get started is to
+create a new firewall from one of these templates and then make
+changes to reflect addresses and configuration of your network.
+
+firewall_template.png
+
+Screenshot above shows the dialog where you can choose which template
+to use to create new firewall object. Here I am about to create new
+firewall object with three interfaces that will have IP addresses
+shown in the dialog. Most likely your network uses different
+addressing scheme and these addresses don't match what you use. You
+can use search and replace function in the GUI later on to replace
+them. Other templates that come with the program represent firewalls
+with one or two interfaces, a Cisco router, a server and a small
+residential firewall based on Linksys hardware. Firewall objects
+created from templates come not only with all the interfaces already
+configured, but they also come with a small set of rules to implement
+basic security policy. Of course you should edit these rules to adapt
+configuration to your security policy requirements. The purpose of the
+rules created by templates is to serve as an illustration of how
+practical rules can be built in Firewall Builder and to be a starting
+point for your own policy design.
+
+
+
+
+
+
+
+
+
+One of the most important additions in Firewall Builder 3.0 is
+support for IPv6. 
+
+
+
+
+
+
