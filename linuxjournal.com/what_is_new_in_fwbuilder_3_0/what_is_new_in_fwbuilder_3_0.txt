@@ -45,9 +45,9 @@ added, you need to implement the same policy rule using different
 languages for different devices. You have to become an expert in all
 platforms you manage in order to be able to make the same change
 everywhere. An error leads to either service downtime or a hole in the
-security policy and both can be very constly.
+security policy and both can be very costly.
 
-Modern IT organizartion almost often operates on the network built
+Modern IT organization almost often operates on the network built
 with products from different manufacturers. Even in installations that
 standardize on one kind of OS for servers there is usually the need to
 configure access lists on routers and rules on dedicated firewalls,
@@ -78,7 +78,7 @@ using ssh for secure connection.
 
 Firewall Builder is an Open Source project hosted on SourceForge at
 https://sourceforge.net/projects/fwbuilder . It comes with most major
-Linux distriobutions, such as Debian, Ubuntu, Fedora, OpenSUSE and
+Linux distributions, such as Debian, Ubuntu, Fedora, OpenSUSE and
 Mandriva. You can install it using your favorite package manager, just
 look for the package "fwbuilder" and its dependencies. Since these
 distributions work on their own schedule which does not coordinated
@@ -168,7 +168,7 @@ fragment of a firewall policy:
 rules_ex1.png
 
 As in the previous versions of Firewall Builder, policy rules have
-farily typical columns "source", "destination", "service",
+frailly typical columns "source", "destination", "service",
 "interface", "direction", "action", "Time", "Options" and
 "Comment". Address object placed in the "Source" rule element means
 the packet's source address must match it in order to match the whole
@@ -193,7 +193,7 @@ the internal logic when several rules work together to implement some
 part of the security policy.  You can also collapse groups you do not
 work with at the moment to make more rules fit on the screen at once.
 
-With IPv4 address space depletion on the horizon, IPv6 rollout starts
+With IPv4 address space depletion on the horizon, IPv6 roll-out starts
 to pick up speed. Firewall Builder 3.0 comes with support for IPv6. The
 program provides several new types of address and service objects that
 represent IPv6 addresses, networks and services. An example of
@@ -323,14 +323,14 @@ This configuration translates into iptables command with target option
 
 Multiple rules can use action "Chain" to pass control to the same
 branch rule set if necessary. Abstraction of branching rules in
-Firewall Builder opens access to the very powerfil mechanism of chains
+Firewall Builder opens access to the very powerful mechanism of chains
 and anchors in the underlying firewall software. This can be used for
 rule optimization or to build dynamic policies where branch rule set
 is populated by an external script at run time.
 
 Firewall Builder 3.0 comes with large Users Guide in PDF and HTML
 formats full of examples and step-by-step instructions.  The Guide
-includes Firewall Builder CookBook that represents many typical
+includes Firewall Builder Cookbook that represents many typical
 problems and solutions.
 
 As you can see, Firewall Builder 3.0 comes with many new features and
