@@ -18,16 +18,16 @@ systems provide very respectable feature set and good performance but
 only command line or plain text configuration files in the way of
 management. The syntax is often rather complex, very different between
 these implementations and definitely different from commercial
-firewalls. Administrator has to understand internal structure and
+firewalls. Administrators have to understand internal structure and
 logic of the given firewall system in order to be able to design and
 maintain its configuration with required level of confidence and
 reliability.  For example, for iptables you need to understand
 internal packet flow in the netfilter engine to choose chains and
 targets correctly. Using chain "INPUT" instead of "FORWARD" can mean
-the difference between working and broken firewall rule. In some cases
-this simple error can cause the server behind the dedicated firewall
-to become inaccessible and at the same time a hole allowing access to
-the firewall itself opened.
+the difference between working and broken service.  Simple error like
+this can cause the server behind the dedicated firewall to become
+inaccessible and at the same time a hole allowing access to the
+firewall itself opened.
 
 Many firewall appliances based on iptables or PF offer web-based GUI
 interface that helps configure these, but still closely reflects the
@@ -42,18 +42,23 @@ rules on servers. Constant switching between different configuration
 languages leads to errors. Coordinated changes across multiple devices
 in the network become difficult and risky. When a new service is
 added, you need to implement the same policy rule using different
-languages for different devices and these devices often operate on
-very different principles. You have to become an expert in all
+languages for different devices. You have to become an expert in all
 platforms you manage in order to be able to make the same change
 everywhere. An error leads to either service downtime or a hole in the
 security policy and both can be very constly.
+
+Modern IT organizartion almost often operates on the network built
+with products from different manufacturers. Even in installations that
+standardize on one kind of OS for servers there is usually the need to
+configure access lists on routers and rules on dedicated firewalls,
+which are often products of a different vendor.
 
 One of the ways to help the situation is to switch to automated
 generation of the configuration. Several commercial systems and Open
 Source projects try to approach this problem. Automatic generation of
 the configuration has many advantages over manual process. Automated
-system can present configuration as a combination of standardized
-blocks or objects that present information in an abstract way. When
+system treats configuration as a combination of standardized blocks or
+objects that present information in an abstract way. When
 administrator works with such abstracted system, they do not need to
 switch between configuration paradigms of different vendors in order
 to implement the same rule, they just work with the same abstract
@@ -65,47 +70,42 @@ tool. It helps administrator design and build complex firewall rules
 for several Open Source and commercial hardware and software
 platforms. With Firewall Builder, you can create configuration for
 iptables, PF, ipfilter, ipfw, Cisco IOS extended access lists and
-Cisco ASA (PIX). You can create configuration for a server if you wish
-to protect it with local firewall rules or for a dedicated firewall
-machine. You can configure policies for several servers, dedicated
-firewall and several routers, all from the same GUI running on your
-workstation or laptop. Finally, once all rules have been created or
-edited, you can use the same program to update configuration of all
-devices using ssh for secure connection.
+Cisco ASA (PIX). You can configure policies for servers, dedicated
+firewalls and routers, all from the same GUI running on your
+workstation or laptop. Once all rules have been created or modified,
+you can use the same program to update configuration of all devices
+using ssh for secure connection.
 
 Firewall Builder is an Open Source project hosted on SourceForge at
-https://sourceforge.net/projects/fwbuilder . It is rather old project,
-it has been around since 2001. During this time the program evolved
-into mature production-ready tool used by hundreds of system
-administrators every day. The most recent version, 3.0, has been
-released in the fall of 2008 and since then saw a few maintenance
-releases that provided bug fixes and minor improvements. This article
-focuses on the features that were introduced in Firewall Builder 3.0.
-
-
-
-Firewall Builder comes with most major Linux distriobutions, such as
-Debian, Ubuntu, Fedora, OpenSUSE and Mandriva. You can install it
-using your favorite package manager, just look for the package
-"fwbuilder" and its dependencies. Since these distributions work on
-their own schedule which does not conicide with Firewall Builder
-releases, packages they offer are usually one or two revisions behind
-the latest released package. Because of this, we offer our own
-repositories of deb and rpm fwbuilder packages. These are signed with
-our GPG key for the verification. We offer two repositories of each:
-"stable" and "testing". Stable repository provides the latest stable
-release of Firewall Builder and testing repository is used to
-distribute packages to the beta testers while we work on the next
-version. Instructions how to set up your system to use our
-repositories are available here on our web site:
-http://www.fwbuilder.org/docs/firewall_builder_packages.html
-
-Firewall Builder is built using QT4 libraries but does not depend on
-either KDE or Gnome environment. it will work under both equally well.
+https://sourceforge.net/projects/fwbuilder . It comes with most major
+Linux distriobutions, such as Debian, Ubuntu, Fedora, OpenSUSE and
+Mandriva. You can install it using your favorite package manager, just
+look for the package "fwbuilder" and its dependencies. Since these
+distributions work on their own schedule which does not coordinated
+with Firewall Builder releases, packages they offer are usually one or
+two revisions behind the latest released package. Because of this, we
+offer our own repositories of deb and rpm fwbuilder packages. Packages
+in these repositories are signed with our GPG key for the
+verification. We offer two repositories: "stable" and
+"testing". Stable repository provides the latest stable release of
+Firewall Builder and testing repository is used to distribute packages
+to the beta testers while we work on the next version. Instructions
+how to set up your system to use our repositories are available on our
+web site: http://www.fwbuilder.org/docs/firewall_builder_packages.html
 
 Once the program has been installed, you can launch it from a command
 line using its name "fwbuilder" or via main Gnome or KDE menu under
 "System / Administration".
+
+It is rather old project, it has been around since 2001. During this
+time the program evolved into mature production-ready tool used by
+hundreds of system administrators every day. The most recent version,
+3.0, has been released in the fall of 2008 and since then saw a few
+maintenance releases that provided bug fixes and minor
+improvements. This article focuses on the features that were
+introduced in Firewall Builder 3.0.
+
+
 
 
 main_window.png
@@ -118,22 +118,22 @@ and services are represented by corresponding objects in the
 tree. Each object has attributes that describe its parameters; the
 combination of these attributes is different depending on the object
 type. Objects are arranged in the tree where each object type has its
-own predetermined folder or branch. Expanding on this concept,
-Firewall Builder 3.0 allows you to open multiple data files at once
-and move objects between them using drag and drop or copy/paste
-operations. You can expand each internal window to make it occupy the
-whole main window or arrange them so that you can see them all at the
-same time. 
+own folder or branch. 
 
 main_window_mdi.png
 
+Expanding on this concept, Firewall Builder 3.0 allows you to open
+multiple data files at once and move objects between them using drag
+and drop or copy/paste operations. You can expand each internal window
+to make it occupy the whole main window or arrange them so that you
+can see them all at the same time.
 
 Once you create objects to represent your network, you can create
 firewall object and start building security policy rules. Firewall
-Builder 3.0 comes with several templates for the typical firewall
-configurations. The simplest way to get started is to create a new
-firewall from one of these templates and then make changes to reflect
-addresses and configuration of your network.
+Builder 3.0 comes with a library of templates representing some
+typical firewall configurations. The simplest way to get started is to
+create a new firewall from one of these templates and then make
+changes to reflect addresses and configuration of your network.
 
 firewall_template.png
 
@@ -155,36 +155,11 @@ practical rules can be built in Firewall Builder and to be a starting
 point for your own policy design.
 
 Template objects provide a quick way to create new firewall
-configurations, but they are limited in number and variety. Sometimes
-it may take longer to edit firewall object created from a template by
-adding missing interfaces and addresses than to do it by hand from
-scratch. However, if your firewall machine runs SNMP daemon, you can
-have Firewall Builder "discover" its configuration automatically.
-
-snmp_discovery.png
-
-SNMP discovery process starts with a "seed" host. It walks some SNMP
-tables exported by SNMP daemon running on it to collect information
-about host's interfaces, their MAC and IP addresses and also reads its
-routing and ARP tables. This way, the program can learn about
-interfaces of the host and their configuration, as well as discover
-addresses of other hosts on the network. If directed to do so, the
-program will then proceed recursively trying to query hosts it learned
-about to collect the same information. If a host does not reply to
-SNMP queries, the program creates just an Address object for it
-without any interfaces and other in-depth configuration. In the end,
-discovery process uses DNS to convert IP addresses to host names which
-it uses to name objects it creates. This is the fastest way to
-populate your object database, provided that you run SNMP agents on
-your network nodes. All target hardware and software platforms
-supported by Firewall Builder support SNMP one way or another. Cisco
-routers running IOS have built-in SNMP agent that is usually
-configured because this is the main method to monitor them. Cisco ASA
-(PIX) firewall also can be monitoried via SNMP and has built-in SNMP
-agent. Linux and FreeBSD or OpenBSD systems can run snmpd daemon that
-comes as part of net-snmp package. This package comes as part of all
-major Linux distributions and can be found in FreeBSD and OpenBSD
-ports collection.
+configurations, but they are limited in number and variety. If no
+template is close to your configuration, you can create firewall
+object and all its interfaces manually. In addition to that, if your
+firewall machine runs SNMP daemon, you can have Firewall Builder
+"discover" its configuration automatically.
 
 Now that the firewall object and objects for its interfaces have been
 created, you can add some rules. Here is a screenshot that shows a
@@ -206,26 +181,23 @@ copy/paste operation.
 
 Firewall Builder 3.0 adds support for rule grouping. The screenshot
 above shows a group of rules with the title "Access to and from
-firewall" which consists of 4 rules #1-4. These rules allow ssh access
-to the firewall form internal network (rule #1), allow the firewall to
-use server on internal network for DNS queries and block all other
-access to and from the firewall. These rules form a group which can be
-collapsed so that only its title is visible. Next screenshot
-demonstrates this:
+firewall" which consists of 4 rules #1-4. These rules form a group
+which can be collapsed so that only its title is visible as shown on
+the next screenshot:
 
 rules_ex2.png
 
 You can greatly improve readability of the whole rule set if you
-arrange rules in groups. This helps maintain good visual reminder of
+arrange rules in groups. This helps maintain good visual reference to
 the internal logic when several rules work together to implement some
 part of the security policy.  You can also collapse groups you do not
 work with at the moment to make more rules fit on the screen at once.
 
 With IPv4 address space depletion on the horizon, IPv6 rollout starts
-to pick up the pace. Firewall Builder 3.0 comes with support for
-IPv6. The program provides several new types of address and service
-objects that represent IPv6 addresses, networks and services. An
-example of interface with IPv6 address is shown below:
+to pick up speed. Firewall Builder 3.0 comes with support for IPv6. The
+program provides several new types of address and service objects that
+represent IPv6 addresses, networks and services. An example of
+interface with IPv6 address is shown below:
 
 interface_ipv6.png
 
@@ -243,16 +215,15 @@ values:
 
 policy_addr_family_options.png
 
-
 Here is how this works:
 
  * "IPv4 only rule set" - Only addressable objects with IPv4 addresses
-   will be used in the rules. If an object with ipv6 address appears
+   will be used in the rules. If an object with IPv6 address appears
    in rules, it is ignored. IPv6-only services such as ICMPv6 are also
    ignored. TCP and UDP services are used since they apply for both
    IPv4 and IPv6 rules.
 
- * "IPv6 only rule set" - The opposite, only objects with ipv6
+ * "IPv6 only rule set" - The opposite, only objects with IPv6
    addresses are used and those with ipv4 addresses are
    ignored. IPv6-only services such as ICMPv6 are used but IPv4-only
    services such as ICMP are ignored. TCP and UDP services are used
@@ -275,7 +246,7 @@ IPv4+IPv6 rule set into iptables script. Here are the rules:
 
 ipv4_ipv6_rules.png
 
-the first rule uses interface object of the firewall that represents
+The first rule uses interface object of the firewall that represents
 its loopback interface, the second uses object representing firewall
 itself and two service objects: "http" and "ipv6 any ICMP6". The rule
 that permits any protocols on loopback should be similar for IPv4 and
@@ -308,17 +279,18 @@ ip6tables -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT
 IPv4 rules are loaded using "iptables" command line utility, while
 IPv6 rules are loaded using "ip6tables". The rule that permits
 anything on loopback produces very similar iptables commands, the
-difference is only in which command line tool is used to add them. The
-rule that permits http and any ICMP6, when compiled for IPv4,
-generates only iptables command to match TCP port 80. This is because
-ICMP6 service makes sense only in the IPv6 context, so it is dropped
-from the rule when it is compiled for IPv4. When this rule is compiled
-for IPv6 though, both services are used and we get two iptables
-commands, one for tcp port 80 and another for protocol ipv6-icmp.
+difference is only in the choice of the command line tool used to add
+them. The rule that permits http and any ICMP6, when compiled for
+IPv4, generates only iptables command to match TCP port 80. This is
+because ICMP6 service makes sense only in the IPv6 context, so it is
+dropped from the rule when it is compiled for IPv4. When this rule is
+compiled for IPv6 though, both services are used and we get two
+iptables commands, one for tcp port 80 and another for protocol
+ipv6-icmp.
 
 Mixed IPv4/IPv6 rule sets can be especially useful when IPv6 is added
 to existing IPv4 network.  Since most firewalls and routers require
-different syntax for ipv6 ACL and rules, you have to implement second
+different syntax for IPv6 ACL and rules, you have to implement second
 rule set for IPv6, carefully trying to copy existing IPv4 rules to
 preserve general structure and meaning of the security policy. Things
 get even more complicated after that because every change in the
@@ -326,25 +298,25 @@ policy should now be reflected in two sets of ACL or firewall
 rules. Keeping these synchronized can quickly turn into major task
 that can significantly increase probability of human error and network
 outage. Mixed IPv4+IPv6 rule sets in Firewall Builder help solve this
-problem.
+problem because two iptables scripts are automatically generated from
+the same set of rules.
 
+branch_ex1.png
 
 Another important new feature in Firewall Builder 3.0 is support for
 branching rules and multiple rule sets. Firewall object can now have
 several sets of policy rules, each set is represented by a Policy
-object in the tree. Screenshot below shows firewall object "fw2" that
+object in the tree. Screenshot above shows firewall object "fw2" that
 has two Policy rule sets that appear as objects in the tree, one has
-the name "Policy" and another "rate_limit". When firewall object
-platform is set to "iptables", rules in each of these additional
-Policy rule sets will be placed in the chain with the name the same as
-the name of the rule set object. If target firewall platform is set to
-"PF", rules will be placed in an anchor with the same name.
+name "Policy" and another "rate_limit". When firewall object platform
+is set to "iptables", rules in each of these additional Policy rule
+sets will be placed in a chain with the name the same as the name of
+the rule set object. If target firewall platform is set to "PF", rules
+will be placed in an anchor with the same name.
 
 To create a branch in your rules, choose rule action "Chain" and drag
 another policy object into its editor panel as shown in the
-screenshot:
-
-branch_ex1.png
+screenshot.
 
 This configuration translates into iptables command with target option
 "-j rate_limit" that passes control to that chain.
@@ -356,15 +328,14 @@ and anchors in the underlying firewall software. This can be used for
 rule optimization or to build dynamic policies where branch rule set
 is populated by an external script at run time.
 
-It is also important to note that Firewall Builder 3.0 comes with 300
-pages long Users Guide full of examples and step-by-step instructions.
-It covers such topics as installation, how to use the GUI and ends
-with Firewall Builder CookBook that represents many typical problems
-and solutions.
+Firewall Builder 3.0 comes with large Users Guide in PDF and HTML
+formats full of examples and step-by-step instructions.  The Guide
+includes Firewall Builder CookBook that represents many typical
+problems and solutions.
 
 As you can see, Firewall Builder 3.0 comes with many new features and
 improvements that make upgrade worth your while. The main driver in
-the development is your bug reports and feature requests, so please
-visit our web site at http://www.fwbuilder.org and help us make
-Firewall Builder even better.
+the development is bug reports and feature requests that come from the
+users, so please visit our web site at http://www.fwbuilder.org and
+help us make Firewall Builder even better.
 
