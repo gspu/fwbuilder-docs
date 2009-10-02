@@ -1,0 +1,5 @@
+
+In addition to being author of Firewall Builder starting in 1999,
+Vadim Kurland is a longtime network engineer for various Silicon
+Valley companies. Before that, he worked in software development and
+ISP operations.
