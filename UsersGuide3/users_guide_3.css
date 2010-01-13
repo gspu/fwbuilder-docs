@@ -1,154 +1,200 @@
 
-.ARTICLE          {  font-size: 10pt;  
-			font-style: normal; 
-			font-weight: normal; 
-			color: #003399}
-
-.BOOK            {  font-size: 10pt;  
-			font-style: normal; 
-			font-weight: normal; 
-			color: #003399;
-                        margin: 20px 20px 20px 20px;
-                        }
-
-.HEADER           {  font-family: Arial, Helvetica, sans-serif; 
-			font-size: 12pt; 
-			font-style: normal; 
-			font-weight: bolder; 
-			color: #003399}
-
-.AUTHOR           {  font-family: Arial, Helvetica, sans-serif; 
-			font-size: 8pt; 
-			font-style: normal; 
-			font-weight: bolder;
-			color: black; }
-
-.AFFILIATION      {  font-family: Arial, Helvetica, sans-serif; 
-			font-size: 8pt; 
-			font-style: normal; 
-			font-weight: bolder;
-			color: black; }
-
-.ADDRESS          {  font-family: Arial, Helvetica, sans-serif; 
-			font-size: 8pt; 
-			font-style: normal; 
-			font-weight: bolder;
-			color: black; }
-
-.TITLEPAGE        {  font-family: Arial, Helvetica, sans-serif; 
-			font-size: 8pt; 
-			font-style: normal; 
-			font-weight: normal; 
-			color: black; }
-
-.TITLE            {  font-family: Arial, Helvetica, sans-serif; 
-			font-size: 8pt; 
-			font-style: normal; 
-			font-weight: bolder; 
-			color: #CC9933}
-
-.ABSTRACT         { color: black; 
-			font-family: Arial, Helvetica, sans-serif; 
-			font-size: 10pt; 
-			font-style: normal; }
-
-.REVHISTORY TABLE { color: black; 
-			font-family: Arial, Helvetica, sans-serif; 
-			font-size: 8pt; 
-			font-style: normal; }
-
-.REVHISTORY TABLE { color: black; 
-			font-family: Arial, Helvetica, sans-serif; 
-			font-size: 8pt; 
-			font-style: normal; }
-
-.TOC              { color: black; 
-			font-family: Arial, Helvetica, sans-serif; 
-			font-size: 10pt; 
-			font-weight: bold; }
-
-.chapter          {	font-family: Arial, Helvetica, sans-serif;
-                        font-size: 10pt;
-			color: black;
-                        margin: 20px 20px 20px 20px;
-                        width: 90%;
-                        line-height: 170%;
-                        }
-
-.chapter TABLE    {	font-family: Arial, Helvetica, sans-serif; 
-			font-size: 14pt;  
-			color: black;
-                        }
-
-.sect1            {	font-family: Arial, Helvetica, sans-serif;
-                        font-size: 10pt;
-			color: black;
-                        margin: 20px 20px 20px 20px;
-                        width: 90%;
-                        line-height: 170%;
-                        }
-
-.sect1 H1         {	color: black; font-size: 16pt; }
-.sect1 H2         {	color: black; font-size: 14pt; }
-
-.sect2            {	font-family: Arial, Helvetica, sans-serif;
-                        font-size: 10pt;
-                        margin: 20px 20px 20px 20px;
-                        width: 90%;
-			color: black;
-                        line-height: 170%;
-                        }
-
-.sect2 P          {	font-size: 10pt;
-			color: black;
-                        }
-
-.sect2 H1         {	color: black; }
-.sect2 H2         {	color: black; }
-
-.NAVHEADER        { color: blue;  
-			font-family: Arial, Helvetica, sans-serif; 
-			font-size:   10pt;
-			font-weight: bold; }
-
-.NAVHEADER TABLE   { color: blue;  
-			font-family: Arial, Helvetica, sans-serif; 
-			font-size:   10pt;
-			font-weight: bold; }
-
-.NAVFOOTER        { color: blue;  
-			font-family: Arial, Helvetica, sans-serif; 
-			font-size:   10pt;
-			font-weight: bold; }
-
-.NAVFOOTER TABLE   { color: blue;  
-			font-family: Arial, Helvetica, sans-serif; 
-			font-size:   10pt;
-			font-weight: bold; }
-
-.FILENAME         { 	font-family: Courier New, Courier, mono;
-			font-size: 10pt; 
-			font-weight: bold;
-			color: #003399}
-
-.PROGRAMLISTING   { 	font-family: Courier New, Courier, mono;
-			font-size: 10pt; 
-			font-weight: bold;
-			color: #003399}
-
-.screen           {     
-                        padding: 1em;
-                        border: 1px dashed #2f6fab;
-                        color: black;
-                        background-color: #f9f9f9;
-                        line-height: 1.1em;
-                        font-family: Courier New, Courier, mono;
-                        font-style: italic;
+.column_users_guide .ARTICLE {
 }
 
-table.CALSTABLE       { table-layout: auto; }
-table.CALSTABLE COL   { width: 50%; }
-table.CALSTABLE TD    { border-bottom: 1px solid #C0C0C0;  
-                      }
-table.CALSTABLE TH    { border-bottom: 1px solid black;  
-                      }
+.column_users_guide .BOOK {
+    margin: 20px 20px 20px 20px;
+}
+
+.column_users_guide .HEADER {
+}
+
+.column_users_guide .AUTHOR {
+}
+
+.column_users_guide .AFFILIATION {
+}
+
+.column_users_guide .ADDRESS {
+}
+
+.column_users_guide .TITLEPAGE {
+}
+
+.column_users_guide .TITLE {
+    font-style: normal; 
+    font-weight: bolder; 
+    color: #CC9933;
+}
+
+.column_users_guide .TITLE A {
+    font-size: 2.0em;
+    font-style: normal; 
+    font-weight: bolder; 
+}
+
+.column_users_guide .ABSTRACT {
+}
+
+.column_users_guide .REVHISTORY TABLE {
+}
+
+.column_users_guide .REVHISTORY TABLE {
+}
+
+.column_users_guide .TOC A {
+}
+
+.column_users_guide .chapter {
+    margin: 20px 20px 20px 20px;
+    width: 90%;
+/*    line-height: 170%; */
+}
+
+.column_users_guide .chapter TABLE {
+    font-size: 14pt;  
+    color: black;
+}
+
+.column_users_guide .sect1 {
+    margin: 20px 20px 20px 20px;
+    width: 90%;
+/*    line-height: 170%; */
+}
+
+.column_users_guide .sect2 {
+    margin: 20px 20px 20px 20px;
+    width: 90%;
+/*    line-height: 170%; */
+}
+
+.column_users_guide .sect2 P {
+}
+
+.column_users_guide .sect3 {
+    margin: 20px 20px 20px 20px;
+    width: 90%;
+/*    line-height: 170%; */
+}
+
+.column_users_guide .NAVHEADER {
+    color: blue;  
+    font-size:   10pt;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.column_users_guide .NAVHEADER TABLE {
+    color: blue;  
+    font-size:   10pt;
+    font-weight: bold;
+}
+
+.column_users_guide .NAVHEADER TABLE TH {
+    font-size:   14pt;
+}
+
+.column_users_guide .NAVHEADER HR {
+    display: block;
+}
+
+.column_users_guide .NAVFOOTER {
+    color: blue;  
+    font-size:   10pt;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.column_users_guide .NAVFOOTER TABLE{
+    color: blue;  
+    font-size:   10pt;
+    font-weight: bold;
+}
+
+.column_users_guide .NAVFOOTER HR {
+    display: block;
+}
+
+.column_users_guide .FILENAME {
+    font-family: Courier New, Courier, mono;
+    font-size: 10pt; 
+    font-weight: bold;
+    color: #003399
+}
+
+.column_users_guide .PROGRAMLISTING {
+    font-family: Courier New, Courier, mono;
+    font-size: 10pt; 
+    font-weight: bold;
+    color: #003399
+}
+
+.column_users_guide .screen {     
+    font-family: Courier New, Courier, mono;
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+    font-style: italic;
+}
+
+.column_users_guide table.CALSTABLE {
+    table-layout: auto;
+}
+
+.column_users_guide table.CALSTABLE COL {
+    width: 50%;
+}
+
+.column_users_guide table.CALSTABLE TD {
+    border-bottom: 1px solid #C0C0C0;  
+}
+
+.column_users_guide table.CALSTABLE TH {
+    border-bottom: 1px solid black;  
+}
+
+
+
+
+<!-- ################################ -->
+
+
+.column_users_guide H1 {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+}
+
+.column_users_guide H1 A {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black; 
+}
+
+.column_users_guide H2 A {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black; 
+}
+
+.column_users_guide H3 A {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black; 
+}
+
+.column_users_guide H4 A {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black; 
+}
+
+.column_users_guide DD {
+    margin-left: 40px;
+}
+
+.NAV_PREV {
+    float: left;
+}
+
+.NAV_NEXT {
+    float: right;
+}
+

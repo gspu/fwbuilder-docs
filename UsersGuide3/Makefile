@@ -19,7 +19,7 @@ html/index.html:   UsersGuide3.xml html.dsl
 	cp *.png html/
 	cp *.css html/
 	docbook2html -d `pwd`/html.dsl -o html UsersGuide3.xml
-
+	chmod +x html/*.htm
 
 
 pdf:   UsersGuide3.xml pdf/UsersGuide3.pdf
