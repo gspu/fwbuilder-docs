@@ -18,7 +18,9 @@ html/index.html:   UsersGuide4.xml html.dsl
 	cp *.jpg html/
 	cp *.png html/
 	cp *.css html/
-       docbook2html -d `pwd`/html.dsl -o html UsersGuide4.xml
+	docbook2html -d `pwd`/html.dsl -o html UsersGuide4.xml
+	chmod +x html/*.htm
+
 #	cd html
 #	xsltproc  /opt/local/share/xsl/docbook-xsl/xhtml/chunk.xsl ../UsersGuide4.xml
 
