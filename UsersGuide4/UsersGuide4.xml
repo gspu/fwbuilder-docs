@@ -9589,76 +9589,784 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
     </sect1>
   </chapter>
 
+
+
+  <chapter id="clusters">
+    <title>Cluster configuration</title>
+
+    <para>
+      Firewall Builder 4.0 introduces support for firewall
+      clusters. Firewall Builder helps you create configuration for
+      iptables, PF or PIX rules and in some cases cluster
+      configuration as well. The following state synchronization and
+      failover protocols are supported at this time:
+    </para>
+
+
+    <table frame='none'>
+      <title>Supported state synchronization and failover software</title>
+      <tgroup cols='3' align='left'  rowsep='0'>
+	<tbody>
+          <row>
+	    <entry>
+              <para>OS</para>
+            </entry>
+            
+	    <entry>
+              <para>State Synchronization</para>
+            </entry>
+
+	    <entry>
+              <para>Failover</para>
+            </entry>
+
+          </row>
+
+          <row>
+            <entry>
+              <para>Linux</para>
+            </entry>
+
+            <entry>
+              <para>conntrackd</para>
+            </entry>
+
+            <entry>
+              <para>vrrpd, heartbeat, keepalived, OpenAIS</para>
+            </entry>
+          </row>
+
+          <row>
+            <entry>
+              <para>OpenBSD/FreeBSD</para>
+            </entry>
+
+            <entry>
+              <para>pfsync</para>
+            </entry>
+
+            <entry>
+              <para>CARP</para>
+            </entry>
+          </row>
+
+          <row>
+            <entry>
+              <para>Cisco ASA (PIX)</para>
+            </entry>
+
+            <entry>
+              <para>PIX state sync protocol</para>
+            </entry>
+
+            <entry>
+              <para>PIX failover protocol</para>
+            </entry>
+          </row>
+
+        </tbody>
+      </tgroup>
+    </table>
+    
+
+    <para>
+      Firewall Builder automatically generates policy rules to permit
+      packets of these protocols when it sees firewall cluster
+      configured with one of them. You can use cluster object and its
+      interfaces instead of the member firewall objects or their
+      inetrfaces in policy and NAT rules and the program will
+      substitute correct addresses when it generates iptables script
+      or PF or PIX configuration.
+    </para>
+
+
+    <sect1>
+      <title>Brief introduction into cluster configuration with
+      Firewall Builder</title>
+
+
+      <para>
+        New object type "Cluster" (located under Clusters in the tree)
+        represents the HA pair.  You configure policy and NAT rules in the
+        rule sets of this object rather than in the actual firewalls.
+      </para>
+
+      <para>
+        Here is what you need to do to set up HA configuration:
+      </para>
+
+      <para>
+        <itemizedlist spacing="compact">
+          <listitem><para>Create your firewall objects. Assign platform and host OS and
+            name interfaces as usual. Do not add any policy or NAT
+            rules. These are your real (member) firewalls. Interfaces should
+            have their real IP addresses (not CARP or VRRP addresses).
+          </para></listitem>
+
+          <listitem><para>
+            Create a Cluster object which you configure with proper platform
+            and host OS. Use the usual "New Object" menu or toolbar button
+            to create this object. Note that in order for the firewall
+            object to become a member of a cluster, their platform and host
+            OS settings must match.
+          </para></listitem>
+
+          <listitem><para>
+            The program guides you through the process of creation of the
+            new Cluster object using wizard-like dialog. You start with the
+            list of firewall objects where you choose which firewalls should
+            become members of the cluster. Next, the program finds
+            interfaces of the member firewalls that have the same name and
+            can be part of the cluster and creates cluster interfaces with
+            the same name. Not all interfaces are eligible, for example
+            bridge ports, bonding interface slaves or parents of vlan
+            interfaces can not be used for the cluster. Cluster interfaces
+            define failover groups. You can add, remove or rename cluster
+            interfaces, as well as change which interfaces of the member
+            firewalls are used with each one. On the next page of the wizard
+            you can change failover protocols and add, remove or change IP
+            addresses of cluster interfaces. Not all failover protocols
+            require IP addresses, for example VRRP or CARP do but heartbeat
+            or OpenAIS don't. Finally, you can choose to use policy and NAT
+            rules of one of the member firewalls to populate Policy and NAT
+            rule sets of the new cluster. If this is done, all references to
+            the original member firewall and its interfaces in rules are
+            replaced with references to the cluster and its interfaces. The
+            program also creates backup copies of the member firewall
+            objects with the name with suffix "-bak" and clears Policy and
+            NAT rule sets of the member firewall objects used with the
+            cluster before new cluster is created.
+          </para></listitem>
+
+          <listitem><para>
+            OpenBSD or FreeBSD cluster gets carp interfaces. Name them
+            "carp0", "carp1" or whatever indexes they have on your
+            machines. You can add CARP password and ID at the same time, but
+            if you don't, you can add them later.
+          </para></listitem>
+
+          <listitem><para>
+            If you use heartbeat or OpenAIS (on Linux) for failover, cluster
+            interfaces should have the same names as corresponding member
+            firewall interfaces. In this case, cluster interfaces are
+            virtual entities that represent interfaces of the corresponding
+            member firewalls. The program will make substitution when it
+            compiles rules. This is also how it works for PIX failover
+            configuration.
+          </para></listitem>
+
+          <listitem><para>
+            Each cluster interface has child "Failover group" object with
+            the name "firewall:carp0:members" or similar.  This is where you
+            configure associated member firewall interfaces.  Double click
+            this object in the tree and then click "Manage Members" button
+            in the dialog. Select interfaces of the member firewalls in the
+            panel on the left hand side and click arrow button to add them
+            to the list on the right. Use checkbox to select master. Click
+            OK when done. The platform and host OS of the cluster object and
+            members must match, otherwise firewall objects do not appear in
+            the "members" dialog panel.
+          </para></listitem>
+
+          <listitem><para>
+            Besides interfaces, the Cluster object has a new child object
+            "State Sync Group". This group represents state synchronization
+            protocol. Currently <emphasis>pfsync</emphasis> is supported for OpenBSD and
+            <emphasis>conntrackd</emphasis> for Linux. To configure, double click it in
+            the tree to open it in the dialog and click "Manage
+            Members". Select interfaces of the member firewalls in the panel
+            on the left hand side and click arrow button to add them to the
+            list on the right. Use checkbox to select master. Click OK when
+            done. They should appear in the "members" table in the State
+            Sync Group dialog. The platform and host OS of the cluster
+            object and members must match, otherwise firewall objects do not
+            appear in the "members" dialog panel.
+          </para></listitem>
+
+          <listitem><para>
+            Button "Edit protocol parameters" allows you to edit some
+            parameters for chosen failover protocol. This is where you can
+            configure an address and port for heartbeat and OpenAIS.
+          </para></listitem>
+
+          <listitem><para>
+            There are few new checkboxes in the "Script" tab of the firewall
+            object dialog. These allow you to control whether the program
+            will add shell commands to create and configure bonding, bridge
+            and VLAN interfaces.
+          </para></listitem>
+
+          <listitem><para>
+            Compile by clicking right mouse button on the cluster object and
+            using menu item "Compile". This will in fact compile each member
+            firewall separately so you'll get .fw and .conf files for both
+            of them.
+          </para></listitem>
+
+          <listitem><para>
+            Again, you configure all the rules in the policy and NAT rule
+            sets that belong to the cluster object. If you put cluster's
+            interfaces in rules, the program replaces them with interfaces
+            of the member firewall when it compiles rules. If you put
+            cluster object in a rule, it is like if you put member firewall
+            object there instead, except the program automatically picks the
+            member firewall it compiles the policy for.
+          </para></listitem>
+
+          <listitem><para>
+            First, the program looks at Policy and NAT rule set objects of
+            the cluster and member firewalls and compares their names. If
+            there is rule set object with the same name in both the cluster
+            and member firewall and both have non-zero number of rules, the
+            rule set object from the member is used and the one from the
+            cluster is ignored. The program prints a warning message when
+            this is done. If rule set objects with the same name exist but
+            the one in the member firewall has zero rules, it is ignored and
+            the one from the cluster is used (no warning is
+            issued). Likewise, if there are rule sets with the same name but
+            the one in the cluster has zero rules, it is ignored.
+          </para></listitem>
+
+          <listitem>
+            <para>
+              Here is what you need to do if you want to have most rules
+              defined in the cluster so they will translate into rules for all
+              member firewalls, but have some rules defined in the members so
+              you can make configurations of the members slightly different:
+              <itemizedlist>
+
+                <listitem><para>Create separate rule set object in the
+                  cluster and in each member. Use name different from
+                  "Policy" or "NAT". Lets use name
+                  "member_override".</para></listitem>
+
+                <listitem><para>Create a rule with action "Branch" in
+                  the main Policy or NAT rule set of the cluster, drag
+                  rule set object "member_override" that belongs to
+                  the cluster to the well in the Branch action
+                  parameters dialog.</para></listitem>
+
+                <listitem><para>Leave "member_override" rule set that
+                    is a child of the cluster
+                    object empty (no rules)</para></listitem>
+
+                <listitem><para>Add rules to the rule set
+                  "member_override" in each member
+                  firewall</para></listitem>
+
+                <listitem><para>Make sure rule set "member_override"
+                  is not marked as "Top ruleset" in the cluster and
+                  each member. This rule set translates into
+                  user-defined chain (iptables) or anchor (PF) and
+                  should not be the "top ruleset".</para></listitem>
+                
+              </itemizedlist>
+              This method works for both policy and NAT rules for all
+              platforms.
+            </para>
+          </listitem>
+
+        </itemizedlist>
+      </para>
+
+    </sect1>
+
+
+    <sect1>
+      <title>Configuring PIX cluster</title>
+
+
+      <para>
+        Firewall Builder supports PIX "lan based" failover configuration.
+        Unlike in Linux or BSD, where each interface of the firewall runs
+        its own instance of failover protocol, PIX runs one instance of
+        failover protocol over dedicated interface. PIX can also run state
+        synchronization protocol over the same or another dedicated
+        interface. These dedicated interfaces should be connected via
+        separate switch and do not see regular traffic. Here is how this is
+        implemented in Firewall Builder:
+      </para>
+
+      <para>
+        <itemizedlist>
+          <listitem><para>Like with all other supported firewall platforms, interface
+            objects that belong to a cluster object serve to establish
+            association between actual interfaces of the member
+            firewalls. Cluster interface object should have the same name as
+            corresponding member firewall interfaces. It should have
+            Failover Group child object which should be configured with
+            interfaces of the member firewalls. You can create Failover
+            Group object using context menu item "Add Failover Group", the
+            menu appears when you right mouse click on the cluster interface
+            object. Here is how it should look like:
+
+              <figure float="1" id="pix_cluster_example1">
+                <title>Failover group object and mapping between
+                cluster and member interfaces</title>
+                <graphic scale="60" fileref="cluster_interfaces.png"
+                />
+              </figure>
+
+          </para></listitem>
+
+          <listitem><para>Interface that is configured for the failover on the member
+            firewall should be marked as "Dedicated Failover". Use checkbox
+            with this name in the interface object dialog to do this.
+          </para></listitem>
+
+          <listitem><para>
+            Cluster interface that corresponds to the failover interface of
+            the members should be configured with protocol "PIX failover
+            protocol". Click on the "Edit protocol parameters" button to edit
+            timeout, poll time and the key.
+          </para></listitem>
+          
+          <listitem><para>Cluster interfaces that represent regular interfaces of the
+            members also must have failover group objects; that is where you
+            add interfaces of the member firewalls. There is no need to
+            configure protocol in these failover groups because PIX does not
+            run it over these interfaces. Regular interfaces should not be
+            marked as "Dedicated Failover".
+          </para></listitem>
+          
+          <listitem><para>Cluster object should have State Synchronization group child
+            object. Create it using context menu "Add State Synchronization
+            Group" item if this object does not exist. In this object you
+            need to configure member interfaces that should be used for
+            state synchronization. You can use separate dedicated interfaces
+            or the same interfaces used for failover. If these are separate,
+            corresponding interface objects of the member firewalls must be
+            marked as "Dedicated Failover".
+          </para></listitem>
+
+          <listitem><para>One of the member firewall interfaces used in the State
+            Synchronization group must be marked as "master". This is where
+            you define which PIX unit is going to be the primary and which
+            is going to be the secondary in the HA pair.
+          </para></listitem>
+
+          <listitem><para>
+            Here is an example of the state synchronization and failover using
+            the same interface Ethernet2:
+
+            <figure float="1" id="state_sync_conf_1">
+              <title>Example of the state synchronization and failover
+                using the same interface Ethernet2</title>
+              <graphic scale="60" fileref="state_sync_configuration.png"/>
+            </figure>
+
+          </para></listitem>
+
+          <listitem><para>Dedicated failover interfaces of the member firewalls must
+            have IP addresses and these addresses must be different but
+            belong to the same subnet.
+          </para></listitem>
+        </itemizedlist>
+      </para>
+
+      <para>
+        Built-in policy installer treats PIX clusters in a special way:
+        <itemizedlist>
+          <listitem><para> For the PIX cluster, built-in installer installs generated
+            configuration only on the master PIX unit. It determines which
+            one is the master by looking in the StateSyncGroup object (state
+            synchronization cluster group).
+          </para></listitem>
+          <listitem><para>
+            Dialog where user enters authentication credentials and other
+            parameters for the installer has a checkbox that makes installer
+            initiate copy of the configuration to the standby PIX if
+            installation was successful.
+          </para></listitem>
+        </itemizedlist>
+      </para>
+
+
+    </sect1>
+
+
+    <sect1>
+
+      <title>Example of the Linux cluster configuration using vrrpd
+      for failover</title>
+
+
+      <para>
+        In this example we work with two Linux machines running vrrpd
+        for failover that form HA firewall pair, and another machine
+        behind them that will use this pair as a firewall. The set up
+        is shown in figure
+        <xref linkend="linux_vrrpd_cluster_1"/>. Machines <emphasis>linux-test-1</emphasis>
+        and <emphasis>linux-test-2</emphasis> are the firewalls and
+        <emphasis>linux-test-3</emphasis> is a workstation behind
+        them. All testing is done on an isolated network using private
+        IP addresses, subnet "outside" the firewalls is
+        10.3.14.0/255.255.255.0 and subnet "behind" the firewalls is
+        10.1.1.0/255.255.255.0. In fact, this network was located
+        behind a router and another firewall that provided connection
+        to the Inetrnet. We will use this in some tests below.
+      </para>
+
+      <figure float="1" id="linux_vrrpd_cluster_1">
+        <title>HA configuration using two Linux machines running vrrpd</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-1.png"/>
+      </figure>
+
+      <para>As shown in <xref linkend="linux_vrrpd_cluster_1"/>,
+        machines linux-test-1 and linux-test-2 run vrrpd daemon
+        (<ulink url="http://off.net/~jme/vrrpd/"><citetitle>VRRPD home
+        page</citetitle></ulink>) to create virtual IP address on both
+        subnets. VRRPd adds virtual IP address to the same interface
+        eth0 or eth1. One of the daemons becomes master and takes
+        owbership of the virtual address by adding it to the
+        interface. It sends UDP datagram to the multicast address
+        224.0.0.18 every second or so to declare that it is up and
+        running and owns the address. If the machine it is running on
+        shuts down for any reason, this stream of packets from the
+        master stops and after pre-determined timeout the second
+        machine becomes master and assumes the virtual IP address.
+        VRRP daemon also replaces MAC address of the interface with a
+        virtual MAC address so that whenvirtual IP address is
+        transferred from one machine to another, all hosts on the
+        corresponding subnet do not have to update their ARP tables
+        because the MAC address stays the same.
+      </para>
+
+      <para>
+        VRRPd is very easy to configure. It does not have any
+        configuration file, all configuration is provided by
+        parameters on the command line. Here is the command line
+        for the machine linux-test-1:
+      </para>
+
+      <screen>
+vrrpd -D -i eth0 -v 1 -a none -p 110 10.3.14.150 
+vrrpd -D -i eth1 -v 2 -a none -p 110 10.1.1.254
+      </screen>
+
+      <para>
+        The same for the machine linux-test-2:
+      </para>
+
+      <screen>
+vrrpd -D -i eth0 -v 1 -a none -p 120 10.3.14.150 
+vrrpd -D -i eth1 -v 2 -a none -p 120 10.1.1.254
+      </screen>
+
+
+      <para>
+        Parameter "-D" makes vrrpd become a daemon, "-i" tells it
+        which interface it should work with, "-v" defines VRID
+        (Virtual Router Identifier), "-a" is used to set up
+        authentication (we use none for this simple test), "-p"
+        configures priority and the last parameter is the virtual
+        address this instance of vrrpd should manage. VRID used on our
+        two subnets should be different. Here I make the priority of
+        one machine higher than the other to ensure it becomes master
+        when it comes online. This is it, once all instances of vrrpd
+        start on both machines, they configure IP addresses as
+        follows (addresses added by vrrpd are highlighted in red):
+      </para>
+
+
+
+      <screen id="ip_addresses_of_members">
+root@linux-test-1:~# ip -4  addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    inet 127.0.0.1/8 scope host lo
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    inet 10.1.1.1/24 brd 10.1.1.255 scope global eth1
+
+
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    inet 127.0.0.1/8 scope host lo
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    inet 10.3.14.109/24 brd 10.3.14.255 scope global eth0
+    <emphasis role="redtext">inet 10.3.14.150/32 scope global eth0</emphasis>
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    inet 10.1.1.2/24 brd 10.1.1.255 scope global eth1
+    <emphasis role="redtext">inet 10.1.1.254/32 scope global eth1</emphasis>
+      </screen>
+
+      <note>
+        <para>
+          Addresses added by vrrpd have netmask /32, while normal
+          netmask in this setup for all interfaces is /24.
+        </para>
+      </note>
+
+
+      <para>
+        At this point, we can test our configuration by pinging
+        virtual addresses on both sides. Then kill vrrpd on
+        linux-test-2 and observe virtual addresses being added on the
+        other machine. Test ping should register few seconds of
+        downtime and then just keep going.
+      </para>
+
+
+      <para>
+        Now we can create objects in Firewall Builder to represent
+        this cluster. We start with two firewall objects configured
+        with ip addresses but no policy or NAT rules. Interfaces,
+        their addresses and netmasks are shown on
+        <xref linkend="linux_vrrpd_cluster_2"/>:
+      </para>
+
+      <figure float="1" id="linux_vrrpd_cluster_2">
+        <title>Interfaces and addresses of the cluster members</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-2.png"/>
+      </figure>
+
+      <para>
+        Now we can create cluster. Use the usual "New object" menu and
+        choose object type "Cluster":
+      </para>
+
+      <figure float="1" id="linux_vrrpd_cluster_3">
+        <title>Creating new cluster object</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-3.png"/>
+      </figure>
+
+      <para>
+        This starts wizard that helps you create new cluster
+        object. First, choose which firewall objects will be used for
+        the cluster. Our test file is small and has only two firewall
+        objects so the choice is obvious. In more complext
+        configurations you may have many firewall objects, not all of
+        which need to be used in cluster
+        configurations. <xref linkend="linux_vrrpd_cluster_4"/>
+      </para>
+
+      <figure float="1" id="linux_vrrpd_cluster_4">
+        <title>First page of the new cluster wizard</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-4.png"/>
+      </figure>
+
+      <note>
+        <para>
+          Since all policy and NAT rules are configured in the cluster
+          object, the same member firewall object can be used with
+          different clusters. This is a great way to try different
+          configurations or build some temporary ones.
+        </para>
+      </note>
+
+      <para>
+        On the next page <xref linkend="linux_vrrpd_cluster_5"/> of
+        the wizard we configure the mapping between cluster interfaces
+        and inetrfaces of the member firewalls. In this simple setup
+        the mapping is direct: interface "eth0" of the cluster
+        represents interfaces "eth0" of both members and the same goes
+        for "eth1" and loopback. Things may be more complicated if
+        failover protocol used for the cluster creates its own
+        inetrfaces, such as CARP on OpenBSD. In that case the name of
+        the interface that is configured at the top of the wizard page
+        would be "carp0" and we would map it to interfaces of the
+        members, say "en0" on both, using controls at the bottom of
+        the sizard page. However in the case of VRRP, heartbeat and
+        keepalived on Linux the name of the cluster inetrface must
+        match the name of the member interfaces, that is, in our case
+        we create cluster interfaces "eth0" and "eth1". The wizard
+        does this automatically, it finds interfaces with the same
+        name in both members and suggests cluster interfaces with the
+        same name, mapped to those interfaces of the member
+        firewalls. Feel free to edit if this guess was incorrect for
+        your setup. The "+" and "x" buttons in the top corners of the
+        page allow you to add and remove cluster inetrfaces.
+      </para>
+
+      <figure float="1" id="linux_vrrpd_cluster_5">
+        <title>Configuring cluster interfaces</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-5.png"/>
+      </figure>
+
+
+      <para>
+        Next page <xref linkend="linux_vrrpd_cluster_6"/> of the
+        wizard is used to set up virtual IP addresses and failover
+        protocols for the cluster interfaces. Most protocols require
+        IP address which you can add by clicking "Add address" button.
+        The only exception at this time is Cisco PIX where HA pair
+        uses IP addresses of the master instead of using special
+        virtual addresses. In that case the part of the wizard page
+        where you configure IP addresses will be disabled.
+      </para>
+
+      <para>
+        Choose failover protocol using drop-down list. Among other
+        "real" protocols list includes item "None". Use this item if
+        you do not want fwbuilder to add automatic policy rules to the
+        generated configuration and plan to do this yourself. Also use
+        this "protocol" to configure cluster loopback inetrface. In
+        any case cluster inetrfaces must be configured with
+        corresponding interfaces of the member firewalls to establish
+        the mapping.
+      </para>
+
+      <figure float="1" id="linux_vrrpd_cluster_6">
+        <title>Configuring virtual IP addresses of cluster interfaces</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-6.png"/>
+      </figure>
+
+      <note>
+        <para>
+          The address and netmask pair of the cluster inetrface must
+          be configured exactly the same as done by the cluster
+          software. In the case of vrrpd, the netmask is /32 (see the
+          output of "ip addr show" command above where it is visible
+          that the address added by vrrpd comes with netmask /32). We
+          use the same netmask in the address configuration in cluster
+          interfaces eth0 and eth1
+        </para>
+      </note>
+
+      <para>
+        Final page of the
+        wizard <xref linkend="linux_vrrpd_cluster_7"/> allows you to
+        choose to copy Policy and NAT rules from one of the members to
+        the new cluster object.  This can be useful if you used to
+        manage a cluster with fwbuilder by maitaining two firewall
+        objects manually or with the aid of external scripts. If you
+        decide to use this option, fwbuilder GUI copies policy and NAT
+        rules from the member you choose to the new cluster object,
+        then creates backup copies of both member firewall objects
+        with the name with suffix "-bak" and deletes all Policy and
+        NAT rules in the rule sets of the member firewall objects it
+        uses for the cluster. This way, you can always return to your
+        old setup using these backup objects and at the same time, new
+        cluster configuration has all the rules in the cluster object.
+      </para>
+
+      <note>
+        <para>
+          This is important because if member firewall object has Policy
+          or NAT rule set with the same name as the one in the cluster,
+          then fwbuilder will use rules from the rule set of the member,
+          thus overriding all the rules in the cluster's rule set with
+          the same name. This allows you to create complex
+          configurations where majority of the rules are defined and
+          maintained in the cluster object, but a few rules can be
+          created separately in the members to complement rules of the
+          cluster.
+        </para>
+      </note>
+
+      <figure float="1" id="linux_vrrpd_cluster_7">
+        <title>Final page of the new cluster wizard</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-7.png"/>
+      </figure>
+
+      <para>
+        Screenshot <xref linkend="linux_vrrpd_cluster_8"/>
+        demonstrates newly created cluster object.
+      </para>
+
+      <figure float="1" id="linux_vrrpd_cluster_8">
+        <title>Cluster object</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-8.png"/>
+      </figure>
+
+
+      <para>
+        Each cluster interface has additional child object (located
+        underneath it in the tree) with the
+        name <emphasis>linux-test-1:eth0:memvers</emphasis> and
+        <emphasis>linux-test-1:eth1:memvers</emphasis>. These objects
+        are failover groups, this is where the failover protocol and
+        mapping between the cluster and member interfaces is
+        configured. Screenshot <xref linkend="linux_vrrpd_cluster_9"/>
+        failover group that belongs to interface eth0:
+      </para>
+
+      <figure float="1" id="linux_vrrpd_cluster_9">
+        <title>Cluster Failover Group object</title>
+        <graphic scale="60" fileref="linux-vrrpd-cluster-9.png"/>
+      </figure>
+
+
+    </sect1>
+
+
+
+  </chapter>
+
+
+
+
   <chapter id="compile-install-detail">
     <title>Installing a Policy onto a Firewall</title>
-              <para>
-  
-                  After firewall configuration has been generated by
-                  one of the policy compilers and saved in a file on
-                  disk in the format required by the target firewall,
-                  it needs to be transferred to the firewall machine
-                  and activated. This function is performed by the
-                  component we call "Policy Installer", which is part
-                  of the Firewall Builder GUI.
-                
-          </para>
 
-          <para>
-  
-                The installer needs to be able to copy the generated firewall
-                script to the firewall and then run it there. In order
-                to do so, it uses secure shell. The program does not
-                include ssh code; it uses an external ssh client.  On
-                Linux, BSD and Mac OS X it uses the standard ssh
-                client <emphasis>ssh</emphasis> and secure shell file copy
-                program <emphasis>SCP</emphasis> that come with the system; on
-                Windows it uses <emphasis>plink.exe</emphasis> and <emphasis>pscp.exe</emphasis>.
-                The full directory path to the ssh client program can be
-                configured in the Preferences dialog (accessible via
-                Edit/Preferences menu). However if you are on Linux,
-                *BSD or Mac and use the standard ssh client 
-                available via your PATH environment variable, you do
-                not need to change the default value there.
-              
-          </para>
-  
 
-          <para>
-  
-                Installer works differently depending on the target
-                platform. In the case of Linux and BSD-based firewalls, it
-                uses <emphasis>SCP</emphasis> to copy the generated configuration files
-                to the firewall machine and then uses <emphasis>ssh</emphasis> to
-                log in and run the script. In the case of Cisco routers or
-                ASA appliance (PIX), it logs in, switches
-                to <emphasis>enable</emphasis> and then <emphasis>configuration</emphasis> mode
-                and executes configuration commands one by one in a
-                manner similar to <emphasis>expect</emphasis> scripts. It inspects the 
-                router's replies looking for errors and stops if it
-                detects one. In the end, it issues the command <emphasis>write
-                mem</emphasis> to store the new configuration in memory, then logs
-                out.
-              
-          </para>
+    <para>      
+      After firewall configuration has been generated by
+      one of the policy compilers and saved in a file on
+      disk in the format required by the target firewall,
+      it needs to be transferred to the firewall machine
+      and activated. This function is performed by the
+      component we call "Policy Installer", which is part
+      of the Firewall Builder GUI.
+      
+    </para>
+
+    <para>
+      
+      The installer needs to be able to copy the generated firewall
+      script to the firewall and then run it there. In order
+      to do so, it uses secure shell. The program does not
+      include ssh code; it uses an external ssh client.  On
+      Linux, BSD and Mac OS X it uses the standard ssh
+      client <emphasis>ssh</emphasis> and secure shell file copy
+      program <emphasis>SCP</emphasis> that come with the system; on
+      Windows it uses <emphasis>plink.exe</emphasis> and <emphasis>pscp.exe</emphasis>.
+      The full directory path to the ssh client program can be
+      configured in the Preferences dialog (accessible via
+      Edit/Preferences menu). However if you are on Linux,
+      *BSD or Mac and use the standard ssh client 
+      available via your PATH environment variable, you do
+      not need to change the default value there.
+      
+    </para>
   
 
-          <para>
-  
-                The built-in policy installer has been designed to work
-                with a dedicated firewall machine, in other words, when the 
-                computer where you run Firewall Builder and the actual
-                firewall are different machines. Nevertheless, it can
-                be used when they are the same machine as well. The
-                only difference is that in all commands below you
-                would use the name or address of the machine where you
-                run Firewall Builder instead of the name or address of
-                the dedicated firewall. The SSH client will then connect
-                back to the same machine where it runs and everything
-                will work exactly the same as if it was different
-                computer.
-              
-          </para>
-  <!-- ***************************************************** -->
+    <para>
+      
+      Installer works differently depending on the target
+      platform. In the case of Linux and BSD-based firewalls, it
+      uses <emphasis>SCP</emphasis> to copy the generated configuration files
+      to the firewall machine and then uses <emphasis>ssh</emphasis> to
+      log in and run the script. In the case of Cisco routers or
+      ASA appliance (PIX), it logs in, switches
+      to <emphasis>enable</emphasis> and then <emphasis>configuration</emphasis> mode
+      and executes configuration commands one by one in a
+      manner similar to <emphasis>expect</emphasis> scripts. It inspects the 
+      router's replies looking for errors and stops if it
+      detects one. In the end, it issues the command <emphasis>write
+        mem</emphasis> to store the new configuration in memory, then logs
+      out.
+      
+    </para>
+    
+
+    <para>
+      
+      The built-in policy installer has been designed to work
+      with a dedicated firewall machine, in other words, when the 
+      computer where you run Firewall Builder and the actual
+      firewall are different machines. Nevertheless, it can
+      be used when they are the same machine as well. The
+      only difference is that in all commands below you
+      would use the name or address of the machine where you
+      run Firewall Builder instead of the name or address of
+      the dedicated firewall. The SSH client will then connect
+      back to the same machine where it runs and everything
+      will work exactly the same as if it was different
+      computer.
+      
+    </para>
+    <!-- ***************************************************** -->
 
   <sect1 id="fw_address">
     <title>How does installer decide what address to use to connect to
