@@ -30,7 +30,7 @@
       <ServiceGroup id="id2202X22057" name="TagServices" comment="" ro="False"/>
     </ServiceGroup>
     <ObjectGroup id="id2203X22057" name="Firewalls" comment="" ro="False">
-      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="1265132476" lastInstalled="0" lastModified="1265131284" platform="iptables" name="linux-test-1" comment="" ro="False">
+      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="1265132514" lastInstalled="0" lastModified="1265131284" platform="iptables" name="linux-test-1" comment="" ro="False">
         <NAT id="id2232X22057" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -120,7 +120,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="1265132476" lastInstalled="0" lastModified="1265131290" platform="iptables" name="linux-test-2" comment="" ro="False">
+      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="1265132514" lastInstalled="0" lastModified="1265131290" platform="iptables" name="linux-test-2" comment="" ro="False">
         <NAT id="id2007X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -212,7 +212,7 @@
       </Firewall>
     </ObjectGroup>
     <ObjectGroup id="id2204X22057" name="Clusters" comment="" ro="False">
-      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="1265132476" lastInstalled="0" lastModified="1265132511" platform="iptables" name="linux-cluster" comment="" ro="False">
+      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="1265132514" lastInstalled="0" lastModified="1265141357" platform="iptables" name="linux-cluster" comment="" ro="False">
         <NAT id="id2340X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id32717X22130" disabled="False" position="0" action="Translate" comment="">
             <OSrc neg="False">
@@ -419,7 +419,10 @@
         <StateSyncClusterGroup id="id2344X22130" type="conntrack" name="State Sync Group" comment="">
           <ObjectRef ref="id2242X22057"/>
           <ObjectRef ref="id2019X22130"/>
-          <ClusterGroupOptions/>
+          <ClusterGroupOptions>
+            <Option name="conntrack_address">225.0.0.50</Option>
+            <Option name="conntrack_port">3780</Option>
+          </ClusterGroupOptions>
         </StateSyncClusterGroup>
       </Cluster>
     </ObjectGroup>
