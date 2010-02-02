@@ -17,7 +17,7 @@
   
   Author:        Vadim Kurland 
   Build date:    11/26/2001
-  Last changed:  11/26/2001
+  Last changed:  01/12/2010
   Description:   This stylesheet generates document in the form of multiple
 		 HTML files
 
@@ -25,6 +25,9 @@
   For explanations of these, and definitions of other elements see
   DocBook documentation coming with Norman Walsh'es docbook-dsssl
   package
+
+  See  /usr/share/sgml/docbook/stylesheet/dsssl/modular/html/dbparam.dsl 
+  for the list of all possible parameters
 
 -->
 
@@ -53,8 +56,32 @@
 
 (define %stylesheet%
   ;; Name of the stylesheet to use
-  "users_guide_3.css"
+  "/css/default.css"
 )
+
+(define ($user-html-header$ #!optional
+                            (home (empty-node-list))
+                            (up (empty-node-list))
+                            (prev (empty-node-list))
+                            (next (empty-node-list)))
+  (make empty-element gi: "LINK"
+        attributes: (list (list "REL" "STYLESHEET")
+                          (list "TYPE" "TEXT/CSS")
+                          (list "HREF" "users_guide_3.css")))
+)
+
+(define %header-navigation%
+  ;; REFENTRY header-navigation
+  ;; PURP Should navigation links be added to the top of each page?
+  ;; DESC
+  ;; If '#t', navigation links will be added to the top of each page.
+  ;; If '#f', no navigation links will be added. Note that this has
+  ;; no effect on '($user-header-navigation$)', which will still be
+  ;; called (but does nothing by default).
+  ;; /DESC
+  ;; AUTHOR N/A
+  ;; /REFENTRY
+  #t)
 
 (define %css-liststyle-alist%
   ;; Map DocBook OVERRIDE and MARK attributes to CSS
@@ -81,10 +108,24 @@
   "CALSTABLE")
 
 
+(define %gentext-nav-use-tables%
+  ;; REFENTRY gentext-nav-use-tables
+  ;; PURP Use tables to build the navigation headers and footers?
+  ;; DESC
+  ;; If true, HTML TABLEs will be used to format the header and footer
+  ;; navigation information.
+  ;; /DESC
+  ;; AUTHOR N/A
+  ;; /REFENTRY
+  #t)
+
+
 <!--   Navigation bars  -->
 (define %gentext-nav-tblwidth%
   ;; If using tables for navigation, how wide should the tables be?
-  "90%")
+  "60%")
+
+
 
 <!--
 (define nochunks
@@ -105,12 +146,16 @@ http://sources.redhat.com/ml/docbook-apps/2000-q4/msg00336.html
 -->
 
 (define ($html-body-start$)
-  (literal " ")
-  )
+  (make sequence
+    (make formatting-instruction data: "&#60!--")
+    (literal "#include virtual=\"/users_guide_page_header.html\"")
+    (make formatting-instruction data: "-->")))
 
 (define ($html-body-end$)
-  (literal " ")
-  )
+  (make sequence
+    (make formatting-instruction data: "&#60!--")
+    (literal "#include virtual=\"/users_guide_page_footer.html\"")
+    (make formatting-instruction data: "-->")))
 
 
 
