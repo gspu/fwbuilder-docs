@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FWObjectDatabase SYSTEM "fwbuilder.dtd">
+<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="16" lastModified="1265088512" id="root">
+  <Library id="sysid99" name="Deleted Objects" comment="" ro="False">
+    <IPv4 id="id2017X22130" name="linux-test-2:eth0:ip" comment="" ro="False" address="10.3.14.150" netmask="255.255.255.255"/>
+    <IPv6 id="id2015X22130" name="linux-test-2:eth0:ip6" comment="" ro="False" address="fe80::20:5eff:fe0:11" netmask="64"/>
+    <IPv4 id="id2022X22130" name="linux-test-2:eth1:ip" comment="" ro="False" address="10.1.1.254" netmask="255.255.255.255"/>
+    <IPv6 id="id2020X22130" name="linux-test-2:eth1:ip6" comment="" ro="False" address="fe80::20:5eff:fe0:12" netmask="64"/>
+  </Library>
+  <Library id="id2185X22057" color="#d2ffd0" name="User" comment="" ro="False">
+    <ObjectGroup id="id2186X22057" name="Objects" comment="" ro="False">
+      <ObjectGroup id="id2187X22057" name="Addresses" comment="" ro="False"/>
+      <ObjectGroup id="id2188X22057" name="DNS Names" comment="" ro="False"/>
+      <ObjectGroup id="id2189X22057" name="Address Tables" comment="" ro="False"/>
+      <ObjectGroup id="id2190X22057" name="Groups" comment="" ro="False"/>
+      <ObjectGroup id="id2191X22057" name="Hosts" comment="" ro="False"/>
+      <ObjectGroup id="id2192X22057" name="Networks" comment="" ro="False"/>
+      <ObjectGroup id="id2193X22057" name="Address Ranges" comment="" ro="False"/>
+    </ObjectGroup>
+    <ServiceGroup id="id2194X22057" name="Services" comment="" ro="False">
+      <ServiceGroup id="id2195X22057" name="Groups" comment="" ro="False"/>
+      <ServiceGroup id="id2196X22057" name="ICMP" comment="" ro="False"/>
+      <ServiceGroup id="id2197X22057" name="IP" comment="" ro="False"/>
+      <ServiceGroup id="id2198X22057" name="TCP" comment="" ro="False"/>
+      <ServiceGroup id="id2199X22057" name="UDP" comment="" ro="False"/>
+      <ServiceGroup id="id2200X22057" name="Users" comment="" ro="False"/>
+      <ServiceGroup id="id2201X22057" name="Custom" comment="" ro="False"/>
+      <ServiceGroup id="id2202X22057" name="TagServices" comment="" ro="False"/>
+    </ServiceGroup>
+    <ObjectGroup id="id2203X22057" name="Firewalls" comment="" ro="False">
+      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="0" lastInstalled="0" lastModified="0" platform="iptables" name="linux-test-1" comment="" ro="False">
+        <NAT id="id2232X22057" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </NAT>
+        <Policy id="id2230X22057" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Policy>
+        <Routing id="id2234X22057" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Routing>
+        <Interface id="id2236X22057" dedicated_failover="False" dyn="False" label="loopback" security_level="0" unnum="False" unprotected="False" name="lo" comment="" ro="False">
+          <IPv4 id="id2238X22057" name="linux-test-1:lo:ip" comment="" ro="False" address="127.0.0.1" netmask="255.0.0.0"/>
+          <IPv6 id="id2237X22057" name="linux-test-1:lo:ip6" comment="" ro="False" address="::1" netmask="128"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Interface id="id2239X22057" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
+          <IPv4 id="id2241X22057" name="linux-test-1:eth0:ip" comment="" ro="False" address="10.3.14.108" netmask="255.255.255.0"/>
+          <IPv6 id="id2240X22057" name="linux-test-1:eth0:ip6" comment="" ro="False" address="fe80::2c:29ff:fe1e:dcaa" netmask="64"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Interface id="id2242X22057" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
+          <IPv4 id="id2244X22057" name="linux-test-1:eth1:ip" comment="" ro="False" address="10.1.1.1" netmask="255.255.255.0"/>
+          <IPv6 id="id2243X22057" name="linux-test-1:eth1:ip6" comment="" ro="False" address="fe80::2c:29ff:fe1e:dcb4" netmask="64"/>
+          <InterfaceOptions/>
+        </Interface>
+        <FirewallOptions>
+          <Option name="accept_established">true</Option>
+          <Option name="accept_new_tcp_with_no_syn">true</Option>
+          <Option name="check_shading">true</Option>
+          <Option name="configure_interfaces">true</Option>
+          <Option name="firewall_is_part_of_any_and_networks">true</Option>
+          <Option name="flush_and_set_default_policy">True</Option>
+          <Option name="limit_value">0</Option>
+          <Option name="linux24_ip_forward">1</Option>
+          <Option name="load_modules">true</Option>
+          <Option name="local_nat">false</Option>
+          <Option name="log_level">info</Option>
+          <Option name="log_prefix">RULE %N -- %A </Option>
+          <Option name="loopback_interface">lo</Option>
+          <Option name="manage_virtual_addr">true</Option>
+          <Option name="modules_dir">/lib/modules/`uname -r`/kernel/net/</Option>
+          <Option name="ulog_nlgroup">1</Option>
+          <Option name="verify_interfaces">true</Option>
+        </FirewallOptions>
+      </Firewall>
+      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="0" lastInstalled="0" lastModified="1265089047" platform="iptables" name="linux-test-2" comment="" ro="False">
+        <NAT id="id2007X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </NAT>
+        <Policy id="id2005X22130" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Policy>
+        <Routing id="id2009X22130" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Routing>
+        <Interface id="id2011X22130" dedicated_failover="False" dyn="False" label="loopback" security_level="0" unnum="False" unprotected="False" name="lo" comment="" ro="False">
+          <IPv4 id="id2013X22130" name="linux-test-2:lo:ip" comment="" ro="False" address="127.0.0.1" netmask="255.0.0.0"/>
+          <IPv6 id="id2012X22130" name="linux-test-2:lo:ip6" comment="" ro="False" address="::1" netmask="128"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Interface id="id2014X22130" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
+          <IPv4 id="id2018X22130" name="linux-test-2:eth0:ip" comment="" ro="False" address="10.3.14.109" netmask="255.255.255.0"/>
+          <IPv6 id="id2016X22130" name="linux-test-2:eth0:ip6" comment="" ro="False" address="fe80::2c:29ff:fefc:678c" netmask="64"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Interface id="id2019X22130" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
+          <IPv4 id="id2023X22130" name="linux-test-2:eth1:ip" comment="" ro="False" address="10.1.1.2" netmask="255.255.255.0"/>
+          <IPv6 id="id2021X22130" name="linux-test-2:eth1:ip6" comment="" ro="False" address="fe80::2c:29ff:fefc:6796" netmask="64"/>
+          <InterfaceOptions/>
+        </Interface>
+        <FirewallOptions>
+          <Option name="accept_established">true</Option>
+          <Option name="accept_new_tcp_with_no_syn">true</Option>
+          <Option name="check_shading">true</Option>
+          <Option name="configure_interfaces">true</Option>
+          <Option name="firewall_is_part_of_any_and_networks">true</Option>
+          <Option name="flush_and_set_default_policy">True</Option>
+          <Option name="limit_value">0</Option>
+          <Option name="linux24_ip_forward">1</Option>
+          <Option name="load_modules">true</Option>
+          <Option name="local_nat">false</Option>
+          <Option name="log_level">info</Option>
+          <Option name="log_prefix">RULE %N -- %A </Option>
+          <Option name="loopback_interface">lo</Option>
+          <Option name="manage_virtual_addr">true</Option>
+          <Option name="modules_dir">/lib/modules/`uname -r`/kernel/net/</Option>
+          <Option name="ulog_nlgroup">1</Option>
+          <Option name="verify_interfaces">true</Option>
+        </FirewallOptions>
+      </Firewall>
+    </ObjectGroup>
+    <ObjectGroup id="id2204X22057" name="Clusters" comment="" ro="False">
+      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="0" lastInstalled="0" lastModified="0" platform="iptables" name="linux-cluster" comment="" ro="False">
+        <NAT id="id2340X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </NAT>
+        <Policy id="id2338X22130" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Policy>
+        <Routing id="id2342X22130" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Routing>
+        <Interface id="id2346X22130" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
+          <IPv4 id="id2347X22130" name="linux-cluster:eth0:ip" comment="" ro="False" address="10.3.14.150" netmask="255.255.255.255"/>
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id2349X22130" master_iface="id2239X22057" type="vrrp" name="linux-cluster:eth0:members" comment="">
+            <ObjectRef ref="id2014X22130"/>
+            <ObjectRef ref="id2239X22057"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <Interface id="id2353X22130" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
+          <IPv4 id="id2354X22130" name="linux-cluster:eth1:ip" comment="" ro="False" address="10.1.1.254" netmask="255.255.255.255"/>
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id2356X22130" master_iface="id2242X22057" type="vrrp" name="linux-cluster:eth1:members" comment="">
+            <ObjectRef ref="id2019X22130"/>
+            <ObjectRef ref="id2242X22057"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <Interface id="id2360X22130" dedicated_failover="False" dyn="False" label="loopback" security_level="0" unnum="False" unprotected="False" name="lo" comment="" ro="False">
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id2362X22130" master_iface="id2236X22057" type="none" name="linux-cluster:lo:members" comment="">
+            <ObjectRef ref="id2011X22130"/>
+            <ObjectRef ref="id2236X22057"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <FirewallOptions/>
+        <StateSyncClusterGroup id="id2344X22130" type="conntrack" name="State Sync Group" comment="">
+          <ClusterGroupOptions/>
+        </StateSyncClusterGroup>
+      </Cluster>
+    </ObjectGroup>
+    <IntervalGroup id="id2205X22057" name="Time" comment="" ro="False"/>
+  </Library>
+</FWObjectDatabase>
