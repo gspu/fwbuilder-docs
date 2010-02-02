@@ -1,0 +1,154 @@
+
+.ARTICLE          {  font-size: 10pt;  
+			font-style: normal; 
+			font-weight: normal; 
+			color: #003399}
+
+.BOOK            {  font-size: 10pt;  
+			font-style: normal; 
+			font-weight: normal; 
+			color: #003399;
+                        margin: 20px 20px 20px 20px;
+                        }
+
+.HEADER           {  font-family: Arial, Helvetica, sans-serif; 
+			font-size: 12pt; 
+			font-style: normal; 
+			font-weight: bolder; 
+			color: #003399}
+
+.AUTHOR           {  font-family: Arial, Helvetica, sans-serif; 
+			font-size: 8pt; 
+			font-style: normal; 
+			font-weight: bolder;
+			color: black; }
+
+.AFFILIATION      {  font-family: Arial, Helvetica, sans-serif; 
+			font-size: 8pt; 
+			font-style: normal; 
+			font-weight: bolder;
+			color: black; }
+
+.ADDRESS          {  font-family: Arial, Helvetica, sans-serif; 
+			font-size: 8pt; 
+			font-style: normal; 
+			font-weight: bolder;
+			color: black; }
+
+.TITLEPAGE        {  font-family: Arial, Helvetica, sans-serif; 
+			font-size: 8pt; 
+			font-style: normal; 
+			font-weight: normal; 
+			color: black; }
+
+.TITLE            {  font-family: Arial, Helvetica, sans-serif; 
+			font-size: 8pt; 
+			font-style: normal; 
+			font-weight: bolder; 
+			color: #CC9933}
+
+.ABSTRACT         { color: black; 
+			font-family: Arial, Helvetica, sans-serif; 
+			font-size: 10pt; 
+			font-style: normal; }
+
+.REVHISTORY TABLE { color: black; 
+			font-family: Arial, Helvetica, sans-serif; 
+			font-size: 8pt; 
+			font-style: normal; }
+
+.REVHISTORY TABLE { color: black; 
+			font-family: Arial, Helvetica, sans-serif; 
+			font-size: 8pt; 
+			font-style: normal; }
+
+.TOC              { color: black; 
+			font-family: Arial, Helvetica, sans-serif; 
+			font-size: 10pt; 
+			font-weight: bold; }
+
+.chapter          {	font-family: Arial, Helvetica, sans-serif;
+                        font-size: 10pt;
+			color: black;
+                        margin: 20px 20px 20px 20px;
+                        width: 90%;
+                        line-height: 170%;
+                        }
+
+.chapter TABLE    {	font-family: Arial, Helvetica, sans-serif; 
+			font-size: 14pt;  
+			color: black;
+                        }
+
+.sect1            {	font-family: Arial, Helvetica, sans-serif;
+                        font-size: 10pt;
+			color: black;
+                        margin: 20px 20px 20px 20px;
+                        width: 90%;
+                        line-height: 170%;
+                        }
+
+.sect1 H1         {	color: black; font-size: 16pt; }
+.sect1 H2         {	color: black; font-size: 14pt; }
+
+.sect2            {	font-family: Arial, Helvetica, sans-serif;
+                        font-size: 10pt;
+                        margin: 20px 20px 20px 20px;
+                        width: 90%;
+			color: black;
+                        line-height: 170%;
+                        }
+
+.sect2 P          {	font-size: 10pt;
+			color: black;
+                        }
+
+.sect2 H1         {	color: black; }
+.sect2 H2         {	color: black; }
+
+.NAVHEADER        { color: blue;  
+			font-family: Arial, Helvetica, sans-serif; 
+			font-size:   10pt;
+			font-weight: bold; }
+
+.NAVHEADER TABLE   { color: blue;  
+			font-family: Arial, Helvetica, sans-serif; 
+			font-size:   10pt;
+			font-weight: bold; }
+
+.NAVFOOTER        { color: blue;  
+			font-family: Arial, Helvetica, sans-serif; 
+			font-size:   10pt;
+			font-weight: bold; }
+
+.NAVFOOTER TABLE   { color: blue;  
+			font-family: Arial, Helvetica, sans-serif; 
+			font-size:   10pt;
+			font-weight: bold; }
+
+.FILENAME         { 	font-family: Courier New, Courier, mono;
+			font-size: 10pt; 
+			font-weight: bold;
+			color: #003399}
+
+.PROGRAMLISTING   { 	font-family: Courier New, Courier, mono;
+			font-size: 10pt; 
+			font-weight: bold;
+			color: #003399}
+
+.screen           {     
+                        padding: 1em;
+                        border: 1px dashed #2f6fab;
+                        color: black;
+                        background-color: #f9f9f9;
+                        line-height: 1.1em;
+                        font-family: Courier New, Courier, mono;
+                        font-style: italic;
+}
+
+table.CALSTABLE       { table-layout: auto; }
+table.CALSTABLE COL   { width: 50%; }
+table.CALSTABLE TD    { border-bottom: 1px solid #C0C0C0;  
+                      }
+table.CALSTABLE TH    { border-bottom: 1px solid black;  
+                      }
