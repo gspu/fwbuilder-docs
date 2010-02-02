@@ -11,7 +11,7 @@
 ]>
 <book id="book1">
   <bookinfo>
-    <title>Firewall Builder User's Guide</title>
+    <title>Firewall Builder 4.0 User's Guide</title>
 
     <affiliation>
       <orgname>NetCitadel LLC</orgname>
@@ -12415,10 +12415,10 @@ getaddr eth0  i_eth0
 # anti spoofing rule
 # 
 $IPTABLES -N In_RULE_0
-test -n "$i_eth0" && $IPTABLES -A INPUT  -i eth0   -s $i_eth0   -j In_RULE_0 
+test -n "$i_eth0" &amp;&amp; $IPTABLES -A INPUT  -i eth0   -s $i_eth0   -j In_RULE_0 
 $IPTABLES -A INPUT  -i eth0   -s 192.168.1.1   -j In_RULE_0 
 $IPTABLES -A INPUT  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
-test -n "$i_eth0" && $IPTABLES -A FORWARD  -i eth0   -s $i_eth0   -j In_RULE_0 
+test -n "$i_eth0" &amp;&amp; $IPTABLES -A FORWARD  -i eth0   -s $i_eth0   -j In_RULE_0 
 $IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0 
 $IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
 $IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "
@@ -14899,8 +14899,8 @@ exec "/root/swatch/block_ssh_scanner.sh $2"
 #!/bin/sh
 
 addr=$1
-test -z "$addr" && exit 1
-grep $addr /root/swatch/ssh_scan_addresses && exit 0
+test -z "$addr" &amp;&amp; exit 1
+grep $addr /root/swatch/ssh_scan_addresses &amp;&amp; exit 0
 
 cmd="iptables -A block_ssh -s $addr -j DROP"
 echo "$cmd" >> /root/swatch/ssh_scan_addresses
@@ -14915,7 +14915,7 @@ $cmd
         </para>
 
         <screen>
-/usr/bin/swatch --daemon --tail-file=/var/log/secure --use-cpan-file-tail &lt;/dev/null &
+/usr/bin/swatch --daemon --tail-file=/var/log/secure --use-cpan-file-tail &lt;/dev/null &amp;
         </screen>
 
 	<para>
