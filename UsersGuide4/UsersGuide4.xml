@@ -20,7 +20,7 @@
     <edition>$Id$</edition>
 
     <copyright>
-      <year>2003,2009</year>
+      <year>2003,2010</year>
 
       <holder>NetCitadel, LLC</holder>
     </copyright>
@@ -92,8 +92,10 @@
           </listitem>
 
           <listitem>
-            <para>The Network discovery tool that automates the creation of
-            multiple objects by reading a hosts file, by crawling your network via SNMP, or by importing an existing firewall policy.</para>
+            <para>The Network discovery tool that automates the
+            creation of multiple objects by reading a hosts file, by
+            crawling your network via SNMP, or by importing an
+            existing firewall policy.</para>
           </listitem>
 
           <listitem>
@@ -116,7 +118,8 @@
           </listitem>
 
 	  <listitem>
-            <para>Find and Replace functionality that can be used within a policy or across a set of policies</para>
+            <para>Find and Replace functionality that can be used
+            within a policy or across a set of policies</para>
           </listitem>
 
           <listitem>
@@ -131,7 +134,11 @@
           </listitem>
 
           <listitem>
-	    <para>Built-in, platform-specific help. Different firewalls provide different features and options. The Firewall Builder GUI provides help in appropriate dialogs to assist you in choosing the right options for your platform.</para>
+	    <para>Built-in, platform-specific help. Different
+	    firewalls provide different features and options. The
+	    Firewall Builder GUI provides help in appropriate dialogs
+	    to assist you in choosing the right options for your
+	    platform.</para>
           </listitem>
         </itemizedlist></para>
 
@@ -346,7 +353,9 @@
         </listitem>
       </itemizedlist>
 
-      <para>You may need to install packages elfutils-libelf and elfutils-libelf-devel (libelf on SuSE), otherwise libfwbuilder won't pick up net-snmp library even if it is installed.</para>
+      <para>You may need to install packages elfutils-libelf and
+      elfutils-libelf-devel (libelf on SuSE), otherwise libfwbuilder
+      won't pick up net-snmp library even if it is installed.</para>
 
       <para>For Debian-based systems:</para>
 
@@ -1243,11 +1252,16 @@ make install
 	    <tbody>
 	      <row>
 		<entry>New Object File</entry>
-		<entry>Opens a "file" dialog that lets you name your new object file. Object file names should end with ".fwb". In general, you should create a new directory for your object files.</entry>
+		<entry>Opens a "file" dialog that lets you name your
+		new object file. Object file names should end with
+		".fwb". In general, you should create a new directory
+		for your object files.</entry>
 	      </row>
 	      <row>
 		<entry>Open...</entry>
-		<entry>Opens a standard "file" dialog that lets you select an existing file. The file dialog, by default, only looks for files that end in ".fwb".</entry>
+		<entry>Opens a standard "file" dialog that lets you
+		select an existing file. The file dialog, by default,
+		only looks for files that end in ".fwb".</entry>
 	      </row>
 	      <row>
 		<entry>Open Recent</entry>
@@ -1267,15 +1281,23 @@ make install
 	      </row>
 	      <row>
 		<entry>Properties</entry>
-		<entry>Opens a dialog indicating properties of the current file, including revision control information (if applicable.) (Program preferences are in the Edit menu.)</entry>
+		<entry>Opens a dialog indicating properties of the
+		current file, including revision control information
+		(if applicable.) (Program preferences are in the Edit
+		menu.)</entry>
 	      </row>
 	      <row>
 		<entry>Add File to RCS</entry>
-		<entry>This menu item adds the object file to reversion control. See <xref linkend="rcs" /> for a detailed explanation.</entry>
+		<entry>This menu item adds the object file to
+		reversion control. See <xref linkend="rcs" /> for a
+		detailed explanation.</entry>
 	      </row>
 	      <row>
 		<entry>Commit</entry>
-		<entry>Commits current changes to RCS. (This option is grayed out if the file has not already been added to RCS.)  See <xref linkend="rcs" /> for a detailed explanation.</entry>
+		<entry>Commits current changes to RCS. (This option is
+		grayed out if the file has not already been added to
+		RCS.)  See <xref linkend="rcs" /> for a detailed
+		explanation.</entry>
 	      </row>
 	      <row>
 		<entry>Import Policy</entry>
@@ -1287,7 +1309,13 @@ make install
 	      </row>
 	      <row>
 		<entry>Export Library</entry>
-		<entry>Brings up a dialog that lets you select which Object Library you wish to export to a ".fwl" file. Once exported, you can import it into another instantiation of Firewall Builder. This is particularly useful in Enterprise settings that have multiple Firewall Builder workstations and administrators.</entry>
+		<entry>Brings up a dialog that lets you select which
+		Object Library you wish to export to a ".fwl"
+		file. Once exported, you can import it into another
+		instantiation of Firewall Builder. This is
+		particularly useful in Enterprise settings that have
+		multiple Firewall Builder workstations and
+		administrators.</entry>
 	      </row>
 	      <row>
 		<entry>Print</entry>
@@ -1345,10 +1373,11 @@ make install
 	      </row>
 	      <row>
 		<entry>Use http proxy while checking for updates (host:port)</entry>
-		<entry>Whether you use the automatic or manual method to check for updates, if you are behind a proxy, enter the
-                host IP and port of the proxy in this
-                field. Separate the host IP and port number with a colon
-                (:).</entry>
+		<entry>Whether you use the automatic or manual method
+                to check for updates, if you are behind a proxy, enter
+                the host IP and port of the proxy in this
+                field. Separate the host IP and port number with a
+                colon (:).</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1368,24 +1397,28 @@ make install
 	      <row>
 		<entry>Automatically save data in dialogs while switching
                 between objects</entry>
-		<entry>The GUI shows a dialog for every opened object in the
-                same place (the right half of the main window). Normally if
-                you have made changes to an object's data and want
-                to switch to another object without clicking on the
+		<entry>The GUI shows a dialog for every opened object
+                in the same place (the right half of the main
+                window). Normally if you have made changes to an
+                object's data and want to switch to another object
+                without clicking on the
                 <guibutton>Apply</guibutton> or
                 <guibutton>Undo</guibutton> button, GUI shows a pop-up
-                dialog asking whether data should be saved or changes should
-                be ignored. If this option is turned on, the program
-                automatically saves unsaved data every time you open another object in the dialog area.</entry>
+                dialog asking whether data should be saved or changes
+                should be ignored. If this option is turned on, the
+                program automatically saves unsaved data every time
+                you open another object in the dialog area.</entry>
 	      </row>
 	      <row>
 		<entry>Enable object tooltips</entry>
-		<entry>Firewall Builder can show a summary of an object's
-                properties in a quick pop-up window (a "tooltip") when you places the mouse cursor over
-                an object icon. If this is not enabled, then you must click
-                on an object to get the same information. The
-                <guilabel>Tooltip delay</guilabel> control sets the delay, in
-                seconds, between the time you hover the cursor and the time the tooltip appears.</entry>
+		<entry>Firewall Builder can show a summary of an
+                object's properties in a quick pop-up window (a
+                "tooltip") when you places the mouse cursor over an
+                object icon. If this is not enabled, then you must
+                click on an object to get the same information. The
+                <guilabel>Tooltip delay</guilabel> control sets the
+                delay, in seconds, between the time you hover the
+                cursor and the time the tooltip appears.</entry>
 	      </row>
 	      <row>
 		<entry>Show deleted objects</entry>
@@ -1396,9 +1429,11 @@ make install
 	      </row>
 	      <row>
 		<entry>Clip comments in rules</entry>
-		<entry>Comments in a rule can sometimes make the rule line
-                taller, reducing the number of rules visible on a screen.
-                Select this if you want comments to be truncated in the view if they take up more than one line.</entry>
+		<entry>Comments in a rule can sometimes make the rule
+                line taller, reducing the number of rules visible on a
+                screen.  Select this if you want comments to be
+                truncated in the view if they take up more than one
+                line.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1423,9 +1458,11 @@ make install
 	      <row>
 		<entry>Do not ask for the log record when checking in the new
                 file version</entry>
-		<entry>Only affects RCS. If selected, the program does not
-                prompt you for a "comment" when you check your file back into
-                RCS.  See <xref linkend="rcs" /> for a detailed explanation on using revision control with Firewall Builder.</entry>
+		<entry>Only affects RCS. If selected, the program does
+                not prompt you for a "comment" when you check your
+                file back into RCS.  See <xref linkend="rcs" /> for a
+                detailed explanation on using revision control with
+                Firewall Builder.</entry>
 	      </row>
 	      <row>
 		<entry>Enable compression of the data file</entry>
@@ -1449,9 +1486,13 @@ make install
 	    <tbody>
 	      <row>
 		<entry>SSH and SCP paths</entry>
-		<entry>These fields let the program know where your SSH and SCP
-            programs (or their equivalents) live. If they are in your PATH,
-            then you don't have to specify the complete paths to them. On Windows, however, you must install putty. See <xref linkend="install-putty" /> for instructions.</entry>
+		<entry>These fields let the program know where your
+                  SSH and SCP programs (or their equivalents) live. If
+                  they are in your PATH, then you don't have to
+                  specify the complete paths to them. On Windows,
+                  however, you must install putty. See
+                  <xref linkend="install-putty" /> for
+                  instructions.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1505,8 +1546,11 @@ make install
 	      </row>
 	      <row>
 		<entry>Icon size</entry>
-		<entry>By default, icons are 25x25 pixels. Select <guilabel>16x16</guilabel> to make
-                them somewhat smaller. (The larger icons are easier to see, the smaller ones are suitable for smaller displays, such as laptop screens.)</entry>
+		<entry>By default, icons are 25x25
+                pixels. Select <guilabel>16x16</guilabel> to make them
+                somewhat smaller. (The larger icons are easier to see,
+                the smaller ones are suitable for smaller displays,
+                such as laptop screens.)</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1550,19 +1594,38 @@ make install
 	    <tbody>
 	      <row>
 		<entry>New Object</entry>
-		<entry>Opens a menu of all possible object types. Select one to create a new object of that type. <xref linkend="creating-objects" /> describes how to create objects.</entry>
+		<entry>Opens a menu of all possible object
+		types. Select one to create a new object of that
+		type. <xref linkend="creating-objects" /> describes
+		how to create objects.</entry>
 	      </row>
 	      <row>
 		<entry>Find Object</entry>
-		<entry>Opens the <guilabel>Find object</guilabel> dialog, which also provides search-and-replace functions. <xref linkend="find-replace" /> explains how to use this dialog.</entry>
+		<entry>Opens the <guilabel>Find object</guilabel>
+		dialog, which also provides search-and-replace
+		functions. <xref linkend="find-replace" /> explains
+		how to use this dialog.</entry>
 	      </row>
 	      <row>
 		<entry>Lock</entry>
-		<entry>Makes the selected object read-only, which prevents accidental modification. An object that is locked has a little padlock for its icon. In this example, the eth0 interface of test server is locked. Locking the eth0 interface object also renders read-only the address objects associated with the interface. (test server, because it is "above" eth0 in the hierarchy, is still editable.) <inlinegraphic scale="70" fileref="locked.png"/></entry>
+		<entry>Makes the selected object read-only, which
+		prevents accidental modification. An object that is
+		locked has a little padlock for its icon. In this
+		example, the eth0 interface of test server is
+		locked. Locking the eth0 interface object also renders
+		read-only the address objects associated with the
+		interface. (test server, because it is "above" eth0 in
+		the hierarchy, is still editable.)
+		<inlinegraphic scale="70"
+		fileref="locked.png"/></entry>
 	      </row>
 	      <row>
 		<entry>Unlock</entry>
-		<entry>Unlocks the selected icon. The object becomes editable, and the objects associated with it become editable as well, unless they have their own locks. <inlinegraphic scale="70" fileref="unlocked.png"/></entry>
+		<entry>Unlocks the selected icon. The object becomes
+		editable, and the objects associated with it become
+		editable as well, unless they have their own
+		locks. <inlinegraphic scale="70"
+		fileref="unlocked.png"/></entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1585,7 +1648,9 @@ make install
 	    <tbody>
 	      <row>
 		<entry>Insert Rule</entry>
-		<entry>Inserts a blank rule above the currently selected rule. If no rule is selected, inserts a blank rule in position 0 of the current ruleset.</entry>
+		<entry>Inserts a blank rule above the currently
+		selected rule. If no rule is selected, inserts a blank
+		rule in position 0 of the current ruleset.</entry>
 	      </row>
 	      <row>
 		<entry>Add Rule Below</entry>
@@ -1620,19 +1685,29 @@ make install
 	      </row>
 	      <row>
 		<entry>Paste Rule Above</entry>
-		<entry>Pastes the rule on the clipboard into the currently selected rule row. Moves the selected rule (and all other rules below it) down to make room.</entry>
+		<entry>Pastes the rule on the clipboard into the
+		currently selected rule row. Moves the selected rule
+		(and all other rules below it) down to make
+		room.</entry>
 	      </row>
 	      <row>
 		<entry>Paste Rule Below</entry>
-		<entry>Pastes the rule on the clipboard below the currently selected rule. Moves lower rules down to make room.</entry>
+		<entry>Pastes the rule on the clipboard below the
+		currently selected rule. Moves lower rules down to
+		make room.</entry>
 	      </row>
 	      <row>
 		<entry>Compile</entry>
-		<entry>Opens a dialog that lets you specify which of the firewalls in the current object file you wish to compile. See <xref linkend="compile-install-policy" />.</entry>
+		<entry>Opens a dialog that lets you specify which of
+		the firewalls in the current object file you wish to
+		compile. See <xref linkend="compile-install-policy"
+		/>.</entry>
 	      </row>
 	      <row>
 		<entry>Install</entry>
-		<entry>Opens a dialog that lets you install a compiled firewall onto an actual target device. See <xref linkend="compile-install-policy" />.</entry>
+		<entry>Opens a dialog that lets you install a compiled
+		firewall onto an actual target device. See
+		<xref linkend="compile-install-policy" />.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1654,11 +1729,20 @@ make install
 	    <tbody>
 	      <row>
 		<entry>Find Conflicting Objects In Two Files</entry>
-		<entry>Launches a tool that lets you specify two object files (.fwb) or two library files (.fwl). The tool then looks for objects that have the same ID, but different characteristics. Such a conflict would cause a problem if you wanted to merge the files.</entry>
+		<entry>Launches a tool that lets you specify two
+		object files (.fwb) or two library files (.fwl). The
+		tool then looks for objects that have the same ID, but
+		different characteristics. Such a conflict would cause
+		a problem if you wanted to merge the files.</entry>
 	      </row>
 	      <row>
 		<entry>Discovery Druid</entry>
-		<entry>Launches a wizard that lets you populate many objects automatically via an SNMP crawl, via an existing "hosts" file, or via the import of an existing firewall policy. ( <xref linkend="network-discovery" /> ) explains the tool.</entry>
+		<entry>Launches a wizard that lets you populate many
+		objects automatically via an SNMP crawl, via an
+		existing "hosts" file, or via the import of an
+		existing firewall policy. (
+		<xref linkend="network-discovery" /> ) explains the
+		tool.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1693,7 +1777,9 @@ make install
 	    <tbody>
 	      <row>
 		<entry>Open</entry>
-		<entry>Opens a standard "file" dialog that lets you select an existing file. The file dialog, by default, only looks for files that end in ".fwb".</entry>
+		<entry>Opens a standard "file" dialog that lets you
+		select an existing file. The file dialog, by default,
+		only looks for files that end in ".fwb".</entry>
 	      </row>
 	      <row>
 		<entry>Save</entry>
@@ -1701,15 +1787,22 @@ make install
 	      </row>
 	      <row>
 		<entry>Find</entry>
-		<entry>Opens the <guilabel>Find object</guilabel> dialog, which also provides search-and-replace functions.  <xref linkend="find-replace" /> explains how to use this dialog.</entry>
+		<entry>Opens the <guilabel>Find object</guilabel>
+		dialog, which also provides search-and-replace
+		functions.  <xref linkend="find-replace" /> explains
+		how to use this dialog.</entry>
 	      </row>
 	      <row>
 		<entry>Compile</entry>
-		<entry>Opens the compile wizard. <xref linkend="compile-install-policy" /> explains this in more detail.</entry>
+		<entry>Opens the compile
+		wizard. <xref linkend="compile-install-policy" />
+		explains this in more detail.</entry>
 	      </row>
 	      <row>
 		<entry>Install</entry>
-		<entry>Opens the compile/install wizard. <xref linkend="compile-install-policy" /> explains this in more detail.</entry>
+		<entry>Opens the compile/install
+		wizard. <xref linkend="compile-install-policy" />
+		explains this in more detail.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1760,9 +1853,10 @@ make install
       to services are in the <guilabel>Services</guilabel> branch,
       time intervals are in the <guilabel>Time</guilabel> branch, and
       all firewalls are in the
-      <guilabel>Firewalls</guilabel> branch. Newly created objects are automatically placed in
-      the appropriate position in the tree. Each branch of the tree is
-      automatically sorted by the object name.</para>
+      <guilabel>Firewalls</guilabel> branch. Newly created objects are
+      automatically placed in the appropriate position in the
+      tree. Each branch of the tree is automatically sorted by the
+      object name.</para>
 
       <para>The program has three default libraries: User, Standard,
       and Deleted Objects. (Deleted Objects must be turned on
@@ -1817,11 +1911,19 @@ make install
 	    <tbody>
 	      <row>
 		<entry>Library</entry>
-		<entry>Firewall Builder comes with the Standard, User, and Deleted Objects libraries. In addition, you can create your own.</entry>
+		<entry>Firewall Builder comes with the Standard, User,
+		and Deleted Objects libraries. In addition, you can
+		create your own.</entry>
 	      </row>
 	      <row>
 		<entry>Firewall</entry>
-		<entry>Represents a physical firewall device, its interfaces and addresses, and the policy rulesets associated with the device. Use Firewall Builder to model your actual device's firewall software, OS, interfaces and addresses. Then, use Firewall Builder to construct the policy rulesets to assign to the device.</entry>
+		<entry>Represents a physical firewall device, its
+		interfaces and addresses, and the policy rulesets
+		associated with the device. Use Firewall Builder to
+		model your actual device's firewall software, OS,
+		interfaces and addresses. Then, use Firewall Builder
+		to construct the policy rulesets to assign to the
+		device.</entry>
 	      </row>
 	      <row>
 		<entry>Host</entry>
@@ -1829,7 +1931,13 @@ make install
 	      </row>
 	      <row>
 		<entry>Interface</entry>
-		<entry>A physical interface on a firewall or host. Interfaces can have IP and physical (MAC) addresses associated with them. An IP address can be created from the <guimenu>New Object</guimenu> for the selected interface, but physical addresses can only be created by right-clicking on an interface object.</entry>
+		<entry>A physical interface on a firewall or
+		host. Interfaces can have IP and physical (MAC)
+		addresses associated with them. An IP address can be
+		created from the <guimenu>New Object</guimenu> for the
+		selected interface, but physical addresses can only be
+		created by right-clicking on an interface
+		object.</entry>
 	      </row>
 	      <row>
 		<entry>Network</entry>
@@ -1849,19 +1957,33 @@ make install
 	      </row>
 	      <row>
 		<entry>DNS Name</entry>
-		<entry>A DNS Name object represents a DNS "A" or "AAAA" record and can resolve it into an IP address at compile or run time.</entry>
+		<entry>A DNS Name object represents a DNS "A" or
+		"AAAA" record and can resolve it into an IP address at
+		compile or run time.</entry>
 	      </row>
 	      <row>
 		<entry>Address Table</entry>
-		<entry>Objects of this type can be configured with the name of an external file that is expected to contain a list of IP addresses (a mix of IPv4 and IPv6 is supported). Addresses can be loaded during policy compile or during the execution of a generated firewall script.</entry>
+		<entry>Objects of this type can be configured with the
+		name of an external file that is expected to contain a
+		list of IP addresses (a mix of IPv4 and IPv6 is
+		supported). Addresses can be loaded during policy
+		compile or during the execution of a generated
+		firewall script.</entry>
 	      </row>
 	      <row>
 		<entry>Address Range</entry>
-		<entry>A range of IPv4 or IPv6 IP addresses. This range does not have to be a specific subnet, but it does have to be contiguous.</entry>
+		<entry>A range of IPv4 or IPv6 IP addresses. This
+		range does not have to be a specific subnet, but it
+		does have to be contiguous.</entry>
 	      </row>
 	      <row>
 		<entry>Object Group</entry>
-		<entry>A collection of addressable objects (objects that have or contain IP addresses) such as network, interface, and hosts objects. Useful for creating a less cluttered-looking firewall policy and for making sure you have the same objects in every related rule.</entry>
+		<entry>A collection of addressable objects (objects
+		that have or contain IP addresses) such as network,
+		interface, and hosts objects. Useful for creating a
+		less cluttered-looking firewall policy and for making
+		sure you have the same objects in every related
+		rule.</entry>
 	      </row>
 	      <row>
 		<entry>Custom Service</entry>
@@ -1869,7 +1991,10 @@ make install
 	      </row>
 	      <row>
 		<entry>IP Service</entry>
-		<entry>An IP service such as GRE, ESP, or VRRP. IP Service objects cover IP services that are <emphasis>not</emphasis> ICMP, ICMP6, TCP, or UDP services.</entry>
+		<entry>An IP service such as GRE, ESP, or VRRP. IP
+		Service objects cover IP services that
+		are <emphasis>not</emphasis> ICMP, ICMP6, TCP, or UDP
+		services.</entry>
 	      </row>
 	      <row>
 		<entry>ICMP Service</entry>
@@ -1889,19 +2014,38 @@ make install
 	      </row>
 	      <row>
 		<entry>TagService</entry>
-		<entry>A service object that lets you examine the tag in an IP header. You can then construct your rule to take appropriate action on a match.</entry>
+		<entry>A service object that lets you examine the tag
+		in an IP header. You can then construct your rule to
+		take appropriate action on a match.</entry>
 	      </row>
 	      <row>
 		<entry>User Service</entry>
-		<entry>A User Service object matches the owner of the process on the firewall that send the packet. It translates to the "owner" match in iptables and "user" parameter for PF.</entry>
+		<entry>A User Service object matches the owner of the
+		process on the firewall that send the packet. It
+		translates to the "owner" match in iptables and "user"
+		parameter for PF.</entry>
 	      </row>
 	      <row>
 		<entry>Service Group</entry>
-		<entry>A collection of services. For example, Firewall Builder comes with the Useful_ICMP service group that contains the "time exceeded", "time exceeded in transit", "ping reply", and "all ICMP unreachable" ICMP services. It also comes with a "DNS" service group that contains both the UDP and TCP version of DNS. Useful for creating a less cluttered-looking firewall policy and for making sure you have the same objects in every related rule.</entry>
+		<entry>A collection of services. For example, Firewall
+		Builder comes with the Useful_ICMP service group that
+		contains the "time exceeded", "time exceeded in
+		transit", "ping reply", and "all ICMP unreachable"
+		ICMP services. It also comes with a "DNS" service
+		group that contains both the UDP and TCP version of
+		DNS. Useful for creating a less cluttered-looking
+		firewall policy and for making sure you have the same
+		objects in every related rule.</entry>
 	      </row>
 	      <row>
 		<entry>Time Interval</entry>
-		<entry>A time period such as "weekends" or a range of dates, or a range of times on certain days of the week. Can be used as part of rule matching in Access Policy rulesets to provide or deny access to something based on time. Note that these time intervals are relative to the time on the firewall device itself.</entry>
+		<entry>A time period such as "weekends" or a range of
+		dates, or a range of times on certain days of the
+		week. Can be used as part of rule matching in Access
+		Policy rulesets to provide or deny access to something
+		based on time. Note that these time intervals are
+		relative to the time on the firewall device
+		itself.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1972,12 +2116,19 @@ make install
 	    <tbody>
 	      <row>
 		<entry>Edit</entry>
-		<entry>Opens the Edit dialog for that object. (You can get the same result by left-clicking on the object.)</entry>
+		<entry>Opens the Edit dialog for that object. (You can
+		get the same result by left-clicking on the
+		object.)</entry>
 	      </row>
 	      <row>
 		<entry>Duplicate</entry>
-		<entry>Places a copy of the object into the specified library. (If no user-created libraries exist, then Firewall Builder puts the object in the User tree by default.) The new object has
-            the same name as the original object, unless that object name is already in use in that tree. If so, a "-1" is appended to the object name.</entry>
+		<entry>Places a copy of the object into the specified
+            library. (If no user-created libraries exist, then
+            Firewall Builder puts the object in the User tree by
+            default.) The new object has the same name as the original
+            object, unless that object name is already in use in that
+            tree. If so, a "-1" is appended to the object
+            name.</entry>
 	      </row>
 	      <row>
 		<entry>Copy</entry>
@@ -1990,7 +2141,9 @@ make install
 	      </row>
 	      <row>
 		<entry>Paste</entry>
-		<entry>Puts a copy of the object on the clipboard into a tree or into the policy, depending on where the mouse is when you click.</entry>
+		<entry>Puts a copy of the object on the clipboard into
+		a tree or into the policy, depending on where the
+		mouse is when you click.</entry>
 	      </row>
 	      <row>
 		<entry>Delete</entry>
@@ -2024,7 +2177,9 @@ make install
 	      </row>
 	      <row>
 		<entry>Lock and Unlock</entry>
-		<entry>Lock makes an object read-only, which prevents accidental modification. Unlock puts the object back into read/write mode.</entry>
+		<entry>Lock makes an object read-only, which prevents
+		accidental modification. Unlock puts the object back
+		into read/write mode.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -3118,7 +3273,15 @@ rdr on eth0 proto tcp from any to 192.0.2.1 port 80 -> 172.16.22.100 port 80
     <sect3>
       <title>Using Interface Object with Dynamic Address in Rules</title>
 
-		<para>The examples above demonstrated what happens when an interface with one or several IP addresses is used in policy and NAT rules. Let's look at the case when an interface has an address assigned dynamically. This means the address is unknown to the Firewall Builder policy compiler when it generates the configuration script. The compiler uses features of the target firewall to work around this. Here is the configuration of the interface object eth0. The radio-button <guilabel>Address is assigned dynamically</guilabel> is selected.</para>
+      <para>The examples above demonstrated what happens when an
+      interface with one or several IP addresses is used in policy and
+      NAT rules. Let's look at the case when an interface has an
+      address assigned dynamically. This means the address is unknown
+      to the Firewall Builder policy compiler when it generates the
+      configuration script. The compiler uses features of the target
+      firewall to work around this. Here is the configuration of the
+      interface object eth0. The radio-button <guilabel>Address is
+      assigned dynamically</guilabel> is selected.</para>
 
       <figure float="1" id="interface-3">
         <title>Interface with dynamic address</title>
@@ -3133,6 +3296,7 @@ rdr on eth0 proto tcp from any to 192.0.2.1 port 80 -> 172.16.22.100 port 80
       </figure>
 
       <para> Here is what we get for iptables:</para>
+
       <screen>
 getaddr eth0  i_eth0
 getaddr6 eth0  i_eth0_v6
@@ -3152,9 +3316,18 @@ test -n "$i_eth0_v6" &amp;&amp; $IP6TABLES -A INPUT -p tcp -m tcp -d $i_eth0_v6 
  --dport 22  -m state --state NEW  -j ACCEPT 
         </screen>
 
-	<para>Shell functions "getaddr" and "getaddr6" are defined earlier in the script. The generated script determines IPv4 and IPv6 addresses of interface eth0 at the time of execution and then uses the values in iptables commands. If the interface does not have an address, the corresponding variable gets an empty string for its value and the iptables command using it is skipped.</para>
+	<para>Shell functions "getaddr" and "getaddr6" are defined
+	earlier in the script. The generated script determines IPv4
+	and IPv6 addresses of interface eth0 at the time of execution
+	and then uses the values in iptables commands. If the
+	interface does not have an address, the corresponding variable
+	gets an empty string for its value and the iptables command
+	using it is skipped.</para>
 
-	<para>PF allows for using interface name in rules and gets its current IP address automatically. Here is what is generated for PF:</para>
+	<para>PF allows for using interface name in rules and gets its
+	current IP address automatically. Here is what is generated
+	for PF:</para>
+
 	<screen>
 # Rule  0 (global)
 # 
@@ -3167,7 +3340,12 @@ pass in   quick inet6 proto tcp  from any  to (en0) port 22 keep state
 pass out  quick inet6 proto tcp  from any  to (en0) port 22 keep state
          </screen>    
 
-	<para>We still get two separate parts for IPv4 and IPv6 because the rule set is configured as IPv4+IPv6 mix, but in both cases compiler just used the interface name because its actual IP address is dynamic and was unknown at the time the configuration was generated.</para>
+	<para>We still get two separate parts for IPv4 and IPv6
+	because the rule set is configured as IPv4+IPv6 mix, but in
+	both cases compiler just used the interface name because its
+	actual IP address is dynamic and was unknown at the time the
+	configuration was generated.</para>
+
     </sect3>
     
     <sect3>
@@ -3247,8 +3425,9 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
           <listitem>
             <para>Address</para>
 
-            <para>This is an IP address. The GUI widget provides syntax control for the values entered in the
-            field. (This syntax control activates when you save the object.)</para>
+            <para>This is an IP address. The GUI widget provides
+            syntax control for the values entered in the field. (This
+            syntax control activates when you save the object.)</para>
 
             <note>
               <para>A typical error is to interpret this object as an address
@@ -3261,13 +3440,22 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
           <listitem>
             <para>Netmask</para>
 
-            <para>This is a netmask assigned to the interface. You can enter the netmask using the traditional method (255.255.255.0) or using network bit length notation ("24"). Bit length notation is converted to a traditional netmask by Firewall Builder.</para>
+            <para>This is a netmask assigned to the interface. You can
+            enter the netmask using the traditional method
+            (255.255.255.0) or using network bit length notation
+            ("24"). Bit length notation is converted to a traditional
+            netmask by Firewall Builder.</para>
           </listitem>
 
           <listitem>
             <para>DNS Lookup</para>
 
-            <para>If the host object has the same name as the actual machine, then clicking this button generates a DNS query that populates the interface IP address and subnet. Only the parent host or firewall object's name is used for the DNS query; the name of the interface is ignored and can be anything.</para>
+            <para>If the host object has the same name as the actual
+            machine, then clicking this button generates a DNS query
+            that populates the interface IP address and subnet. Only
+            the parent host or firewall object's name is used for the
+            DNS query; the name of the interface is ignored and can be
+            anything.</para>
           </listitem>
 
           <listitem>
@@ -3284,28 +3472,62 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
             <graphic scale="70" fileref="ipv4_1_rule_1.png" />
       </figure>
 
-	<para>Firewall Builder's iptables compiler, for example, generates the following command from this rule:</para>
+	<para>Firewall Builder's iptables compiler, for example,
+	generates the following command from this rule:</para>
 
 	<screen>$IPTABLES -A INPUT -p tcp -m tcp  -d 172.16.22.1  --dport 22  -m state \
 	--state NEW  -j ACCEPT</screen>
 
-	<para>Note how even though the Address object has a netmask, the generated command matches the address as a host address, not as a subnet. This is because the netmask is used only to describe the subnet for the interface, not to describe the subnet. When this address object is used in a rule, it is understood that the intention is to match the address of the interface it belongs to rather than any address on the subnet. Use the Network object if you need to match a whole subnet.</para>
+	<para>Note how even though the Address object has a netmask,
+	the generated command matches the address as a host address,
+	not as a subnet. This is because the netmask is used only to
+	describe the subnet for the interface, not to describe the
+	subnet. When this address object is used in a rule, it is
+	understood that the intention is to match the address of the
+	interface it belongs to rather than any address on the
+	subnet. Use the Network object if you need to match a whole
+	subnet.</para>
 
-	<para>This iptables rule was placed in the INPUT chain because the object in the "Destination" was an address of an interface of the firewall. While processing the policy for the iptables target firewall platform, Firewall Builder compares addresses in the source and destination of a rule to the addresses of all interfaces of the firewall to find rules that control access to and from the firewall. Firewall Builder places these rules into INPUT or OUTPUT chains. This is only necessary for iptables.</para>
+	<para>This iptables rule was placed in the INPUT chain because
+	the object in the "Destination" was an address of an interface
+	of the firewall. While processing the policy for the iptables
+	target firewall platform, Firewall Builder compares addresses
+	in the source and destination of a rule to the addresses of
+	all interfaces of the firewall to find rules that control
+	access to and from the firewall. Firewall Builder places these
+	rules into INPUT or OUTPUT chains. This is only necessary for
+	iptables.</para>
 
       </sect3>
       <sect3>
 	<title>IPv4 Address Object When Used as a Stand-alone Object</title>
-	  <para>In this case the object is located in the <guimenuitem>Objects / Addresses</guimenuitem> part of the objects tree and does not have a netmask entry field. To create this kind of an Address, use the <guimenu>New Object</guimenu> menu to select <guimenuitem>New Address</guimenuitem> or use the right-click menu associated with the Addresses folder in the tree.</para>
+
+	  <para>In this case the object is located in
+	  the <guimenuitem>Objects / Addresses</guimenuitem> part of
+	  the objects tree and does not have a netmask entry field. To
+	  create this kind of an Address, use the <guimenu>New
+	  Object</guimenu> menu to select <guimenuitem>New
+	  Address</guimenuitem> or use the right-click menu associated
+	  with the Addresses folder in the tree.</para>
 
       <figure float="1" id="ipv4-address3">
         <title>Stand-alone IPv4 Address object</title>
             <graphic scale="50" fileref="ipv4_2.png" />
       </figure>
 
-	<para>Dialog fields <guilabel>Name</guilabel>, <guilabel>Address</guilabel>  and <guilabel>Comment</guilabel> have the same purpose and properties as an Address object assigned to an Interface object.</para>
+	<para>Dialog
+	fields <guilabel>Name</guilabel>, <guilabel>Address</guilabel>
+	and <guilabel>Comment</guilabel> have the same purpose and
+	properties as an Address object assigned to an Interface
+	object.</para>
 
-	<para>The DNS Lookup button can be used to automatically populate the address field using a DNS query. The program runs DNS query for the "A" record with the name of the Address object. The object name does not have to match any DNS record if you never plan to use this feature. DNS query function is just a convenience, but to use it, the name of the object must match a DNS record.</para>
+	<para>The DNS Lookup button can be used to automatically
+	populate the address field using a DNS query. The program runs
+	DNS query for the "A" record with the name of the Address
+	object. The object name does not have to match any DNS record
+	if you never plan to use this feature. DNS query function is
+	just a convenience, but to use it, the name of the object must
+	match a DNS record.</para>
 
       </sect3>
     </sect2>
@@ -3313,7 +3535,10 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
     <sect2 id="ipv6-address-object">
       <title>IPv6 Address Object</title>
 
-	<para>The IPv6 address object is similar to the IPv4 address object. Like IPv4 address objects, it can be used both as a child of an interface object or as a stand-alone object.</para>
+	<para>The IPv6 address object is similar to the IPv4 address
+	object. Like IPv4 address objects, it can be used both as a
+	child of an interface object or as a stand-alone
+	object.</para>
 
       <sect3>
 	<title>IPv6 Address Object When Used as an Address of an Interface</title>
@@ -3323,7 +3548,10 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
             <graphic scale="60" fileref="ipv6_1.png" />
       </figure>
 
-      <para>If it is used to describe an IPv6 address of an interface, it has a netmask represented as bit length. Unlike with IPv4 address object, an IPv6 netmask is never represented as a colon-separated string of octets.</para>
+      <para>If it is used to describe an IPv6 address of an interface,
+      it has a netmask represented as bit length. Unlike with IPv4
+      address object, an IPv6 netmask is never represented as a
+      colon-separated string of octets.</para>
       </sect3>
 
       <sect3>
@@ -3334,11 +3562,26 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
             <graphic scale="60" fileref="ipv6_2.png" />
       </figure>
 
-      <para>In this case this object is located in the <guimenuitem>Objects / Addresses</guimenuitem> part of the objects tree (the same place where stand-alone IPv4 addresses are located) and does not have a netmask entry field. To create this kind of an Address, use the <guimenu>New Object</guimenu> menu item <guimenuitem>New Address IPv6</guimenuitem> or the right-click menu associated with the Addresses folder in the tree.</para>
+      <para>In this case this object is located in
+      the <guimenuitem>Objects / Addresses</guimenuitem> part of the
+      objects tree (the same place where stand-alone IPv4 addresses
+      are located) and does not have a netmask entry field. To create
+      this kind of an Address, use the <guimenu>New Object</guimenu>
+      menu item <guimenuitem>New Address IPv6</guimenuitem> or the
+      right-click menu associated with the Addresses folder in the
+      tree.</para>
 
-      <para>Policy compilers treat IPv6 addresses in policy rules according to the same algorithms as those for IPv4 rules. For example, just like with IPv4, the compiler for iptables checks if an address matches an address of any interface of the firewall to determine if the rule should be placed in the INPUT or OUTPUT chain.</para>
+      <para>Policy compilers treat IPv6 addresses in policy rules
+      according to the same algorithms as those for IPv4 rules. For
+      example, just like with IPv4, the compiler for iptables checks
+      if an address matches an address of any interface of the
+      firewall to determine if the rule should be placed in the INPUT
+      or OUTPUT chain.</para>
 
-      <para>Consider the rule shown in the screenshot below where we use two IPv6 address objects. One object belongs to the interface inside of the firewall while another is the IPv6 address of the project's web site.</para>
+      <para>Consider the rule shown in the screenshot below where we
+      use two IPv6 address objects. One object belongs to the
+      interface inside of the firewall while another is the IPv6
+      address of the project's web site.</para>
 
       <figure float="1" id="ipv6-address3">
         <title>IPv6 Address objects in a rule</title>
@@ -3354,7 +3597,14 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
 -m state --state NEW  -j ACCEPT
       </screen>
 
-      <para>The rule that matches the address described by <emphasis>object guardian-2:eth1:ipv6</emphasis> went to the INPUT chain because compiler detected that this rule matches packets that are headed for the firewall itself, which iptables inspects in the INPUT chain. The rule that matches the address described by the object <emphasis>ipv6.fwbuilder.org</emphasis>  went to the FORWARD chain because these packets go through the firewall.</para>
+      <para>The rule that matches the address described
+      by <emphasis>object guardian-2:eth1:ipv6</emphasis> went to the
+      INPUT chain because compiler detected that this rule matches
+      packets that are headed for the firewall itself, which iptables
+      inspects in the INPUT chain. The rule that matches the address
+      described by the object <emphasis>ipv6.fwbuilder.org</emphasis>
+      went to the FORWARD chain because these packets go through the
+      firewall.</para>
       </sect3>
     </sect2>
 
@@ -3368,15 +3618,33 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
 
       </figure>
 
-      <para>The Physical Address object describes the hardware, or media, address of an interface. Currently only Ethernet MAC addresses are supported, but support for other kinds of physical addresses may be added in the future.</para>
+      <para>The Physical Address object describes the hardware, or
+      media, address of an interface. Currently only Ethernet MAC
+      addresses are supported, but support for other kinds of physical
+      addresses may be added in the future.</para>
 
-      <para>The Physical Address object can only be a child of an interface; it cannot exist as a stand-alone object. To create this kind of address object, right-click on an Interface object in the tree, then select <guimenuitem>Add MAC Address</guimenuitem>. Only one Physical Address object is allowed per interface; the program enforces this restriction. If you create a Firewall or Host object using SNMP discovery, all interfaces will be automatically populated with their MAC addresses.</para>
+      <para>The Physical Address object can only be a child of an
+      interface; it cannot exist as a stand-alone object. To create
+      this kind of address object, right-click on an Interface object
+      in the tree, then select <guimenuitem>Add MAC
+      Address</guimenuitem>. Only one Physical Address object is
+      allowed per interface; the program enforces this restriction. If
+      you create a Firewall or Host object using SNMP discovery, all
+      interfaces will be automatically populated with their MAC
+      addresses.</para>
 
       <para><itemizedlist spacing="compact">
           <listitem>
             <para>Name</para>
 
-            <para>This is the name of the object. The field is populated automatically with a host:interface:addressType descriptive name when the object is created, but you can change it immediately or later. If you change the name, use something descriptive because when the address object is used in the firewall policy, it is labeled with this name. It may be hard to tell one address from another if their names are similar. </para>
+            <para>This is the name of the object. The field is
+            populated automatically with a host:interface:addressType
+            descriptive name when the object is created, but you can
+            change it immediately or later. If you change the name,
+            use something descriptive because when the address object
+            is used in the firewall policy, it is labeled with this
+            name. It may be hard to tell one address from another if
+            their names are similar. </para>
           </listitem>
 
           <listitem>
@@ -3398,13 +3666,14 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
       <sect3 id="using-mac-address">
         <title>Using The Physical Address Object in Policy Rules</title>
 
-        <para>Only a few firewall platforms really support physical address
-        filtering. Currently, Netfilter/iptables is the only firewall platform supported by Firewall Builder that can
-        do physical address filtering.</para>
+        <para>Only a few firewall platforms really support physical
+        address filtering. Currently, Netfilter/iptables is the only
+        firewall platform supported by Firewall Builder that can do
+        physical address filtering.</para>
 
-        <para>As described in <xref linkend="multiple-addresses" />, if an
-        Interface object that has multiple child address 
-        objects is used in a rule element (either
+        <para>As described in <xref linkend="multiple-addresses" />,
+        if an Interface object that has multiple child address objects
+        is used in a rule element (either
         <emphasis>Source</emphasis> or <emphasis>Destination</emphasis>), then
         the policy compiler tries to generate a rule using all of them. <xref
         linkend="multiple-addresses" /> explains that the compiler actually does
@@ -3413,25 +3682,45 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
         addresses: if our interface has two addresses,
         <emphasis>Address1</emphasis> and <emphasis>Address2</emphasis>, then
         the generated rule would match if the address in the packet is either
-        <emphasis>Address1</emphasis> OR <emphasis>Address2</emphasis>. The
-        case of a Physical Address is different though. If the Interface has a
-        physical address, then the compiler builds a rule that has to match an IP address <emphasis>and</emphasis> the MAC address. The reason is to combat IP spoofing.</para>
+        <emphasis>Address1</emphasis>
+        OR <emphasis>Address2</emphasis>. The case of a Physical
+        Address is different though. If the Interface has a physical
+        address, then the compiler builds a rule that has to match an
+        IP address <emphasis>and</emphasis> the MAC address. The
+        reason is to combat IP spoofing.</para>
 
-        <para>Suppose we have a very important host on the network. We create
-        a Host object, then add an interface to it. The interface should have
-        both Address and Physical Address objects as shown in <xref
-        linkend="host-with-addr-and-physaddr" />. The two child objects are visible in the tree under the Interface "eth0". </para>
+        <para>Suppose we have a very important host on the network. We
+        create a Host object, then add an interface to it. The
+        interface should have both Address and Physical Address
+        objects as shown in
+        <xref linkend="host-with-addr-and-physaddr" />. The two child
+        objects are visible in the tree under the Interface
+        "eth0". </para>
 
         <figure float="1" id="host-with-addr-and-physaddr">
           <title>The Host object with Address and Physical Address</title>
               <graphic scale="60" fileref="using-physaddress-1.png" />
         </figure>
 
-	<note><para>Note how <guilabel>MAC matching</guilabel> is checked in the Host object dialog. This makes the compiler use the MAC addresses of the interfaces of this host.</para></note>
+	<note><para>Note how <guilabel>MAC matching</guilabel> is
+	checked in the Host object dialog. This makes the compiler use
+	the MAC addresses of the interfaces of this
+	host.</para></note>
 
-        <para>Because this is a very important host, we would like to be sure that packets whose source IP is that of this host are really coming from it and are not spoofed. The best way to achieve this goal is to use strong authentication, for example with IPSEC protocol. Using IPSEC is outside the scope of this document though; our goal right now is to show that inspecting the MAC address of the packet can improve security. </para>
+        <para>Because this is a very important host, we would like to
+        be sure that packets whose source IP is that of this host are
+        really coming from it and are not spoofed. The best way to
+        achieve this goal is to use strong authentication, for example
+        with IPSEC protocol. Using IPSEC is outside the scope of this
+        document though; our goal right now is to show that inspecting
+        the MAC address of the packet can improve security. </para>
 
-        <para>Both a real packet originated from this host and a spoofed packet have a source IP address of the interface of this host, but the source MAC address is going to be different if spoofing is going on. We can use this to catch and drop spoofed packets. Here are three possible ways to build security policy in this situation: </para>
+        <para>Both a real packet originated from this host and a
+        spoofed packet have a source IP address of the interface of
+        this host, but the source MAC address is going to be different
+        if spoofing is going on. We can use this to catch and drop
+        spoofed packets. Here are three possible ways to build
+        security policy in this situation: </para>
 
         <para><itemizedlist>
             <listitem>
@@ -3491,9 +3780,11 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -s 10.3.14.44  -m st
             </listitem>
           </itemizedlist></para>
 
-        <para>Using Address and Physical Address objects in a rule is not the
-        same as using the Host or Interface object to which these Address and
-        Physical Address belong. Here is what happens if we put objects representing IP address and MAC address in the rule:</para>
+        <para>Using Address and Physical Address objects in a rule is
+        not the same as using the Host or Interface object to which
+        these Address and Physical Address belong. Here is what
+        happens if we put objects representing IP address and MAC
+        address in the rule:</para>
 
         <figure float="1" id="addr-and-phaddr">
           <title>Policy rule using Address and Physical Address
@@ -3508,59 +3799,78 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
 -j ACCEPT 
         </screen>  
 
-	<para>As described in <xref
-        linkend="multiple-addresses" />, using an multiple objects in the rule element is like bundling
-        them together using logical operation <emphasis>OR</emphasis>. If we
-        were to put Address and Physical Address in the rule like in <xref
-        linkend="addr-and-phaddr" />, we would end up with a policy matching
-        packets that have the source address 10.3.14.44 or MAC address
-        00:1D:09:8B:8E:94, but not necessarily both at the same time. Any host
-        that manages to pretend to have the IP address 10.3.14.44 would be able
-        to send packets through our firewall even if its MAC address is
-        different. To achieve our goal and make sure packets with the source
-        10.3.14.44 really belong to our important host, we should be checking
-        its IP address and MAC address at the same time and let a packet
-        through only if its IP address <emphasis>AND</emphasis> MAC address
-        are what we expect them to be. That is why Firewall Builder treats
-        physical addresses differently and generates firewall code that
-        inspects both IP address and physical address.</para>
+	<para>As described in <xref linkend="multiple-addresses" />,
+        using an multiple objects in the rule element is like bundling
+        them together using logical
+        operation <emphasis>OR</emphasis>. If we were to put Address
+        and Physical Address in the rule like in
+        <xref linkend="addr-and-phaddr" />, we would end up with a
+        policy matching packets that have the source address
+        10.3.14.44 or MAC address 00:1D:09:8B:8E:94, but not
+        necessarily both at the same time. Any host that manages to
+        pretend to have the IP address 10.3.14.44 would be able to
+        send packets through our firewall even if its MAC address is
+        different. To achieve our goal and make sure packets with the
+        source 10.3.14.44 really belong to our important host, we
+        should be checking its IP address and MAC address at the same
+        time and let a packet through only if its IP
+        address <emphasis>AND</emphasis> MAC address are what we
+        expect them to be. That is why Firewall Builder treats
+        physical addresses differently and generates firewall code
+        that inspects both IP address and physical address.</para>
 
-        <para>Firewall Builder generates firewall code to inspect MAC address
-        only for Host objects with the option <guilabel>MAC address filtering</guilabel> turned
-        on. If this option is off, the Physical Address object will be ignored
-        even if it is present in the Host object's Interface. This is because
-        Host objects created using the Network Discovery Druid ( <xref
-        linkend="network-discovery" /> ) are often populated with both IP
-        address and MAC address information (available through SNMP
-        query), but inspection of MAC addresses is rarely needed. Use the <guilabel>MAC address filtering</guilabel> option in the Host
-        object to specify that you want the MAC address to be verified for the host.</para>
+        <para>Firewall Builder generates firewall code to inspect MAC
+        address only for Host objects with the option <guilabel>MAC
+        address filtering</guilabel> turned on. If this option is off,
+        the Physical Address object will be ignored even if it is
+        present in the Host object's Interface. This is because Host
+        objects created using the Network Discovery Druid (
+        <xref linkend="network-discovery" /> ) are often populated
+        with both IP address and MAC address information (available
+        through SNMP query), but inspection of MAC addresses is rarely
+        needed. Use the <guilabel>MAC address filtering</guilabel>
+        option in the Host object to specify that you want the MAC
+        address to be verified for the host.</para>
 
-	<note><para>The target firewall imposes certain restrictions on rules matching the MAC address. For example, only source MAC addresses can be matched. Firewall Builder is aware of these restrictions, and the policy compiler will issue an error if a Physical Address object is used in a rule that would lead to an impossible iptables command.</para></note>
+	<note><para>The target firewall imposes certain restrictions
+	on rules matching the MAC address. For example, only source
+	MAC addresses can be matched. Firewall Builder is aware of
+	these restrictions, and the policy compiler will issue an
+	error if a Physical Address object is used in a rule that
+	would lead to an impossible iptables command.</para></note>
       </sect3>
     </sect2>
 
     <sect2>
       <title>Host Object</title>
 
-      <para>The Host object in Firewall Builder is designed to represent real
-      hosts in the network: workstations, servers, and any other network node
-      with an address. Just like real hosts, Host objects have interfaces that represent different physical connections to the network. </para>
+      <para>The Host object in Firewall Builder is designed to
+      represent real hosts in the network: workstations, servers, and
+      any other network node with an address. Just like real hosts,
+      Host objects have interfaces that represent different physical
+      connections to the network. </para>
 
-      <para>Most hosts have just a single (visible) interface with a single
-      IP address. In that case the actual interface and its name do not
-      matter. For most foreign hosts, Firewall Builder assigns an arbitrary name, like 
+      <para>Most hosts have just a single (visible) interface with a
+      single IP address. In that case the actual interface and its
+      name do not matter. For most foreign hosts, Firewall Builder
+      assigns an arbitrary name, like
       <quote>interface1</quote>, to the host's interface. However, by using the tree-like
       hierarchy of hosts -&gt; interfaces -&gt; addresses, it is possible
       to specify the exact address and/or interface of a host in cases where it does matter.</para>
 
-      <para>As in the Firewall object, interfaces and addresses are represented
-      by objects that are organized in a tree. An interface can have multiple addresses. An example of a host with one interface and multiple addresses
-      is shown in <xref linkend="host-in-tree" />. Host <quote>test
-      server</quote> is located on the LAN and has three virtual IP addresses
-      that all belong to the same interface, <quote>eth0</quote>.</para>
+      <para>As in the Firewall object, interfaces and addresses are
+      represented by objects that are organized in a tree. An
+      interface can have multiple addresses. An example of a host with
+      one interface and multiple addresses is shown in
+      <xref linkend="host-in-tree" />. Host <quote>test server</quote>
+      is located on the LAN and has three virtual IP addresses that
+      all belong to the same interface, <quote>eth0</quote>.</para>
 
-      <para>Note that in Firewall Builder, the host object is an abstraction. It does not have to conform to an individual host. This host object may in fact represent a web farm that
-      accepts connections on three IP addresses, each on a different computer.
+      <para>Note that in Firewall Builder, the host object is an
+      abstraction. It does not have to conform to an individual
+      host. This host object may in fact represent a web farm that
+      accepts connections on three IP addresses, each on a different
+      computer.
       </para>
 
       <figure float="1" id="host-in-tree">
@@ -3570,8 +3880,9 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
       </figure>
 
       <note>
-        <para>The host object cannot have any access, NAT or routing policy associated with it; only firewall objects
-        can have policies.</para>
+        <para>The host object cannot have any access, NAT or routing
+        policy associated with it; only firewall objects can have
+        policies.</para>
       </note>
 
     <sect3>
@@ -3580,9 +3891,14 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
       <para>To speed up the process and make it simpler, creating a new host
       object is aided by a wizard that is similar to the one for creating a new Firewall Objects.</para>
 
-      <para>To launch the wizard, select <guimenuitem>New Host</guimenuitem> from the <guimenu>New Object</guimenu> menu or right-click on <guimenuitem>Hosts</guimenuitem> and select it from there.</para>
+      <para>To launch the wizard, select <guimenuitem>New
+      Host</guimenuitem> from the <guimenu>New Object</guimenu> menu
+      or right-click on <guimenuitem>Hosts</guimenuitem> and select it
+      from there.</para>
 
-      <para><xref linkend="firewall-object" /> shows how to use the Firewall object wizard. The Host object wizard is the same, with the following exceptions:</para>
+      <para><xref linkend="firewall-object" /> shows how to use the
+      Firewall object wizard. The Host object wizard is the same, with
+      the following exceptions:</para>
 
       <itemizedlist spacing="compact">
           <listitem>
@@ -3594,19 +3910,33 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
           <listitem>
             <para>From template</para>
 
-            <para>The Host object templates are different than those for Firewall objects. Browse through the list in Firewall Builder to see what's available.</para>
+            <para>The Host object templates are different than those
+            for Firewall objects. Browse through the list in Firewall
+            Builder to see what's available.</para>
           </listitem>
 
           <listitem>
             <para>Manually</para>
 
-            <para>This method works the same as for the Firewall object, though the <guilabel>Add Interfaces</guilabel> page is slightly different. You cannot tag an interface as a "bridge port" interface. You can, however, indicate it is unnumbered or dynamic by selecting the appropriate checkbox. If neither checkbox is selected, then the interface is assumed to have a static IP address. As with the Firewall object wizard, you can only add IPv4 addresses in this way. If you need to use IPv6 addresses, create the host object without IP addresses and add them later.</para>
+            <para>This method works the same as for the Firewall
+            object, though the <guilabel>Add Interfaces</guilabel>
+            page is slightly different. You cannot tag an interface as
+            a "bridge port" interface. You can, however, indicate it
+            is unnumbered or dynamic by selecting the appropriate
+            checkbox. If neither checkbox is selected, then the
+            interface is assumed to have a static IP address. As with
+            the Firewall object wizard, you can only add IPv4
+            addresses in this way. If you need to use IPv6 addresses,
+            create the host object without IP addresses and add them
+            later.</para>
           </listitem>
 
           <listitem>
             <para>Via SNMP</para>
 
-            <para>This method works the same as for a Firewall object. The Host object must have the same name as the actual device and the host must respond to SNMP.</para>
+            <para>This method works the same as for a Firewall
+            object. The Host object must have the same name as the
+            actual device and the host must respond to SNMP.</para>
           </listitem>
         </itemizedlist>
 
@@ -3637,14 +3967,16 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
           <listitem>
             <para>MAC matching:</para>
 
-            <para>If this option is activated, the policy compiler uses the
-            MAC addresses of all interfaces of this host in the firewall
-            rules. Not all firewall platforms support MAC address filtering,
-            so this option may have no effect on the generated firewall
-            script. This is treated as a non-critical situation, and the
-            policy compiler will only generate a warning while processing a
-            firewall policy where such a host is used. You cannot enter the physical (MAC) address in this dialog, however. See <xref
-            linkend="using-mac-address" />.</para>
+            <para>If this option is activated, the policy compiler
+            uses the MAC addresses of all interfaces of this host in
+            the firewall rules. Not all firewall platforms support MAC
+            address filtering, so this option may have no effect on
+            the generated firewall script. This is treated as a
+            non-critical situation, and the policy compiler will only
+            generate a warning while processing a firewall policy
+            where such a host is used. You cannot enter the physical
+            (MAC) address in this dialog, however. See
+            <xref linkend="using-mac-address" />.</para>
           </listitem>
 
           <listitem>
@@ -3659,9 +3991,17 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
       <sect3>
 	<title>Using a Host Object in Rules</title>
 
-	<para>When a Host object is used in a rule, it acts as a group of all of the addresses that belong to all of its interfaces. The only exception is the loopback interface; the compiler skips that address when replacing the Host object with its addresses.</para>
+	<para>When a Host object is used in a rule, it acts as a group
+	of all of the addresses that belong to all of its
+	interfaces. The only exception is the loopback interface; the
+	compiler skips that address when replacing the Host object
+	with its addresses.</para>
 
-	<para>Consider the following Host object. It has interface eth0 with two IP addresses and a MAC address, interface he-ipv6 with an IPv6 address and a MAC address, interface lo (loopback) with its own IP address and interface sit0 (tunnel) with no address.</para>
+	<para>Consider the following Host object. It has interface
+	eth0 with two IP addresses and a MAC address, interface
+	he-ipv6 with an IPv6 address and a MAC address, interface lo
+	(loopback) with its own IP address and interface sit0 (tunnel)
+	with no address.</para>
 
       <figure float="1" id="host_example_1">
         <title>Host with multiple interfaces, some with multiple addresses</title>
@@ -3675,7 +4015,11 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
             <graphic scale="70" fileref="host_example_2.png" />
       </figure>
 
-      <para>The rule set is configured as "IPv4 only", so even though interface he-ipv6 has IPv6 address, Firewall Builder will ignore it while generating iptables commands for this rule. Interface eth0 has two IPv4 addresses and both will be used. Here are iptables commands generated for this rule:</para>
+      <para>The rule set is configured as "IPv4 only", so even though
+      interface he-ipv6 has IPv6 address, Firewall Builder will ignore
+      it while generating iptables commands for this rule. Interface
+      eth0 has two IPv4 addresses and both will be used. Here are
+      iptables commands generated for this rule:</para>
 
       <screen>
 $IPTABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW \
@@ -3692,7 +4036,10 @@ $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT
             <graphic scale="70" fileref="host_example_3.png" />
       </figure>
 
-      <para>Since the rule is now configured to compile for both address families, Firewall Builder processes it twice, once for each address family. Here is what we get (these are relevant fragments of the generated script):</para>
+      <para>Since the rule is now configured to compile for both
+      address families, Firewall Builder processes it twice, once for
+      each address family. Here is what we get (these are relevant
+      fragments of the generated script):</para>
 
       <screen>
 # ================ IPv4
@@ -3715,8 +4062,10 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
       <title>Using Objects With Multiple Addresses in the Policy and NAT
       rules</title>
 
-      <para>Host and Firewall objects have child Interface
-      objects, which in turn have child Address and Physical Address objects. In fact, an interface object can have more than one associated address object. Let's see how this works:</para>
+      <para>Host and Firewall objects have child Interface objects,
+      which in turn have child Address and Physical Address
+      objects. In fact, an interface object can have more than one
+      associated address object. Let's see how this works:</para>
 
       <figure float="1" id="multiple-addresses-obj1">
         <title>Host object with an interface that has multiple
@@ -3794,7 +4143,10 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
             <graphic scale="60" fileref="network_dialog1.png" />
       </figure>
 
-      <para>The network object describes an IP network or subnet. Use main menu <guimenuitem>Net Object / New Network</guimenuitem>  item to create objects of this type. The dialog of the Network object provides the following entry fields: </para>
+      <para>The network object describes an IP network or subnet. Use
+      main menu <guimenuitem>Net Object / New Network</guimenuitem>
+      item to create objects of this type. The dialog of the Network
+      object provides the following entry fields: </para>
 
       <para><itemizedlist spacing="compact">
           <listitem>
@@ -3812,7 +4164,17 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
           <listitem>
             <para>Netmask:</para>
 
-            <para>The Netmask, in combination with an Address, defines the subnet. You can enter either string octet representation of the mask or its bit length here, however the program always converts it to the octet representation. Netmask in the network object is always entered in the "natural" way, such as "255.255.255.0", even if the object is going to be used to build Cisco IOS access lists which require reversed "bit mask" presentation instead (e.g "0.0.0.255" for the netmask above). Firewall Builder policy compiler takes care of the conversion automatically. </para>
+            <para>The Netmask, in combination with an Address, defines
+            the subnet. You can enter either string octet
+            representation of the mask or its bit length here, however
+            the program always converts it to the octet
+            representation. Netmask in the network object is always
+            entered in the "natural" way, such as "255.255.255.0",
+            even if the object is going to be used to build Cisco IOS
+            access lists which require reversed "bit mask"
+            presentation instead (e.g "0.0.0.255" for the netmask
+            above). Firewall Builder policy compiler takes care of the
+            conversion automatically. </para>
           </listitem>
 
           <listitem>
@@ -3841,18 +4203,29 @@ pass in   quick inet proto tcp  from 172.16.22.0/24  to any port 80 keep state
 pass out  quick inet proto tcp  from 172.16.22.0/24  to any port 80 keep state
 </screen>          
 
-	  <para>Here is how the output looks like when the rule is compiled into Cisco IOS access-lists (this is one of the generated access lists):</para>
-<screen>
+	  <para>Here is how the output looks like when the rule is
+	  compiled into Cisco IOS access-lists (this is one of the
+	  generated access lists):</para>
+
+          <screen>
 ip access-list extended outside_out
   permit tcp 172.16.22.0 0.0.0.255 any  eq 80 
 exit
-</screen>          
+          </screen>          
 
-	  <para>Here is what we get when the rule is compiled into Cisco ASA (PIX) configuration. Note how the compiler uses netmask 255.255.255.0 for PIX, while for IOS it was converted to 0.0.0.255. Also, interface "inside" was configured with network zone 172.16.0.0/12, which matched network object used in the source element of the rule. Because of that, the compiler put the rule only into the access list attached to interface "inside".</para>
-<screen>
+	  <para>Here is what we get when the rule is compiled into
+	  Cisco ASA (PIX) configuration. Note how the compiler uses
+	  netmask 255.255.255.0 for PIX, while for IOS it was
+	  converted to 0.0.0.255. Also, interface "inside" was
+	  configured with network zone 172.16.0.0/12, which matched
+	  network object used in the source element of the
+	  rule. Because of that, the compiler put the rule only into
+	  the access list attached to interface "inside".</para>
+
+          <screen>
 access-list inside_acl_in permit tcp 172.16.22.0 255.255.255.0 any eq 80 
 access-group inside_acl_in in interface inside
-</screen>          
+          </screen>          
 
     </sect2>
 
@@ -3864,7 +4237,11 @@ access-group inside_acl_in in interface inside
             <graphic scale="60" fileref="ipv6-network_dialog1.png" />
       </figure>
 
-      <para> The network object describes an IPv6 network or subnet. This object is very similar to the IPv4 Network object, except you can only enter netmask as a bit length. Use main menu "Net Object / New Network IPv6" item to create objects of this type.</para>
+      <para> The network object describes an IPv6 network or
+      subnet. This object is very similar to the IPv4 Network object,
+      except you can only enter netmask as a bit length. Use main menu
+      "Net Object / New Network IPv6" item to create objects of this
+      type.</para>
 
       <para>Let's see what we get if we use an IPv6 Network object in a policy rule as shown:</para>
 
@@ -3874,19 +4251,19 @@ access-group inside_acl_in in interface inside
       </figure>
 
       <para> Here is the command generated for iptables:</para>
-<screen>
+      <screen>
 $IP6TABLES -A FORWARD -p tcp -m tcp  -s 2001:470:1f0e:162::/64  --dport 80  \
 -m state --state NEW  -j ACCEPT 
-</screen>
+      </screen>
 
       <para>Here is what we get for PF:</para>
-<screen>
+      <screen>
 pass in   quick inet6 proto tcp  from 2001:470:1f0e:162::/64  to any port 80 keep state
 pass out  quick inet6 proto tcp  from 2001:470:1f0e:162::/64  to any port 80 keep state
-</screen>          
+      </screen>          
 
       <para>Here is the output for Cisco IOS access lists (only one ACL is shown):</para>
-<screen>
+      <screen>
 ipv6 access-list ipv6_outside_out
   permit tcp 2001:470:1f0e:162::/64 any  eq 80 
 exit
@@ -3894,7 +4271,7 @@ exit
 interface eth0
   ipv6 traffic-filter ipv6_outside_out out
 exit
-</screen>             
+      </screen>             
 
       <para>There is no IPv6 support for Cisco ASA (PIX) in Firewall Builder at this time.</para>
 
@@ -3908,8 +4285,12 @@ exit
             <graphic scale="60" fileref="address_range_1.png" />
       </figure>
 
-      <para>The Address Range object describes a continuous range of IPv4
-      addresses. (Arbitrary address ranges are unsupported for IPv6.) To create new Address Range object, use main menu <guimenuitem>New Object / New Address Range</guimenuitem>. Its dialog provides the following entry fields:</para>
+      <para>The Address Range object describes a continuous range of
+      IPv4 addresses. (Arbitrary address ranges are unsupported for
+      IPv6.) To create new Address Range object, use main
+      menu <guimenuitem>New Object / New Address
+      Range</guimenuitem>. Its dialog provides the following entry
+      fields:</para>
 
       <para><itemizedlist spacing="compact">
           <listitem>
@@ -3940,25 +4321,46 @@ exit
       <para>The Address range is inclusive, that is, both the start and the
       end addresses are included in the range.</para>
 
-      <para> When Address Range object is used in a rule, Firewall Builder replaces it with a list of addresses equivalent to the specified range. The program tries to generate the most economical representation of the range using a combination of subnets of different lengths. Consider the Address Range object shown above. This Address Range object represents IP addresses between 192.168.1.100  and 192.168.1.160 (inclusively). It would be wasteful to generate 61 iptables commands to represent this range. Instead, the compiler uses a combination of several subnets of different lengths and ends up with the following:</para>
-<screen>
+      <para> When Address Range object is used in a rule, Firewall
+      Builder replaces it with a list of addresses equivalent to the
+      specified range. The program tries to generate the most
+      economical representation of the range using a combination of
+      subnets of different lengths. Consider the Address Range object
+      shown above. This Address Range object represents IP addresses
+      between 192.168.1.100 and 192.168.1.160 (inclusively). It would
+      be wasteful to generate 61 iptables commands to represent this
+      range. Instead, the compiler uses a combination of several
+      subnets of different lengths and ends up with the
+      following:</para>
+
+      <screen>
 $IPTABLES -A FORWARD  -s 192.168.1.100/30  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -s 192.168.1.104/29  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -s 192.168.1.112/28  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -s 192.168.1.128/27  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -s 192.168.1.160  -m state --state NEW  -j ACCEPT 
-</screen>        
+      </screen>        
 
-      <para>Here is how the generated configuration looks for PF (this is essentially the same, except it uses tables for brevity):</para>
-<screen>
+      <para>Here is how the generated configuration looks for PF (this
+      is essentially the same, except it uses tables for
+      brevity):</para>
+      
+      <screen>
 table &lt;tbl.r0.s&gt; { 192.168.1.100/30 , 192.168.1.104/29 , 192.168.1.112/28 , \
 192.168.1.128/27 , 192.168.1.160 } 
 
 pass in   quick inet  from &lt;tbl.r0.s&gt;  to any keep state
-</screen>
+      </screen>
 
-      <para>Just for completeness, let's look at the configuration generated for the same rule for Cisco IOS access lists. This is really just a fragment of the generate router access list configuration because generated ACLs are attached to interfaces and, since the rule in the example was not associated with any interfaces, it got attached to all of them. Here we show only one generated ACL:</para>
-<screen>
+      <para>Just for completeness, let's look at the configuration
+      generated for the same rule for Cisco IOS access lists. This is
+      really just a fragment of the generate router access list
+      configuration because generated ACLs are attached to interfaces
+      and, since the rule in the example was not associated with any
+      interfaces, it got attached to all of them. Here we show only
+      one generated ACL:</para>
+
+      <screen>
 ip access-list extended inside_in
 ! 
 ! Rule  0 (global)
@@ -3970,14 +4372,19 @@ ip access-list extended inside_in
   permit ip 192.168.1.128 0.0.0.31 any  
   permit ip host 192.168.1.160 any  
 exit
-</screen>
+      </screen>
+
     </sect2>
 
 
 
     <sect2>
       <title>Address Tables Object</title>
-      <para>Sometimes you need to apply a rule to a set of addresses, but you don't know what those addresses will be when you're writing the policy. The <guilabel>Address Table</guilabel> object can help.</para>
+
+      <para>Sometimes you need to apply a rule to a set of addresses,
+      but you don't know what those addresses will be when you're
+      writing the policy. The <guilabel>Address Table</guilabel>
+      object can help.</para>
 
       <figure float="1" id="address-table-dialog1">
         <title>The Address Table Object</title>
@@ -3986,7 +4393,7 @@ exit
 
       <para>The <guilabel>Address Table</guilabel> object has the following fields:</para>
 
-<itemizedlist spacing="compact">
+      <itemizedlist spacing="compact">
           <listitem>
             <para>Name:</para>
 
@@ -3996,13 +4403,20 @@ exit
           <listitem>
             <para>Compile Time / Run Time:</para>
 
-            <para>Indicate whether you want the file to be loaded with the firewall compiler runs (Compile Time) or when the firewall runs the firewall script (Run Time). </para>
+            <para>Indicate whether you want the file to be loaded with
+            the firewall compiler runs (Compile Time) or when the
+            firewall runs the firewall script (Run Time). </para>
           </listitem>
 
           <listitem>
             <para>File name:</para>
 
-            <para>The name of the text file you want to load. (The file contains IP addresses or IP address ranges.) The filename can have any extension. If you want the file to load at run time, you must specify the path and name where the file will be on the <emphasis>firewall</emphasis> machine, not the client machine.</para>
+            <para>The name of the text file you want to load. (The
+            file contains IP addresses or IP address ranges.) The
+            filename can have any extension. If you want the file to
+            load at run time, you must specify the path and name where
+            the file will be on the <emphasis>firewall</emphasis>
+            machine, not the client machine.</para>
           </listitem>
 
           <listitem>
@@ -4024,20 +4438,52 @@ exit
           </listitem>
         </itemizedlist>
 
-	<para>The <guilabel>Compile Time</guilabel> and <guilabel>Run Time</guilabel> radio buttons define when the addresses will be read from the file: when the firewall script is generated by Firewall Builder or when the firewall runs the script. If object is configured as <guilabel>Compile Time</guilabel>, the Firewall Builder policy compiler opens the file during compilation and replaces the <guilabel>Address Table</guilabel> object in policy rules with the set of addresses from the file. This means the file with addresses must be accessible on the machine where the Firewall Builder GUI and policy compilers run. If the object is configured as <guilabel>Run Time</guilabel>, policy compiler does not try to find and open the file but instead generates a firewall script that will do this when it is activated. This means the file with addresses must be located where it is accessible by the firewall, and the object must be configured with the full path to it on the firewall.</para>
+	<para>The <guilabel>Compile Time</guilabel> and <guilabel>Run
+	Time</guilabel> radio buttons define when the addresses will
+	be read from the file: when the firewall script is generated
+	by Firewall Builder or when the firewall runs the script. If
+	object is configured as <guilabel>Compile Time</guilabel>, the
+	Firewall Builder policy compiler opens the file during
+	compilation and replaces the <guilabel>Address
+	Table</guilabel> object in policy rules with the set of
+	addresses from the file. This means the file with addresses
+	must be accessible on the machine where the Firewall Builder
+	GUI and policy compilers run. If the object is configured
+	as <guilabel>Run Time</guilabel>, policy compiler does not try
+	to find and open the file but instead generates a firewall
+	script that will do this when it is activated. This means the
+	file with addresses must be located where it is accessible by
+	the firewall, and the object must be configured with the full
+	path to it on the firewall.</para>
 
-	<para>Here is an example of the file contents (this is what you see if you click "Preview" button in the object dialog):</para>
+	<para>Here is an example of the file contents (this is what
+	you see if you click "Preview" button in the object
+	dialog):</para>
 
       <figure float="1" id="address-table-textfile">
         <title>Address Table text file</title>
             <graphic scale="70" fileref="address_table_4.png" />
       </figure>
 
-      <para>Note that comments in the file can start with '#' or ';', that a comment can follow an address on the same line or take the whole line and that lines can start with white space for formatting. This example file contains both IPv4 and IPv6 addresses for illustration purposes.</para>
+      <para>Note that comments in the file can start with '#' or ';',
+      that a comment can follow an address on the same line or take
+      the whole line and that lines can start with white space for
+      formatting. This example file contains both IPv4 and IPv6
+      addresses for illustration purposes.</para>
 
-      <para>Compile-time Address Table objects are supported on all target firewall platforms because addresses are read by the compiler. The compiler then generates normal configuration lines or script commands. Run time Address Table objects require special support from the target firewall and therefore supported only on some of them. Currently Run Time Address Table objects can be used in rules for iptables and PF firewalls.</para>
+      <para>Compile-time Address Table objects are supported on all
+      target firewall platforms because addresses are read by the
+      compiler. The compiler then generates normal configuration lines
+      or script commands. Run time Address Table objects require
+      special support from the target firewall and therefore supported
+      only on some of them. Currently Run Time Address Table objects
+      can be used in rules for iptables and PF firewalls.</para>
 
-      <para>Let's look at the firewall script generated by Firewall Builder for the iptables and PF when the Address Table object used in the policy rule is configured first as "Compile Time" and then as "Run Time". The rule is very simple and looks like (<xref linkend="address-table-rule" />):</para> 
+      <para>Let's look at the firewall script generated by Firewall
+      Builder for the iptables and PF when the Address Table object
+      used in the policy rule is configured first as "Compile Time"
+      and then as "Run Time". The rule is very simple and looks like
+      (<xref linkend="address-table-rule" />):</para>
 
       <figure float="1" id="address-table-rule">
         <title>Rule using an Address Object</title>
@@ -4060,7 +4506,21 @@ $IPTABLES -A FORWARD  -d 192.168.1.201  -j DROP
 </screen>
       </figure>
 
-      <para>The compiler replaced object <guilabel>address_table_1</guilabel> in the Destination with addresses it took from the file. Option <guilabel>assume firewall is part of any</guilabel> was turned off in the firewall object settings, which is why compiler did not generate rules in the OUTPUT chain. However one of the addresses in the file matched the address of one of the interfaces of the firewall (192.168.1.1) and the corresponding rule went into the INPUT chain. Other addresses were copied from the file verbatim, including netmask specifications. The Policy object of this firewall was configured as "IPv4 rule set", because of this the compiler dropped the IPv6 addresses it found in the file. If the rule set was configured as a mix of IPv4 and IPv6, compiler would use IPv4 addresses in IPv4 rules and IPv6 addresses in IPv6 rules.</para>
+      <para>The compiler replaced
+      object <guilabel>address_table_1</guilabel> in the Destination
+      with addresses it took from the file. Option <guilabel>assume
+      firewall is part of any</guilabel> was turned off in the
+      firewall object settings, which is why compiler did not generate
+      rules in the OUTPUT chain. However one of the addresses in the
+      file matched the address of one of the interfaces of the
+      firewall (192.168.1.1) and the corresponding rule went into the
+      INPUT chain. Other addresses were copied from the file verbatim,
+      including netmask specifications. The Policy object of this
+      firewall was configured as "IPv4 rule set", because of this the
+      compiler dropped the IPv6 addresses it found in the file. If the
+      rule set was configured as a mix of IPv4 and IPv6, compiler
+      would use IPv4 addresses in IPv4 rules and IPv6 addresses in
+      IPv6 rules.</para>
 
       <figure float="1" id="address-table-compile-pf">
         <title>Compile Time, PF compile output</title>
@@ -4077,7 +4537,9 @@ block out  quick inet  from any  to &lt;tbl.r0.d&gt;
 </screen>
       </figure>
 
-      <para>The output for PF is simple because Firewall Builder can use the built-in table facility. All addresses are copied from the file verbatim into the table tbl.r0.d.</para>
+      <para>The output for PF is simple because Firewall Builder can
+      use the built-in table facility. All addresses are copied from
+      the file verbatim into the table tbl.r0.d.</para>
 
       <figure float="1" id="address-table-run-iptables">
         <title>Run Time, iptables compile output</title>
@@ -4156,17 +4618,30 @@ block out  quick inet  from any  to &lt;address_table_1&gt;
 </screen>
       </figure>
 
-      <para>PF is even easier in the case of run time address tables. Compiler just uses <emphasis>table</emphasis> facility with <emphasis>persist</emphasis> and <emphasis>file</emphasis> options to direct pfctl to open the file and read its contents. In this case the file should follow formatting requirements of PF.</para>
+      <para>PF is even easier in the case of run time address
+      tables. Compiler just uses <emphasis>table</emphasis> facility
+      with <emphasis>persist</emphasis> and <emphasis>file</emphasis>
+      options to direct pfctl to open the file and read its
+      contents. In this case the file should follow formatting
+      requirements of PF.</para>
 
-      <para>Policy compiler for PF treats Address Table objects with empty file name specially. It just generates the line "table &lt;table_name&gt;" at the beginning of the .conf file with no file specification. This table will not be populated when .conf file is loaded and therefore will remain empty, but it can be used in the rules.</para>
+      <para>Policy compiler for PF treats Address Table objects with
+      empty file name specially. It just generates the line "table
+      &lt;table_name&gt;" at the beginning of the .conf file with no
+      file specification. This table will not be populated when .conf
+      file is loaded and therefore will remain empty, but it can be
+      used in the rules.</para>
 
       <para>Addresses can be added to the table later using external scripts that call pfctl like this:</para>
 
-            <screen>
+      <screen>
 pfctl -t bad_hosts -T add 192.0.2.1
-</screen>
+      </screen>
 
-      <para>Another interesting possibility is to automatically populate the table if option "overload" is used in combination with other rate limiting options on a rule. Taking an example from the man page for pf.conf, here is how it looks:</para>
+      <para>Another interesting possibility is to automatically
+      populate the table if option "overload" is used in combination
+      with other rate limiting options on a rule. Taking an example
+      from the man page for pf.conf, here is how it looks:</para>
 
             <screen>
 block quick from &lt;bad_hosts&gt;
@@ -4174,23 +4649,40 @@ pass in on $ext_if proto tcp to $webserver port www keep state \
                    (max-src-conn-rate 100/10, overload &lt;bad_hosts&gt; flush global)
 </screen>
 
-      <para>The idea behind these rules is that if some host tries to connect to the web server too often&mdash;more often than is allowed by max-src-conn-rate 100/10&mdash;its address will be added to the table &lt;bad_hosts&gt; by PF. The next time this host tries to connect, the packet coming from it will be denied by the blocking rule right away.</para>
+      <para>The idea behind these rules is that if some host tries to
+      connect to the web server too often&mdash;more often than is
+      allowed by max-src-conn-rate 100/10&mdash;its address will be
+      added to the table &lt;bad_hosts&gt; by PF. The next time this
+      host tries to connect, the packet coming from it will be denied
+      by the blocking rule right away.</para>
 
-      <para>To implement these rules in Firewall Builder, you would create an Address Table object with name "bad_hosts" but a blank file name, configured to resolve at run time:</para>
+      <para>To implement these rules in Firewall Builder, you would
+      create an Address Table object with name "bad_hosts" but a blank
+      file name, configured to resolve at run time:</para>
 
       <figure float="1" id="address-table-bad-hosts">
         <title>Address Table Object bad_hosts</title>
             <graphic scale="70" fileref="address_table_5.png" />
       </figure>
 
-      <para>Then, use this Address Table object in the source field of a policy rule with action "Deny". This is rule #0 in the screenshot below. Another rule, rule #1 in the screenshot, has action "Accept" and matches destination against address of the web server, protocol http, and has limiting options set up to restrict the number of connections and to turn <guilabel>overload table</guilabel> on, with the name of the overload table "bad_hosts" that matches the name of the Address Table object.</para>
+      <para>Then, use this Address Table object in the source field of
+      a policy rule with action "Deny". This is rule #0 in the
+      screenshot below. Another rule, rule #1 in the screenshot, has
+      action "Accept" and matches destination against address of the
+      web server, protocol http, and has limiting options set up to
+      restrict the number of connections and to
+      turn <guilabel>overload table</guilabel> on, with the name of
+      the overload table "bad_hosts" that matches the name of the
+      Address Table object.</para>
 
       <figure float="1" id="address-table-bad-hosts-rules">
         <title>Address Table Object bad_hosts Rules</title>
             <graphic scale="60" fileref="address_table_6.png" />
       </figure>
 
-      <para>These two rules, as shown on the screen shots, yield the following PF configuration that matches the one given in the man page:</para>
+      <para>These two rules, as shown on the screen shots, yield the
+      following PF configuration that matches the one given in the man
+      page:</para>
 
             <screen>
 # Tables: (1)
@@ -4212,14 +4704,42 @@ pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
     <sect2>
       <title>Special case addresses</title>
 
-	<para>Policy compilers treat some addresses in policy rules in special ways, depending on the requirements of the target firewall platform. For example, the compiler for iptables checks if the address found in "Destination" or "Source" of a rule matches the address of any interface of the firewall to determine if the rule should be placed in INPUT or OUTPUT chain. The compiler for PIX uses the command ssh &lt;address&gt; &lt;netmask>&gt; inside when it detects such an address in the destination of a rule where the service is TCP Service object "SSH". There are other special cases as well.</para>
+	<para>Policy compilers treat some addresses in policy rules in
+	special ways, depending on the requirements of the target
+	firewall platform. For example, the compiler for iptables
+	checks if the address found in "Destination" or "Source" of a
+	rule matches the address of any interface of the firewall to
+	determine if the rule should be placed in INPUT or OUTPUT
+	chain. The compiler for PIX uses the command ssh
+	&lt;address&gt; &lt;netmask>&gt; inside when it detects such
+	an address in the destination of a rule where the service is
+	TCP Service object "SSH". There are other special cases as
+	well.</para>
 
       <sect3>
 	<title>Broadcast and Multicast Addresses, iptables Firewall</title>
 
-	<para>One important special case is broadcast and multicast addresses. It is important to place rules in the correct chain in generated iptables script because even though these addresses are not equal to those of the firewall's interfaces, iptables processes packets with broadcast or multicast destination in the INPUT chain. Firewall Builder is aware of this and generates the correct iptables commands.</para>
+	<para>One important special case is broadcast and multicast
+	addresses. It is important to place rules in the correct chain
+	in generated iptables script because even though these
+	addresses are not equal to those of the firewall's interfaces,
+	iptables processes packets with broadcast or multicast
+	destination in the INPUT chain. Firewall Builder is aware of
+	this and generates the correct iptables commands.</para>
 
-	<para>In order to match broadcast or multicast addresses in the rules, we need to create objects to describe them. The choice of object type to describe broadcast or multicast address depends on whether this is just a single address, a range or a block. An Address object is good for defining a single address, Address Range is good for sets of consecutive addresses and Network object is good for describing a block. For example, you can use an Address object with address "255.255.255.255" to describe a broadcast. Address Range with addresses "224.0.0.5 - 224.0.0.6" would work well to describe two multicast groups used by OSPF. A Network object with address "224.0.0.0" and netmask "240.0.0.0" can be used to describe a whole multicast address block.</para>
+	<para>In order to match broadcast or multicast addresses in
+	the rules, we need to create objects to describe them. The
+	choice of object type to describe broadcast or multicast
+	address depends on whether this is just a single address, a
+	range or a block. An Address object is good for defining a
+	single address, Address Range is good for sets of consecutive
+	addresses and Network object is good for describing a
+	block. For example, you can use an Address object with address
+	"255.255.255.255" to describe a broadcast. Address Range with
+	addresses "224.0.0.5 - 224.0.0.6" would work well to describe
+	two multicast groups used by OSPF. A Network object with
+	address "224.0.0.0" and netmask "240.0.0.0" can be used to
+	describe a whole multicast address block.</para>
 
 	<para>Here are few examples:</para>
 
@@ -4228,7 +4748,10 @@ pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
             <graphic scale="60" fileref="multicast_object_1.png" />
       </figure>
 
-	<para>Object "all multicasts" is part of the Standard Objects library that comes with the program. It describes an entire address block allocated for multicasts. Consider a simple policy rule that permits all multicasts:</para>
+	<para>Object "all multicasts" is part of the Standard Objects
+	library that comes with the program. It describes an entire
+	address block allocated for multicasts. Consider a simple
+	policy rule that permits all multicasts:</para>
 
       <figure float="1" id="multicast_rule_1">
         <title>Multicast rule</title>
@@ -4236,13 +4759,25 @@ pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
       </figure>
 
 	<para>For iptables, this rule translates into the following script:</para>
-<screen>
+
+        <screen>
 $IPTABLES -A INPUT  -d 224.0.0.0/4  -m state --state NEW  -j ACCEPT 
-</screen>        
+        </screen>        
 
 	 <para>The rule went into the INPUT chain because iptables processes multicast there.</para>
 
-	  <para>Here is another example, this time it involves broadcast addresses. Interface "inside" of the test firewall has address 172.16.22.1 with netmask 255.255.255.0. This defines subnet 172.16.22.0/255.255.255.0 with broadcast address 172.16.22.255. We create an Address object with the name "net-172.16.22 broadcast" and address "172.16.22.255" and use it in the destination field of a policy rule. Another rule in the same example will match broadcast address "255.255.255.255"; an Address Range Object that defines this address is present in the Standard Objects library under the name "broadcast". Here are the rules:</para>
+	  <para>Here is another example, this time it involves
+	  broadcast addresses. Interface "inside" of the test firewall
+	  has address 172.16.22.1 with netmask 255.255.255.0. This
+	  defines subnet 172.16.22.0/255.255.255.0 with broadcast
+	  address 172.16.22.255. We create an Address object with the
+	  name "net-172.16.22 broadcast" and address "172.16.22.255"
+	  and use it in the destination field of a policy
+	  rule. Another rule in the same example will match broadcast
+	  address "255.255.255.255"; an Address Range Object that
+	  defines this address is present in the Standard Objects
+	  library under the name "broadcast". Here are the
+	  rules:</para>
 
       <figure float="1" id="broadcast_rules_1">
         <title>Broadcast rules</title>
@@ -4250,7 +4785,7 @@ $IPTABLES -A INPUT  -d 224.0.0.0/4  -m state --state NEW  -j ACCEPT
       </figure>
 
 	  <para> these two rules translate into the following script for iptables:</para>
-<screen>
+          <screen>
 # Rule 0 (global)
 # 
 $IPTABLES -A INPUT  -d 255.255.255.255  -m state --state NEW  -j ACCEPT 
@@ -4258,7 +4793,7 @@ $IPTABLES -A INPUT  -d 255.255.255.255  -m state --state NEW  -j ACCEPT
 # Rule 1 (global)
 # 
 $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT 
-</screen>
+          </screen>
 
 	  <para>Both rules went into INPUT chain as expected.</para>
       </sect3>
@@ -4266,7 +4801,11 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
       <sect3>
 	<title>Broadcast and Multicast Addresses and Bridging iptables Firewall</title>
 
-	<para>Compilers treat broadcast and multicast addresses differently if the firewall object is set to be a bridging firewall. In this case the checkbox "Bridging firewall" should be turned on in the firewall settings dialog and one or more interface objects should be marked as "Bridge port":</para>
+	<para>Compilers treat broadcast and multicast addresses
+	differently if the firewall object is set to be a bridging
+	firewall. In this case the checkbox "Bridging firewall" should
+	be turned on in the firewall settings dialog and one or more
+	interface objects should be marked as "Bridge port":</para>
 
       <figure float="1" id="bridge-broadcast-multicast">
         <title>Broadcast and Multicast address in a bridging firewall</title>
@@ -4281,19 +4820,40 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
       </figure>
 
 	<para>This produces the following iptables commands:</para>
-<screen>
+
+        <screen>
 $IPTABLES -A FORWARD  -d 172.16.22.255  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT 
-</screen>        
+        </screen>        
 
-	<para>Rules went into both INPUT and FORWARD chains because the bridging firewall passes broadcasts through, but at the same time accepts them as packets headed for itself. Since the rule did not specify which interface it should look at, Firewall Builder assumed that the generated rule should inspect packets crossing all interfaces, both bridge ports and "normal" ones, and therefore placed the rule in both INPUT and FORWARD chains.</para>
+        <para>
+          Rules went into both INPUT and FORWARD chains because the
+          bridging firewall passes broadcasts through, but at the same
+          time accepts them as packets headed for itself. Since the
+          rule did not specify which interface it should look at,
+          Firewall Builder assumed that the generated rule should
+          inspect packets crossing all interfaces, both bridge ports
+          and "normal" ones, and therefore placed the rule in both
+          INPUT and FORWARD chains.
+        </para>
 
       </sect3>
     </sect2>
 
     <sect2>
       <title>DNS Name Objects</title>
-      <para>A DNS Name object represents a DNS "A" or "AAAA" record. The object resolves into IP address at compile or run time. The address (IPv4 or IPv6) the object resolves to depends the address family or families of the ruleset it is used in. That is, if the object is used in a rule that is part of IPv4 rule set, the compiler will try to resolve the object using DNS query for the "A" record, but if the object is used in a rule that is part of an IPv6 rule set, the compiler will run a "AAAA" query. If the rule set where the object is used is a mixed type (IPv4+IPv6), the compiler will resolve the same object twice using different queries.</para>
+
+      <para>A DNS Name object represents a DNS "A" or "AAAA"
+      record. The object resolves into IP address at compile or run
+      time. The address (IPv4 or IPv6) the object resolves to depends
+      the address family or families of the ruleset it is used
+      in. That is, if the object is used in a rule that is part of
+      IPv4 rule set, the compiler will try to resolve the object using
+      DNS query for the "A" record, but if the object is used in a
+      rule that is part of an IPv6 rule set, the compiler will run a
+      "AAAA" query. If the rule set where the object is used is a
+      mixed type (IPv4+IPv6), the compiler will resolve the same
+      object twice using different queries.</para>
 
       <para>The <guilabel>DNS Name</guilabel> object dialog looks like this:</para>
 
@@ -4318,7 +4878,9 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
           <listitem>
             <para>Compile Time / Run Time:</para>
 
-            <para>Indicate whether you want to resolve the IP address when you create the firewall script (compile time) or when you run the script on the firewall (run time).</para>
+            <para>Indicate whether you want to resolve the IP address
+            when you create the firewall script (compile time) or when
+            you run the script on the firewall (run time).</para>
           </listitem>
 
           <listitem>
@@ -4328,7 +4890,20 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
           </listitem>
         </itemizedlist>
 
-	<para> The <guilabel>DNS Record</guilabel> parameter is the name of the A or AAAA record we want to resolve. In this example it is the host name of the Firewall Builder project web site "www.fwbuilder.org". Note that IPv6 web server for the project is accessible as "ipv6.fwbuilder.org" so we are going to need second DNS Name object for IPv6 examples. <guilabel>Compile Time</guilabel> and <guilabel>Run Time</guilabel> options have the same meaning as those in the Address Table object, that is, compile time DNS Name object is converted to the IP address by the policy compiler, while run time DNS Name object is not. In the latter case, the compiler puts DNS record name into the generated script or configuration file and leaves it up to the firewall to resolve it when the script is activated.</para>
+	<para> The <guilabel>DNS Record</guilabel> parameter is the
+	name of the A or AAAA record we want to resolve. In this
+	example it is the host name of the Firewall Builder project
+	web site "www.fwbuilder.org". Note that IPv6 web server for
+	the project is accessible as "ipv6.fwbuilder.org" so we are
+	going to need second DNS Name object for IPv6
+	examples. <guilabel>Compile Time</guilabel> and <guilabel>Run
+	Time</guilabel> options have the same meaning as those in the
+	Address Table object, that is, compile time DNS Name object is
+	converted to the IP address by the policy compiler, while run
+	time DNS Name object is not. In the latter case, the compiler
+	puts DNS record name into the generated script or
+	configuration file and leaves it up to the firewall to resolve
+	it when the script is activated.</para>
 
 	<para>Both compile time and run DNS Name objects are supported on all target firewall platforms.</para>
 
@@ -4348,7 +4923,17 @@ $IPTABLES -A FORWARD  -d 70.85.175.170  -m state --state NEW  -j ACCEPT
 </screen>
       </figure>
 
-      <para>In this trivial case, the compiler simply resolved "www.fwbuilder.org" to an IP address and used it in the iptables command. However, if the policy rule was in a ruleset configured as an IPv6-only rule set, the rule would not produce any iptables command at all because there is no AAAA DNS record with name "www.fwbuilder.org". If the rule set was both IPv4+IPv6, then the rule would generate iptables command only in the IPv4 part. The opposite is also true, the DNS Name object with record "ipv6.fwbuilder.org" will only produce iptables commands when used in IPv6 rule set because there is only AAAA record with this name.</para>
+      <para>In this trivial case, the compiler simply resolved
+      "www.fwbuilder.org" to an IP address and used it in the iptables
+      command. However, if the policy rule was in a ruleset configured
+      as an IPv6-only rule set, the rule would not produce any
+      iptables command at all because there is no AAAA DNS record with
+      name "www.fwbuilder.org". If the rule set was both IPv4+IPv6,
+      then the rule would generate iptables command only in the IPv4
+      part. The opposite is also true, the DNS Name object with record
+      "ipv6.fwbuilder.org" will only produce iptables commands when
+      used in IPv6 rule set because there is only AAAA record with
+      this name.</para>
 
       <figure float="1" id="dns-name-compile-pf">
         <title>DNS Name Compile Time, PF compile output</title>
@@ -4359,37 +4944,60 @@ pass in   quick inet  from any  to 70.85.175.170 keep state
 </screen>
       </figure>
 
-      <para>The same is true in the case of PF: the compiler simply resolved the name "www.fwbuilder.org" and put the address in the generated pf.conf file. Since this name does not resolve into any IPv6 address, IPv6 PF policy would not have any line for this rule. DNS record "ipv6.fwbuilder.org" resolves only into an IPv6 address, and therefore DNS Name object with this record would only produce pf.conf configuration for IPv6 and not for IPv4.</para>
+      <para>The same is true in the case of PF: the compiler simply
+      resolved the name "www.fwbuilder.org" and put the address in the
+      generated pf.conf file. Since this name does not resolve into
+      any IPv6 address, IPv6 PF policy would not have any line for
+      this rule. DNS record "ipv6.fwbuilder.org" resolves only into an
+      IPv6 address, and therefore DNS Name object with this record
+      would only produce pf.conf configuration for IPv6 and not for
+      IPv4.</para>
 
       <figure float="1" id="dns-name-run-iptables">
         <title>DNS Name Run Time, iptables compile output</title>
-            <screen>
+        <screen>
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD  -d www.fwbuilder.org -m state --state NEW  -j ACCEPT
-</screen>
+        </screen>
       </figure>
 
-      <para>Here the compiler used the line entered in the DNS record parameter literally, leaving it up to iptables on the firewall machine to resolve this name into an IP address. Using a run time DNS Name object in IPv6 policy generates the following iptables command:</para>
-            <screen>
+
+      <para>Here the compiler used the line entered in the DNS record
+      parameter literally, leaving it up to iptables on the firewall
+      machine to resolve this name into an IP address. Using a run
+      time DNS Name object in IPv6 policy generates the following
+      iptables command:</para>
+
+      <screen>
 # Rule 0 (global)
 # 
 $IP6TABLES -A FORWARD  -d ipv6.fwbuilder.org -m state --state NEW  -j ACCEPT 
-</screen>
+      </screen>
 
-      <para>$IP6TABLES is the shell variable defined at the beginning of the generated script, the value of this variable is the full path to the <command>ip6tables</command> command line utility. <command>ip6tables</command> will try to resolve given name to an IPv6 address since it processes IPv6 iptables policy.</para>
+      <para>
+        $IP6TABLES is the shell variable defined at the beginning of
+        the generated script, the value of this variable is the full
+        path to the <command>ip6tables</command> command line
+        utility. <command>ip6tables</command> will try to resolve
+        given name to an IPv6 address since it processes IPv6 iptables
+        policy.
+      </para>
 
       <figure float="1" id="dns-name-run-pf">
         <title>DNS Name Run Time, PF compile output</title>
-            <screen>
+        <screen>
 # Rule  0 (global)
 #
 pass in   quick inet  from any  to www.fwbuilder.org keep state
 pass out  quick inet  from any  to www.fwbuilder.org keep state
-	   </screen>
+	</screen>
       </figure>
-
-      <para>Run time DNS Name object translates into PF configuration lines that also use the name of the DNS record and leave it up to PF to actually resolve it to an IP address when the configuration is loaded.</para>
+      
+      <para>Run time DNS Name object translates into PF configuration
+      lines that also use the name of the DNS record and leave it up
+      to PF to actually resolve it to an IP address when the
+      configuration is loaded.</para>
 
     </sect2>
 
@@ -4401,10 +5009,12 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
             <graphic scale="50" fileref="group-view1.png" />
       </figure>
 
-      <para>The group of objects holds references to Hosts, Networks, Address
-      Ranges, Firewalls and other groups of addressable objects (<xref
-      linkend="group-dialog1" />). Use <guimenuitem>New Object / New Object Group</guimenuitem> to create a new group. Objects can be added to the group using the
-      following methods:</para>
+      <para>The group of objects holds references to Hosts, Networks,
+      Address Ranges, Firewalls and other groups of addressable
+      objects (<xref linkend="group-dialog1" />). Use <guimenuitem>New
+      Object / New Object Group</guimenuitem> to create a new
+      group. Objects can be added to the group using the following
+      methods:</para>
 
       <para><itemizedlist spacing="compact">
           <listitem>
@@ -4431,7 +5041,9 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
 
             <para>Select the object in the tree, select 
             <guimenu>Edit</guimenu>/<guimenuitem>Copy
-            Object</guimenuitem> from the menu bar, then click on the group dialog, and then select <guimenuitem>Edit</guimenuitem>/<guimenuitem>Paste
+            Object</guimenuitem> from the menu bar, then click on the
+            group dialog, and then
+            select <guimenuitem>Edit</guimenuitem>/<guimenuitem>Paste
             Object</guimenuitem> from the menu bar.</para>
           </listitem>
         </itemizedlist></para>
@@ -4441,8 +5053,12 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
   <sect1 id="working-with-services">
     <title>Service Objects</title>
 
-      <para>In Firewall Builder, service objects represent IP, ICMP, TCP, and UDP services such as "host unreachable" in ICMP, HTTP in TCP, GRE in IP, and DNS in UDP. Firewall Builder provides service objects for hundred of well-known and frequently used services in ICMP (IP protocol number 1), TCP (IP protocol number 6), and UDP (IP
-      protocol number 17). </para> 
+      <para>In Firewall Builder, service objects represent IP, ICMP,
+      TCP, and UDP services such as "host unreachable" in ICMP, HTTP
+      in TCP, GRE in IP, and DNS in UDP. Firewall Builder provides
+      service objects for hundred of well-known and frequently used
+      services in ICMP (IP protocol number 1), TCP (IP protocol number
+      6), and UDP (IP protocol number 17). </para>
 
     <sect2>
       <title>IP Service</title>
@@ -4587,30 +5203,64 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
               <entry><filename>Source route options: LSRR,
               SSRR</filename></entry>
 
-              <entry>Normally IP routing is dynamic with each router making decisions about which next hop router to send the packet to. However, another option exists where the sender can choose the route. In the case of the Loose Source Route, the sender (host) can specify a list of routers the packet must traverse, but it may also pass through other routers between any two addresses in the list. The Strict Source Route works very much the same way, except the packet must traverse only through the specified addresses. Source routing can potentially be used to reach hosts behind the firewall even if these hosts use private IP addresses, which normally are not reachable over the Internet. </entry>
+              <entry>Normally IP routing is dynamic with each router
+              making decisions about which next hop router to send the
+              packet to. However, another option exists where the
+              sender can choose the route. In the case of the Loose
+              Source Route, the sender (host) can specify a list of
+              routers the packet must traverse, but it may also pass
+              through other routers between any two addresses in the
+              list. The Strict Source Route works very much the same
+              way, except the packet must traverse only through the
+              specified addresses. Source routing can potentially be
+              used to reach hosts behind the firewall even if these
+              hosts use private IP addresses, which normally are not
+              reachable over the Internet. </entry>
             </row>
 
             <row>
               <entry><filename>Record route option: RR</filename></entry>
 
-              <entry>This option causes every router that handles the packet on the way to add its IP address to a list in the options field. This option is used by the ping utility when it is called with the "-R" command line switch; it can potentially be exploited to discover the internal network addressing and layout behind the firewall. Although the risk is low, some firewall administrators prefer to block packets with this option set. </entry>
+              <entry>This option causes every router that handles the
+              packet on the way to add its IP address to a list in the
+              options field. This option is used by the ping utility
+              when it is called with the "-R" command line switch; it
+              can potentially be exploited to discover the internal
+              network addressing and layout behind the
+              firewall. Although the risk is low, some firewall
+              administrators prefer to block packets with this option
+              set. </entry>
             </row>
 
             <row>
               <entry><filename>Timestamp option:</filename></entry>
 
-              <entry>This option tells routers that handle the packet to record their timestamps and sometimes addresses (like in the case of the record route option). This option is seldom used, but can potentially be exploited to gather information about the protected network, so some firewall administrators prefer to block packets with this option set. </entry>
+              <entry>This option tells routers that handle the packet
+              to record their timestamps and sometimes addresses (like
+              in the case of the record route option). This option is
+              seldom used, but can potentially be exploited to gather
+              information about the protected network, so some
+              firewall administrators prefer to block packets with
+              this option set. </entry>
             </row>
 
             <row>
               <entry><filename>Fragment options:</filename></entry>
 
-              <entry>IP packets may sometimes become fragmented. This happens if the original datagram is larger than what a physical
-		network layer can transmit. The IP packet header has special fields (called "Flags" and "Fragmentation Offset") that
-		detect fragmented packets and help reassemble them. Many firewalls can check these bits as well. Certain combinations
-		of flags and fragmentation offsets can never happen during normal operation but were seen to be used by attackers. 
-		Firewall Builder provides two options for handling the most commonly used cases: the "all fragments" option matches 
-		the second and further fragments, while the "short" option is used to match packets that are too short to contain even a complete IP header.</entry>
+              <entry>IP packets may sometimes become fragmented. This
+		happens if the original datagram is larger than what a
+		physical network layer can transmit. The IP packet
+		header has special fields (called "Flags" and
+		"Fragmentation Offset") that detect fragmented packets
+		and help reassemble them. Many firewalls can check
+		these bits as well. Certain combinations of flags and
+		fragmentation offsets can never happen during normal
+		operation but were seen to be used by attackers.
+		Firewall Builder provides two options for handling the
+		most commonly used cases: the "all fragments" option
+		matches the second and further fragments, while the
+		"short" option is used to match packets that are too
+		short to contain even a complete IP header.</entry>
             </row>
           </tbody>
         </tgroup>
@@ -4630,7 +5280,13 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
 
       </figure>
 
-      <para>Service objects in the <guilabel>Standard</guilabel> are not editable. However, you can copy-and-paste a copy of a service object into the <guilabel>User</guilabel> tree and edit it there, or you can right-click the <guilabel>IP</guilabel> folder in the <guilabel>User</guilabel> tree and select <guimenuitem>New IP Service</guimenuitem> to create a service object from scratch.</para>
+      <para>Service objects in the <guilabel>Standard</guilabel> are
+      not editable. However, you can copy-and-paste a copy of a
+      service object into the <guilabel>User</guilabel> tree and edit
+      it there, or you can right-click the <guilabel>IP</guilabel>
+      folder in the <guilabel>User</guilabel> tree and
+      select <guimenuitem>New IP Service</guimenuitem> to create a
+      service object from scratch.</para>
 
       <para>In either case, the controls are the same.</para>
 
@@ -4652,7 +5308,10 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
           <listitem>
             <para>DiffServ</para>
 
-            <para>You can specify DSCP or TOS using the radio buttons. In either case, specify a code (or class) in the field. If you do not specify a code or class, Firewall Builder ignores the DiffServ type (DSCP or TOS).</para>
+            <para>You can specify DSCP or TOS using the radio
+            buttons. In either case, specify a code (or class) in the
+            field. If you do not specify a code or class, Firewall
+            Builder ignores the DiffServ type (DSCP or TOS).</para>
           </listitem>
 
           <listitem>
@@ -5291,18 +5950,22 @@ pass in   quick inet6 proto icmp6  from any  to any
                 Usually the firewall cannot only match a combination
                 of flags, but can also examine only a given subset of
                 TCP flags. Firewall Builder provides two sets of
-                checkboxes for TCP flags and flag masks (see screenshot
-                below). Checkboxes in the first row control TCP flags
-                that we want the firewall to examine and checkboxes in
-                the second row tell it whether they should be set or
-                cleared. Only flags whose checkboxes in the first row
-                are set will be looked at by the firewall. (If you check a box in the bottom row while leaving the checkbox above it unchecked, the flag will be ignored.) 
-								</para>
-					<para>The object
-                in the screenshot matches a TCP packet with any
-                combination of port numbers, the TCP flag SYN set, and
-                all other flags cleared. The firewall will examine all
-                TCP flags.
+                checkboxes for TCP flags and flag masks (see
+                screenshot below). Checkboxes in the first row control
+                TCP flags that we want the firewall to examine and
+                checkboxes in the second row tell it whether they
+                should be set or cleared. Only flags whose checkboxes
+                in the first row are set will be looked at by the
+                firewall. (If you check a box in the bottom row while
+                leaving the checkbox above it unchecked, the flag will
+                be ignored.)
+	  </para>
+
+	  <para>
+            The object in the screenshot matches a TCP packet with any
+            combination of port numbers, the TCP flag SYN set, and all
+            other flags cleared. The firewall will examine all TCP
+            flags.
               
           </para>
   
@@ -5915,7 +6578,9 @@ exit
     <sect2 id="user-service">
       <title>User Service</title>
 
-	<para>User Service object matches the owner of the process on the firewall that send the packet. It translates to the "owner" match in iptables and "user" parameter for PF.</para>
+	<para>User Service object matches the owner of the process on
+	the firewall that send the packet. It translates to the
+	"owner" match in iptables and "user" parameter for PF.</para>
 
       <figure float="1" id="user-service-dialog">
           <title>User Service Dialog</title>
@@ -5942,7 +6607,9 @@ exit
           </listitem>
         </itemizedlist>
 
-	<para> User Service object has only one parameter besides the name and comment: it is user id that the firewall should use to match packets.</para>
+	<para> User Service object has only one parameter besides the
+	name and comment: it is user id that the firewall should use
+	to match packets.</para>
 
 	<para>The User Service object is only supported for iptables and PF.</para>
 
@@ -5953,7 +6620,13 @@ exit
               <graphic scale="70" fileref="user_service_3.png" />
         </figure>
 
-	<para>The firewall can associate a packet with a user only if the packet originated on the firewall. Packets that transit the firewall have no information about the user who owned the process that created these packets and sent them out because this process ran on an entirely different computer. For this reason, the object in the <guilabel>Source</guilabel> column must be the firewall.</para>
+	<para>The firewall can associate a packet with a user only if
+	the packet originated on the firewall. Packets that transit
+	the firewall have no information about the user who owned the
+	process that created these packets and sent them out because
+	this process ran on an entirely different computer. For this
+	reason, the object in the <guilabel>Source</guilabel> column
+	must be the firewall.</para>
 
        <figure float="1" id="user-service-iptables">
         <title>User Service, iptables compile output</title>
@@ -5964,7 +6637,10 @@ $IPTABLES -A OUTPUT -m owner --uid-owner 500  -j DROP
 	</screen>
       </figure>
 
-      <para> The User Service translated into the <emphasis>owner</emphasis> match for iptables. See the iptables man page for a more detailed explanation of this match.</para>
+      <para> The User Service translated into
+      the <emphasis>owner</emphasis> match for iptables. See the
+      iptables man page for a more detailed explanation of this
+      match.</para>
 
        <figure float="1" id="user-service-pf">
         <title>User Service, PF compile output</title>
@@ -5979,9 +6655,17 @@ block out  quick inet  from   to any user 500
 	</screen>
       </figure>
 
-      <para>Here the table <emphasis>tbl.r0.s</emphasis> was created to hold IP addresses that belong to the firewall. The rule matches source addresses and also the user ID of the owner using the "user" clause.</para>
+      <para>Here the table <emphasis>tbl.r0.s</emphasis> was created
+      to hold IP addresses that belong to the firewall. The rule
+      matches source addresses and also the user ID of the owner using
+      the "user" clause.</para>
 
-      <para>User Service is actually one of the simplest service object types in Firewall Builder, but it provides the facility for a basic per-user control on Linux and BSD machines. This service object can be used in rules with actions that reroute packets ("Route" action) or in the NAT rules, for example to redirect web access via proxy.</para>
+      <para>User Service is actually one of the simplest service
+      object types in Firewall Builder, but it provides the facility
+      for a basic per-user control on Linux and BSD machines. This
+      service object can be used in rules with actions that reroute
+      packets ("Route" action) or in the NAT rules, for example to
+      redirect web access via proxy.</para>
 
     </sect2>
 
@@ -6296,17 +6980,25 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
   <sect1 id="time-interval-objects">
     <title>Time Interval Objects</title>
 
-      <para>Time Interval objects allow you to create a rule that only matches during certain periods of time, such as on weekend days, during work hours, or other periods. Time intervals operate based on the time as known <emphasis>by the firewall device</emphasis>.</para>
+      <para>Time Interval objects allow you to create a rule that only
+      matches during certain periods of time, such as on weekend days,
+      during work hours, or other periods. Time intervals operate
+      based on the time as known <emphasis>by the firewall
+      device</emphasis>.</para>
 
       <figure float="1" id="time-interval2">
           <title>Time Interval dialog</title>
               <graphic scale="60" fileref="time-interval2.png" />
         </figure>
 
-      <para>Time intervals can be certain days of the week (only on Mondays, for example), only certain times, and/or only during a certain range of dates. You can combine these options to create an object that represents, for example, Tuesday afternoons from 1 to 3 PM during March of 2011.</para>
+      <para>Time intervals can be certain days of the week (only on
+      Mondays, for example), only certain times, and/or only during a
+      certain range of dates. You can combine these options to create
+      an object that represents, for example, Tuesday afternoons from
+      1 to 3 PM during March of 2011.</para>
 
-<itemizedlist spacing="compact">
-          <listitem>
+      <itemizedlist spacing="compact">
+        <listitem>
             <para>Name:</para>
 
             <para>This is the name of the object.</para>
@@ -6315,7 +7007,10 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           <listitem>
             <para>Start date checkbox:</para>
 
-            <para>Indicates that the time interval has a starting date. If this is not checked, the <guilabel>Start date</guilabel> field is inaccessible and is not included in the object.</para>
+            <para>Indicates that the time interval has a starting
+            date. If this is not checked, the <guilabel>Start
+            date</guilabel> field is inaccessible and is not included
+            in the object.</para>
           </listitem>
 
           <listitem>
@@ -6327,13 +7022,21 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           <listitem>
             <para>Start time:</para>
 
-            <para>Indicates the beginning of the daily interval. Only applies to days after <guilabel>Start date</guilabel> (if specified) and before <guilabel>End date</guilabel> (if specified) and on indicated days of the week. For example, if <guilabel>Sunday</guilabel> is not checked, then the time interval does not apply on Sundays.</para>
+            <para>Indicates the beginning of the daily interval. Only
+            applies to days after <guilabel>Start date</guilabel> (if
+            specified) and before <guilabel>End date</guilabel> (if
+            specified) and on indicated days of the week. For example,
+            if <guilabel>Sunday</guilabel> is not checked, then the
+            time interval does not apply on Sundays.</para>
           </listitem>
 
           <listitem>
             <para>End date checkbox:</para>
 
-            <para>Indicates that the time interval has an ending date. If this is not checked, the <guilabel>End date</guilabel> field is inaccessible and is not included in the object.</para>
+            <para>Indicates that the time interval has an ending
+            date. If this is not checked, the <guilabel>End
+            date</guilabel> field is inaccessible and is not included
+            in the object.</para>
           </listitem>
 
           <listitem>
@@ -6345,13 +7048,23 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           <listitem>
             <para>End time:</para>
 
-            <para>Indicates the end of the daily interval. Only applies to days after <guilabel>Start date</guilabel> (if specified) and before <guilabel>End date</guilabel> (if specified) and on indicated days of the week. For example, if <guilabel>Sunday</guilabel> is not checked, then the time interval does not apply on Sundays.</para>
+            <para>Indicates the end of the daily interval. Only
+            applies to days after <guilabel>Start date</guilabel> (if
+            specified) and before <guilabel>End date</guilabel> (if
+            specified) and on indicated days of the week. For example,
+            if <guilabel>Sunday</guilabel> is not checked, then the
+            time interval does not apply on Sundays.</para>
           </listitem>
 
           <listitem>
             <para>Mon, Tue, Wed, Thu, Fri, Sat, Sun</para>
 
-            <para>Indicates on which days of the week the time interval should be applicable. For example, if <guilabel>Mon</guilabel> is checked and <guilabel>Tue</guilabel> is not, then the time interval object will apply to Mondays, but not Tuesdays.</para>
+            <para>Indicates on which days of the week the time
+            interval should be applicable. For example,
+            if <guilabel>Mon</guilabel> is checked
+            and <guilabel>Tue</guilabel> is not, then the time
+            interval object will apply to Mondays, but not
+            Tuesdays.</para>
           </listitem>
 
           <listitem>
@@ -6361,7 +7074,11 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           </listitem>
         </itemizedlist>
 
-	<para>In <xref linkend="time-interval2" />, the object would be valid from the beginning of Dec. 19, 2009 and end the beginning of Jan. 4, 2010. This would hypothetically correspond to a "winter break" at some institution when access to some networks would be restricted.</para>
+	<para>In <xref linkend="time-interval2" />, the object would
+	be valid from the beginning of Dec. 19, 2009 and end the
+	beginning of Jan. 4, 2010. This would hypothetically
+	correspond to a "winter break" at some institution when access
+	to some networks would be restricted.</para>
 
 	<para>Another possibility is to limit recreational activities to non-work hours.</para>
 
@@ -6370,17 +7087,30 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
               <graphic scale="50" fileref="time-interval1.png" />
         </figure>
 
-      <para>In this rule, the "quake" protocol is allowed from the internal network after hours and during weekends. Otherwise, the final "deny all" rule in the rule set would prevent it during other times (during work hours).</para>
+      <para>In this rule, the "quake" protocol is allowed from the
+      internal network after hours and during weekends. Otherwise, the
+      final "deny all" rule in the rule set would prevent it during
+      other times (during work hours).</para>
    </sect1>
 
    <sect1 id="new-library">
     <title>Creating and Using a User-Defined Library of Objects</title>
 
-      <para>The User library that comes with Firewall Builder is all you need if you're the only one administering firewalls in your enterprise. But, if you have several administrators, each with a different workstation, then you may want to create a user library that you can distribute. That way, user-defined objects only have to be created once, by one person.</para>
+      <para>The User library that comes with Firewall Builder is all
+      you need if you're the only one administering firewalls in your
+      enterprise. But, if you have several administrators, each with a
+      different workstation, then you may want to create a user
+      library that you can distribute. That way, user-defined objects
+      only have to be created once, by one person.</para>
 
-      <para>Let's create and distribute a simple user-defined library. Start by selection <guimenuitem>New Object/New Library</guimenuitem> from the <guimenu>Object</guimenu> menu.</para>
+      <para>Let's create and distribute a simple user-defined
+      library. Start by selection <guimenuitem>New Object/New
+      Library</guimenuitem> from the <guimenu>Object</guimenu>
+      menu.</para>
 
-      <para>The library pull-down menu switches to <guilabel>New Library</guilabel>, which is empty by default, except for the standard folders.</para>
+      <para>The library pull-down menu switches to <guilabel>New
+      Library</guilabel>, which is empty by default, except for the
+      standard folders.</para>
 
       <figure float="1" id="user-defined-library1">
           <title>A new, empty user-defined library</title>
@@ -6394,14 +7124,23 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
               <graphic scale="70" fileref="user-defined-library2.png" />
         </figure>
 
-      <para>The Library dialog has three controls: Name, Color, and Comments. Enter a new name for the library in the Name field. (Here we are calling it ACME Library.) If you want, you can also specify a color for the library. This helps you notice when you're in that particular library. In this case, we have set the color to a shade of blue.</para>
+      <para>The Library dialog has three controls: Name, Color, and
+      Comments. Enter a new name for the library in the Name
+      field. (Here we are calling it ACME Library.) If you want, you
+      can also specify a color for the library. This helps you notice
+      when you're in that particular library. In this case, we have
+      set the color to a shade of blue.</para>
 
       <figure float="1" id="user-defined-library3">
           <title>ACME library with blue background</title>
               <graphic scale="70" fileref="user-defined-library3.png" />
         </figure>
 
-      <para>Use the normal object creation procedures to create objects in the library. Here we have created a Web server object with a interface that has a dynamically assigned IP address. We've also created a network object for the 192.168.3.0/24 subnet.</para>
+      <para>Use the normal object creation procedures to create
+      objects in the library. Here we have created a Web server object
+      with a interface that has a dynamically assigned IP
+      address. We've also created a network object for the
+      192.168.3.0/24 subnet.</para>
 
       <figure float="1" id="user-defined-library4">
           <title>Library with user-created objects</title>
@@ -6410,18 +7149,24 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
       <para>Click <guimenuitem>File/Save</guimenuitem> to save the object file.</para>
 
-      <para>To export the library to a file, select <guimenuitem>File/Export Library</guimenuitem>. The following dialog appears:</para>
+      <para>To export the library to a file,
+      select <guimenuitem>File/Export Library</guimenuitem>. The
+      following dialog appears:</para>
 
       <figure float="1" id="user-defined-library5">
           <title>Export your library</title>
               <graphic scale="70" fileref="user-defined-library5.png" />
         </figure>
 
-      <para>If you want to make the library read-only, leave the <guilabel>Make exported libraries read-only</guilabel> checked. Otherwise, uncheck it.</para>
+      <para>If you want to make the library read-only, leave
+      the <guilabel>Make exported libraries read-only</guilabel>
+      checked. Otherwise, uncheck it.</para>
 
       <para>Click <guibutton>OK</guibutton>.</para>
 
-      <para>A file system Save dialog appears. Here you can specify a name and location for the file. Be sure the file has a <emphasis>.fwl</emphasis> file extension.</para>
+      <para>A file system Save dialog appears. Here you can specify a
+      name and location for the file. Be sure the file has
+      a <emphasis>.fwl</emphasis> file extension.</para>
 
       <figure float="1" id="user-defined-library6">
           <title>Save dialog box</title>
@@ -6430,9 +7175,17 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
       <para>You can now move or email the library to someone else.</para>
 
-      <para>To load a library, copy the file to the directory where you have Firewall Builder store your object files. Then, select <guimenuitem>Import Library</guimenuitem> from the Firewall Builder <guimenu>File</guimenu> menu. (You may have to restart Firewall Builder to get it to locate the file. Until then, the "Import Library" option may be grayed out.)</para>
+      <para>To load a library, copy the file to the directory where
+      you have Firewall Builder store your object files. Then,
+      select <guimenuitem>Import Library</guimenuitem> from the
+      Firewall Builder <guimenu>File</guimenu> menu. (You may have to
+      restart Firewall Builder to get it to locate the file. Until
+      then, the "Import Library" option may be grayed out.)</para>
       
-     <para>You can now use this library like any other library. Keep in mind that changes to one copy of the user-defined library has no effect on other copies. To propagate changes, you have to redistribute the library.</para>
+     <para>You can now use this library like any other library. Keep
+     in mind that changes to one copy of the user-defined library has
+     no effect on other copies. To propagate changes, you have to
+     redistribute the library.</para>
    </sect1>
 
    <sect1 id="find-replace">
@@ -6445,18 +7198,33 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
               <graphic scale="70" fileref="find-replace1.png" />
         </figure>
 
-      <para>Further, imagine that you are reassigning all the IP addresses in 192.168.2.0/24 to be in the 192.168.3.0/24 subnet and that you need to modify the firewall rules to match.</para>
+      <para>Further, imagine that you are reassigning all the IP
+      addresses in 192.168.2.0/24 to be in the 192.168.3.0/24 subnet
+      and that you need to modify the firewall rules to match.</para>
 
-      <para>One way to handle this is to manually browse through every rule in your firewall, removing the .2.0 addresses where you find them and replacing them with the equivalent .3.0 addresses. Or, you could do a Find and Replace.</para>
+      <para>One way to handle this is to manually browse through every
+      rule in your firewall, removing the .2.0 addresses where you
+      find them and replacing them with the equivalent .3.0
+      addresses. Or, you could do a Find and Replace.</para>
 
-      <para>Select <guimenuitem>Find Object</guimenuitem> from the <guimenu>Object</guimenu> menu to open the Find and Replace dialog, shown here:</para>
+      <para>Select <guimenuitem>Find Object</guimenuitem> from
+      the <guimenu>Object</guimenu> menu to open the Find and Replace
+      dialog, shown here:</para>
 
             <figure float="1" id="find-replace2">
           <title>Find/Replace dialog</title>
               <graphic scale="50" fileref="find-replace2.png" />
         </figure>
 
-      <para>To replace every net-192.168.2.0 object with the net-192.168.3.0 object, first create the new network object. Then, drag (or Copy/Paste) a net-192.168.2.0 object into the <guilabel>Find object</guilabel> field and the net-192.168.3.0 object into the <guilabel>Replace object</guilabel> field. Then, set the <guilabel>Scope for search and replace</guilabel> pull-down menu to <guimenuitem>policy of the opened firewall</guimenuitem>, as shown here:</para>
+            <para>To replace every net-192.168.2.0 object with the
+              net-192.168.3.0 object, first create the new network
+              object. Then, drag (or Copy/Paste) a net-192.168.2.0
+              object into the <guilabel>Find object</guilabel> field
+              and the net-192.168.3.0 object into
+              the <guilabel>Replace object</guilabel> field. Then, set
+              the <guilabel>Scope for search and replace</guilabel>
+              pull-down menu to <guimenuitem>policy of the opened
+              firewall</guimenuitem>, as shown here:</para>
 
             <figure float="1" id="find-replace3">
           <title>Objects to find and replace</title>
@@ -6476,19 +7244,30 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         <listitem>
             <para>Object parameter pull-down menu</para>
 
-            <para>Allows you to specify how you search for objects. You can search by Name (usable on all objects), Address (usable on all addressable objects), TCP/UDP port (usable on TCP and UDP objects), Protocol Number (usable on IP service objects) and ICMP type (usable on ICMP service objects).</para>
+            <para>Allows you to specify how you search for
+            objects. You can search by Name (usable on all objects),
+            Address (usable on all addressable objects), TCP/UDP port
+            (usable on TCP and UDP objects), Protocol Number (usable
+            on IP service objects) and ICMP type (usable on ICMP
+            service objects).</para>
           </listitem>
 
           <listitem>
             <para>Text field</para>
 
-            <para>The text field is populated automatically if you drag an object into the Find object field. Otherwise, you can type the text in manually.</para>
+            <para>The text field is populated automatically if you
+            drag an object into the Find object field. Otherwise, you
+            can type the text in manually.</para>
           </listitem>
 
           <listitem>
             <para>Use regular expressions</para>
 
-            <para>Checking the <guilabel>Use regular expressions</guilabel> checkbox causes the text field to be interpreted as a Perl regular expression. You can only do searches based on a regular expression. You cannot do replaces based on a regular expression.</para>
+            <para>Checking the <guilabel>Use regular
+            expressions</guilabel> checkbox causes the text field to
+            be interpreted as a Perl regular expression. You can only
+            do searches based on a regular expression. You cannot do
+            replaces based on a regular expression.</para>
           </listitem>
 
           <listitem>
@@ -6506,13 +7285,24 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           <listitem>
             <para>Scope of search and replace</para>
 
-            <para>Allows you to specify whether a search or search and replace will cover just the object tree, the tree and the policies of all firewalls in the object file, just the policies in the object file, or just the current open policy.</para>
+            <para>Allows you to specify whether a search or search and
+            replace will cover just the object tree, the tree and the
+            policies of all firewalls in the object file, just the
+            policies in the object file, or just the current open
+            policy.</para>
           </listitem>
 
           <listitem>
             <para>Buttons</para>
 
-            <para>The <guibutton>Next</guibutton> button finds the next instance of the object. It does not do a replace. <guibutton>Replace All</guibutton> replaces all instances of the object in the given scope. <guibutton>Replace</guibutton> replaces the current instance. <guibutton>Replace &amp; Find</guibutton> replaces the current instance and jumps to the next one.</para>
+            <para>The <guibutton>Next</guibutton> button finds the
+            next instance of the object. It does not do a
+            replace. <guibutton>Replace All</guibutton> replaces all
+            instances of the object in the given
+            scope. <guibutton>Replace</guibutton> replaces the current
+            instance. <guibutton>Replace &amp; Find</guibutton>
+            replaces the current instance and jumps to the next
+            one.</para>
           </listitem>
         </itemizedlist>
 
@@ -6589,7 +7379,9 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
       <para>This part of the druid is the same for all discovery methods.</para>
 
-      <para>The left column shows the networks that were discovered. The right column shows the network objects that will be created. To start with, the right column is empty.</para>
+      <para>The left column shows the networks that were
+      discovered. The right column shows the network objects that will
+      be created. To start with, the right column is empty.</para>
 
       <para>This page of the Druid also has the following buttons:</para>
 
@@ -6641,9 +7433,13 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       names that end with "somedomain.com", we could use the regular
       expression ".*somedomain.com$"</para>
 
-      <para>Once you have reviewed the discovered networks, decide which ones you want to turn into Network objects. Then, copy those networks to the right column.</para>
+      <para>Once you have reviewed the discovered networks, decide
+      which ones you want to turn into Network objects. Then, copy
+      those networks to the right column.</para>
 
-      <para>To populate the right column with objects, select the networks you want, then click the right arrow (--&gt;) to put them in the right column.</para>
+      <para>To populate the right column with objects, select the
+      networks you want, then click the right arrow (--&gt;) to put
+      them in the right column.</para>
 
       <figure float="1" id="discovery-hosts-2a">
         <title>Creating networks using gathered information (more)</title>
@@ -6671,7 +7467,10 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
             <graphic scale="70" fileref="discovery-druid12.png" />
       </figure>
 
-      <para>Here you can specify which type of object will be created for each discovered item: Address, Host, or Firewall. Here we are changing the object "sveasoft (10.3.14.202)" from a host to a firewall:</para>
+      <para>Here you can specify which type of object will be created
+      for each discovered item: Address, Host, or Firewall. Here we
+      are changing the object "sveasoft (10.3.14.202)" from a host to
+      a firewall:</para>
 
       <figure float="1" id="discovery-hosts-2e">
         <title>Specify type of object</title>
@@ -6685,7 +7484,9 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
             <graphic scale="70" fileref="discovery-druid14.png" />
       </figure>
 
-      <para>Here you can specify which library the objects will appear in. Normally this would be User, unless you have created a user-defined library. Click <guibutton>Next</guibutton>.</para>
+      <para>Here you can specify which library the objects will appear
+      in. Normally this would be User, unless you have created a
+      user-defined library. Click <guibutton>Next</guibutton>.</para>
 
       <para>The wizard finishes processing, and your new objects appear in your library:</para>
 
@@ -6709,19 +7510,22 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       linkend="discovery-snmp-seed" />). The crawler implements the following
       algorithm (this is a somewhat simplified explanation):</para>
 
-      <para>First, it runs several SNMP queries against the seed host trying
-      to collect the list of its interfaces and its ARP
-      and routing tables. This host is then added to the table of discovered
-      network objects, together with its interfaces, their addresses and
-      netmasks, and the host's "sysinfo" parameters. Then the crawler analyses
-      the routing table of that host; this allows it to discover the networks
-      and subnets, which in turn are also added to the list of discovered
-      objects. Then it analyses the ARP table, which holds MAC and IP
-      addresses of neighboring hosts. It takes one host at a time from this table and repeats the same algorithm, using the new host as a seed host. When it
-      pulls an ARP table from the next host, it discards entries that describe
-      objects it already knows about. However if it finds new entries, it
-      tries them as well and thus travels further down the network. Eventually
-      it will visit every host on all subnets on the network.</para>
+      <para>First, it runs several SNMP queries against the seed host
+      trying to collect the list of its interfaces and its ARP and
+      routing tables. This host is then added to the table of
+      discovered network objects, together with its interfaces, their
+      addresses and netmasks, and the host's "sysinfo"
+      parameters. Then the crawler analyses the routing table of that
+      host; this allows it to discover the networks and subnets, which
+      in turn are also added to the list of discovered objects. Then
+      it analyses the ARP table, which holds MAC and IP addresses of
+      neighboring hosts. It takes one host at a time from this table
+      and repeats the same algorithm, using the new host as a seed
+      host. When it pulls an ARP table from the next host, it discards
+      entries that describe objects it already knows about. However if
+      it finds new entries, it tries them as well and thus travels
+      further down the network. Eventually it will visit every host on
+      all subnets on the network.</para>
 
       <para>This algorithm relies on hosts answering to the SNMP queries. If
       the very first host (the "seed" host) does not run SNMP agent, the
@@ -6802,9 +7606,11 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
           <listitem>
             <para>SNMP (and DNS) query parameters</para>
 
-            <para>You must specify the SNMP "read" community string which will
-            be used for SNMP queries. You can also specify the number of
-            retries and a timeout for the query. (The number of retries and timeout parameters also apply to DNS and reverse DNS queries.)</para>
+            <para>You must specify the SNMP "read" community string
+            which will be used for SNMP queries. You can also specify
+            the number of retries and a timeout for the query. (The
+            number of retries and timeout parameters also apply to DNS
+            and reverse DNS queries.)</para>
           </listitem>
         </itemizedlist></para>
 
@@ -8662,13 +9468,30 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
     <sect1 id="routing">
       <title>Routing Ruleset</title>
-      <para>Though not strictly a firewall function, Firewall Builder also lets you configure the routing tables of iptables, PIX and Cisco IOS firewalls. Routing rules are ignored for other firewalls.</para>
 
-      <para>Construct these rules the same way you construct access policy or NAT rules, by dragging the appropriate objects into the rules. When you run the compiled script on the target firewall, the routing rule set rules create static routes in the firewall.</para>
+      <para>Though not strictly a firewall function, Firewall Builder
+      also lets you configure the routing tables of iptables, PIX and
+      Cisco IOS firewalls. Routing rules are ignored for other
+      firewalls.</para>
 
-      <note><para>When executing a firewall script, all existing routing rules previously set by user space processes are deleted. To see which rules will be deleted, you can use the command <command>ip route show</command>. All lines not including "proto kernel" will be deleted upon reload of the firewall script.</para></note>
+      <para>Construct these rules the same way you construct access
+      policy or NAT rules, by dragging the appropriate objects into
+      the rules. When you run the compiled script on the target
+      firewall, the routing rule set rules create static routes in the
+      firewall.</para>
 
-      <para>If you want to use ECMP (Equal Cost Multi Path) routing rules with your iptables-based firewall, make sure your kernel is compiled with the CONFIG_IP_ROUTE_MULTIPATH option. See <xref linkend="ecmp" /> for instructions on creating multiple paths to a destination.</para>
+      <note><para>When executing a firewall script, all existing
+      routing rules previously set by user space processes are
+      deleted. To see which rules will be deleted, you can use the
+      command <command>ip route show</command>. All lines not
+      including "proto kernel" will be deleted upon reload of the
+      firewall script.</para></note>
+
+      <para>If you want to use ECMP (Equal Cost Multi Path) routing
+      rules with your iptables-based firewall, make sure your kernel
+      is compiled with the CONFIG_IP_ROUTE_MULTIPATH option. See
+      <xref linkend="ecmp" /> for instructions on creating multiple
+      paths to a destination.</para>
 
           <figure float="1" id="routing-rule1">
             <title>A Routing Rule</title>
@@ -8679,7 +9502,9 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
             <listitem>
               <para>Destination</para>
 
-              <para>Can be any addressable object (hosts, addresses, address ranges, groups, networks.) The default destination ("Default") is 0.0.0.0/0.</para>
+              <para>Can be any addressable object (hosts, addresses,
+              address ranges, groups, networks.) The default
+              destination ("Default") is 0.0.0.0/0.</para>
             </listitem>
 
             <listitem>
@@ -8697,7 +9522,9 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
             <listitem>
               <para>Metric</para>
 
-              <para>The metric of the route. The default metric for PIX is 1, so a "0" in a rule is automatically changed to 1 at compilation.</para>
+              <para>The metric of the route. The default metric for
+              PIX is 1, so a "0" in a rule is automatically changed to
+              1 at compilation.</para>
             </listitem>
 
             <listitem>
@@ -8708,20 +9535,54 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
           </itemizedlist>
 
 	<note>
-	  <para>RedHat seems to reset routing rules explicitly upon system startup. Therefore, it's hard to distinguish interface rules from rules set up by the user. On RedHat systems you need to include the interface basic routing rules into your Firewall Builder routing setup. IF YOU DO NOT FOLLOW THIS HINT, YOUR MACHINE WILL FREEZE ANY NETWORK TRAFFIC UPON START OF THE FIREWALL SCRIPT.  This means, for example, if eth0 has network 192.168.3.0/24 attached to it, you need to add a route with Destination=Network(192.168.3.0/24), Gateway empty and Interface=eth0.  This problem was encountered on RedHat 8.0, but other versions and distributions might be affected too. (Debian sarge and SuSE Linux work fine without interface routing rules being included in Firewall Builder routing rules.)
+	  <para>RedHat seems to reset routing rules explicitly upon
+	  system startup. Therefore, it's hard to distinguish
+	  interface rules from rules set up by the user. On RedHat
+	  systems you need to include the interface basic routing
+	  rules into your Firewall Builder routing setup. IF YOU DO
+	  NOT FOLLOW THIS HINT, YOUR MACHINE WILL FREEZE ANY NETWORK
+	  TRAFFIC UPON START OF THE FIREWALL SCRIPT.  This means, for
+	  example, if eth0 has network 192.168.3.0/24 attached to it,
+	  you need to add a route with
+	  Destination=Network(192.168.3.0/24), Gateway empty and
+	  Interface=eth0.  This problem was encountered on RedHat 8.0,
+	  but other versions and distributions might be affected
+	  too. (Debian sarge and SuSE Linux work fine without
+	  interface routing rules being included in Firewall Builder
+	  routing rules.)
 	  </para>
 	</note>
 
       <sect2>
 	<title>Handling of the Default Route</title>
 
-	  <para>"Default route" is special in that it is critical for your ability to access the firewall machine when it is managed remotely. To make sure you do not cut off access accidentally by not adding default to the routing rules in Firewall Builder, Firewall Builder treats the default route in a special way. If the default route is configured in the routing rule set in Firewall Builder, then the default route found in the routing table is deleted and replaced with the one configured in Firewall Builder. However, if there is no default route in the routing rule set in Firewall Builder configuration, then the original default route found in the routing table is not deleted. Additionally, the script checks if the installation of routing entries was successful and rolls changes back in case of errors. This ensures that the firewall machine will not be left with no default route and therefore no way to access it remotely.</para>
+	  <para>"Default route" is special in that it is critical for
+	  your ability to access the firewall machine when it is
+	  managed remotely. To make sure you do not cut off access
+	  accidentally by not adding default to the routing rules in
+	  Firewall Builder, Firewall Builder treats the default route
+	  in a special way. If the default route is configured in the
+	  routing rule set in Firewall Builder, then the default route
+	  found in the routing table is deleted and replaced with the
+	  one configured in Firewall Builder. However, if there is no
+	  default route in the routing rule set in Firewall Builder
+	  configuration, then the original default route found in the
+	  routing table is not deleted. Additionally, the script
+	  checks if the installation of routing entries was successful
+	  and rolls changes back in case of errors. This ensures that
+	  the firewall machine will not be left with no default route
+	  and therefore no way to access it remotely.</para>
 
       </sect2>
 
       <sect2 id="ecmp">
 	<title>ECMP routes</title>
-	  <para>Firewall Builder supports ECMP routes in Linux-based firewalls using iptables. To create an ECMP rule simply specify several rules with different paths, i.e. different combinations of Gateway and Interface, for the same Destination and with the same metric.</para>
+
+	  <para>Firewall Builder supports ECMP routes in Linux-based
+	  firewalls using iptables. To create an ECMP rule simply
+	  specify several rules with different paths, i.e. different
+	  combinations of Gateway and Interface, for the same
+	  Destination and with the same metric.</para>
 
 	  <para>In this example, there are three different paths to HostA.</para>
 
@@ -8730,7 +9591,10 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
                 <graphic scale="60" fileref="routing-rule2.png" />
           </figure>
 
-	  <para>Rules are automatically classified in ECMP rules and non-ECMP.  The ECMP rules are written out in a separated section of the firewall script after the "normal" routing rules.</para>
+	  <para>Rules are automatically classified in ECMP rules and
+	  non-ECMP.  The ECMP rules are written out in a separated
+	  section of the firewall script after the "normal" routing
+	  rules.</para>
       </sect2>
     </sect1>
 
@@ -8745,10 +9609,12 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
                 <graphic scale="60" fileref="editing_policy1.png" />
           </figure>
 
-          <para>Rules can be added, removed or moved around in the policy
-          using commands in a popup menu. The menu appears if you right-click rule element "Number" (the very first rule element,
-          counting from the left).  <xref
-          linkend="editing-policy1" /> illustrates this menu.</para>
+          <para>Rules can be added, removed or moved around in the
+          policy using commands in a popup menu. The menu appears if
+          you right-click rule element "Number" (the very first rule
+          element, counting from the left).
+          <xref linkend="editing-policy1" /> illustrates this
+          menu.</para>
 
           <para>This menu allows you to add new rules above or below the
           currently selected rule in the policy, remove rules, move the
@@ -8795,13 +9661,25 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               <listitem>
                 <para>New Group</para>
 
-                <para>Contiguous rules can be grouped together for easier handling. A group of rules can be collapsed in the GUI so that only the group name appears. This can make it easier to deal with rulesets with many rules. The <guimenu>New Group</guimenu> command opens a dialog that lets you create and name a new group. The current rule is automatically added to the group. <xref linkend="using-rule-groups" /> has more information on rule groups.</para>
+                <para>Contiguous rules can be grouped together for
+                easier handling. A group of rules can be collapsed in
+                the GUI so that only the group name appears. This can
+                make it easier to deal with rulesets with many
+                rules. The <guimenu>New Group</guimenu> command opens
+                a dialog that lets you create and name a new
+                group. The current rule is automatically added to the
+                group. <xref linkend="using-rule-groups" /> has more
+                information on rule groups.</para>
               </listitem>
 
               <listitem>
                 <para>Add to the group</para>
 
-                <para>The selection only appears if you right-click on a rule directly above or below an existing group. If selected, the current rule is added to the indicated group. <xref linkend="using-rule-groups" /> has more information on rule groups.</para>
+                <para>The selection only appears if you right-click on
+                a rule directly above or below an existing group. If
+                selected, the current rule is added to the indicated
+                group. <xref linkend="using-rule-groups" /> has more
+                information on rule groups.</para>
               </listitem>
 <!--
               <listitem>
@@ -8832,20 +9710,28 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               <listitem>
                 <para>Paste</para>
 
-                <para>The object on the clipboard is pasted into the field in the the
-                rule. A copy of the object stays on the clipboard, so it may be pasted multiple times.</para>
+                <para>The object on the clipboard is pasted into the
+                field in the the rule. A copy of the object stays on
+                the clipboard, so it may be pasted multiple
+                times.</para>
               </listitem>
 
               <listitem>
                 <para>Where used</para>
 
-                <para>Opens a dialog that shows a list of where the rule is used in all rule sets in the current firewall. In addition, simply clicking on an object puts a red rectangle around that object everywhere it occurs in the rule set.</para>
+                <para>Opens a dialog that shows a list of where the
+                rule is used in all rule sets in the current
+                firewall. In addition, simply clicking on an object
+                puts a red rectangle around that object everywhere it
+                occurs in the rule set.</para>
               </listitem>
 
               <listitem>
                 <para>Reveal in tree</para>
 
-                <para>Shows the object in its location in the appropriate tree. Simply clicking on the object does the same thing.</para>
+                <para>Shows the object in its location in the
+                appropriate tree. Simply clicking on the object does
+                the same thing.</para>
               </listitem>
 
               <listitem>
@@ -8877,8 +9763,9 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
         <sect2>
           <title>Changing rule direction</title>
 
-          <para>Clicking the right mouse button when the cursor is over the
-          rule element <guilabel>Direction</guilabel> opens a context-sensitive pop-up menu (
+          <para>Clicking the right mouse button when the cursor is
+          over the rule element <guilabel>Direction</guilabel> opens a
+          context-sensitive pop-up menu (
           <xref linkend="editing-policy4" /> ).</para>
 
           <figure float="1" id="editing-policy4">
@@ -8927,8 +9814,13 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
             <listitem>
               <para>Modify Options:</para>
 
-              <para>This menu item brings up a dialogue that allows you to
-              modify certain options specific to the target firewall platform, as in <xref linkend="rule-options1" />. These settings are associated with the current rule only. For more information on the options available, click <guibutton>Help</guibutton> in the Option dialogue.</para>
+              <para>This menu item brings up a dialogue that allows
+              you to modify certain options specific to the target
+              firewall platform, as in <xref linkend="rule-options1"
+              />. These settings are associated with the current rule
+              only. For more information on the options available,
+              click <guibutton>Help</guibutton> in the Option
+              dialogue.</para>
             </listitem>
 
             <listitem>
@@ -8960,86 +9852,127 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	<sect3>
 	  <title>Creating rule groups</title>
 
-      <para>If you have a rule set with quite a few rules, it can be useful to lump some of them together into rule groups. A rule group is a contiguous set of rules that you have grouped together and assigned a name to. Once you have a group, you can collapse it down visually to save screen real estate, then pop it back open when you need to look inside.</para>
+      <para>If you have a rule set with quite a few rules, it can be
+      useful to lump some of them together into rule groups. A rule
+      group is a contiguous set of rules that you have grouped
+      together and assigned a name to. Once you have a group, you can
+      collapse it down visually to save screen real estate, then pop
+      it back open when you need to look inside.</para>
 
-      <para>Rule groups <emphasis>only</emphasis> affect how the rules are displayed visually. They have <emphasis>no</emphasis> on how the rule set is compiled or how it works on the firewall.</para>
+      <para>Rule groups <emphasis>only</emphasis> affect how the rules
+      are displayed visually. They have <emphasis>no</emphasis> on how
+      the rule set is compiled or how it works on the firewall.</para>
 
       <para>Let's look at a simple example of using rule groups.</para>
 
-      <para><xref linkend="rule-group1" /> shows a fragment of a set of rules. There are two rules for packets destined for eth0, several rules for packets destined for eth1, and a couple rules for eth2-destined packets.</para>
+      <para><xref linkend="rule-group1" /> shows a fragment of a set
+      of rules. There are two rules for packets destined for eth0,
+      several rules for packets destined for eth1, and a couple rules
+      for eth2-destined packets.</para>
 
           <figure float="1" id="rule-group1">
             <title>Rules without grouping</title>
                 <graphic scale="70" fileref="rule-group1.png" />  
           </figure>
 
-      <para>The eth2 rules take up a lot of space, so let's group them together. We can then collapse the group so it uses less space.</para>
+      <para>The eth2 rules take up a lot of space, so let's group them
+      together. We can then collapse the group so it uses less
+      space.</para>
 
-      <para>To create the group, right-click anywhere in the first "eth1" rule and select <guimenuitem>New group</guimenuitem>. (You don't have to click on the first rule. Any rule in the group will do.)</para>
+      <para>To create the group, right-click anywhere in the first
+      "eth1" rule and select <guimenuitem>New
+      group</guimenuitem>. (You don't have to click on the first
+      rule. Any rule in the group will do.)</para>
 
           <figure float="1" id="rule-group2">
             <title>Create the group</title>
                 <graphic scale="70" fileref="rule-group2.png" />  
           </figure>
       
-      <para>A dialog appears. Enter the name of the group. This name is for your convenience only, so it can be anything. Here we're naming the group after the interface, but a more descriptive name can be more useful.</para>
+      <para>A dialog appears. Enter the name of the group. This name
+      is for your convenience only, so it can be anything. Here we're
+      naming the group after the interface, but a more descriptive
+      name can be more useful.</para>
 
           <figure float="1" id="rule-group3">
             <title>Name the group</title>
                 <graphic scale="70" fileref="rule-group3.png" />  
           </figure>
 
-      <para>Now we have a group with one entry. This doesn't provide much value, so let's add other rules to the group. You can add as many rules as you want, but they must all be contiguous in the rule set.</para>
+      <para>Now we have a group with one entry. This doesn't provide
+      much value, so let's add other rules to the group. You can add
+      as many rules as you want, but they must all be contiguous in
+      the rule set.</para>
 
           <figure float="1" id="rule-group4">
             <title>Group with one entry</title>
                 <graphic scale="70" fileref="rule-group4.png" />  
           </figure>
 
-      <para>To add more rules, right-click on a rule adjacent to the rule in the group, then select <guimenuitem>Add to the group eth1</guimenuitem>.</para>
+      <para>To add more rules, right-click on a rule adjacent to the
+      rule in the group, then select <guimenuitem>Add to the group
+      eth1</guimenuitem>.</para>
 
           <figure float="1" id="rule-group5">
             <title>Add a rule to the group</title>
                 <graphic scale="70" fileref="rule-group5.png" />  
           </figure>
 
-      <para>Do that to the rest of the "eth1" rows, and we now have a populated group.</para>
+      <para>Do that to the rest of the "eth1" rows, and we now have a
+      populated group.</para>
 
           <figure float="1" id="rule-group6">
             <title>A group of rules</title>
                 <graphic scale="70" fileref="rule-group6.png" />  
           </figure>
 
-      <para>To collapse the group, just click the little minus (-) icon in the upper left of the group.</para>
+      <para>To collapse the group, just click the little minus (-)
+      icon in the upper left of the group.</para>
 
           <figure float="1" id="rule-group7">
             <title>Collapsed group</title>
                 <graphic scale="70" fileref="rule-group7.png" />  
           </figure>
 
-      <para>The group now takes up less room on your screen, though it has not changed in function.</para>
+      <para>The group now takes up less room on your screen, though it
+      has not changed in function.</para>
       </sect3>
 
       <sect3>
 	<title>Modifying rule groups</title>
-	  <para>You can modify a rule group after you have created it. Options are as follows:</para>
+	  <para>You can modify a rule group after you have created
+	  it. Options are as follows:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
               <para>Rename a group</para>
 
-              <para>To rename a group, right-click the group name (or anywhere on the gray bar that heads the rule, and select <guimenuitem>Rename group</guimenuitem>. Then, change the name in the dialog and click <guibutton>OK</guibutton>.</para>
+              <para>To rename a group, right-click the group name (or
+              anywhere on the gray bar that heads the rule, and
+              select <guimenuitem>Rename group</guimenuitem>. Then,
+              change the name in the dialog and
+              click <guibutton>OK</guibutton>.</para>
             </listitem>
             <listitem>
               <para>Add more rules to a group</para>
 
-              <para>You can add an existing rule to a group if the rule is directly above or below the group. Simply right-click the rule and select <guimenuitem>Add to the group eth1</guimenuitem>.</para>
+              <para>You can add an existing rule to a group if the
+              rule is directly above or below the group. Simply
+              right-click the rule and select <guimenuitem>Add to the
+              group eth1</guimenuitem>.</para>
             </listitem>
 
             <listitem>
               <para>Remove a rule</para>
 
-              <para>You can remove a rule in a group entirely by right-clicking the number of the rule (left-most column) and selecting <guimenuitem>Remove rule</guimenuitem>. This will remove the rule from the rule set entirely. If you want to move the rule to anther part of the rule set, select <guimenuitem>Cut rule</guimenuitem> instead, and then paste the rule elsewhere.</para>
+              <para>You can remove a rule in a group entirely by
+              right-clicking the number of the rule (left-most column)
+              and selecting <guimenuitem>Remove
+              rule</guimenuitem>. This will remove the rule from the
+              rule set entirely. If you want to move the rule to
+              anther part of the rule set, select <guimenuitem>Cut
+              rule</guimenuitem> instead, and then paste the rule
+              elsewhere.</para>
             </listitem>
 <!--
             <listitem>
@@ -9207,7 +10140,8 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
     <sect1 id="rcs">
       <title>Using Built-in Revision Control in Firewall Builder</title>
 
-	<note><para>Linux and *BSD users must install RCS before using revision control in Firewall Builder.</para></note>
+	<note><para>Linux and *BSD users must install RCS before using
+	revision control in Firewall Builder.</para></note>
 
 	<para>    Firewall Builder GUI has built-in revision control
                   system that can be used to keep track of changes in
@@ -9291,10 +10225,11 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
   <para>
   
-                A few things have changed in the GUI after the file has
-                been added to the revision control system. First,
-                in addition to the file name, the title bar now also shows its
-                revision. The initial revision number after checkin is <emphasis>1.1</emphasis>.
+                A few things have changed in the GUI after the file
+                has been added to the revision control system. First,
+                in addition to the file name, the title bar now also
+                shows its revision. The initial revision number after
+                checkin is <emphasis>1.1</emphasis>.
               
   </para>
   
@@ -9317,11 +10252,12 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
   <para>
   
-                Let's see how the revision control system keeps track of
-                the changes in the data file. To demonstrate
-                this, we are going to make a change in one of the
-                objects, save the object file and check it in (this creates
-                new revision). Then we'll close the object file. Then, we'll open both revisions to see the differences.
+                Let's see how the revision control system keeps track
+                of the changes in the data file. To demonstrate this,
+                we are going to make a change in one of the objects,
+                save the object file and check it in (this creates new
+                revision). Then we'll close the object file. Then,
+                we'll open both revisions to see the differences.
               
   </para>
   
@@ -9390,36 +10326,34 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
       </tgroup>
     </table>
 
-  <para>
-  
-                If we choose revision <emphasis>1.2</emphasis> (the latest) and click <guibutton>Open</guibutton>, we see the rule that permits HTTP to the
-                firewall:
-              
-  </para>
-  
+      <para>
+        If we choose revision <emphasis>1.2</emphasis> (the latest)
+        and click <guibutton>Open</guibutton>, we see the rule that
+        permits HTTP to the firewall:
+      </para>
+      
+      
+      <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_13.png"/></figure>
+      
+      <para>
+        If we choose revision <emphasis>1.1</emphasis> and open the file, we
+        get this policy (note revision
+        number in the main window title bar, it
+        is <emphasis>1.1</emphasis>):
+      </para>
+      
 
-  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_13.png"/></figure>
+      <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_14.png"/></figure>
 
-  <para>
-  
-                If we choose revision <emphasis>1.1</emphasis> and open the file, we
-                get this policy (note revision
-                number in the main window title bar, it
-                is <emphasis>1.1</emphasis>):
-              
-  </para>
-  
-
-  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_14.png"/></figure>
-
-  <para>
-  
+      <para>
                 The rule to permit HTTP to the firewall is not there
                 because we opened the earlier revision of the data
-                file. Essentially, we rolled back the change we made in
-                rev <emphasis>1.2</emphasis>. If we only opened the earlier file to take a quick look, we can now just close the
-                file, then open the latest version to continue working. However, if we wanted, we could compile and install the
-                old revision. Note that this
+                file. Essentially, we rolled back the change we made
+                in rev <emphasis>1.2</emphasis>. If we only opened the
+                earlier file to take a quick look, we can now just
+                close the file, then open the latest version to
+                continue working. However, if we wanted, we could
+                compile and install the old revision. Note that this
                 can break things if some protocols were added to the
                 firewall rules later, but this can be useful if you
                 need to test things as they were few days ago.
@@ -9428,13 +10362,13 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
   
 
   <para>
-  
-                However, if we want to roll back the change and continue
-                without it, all we need to do is make the change in
-                this revision (1.1) and then save and check it
-                in. This will create a branch in RCS and we will be
+                However, if we want to roll back the change and
+                continue without it, all we need to do is make the
+                change in this revision (1.1) and then save and check
+                it in. This will create a branch in RCS and we will be
                 able to continue working with it later. The previous
-                change, checked in as rev 1.2 will always be there, and we will always be able to revert to it if we
+                change, checked in as rev 1.2 will always be there,
+                and we will always be able to revert to it if we
                 want. The program does not merge branches, merging
                 changes in XML files is a complex task and is not
                 implemented at this time.
@@ -9484,9 +10418,9 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
   <para>
   
                 This section demonstrates how the built-in revision
-                control system in Firewall Builder GUI can be
-                used to document changes in the file. It can also be
-                used to roll back changes to a previous revision both
+                control system in Firewall Builder GUI can be used to
+                document changes in the file. It can also be used to
+                roll back changes to a previous revision both
                 temporary or permanently. Using RCS helps establish
                 accountability if several administrators can make
                 changes to the policy of firewalls because RCS keeps
@@ -9494,12 +10428,14 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
                 in. RCS in Firewall Builder works on all supported OS,
                 that is Linux, FreeBSD, OpenBSD, Windows and Mac OS
                 X. On Linux, *BSD and Mac OS X it relies on
-                system-wide installed <emphasis>rcs</emphasis> package, while on
-                Windows rcs tools are installed as part of the
-                Firewall Builder package. In general, it's useful to always use revision control even in simple cases when only one
-                administrator uses the tool. The ability to document
-                changes and roll back if necessary greatly improve the process of
-                security policy management.
+                system-wide installed <emphasis>rcs</emphasis>
+                package, while on Windows rcs tools are installed as
+                part of the Firewall Builder package. In general, it's
+                useful to always use revision control even in simple
+                cases when only one administrator uses the tool. The
+                ability to document changes and roll back if necessary
+                greatly improve the process of security policy
+                management.
               
   </para>
 
@@ -9508,11 +10444,19 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
     <sect1 id="compile-install-policy">
       <title>Compiling and Installing firewall policies</title>
 
-	<note><para>This section offers a quick description of the process to compile and install a policy. <xref linkend="compile-install-detail" /> contains more detailed instructions on installing a compiled policy onto your firewall device.</para></note>
+	<note><para>This section offers a quick description of the
+	process to compile and install a
+	policy. <xref linkend="compile-install-detail" /> contains
+	more detailed instructions on installing a compiled policy
+	onto your firewall device.</para></note>
 	
-	<para>Once you have a policy created, you need to compile it into a script that can run on your target device. You then need to install it on that device.</para>
+	<para>Once you have a policy created, you need to compile it
+	into a script that can run on your target device. You then
+	need to install it on that device.</para>
 
-	<para>Let's walk through compiling and installing a simple iptables firewall onto a Linux machine. Here is the access policy of the firewall:</para>
+	<para>Let's walk through compiling and installing a simple
+	iptables firewall onto a Linux machine. Here is the access
+	policy of the firewall:</para>
 
         <figure float="1" id="compile-install-firewall-1">
           <title>A policy to compile and install</title>
@@ -9526,7 +10470,10 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               <graphic scale="70" fileref="compile-install-firewall-2.png" />
         </figure>
 
-	<para>Select your firewall in the dialog. If your object file has more than one firewall, you will see an entry for each firewall. To compile several of them at once, just check the checkboxes.</para>
+	<para>Select your firewall in the dialog. If your object file
+	has more than one firewall, you will see an entry for each
+	firewall. To compile several of them at once, just check the
+	checkboxes.</para>
 
         <figure float="1" id="compile-install-firewall-3">
           <title>Select your firewall</title>
@@ -9535,7 +10482,9 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
 	<para>Click <guibutton>Next</guibutton>.</para>
 
-	<para>A dialog appears that tracks the status of the compile. If everything goes well, the output will look something like this:</para>
+	<para>A dialog appears that tracks the status of the
+	compile. If everything goes well, the output will look
+	something like this:</para>
 
         <figure float="1" id="compile-install-firewall-4">
           <title>Compile status messages</title>
@@ -9544,13 +10493,23 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
 	<para>If you get an error, see <xref linkend="troubleshooting-compiler-runtime" />.</para>
 
-	<para>To see the created script, look in the same directory as your .fwb file. The file will be called &lt;firewallName&gt;.fw. (If you changed your default directory in the Preferences, then the generated script will be there instead.)</para>
+	<para>To see the created script, look in the same directory as
+	your .fwb file. The file will be called
+	&lt;firewallName&gt;.fw. (If you changed your default
+	directory in the Preferences, then the generated script will
+	be there instead.)</para>
 
-	<note><para>This rest of this section offers a quick description of the process of installing a policy. <xref linkend="compile-install-detail" /> contains more detailed instructions, including how to set up SSH on a variety of platforms.</para></note>
+	<note><para>This rest of this section offers a quick
+	description of the process of installing a
+	policy. <xref linkend="compile-install-detail" /> contains
+	more detailed instructions, including how to set up SSH on a
+	variety of platforms.</para></note>
 
 	<para>Create directory <emphasis>/etc/fw/</emphasis> on your firewall.</para>
 
-	<para>Now let's install the script using Firewall Builder's "install" functionality. Select <guimenuitem>Rules/Install</guimenuitem>.</para>
+	<para>Now let's install the script using Firewall Builder's
+	"install"
+	functionality. Select <guimenuitem>Rules/Install</guimenuitem>.</para>
 
 
 
@@ -9566,25 +10525,37 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               <graphic scale="50" fileref="compile-install-firewall-5.png" />
         </figure>
 
-	<para>Make sure the <guilabel>Install</guilabel> checkbox is checked, then click <guibutton>Next</guibutton>. The following dialog appears:</para>
+	<para>Make sure the <guilabel>Install</guilabel> checkbox is
+	checked, then click <guibutton>Next</guibutton>. The following
+	dialog appears:</para>
 
         <figure float="1" id="compile-install-firewall-6">
           <title>Firewall SSH and install parameters</title>
               <graphic scale="50" fileref="compile-install-firewall-6.png" />
         </figure>
 
-	<para>Enter the root username and password for the device, and specify the IP address of the management interface of the device. The first time you test your firewall, it's best to leave the <guilabel>Test run</guilabel> checkbox checked. If something goes wrong, you have only to reboot your device to get back the old configuration. If, however, you want your policy to be permanent on the device, uncheck this box.</para>
+	<para>Enter the root username and password for the device, and
+	specify the IP address of the management interface of the
+	device. The first time you test your firewall, it's best to
+	leave the <guilabel>Test run</guilabel> checkbox checked. If
+	something goes wrong, you have only to reboot your device to
+	get back the old configuration. If, however, you want your
+	policy to be permanent on the device, uncheck this box.</para>
 
 	<para>Then click <guibutton>OK</guibutton>.</para>
 
-	<para>If everything goes well, the following dialog appears and reports success. (If not, it will report failure. The log will tell you what went wrong. If the error is unclear, see <xref linkend="troubleshooting-compiler-runtime" />.)</para>
+	<para>If everything goes well, the following dialog appears
+	and reports success. (If not, it will report failure. The log
+	will tell you what went wrong. If the error is unclear, see
+	<xref linkend="troubleshooting-compiler-runtime" />.)</para>
 
 	<figure float="1" id="compile-install-firewall-7">
           <title>Installation status</title>
               <graphic scale="50" fileref="compile-install-firewall-7.png" />
         </figure>
 
-	<para>Log into the firewall to see the policy in place. For iptables, run <command>sudo iptables -L</command>.</para>
+	<para>Log into the firewall to see the policy in place. For
+	iptables, run <command>sudo iptables -L</command>.</para>
 
     </sect1>
   </chapter>
