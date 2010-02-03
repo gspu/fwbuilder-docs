@@ -30,7 +30,7 @@
       <ServiceGroup id="id2202X22057" name="TagServices" comment="" ro="False"/>
     </ServiceGroup>
     <ObjectGroup id="id2203X22057" name="Firewalls" comment="" ro="False">
-      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="1265132514" lastInstalled="0" lastModified="1265131284" platform="iptables" name="linux-test-1" comment="" ro="False">
+      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="1265233521" lastInstalled="0" lastModified="1265131284" platform="iptables" name="linux-test-1" comment="" ro="False">
         <NAT id="id2232X22057" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -120,7 +120,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="1265132514" lastInstalled="0" lastModified="1265131290" platform="iptables" name="linux-test-2" comment="" ro="False">
+      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="1265233521" lastInstalled="0" lastModified="1265131290" platform="iptables" name="linux-test-2" comment="" ro="False">
         <NAT id="id2007X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -212,7 +212,7 @@
       </Firewall>
     </ObjectGroup>
     <ObjectGroup id="id2204X22057" name="Clusters" comment="" ro="False">
-      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="1265132514" lastInstalled="0" lastModified="1265141357" platform="iptables" name="linux-cluster" comment="" ro="False">
+      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="1265233521" lastInstalled="0" lastModified="1265233512" platform="iptables" name="linux-cluster" comment="" ro="False">
         <NAT id="id2340X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id32717X22130" disabled="False" position="0" action="Translate" comment="">
             <OSrc neg="False">
@@ -388,10 +388,16 @@
           <InterfaceOptions>
             <Option name="type">cluster_interface</Option>
           </InterfaceOptions>
-          <FailoverClusterGroup id="id2349X22130" master_iface="id2239X22057" type="vrrp" name="linux-cluster:eth0:members" comment="">
+          <FailoverClusterGroup id="id2349X22130" master_iface="id2239X22057" type="heartbeat" name="linux-cluster:eth0:members" comment="">
             <ObjectRef ref="id2014X22130"/>
             <ObjectRef ref="id2239X22057"/>
-            <ClusterGroupOptions/>
+            <ClusterGroupOptions>
+              <Option name="heartbeat_address">224.0.10.100</Option>
+              <Option name="heartbeat_port">694</Option>
+              <Option name="heartbeat_unicast">True</Option>
+              <Option name="openais_address">226.94.1.1</Option>
+              <Option name="openais_port">5405</Option>
+            </ClusterGroupOptions>
           </FailoverClusterGroup>
         </Interface>
         <Interface id="id2353X22130" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
@@ -399,7 +405,7 @@
           <InterfaceOptions>
             <Option name="type">cluster_interface</Option>
           </InterfaceOptions>
-          <FailoverClusterGroup id="id2356X22130" master_iface="id2242X22057" type="vrrp" name="linux-cluster:eth1:members" comment="">
+          <FailoverClusterGroup id="id2356X22130" master_iface="id2242X22057" type="heartbeat" name="linux-cluster:eth1:members" comment="">
             <ObjectRef ref="id2019X22130"/>
             <ObjectRef ref="id2242X22057"/>
             <ClusterGroupOptions/>
