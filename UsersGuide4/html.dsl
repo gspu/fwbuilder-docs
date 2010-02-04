@@ -56,8 +56,11 @@
 
 (define %stylesheet%
   ;; Name of the stylesheet to use
-  "/css/default.css"
+  "users_guide_3.css"
 )
+
+<!--
+ no need to do this anymore, using @import in users_guide_3.css instead
 
 (define ($user-html-header$ #!optional
                             (home (empty-node-list))
@@ -69,6 +72,7 @@
                           (list "TYPE" "TEXT/CSS")
                           (list "HREF" "users_guide_3.css")))
 )
+-->
 
 (define %header-navigation%
   ;; REFENTRY header-navigation
@@ -133,7 +137,12 @@
   #f)
 -->
 
- (define %use-id-as-filename%
+
+(define (chunk-section-depth)
+  ;; To make sect1 and sect2 go into separate chunks
+  2)
+
+(define %use-id-as-filename%
   ;; Use ID attributes as name for component HTML files?
   #t)
 
