@@ -17241,7 +17241,8 @@ root@linux-test-2:~# ip -4  addr ls
       </sect3>
 
       <sect3>
-        <title>Creating Firewall and Cluster objects for the HA firewall configuration</title>
+        <title>Firewall and Cluster objects for the HA firewall
+        configuration with VRRPd</title>
 
         <para>
           Now we can create objects in Firewall Builder to represent
@@ -17831,11 +17832,11 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
         <title>Linux cluster using heartbeat</title>
 
       <para>
-        In this example we work with two Linux machines running vrrpd
-        for failover that form High Availability (HA) firewall pair,
-        and another machine behind them that will use this pair as a
-        firewall. The set up is shown in figure
-        <xref linkend="cookbook_linux_vrrpd_cluster_1"/>. Machines <emphasis>linux-test-1</emphasis>
+        In this example we work with two Linux machines running
+        heartbeat for failover that form High Availability (HA)
+        firewall pair, and another machine behind them that will use
+        this pair as a firewall. The set up is shown in figure
+        <xref linkend="cookbook_linux_hb_cluster_1"/>. Machines <emphasis>linux-test-1</emphasis>
         and <emphasis>linux-test-2</emphasis> are the firewalls and
         <emphasis>linux-test-3</emphasis> is a workstation behind
         them. All testing is done on an isolated network using private
@@ -18004,6 +18005,38 @@ root@linux-test-2:~# ip -4 addr ls
 3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
     inet 10.1.1.2/24 brd 10.1.1.255 scope global eth1
         </screen>
+
+      </sect3>
+
+      <sect3>
+        <title>Firewall and Cluster objects for the HA firewall configuration with heartbeat</title>
+
+
+      </sect3>
+
+
+      <sect3>
+        <title>Policy and NAT rules for the cluster</title>
+
+        <para>
+          Now we can create objects in Firewall Builder to represent
+          this cluster. We start with two firewall objects configured
+          with ip addresses but no policy or NAT rules. Interfaces,
+          their addresses and netmasks are shown on
+          <xref linkend="cookbook_linux_hb_cluster_2"/>:
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_2">
+          <title>Interfaces and addresses of the cluster members</title>
+          <graphic scale="60" fileref="linux-hb-cluster-2.png"/>
+        </figure>
+
+
+      </sect3>
+
+
+      <sect3>
+        <title>Managing IP addresses of the interfaces in heartbeat cluster setup</title>
 
       </sect3>
 

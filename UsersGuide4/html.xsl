@@ -10,6 +10,7 @@
 <xsl:param name="chunker.output.indent" select="'yes'"/>
 <xsl:param name="chunk.section.depth" select="2"/>
 <xsl:param name="use.id.as.filename" select="1"/>
+<xsl:param name="xref.with.number.and.title" select="0"/>
 
 <!-- Ignore image scaling for HTML. It is hard to guess image scaling for
      html correctly unless each image is adjusted individually.
