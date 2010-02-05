@@ -12,14 +12,18 @@ clean:
 
 html:   UsersGuide4.xml html.dsl html/index.html
 
-html/index.html:   UsersGuide4.xml html.dsl 
+html/index.html:   UsersGuide4.xml html.xsl
 	rm -rf html
 	mkdir -p html
 	cp *.jpg html/
 	cp *.png html/
 	cp *.css html/
-	docbook2html -d `pwd`/html.dsl -o html UsersGuide4.xml
-	chmod +x html/*.htm
+
+#	docbook2html -d `pwd`/html.dsl -o html UsersGuide4.xml
+
+	xsltproc html.xsl UsersGuide4.xml
+
+	chmod +x html/*.html
 
 #	cd html
 #	xsltproc  /opt/local/share/xsl/docbook-xsl/xhtml/chunk.xsl ../UsersGuide4.xml

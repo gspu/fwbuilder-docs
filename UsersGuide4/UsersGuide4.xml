@@ -9,6 +9,26 @@
 <!ENTITY ipt-howto "http://www.netfilter.org/documentation/HOWTO//NAT-HOWTO.html">
 <!ENTITY faq-url "http://www.fwbuilder.org/docs/firewall_builder_faq.html">
 ]>
+
+
+<!--
+
+
+to compile the Guide on Ubuntu, I install the following packages. Some
+of them may be redundant or unnecessary
+
+
+i A docbook               - standard SGML representation system for technical documents             
+i A docbook-dsssl         - modular DocBook DSSSL stylesheets, for print and HTML                   
+i   docbook-utils         - Convert Docbook files to other formats (HTML, RTF, PS, man, PDF)        
+i A docbook-xml           - standard XML documentation system, for software and systems             
+i   docbook-xsl-doc-html  - stylesheets for processing DocBook XML files (HTML documentation)       
+i   docbook-xsl-doc-pdf   - stylesheets for processing DocBook XML files (PDF documentation)        
+i   xsltproc              - XSLT command line processor                                             
+  
+
+-->
+
 <book id="book1">
   <bookinfo>
     <title>Firewall Builder 4.0 User's Guide</title>
@@ -142,7 +162,7 @@
           </listitem>
         </itemizedlist></para>
 
-      <figure float="1" id="example1">
+      <figure id="example1">
         <title>Sample firewall policy</title>
             <graphic scale="60" fileref="scrn2.png" />
       </figure>
@@ -545,8 +565,8 @@ make install
 
     <para>Let's create our first firewall object. To do this, we'll
     use the object creation menu, accessed by clicking this icon above
-    the object tree: <inlinegraphic scale="70"
-    fileref="new-object-icon.png"/>. Choose <guimenuitem>New
+    the object tree:
+    <inlinegraphic fileref="new-object-icon.png"/>. Choose <guimenuitem>New
     Firewall</guimenuitem> from the menu that appears.</para>
 
     <figure id="pict_030">
@@ -1843,7 +1863,7 @@ make install
 
       <figure float="1" id="tree-structure" pgwide="0">
         <title>Object Tree Structure</title>
-            <graphic scale="80" fileref="fwbMainWindow-4.png" />
+        <graphic fileref="fwbMainWindow-4.png" />
       </figure>
 
       <para>The object tree stores all objects in a predefined
@@ -1887,9 +1907,9 @@ make install
       highlighted in color and is shown in the dialog area on the
       right.</para>
 
-      <figure float="1" id="main-standard-objects">
+      <figure id="main-standard-objects">
         <title>Standard Objects</title>
-            <graphic scale="80" fileref="pict_095.png" />
+        <graphic fileref="pict_095.png" />
       </figure>
 
       <para>Firewall Builder understands and uses the object and
@@ -2058,12 +2078,12 @@ make install
 
       <para>New objects can be created using the
       <guimenu>New Object</guimenu> menu, accessed by clicking this icon above the object tree:
-	<inlinegraphic scale="70" fileref="new-object-icon.png"/>. Certain objects can also
+	<inlinegraphic fileref="new-object-icon.png"/>. Certain objects can also
       be created via a pop-up menu that can be opened by right-clicking on a parent object in the tree.</para>
 
       <figure float="1" id="menu-new-object">
         <title>Creating Objects Using The Object Menu</title>
-            <graphic scale="80" fileref="menu-new-object.png" />
+            <graphic fileref="menu-new-object.png" />
       </figure>
 
       <para>You can create all objects except physical address objects
@@ -2079,7 +2099,7 @@ make install
 
       <figure float="1" id="menu-right-click-new-object">
         <title>Creating Objects by Right-Clicking</title>
-            <graphic scale="80" fileref="menu-right-click-new-object.png" />
+            <graphic fileref="menu-right-click-new-object.png" />
       </figure>
 
       <para>Another way to create objects is to use
@@ -2202,7 +2222,7 @@ make install
 
       <figure float="1" id="interface-dialog">
         <title>Interface Dialog</title>
-            <graphic scale="60" fileref="host-interface1.png" />
+            <graphic scale="80" fileref="host-interface1.png" />
       </figure>
 
       <para>Dialogs for objects that can be edited have an
@@ -2227,7 +2247,7 @@ make install
 
       <figure float="1" id="policy-rulesets-figure">
         <title>Policy Rule set</title>
-            <graphic scale="60" fileref="fwbMainWindow-7.png" />
+            <graphic scale="80" fileref="fwbMainWindow-7.png" />
       </figure>
 
       <para>You can see on the left that <guilabel>Policy</guilabel>
@@ -2259,7 +2279,7 @@ make install
 
   <figure float="1">
     <title>Data file</title>
-    <graphic scale="50" fileref="multifile_slide_1.png"/>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_1.png"/>
   </figure>
 
   <para>
@@ -2270,7 +2290,7 @@ make install
 
   <figure float="1">
     <title>Data file</title>
-    <graphic scale="50" fileref="multifile_slide_2.png"/>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_2.png"/>
   </figure>
 
   <para>
@@ -2281,7 +2301,7 @@ make install
 
   <figure float="1">
     <title>1.fwb</title>
-    <graphic scale="50" fileref="multifile_slide_3.png"/>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_3.png"/>
   </figure>
 
 
@@ -2293,7 +2313,7 @@ make install
 
   <figure float="1">
     <title>Window menu</title>
-    <graphic scale="50" fileref="multifile_slide_4.png"/>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_4.png"/>
   </figure>
 
   <para>
@@ -2312,7 +2332,7 @@ make install
 
   <figure float="1">
     <title>Dragging between windows</title>
-    <graphic scale="50" fileref="multifile_slide_5.png"/>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_5.png"/>
   </figure>
 
   <para>
@@ -2322,7 +2342,7 @@ make install
 
   <figure float="1">
     <title>Second window now has the object</title>
-    <graphic scale="50" fileref="multifile_slide_6.png"/>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_6.png"/>
   </figure>
 
   <para>
@@ -2332,9 +2352,9 @@ make install
     "local ipv6 net" is now part of the data file "1.fwb".
   </para>
 
-  <figure float="1">
+  <figure>
     <title>local ipv6 net</title>
-    <graphic scale="50" fileref="multifile_slide_7.png"/>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_7.png"/>
   </figure>
   
   </sect1>
@@ -5355,19 +5375,19 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
 	  <tbody>
                 <row>
         <entry>
-        <inlinegraphic scale="50" fileref="ip_service_2.png"/></entry>
+        <inlinegraphic fileref="ip_service_2.png"/></entry>
 
         <entry>
-        <inlinegraphic scale="50" fileref="ip_service_5.png"/></entry>
+        <inlinegraphic fileref="ip_service_5.png"/></entry>
                 </row>
 
                 <row>
         <entry>
 
-        <inlinegraphic scale="50" fileref="ip_service_3.png"/></entry>
+        <inlinegraphic fileref="ip_service_3.png"/></entry>
                   
         <entry>
-        <inlinegraphic scale="50" fileref="ip_service_4.png"/></entry>
+        <inlinegraphic fileref="ip_service_4.png"/></entry>
                 </row>
 	</tbody></tgroup></table>
 
@@ -8110,13 +8130,12 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
 	<para>
           If the options of a particular rule have been changed from
-	  their default, a <inlinegraphic scale="70"
-	  fileref="option-icon.png"/> appears in the Option field for
-	  that rule. Keep in mind that not all rules have the same
-	  default options. For example, by default a Deny rule is
-	  stateless, because there is no reason to keep state on a
-	  connection that won't be allowed. So, if you turn on state
-	  for a Deny rule, you'll see the icon.
+	  their default, a <inlinegraphic fileref="option-icon.png"/>
+	  appears in the Option field for that rule. Keep in mind that
+	  not all rules have the same default options. For example, by
+	  default a Deny rule is stateless, because there is no reason
+	  to keep state on a connection that won't be allowed. So, if
+	  you turn on state for a Deny rule, you'll see the icon.
         </para>
 
 	<para>
@@ -10212,11 +10231,11 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	  <tbody>
       <row>
 	<entry>
-	  <inlinegraphic scale="60" fileref="rcs_screenshot_4.png"/>
+	  <inlinegraphic fileref="rcs_screenshot_4.png"/>
         </entry>
 
 	<entry>
-	    <inlinegraphic scale="60" fileref="rcs_screenshot_5.png"/>
+	    <inlinegraphic fileref="rcs_screenshot_5.png"/>
         </entry>
       </row>
       </tbody>
@@ -10315,11 +10334,11 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	  <tbody>
       <row>
 	<entry>
-	  <inlinegraphic scale="50" fileref="rcs_screenshot_11.png"/>
+	  <inlinegraphic fileref="rcs_screenshot_11.png"/>
         </entry>
 
 	<entry>
-	    <inlinegraphic scale="50" fileref="rcs_screenshot_12.png"/>
+	    <inlinegraphic fileref="rcs_screenshot_12.png"/>
         </entry>
       </row>
       </tbody>
@@ -10815,12 +10834,14 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
     </sect1>
 
 
-    <sect1>
-      <title>Configuring Linux clusters</title>
+    <sect1 id="linux_cluster">
+
+      <title>Linux cluster configuration with Firewall Builder</title>
 
       <para>
-        More detailed walk-through examples can be found in Firewall
-        Builder Cookbook chapter <xref linkend="linux-cluster-cookbook"/>
+        Detailed walk-through examples for different Linux cluster
+        configurations can be found in Firewall Builder Cookbook
+        chapter <xref linkend="linux-cluster-cookbook"/>
       </para>
 
       <para>
@@ -10838,50 +10859,46 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
         command line for the HA software.
       </para>
 
-      <sect2>
-        <title>General principles of the cluster configuration
-          for Linux HA setup with Firewall Builder</title>
+      <para>
+        Like with all other supported firewall platforms, interface
+        objects that belong to a cluster object serve to establish
+        association between actual interfaces of the member
+        firewalls. Cluster interface object should have the same
+        name as corresponding member firewall interfaces. It should
+        have Failover Group child object configured with interfaces
+        of the member firewalls. You can create Failover Group
+        object using context menu item "Add Failover Group", the
+        menu appears when you right mouse click on the cluster
+        interface object. If you create new cluster using "New
+        object" menu or toolbar button, the wizard that creates new
+        cluster object will create Failober Group objects
+        automatically. Here is how it should look like:
+      </para>
 
-        <para>
-          Like with all other supported firewall platforms, interface
-          objects that belong to a cluster object serve to establish
-          association between actual interfaces of the member
-          firewalls. Cluster interface object should have the same
-          name as corresponding member firewall interfaces. It should
-          have Failover Group child object configured with interfaces
-          of the member firewalls. You can create Failover Group
-          object using context menu item "Add Failover Group", the
-          menu appears when you right mouse click on the cluster
-          interface object. If you create new cluster using "New
-          object" menu or toolbar button, the wizard that creates new
-          cluster object will create Failober Group objects
-          automatically. Here is how it should look like:
-        </para>
+      <para>
+        <figure float="1" id="linux_cluster_interface_mappings">
+          <title>Failover group objects and mapping between
+            cluster and member interfaces</title>
+          <graphic scale="60" fileref="linux-cluster-interface-mappings.png"/>
+        </figure>
+      </para>
 
-        <para>
-          <figure float="1" id="linux_cluster_interface_mappings">
-            <title>Failover group objects and mapping between
-              cluster and member interfaces</title>
-            <graphic scale="60" fileref="linux-cluster-interface-mappings.png"/>
-          </figure>
-        </para>
+      <para>
+        Note that the name of the cluster interface should match
+        the name of the member interfaces exactly, even if it may
+        appear that HA software running on the firewall creates
+        new interface such as eth0:0. Heartbeat daemon creates
+        what looks like interface "eth0:0" when it becomes active
+        and assumes virtual ip address. The "eth0:0" is in fact a
+        label on the secondary ip address on the interface "eth0"
+        which you can see if you use command "ip addr show dev
+        eth0". Here is an example of the output of this command
+        taken on the firewall running heartbeat that was active at
+        the moment:
+      </para>
 
-        <para>
-          Note that the name of the cluster interface should match
-          the name of the member interfaces exactly, even if it may
-          appear that HA software running on the firewall creates
-          new interface such as eth0:0. Heartbeat daemon creates
-          what looks like interface "eth0:0" when it becomes active
-          and assumes virtual ip address. The "eth0:0" is in fact a
-          label on the secondary ip address on the interface "eth0"
-          which you can see if you use command "ip addr show dev
-          eth0". Here is an example of the output of this command
-          taken on the firewall running heartbeat that was active at
-          the moment:
-        </para>
-
-        <para>
-          <screen>
+      <para>
+        <screen>
 # ip addr show dev eth0
 2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
     link/ether 00:0c:29:1e:dc:aa brd ff:ff:ff:ff:ff:ff
@@ -10889,21 +10906,21 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
     <emphasis role="redtext">inet 10.3.14.150/24 brd 10.3.14.255 scope global secondary eth0:0</emphasis>
     inet6 fe80::20c:29ff:fe1e:dcaa/64 scope link 
        valid_lft forever preferred_lft forever
-          </screen>
-        </para>
+        </screen>
+      </para>
 
-        <para>
-          Secondary IP address 10.3.14.150 that was added by
-          heartbeat is highlighted in red. The "eth0:0" at the very
-          end of the output is the label assigned to this address,
-          this label makes it appear as another inetrface in the
-          output of ifconfig, however it is not real inetrface. Here
-          is the output of ifconfig on the same machine at the same
-          time when it was active in the HA pair:
-        </para>
+      <para>
+        Secondary IP address 10.3.14.150 that was added by
+        heartbeat is highlighted in red. The "eth0:0" at the very
+        end of the output is the label assigned to this address,
+        this label makes it appear as another inetrface in the
+        output of ifconfig, however it is not real inetrface. Here
+        is the output of ifconfig on the same machine at the same
+        time when it was active in the HA pair:
+      </para>
 
-        <para>
-          <screen>
+      <para>
+        <screen>
 # ifconfig 
 eth0      Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa  
           inet addr:10.3.14.108  Bcast:10.3.14.255  Mask:255.255.255.0
@@ -10919,146 +10936,154 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
           inet addr:10.3.14.150  Bcast:10.3.14.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           Interrupt:18 Base address:0x2000 </emphasis>
-          </screen>
-        </para>
+        </screen>
+      </para>
 
-        <para>
-          It is important to understand the distinction because
-          iptables does not recognize eth0:0 as an interface and does
-          not allow it in "-i" or "-o" clause. Firewall Builder
-          follows the same rules as the target firewall platform it
-          prepares configuration for. This means you should build
-          configuration in fwbuilder using interface "eth0" and not
-          "eth0:0".
-        </para>
+      <para>
+        It is important to understand the distinction because
+        iptables does not recognize eth0:0 as an interface and does
+        not allow it in "-i" or "-o" clause. Firewall Builder
+        follows the same rules as the target firewall platform it
+        prepares configuration for. This means you should build
+        configuration in fwbuilder using interface "eth0" and not
+        "eth0:0".
+      </para>
 
-        <para>
-          Each cluster interface should have a Failover Group child
-          object configured with corresponding interfaces of the member
-          firewalls. Configuration of this object implements interface
-          mapping illustrated by
-          <xref linkend="linux_cluster_interface_mappings"/> and is
-          shown below:
-        </para>
+      <para>
+        Each cluster interface should have a Failover Group child
+        object configured with corresponding interfaces of the member
+        firewalls. Configuration of this object implements interface
+        mapping illustrated by
+        <xref linkend="linux_cluster_interface_mappings"/> and is
+        shown below:
+      </para>
 
-        <para>
-          <figure float="1" id="linux_heartbeat_cluster_2">
-            <title>Interfaces and addresses of the cluster members</title>
-            <graphic scale="60" fileref="linux-heartbeat-cluster-2.png"/>
-          </figure>
-        </para>
+      <para>
+        <figure float="1" id="linux_heartbeat_cluster_2">
+          <title>Interfaces and addresses of the cluster members</title>
+          <graphic scale="60" fileref="linux-heartbeat-cluster-2.png"/>
+        </figure>
+      </para>
 
-        <para>
-          Firewall Builder GUI proides a way to configure some
-          parameters for the failover
-          protocols <emphasis>heartbeat</emphasis>
-          and <emphasis>OpenAIS</emphasis>. Click <emphasis>Edit
+      <para>
+        Firewall Builder GUI proides a way to configure some
+        parameters for the failover
+        protocols <emphasis>heartbeat</emphasis>
+        and <emphasis>OpenAIS</emphasis>. Click <emphasis>Edit
           protocol parameters</emphasis> button to open dialog for
-          this:
-        </para>
-        
-        <table frame='none'><title></title>
-          <tgroup cols='2' align='left'  rowsep='1'>
-            <colspec colnum="1" colname="col1" colwidth="1*"/>
-            <colspec colnum="2" colname="col2" colwidth="1*"/>
-	    <tbody valign='top'>
-              <row>
-                <entry>
-                  <para>
-                    <figure float="1" id="heartbeat_parameters">
-                      <title>Editing parameters for the heartbeat protocol</title>
-                      <graphic scale="60" fileref="heartbeat-parameters.png"/>
-                    </figure>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <figure float="1" id="openais_parameters">
-                      <title>Editing parameters for the OpenAIS protocol</title>
-                      <graphic scale="60" fileref="openais-parameters.png"/>
-                    </figure>
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
+        this:
+      </para>
+      
+      <table frame='none'><title></title>
+        <tgroup cols='2' align='left'  rowsep='1'>
+          <colspec colnum="1" colname="col1" colwidth="1*"/>
+          <colspec colnum="2" colname="col2" colwidth="1*"/>
+	  <tbody valign='top'>
+            <row>
+              <entry>
+                <para>
+                  <figure float="1" id="heartbeat_parameters">
+                    <title>Editing parameters for the heartbeat protocol</title>
+                    <graphic scale="60" fileref="heartbeat-parameters.png"/>
+                  </figure>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <figure float="1" id="openais_parameters">
+                    <title>Editing parameters for the OpenAIS protocol</title>
+                    <graphic scale="60" fileref="openais-parameters.png"/>
+                  </figure>
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
 
-        <para>
-          Firewall Builder only supports multicast or unicast
-          heartbeat configuration. You can enter the address and port
-          number in the dialog. If you turn checkbox "Use unicast
-          address" on, generated iptables commands will match source
-          and destination addresses of the corresponding interface of
-          both member firewalls. If this checkbox is off, it is
-          assumed heartbeat is configured to use multicast and
-          generated iptables commands will only match this multicast
-          address in both INPUT and OUTPUT chains.
-        </para>
+      <para>
+        Firewall Builder only supports multicast or unicast
+        heartbeat configuration. You can enter the address and port
+        number in the dialog. If you turn checkbox "Use unicast
+        address" on, generated iptables commands will match source
+        and destination addresses of the corresponding interface of
+        both member firewalls. If this checkbox is off, it is
+        assumed heartbeat is configured to use multicast and
+        generated iptables commands will only match this multicast
+        address in both INPUT and OUTPUT chains.
+      </para>
 
-        <para>
-          As with heartbeat, you can configure ip address and port
-          number for the OpenAIS protocol. There is no unicast option
-          here.
-        </para>
+      <para>
+        As with heartbeat, you can configure ip address and port
+        number for the OpenAIS protocol. There is no unicast option
+        here.
+      </para>
 
-        <para>
-          Cluster object should also have State Synchronization group
-          child object. Create it using context menu "Add State
-          Synchronization Group" item if this object does not
-          exist. In this object you need to configure member
-          interfaces that should be used for state synchronization. On
-          Linux, state synchronization is done using conntrackd daemon
-          (<ulink url="http://conntrack-tools.netfilter.org/"><citetitle>conntrack-tools
-          home page</citetitle></ulink>). Configure State
-          Synchronization group object with interfaces of the member
-          firewalls used to pass conntrackd packets:
-        </para>
+      <para>
+        Cluster object should also have State Synchronization group
+        child object. Create it using context menu "Add State
+        Synchronization Group" item if this object does not
+        exist. In this object you need to configure member
+        interfaces that should be used for state synchronization. On
+        Linux, state synchronization is done using conntrackd daemon
+        (<ulink url="http://conntrack-tools.netfilter.org/"><citetitle>conntrack-tools
+            home page</citetitle></ulink>). Configure State
+        Synchronization group object with interfaces of the member
+        firewalls used to pass conntrackd packets:
+      </para>
 
-        <para>
-          <figure float="1" id="linux_cluster_statesync_mappings">
-            <title>Interfaces and addresses of the cluster members</title>
-            <graphic scale="60" fileref="linux-cluster-statesync-mappings.png"/>
-          </figure>
-        </para>
+      <para>
+        <figure float="1" id="linux_cluster_statesync_mappings">
+          <title>Interfaces and addresses of the cluster members</title>
+          <graphic scale="60" fileref="linux-cluster-statesync-mappings.png"/>
+        </figure>
+      </para>
 
-        <para>
-          The State Synchronization group object should look like this:
-        </para>
+      <para>
+        The State Synchronization group object should look like this:
+      </para>
 
-        <para>
-          <figure float="1" id="linux_cluster_statesync_group">
-            <title>Interfaces and addresses of the cluster members</title>
-            <graphic scale="60" fileref="linux-cluster-statesync-group.png"/>
-          </figure>
-        </para>
+      <para>
+        <figure float="1" id="linux_cluster_statesync_group">
+          <title>Interfaces and addresses of the cluster members</title>
+          <graphic scale="60" fileref="linux-cluster-statesync-group.png"/>
+        </figure>
+      </para>
 
-        <para>
-          Member firewalls and their inetrfaces appear in the panel in
-          the right hand side of the dialog. Firewall Builder uses
-          this information to automatically generate iptables rules to
-          permit conntrackd packets. Firewall Builder assumes
-          conntrackd is configured to send synchronization packets
-          over dedicated interface (which generally is a good idea
-          anyway). You may use internal inetrface of the firewall for
-          this purpose as well. See examples of conntrackd
-          configuration in Firewall Builder CookBook. You can configure
-          ip address and port number for the conntrack as well.
-        </para>
+      <para>
+        Member firewalls and their inetrfaces appear in the panel in
+        the right hand side of the dialog. Firewall Builder uses
+        this information to automatically generate iptables rules to
+        permit conntrackd packets. Firewall Builder assumes
+        conntrackd is configured to send synchronization packets
+        over dedicated interface (which generally is a good idea
+        anyway). You may use internal inetrface of the firewall for
+        this purpose as well. See examples of conntrackd
+        configuration in Firewall Builder CookBook. You can configure
+        ip address and port number for the conntrack as well.
+      </para>
 
-        <para>
-          <figure float="1" id="conntrack_parameters">
-            <title>Editing parameters for the Conntrack state synchronization protocol</title>
-            <graphic scale="60" fileref="conntrack-parameters.png"/>
-          </figure>
-        </para>
-      </sect2>
+      <para>
+        <figure float="1" id="conntrack_parameters">
+          <title>Editing parameters for the Conntrack state synchronization protocol</title>
+          <graphic scale="60" fileref="conntrack-parameters.png"/>
+        </figure>
+      </para>
+
     </sect1>
 
 
     <sect1>
-      <title>Configuring PIX cluster</title>
+      <title>OpenBSD cluster configuration with Firewall Builder</title>
 
+
+      <para>
+      </para>
+    </sect1>
+
+
+    <sect1>
+      <title>PIX cluster configuration with Firewall Builder</title>
 
       <para>
         Firewall Builder supports PIX "lan based" failover configuration.
@@ -11072,127 +11097,122 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
       </para>
 
 
-      <sect2>
-        <title>General principles of the PIX cluster configuration
-          with Firewall Builder</title>
+      <para>
+        Like with all other supported firewall platforms, interface
+        objects that belong to a cluster object serve to establish
+        association between actual interfaces of the member
+        firewalls. Cluster interface object should have the same name as
+        corresponding member firewall interfaces. It should have
+        Failover Group child object which should be configured with
+        interfaces of the member firewalls. You can create Failover
+        Group object using context menu item "Add Failover Group", the
+        menu appears when you right mouse click on the cluster interface
+        object. Here is an example of correct interface mapping between
+        cluster and member firewalls:
 
-        <para>
-          Like with all other supported firewall platforms, interface
-          objects that belong to a cluster object serve to establish
-          association between actual interfaces of the member
-          firewalls. Cluster interface object should have the same name as
-          corresponding member firewall interfaces. It should have
-          Failover Group child object which should be configured with
-          interfaces of the member firewalls. You can create Failover
-          Group object using context menu item "Add Failover Group", the
-          menu appears when you right mouse click on the cluster interface
-          object. Here is an example of correct interface mapping between
-          cluster and member firewalls:
+        <figure float="1" id="pix_cluster_example1">
+          <title>Failover group objects and mapping between
+            cluster and member interfaces</title>
+          <graphic scale="60" fileref="pix-failover-groups-mapping.png"/>
+        </figure>
+      </para>
 
-          <figure float="1" id="pix_cluster_example1">
-            <title>Failover group objects and mapping between
-              cluster and member interfaces</title>
-            <graphic scale="60" fileref="pix-failover-groups-mapping.png"/>
-          </figure>
-        </para>
+      <para>
+        The Failover Group object "cluster1:e0.101:members" is
+        configured with interfaces "Ethernet0.101" of both members:
 
-        <para>
-          The Failover Group object "cluster1:e0.101:members" is
-          configured with interfaces "Ethernet0.101" of both members:
+        <figure float="1" id="pix_cluster_failover_group_example_1">
+          <title>Example of failover group object</title>
+          <graphic scale="60" fileref="pix-failover-group-1.png"/>
+        </figure>
+      </para>
 
-          <figure float="1" id="pix_cluster_failover_group_example_1">
-            <title>Example of failover group object</title>
-            <graphic scale="60" fileref="pix-failover-group-1.png"/>
-          </figure>
-        </para>
+      <para>
+        Interface that is configured for the failover on the member
+        firewall should be marked as "Dedicated Failover". Use checkbox
+        with this name in the interface object dialog to do this.
+      </para>
 
-        <para>
-          Interface that is configured for the failover on the member
-          firewall should be marked as "Dedicated Failover". Use checkbox
-          with this name in the interface object dialog to do this.
-        </para>
+      <para>
+        Cluster interface that corresponds to the failover interface
+        of the members should be configured with protocol "PIX
+        failover protocol". Click on the "Edit protocol parameters"
+        button to edit timeout, poll time and the key.
+      </para>
+      
+      <para>
+        Cluster interfaces that represent regular interfaces of the
+        members also must have failover group objects; that is where
+        you add interfaces of the member firewalls. There is no need
+        to configure protocol in these failover groups because PIX
+        does not run it over these interfaces. Regular interfaces
+        should not be marked as "Dedicated Failover".
+      </para>
+      
+      <para>
+        Cluster object should have State Synchronization group child
+        object. Create it using context menu "Add State
+        Synchronization Group" item if this object does not
+        exist. In this object you need to configure member
+        interfaces that should be used for state
+        synchronization. You can use separate dedicated interfaces
+        or the same interfaces used for failover. If these are
+        separate, corresponding interface objects of the member
+        firewalls must be marked as "Dedicated Failover".
+      </para>
 
-        <para>
-          Cluster interface that corresponds to the failover interface
-          of the members should be configured with protocol "PIX
-          failover protocol". Click on the "Edit protocol parameters"
-          button to edit timeout, poll time and the key.
-        </para>
-          
-        <para>
-          Cluster interfaces that represent regular interfaces of the
-          members also must have failover group objects; that is where
-          you add interfaces of the member firewalls. There is no need
-          to configure protocol in these failover groups because PIX
-          does not run it over these interfaces. Regular interfaces
-          should not be marked as "Dedicated Failover".
-        </para>
-          
-        <para>
-          Cluster object should have State Synchronization group child
-          object. Create it using context menu "Add State
-          Synchronization Group" item if this object does not
-          exist. In this object you need to configure member
-          interfaces that should be used for state
-          synchronization. You can use separate dedicated interfaces
-          or the same interfaces used for failover. If these are
-          separate, corresponding interface objects of the member
-          firewalls must be marked as "Dedicated Failover".
-        </para>
+      <para>
+        One of the member firewall interfaces used in the State
+        Synchronization group must be marked as "master". This is
+        where you define which PIX unit is going to be the primary
+        and which is going to be the secondary in the HA pair.
+      </para>
 
-        <para>
-          One of the member firewall interfaces used in the State
-          Synchronization group must be marked as "master". This is
-          where you define which PIX unit is going to be the primary
-          and which is going to be the secondary in the HA pair.
-        </para>
+      <para>
+        Here is an example of the state synchronization and failover using
+        the same interface Ethernet2:
 
-        <para>
-          Here is an example of the state synchronization and failover using
-          the same interface Ethernet2:
+        <figure float="1" id="state_sync_conf_1">
+          <title>Example of the state synchronization and failover
+            using the same interface Ethernet2</title>
+          <graphic scale="60" fileref="pix-statesync-group-mapping.png"/>
+        </figure>
+      </para>
 
-          <figure float="1" id="state_sync_conf_1">
-            <title>Example of the state synchronization and failover
-              using the same interface Ethernet2</title>
-            <graphic scale="60" fileref="pix-statesync-group-mapping.png"/>
-          </figure>
-        </para>
+      <para>
+        The State Synchronization Group object "State Sync Group" is
+        configured with interfaces "Ethernet2" of both members:
 
-        <para>
-          The State Synchronization Group object "State Sync Group" is
-          configured with interfaces "Ethernet2" of both members:
-
-          <figure float="1" id="pix_cluster_statesync_group_example_1">
-            <title>Example of state synchronization group object</title>
-            <graphic scale="60" fileref="pix-statesync-group-1.png"/>
-          </figure>
-        </para>
+        <figure float="1" id="pix_cluster_statesync_group_example_1">
+          <title>Example of state synchronization group object</title>
+          <graphic scale="60" fileref="pix-statesync-group-1.png"/>
+        </figure>
+      </para>
 
 
-        <para>
-          Dedicated failover interfaces of the member firewalls must
-          have IP addresses and these addresses must be different but
-          belong to the same subnet.
-        </para>
+      <para>
+        Dedicated failover interfaces of the member firewalls must
+        have IP addresses and these addresses must be different but
+        belong to the same subnet.
+      </para>
 
-        <para>
-          Built-in policy installer treats PIX clusters in a special way:
-          <itemizedlist>
-            <listitem><para> For the PIX cluster, built-in installer installs generated
-                configuration only on the master PIX unit. It determines which
-                one is the master by looking in the StateSyncGroup object (state
-                synchronization cluster group).
-            </para></listitem>
-            <listitem><para>
-                Dialog where user enters authentication credentials and other
-                parameters for the installer has a checkbox that makes installer
-                initiate copy of the configuration to the standby PIX if
-                installation was successful.
-            </para></listitem>
-          </itemizedlist>
-        </para>
+      <para>
+        Built-in policy installer treats PIX clusters in a special way:
+        <itemizedlist>
+          <listitem><para> For the PIX cluster, built-in installer installs generated
+              configuration only on the master PIX unit. It determines which
+              one is the master by looking in the StateSyncGroup object (state
+              synchronization cluster group).
+          </para></listitem>
+          <listitem><para>
+              Dialog where user enters authentication credentials and other
+              parameters for the installer has a checkbox that makes installer
+              initiate copy of the configuration to the standby PIX if
+              installation was successful.
+          </para></listitem>
+        </itemizedlist>
+      </para>
 
-      </sect2>
     </sect1>
 
 
@@ -17093,7 +17113,7 @@ rdr proto tcp from 172.16.22.0/24 to any port 80 -&gt; 127.0.0.1 port 3128
     <sect1 id="linux-cluster-cookbook">
       <title>Examples of cluster configurations</title>
 
-      <sect2>
+      <sect2 id="vrrpd_cluster">
         <title>Linux cluster using VRRPd</title>
 
 
@@ -17115,7 +17135,7 @@ rdr proto tcp from 172.16.22.0/24 to any port 80 -&gt; 127.0.0.1 port 3128
         addresses.
       </para>
 
-      <figure float="1" id="cookbook_linux_vrrpd_cluster_1">
+      <figure id="cookbook_linux_vrrpd_cluster_1">
         <title>HA configuration using two Linux machines running vrrpd</title>
         <graphic scale="60" fileref="linux-vrrpd-cluster-1.png"/>
       </figure>
@@ -17231,7 +17251,7 @@ root@linux-test-2:~# ip -4  addr ls
           <xref linkend="cookbook_linux_vrrpd_cluster_2"/>:
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_2">
+        <figure id="cookbook_linux_vrrpd_cluster_2">
           <title>Interfaces and addresses of the cluster members</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-2.png"/>
         </figure>
@@ -17241,7 +17261,7 @@ root@linux-test-2:~# ip -4  addr ls
           choose object type "Cluster":
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_3">
+        <figure id="cookbook_linux_vrrpd_cluster_3">
           <title>Creating new cluster object</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-3.png"/>
         </figure>
@@ -17256,7 +17276,7 @@ root@linux-test-2:~# ip -4  addr ls
           configurations. <xref linkend="cookbook_linux_vrrpd_cluster_4"/>
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_4">
+        <figure id="cookbook_linux_vrrpd_cluster_4">
           <title>First page of the new cluster wizard</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-4.png"/>
         </figure>
@@ -17294,7 +17314,7 @@ root@linux-test-2:~# ip -4  addr ls
           page allow you to add and remove cluster interfaces.
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_5">
+        <figure id="cookbook_linux_vrrpd_cluster_5">
           <title>Configuring cluster interfaces</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-5.png"/>
         </figure>
@@ -17322,7 +17342,7 @@ root@linux-test-2:~# ip -4  addr ls
           the mapping.
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_6">
+        <figure id="cookbook_linux_vrrpd_cluster_6">
           <title>Configuring virtual IP addresses of cluster interfaces</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-6.png"/>
         </figure>
@@ -17372,7 +17392,7 @@ root@linux-test-2:~# ip -4  addr ls
           </para>
         </note>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_7">
+        <figure id="cookbook_linux_vrrpd_cluster_7">
           <title>Final page of the new cluster wizard</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-7.png"/>
         </figure>
@@ -17382,7 +17402,7 @@ root@linux-test-2:~# ip -4  addr ls
           demonstrates newly created cluster object.
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_8">
+        <figure id="cookbook_linux_vrrpd_cluster_8">
           <title>Cluster object</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-8.png"/>
         </figure>
@@ -17399,7 +17419,7 @@ root@linux-test-2:~# ip -4  addr ls
           highlights failover group that belongs to interface eth0:
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_9">
+        <figure id="cookbook_linux_vrrpd_cluster_9">
           <title>Cluster Failover Group in the object tree</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-9.png"/>
         </figure>
@@ -17412,7 +17432,7 @@ root@linux-test-2:~# ip -4  addr ls
           looks like this:
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_10">
+        <figure id="cookbook_linux_vrrpd_cluster_10">
           <title>Cluster Failover Group object</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-10.png"/>
         </figure>
@@ -17450,7 +17470,7 @@ root@linux-test-2:~# ip -4  addr ls
           </para>
         </note>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_11">
+        <figure id="cookbook_linux_vrrpd_cluster_11">
           <title>State Synchronization Group in the object tree</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-11.png"/>
         </figure>
@@ -17460,7 +17480,7 @@ root@linux-test-2:~# ip -4  addr ls
           configured with the name, protocol and member interfaces:
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_12">
+        <figure id="cookbook_linux_vrrpd_cluster_12">
           <title>State Synchronization Group object</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-12.png"/>
         </figure>
@@ -17472,7 +17492,7 @@ root@linux-test-2:~# ip -4  addr ls
             parameters</emphasis> button:
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_13">
+        <figure id="cookbook_linux_vrrpd_cluster_13">
           <title>State Synchronization protocol parameters</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-13.png"/>
         </figure>
@@ -17499,7 +17519,7 @@ root@linux-test-2:~# ip -4  addr ls
           "X". <xref linkend="cookbook_linux_vrrpd_cluster_14"/>
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_14">
+        <figure id="cookbook_linux_vrrpd_cluster_14">
           <title>Compiling single rule</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-14.png"/>
         </figure>
@@ -17511,7 +17531,7 @@ root@linux-test-2:~# ip -4  addr ls
           the member firewalls.
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_15">
+        <figure id="cookbook_linux_vrrpd_cluster_15">
           <title>Simple policy for the cluster, also showing generated
             iptables commands for the anti-spoofing rule</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-15.png"/>
@@ -17697,7 +17717,7 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
           <xref linkend="cookbook_linux_vrrpd_cluster_16"/>
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_16">
+        <figure id="cookbook_linux_vrrpd_cluster_16">
           <title>NAT rule for the cluster</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-16.png"/>
         </figure>
@@ -17734,7 +17754,7 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
           dialog, <xref linkend="cookbook_linux_vrrpd_cluster_17"/>.
         </para>
 
-        <figure float="1" id="cookbook_linux_vrrpd_cluster_17">
+        <figure id="cookbook_linux_vrrpd_cluster_17">
           <title>Options in the "Script" tab of the firewall object dialog</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-17.png"/>
         </figure>
@@ -17805,15 +17825,194 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
       </sect2>
 
 
-      <sect2>
+
+
+      <sect2 id="heartbeat_cluster">
         <title>Linux cluster using heartbeat</title>
 
-        <para>
+      <para>
+        In this example we work with two Linux machines running vrrpd
+        for failover that form High Availability (HA) firewall pair,
+        and another machine behind them that will use this pair as a
+        firewall. The set up is shown in figure
+        <xref linkend="cookbook_linux_vrrpd_cluster_1"/>. Machines <emphasis>linux-test-1</emphasis>
+        and <emphasis>linux-test-2</emphasis> are the firewalls and
+        <emphasis>linux-test-3</emphasis> is a workstation behind
+        them. All testing is done on an isolated network using private
+        IP addresses, subnet "outside" the firewalls is
+        10.3.14.0/255.255.255.0 and subnet "behind" the firewalls is
+        10.1.1.0/255.255.255.0. In fact, this network was located
+        behind a router and another firewall that provided connection
+        to the Inetrnet. In real configurations subnet that is
+        10.3.14.0 here will probably use publicly routable IP
+        addresses.
+      </para>
+
+      <figure id="cookbook_linux_hb_cluster_1">
+        <title>HA configuration using two Linux machines running heartbeat</title>
+        <graphic scale="60" fileref="linux-heartbeat-cluster-1.png"/>
+      </figure>
+
+      <sect3>
+        <title>Setting up heartbeat</title>
+
+        <para>As shown in
+          <xref linkend="cookbook_linux_hb_cluster_1"/>, machines
+          linux-test-1 and linux-test-2 run heartbeat daemon
+          (<ulink url="http://www.linux-ha.org/"><citetitle>Linux-HA
+          home page</citetitle></ulink>) to create virtual IP address
+          on both subnets. Heartbeat adds virtual IP address to the
+          same interface eth0 or eth1. One of the daemons becomes
+          master and takes owbership of the virtual address by adding
+          it to the interface with the label "eth0:0" or "eth1:0".
         </para>
+
+        <note>
+          <para>
+            <xref linkend="linux_cluster"/> explains that this "eth0:0"
+            is not an interface and should not be used as the name of
+            the interface object in fwbuilder configuration. See
+            <xref linkend="linux_cluster"/> for more detailed explanation.
+          </para>
+        </note>
+
+        <para>
+          Heartbeat sends UDP datagram to the multicast address
+          225.0.0.1 every second or so to declare that it is up and
+          running and owns the address. If the machine it is running
+          on shuts down for any reason, this stream of packets from
+          the master stops and after pre-determined timeout the second
+          machine becomes master and assumes the virtual IP
+          address. Heartbeat atually is more complex than that, it can
+          be configured to monitor certain resources on the machine
+          and give up the address if some conditions are met. In that
+          case, two daemons negotiate transfer of the address from one
+          machine to another and the second machine becomes
+          active. These aspects of heartbeat configuration are outside
+          the scope of this manual and we will not go into more
+          details about it. See heartbeat documentation
+          on <ulink url="http://www.linux-ha.org/"><citetitle>Linux-HA
+          home page</citetitle></ulink> or heartbeat manual for that.
+        </para>
+
+        <para>
+          Unlike VRRPd, heartbeat does not replace MAC address of the
+          active machine with a virtual one, it uses gratutious ARP to
+          announce changing MAC address. This does not change anything
+          in the fwbuilder configuration for the cluster.
+        </para>
+
+        <para>
+          Assuming you have followed installation instructions for the
+          heartbeat and have correct package on the machine, you can
+          build simple configuration for it by creating just three
+          files:
+
+          <itemizedlist>
+            <listitem>
+              <para> ha.cf, the main configuration file</para>
+            </listitem>
+            <listitem>
+              <para>haresources, resource configuration file</para>
+            </listitem>
+            <listitem>
+              <para>authkeys, authentication information</para>
+            </listitem>
+          </itemizedlist>
+        </para>
+
+        <para>
+          Here is the configuration for the test setup I am using:
+        </para>
+
+        <screen>
+# cat ha.cnf:
+
+mcast eth0 225.0.0.1 694 1 0
+mcast eth1 225.0.0.1 694 1 0
+auto_failback on
+node linux-test-1
+node linux-test-2
+        </screen>
+
+        <screen>
+# cat haresources 
+
+linux-test-1 IPaddr::10.3.14.150/24/eth0/10.3.14.255
+linux-test-1 IPaddr::10.1.1.254/24/eth1/10.1.1.255 
+        </screen>
+
+
+        <screen>
+# cat authkeys 
+
+auth 3
+3 md5 hb-auth-key
+        </screen>
+
+        <para>
+          This tells heartbeat to run two sessions, on interfaces eth0
+          and eth1, using multicast with default group address
+          225.0.0.1 and udp port 694. There are two nodes,
+          "linux-test-1" and
+          "linux-test-2". File <emphasis>haresources</emphasis>
+          defines virtual IP addresses on both subnets and file
+          authkeys sets up md5 authentication with a simple shared
+          key. Nice aspect of the heartbeat configuration is that all
+          three files are identical on both machines in the cluster.
+          File <emphasis>authkeys</emphasis> should have permissions
+          "0600", other files can have permissions "0644":
+        </para>
+
+        <screen>
+root@linux-test-1:/etc/ha.d# ls -la authkeys  haresources ha.cf 
+-rw------- 1 root root   648 2010-02-03 09:17 authkeys
+-rw-r--r-- 1 root root 10610 2010-02-03 09:28 ha.cf
+-rw-r--r-- 1 root root   106 2010-02-04 10:21 haresources
+        </screen>
+
+        <para>
+          Now we can start heartbeat on both machines
+          using <emphasis>"/etc/init.d/heartbeat start"</emphasis>
+          command (on Ubuntu). If everything is done correctly,
+          heartbeat daemons should come up and after a while one of
+          them becomes active. Which one is determined by the node
+          name that is the first word in each line of
+          the <emphasis>haresources</emphasis> file. Daemons log their
+          progress, as well as warnings and errors in the
+          /var/log/messages file. When active daemon takes over virtual
+          ip address, it is added to the interface and look like this
+          (virtual addresses are highlited in red):
+        </para>
+
+        <screen id="cookbook_ip_addresses_heartbeat_members">
+root@linux-test-1:~# ip -4 addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    inet 127.0.0.1/8 scope host lo
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+    <emphasis role="redtext">inet 10.3.14.150/24 brd 10.3.14.255 scope global secondary eth0:0</emphasis>
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    inet 10.1.1.1/24 brd 10.1.1.255 scope global eth1
+    <emphasis role="redtext">inet 10.1.1.254/24 brd 10.1.1.255 scope global secondary eth1:0</emphasis>
+
+root@linux-test-2:~# ip -4 addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    inet 127.0.0.1/8 scope host lo
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    inet 10.3.14.109/24 brd 10.3.14.255 scope global eth0
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    inet 10.1.1.2/24 brd 10.1.1.255 scope global eth1
+        </screen>
+
+      </sect3>
+
+
+
       </sect2>
 
 
-      <sect2>
+      <sect2 id="heartbeat_vlan_cluster">
         <title>Linux cluster using heartbeat and VLAN inetrfaces</title>
 
         <para>
@@ -17823,7 +18022,7 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
 
 
 
-      <sect2>
+      <sect2 id="heartbeat_dedicated_interface">
         <title>Linux cluster using heartbeat running over dedicated interface</title>
 
         <para>
@@ -17832,7 +18031,7 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
 
 
 
-      <sect2>
+      <sect2 id="state_sync_conntrackd">
         <title>State synchronization with conntrackd in Linux cluster</title>
 
         <para>
@@ -17841,7 +18040,7 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
 
 
 
-      <sect2>
+      <sect2 id="pf_cluster">
         <title>OpenBSD cluster</title>
 
         <para>
@@ -17850,7 +18049,7 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
 
 
 
-      <sect2>
+      <sect2 id="pix_cluster">
         <title>PIX cluster</title>
 
         <para>
@@ -18896,39 +19095,84 @@ interface Ethernet1/2
       <sect2>
 	<title>Firewall becomes very slow with new policy</title>
 
-	<para>You compiled and started firewall policy script and then noticed that seemingly every operation on the firewall takes a lot longer than before. For example, it takes forever to log into it using telnet or ssh, different services take a few minutes to start or won't start at all.</para>
+	<para>You compiled and started firewall policy script and then
+	noticed that seemingly every operation on the firewall takes a
+	lot longer than before. For example, it takes forever to log
+	into it using telnet or ssh, different services take a few
+	minutes to start or won't start at all.</para>
 
-	<para>Most likely the firewall needs to be able to do DNS lookups but can't. Look in /etc/resolv.conf for the address of the name server it is using and make sure you have a rule in the policy to permit connections to it. Use firewall object in "Source", the name server object in "Destination" and a standard service object group "DNS" in the Service field.</para>
+	<para>Most likely the firewall needs to be able to do DNS
+	lookups but can't. Look in /etc/resolv.conf for the address of
+	the name server it is using and make sure you have a rule in
+	the policy to permit connections to it. Use firewall object in
+	"Source", the name server object in "Destination" and a
+	standard service object group "DNS" in the Service
+	field.</para>
 
-	<para>If your firewall runs caching name server and file /etc/resolv.conf lists "127.0.0.1" as a name server address, then you need to permit firewall to talk to itself. Here is how such /etc/resolv.conf file looks like:</para>
+	<para>If your firewall runs caching name server and file
+	/etc/resolv.conf lists "127.0.0.1" as a name server address,
+	then you need to permit firewall to talk to itself. Here is
+	how such /etc/resolv.conf file looks like:</para>
+
 <screen>
     domain your_domain.com
     nameserver 127.0.0.1 
 </screen>
-	<para>You need to add a rule with the firewall object in both Source and Destination fields and the service object group "DNS" in the Service field to the loopback interface. This rule permits the firewall machine to communicate with the name server running on it, but you need another rule to permit the name server to send DNS queries and receive answers. This rule should have the firewall object in Source, Destination should be set to "any" and the same standard service object group "DNS" should be used in the Service element. Now not only firewall can query the name server process running on it, but the process in turn can send queries to other name servers on the Internet and receive answers.</para>
 
-	<para>Here is the rule that should be added to the loopback interface:</para>
+	<para>You need to add a rule with the firewall object in both
+	Source and Destination fields and the service object group
+	"DNS" in the Service field to the loopback interface. This
+	rule permits the firewall machine to communicate with the name
+	server running on it, but you need another rule to permit the
+	name server to send DNS queries and receive answers. This rule
+	should have the firewall object in Source, Destination should
+	be set to "any" and the same standard service object group
+	"DNS" should be used in the Service element. Now not only
+	firewall can query the name server process running on it, but
+	the process in turn can send queries to other name servers on
+	the Internet and receive answers.</para>
+
+	<para>Here is the rule that should be added to the loopback
+	interface:</para>
 
       <figure float="1" id="dns1">
         <title>DNS on loopback</title>
             <graphic scale="70" fileref="dns1.png" />
       </figure>
 
-	<para>Here is the rule that permits the name server process to communicate with name servers on the Internet:</para>
+	<para>Here is the rule that permits the name server process to
+	communicate with name servers on the Internet:</para>
 
       <figure float="1" id="dns2">
         <title>DNS on to name servers</title>
             <graphic scale="70" fileref="dns2.png" />
       </figure>
 
-	<para> Depending on your policy design, you may want to permit all services rather than just DNS on the loopback interface because there are many other processes that need to be able to communicate with the same host, such as X11, RPC and others. The dedicated firewall machine should not run anything unnecessary, so there you may experiment with limiting the number of services in the rule on loopback the interface. On the other hand, if you use fwbuilder to protect a server that runs many different services, permitting any service on the loopback may be a simpler solution.</para>
+	<para> Depending on your policy design, you may want to permit
+	all services rather than just DNS on the loopback interface
+	because there are many other processes that need to be able to
+	communicate with the same host, such as X11, RPC and
+	others. The dedicated firewall machine should not run anything
+	unnecessary, so there you may experiment with limiting the
+	number of services in the rule on loopback the interface. On
+	the other hand, if you use fwbuilder to protect a server that
+	runs many different services, permitting any service on the
+	loopback may be a simpler solution.</para>
 
-	<para>The next rule permits processes running on the firewall to communicate with other processes running on the same machine on all protocols:</para>
+	<para>The next rule permits processes running on the firewall
+	to communicate with other processes running on the same
+	machine on all protocols:
+        </para>
+        
+        <figure id="dns3">
+          <title>Any to any on firewall</title>
+          <graphic scale="70" fileref="dns3.png" />
+        </figure>
 
-      <figure float="1" id="dns3">
-        <title>Any to any on firewall</title>
-            <graphic scale="70" fileref="dns3.png" />
-      </figure>
+      <para>
+        
+      </para>
+
       </sect2>
 
       <sect2>
@@ -18938,7 +19182,7 @@ interface Ethernet1/2
 
 	<para>The reason for this is the same as in the DNS problem&mdash;you need a rule to permit processes to communicate with other processes running on the same machine. This can easily be achieved with the following rule added to the loopback interface:</para>
 
-      <figure float="1" id="dns3-1">
+      <figure id="dns3-1">
         <title>Any to any on firewall</title>
             <graphic scale="70" fileref="dns3.png" />
       </figure>

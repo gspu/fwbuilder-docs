@@ -34,6 +34,25 @@
     font-weight: bolder; 
 }
 
+.column_users_guide .figure .title {
+    color: black;
+}
+
+.column_users_guide .figure-float {
+    margin-right: 20px;
+}
+
+.column_users_guide .note h3 {
+    font-size: 1em;
+    font-style: normal; 
+    color: black;
+}
+
+.column_users_guide .note table {
+    font-size: 1em;
+    font-style: normal; 
+}
+
 .column_users_guide .ABSTRACT {
 }
 
