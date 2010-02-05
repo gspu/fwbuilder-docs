@@ -4801,14 +4801,8 @@ root@linux-test-2:~# ip -4 addr ls
       </sect3>
 
       <sect3>
-        <title>Firewall and Cluster objects for the HA firewall configuration with heartbeat</title>
-
-
-      </sect3>
-
-
-      <sect3>
-        <title>Policy and NAT rules for the cluster</title>
+        <title>Firewall and Cluster objects for the HA firewall
+        configuration with heartbeat</title>
 
         <para>
           Now we can create objects in Firewall Builder to represent
@@ -4820,9 +4814,53 @@ root@linux-test-2:~# ip -4 addr ls
 
         <figure id="cookbook_linux_hb_cluster_2">
           <title>Interfaces and addresses of the cluster members</title>
-          <graphic scale="60" fileref="linux-hb-cluster-2.png"/>
+          <graphic fileref="linux-hb-cluster-2.png"/>
         </figure>
 
+        <para>
+          There are two ways to create new cluster object: you can
+          either use main menu "Object / New Object" (or a toolbar
+          button that calls the same function), or select two or more
+          firewall objects that are to become cluster members and
+          click right mouse button to open context menu, then use menu
+          item "New cluster from selected firewalls" as shown on
+          <xref linkend="cookbook_linux_hb_cluster_3"/>. The
+          difference between this method and main menu "Object / New
+          object" is that when you use the "New object" menu or
+          toolbutton, you get all firewalls from the currently opened
+          library to choose from in the first page of the wizard that
+          creates new cluster.  When you use context menu, you make
+          the choice when you select firewall objects and the wizard
+          opens up with a list of firewalls limited to selected
+          firewall objects. Obviously there is no difference when
+          object tree has only two firewall objects, but the shortcut
+          via context menu is more convenient when you have lots of
+          them.
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_3">
+          <title>Creating new cluster object from selected member
+          firewalls</title>
+          <graphic fileref="linux-hb-cluster-3.png"/>
+        </figure>
+
+        <para>
+          This method opens up wizard that creates new cluster object
+          with the list of the firewalls shortened down to only two
+          selected firewalls.
+        </para>
+
+        <para>
+        </para>
+
+      </sect3>
+
+
+      <sect3>
+        <title>Policy and NAT rules for the cluster</title>
+
+        <para>
+        </para>
 
       </sect3>
 

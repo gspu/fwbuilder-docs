@@ -162,19 +162,21 @@
     font-style: italic;
 }
 
-.column_users_guide table.CALSTABLE {
+.column_users_guide .reg_table table {
+    font-size: 1em;
+    font-style: normal; 
     table-layout: auto;
 }
 
-.column_users_guide table.CALSTABLE COL {
+.column_users_guide .reg_table table COL {
     width: 50%;
 }
 
-.column_users_guide table.CALSTABLE TD {
+.column_users_guide .reg_table table TD {
     border-bottom: 1px solid #C0C0C0;  
 }
 
-.column_users_guide table.CALSTABLE TH {
+.column_users_guide .reg_table table TH {
     border-bottom: 1px solid black;  
 }
 

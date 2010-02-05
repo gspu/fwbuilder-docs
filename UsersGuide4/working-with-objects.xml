@@ -645,7 +645,7 @@
         interpret values in the Security Level and Network Zone
         parameters of the firewall interfaces.</para>
 
-        <table id="platform-specific-interface-parameters" pgwide="0">
+        <table id="platform-specific-interface-parameters" pgwide="0" tabstyle='reg_table'>
           <title>Platform-specific interface parameters</title>
 
           <tgroup cols="3">
@@ -2748,7 +2748,7 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
       options supported by Firewall Builder are supported by all target
       firewall platforms (<xref linkend="support-for-ip-options" />).</para>
 
-      <table id="support-for-ip-options">
+      <table id="support-for-ip-options" tabstyle='reg_table'>
         <title>Support for IP options and fragmentation on various firewall
         platforms</title>
 

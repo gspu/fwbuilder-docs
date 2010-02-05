@@ -77,10 +77,11 @@
       and export libraries and manage your object files with the
       revision control system.</para>
 
-      <table frame='none'><title>File Menu</title>
+      <table frame='none' tabstyle='reg_table'>
+        <title>File Menu</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
-	  <colspec colname='c2'/>
+	  <colspec colnum="1" colname='c1'  colwidth='1*'/>
+	  <colspec colnum="2" colname='c2'  colwidth='4*'/>
 	    <thead>
 	      <row>
 		<entry>File Menu entry</entry>
@@ -181,7 +182,8 @@
             <graphic scale="60" fileref="fwbPrefGeneral.png" />
       </figure>
 
-      <table frame='none'><title>Preferences>General tab</title>
+      <table frame='none' tabstyle='reg_table'>
+        <title>Preferences>General tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -221,7 +223,8 @@
 	</tgroup>
       </table>
 
-     <table frame='none'><title>Preferences>Objects tab</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Preferences>Objects tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -277,7 +280,8 @@
 	</tgroup>
       </table>
 
-     <table frame='none'><title>Preferences>Data File tab</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Preferences>Data File tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -311,7 +315,7 @@
 	</tgroup>
       </table>
 
-     <table frame='none'><title>Preferences>SSH tab</title>
+     <table frame='none' tabstyle='reg_table'><title>Preferences>SSH tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -336,7 +340,7 @@
 	</tgroup>
       </table>
 
-     <table frame='none'><title>Preferences>Labels tab</title>
+     <table frame='none' tabstyle='reg_table'><title>Preferences>Labels tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -359,7 +363,7 @@
 	</tgroup>
       </table>
 
-     <table frame='none'><title>Preferences>Icons tab</title>
+     <table frame='none' tabstyle='reg_table'><title>Preferences>Icons tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -394,7 +398,7 @@
 	</tgroup>
       </table>
 
-     <table frame='none'><title>Preferences>Fonts tab</title>
+     <table frame='none' tabstyle='reg_table'><title>Preferences>Fonts tab</title>
 	<tgroup cols='2' align='left' rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -419,7 +423,7 @@
       replaces), lock an object to prevent accidentally changes, and
       unlock an object when you need to edit it.</para>
 
-      <table frame='none'><title>Object menu</title>
+      <table frame='none' tabstyle='reg_table'><title>Object menu</title>
 	<tgroup cols='2' align='left' rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -454,16 +458,16 @@
 		read-only the address objects associated with the
 		interface. (test server, because it is "above" eth0 in
 		the hierarchy, is still editable.)
-		<inlinegraphic scale="70"
-		fileref="locked.png"/></entry>
+		<inlinegraphic scale="70" fileref="locked.png"/>
+                </entry>
 	      </row>
 	      <row>
 		<entry>Unlock</entry>
 		<entry>Unlocks the selected icon. The object becomes
 		editable, and the objects associated with it become
 		editable as well, unless they have their own
-		locks. <inlinegraphic scale="70"
-		fileref="unlocked.png"/></entry>
+		locks. <inlinegraphic scale="70" fileref="unlocked.png"/>
+                </entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -473,7 +477,7 @@
       rearrange rules in a policy. In addition, it lets you compile
       and install a complete set of firewall policies.</para>
 
-      <table frame='none'><title>Rules menu</title>
+      <table frame='none' tabstyle='reg_table'><title>Rules menu</title>
 	<tgroup cols='2' align='left' rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -505,13 +509,17 @@
 		    where the selected rule(s) should go. Firewall Builder
 		    will move rules down to make room for the rule;
 		    selecting a rule that has contents does not replace
-		    the rule, it moves it down.</para>
+		    the rule, it moves it down.
+                  </para>
 
-		  <para>To select multiple rules, click on one rule,
-		  then shift-click on another rule <emphasis>in the
-		  first column</emphasis> (the rule number
-		  column). You must select a contiguous set. To select
-		  one rule, click anywhere.</para></entry>
+		  <para>
+                    To select multiple rules, click on one rule, then
+		    shift-click on another rule <emphasis>in the first
+		    column</emphasis> (the rule number column). You
+		    must select a contiguous set. To select one rule,
+		    click anywhere.
+                  </para>
+                </entry>
 	      </row>
 	      <row>
 		<entry>Copy Rule</entry>
@@ -554,7 +562,7 @@
      <para>The <guimenu>Tools</guimenu> menu provides access to useful
      tools.</para>
 
-     <table frame='none'><title>Tools menu</title>
+     <table frame='none' tabstyle='reg_table'><title>Tools menu</title>
 	<tgroup cols='2' align='left' rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -602,7 +610,7 @@
               <graphic scale="70" fileref="fwbMainWindow-3.png" />
         </figure>
 
-     <table frame='none'><title>Button bar</title>
+     <table frame='none' tabstyle='reg_table'><title>Button bar</title>
 	<tgroup cols='2' align='left' rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -736,7 +744,7 @@
       <xref linkend="working-with-services" /> for more detailed
       information.</para>
 
-     <table frame='none'><title>Object Types</title>
+     <table frame='none' tabstyle='reg_table'><title>Object Types</title>
 	<tgroup cols='2' align='left' rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
@@ -941,7 +949,7 @@
       context-sensitive and provides items for the following
       functions:</para>
 
-      <table frame='none'><title>Object Right-Click Menu</title>
+      <table frame='none' tabstyle='reg_table'><title>Object Right-Click Menu</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>

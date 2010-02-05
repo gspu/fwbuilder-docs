@@ -2353,7 +2353,8 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
       GUI that disables corresponding menu items and hides associated policy
       elements when they are not supported.</para>
 
-      <para><table id="policy-rule-elements">
+      <para>
+        <table id="policy-rule-elements" tabstyle='reg_table'>
           <title>Rule features available on different platforms</title>
 
           <tgroup cols="11">
@@ -2556,7 +2557,8 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               
   </para>
 
-      <table frame='none'><title></title>
+      <table frame='none' tabstyle='reg_table'>
+        <title></title>
 	<tgroup cols='2' align='left'  rowsep='0'>
 	  <tbody>
       <row>
@@ -2659,7 +2661,8 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               
   </para>
 
-      <table frame='none'><title></title>
+      <table frame='none' tabstyle='reg_table'>
+        <title></title>
 	<tgroup cols='2' align='left'  rowsep='0'>
 	  <tbody>
       <row>

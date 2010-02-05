@@ -22,7 +22,7 @@ CATALOGS = catalog-Darwin.xml catalog-Linux.xml
 STYLESHEETS = html.xsl
 
 
-.PHONY: all html pdf
+.PHONY: all html pdf stage
 
 all:  html  pdf
 
@@ -46,6 +46,9 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(STYLESHEETS)
 	cp *.css html/
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl UsersGuide4.xml
 	chmod +x html/*.html
+
+stage: html
+	./upload-glitch.sh
 
 
 pdf:   UsersGuide4.xml pdf/UsersGuide4.pdf

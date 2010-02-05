@@ -14,7 +14,7 @@
     </para>
 
 
-    <table frame='none'>
+    <table frame='none'  tabstyle='reg_table'>
       <title>Supported state synchronization and failover software</title>
       <tgroup cols='3' align='left'  rowsep='1'>
         <colspec colnum="1" colname="col1" colwidth="1*"/>
@@ -86,13 +86,76 @@
             have their real IP addresses (not CARP or VRRP addresses).
           </para></listitem>
 
-          <listitem><para>
-            Create a Cluster object which you configure with proper platform
-            and host OS. Use the usual "New Object" menu or toolbar button
-            to create this object. Note that in order for the firewall
-            object to become a member of a cluster, their platform and host
-            OS settings must match.
-          </para></listitem>
+          <listitem>
+            <para>
+              Create a Cluster object which you configure with proper
+              platform and host OS. Use the usual "New Object" menu or
+              toolbar button to create this object. Note that in order
+              for the firewall object to become a member of a cluster,
+              their platform and host OS settings must match.
+            </para>
+
+            <para>
+              There are two ways to create new cluster object: first,
+              you can use main menu "Object / New Object" (or a
+              toolbar button that calls the same function) as shown on
+              <xref linkend="new_cluster_method_1"/>:
+            </para>
+
+            <figure id="new_cluster_method_1">
+              <title>Create new cluster using main menu "Object / New
+              Object" or toolbar button </title>
+              <graphic fileref="new-cluster-method-1.png"/>
+            </figure>
+
+            <para>
+              This opens a wizard that will guide you through the
+              steps of creating new cluster object. The first page of
+              the wizard shows all the available firewall object where
+              you need to choose which ones will become cluster
+              members:
+            </para>
+
+            <figure id="new_cluster_method_1_1">
+              <title>First page of the wizard, choosing firewall
+              objects to become cluster members </title>
+              <graphic fileref="new-cluster-method-1-1.png"/>
+            </figure>
+
+
+            <para>
+              Another method is to select two or more firewall objects
+              that are to become cluster members and click right mouse
+              button to open context menu, then use menu item "New
+              cluster from selected firewalls" as shown on
+              <xref linkend="new_cluster_method_2"/>. You can select
+              two or more objects in the tree by clicking the object
+              while holding the "Ctrl" key ("Cmd" on Macintosh).
+            </para>
+
+            <figure id="new_cluster_method_2">
+              <title>Create new cluster using context menu menu</title>
+              <graphic fileref="new-cluster-method-2.png"/>
+            </figure>
+
+            <para>
+              This opens the same wizard, except the list on its first
+              page is populated only with selected firewall objects:
+            </para>
+
+            <figure id="new_cluster_method_2_1">
+              <title>First page of the wizard, only selected firewall
+              objects are listed </title>
+              <graphic fileref="new-cluster-method-2-1.png"/>
+            </figure>
+
+            <para>
+              Obviously there is no difference when object tree has
+              only two firewall objects, but the shortcut via context
+              menu is more convenient when you have lots of them.
+            </para>
+
+          </listitem>
 
           <listitem><para>
             The program guides you through the process of creation of the
@@ -395,7 +458,8 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
         this:
       </para>
       
-      <table frame='none'><title></title>
+      <table frame='none' tabstyle='reg_table'>
+        <title></title>
         <tgroup cols='2' align='left'  rowsep='1'>
           <colspec colnum="1" colname="col1" colwidth="1*"/>
           <colspec colnum="2" colname="col2" colwidth="1*"/>
