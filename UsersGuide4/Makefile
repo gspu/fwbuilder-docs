@@ -21,7 +21,7 @@ html/index.html:   UsersGuide4.xml html.xsl
 	cp *.jpg html/
 	cp *.png html/
 	cp *.css html/
-	XML_CATALOG_FILES="catalog.xml" xsltproc html.xsl UsersGuide4.xml
+	XML_CATALOG_FILES="catalog.xml" XML_DEBUG_CATALOG=1 xsltproc html.xsl UsersGuide4.xml
 	chmod +x html/*.html
 
 
