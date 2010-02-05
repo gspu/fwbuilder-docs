@@ -10,6 +10,9 @@ clean:
 
 
 
+#	docbook2html -d `pwd`/html.dsl -o html UsersGuide4.xml
+
+
 html:   UsersGuide4.xml html.dsl html/index.html
 
 html/index.html:   UsersGuide4.xml html.xsl
@@ -18,16 +21,8 @@ html/index.html:   UsersGuide4.xml html.xsl
 	cp *.jpg html/
 	cp *.png html/
 	cp *.css html/
-
-#	docbook2html -d `pwd`/html.dsl -o html UsersGuide4.xml
-
-	xsltproc html.xsl UsersGuide4.xml
-
+	XML_CATALOG_FILES="catalog.xml" xsltproc html.xsl UsersGuide4.xml
 	chmod +x html/*.html
-
-#	cd html
-#	xsltproc  /opt/local/share/xsl/docbook-xsl/xhtml/chunk.xsl ../UsersGuide4.xml
-
 
 
 pdf:   UsersGuide4.xml pdf/UsersGuide4.pdf
