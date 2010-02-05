@@ -22,7 +22,7 @@ Version: 1.73.2.dfsg.1-5
     -->
 
   <!-- DTD and stylesheet files installed under /usr/share/xml -->
-  <group  xml:base="/usr/share/xml/">
+  <group  xml:base="file:///usr/share/xml/">
 
     <!-- Resolve DTD URL system ID to local file -->
     <rewriteSystem
