@@ -2,6 +2,26 @@
 
 SYSTEM := $(shell uname -s)
 
+SOURCES = Introduction.xml \
+		Troubleshooting.xml \
+		UsersGuide4.xml \
+		clusters.xml \
+		compile-install-detail.xml \
+		cookbook.xml \
+		definitions.xml \
+		firewall-policies.xml \
+		gettingstarted.xml \
+		install.xml \
+		network-discovery.xml \
+		remote-management.xml \
+		using-gui.xml \
+		working-with-objects.xml
+
+CATALOGS = catalog-Darwin.xml catalog-Linux.xml
+
+STYLESHEETS = html.xsl
+
+
 .PHONY: all html pdf
 
 all:  html  pdf
@@ -13,17 +33,18 @@ clean:
 
 
 #	docbook2html -d `pwd`/html.dsl -o html UsersGuide4.xml
+# XML_DEBUG_CATALOG=1 
 
+html: html/index.html 
 
-html:   UsersGuide4.xml html.dsl html/index.html
+html/index.html:   $(SOURCES) $(CATALOGS) $(STYLESHEETS)
 
-html/index.html:   UsersGuide4.xml html.xsl
 	rm -rf html
 	mkdir -p html
 	cp *.jpg html/
 	cp *.png html/
 	cp *.css html/
-	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" XML_DEBUG_CATALOG=1 xsltproc html.xsl UsersGuide4.xml
+	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl UsersGuide4.xml
 	chmod +x html/*.html
 
 

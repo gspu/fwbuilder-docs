@@ -1,0 +1,636 @@
+  <chapter id="clusters">
+    <title>Cluster configuration</title>
+
+    <para>
+      Firewall Builder 4.0 introduces support for firewall
+      clusters. Firewall Builder helps you create configuration for
+      iptables, PF or PIX rules and in some cases cluster
+      configuration as well. The following state synchronization and
+      failover protocols are supported at this time:
+    </para>
+
+
+    <table frame='none'>
+      <title>Supported state synchronization and failover software</title>
+      <tgroup cols='3' align='left'  rowsep='1'>
+        <colspec colnum="1" colname="col1" colwidth="1*"/>
+        <colspec colnum="2" colname="col2" colwidth="1*"/>
+        <colspec colnum="3" colname="col3" colwidth="3*"/>
+	<thead>
+          <row>
+	    <entry>OS</entry>
+	    <entry>State Synchronization</entry>
+	    <entry>Failover</entry>
+          </row>
+        </thead>
+
+	<tbody>
+          <row>
+            <entry>Linux</entry>
+            <entry>conntrackd</entry>
+            <entry>vrrpd, heartbeat, keepalived, OpenAIS</entry>
+          </row>
+
+          <row>
+            <entry>OpenBSD/FreeBSD</entry>
+            <entry>pfsync</entry>
+            <entry>CARP</entry>
+          </row>
+
+          <row>
+            <entry>Cisco ASA (PIX)</entry>
+            <entry>PIX state sync protocol</entry>
+            <entry>PIX failover protocol</entry>
+          </row>
+
+        </tbody>
+      </tgroup>
+    </table>
+    
+
+    <para>
+      Firewall Builder automatically generates policy rules to permit
+      packets of these protocols when it sees firewall cluster
+      configured with one of them. You can use cluster object and its
+      interfaces instead of the member firewall objects or their
+      interfaces in policy and NAT rules and the program will
+      substitute correct addresses when it generates iptables script
+      or PF or PIX configuration.
+    </para>
+
+
+    <sect1>
+      <title>Brief introduction into cluster configuration with
+      Firewall Builder</title>
+
+
+      <para>
+        New object type "Cluster" (located under Clusters in the tree)
+        represents the HA pair.  You configure policy and NAT rules in the
+        rule sets of this object rather than in the actual firewalls.
+      </para>
+
+      <para>
+        Here is what you need to do to set up HA configuration:
+      </para>
+
+      <para>
+        <itemizedlist spacing="compact">
+          <listitem><para>Create your firewall objects. Assign platform and host OS and
+            name interfaces as usual. Do not add any policy or NAT
+            rules. These are your real (member) firewalls. Interfaces should
+            have their real IP addresses (not CARP or VRRP addresses).
+          </para></listitem>
+
+          <listitem><para>
+            Create a Cluster object which you configure with proper platform
+            and host OS. Use the usual "New Object" menu or toolbar button
+            to create this object. Note that in order for the firewall
+            object to become a member of a cluster, their platform and host
+            OS settings must match.
+          </para></listitem>
+
+          <listitem><para>
+            The program guides you through the process of creation of the
+            new Cluster object using wizard-like dialog. You start with the
+            list of firewall objects where you choose which firewalls should
+            become members of the cluster. Next, the program finds
+            interfaces of the member firewalls that have the same name and
+            can be part of the cluster and creates cluster interfaces with
+            the same name. Not all interfaces are eligible, for example
+            bridge ports, bonding interface slaves or parents of vlan
+            interfaces can not be used for the cluster. Cluster interfaces
+            define failover groups. You can add, remove or rename cluster
+            interfaces, as well as change which interfaces of the member
+            firewalls are used with each one. On the next page of the wizard
+            you can change failover protocols and add, remove or change IP
+            addresses of cluster interfaces. Not all failover protocols
+            require IP addresses, for example VRRP or CARP do but heartbeat
+            or OpenAIS don't. Finally, you can choose to use policy and NAT
+            rules of one of the member firewalls to populate Policy and NAT
+            rule sets of the new cluster. If this is done, all references to
+            the original member firewall and its interfaces in rules are
+            replaced with references to the cluster and its interfaces. The
+            program also creates backup copies of the member firewall
+            objects with the name with suffix "-bak" and clears Policy and
+            NAT rule sets of the member firewall objects used with the
+            cluster before new cluster is created.
+          </para></listitem>
+
+          <listitem><para>
+            OpenBSD or FreeBSD cluster gets carp interfaces. Name them
+            "carp0", "carp1" or whatever indexes they have on your
+            machines. You can add CARP password and ID at the same time, but
+            if you don't, you can add them later.
+          </para></listitem>
+
+          <listitem><para>
+            If you use heartbeat or OpenAIS (on Linux) for failover, cluster
+            interfaces should have the same names as corresponding member
+            firewall interfaces. In this case, cluster interfaces are
+            virtual entities that represent interfaces of the corresponding
+            member firewalls. The program will make substitution when it
+            compiles rules. This is also how it works for PIX failover
+            configuration.
+          </para></listitem>
+
+          <listitem><para>
+            Each cluster interface has child "Failover group" object with
+            the name "firewall:carp0:members" or similar.  This is where you
+            configure associated member firewall interfaces.  Double click
+            this object in the tree and then click "Manage Members" button
+            in the dialog. Select interfaces of the member firewalls in the
+            panel on the left hand side and click arrow button to add them
+            to the list on the right. Use checkbox to select master. Click
+            OK when done. The platform and host OS of the cluster object and
+            members must match, otherwise firewall objects do not appear in
+            the "members" dialog panel.
+          </para></listitem>
+
+          <listitem><para>
+            Besides interfaces, the Cluster object has a new child object
+            "State Sync Group". This group represents state synchronization
+            protocol. Currently <emphasis>pfsync</emphasis> is supported for OpenBSD and
+            <emphasis>conntrackd</emphasis> for Linux. To configure, double click it in
+            the tree to open it in the dialog and click "Manage
+            Members". Select interfaces of the member firewalls in the panel
+            on the left hand side and click arrow button to add them to the
+            list on the right. Use checkbox to select master. Click OK when
+            done. They should appear in the "members" table in the State
+            Sync Group dialog. The platform and host OS of the cluster
+            object and members must match, otherwise firewall objects do not
+            appear in the "members" dialog panel.
+          </para></listitem>
+
+          <listitem><para>
+            Button "Edit protocol parameters" allows you to edit some
+            parameters for chosen failover protocol. This is where you can
+            configure an address and port for heartbeat and OpenAIS.
+          </para></listitem>
+
+          <listitem><para>
+            There are few new checkboxes in the "Script" tab of the firewall
+            object dialog. These allow you to control whether the program
+            will add shell commands to create and configure bonding, bridge
+            and VLAN interfaces.
+          </para></listitem>
+
+          <listitem><para>
+            Compile by clicking right mouse button on the cluster object and
+            using menu item "Compile". This will in fact compile each member
+            firewall separately so you'll get .fw and .conf files for both
+            of them.
+          </para></listitem>
+
+          <listitem><para>
+            Again, you configure all the rules in the policy and NAT rule
+            sets that belong to the cluster object. If you put cluster's
+            interfaces in rules, the program replaces them with interfaces
+            of the member firewall when it compiles rules. If you put
+            cluster object in a rule, it is like if you put member firewall
+            object there instead, except the program automatically picks the
+            member firewall it compiles the policy for.
+          </para></listitem>
+
+          <listitem><para>
+            First, the program looks at Policy and NAT rule set objects of
+            the cluster and member firewalls and compares their names. If
+            there is rule set object with the same name in both the cluster
+            and member firewall and both have non-zero number of rules, the
+            rule set object from the member is used and the one from the
+            cluster is ignored. The program prints a warning message when
+            this is done. If rule set objects with the same name exist but
+            the one in the member firewall has zero rules, it is ignored and
+            the one from the cluster is used (no warning is
+            issued). Likewise, if there are rule sets with the same name but
+            the one in the cluster has zero rules, it is ignored.
+          </para></listitem>
+
+          <listitem>
+            <para>
+              Here is what you need to do if you want to have most rules
+              defined in the cluster so they will translate into rules for all
+              member firewalls, but have some rules defined in the members so
+              you can make configurations of the members slightly different:
+              <itemizedlist>
+
+                <listitem><para>Create separate rule set object in the
+                  cluster and in each member. Use name different from
+                  "Policy" or "NAT". Lets use name
+                  "member_override".</para></listitem>
+
+                <listitem><para>Create a rule with action "Branch" in
+                  the main Policy or NAT rule set of the cluster, drag
+                  rule set object "member_override" that belongs to
+                  the cluster to the well in the Branch action
+                  parameters dialog.</para></listitem>
+
+                <listitem><para>Leave "member_override" rule set that
+                    is a child of the cluster
+                    object empty (no rules)</para></listitem>
+
+                <listitem><para>Add rules to the rule set
+                  "member_override" in each member
+                  firewall</para></listitem>
+
+                <listitem><para>Make sure rule set "member_override"
+                  is not marked as "Top ruleset" in the cluster and
+                  each member. This rule set translates into
+                  user-defined chain (iptables) or anchor (PF) and
+                  should not be the "top ruleset".</para></listitem>
+                
+              </itemizedlist>
+              This method works for both policy and NAT rules for all
+              platforms.
+            </para>
+          </listitem>
+
+        </itemizedlist>
+      </para>
+
+    </sect1>
+
+
+    <sect1 id="linux_cluster">
+
+      <title>Linux cluster configuration with Firewall Builder</title>
+
+      <para>
+        Detailed walk-through examples for different Linux cluster
+        configurations can be found in Firewall Builder Cookbook
+        chapter <xref linkend="linux-cluster-cookbook"/>
+      </para>
+
+      <para>
+        High Availability (HA) configurations on Linux can be built
+        using different software packages, such as vrrpd
+        (<ulink url="http://off.net/~jme/vrrpd/"><citetitle>VRRPD home
+        page</citetitle></ulink>) or heartbeat
+        (<ulink url="http://www.linux-ha.org/"><citetitle>Linux-HA
+        home page</citetitle></ulink>). Firewall Builder focuses on
+        the firewall configuration and provides independent way of
+        configuring iptables rules for Linux HA clusters and can be
+        used with any HA software package, including home-grown
+        scripts and packages that will appear in the future. At this
+        time Firewall Builder does not generate configuration or
+        command line for the HA software.
+      </para>
+
+      <para>
+        Like with all other supported firewall platforms, interface
+        objects that belong to a cluster object serve to establish
+        association between actual interfaces of the member
+        firewalls. Cluster interface object should have the same
+        name as corresponding member firewall interfaces. It should
+        have Failover Group child object configured with interfaces
+        of the member firewalls. You can create Failover Group
+        object using context menu item "Add Failover Group", the
+        menu appears when you right mouse click on the cluster
+        interface object. If you create new cluster using "New
+        object" menu or toolbar button, the wizard that creates new
+        cluster object will create Failober Group objects
+        automatically. Here is how it should look like:
+      </para>
+
+      <para>
+        <figure float="1" id="linux_cluster_interface_mappings">
+          <title>Failover group objects and mapping between
+            cluster and member interfaces</title>
+          <graphic scale="60" fileref="linux-cluster-interface-mappings.png"/>
+        </figure>
+      </para>
+
+      <para>
+        Note that the name of the cluster interface should match
+        the name of the member interfaces exactly, even if it may
+        appear that HA software running on the firewall creates
+        new interface such as eth0:0. Heartbeat daemon creates
+        what looks like interface "eth0:0" when it becomes active
+        and assumes virtual ip address. The "eth0:0" is in fact a
+        label on the secondary ip address on the interface "eth0"
+        which you can see if you use command "ip addr show dev
+        eth0". Here is an example of the output of this command
+        taken on the firewall running heartbeat that was active at
+        the moment:
+      </para>
+
+      <para>
+        <screen>
+# ip addr show dev eth0
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:aa brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+    <emphasis role="redtext">inet 10.3.14.150/24 brd 10.3.14.255 scope global secondary eth0:0</emphasis>
+    inet6 fe80::20c:29ff:fe1e:dcaa/64 scope link 
+       valid_lft forever preferred_lft forever
+        </screen>
+      </para>
+
+      <para>
+        Secondary IP address 10.3.14.150 that was added by
+        heartbeat is highlighted in red. The "eth0:0" at the very
+        end of the output is the label assigned to this address,
+        this label makes it appear as another inetrface in the
+        output of ifconfig, however it is not real inetrface. Here
+        is the output of ifconfig on the same machine at the same
+        time when it was active in the HA pair:
+      </para>
+
+      <para>
+        <screen>
+# ifconfig 
+eth0      Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa  
+          inet addr:10.3.14.108  Bcast:10.3.14.255  Mask:255.255.255.0
+          inet6 addr: fe80::20c:29ff:fe1e:dcaa/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:242381 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:41664 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:40022382 (40.0 MB)  TX bytes:5926417 (5.9 MB)
+          Interrupt:18 Base address:0x2000 
+<emphasis role="redtext">
+eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa  
+          inet addr:10.3.14.150  Bcast:10.3.14.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          Interrupt:18 Base address:0x2000 </emphasis>
+        </screen>
+      </para>
+
+      <para>
+        It is important to understand the distinction because
+        iptables does not recognize eth0:0 as an interface and does
+        not allow it in "-i" or "-o" clause. Firewall Builder
+        follows the same rules as the target firewall platform it
+        prepares configuration for. This means you should build
+        configuration in fwbuilder using interface "eth0" and not
+        "eth0:0".
+      </para>
+
+      <para>
+        Each cluster interface should have a Failover Group child
+        object configured with corresponding interfaces of the member
+        firewalls. Configuration of this object implements interface
+        mapping illustrated by
+        <xref linkend="linux_cluster_interface_mappings"/> and is
+        shown below:
+      </para>
+
+      <para>
+        <figure float="1" id="linux_heartbeat_cluster_2">
+          <title>Interfaces and addresses of the cluster members</title>
+          <graphic scale="60" fileref="linux-heartbeat-cluster-2.png"/>
+        </figure>
+      </para>
+
+      <para>
+        Firewall Builder GUI proides a way to configure some
+        parameters for the failover
+        protocols <emphasis>heartbeat</emphasis>
+        and <emphasis>OpenAIS</emphasis>. Click <emphasis>Edit
+          protocol parameters</emphasis> button to open dialog for
+        this:
+      </para>
+      
+      <table frame='none'><title></title>
+        <tgroup cols='2' align='left'  rowsep='1'>
+          <colspec colnum="1" colname="col1" colwidth="1*"/>
+          <colspec colnum="2" colname="col2" colwidth="1*"/>
+	  <tbody valign='top'>
+            <row>
+              <entry>
+                <para>
+                  <figure float="1" id="heartbeat_parameters">
+                    <title>Editing parameters for the heartbeat protocol</title>
+                    <graphic scale="60" fileref="heartbeat-parameters.png"/>
+                  </figure>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <figure float="1" id="openais_parameters">
+                    <title>Editing parameters for the OpenAIS protocol</title>
+                    <graphic scale="60" fileref="openais-parameters.png"/>
+                  </figure>
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+
+      <para>
+        Firewall Builder only supports multicast or unicast
+        heartbeat configuration. You can enter the address and port
+        number in the dialog. If you turn checkbox "Use unicast
+        address" on, generated iptables commands will match source
+        and destination addresses of the corresponding interface of
+        both member firewalls. If this checkbox is off, it is
+        assumed heartbeat is configured to use multicast and
+        generated iptables commands will only match this multicast
+        address in both INPUT and OUTPUT chains.
+      </para>
+
+      <para>
+        As with heartbeat, you can configure ip address and port
+        number for the OpenAIS protocol. There is no unicast option
+        here.
+      </para>
+
+      <para>
+        Cluster object should also have State Synchronization group
+        child object. Create it using context menu "Add State
+        Synchronization Group" item if this object does not
+        exist. In this object you need to configure member
+        interfaces that should be used for state synchronization. On
+        Linux, state synchronization is done using conntrackd daemon
+        (<ulink url="http://conntrack-tools.netfilter.org/"><citetitle>conntrack-tools
+            home page</citetitle></ulink>). Configure State
+        Synchronization group object with interfaces of the member
+        firewalls used to pass conntrackd packets:
+      </para>
+
+      <para>
+        <figure float="1" id="linux_cluster_statesync_mappings">
+          <title>Interfaces and addresses of the cluster members</title>
+          <graphic scale="60" fileref="linux-cluster-statesync-mappings.png"/>
+        </figure>
+      </para>
+
+      <para>
+        The State Synchronization group object should look like this:
+      </para>
+
+      <para>
+        <figure float="1" id="linux_cluster_statesync_group">
+          <title>Interfaces and addresses of the cluster members</title>
+          <graphic scale="60" fileref="linux-cluster-statesync-group.png"/>
+        </figure>
+      </para>
+
+      <para>
+        Member firewalls and their inetrfaces appear in the panel in
+        the right hand side of the dialog. Firewall Builder uses
+        this information to automatically generate iptables rules to
+        permit conntrackd packets. Firewall Builder assumes
+        conntrackd is configured to send synchronization packets
+        over dedicated interface (which generally is a good idea
+        anyway). You may use internal inetrface of the firewall for
+        this purpose as well. See examples of conntrackd
+        configuration in Firewall Builder CookBook. You can configure
+        ip address and port number for the conntrack as well.
+      </para>
+
+      <para>
+        <figure float="1" id="conntrack_parameters">
+          <title>Editing parameters for the Conntrack state synchronization protocol</title>
+          <graphic scale="60" fileref="conntrack-parameters.png"/>
+        </figure>
+      </para>
+
+    </sect1>
+
+
+    <sect1>
+      <title>OpenBSD cluster configuration with Firewall Builder</title>
+
+
+      <para>
+      </para>
+    </sect1>
+
+
+    <sect1>
+      <title>PIX cluster configuration with Firewall Builder</title>
+
+      <para>
+        Firewall Builder supports PIX "lan based" failover configuration.
+        Unlike in Linux or BSD, where each interface of the firewall runs
+        its own instance of failover protocol, PIX runs one instance of
+        failover protocol over dedicated interface. PIX can also run state
+        synchronization protocol over the same or another dedicated
+        interface. These dedicated interfaces should be connected via
+        separate switch and do not see regular traffic. Here is how this is
+        implemented in Firewall Builder:
+      </para>
+
+
+      <para>
+        Like with all other supported firewall platforms, interface
+        objects that belong to a cluster object serve to establish
+        association between actual interfaces of the member
+        firewalls. Cluster interface object should have the same name as
+        corresponding member firewall interfaces. It should have
+        Failover Group child object which should be configured with
+        interfaces of the member firewalls. You can create Failover
+        Group object using context menu item "Add Failover Group", the
+        menu appears when you right mouse click on the cluster interface
+        object. Here is an example of correct interface mapping between
+        cluster and member firewalls:
+
+        <figure float="1" id="pix_cluster_example1">
+          <title>Failover group objects and mapping between
+            cluster and member interfaces</title>
+          <graphic scale="60" fileref="pix-failover-groups-mapping.png"/>
+        </figure>
+      </para>
+
+      <para>
+        The Failover Group object "cluster1:e0.101:members" is
+        configured with interfaces "Ethernet0.101" of both members:
+
+        <figure float="1" id="pix_cluster_failover_group_example_1">
+          <title>Example of failover group object</title>
+          <graphic scale="60" fileref="pix-failover-group-1.png"/>
+        </figure>
+      </para>
+
+      <para>
+        Interface that is configured for the failover on the member
+        firewall should be marked as "Dedicated Failover". Use checkbox
+        with this name in the interface object dialog to do this.
+      </para>
+
+      <para>
+        Cluster interface that corresponds to the failover interface
+        of the members should be configured with protocol "PIX
+        failover protocol". Click on the "Edit protocol parameters"
+        button to edit timeout, poll time and the key.
+      </para>
+      
+      <para>
+        Cluster interfaces that represent regular interfaces of the
+        members also must have failover group objects; that is where
+        you add interfaces of the member firewalls. There is no need
+        to configure protocol in these failover groups because PIX
+        does not run it over these interfaces. Regular interfaces
+        should not be marked as "Dedicated Failover".
+      </para>
+      
+      <para>
+        Cluster object should have State Synchronization group child
+        object. Create it using context menu "Add State
+        Synchronization Group" item if this object does not
+        exist. In this object you need to configure member
+        interfaces that should be used for state
+        synchronization. You can use separate dedicated interfaces
+        or the same interfaces used for failover. If these are
+        separate, corresponding interface objects of the member
+        firewalls must be marked as "Dedicated Failover".
+      </para>
+
+      <para>
+        One of the member firewall interfaces used in the State
+        Synchronization group must be marked as "master". This is
+        where you define which PIX unit is going to be the primary
+        and which is going to be the secondary in the HA pair.
+      </para>
+
+      <para>
+        Here is an example of the state synchronization and failover using
+        the same interface Ethernet2:
+
+        <figure float="1" id="state_sync_conf_1">
+          <title>Example of the state synchronization and failover
+            using the same interface Ethernet2</title>
+          <graphic scale="60" fileref="pix-statesync-group-mapping.png"/>
+        </figure>
+      </para>
+
+      <para>
+        The State Synchronization Group object "State Sync Group" is
+        configured with interfaces "Ethernet2" of both members:
+
+        <figure float="1" id="pix_cluster_statesync_group_example_1">
+          <title>Example of state synchronization group object</title>
+          <graphic scale="60" fileref="pix-statesync-group-1.png"/>
+        </figure>
+      </para>
+
+
+      <para>
+        Dedicated failover interfaces of the member firewalls must
+        have IP addresses and these addresses must be different but
+        belong to the same subnet.
+      </para>
+
+      <para>
+        Built-in policy installer treats PIX clusters in a special way:
+        <itemizedlist>
+          <listitem><para> For the PIX cluster, built-in installer installs generated
+              configuration only on the master PIX unit. It determines which
+              one is the master by looking in the StateSyncGroup object (state
+              synchronization cluster group).
+          </para></listitem>
+          <listitem><para>
+              Dialog where user enters authentication credentials and other
+              parameters for the installer has a checkbox that makes installer
+              initiate copy of the configuration to the standby PIX if
+              installation was successful.
+          </para></listitem>
+        </itemizedlist>
+      </para>
+
+    </sect1>
+
+
+  </chapter>

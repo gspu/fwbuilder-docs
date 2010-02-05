@@ -1,0 +1,336 @@
+  <chapter id="network-discovery">
+    <title>Network Discovery: A Quick Way to Create Objects</title>
+
+    <para>One of the distinguishing features that Firewall Builder provides is
+    support for automated object creation. This helps populate the objects
+    tree for large networks with lots of hosts and subnets. What might take hours to do manually, the
+    Discovery Druid wizard can help you do in minutes.</para>
+
+    <para>To start the Discovery Druid, select 
+    <guimenuitem>Tools</guimenuitem>/<guimenuitem>Discovery
+    Druid</guimenuitem>.</para>
+
+    <para>The Discovery Druid supports three main methods for automated object
+    creation:</para>
+
+    <para><itemizedlist spacing="compact">
+        <listitem>
+          <para>Reading file /etc/hosts</para>
+        </listitem>
+
+        <listitem>
+          <para>Network discovery using SNMP queries</para>
+        </listitem>
+
+        <listitem>
+          <para>Import the configuration of a firewall or router</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>You choose the method on the first page of the Druid ( <xref
+    linkend="discovery-page1" />. )</para>
+
+    <figure float="1" id="discovery-page1">
+      <title>Calling The Object Discovery Druid</title>
+          <graphic scale="70" fileref="discovery-druid1.png" />
+    </figure>
+
+    <para>Just check the radio-button next to the method you want to use and
+    click <guibutton>'Next</guibutton>.</para>
+
+    <sect1 id="import_from_hosts">
+      <title>Reading the /etc/hosts file</title>
+
+      <para>This method imports the host records present in the standard
+      <emphasis>/etc/hosts</emphasis> file or any other file that contain
+      records in the following format (this format is actually described in
+      the manual page hosts(5)).</para>
+
+      <para>IP_Address host_name</para>
+
+      <para>The IP address must be separated from the host name with any
+      number of spaces or tab symbols. Lines starting with '#' are considered
+      comments and are ignored.</para>
+
+      <para>When you choose the import from /etc/hosts on the first page, the
+      Druid asks you for the file path and name on the next page. Once that
+      information is entered, it reads the contents of that file and presents
+      a table of new networks (<xref linkend="discovery-hosts-2" />).</para>
+
+      <figure float="1" id="discovery-hosts-2">
+        <title>Creating networks using gathered information</title>
+            <graphic scale="70" fileref="discovery-druid8.png" />
+      </figure>
+
+      <para>This part of the druid is the same for all discovery methods.</para>
+
+      <para>The left column shows the networks that were
+      discovered. The right column shows the network objects that will
+      be created. To start with, the right column is empty.</para>
+
+      <para>This page of the Druid also has the following buttons:</para>
+
+      <itemizedlist spacing="compact">
+          <listitem>
+            <para><guibutton>Select All</guibutton></para>
+
+            <para>Selects all records in the column.</para>
+          </listitem>
+
+          <listitem>
+            <para><guibutton>Unselect All</guibutton></para>
+
+            <para>Deselects all records in the column.</para>
+          </listitem>
+
+          <listitem>
+            <para><guibutton>Filter</guibutton></para>
+
+            <para>Brings up a filter dialog. Filtering helps manage long lists
+            of objects.</para>
+          </listitem>
+
+          <listitem>
+            <para><guibutton>"Remove Filter"</guibutton></para>
+
+            <para>Removes the currently applied filter and shows all records
+            in the table.</para>
+          </listitem>
+        </itemizedlist>
+
+      <para>The Druid can filter records in the table either by their address,
+      by their name, or by both. To filter by address enter part of it in the
+      "Address" field. The program compares the text entered in the filter
+      dialog with an address in the table and shows only those records whose
+      address starts with the text of the filter. For example, to only filter
+      out hosts with addresses on the net 10.3.14.0 we could use the filter
+      "10.3.14". Likewise, to remove hosts "bear" and "beaver" (addresses
+      10.3.14.50 and 10.3.14.74) we could use the filter "10.3.14.6". Note
+      that the filter string does not contain any wildcard symbols like "*".
+      The filter shows only records that have addresses which literally match
+      the filter string.</para>
+
+      <para>Filtering by the object name uses the POSIX regular expressions
+      syntax described in the manual page regex(7). For example, to find all
+      records whose names start with "f" we could use the regular expression
+      "^f". The "^" symbol matches the beginning of the string, so this
+      regular expression matches any name that starts with "f". To find all
+      names that end with "somedomain.com", we could use the regular
+      expression ".*somedomain.com$"</para>
+
+      <para>Once you have reviewed the discovered networks, decide
+      which ones you want to turn into Network objects. Then, copy
+      those networks to the right column.</para>
+
+      <para>To populate the right column with objects, select the
+      networks you want, then click the right arrow (--&gt;) to put
+      them in the right column.</para>
+
+      <figure float="1" id="discovery-hosts-2a">
+        <title>Creating networks using gathered information (more)</title>
+            <graphic scale="70" fileref="discovery-druid9.png" />
+      </figure>
+
+      <para>Click <guibutton>Next</guibutton>. The discovered Hosts list displays:</para>
+
+      <figure float="1" id="discovery-hosts-2b">
+        <title>Creating Hosts using gathered information</title>
+            <graphic scale="70" fileref="discovery-druid10.png" />
+      </figure>
+
+      <para>Again, populate the right column with the objects you want to create:</para>
+
+      <figure float="1" id="discovery-hosts-2c">
+        <title>Creating Hosts using gathered information (more)</title>
+            <graphic scale="70" fileref="discovery-druid11.png" />
+      </figure>
+
+      <para>Click <guibutton>Next</guibutton>. The final object list displays:</para>
+
+      <figure float="1" id="discovery-hosts-2d">
+        <title>List of Objects</title>
+            <graphic scale="70" fileref="discovery-druid12.png" />
+      </figure>
+
+      <para>Here you can specify which type of object will be created
+      for each discovered item: Address, Host, or Firewall. Here we
+      are changing the object "sveasoft (10.3.14.202)" from a host to
+      a firewall:</para>
+
+      <figure float="1" id="discovery-hosts-2e">
+        <title>Specify type of object</title>
+            <graphic scale="70" fileref="discovery-druid13.png" />
+      </figure>
+
+      <para>Click <guibutton>Next</guibutton>. The target library control appears:</para>
+
+       <figure float="1" id="discovery-hosts-2f">
+        <title>Target Library</title>
+            <graphic scale="70" fileref="discovery-druid14.png" />
+      </figure>
+
+      <para>Here you can specify which library the objects will appear
+      in. Normally this would be User, unless you have created a
+      user-defined library. Click <guibutton>Next</guibutton>.</para>
+
+      <para>The wizard finishes processing, and your new objects appear in your library:</para>
+
+       <figure float="1" id="discovery-hosts-2g">
+        <title>Target Library</title>
+            <graphic scale="70" fileref="discovery-druid15.png" />
+      </figure>
+    </sect1>
+
+    <sect1 id="discovery">
+      <title>Network Discovery</title>
+
+      <figure float="1" id="discovery-snmp-seed">
+        <title>Initial Parameters for the Network Discovery program</title>
+            <graphic scale="70" fileref="discovery-druid2.png" />
+      </figure>
+
+      <para>The Network discovery program (sometimes referred to as the
+      "Network Crawler") needs a host to start from. This host is called the
+      "seed host"; you enter it in the first page of the Druid (<xref
+      linkend="discovery-snmp-seed" />). The crawler implements the following
+      algorithm (this is a somewhat simplified explanation):</para>
+
+      <para>First, it runs several SNMP queries against the seed host
+      trying to collect the list of its interfaces and its ARP and
+      routing tables. This host is then added to the table of
+      discovered network objects, together with its interfaces, their
+      addresses and netmasks, and the host's "sysinfo"
+      parameters. Then the crawler analyses the routing table of that
+      host; this allows it to discover the networks and subnets, which
+      in turn are also added to the list of discovered objects. Then
+      it analyses the ARP table, which holds MAC and IP addresses of
+      neighboring hosts. It takes one host at a time from this table
+      and repeats the same algorithm, using the new host as a seed
+      host. When it pulls an ARP table from the next host, it discards
+      entries that describe objects it already knows about. However if
+      it finds new entries, it tries them as well and thus travels
+      further down the network. Eventually it will visit every host on
+      all subnets on the network.</para>
+
+      <para>This algorithm relies on hosts answering to the SNMP queries. If
+      the very first host (the "seed" host) does not run SNMP agent, the
+      crawler will stop on the first run of its algorithm and won't find
+      anything. Therefore it is important to use a host which does run SNMP
+      agent as a "seed" host. Even if most of the hosts on the network do not
+      run SNMP agents, but a few do, the crawler will most likely find all of
+      them. This happens because it discovers objects when it reads the ARP
+      tables from the host which answers; so even if discovered hosts do not
+      answer to SNMP queries, the crawler already found them anyway.</para>
+
+      <para>One of the ways to limit the scope of the network that the crawler
+      will visit is to use the "Confine scan to the network" parameter. You
+      need to enter both a network address and a netmask; the crawler will
+      then check if the hosts it discovers belong to this network and if they
+      do not, discard them.</para>
+
+      <figure float="1" id="discovery-snmp-options">
+        <title>Parameters for Network Discovery: Page 1</title>
+            <graphic scale="70" fileref="discovery-druid3.png" />
+      </figure>
+
+      <figure float="1" id="discovery-snmp-options2">
+        <title>Parameters for Network Discovery: Page 2</title>
+            <graphic scale="70" fileref="discovery-druid4.png" />
+      </figure>
+
+      <para>There are a few settings that affect the crawler's algorithm (see
+      <xref linkend="discovery-snmp-options" /> and <xref
+      linkend="discovery-snmp-options2" />). Here is the list:</para>
+
+      <para><itemizedlist spacing="compact">
+          <listitem>
+            <para>Run network scan recursively</para>
+
+            <para>As was described above, the crawler starts with the "seed"
+            host and then repeats its algorithm using every discovered host as
+            a new "seed". If this option is turned OFF, then the crawler runs
+            its algorithm only once and stops.</para>
+          </listitem>
+
+          <listitem>
+            <para>Follow point-to-point links</para>
+
+            <para>If a firewall or router has a point-to-point interface
+            (for example, PPP interface), then the crawler can automatically
+            calculate the IP address of the other side of this interface. It
+            then continues the discovery process by querying a router on the
+            other side. Very often, the point-to-point link connects the
+            organization's network to an ISP and you are not really interested
+            in collecting data about your ISP network. By default crawler
+            won't cross point-to-point links, but this option, if activated,
+            permits it.</para>
+          </listitem>
+
+          <listitem>
+            <para>Include virtual addresses</para>
+
+            <para>Sometimes servers or routers have more than one IP address
+            assigned to the same interface. If this option is turned on, the
+            crawler "discovers" these virtual addresses and tries to create
+            objects for them.</para>
+          </listitem>
+
+          <listitem>
+            <para>Run reverse name lookup queries to determine host
+            names</para>
+
+            <para>If the host discovered by the crawler answers to SNMP
+            queries, it will report its name, which the crawler will use to
+            create an object in Firewall Builder. However, if the host does
+            not answer the query, the crawler cannot determine its name and
+            only knows its IP address. The crawler can use DNS to back-resolve
+            such addresses and determine host names if this option is turned
+            ON.</para>
+          </listitem>
+
+          <listitem>
+            <para>SNMP (and DNS) query parameters</para>
+
+            <para>You must specify the SNMP "read" community string
+            which will be used for SNMP queries. You can also specify
+            the number of retries and a timeout for the query. (The
+            number of retries and timeout parameters also apply to DNS
+            and reverse DNS queries.)</para>
+          </listitem>
+        </itemizedlist></para>
+
+      <para>Once all parameters are entered, the crawler actually gets to
+      work, which may take a while. Depending on the size of the network and
+      such parameters as the SNMP timeout value, scanning may take minutes or
+      even hours. The progress of the scanner can be monitored on the page in
+      the Druid (<xref linkend="discovery-snmp-crawler" />) and (<xref linkend="discovery-snmp-crawler2" />). You can always
+      stop the crawler using the <guibutton>"Stop network scan"</guibutton>
+      button. Data does not get lost if you do this as the Druid will use
+      whatever objects the crawler discovered before you stopped it.</para>
+
+      <figure float="1" id="discovery-snmp-crawler">
+        <title>The SNMP crawler status</title>
+            <graphic scale="70" fileref="discovery-druid6.png" />
+      </figure>
+
+      <figure float="1" id="discovery-snmp-crawler2">
+        <title>The SNMP crawler status (more)</title>
+            <graphic scale="70" fileref="discovery-druid7.png" />
+      </figure>
+
+      <para>The <guibutton>"Save scan log to file"</guibutton> button saves
+      the content of the progress window to a text file and is mostly used for
+      troubleshooting and bug reports related to the crawler.</para>
+
+      <para>If the crawler succeeded and was able to collect information it
+      needed to create objects, you can switch to the next page where you
+      choose and create objects. That page is the same as the one shown in
+      <xref linkend="discovery-hosts-2" />.</para>
+    </sect1>
+
+    <sect1 id="importer">
+      <title>Policy Importer</title>
+	<para>The Policy Importer is described in
+	<xref linkend="policy-importer" />.</para>
+    </sect1>
+  </chapter>

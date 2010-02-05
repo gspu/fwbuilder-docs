@@ -1,0 +1,1176 @@
+  <chapter id="using-gui">
+    <title>Firewall Builder GUI</title>
+
+    <para>The Firewall Builder GUI consists of the <guilabel>Main
+    Window</guilabel>, which can display one or more object files, and
+    a number of dialogs that let you control GUI preferences and
+    tailor the specifics of Firewall Builder objects and
+    services.</para>
+
+    <sect1 id="main_window">
+      <title>The Main Window</title>
+
+      <para>The main window mainly consists of a menu bar and a
+      display area. Normally, the display area holds the object file
+      (or files) you are working on. (An object file holds the objects
+      that represent your real devices, interfaces, networks and so on
+      that you'll use to configure your firewall device and its
+      policies.)</para>
+
+      <figure id="main-win1">
+        <title>The main window</title>
+        <graphic scale="40" fileref="fwbMainWindow.png" />
+      </figure>
+
+      <para>With an object file loaded, the main window consists of
+      the following "areas":</para>
+
+	<itemizedlist spacing="compact">
+              <listitem>
+                <para>Menu and Button bars: Firewall Builder comes
+                with menu and button bars at the top of the
+                window.</para>
+              </listitem>
+	      <listitem>
+                <para>Display area: Below the menus is the Display
+                area. The display area displays one or more open
+                object files. An object file contains the Object
+                Trees, Policy Views, and Dialog Area.</para>
+              </listitem>
+              <listitem>
+                <para>Object Trees: Object trees, displayed on the
+                left side of the window, hold firewall, host,
+                interface, service, and other "objects" that you will
+                used when creating your firewall.</para>
+              </listitem>
+              <listitem>
+                <para>Policy View: The policy view area, in the upper
+                right of the screen, displays the access, NAT, or
+                routing policy you're working on. </para>
+              </listitem>
+              <listitem>
+                <para>Dialog Area: The dialog area, in the lower
+                right, is where you make changes to object
+                parameters. The dialog area, which is not visible at
+                first, appears when you select an object in the
+                GUI. </para>
+              </listitem>
+          </itemizedlist>
+
+      <para>We'll describe these areas in more detail below.</para>
+      </sect1>
+
+      <sect1 id="gui-menus">
+	<title>GUI Menu and Button Bars</title>
+
+      <figure id="main-win-menus">
+          <title>Menu and Button Bars</title>
+              <graphic scale="70" fileref="fwbMainWindow-3.png" />
+        </figure>
+
+      <para>The <guimenu>File</guimenu> menu provides the same file
+      management options found in most GUIs, plus it lets you import
+      and export libraries and manage your object files with the
+      revision control system.</para>
+
+      <table frame='none'><title>File Menu</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>File Menu entry</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>New Object File</entry>
+		<entry>Opens a "file" dialog that lets you name your
+		new object file. Object file names should end with
+		".fwb". In general, you should create a new directory
+		for your object files.</entry>
+	      </row>
+	      <row>
+		<entry>Open...</entry>
+		<entry>Opens a standard "file" dialog that lets you
+		select an existing file. The file dialog, by default,
+		only looks for files that end in ".fwb".</entry>
+	      </row>
+	      <row>
+		<entry>Open Recent</entry>
+		<entry>Contains a sub-menu listing recently opened object files.</entry>
+	      </row>
+	      <row>
+		<entry>Save</entry>
+		<entry>Saves the current file.</entry>
+	      </row>
+	      <row>
+		<entry>Save As...</entry>
+		<entry>Opens a "file" dialog that lets you save the object file under a new name.</entry>
+	      </row>
+	      <row>
+		<entry>Close</entry>
+		<entry>Closes the current object file, but does not exit the program.</entry>
+	      </row>
+	      <row>
+		<entry>Properties</entry>
+		<entry>Opens a dialog indicating properties of the
+		current file, including revision control information
+		(if applicable.) (Program preferences are in the Edit
+		menu.)</entry>
+	      </row>
+	      <row>
+		<entry>Add File to RCS</entry>
+		<entry>This menu item adds the object file to
+		reversion control. See <xref linkend="rcs" /> for a
+		detailed explanation.</entry>
+	      </row>
+	      <row>
+		<entry>Commit</entry>
+		<entry>Commits current changes to RCS. (This option is
+		grayed out if the file has not already been added to
+		RCS.)  See <xref linkend="rcs" /> for a detailed
+		explanation.</entry>
+	      </row>
+	      <row>
+		<entry>Import Policy</entry>
+		<entry>Allows you to import an existing policy into Firewall Builder.</entry>
+	      </row>
+	      <row>
+		<entry>Import Library</entry>
+		<entry>Lets you import an Object Library. (See <guimenuitem>Export Library</guimenuitem>.)</entry>
+	      </row>
+	      <row>
+		<entry>Export Library</entry>
+		<entry>Brings up a dialog that lets you select which
+		Object Library you wish to export to a ".fwl"
+		file. Once exported, you can import it into another
+		instantiation of Firewall Builder. This is
+		particularly useful in Enterprise settings that have
+		multiple Firewall Builder workstations and
+		administrators.</entry>
+	      </row>
+	      <row>
+		<entry>Print</entry>
+		<entry>Lets you print your policy.</entry>
+	      </row>
+	      <row>
+		<entry>Exit</entry>
+		<entry>Closes Firewall Builder.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>The <guimenu>Edit</guimenu> options are self-explanatory
+      if you're familiar with GUI-based Tools. However,
+      the <guimenuitem>Preferences</guimenuitem> require some
+      explanation.</para>
+
+      <para>To open the <guilabel>Preferences</guilabel> dialog,
+      select <guimenuitem>Edit/Preferences...</guimenuitem>. The
+      dialog has several tabs, described here.</para>
+
+      <figure id="preferences-dialog">
+        <title>The GUI Preferences Dialog</title>
+            <graphic scale="60" fileref="fwbPrefGeneral.png" />
+      </figure>
+
+      <table frame='none'><title>Preferences>General tab</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>General Preferences</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Working Directory</entry>
+		<entry>This option tells the program where it should store the
+                data file. Policy compilers also store firewall configuration
+                files or scripts they produce in the this directory. If this
+                parameter is left blank, then the policy compiler will store
+                the firewall configuration it generates in the same directory
+                as the original data file.</entry>
+	      </row>
+	      <row>
+		<entry>Check for updates automatically</entry>
+		<entry>If checked, the program checks for program updates every time it starts.</entry>
+	      </row>
+	      <row>
+		<entry>Check Now</entry>
+		<entry>Click if you want the program to check for updates at that moment.</entry>
+	      </row>
+	      <row>
+		<entry>Use http proxy while checking for updates (host:port)</entry>
+		<entry>Whether you use the automatic or manual method
+                to check for updates, if you are behind a proxy, enter
+                the host IP and port of the proxy in this
+                field. Separate the host IP and port number with a
+                colon (:).</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+     <table frame='none'><title>Preferences>Objects tab</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Objects Preferences</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Automatically save data in dialogs while switching
+                between objects</entry>
+		<entry>The GUI shows a dialog for every opened object
+                in the same place (the right half of the main
+                window). Normally if you have made changes to an
+                object's data and want to switch to another object
+                without clicking on the
+                <guibutton>Apply</guibutton> or
+                <guibutton>Undo</guibutton> button, GUI shows a pop-up
+                dialog asking whether data should be saved or changes
+                should be ignored. If this option is turned on, the
+                program automatically saves unsaved data every time
+                you open another object in the dialog area.</entry>
+	      </row>
+	      <row>
+		<entry>Enable object tooltips</entry>
+		<entry>Firewall Builder can show a summary of an
+                object's properties in a quick pop-up window (a
+                "tooltip") when you places the mouse cursor over an
+                object icon. If this is not enabled, then you must
+                click on an object to get the same information. The
+                <guilabel>Tooltip delay</guilabel> control sets the
+                delay, in seconds, between the time you hover the
+                cursor and the time the tooltip appears.</entry>
+	      </row>
+	      <row>
+		<entry>Show deleted objects</entry>
+		<entry>Selecting this checkbox turns on a third object tree:
+                Deleted Objects. Once activated, the Deleted Objects tree acts
+                like trash can (or recycle bin) for deleted objects. If you
+                delete something by mistake, you can retrieve it.</entry>
+	      </row>
+	      <row>
+		<entry>Clip comments in rules</entry>
+		<entry>Comments in a rule can sometimes make the rule
+                line taller, reducing the number of rules visible on a
+                screen.  Select this if you want comments to be
+                truncated in the view if they take up more than one
+                line.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+     <table frame='none'><title>Preferences>Data File tab</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Data File Preferences</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Periodically save data to file every ... minute</entry>
+		<entry>If checked, automatically saves your data every
+                specified number of minutes.</entry>
+	      </row>
+	      <row>
+		<entry>Do not ask for the log record when checking in the new
+                file version</entry>
+		<entry>Only affects RCS. If selected, the program does
+                not prompt you for a "comment" when you check your
+                file back into RCS.  See <xref linkend="rcs" /> for a
+                detailed explanation on using revision control with
+                Firewall Builder.</entry>
+	      </row>
+	      <row>
+		<entry>Enable compression of the data file</entry>
+		<entry>If selected, your data file will be compressed to save
+                disk space.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+     <table frame='none'><title>Preferences>SSH tab</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>SSH Preferences</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>SSH and SCP paths</entry>
+		<entry>These fields let the program know where your
+                  SSH and SCP programs (or their equivalents) live. If
+                  they are in your PATH, then you don't have to
+                  specify the complete paths to them. On Windows,
+                  however, you must install putty. See
+                  <xref linkend="install-putty" /> for
+                  instructions.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+     <table frame='none'><title>Preferences>Labels tab</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Labels Preferences</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Labels</entry>
+		<entry>You can assign colors to particular rows in your policies to
+            make them stand out visually. You can change the text label
+            associated with each color using this tab. While the color shows
+            up in the ruleset, the text label only appears in the label
+            list.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+     <table frame='none'><title>Preferences>Icons tab</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Icons Preferences</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Show icons in rules</entry>
+		<entry>By default, objects such as interfaces, hosts, and
+                networks show up as both an icon and text. De-select this to have
+                only the text appear (no icon).</entry>
+	      </row>
+	      <row>
+		<entry>Show text descriptions in columns
+                "Direction","Action"</entry>
+		<entry>By default, the Direction and Action columns show only
+                icons. Select this to have text appear as well.</entry>
+	      </row>
+	      <row>
+		<entry>Icon size</entry>
+		<entry>By default, icons are 25x25
+                pixels. Select <guilabel>16x16</guilabel> to make them
+                somewhat smaller. (The larger icons are easier to see,
+                the smaller ones are suitable for smaller displays,
+                such as laptop screens.)</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+     <table frame='none'><title>Preferences>Fonts tab</title>
+	<tgroup cols='2' align='left' rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Fonts Preferences</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Fonts</entry>
+		<entry>Use these controls to set the font used for rules and the
+            font used in the object tree, respectively.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>The <guimenu>Object</guimenu> lets you create a new
+      object, find occurrences of an object (including doing
+      replaces), lock an object to prevent accidentally changes, and
+      unlock an object when you need to edit it.</para>
+
+      <table frame='none'><title>Object menu</title>
+	<tgroup cols='2' align='left' rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Object Menu entry</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>New Object</entry>
+		<entry>Opens a menu of all possible object
+		types. Select one to create a new object of that
+		type. <xref linkend="creating-objects" /> describes
+		how to create objects.</entry>
+	      </row>
+	      <row>
+		<entry>Find Object</entry>
+		<entry>Opens the <guilabel>Find object</guilabel>
+		dialog, which also provides search-and-replace
+		functions. <xref linkend="find-replace" /> explains
+		how to use this dialog.</entry>
+	      </row>
+	      <row>
+		<entry>Lock</entry>
+		<entry>Makes the selected object read-only, which
+		prevents accidental modification. An object that is
+		locked has a little padlock for its icon. In this
+		example, the eth0 interface of test server is
+		locked. Locking the eth0 interface object also renders
+		read-only the address objects associated with the
+		interface. (test server, because it is "above" eth0 in
+		the hierarchy, is still editable.)
+		<inlinegraphic scale="70"
+		fileref="locked.png"/></entry>
+	      </row>
+	      <row>
+		<entry>Unlock</entry>
+		<entry>Unlocks the selected icon. The object becomes
+		editable, and the objects associated with it become
+		editable as well, unless they have their own
+		locks. <inlinegraphic scale="70"
+		fileref="unlocked.png"/></entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>The <guimenu>Rules</guimenu> lets you add, delete, and
+      rearrange rules in a policy. In addition, it lets you compile
+      and install a complete set of firewall policies.</para>
+
+      <table frame='none'><title>Rules menu</title>
+	<tgroup cols='2' align='left' rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Rules Menu entry</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Insert Rule</entry>
+		<entry>Inserts a blank rule above the currently
+		selected rule. If no rule is selected, inserts a blank
+		rule in position 0 of the current ruleset.</entry>
+	      </row>
+	      <row>
+		<entry>Add Rule Below</entry>
+		<entry>Adds a rule below the currently selected rule.</entry>
+	      </row>
+	      <row>
+		<entry>Remove Rule</entry>
+		<entry>Removes the currently selected rule.</entry>
+	      </row>
+	      <row>
+		<entry>Move Selected Rules</entry>
+		<entry>
+                  <para>Opens a dialog that lets you specify
+		    where the selected rule(s) should go. Firewall Builder
+		    will move rules down to make room for the rule;
+		    selecting a rule that has contents does not replace
+		    the rule, it moves it down.</para>
+
+		  <para>To select multiple rules, click on one rule,
+		  then shift-click on another rule <emphasis>in the
+		  first column</emphasis> (the rule number
+		  column). You must select a contiguous set. To select
+		  one rule, click anywhere.</para></entry>
+	      </row>
+	      <row>
+		<entry>Copy Rule</entry>
+		<entry>Copies the selected rule to the clipboard.</entry>
+	      </row>
+	      <row>
+		<entry>Cut Rule</entry>
+		<entry>Copies the selected rule to the clipboard and removes it from the ruleset.</entry>
+	      </row>
+	      <row>
+		<entry>Paste Rule Above</entry>
+		<entry>Pastes the rule on the clipboard into the
+		currently selected rule row. Moves the selected rule
+		(and all other rules below it) down to make
+		room.</entry>
+	      </row>
+	      <row>
+		<entry>Paste Rule Below</entry>
+		<entry>Pastes the rule on the clipboard below the
+		currently selected rule. Moves lower rules down to
+		make room.</entry>
+	      </row>
+	      <row>
+		<entry>Compile</entry>
+		<entry>Opens a dialog that lets you specify which of
+		the firewalls in the current object file you wish to
+		compile. See <xref linkend="compile-install-policy"
+		/>.</entry>
+	      </row>
+	      <row>
+		<entry>Install</entry>
+		<entry>Opens a dialog that lets you install a compiled
+		firewall onto an actual target device. See
+		<xref linkend="compile-install-policy" />.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+     <para>The <guimenu>Tools</guimenu> menu provides access to useful
+     tools.</para>
+
+     <table frame='none'><title>Tools menu</title>
+	<tgroup cols='2' align='left' rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Tools Menu entry</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Find Conflicting Objects In Two Files</entry>
+		<entry>Launches a tool that lets you specify two
+		object files (.fwb) or two library files (.fwl). The
+		tool then looks for objects that have the same ID, but
+		different characteristics. Such a conflict would cause
+		a problem if you wanted to merge the files.</entry>
+	      </row>
+	      <row>
+		<entry>Discovery Druid</entry>
+		<entry>Launches a wizard that lets you populate many
+		objects automatically via an SNMP crawl, via an
+		existing "hosts" file, or via the import of an
+		existing firewall policy. (
+		<xref linkend="network-discovery" /> ) explains the
+		tool.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>The <guimenu>Window</guimenu> menu provides controls for
+      selecting and rearranging object file windows. It works
+      similarly to Window menus in most GUIs.</para>
+
+      <para>The <guimenu>Help</guimenu> provides access to help
+      resources, information about the current version of Firewall
+      Builder, and a dialog with debugging information.</para>
+
+      <para>The Button Bar has buttons for commonly used
+      functions:</para>
+
+      <figure id="main-buttons">
+          <title>Buttons</title>
+              <graphic scale="70" fileref="fwbMainWindow-3.png" />
+        </figure>
+
+     <table frame='none'><title>Button bar</title>
+	<tgroup cols='2' align='left' rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Button</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Open</entry>
+		<entry>Opens a standard "file" dialog that lets you
+		select an existing file. The file dialog, by default,
+		only looks for files that end in ".fwb".</entry>
+	      </row>
+	      <row>
+		<entry>Save</entry>
+		<entry>Saves the current file.</entry>
+	      </row>
+	      <row>
+		<entry>Find</entry>
+		<entry>Opens the <guilabel>Find object</guilabel>
+		dialog, which also provides search-and-replace
+		functions.  <xref linkend="find-replace" /> explains
+		how to use this dialog.</entry>
+	      </row>
+	      <row>
+		<entry>Compile</entry>
+		<entry>Opens the compile
+		wizard. <xref linkend="compile-install-policy" />
+		explains this in more detail.</entry>
+	      </row>
+	      <row>
+		<entry>Install</entry>
+		<entry>Opens the compile/install
+		wizard. <xref linkend="compile-install-policy" />
+		explains this in more detail.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+    </sect1>
+
+      <sect1 id="gui-display">
+	<title>Display area</title>
+	<para>The display area is where you view and work on your
+	object files.</para>
+      <para>You can open more than one object file window at a
+      time. You can even have the same object file open in two
+      different windows at the same time. (Just use
+      the <guimenuitem>Open</guimenuitem> or <guimenuitem>Open
+      Recent</guimenuitem> again.) If you do, the two views onto the
+      same file are synchronized and work with the same object
+      tree. Changes made to the object in one window are immediately
+      reflected in all windows, both in the tree and in the
+      dialog. See <xref linkend="multiple-data-files" /> for an
+      example of working with multiple data files.</para>
+
+      <para>This figure shows two object files open at the same
+      time.</para>
+
+      <figure id="main-win2">
+          <title>The main window</title>
+              <graphic scale="40" fileref="fwbMainWindow-2.png" />
+        </figure>
+
+      <para>Drag-and-drop and Copy/Paste operations work across
+      different windows.</para>
+
+      </sect1>
+
+    <sect1 id="object_tree">
+    <title>Object Tree</title>
+
+      <figure float="1" id="tree-structure" pgwide="0">
+        <title>Object Tree Structure</title>
+        <graphic fileref="fwbMainWindow-4.png" />
+      </figure>
+
+      <para>The object tree stores all objects in a predefined
+      hierarchy.  Types that correspond to network objects (hosts,
+      address ranges, networks and groups of these) are located in
+      the <guilabel>Objects</guilabel> branch, types that correspond
+      to services are in the <guilabel>Services</guilabel> branch,
+      time intervals are in the <guilabel>Time</guilabel> branch, and
+      all firewalls are in the
+      <guilabel>Firewalls</guilabel> branch. Newly created objects are
+      automatically placed in the appropriate position in the
+      tree. Each branch of the tree is automatically sorted by the
+      object name.</para>
+
+      <para>The program has three default libraries: User, Standard,
+      and Deleted Objects. (Deleted Objects must be turned on
+      in <guimenuitem>File>Preferences>Objects>Show deleted
+      objects</guimenuitem>. <guilabel>User</guilabel> holds objects
+      that you define, including objects for your firewall, hosts, and
+      networks. <guilabel>Standard</guilabel> holds a collection of
+      standard objects that come with the program,
+      and <guilabel>Deleted Objects</guilabel> acts like a trash can
+      or recycle bin for user objects you delete. In addition, you can
+      create tailored libraries by selecting <guimenuitem>New
+      Library</guimenuitem> from the <guimenu>New Object</guimenu>
+      menu and populating it by copy-and-pasting objects from one of
+      the other views (or creating them there from
+      scratch). <xref linkend="new-library" /> has instructions for
+      creating and distributing user-defined libraries.</para>
+
+      <para>Functionally, there is no difference between having an
+      object in the Standard tree, the User tree, or a user defined
+      tree; it is just a convenient way to sort objects in the
+      tree. You can think of each as a kind of the "view". It only
+      affects representation of the data in the GUI; objects are all
+      equal in all other senses and you can use an object from any
+      library in your policy. You need not (and cannot) insert objects
+      into the Standard tree.</para>
+
+      <para>The object that is currently selected in the tree is
+      highlighted in color and is shown in the dialog area on the
+      right.</para>
+
+      <figure id="main-standard-objects">
+        <title>Standard Objects</title>
+        <graphic fileref="pict_095.png" />
+      </figure>
+
+      <para>Firewall Builder understands and uses the object and
+      service types described in the table below. See
+      <xref linkend="working-with-objects" /> and
+      <xref linkend="working-with-services" /> for more detailed
+      information.</para>
+
+     <table frame='none'><title>Object Types</title>
+	<tgroup cols='2' align='left' rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Object Type</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Library</entry>
+		<entry>Firewall Builder comes with the Standard, User,
+		and Deleted Objects libraries. In addition, you can
+		create your own.</entry>
+	      </row>
+	      <row>
+		<entry>Firewall</entry>
+		<entry>Represents a physical firewall device, its
+		interfaces and addresses, and the policy rulesets
+		associated with the device. Use Firewall Builder to
+		model your actual device's firewall software, OS,
+		interfaces and addresses. Then, use Firewall Builder
+		to construct the policy rulesets to assign to the
+		device.</entry>
+	      </row>
+	      <row>
+		<entry>Host</entry>
+		<entry>A computer on your network. Hosts can have interfaces associated with them.</entry>
+	      </row>
+	      <row>
+		<entry>Interface</entry>
+		<entry>A physical interface on a firewall or
+		host. Interfaces can have IP and physical (MAC)
+		addresses associated with them. An IP address can be
+		created from the <guimenu>New Object</guimenu> for the
+		selected interface, but physical addresses can only be
+		created by right-clicking on an interface
+		object.</entry>
+	      </row>
+	      <row>
+		<entry>Network</entry>
+		<entry>An IPv4 subnet</entry>
+	      </row>
+	      <row>
+		<entry>Network IPv6</entry>
+		<entry>An IPv6 subnet</entry>
+	      </row>
+	      <row>
+		<entry>Address</entry>
+		<entry>An IPv4 address</entry>
+	      </row>
+	      <row>
+		<entry>Address IPv6</entry>
+		<entry>An IPv6 address</entry>
+	      </row>
+	      <row>
+		<entry>DNS Name</entry>
+		<entry>A DNS Name object represents a DNS "A" or
+		"AAAA" record and can resolve it into an IP address at
+		compile or run time.</entry>
+	      </row>
+	      <row>
+		<entry>Address Table</entry>
+		<entry>Objects of this type can be configured with the
+		name of an external file that is expected to contain a
+		list of IP addresses (a mix of IPv4 and IPv6 is
+		supported). Addresses can be loaded during policy
+		compile or during the execution of a generated
+		firewall script.</entry>
+	      </row>
+	      <row>
+		<entry>Address Range</entry>
+		<entry>A range of IPv4 or IPv6 IP addresses. This
+		range does not have to be a specific subnet, but it
+		does have to be contiguous.</entry>
+	      </row>
+	      <row>
+		<entry>Object Group</entry>
+		<entry>A collection of addressable objects (objects
+		that have or contain IP addresses) such as network,
+		interface, and hosts objects. Useful for creating a
+		less cluttered-looking firewall policy and for making
+		sure you have the same objects in every related
+		rule.</entry>
+	      </row>
+	      <row>
+		<entry>Custom Service</entry>
+		<entry>Can be used to inject arbitrary code into the generated firewall script.</entry>
+	      </row>
+	      <row>
+		<entry>IP Service</entry>
+		<entry>An IP service such as GRE, ESP, or VRRP. IP
+		Service objects cover IP services that
+		are <emphasis>not</emphasis> ICMP, ICMP6, TCP, or UDP
+		services.</entry>
+	      </row>
+	      <row>
+		<entry>ICMP Service</entry>
+		<entry>An ICMP service such as a ping request or reply</entry>
+	      </row>
+	      <row>
+		<entry>ICMP6 Service</entry>
+		<entry>An ICMP6 service such as "ipv6 packet too big", "ipv6 ping request", or "ipv6 ping reply"</entry>
+	      </row>
+	      <row>
+		<entry>TCP Service</entry>
+		<entry>TCP services such as HTTP, SMTP, or FTP</entry>
+	      </row>
+	      <row>
+		<entry>UDP Service</entry>
+		<entry>A UDP service such as DNS or NTP</entry>
+	      </row>
+	      <row>
+		<entry>TagService</entry>
+		<entry>A service object that lets you examine the tag
+		in an IP header. You can then construct your rule to
+		take appropriate action on a match.</entry>
+	      </row>
+	      <row>
+		<entry>User Service</entry>
+		<entry>A User Service object matches the owner of the
+		process on the firewall that send the packet. It
+		translates to the "owner" match in iptables and "user"
+		parameter for PF.</entry>
+	      </row>
+	      <row>
+		<entry>Service Group</entry>
+		<entry>A collection of services. For example, Firewall
+		Builder comes with the Useful_ICMP service group that
+		contains the "time exceeded", "time exceeded in
+		transit", "ping reply", and "all ICMP unreachable"
+		ICMP services. It also comes with a "DNS" service
+		group that contains both the UDP and TCP version of
+		DNS. Useful for creating a less cluttered-looking
+		firewall policy and for making sure you have the same
+		objects in every related rule.</entry>
+	      </row>
+	      <row>
+		<entry>Time Interval</entry>
+		<entry>A time period such as "weekends" or a range of
+		dates, or a range of times on certain days of the
+		week. Can be used as part of rule matching in Access
+		Policy rulesets to provide or deny access to something
+		based on time. Note that these time intervals are
+		relative to the time on the firewall device
+		itself.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+    </sect1>
+
+    <sect1 id="creating-objects">
+      <title>Creating Objects</title>
+
+      <para>New objects can be created using the
+      <guimenu>New Object</guimenu> menu, accessed by clicking this icon above the object tree:
+	<inlinegraphic fileref="new-object-icon.png"/>. Certain objects can also
+      be created via a pop-up menu that can be opened by right-clicking on a parent object in the tree.</para>
+
+      <figure float="1" id="menu-new-object">
+        <title>Creating Objects Using The Object Menu</title>
+            <graphic fileref="menu-new-object.png" />
+      </figure>
+
+      <para>You can create all objects except physical address objects
+      through the New Object menu. (Physical address objects can only
+      be created by right-clicking on an existing Interface object.)
+      You can also create objects by right-clicking on a folder in a
+      tree (though not in the read-only Standard tree). If you
+      right-click a folder, you can only create objects appropriate to
+      that folder. For example, the interface object can only be
+      placed under a host or firewall object, so the
+      option <guimenuitem>Add Interface</guimenuitem> is available
+      only if you right-click on a host or firewall.</para>
+
+      <figure float="1" id="menu-right-click-new-object">
+        <title>Creating Objects by Right-Clicking</title>
+            <graphic fileref="menu-right-click-new-object.png" />
+      </figure>
+
+      <para>Another way to create objects is to use
+      the <guimenuitem>Duplicate</guimenuitem> option when you right
+      click on an object. This allows you to create a copy of the
+      object. For example, you may want to create a firewall policy
+      for one platform, duplicate it, then just change the target
+      platform on the copy. However, copies are not linked in any
+      way. A change to the original has no affect on the copy, and
+      vice versa.</para>
+    </sect1>
+
+    <sect1 id="tree_navigation">
+      <title>Navigating The Object Tree and Editing Objects in the Object Dialog</title>
+
+      <para>The object selected in the tree automatically appears in
+      the dialog area, where it can be reviewed or modified. Objects
+      are opened by a single mouse click in the tree. Clicking the
+      right button when the mouse cursor is over the object's label in
+      the tree brings up the pop-up menu. This menu is
+      context-sensitive and provides items for the following
+      functions:</para>
+
+      <table frame='none'><title>Object Right-Click Menu</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>Right-Click Menu Entry</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Edit</entry>
+		<entry>Opens the Edit dialog for that object. (You can
+		get the same result by left-clicking on the
+		object.)</entry>
+	      </row>
+	      <row>
+		<entry>Duplicate</entry>
+		<entry>Places a copy of the object into the specified
+            library. (If no user-created libraries exist, then
+            Firewall Builder puts the object in the User tree by
+            default.) The new object has the same name as the original
+            object, unless that object name is already in use in that
+            tree. If so, a "-1" is appended to the object
+            name.</entry>
+	      </row>
+	      <row>
+		<entry>Copy</entry>
+		<entry>Copies an object onto the clipboard.</entry>
+	      </row>
+	      <row>
+		<entry>Cut</entry>
+		<entry>Copies an object onto the clipboard and removes it from
+            the tree.</entry>
+	      </row>
+	      <row>
+		<entry>Paste</entry>
+		<entry>Puts a copy of the object on the clipboard into
+		a tree or into the policy, depending on where the
+		mouse is when you click.</entry>
+	      </row>
+	      <row>
+		<entry>Delete</entry>
+		<entry>Deletes an object without making a copy on the
+            clipboard. If the Deleted Objects tree has been turned on, the object shows up there.</entry>
+	      </row>
+	      <row>
+		<entry>Find</entry>
+		<entry><para>Brings up a Find/Find-and-Replace
+		panel. Click <guibutton>Next</guibutton> in the panel
+		to see all instances of the object boxed in
+		red.</para>
+		<para>To do a Search and Replace, drag another object
+		into the <guilabel>Replace object</guilabel> box,
+		specify a scope for the replacement using the
+		pull-down menu, and then use the <guibutton>Replace
+		All</guibutton>, <guibutton>Replace</guibutton>, <guibutton>Replace
+		&amp; Find</guibutton>,
+		and <guibutton>Next</guibutton> buttons.</para>
+		<xref linkend="find-replace" /> has details on this
+		dialog.</entry>
+	      </row>
+	      <row>
+		<entry>Used Where</entry>
+		<entry>Scans the whole tree, including all groups and policies
+            of all firewalls, looking for references to the object. In
+            the end the program shows a pop-up dialog with icons corresponding
+            to groups and firewalls that use the object. Double-clicking
+            an icon opens the corresponding object in the main
+            window.</entry>
+	      </row>
+	      <row>
+		<entry>Lock and Unlock</entry>
+		<entry>Lock makes an object read-only, which prevents
+		accidental modification. Unlock puts the object back
+		into read/write mode.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>The pop-up menu can also have items to add interface and
+      address objects, depending on what type of object was clicked
+      on.</para>
+
+      <para>In general, the GUI has been designed to "look and feel"
+      like a typical file browser (for example, Windows Explorer). It
+      shows object groups as a collection of icons, where each icon
+      represents an individual object. You can navigate between
+      objects either using the mouse or keyboard arrow keys. The
+      active object is highlighted with a different
+      color. Double-clicking on the icon in the group view opens the
+      corresponding object. Right-clicking opens a pop-up menu that
+      has <guimenuitem>Open Object</guimenuitem>,
+      <guimenuitem>Copy</guimenuitem>, <guimenuitem>Cut</guimenuitem>, and <guimenuitem>Paste</guimenuitem> options.</para>
+
+      <figure float="1" id="interface-dialog">
+        <title>Interface Dialog</title>
+            <graphic scale="80" fileref="host-interface1.png" />
+      </figure>
+
+      <para>Dialogs for objects that can be edited have an
+      <guibutton>Apply</guibutton> button
+      at the bottom. Initially this button is inactive, but once the
+      object's parameters have been modified in the dialog, or group members
+      have been added or removed, the button becomes active so you
+      can click <guibutton>Apply</guibutton> to save new data.
+      If you try to switch to another object without saving, the program shows a pop-up dialog
+      asking if you want to save the changes, discard them, or continue editing them. There is also an option to
+      make the program automatically save modified data when you switch
+      between objects. See the <guimenuitem>Edit>Preferences</guimenuitem> dialog in <xref linkend="gui-menus" />.</para>
+    </sect1>
+
+    <sect1 id="policy-rulesets">
+      <title>Policy Rulesets</title>
+
+      <para>The main purpose of Firewall Builder is, of course, to
+      create actual firewall policies. For that you use the rule sets
+      view. This figure shows the Access Policy ruleset for a firewall
+      called "guardian":</para>
+
+      <figure float="1" id="policy-rulesets-figure">
+        <title>Policy Rule set</title>
+            <graphic scale="80" fileref="fwbMainWindow-7.png" />
+      </figure>
+
+      <para>You can see on the left that <guilabel>Policy</guilabel>
+      is selected under the "guardian" firewall. The access policy
+      (Policy), NAT, and Routing rulesets exist as leaves under a
+      particular firewall in the object tree. Selecting the rule set
+      in the object tree causes it to appear on the right. The same
+      rule set stays visible when you select other objects in tree,
+      but if you select another policy, then that policy appears
+      instead.</para>
+
+      <para>Each row in the table is a different rule. Rules are
+      processed top-to-bottom. See <xref linkend="firewall-policies"
+      /> for explanations of the rule sets and how to work with
+      them.</para>
+
+    </sect1>
+
+    <sect1 id="multiple-data-files">
+      <title>Working with multiple data files</title>
+
+      <para>This section shows an example of working with two data
+      files at the same time.</para>
+
+  <para>
+    We start with a data file. Note the file name, "test.fwb", is
+    shown in the main window title bar.
+  </para>
+
+  <figure float="1">
+    <title>Data file</title>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_1.png"/>
+  </figure>
+
+  <para>
+    Use <guimenuitem>File/Open</guimenuitem> to open another data
+    file.
+  </para>
+
+
+  <figure float="1">
+    <title>Data file</title>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_2.png"/>
+  </figure>
+
+  <para>
+    Here we see file "1.fwb" opened in the GUI. Its name is now shown
+    in the title bar of the window.
+  </para>
+
+
+  <figure float="1">
+    <title>1.fwb</title>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_3.png"/>
+  </figure>
+
+
+  <para>
+    The <guimenu>Window</guimenu> menu supports the usual windows
+    operations: you can maximize and minimize them, as well as cascade
+    or tile them and switch from one to another.
+  </para>
+
+  <figure float="1">
+    <title>Window menu</title>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_4.png"/>
+  </figure>
+
+  <para>
+    Here we have both windows shown. The size of the main windows was
+    rather small to keep the size of the screen shots down, so two
+    windows do not fit well. However even with such a cramped layout
+    we can move objects from one to another using copy/paste or
+    drag-and-drop operations. In this example we are going to drag
+    firewall object "test" from the top window to the bottom one. We
+    are going to drop it onto the folder "Firewalls" in the tree.
+  </para>
+
+  <para>
+    The same result can be achieved using copy/paste operation.
+  </para>
+
+  <figure float="1">
+    <title>Dragging between windows</title>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_5.png"/>
+  </figure>
+
+  <para>
+    Here we maximized the window showing data file "1.fwb"; note that
+    firewall object "test" is part of the tree.
+  </para>
+
+  <figure float="1">
+    <title>Second window now has the object</title>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_6.png"/>
+  </figure>
+
+  <para>
+    Firewall "test" used a network IPv6 object created in the data
+    file "test.fwb". Copying the firewall object "test" also copied
+    all other objects it depended on. This image shows that network
+    "local ipv6 net" is now part of the data file "1.fwb".
+  </para>
+
+  <figure>
+    <title>local ipv6 net</title>
+    <graphic width="100%" contentdepth="100%" scalefit="1" fileref="multifile_slide_7.png"/>
+  </figure>
+  
+  </sect1>
+ 
+  </chapter>

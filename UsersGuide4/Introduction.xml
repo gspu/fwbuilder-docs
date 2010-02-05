@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="Introduction">
+  <title>Introduction</title>
+
+  <sect1 id="intro">
+    <title>Introducing Firewall Builder</title>
+
+    <para>Firewall Builder simplifies the firewall policy management
+      for a number of firewall platforms, including
+      Netfilter/iptables, ipfw, PF, Cisco PIX, and others. Firewall
+      Builder provides a professional-grade GUI to these platforms,
+      simplifying administration tasks.</para>
+
+    <para>With Firewall Builder, you can manage the security policy of your
+      firewall efficiently and accurately, without the learning curve usually
+      associated with command line interfaces. Instead of thinking in terms of
+      obscure commands and parameters, you simply create a set of objects
+      describing your firewall, servers, and subnets, and then implement your
+      firewall policy by dragging objects into policy rules. You can also take
+      advantage of a large collection of predefined objects describing many
+      standard protocols and services. Once a policy is built in the GUI, you
+      can compile it and install it on one, or several, firewall
+      machines.</para>
+  </sect1>
+
+  <sect1 id="overview">
+    <title>Overview of Firewall Builder Features</title>
+
+    <para><itemizedlist spacing="compact">
+        <listitem>
+          <para>Over 100 predefined objects for the most popular and widely
+            used protocols and services</para>
+        </listitem>
+
+        <listitem>
+          <para>Ability to create custom objects describing IP,ICMP,TCP,UDP
+            or custom services</para>
+        </listitem>
+
+        <listitem>
+          <para>Ability to create objects to describe hosts, networks and
+            address ranges</para>
+        </listitem>
+
+        <listitem>
+          <para>Templates to help you jumpstart your
+            firewall policy, and do it right the first time. Templates
+            implement standard policies for typical network layouts, which can
+            later be extended and edited by hand</para>
+        </listitem>
+
+        <listitem>
+          <para>The Network discovery tool that automates the
+            creation of multiple objects by reading a hosts file, by
+            crawling your network via SNMP, or by importing an
+            existing firewall policy.</para>
+        </listitem>
+
+        <listitem>
+          <para>An object oriented approach to the policy management: any
+            change made to an object gets immediately reflected in all policy
+            rules of all firewalls using that object. The configuration for
+            multiple firewalls shares the same object database.</para>
+        </listitem>
+
+        <listitem>
+          <para>The ability to turn a firewall policy into a configuration
+            file or a script and then install it on a firewall with just a few
+            clicks of the mouse.</para>
+        </listitem>
+
+        <listitem>
+          <para>Convenient GUI that supports standard Copy/Paste operations
+            for both text strings and network objects and allows for policy
+            editing using drag and drop</para>
+        </listitem>
+
+	<listitem>
+          <para>Find and Replace functionality that can be used
+            within a policy or across a set of policies</para>
+        </listitem>
+
+        <listitem>
+          <para>Support for several firewall platforms, including Cisco PIX
+            and Open Source firewalls iptables, ipfilter and pf.</para>
+        </listitem>
+
+        <listitem>
+          <para>The ability to print a single object, a firewall policy, the
+            whole hierarchy, or export it to the text file in either plain
+            text or html format</para>
+        </listitem>
+
+        <listitem>
+	  <para>Built-in, platform-specific help. Different
+	    firewalls provide different features and options. The
+	    Firewall Builder GUI provides help in appropriate dialogs
+	    to assist you in choosing the right options for your
+	    platform.</para>
+        </listitem>
+    </itemizedlist></para>
+
+    <figure id="example1">
+      <title>Sample firewall policy</title>
+      <graphic scale="60" fileref="scrn2.png" />
+    </figure>
+  </sect1>
+</chapter>

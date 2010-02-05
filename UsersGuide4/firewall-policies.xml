@@ -1,0 +1,2906 @@
+  <chapter id="firewall-policies">
+    <title>Firewall Policies</title>
+
+    <sect1 id="policies-and-rules">
+      <title>Policies and Rules</title>
+
+      <para>Each firewall object has several sets of rules associated
+      with it: Access Policy (just "Policy" in the GUI), Network
+      Address Translation (NAT), and Routing rules. Rules in the
+      access policy control access to and from the firewall machine
+      and the machines behind it.  NAT rules describe address and port
+      transformations that the firewall should make to packets flowing
+      through it. Routing rules establish static routes in the
+      firewall.</para>
+
+      <para>Firewall software varies widely in the way it can process
+      packets.  For example, some firewalls perform address and port
+      transformations first and then apply policy rules, while some
+      others do it the other way around. There are many other
+      variations and features specific to particular
+      implementations. In Firewall Builder though, you work with an
+      abstract firewall that looks and behaves the same regardless of
+      the target firewall platform. You can build and install firewall
+      polices for one platform, then switch the target and use the
+      exact same policies to generate rules for an entirely different
+      platform. (This assumes both platforms support the features you
+      need.)</para>
+
+      <para>Firewall Builder compensates for differences in
+      implementation between firewall platforms.  For example, Cisco
+      PIX applies its Access List rules to the packet before it
+      performs address and port transformations according to the NAT
+      rules. As a result, a policy rule that controls access to a
+      server behind the firewall doing NAT should be written using the
+      firewall object instead of the server object. The meaning of
+      such a rule is not obvious at a glance since you have to keep in
+      mind all the NAT rules as well as remember that this policy rule
+      controls access not to the firewall machine, but rather to the
+      server behind it. Firewall Builder compensates for variations
+      like this by using smart algorithms to transform rules defined
+      in the GUI into rules that achieve the desired effect in the
+      target firewall platform. Using Firewall Builder, you can write
+      your rules as if NAT translation will happen before the access
+      rules are applied.</para>
+
+      <figure float="1" id="policies-seq">
+        <title>The sequence in which NAT and Policy rules are applied to the packet
+        in Firewall Builder</title>
+            <graphic width="150" fileref="policies-seq.png" />
+      </figure>
+
+      <para><xref linkend="policies-seq" /> represents the logical
+      sequence in which rules defined in Firewall Builder affect the
+      network packet. This diagram describes an abstract firewall that
+      Firewall Builder represents for the user. In some cases the
+      target firewall may work the same way, in some other cases it
+      won't. Either way, you can build your rules as if all your
+      firewalls, regardless of platform, work like
+      <xref linkend="policies-seq" />.
+      </para>
+
+    </sect1>
+
+    <sect1 id="global-policy">
+      <title>Firewall Access Policy Rulesets</title>
+
+      <figure float="1" id="global-policy1">
+        <title>Access Policy</title>
+            <graphic scale="60" fileref="policy_example_1.png" />
+      </figure>
+
+      <para>The main Firewall access policy consists of a set of
+      rules. Packets are analysed by comparing their parameters with
+      rules in the policy, one after the other, from top to bottom.
+      The first rule that matches the packet has
+      it's <guilabel>Action</guilabel> applied to the packet.</para>
+
+      <para>Each rule includes a standard set of parameters,
+      or <emphasis>Rule Elements</emphasis>, that are used for
+      comparison with the packet. Rule elements include "Source",
+      "Destination", "Service", "Interface", "Direction", and
+      "Time". For example, if a packet entering the firewall has a
+      source address that matches the object in
+      the <guilabel>Source</guilabel> field of the rule, its
+      destination address matches the object
+      in <guilabel>Destination</guilabel>, its protocol and port
+      numbers match the object in <guilabel>Service</guilabel>, the
+      interface it passes through matches
+      the <guilabel>Interface</guilabel> field, its direction matches
+      that specified in <guilabel>Direction</guilabel>, and it's time
+      matches <guilabel>Time</guilabel>, then the firewall will take
+      action, specified in the <guilabel>Action</guilabel> field of
+      the matching rule. Of course, a field with "Any" or "All" in it
+      will match all packets for that field.</para>
+
+      <para>
+        For example, in <xref linkend="global-policy1" />, rule #0 is
+        "anti-spoofing", it denies all packets coming throuh the
+        outside interface with source address claiming to be that of
+        the firewall itself or internal network it protects. This rule
+        utilizes interface and direction matching in addition to the
+        source address. Rule #2 says that connection from the internal
+        network (object <emphasis>net-192.168.1.0</emphasis>) to the
+        firewall itself (object <emphasis>firewall</emphasis>)
+        using <emphasis>ssh</emphasis> is allowed
+        (action <emphasis>Accept</emphasis>). The "Catch all" rule #6
+        denies all packets that have not been matched by any rule
+        above it. The access policy in <xref linkend="global-policy1"
+        /> is built to allow only specific services and deny
+        everything else, which is a good practice.
+      </para>
+
+      <para>Access Policy rules represent access control because they
+      define which packets will be permitted and which will be
+      denied. Access Policy rules operate on the packet's source and
+      destination addresses and protocol parameters. These rules work
+      regardless of the interface and direction of the packet, unless
+      a particular interface or direction, or set of interfaces, is
+      assigned to the rule.</para>
+
+      <sect2>
+	<title>Source and Destination</title>
+
+	<para>
+          The <guilabel>Source</guilabel>
+	  and <guilabel>Destination</guilabel> fields allow you to
+	  match a packet to a rule based on source and destination IP
+	  address.
+        </para>
+
+	<para>
+          Either field may be set to "any", which means that the
+	  packet will match on that field regardless. Or, you can set
+	  a field to a particular IPv4 address (Address object), IPv6
+	  address (Address IPv6 object), the IP address or addresses
+	  associated with all interfaces of a host (Host object), a
+	  range of IP addresses (Address Range object), all the
+	  addresses in a particular subnet (Network object), an
+	  address configured as DNS "A" record for a given host name
+	  (DNS Name object), or a group of any of the above. You can
+	  place more than one object in either field,
+	  too. <xref linkend="addressable-objects" /> has more
+	  detailed information on these address objects.
+        </para>
+
+	<para>
+          In addition, you can "negate" an object by dragging it to a
+	  field, then selecting <guimenuitem>Negate</guimenuitem> from
+	  the right-click menu. In
+	  <xref linkend="policies-rule-negate-rfc1918" />, the RFC
+	  1918 address range object has been negated, so the rule
+	  matches any destination address that
+	  is <emphasis>not</emphasis> part of private address
+	  space.
+        </para>
+
+      <figure float="1" id="policies-rule-negate-rfc1918">
+        <title>Destination matches any IP that is <emphasis>not</emphasis> an RFC 1918 address</title>
+            <graphic scale="60" fileref="policy_rule_negate_rfc1918.png" />
+      </figure>
+      </sect2>
+
+      <sect2>
+	<title>Service</title>
+
+	<para>
+          The <guilabel>Service</guilabel> field is also used to
+	  match packets to rules. Use Service Objects
+	  (<xref linkend="working-with-services" />) to specify what
+	  services should be matched.
+        </para>
+
+        <para>
+          As in the Source and Destination fields, you can
+          "negate" an object by dragging it to a field, then
+          selecting <guimenuitem>Negate</guimenuitem> from the
+          right-click menu.
+        </para>
+
+      </sect2>
+
+      <sect2>
+	<title>Interface</title>
+
+	<para>
+          By default, all rules created in Firewall Builder affect all
+	  firewall interfaces, regardless of the target
+	  platform. However, sometimes you want to assign a rule to a
+	  particular interface, or set of interfaces, only. To
+	  populate this field, drag an interface from the firewall
+	  object.
+        </para>
+
+	<para>
+          If you also want to assign a "direction" to the rule, use
+          the next field.
+        </para>
+
+	<para>
+          This field applies to <emphasis>firewall</emphasis>
+	  interfaces only, not host interfaces.
+        </para>
+
+      </sect2>
+
+      <sect2 id="direction">
+        <title>Direction</title>
+
+        <para>
+          The "direction" for a rule is defined with respect to the
+          firewall machine, not to the network behind it. For example,
+          packets that leave the internal network through the firewall
+          are considered "inbound" on firewall's internal interface
+          and "outbound" on its external interface. Likewise, packets
+          that come from the Internet are "inbound" on the firewall's
+          external interface and "outbound" on its internal
+          interface. <xref linkend="f-directions" /> illustrates
+          directions for packets entering or exiting the firewall
+          interface.
+        </para>
+
+        <figure float="1" id="f-directions">
+          <title>Directions</title>
+              <graphic scale="70" fileref="directions.png" />
+        </figure>
+      </sect2>
+
+      <sect2 id="action">
+        <title>Action</title>
+
+	<para>
+          The Action is the action taken on a rule that matches on
+	  the Source, Destination, Service, Interface, Direction, and
+	  Time fields.
+        </para>
+
+        <para>
+          The policy rule action can be one of the options listed
+          below. Not all firewalls support all options, but the GUI
+          will only allow options that are valid for the indicated
+          firewall target. In addition, the same action may have a
+          different name on different platforms.
+        </para>
+
+	<para>
+          Some actions can have parameters. To set a parameter for an
+	  action, first select the action, then double-click on the
+	  icon. (You can also right-click and
+	  select <guimenuitem>parameters</guimenuitem>.) The
+	  parameters dialog appears:
+        </para>
+
+        <figure float="1" id="action-parameters-reject">
+          <title>Parameter options for the Reject action</title>
+              <graphic scale="70" fileref="action-parameters-reject.png" />
+        </figure>
+
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>Accept:</para>
+
+            <para>
+              Allows the packet through the firewall. No
+              subsequent rules are applied. This action has no
+              parameters.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Deny:</para>
+
+            <para>
+              Silently drops the packet. No subsequent rules are
+              applied. This action has no parameters.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Reject:</para>
+
+            <para>
+              Packet is dropped and an appropriate message is sent
+              back to the sender. No subsequent rules are
+              applied. This action has a parameter that lets you
+              specify how the firewall reacts to the packet. Parameter
+              options include TCP RST and a number of ICMP
+              messages.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Accounting/Count:</para>
+
+            <para>
+              Counts packets that match the rule, but makes no
+	      decision on the packet. Even if the packet matches, the
+	      inspection process continues with other rules below
+	      it. This action has a parameter for specifying the rule
+	      name for accounting.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Queue/Pipe:</para>
+
+            <para>
+              Passes the packet to a user space process for
+              inspection. It is translated into QUEUE for iptables and
+              "divert" for ipfw. This action is only supported by
+              compilers for iptables and ipfw. This action has no
+              parameters.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Tag/Mark:</para>
+
+            <para>
+              Associates a tag with the packet. The tag can later be
+              inspected using service object TagService. This action
+              is translated into MARK target with
+              corresponding --set-mark parameter and optionally
+              additional an rule with a CONNMARK --save-mark target
+              for iptables. If the option that activates CONNMARK
+              target is used, the compiler also adds a rule at the
+              very top of the policy to restore the mark. Rules are
+              placed in INPUT,OUTPUT and FORWARD chain of the "mangle"
+              table, which ensures that DNAT happens before rules in
+              the mangle table see the packet. The PREROUTING chain in
+              the mangle table is executed before the PREROUTING chain
+              in the NAT table, so placing tagging rules in the
+              PREROUTING chain would make them fire before DNAT. The
+              POSTROUTING chain of the mangle table, as well as its
+              FORWARD and OUTPUT chains, work before corresponding
+              chains of the NAT table. In all cases the goal is to
+              make sure DNAT rules process the packet before, and SNAT
+              rules process it after, filtering and tagging
+              rules.
+            </para>
+
+	    <para>
+              For PF this action is translated into tag. Supported
+	      only by compilers for iptables and PF. This action's
+	      parameter lets you specify which TagService service
+	      object to apply to the matching packet.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Classify:</para>
+
+            <para>
+              Allows the firewall to define a QoS class for the packet
+              that matches the rule. It is translated into CLASSIFY
+              for iptables, with parameter --set-class. For PF it is
+              translated into "queue". The compiler for ipfw can use
+              "pipe", "queue" or "divert" depending on how the action
+              is configured in the GUI. This action is only supported
+              by compilers for iptables, PF and ipfw. This action has
+              a parameter that lets you specify a Classify
+              string.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Custom:</para>
+
+            <para>
+              Allows you to specify an arbitrary piece of code to be
+              used in place of an action. Supported by compilers for
+              iptables, ipf and ipfw. A parameter lets you specify the
+              string.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Branch/Chain/Anchor:</para>
+
+            <para>
+              Used to branch to a different rule set. It works on
+              target platforms that provide suitable syntax and allow
+              control to return to the higher level rule set if the
+              branch cannot make a final decision about the
+              packet. For iptables this action is translated into a
+              user-defined chain. The name of the chain is the name of
+              the branch chosen by the administrator. For PF this
+              action is translated into an anchor with the same name
+              as the branch rule set. This action is only supported by
+              compilers for iptables and PF. A parameter lets you
+              specify which other rule set to branch into.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Routing:</para>
+
+            <para>
+              Makes the firewall route matching packets through a
+              specified interface or a gateway. This action is
+              translated into ROUTE target for iptables and route
+              option for PF and ipfilter. Compilers for PF and
+              ipfilter support "fastroute", "route-to", "reply-to" and
+              "dup-to" options. Parameters let you change the inbound
+              and outbound interface and route the packet through a
+              specified gateway. You can also tell the firewall to
+              continue inspecting the packet after a match, and you
+              can tell the firewall to make these changes to
+              a <emphasis>copy</emphasis> of the packet while allowing
+              the original packet to proceed normally.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Continue:</para>
+
+            <para>
+              Essentially an empty action. Can be used when you want
+              to assign an option, such as logging, to a match but
+              take no other action in that rule. This action has no
+              parameters.
+            </para>
+          </listitem>
+        </itemizedlist>
+
+        <figure float="1" id="actions">
+          <title>Rule Actions</title>
+              <graphic scale="70" fileref="actions.png" />
+        </figure>
+      </sect2>
+
+      <sect2>
+	<title>Time</title>
+
+	<para>
+          The <guilabel>Time</guilabel> field allows you to restrict a
+	  match to a particular time
+	  interval. <xref linkend="time-interval-objects" /> has
+	  information on creating and using Time Interval objects in a
+	  rule.
+        </para>
+
+      </sect2>
+
+      <sect2 id="options">
+	<title>Options</title>
+
+	<para>
+          The <guilabel>Options</guilabel> field allows you to specify
+	  certain options with regard to packets that match the
+	  rule. Almost all platforms have options related to logging,
+	  and some platforms have more extensive
+	  options. Click <guibutton>Help</guibutton> in the Options
+	  dialog for platform-specific help.
+        </para>
+
+	<para>
+          If the options of a particular rule have been changed from
+	  their default, a <inlinegraphic fileref="option-icon.png"/>
+	  appears in the Option field for that rule. Keep in mind that
+	  not all rules have the same default options. For example, by
+	  default a Deny rule is stateless, because there is no reason
+	  to keep state on a connection that won't be allowed. So, if
+	  you turn on state for a Deny rule, you'll see the icon.
+        </para>
+
+	<para>
+          An Accept rule has the opposite behaviour. By default, state
+	  is kept for Accept rules, so no icon appears when state is
+	  on. If you turn state keeping off, in other words, if you
+	  change the default behaviour for that rule, then the icon is
+	  displayed.
+        </para>
+
+      </sect2>
+
+      <sect2>
+	<title>Working with multiple policy rule sets</title>
+
+	  <para>
+            Every Firewall object created in Firewall Builder has a
+	    single Policy rule set to start. For many firewalls, this
+	    is all you need. However, with Firewall Builder, you can
+	    create multiple access policy rule sets, and, if you
+	    platform supports it, branch between them. This can help
+	    you modularize your policy.
+          </para>
+
+	  <para>
+            Here we have Firewall object "fw" with three policy rule
+	    sets, Policy, Policy_2 and mgmt:
+          </para>
+
+          <figure float="1" id="policy-rulesets1">
+            <title>Firewall with more than one Policy rule set</title>
+            <graphic scale="70" fileref="policy-rulesets1.png" />
+          </figure>
+
+	<para>
+          To create an additional rule set, right-click on the
+	  Firewall object in the tree and select <guimenuitem>Add
+	  Policy Rule Set</guimenuitem>.
+        </para>
+
+	<para>
+          All Policy rule sets have configurable parameters. To see a
+	  Policy rule set's parameters, double-click on it in the tree
+	  to open it in the editor.
+        </para>
+
+        <figure float="1" id="policy-rulesets2">
+          <title>Policy Rule Set Dialog (iptables)</title>
+          <graphic scale="70" fileref="policy-rulesets2.png" />
+        </figure>
+
+	<para>
+          This dialog has
+	  a <guilabel>Name</guilabel>, <guilabel>IPv4/IPv6
+	  setting</guilabel> and a <guilabel>Top ruleset</guilabel>
+	  checkbox. For iptables firewalls, there is also a pair of
+	  radio buttons that indicates whether the policy should
+	  affect <guilabel>filter+mangle</guilabel> tables or
+	  just <guilabel>mangle</guilabel> table.
+        </para>
+
+	<para>
+          The IPv4/IPv6 pull-down menu lets you select whether the
+	  rule set should be compiled for IPv4 only (ignoring any
+	  IPv6-related rules), IPv6 only (ignoring any IPv4-related
+	  rules), or for both IPv4 and IPv6. If both IPv4 and IPv6 are
+	  selected, the compiler "does the right thing" and puts each
+	  rule into the correct part of the configuration.
+        </para>
+
+        <para>
+          Only one rule set can be tagged as the "top" rule set. The
+          "top" rule set is the primary rule set that is assigned to
+          the device. Only one rule set of each type, can be marked as
+          "top". The "top" rule set is always used (if it has any
+          rules). Other rule sets are only used if they are the
+          targets of branching. (In Firewall Builder 3.X, only the
+          Policy rule set can branch.)
+        </para>
+
+      <itemizedlist>
+          <listitem>
+            <para>iptables: rules defined in the "top" rule set will
+            go into built-in chains INPUT,OUTPUT,FORWARD. Rules
+            defined in rule sets where this checkbox is not checked go
+            into a user-defined chain with the same name as the rule
+            set.</para>
+          </listitem>
+
+          <listitem>
+            <para>PF: rules defined in the rule set with <guilabel>top
+            rule set</guilabel> checkbox turned off go into an anchor
+            with the name of the rule set.</para>
+          </listitem>
+
+          <listitem>
+            <para>Cisco IOS access lists: if the <guilabel>top rule
+            set</guilabel> checkbox is turned off, the rules go into
+            access list with the name prefixed with the name of the
+            rule set; this access list will not be assigned to
+            interfaces via "ip access-group" command. Rulesets with
+            checkbox <guilabel>top rule set</guilabel> checked
+            generate ACLs with names consisting of the shortened name
+            of interface and direction abbreviation ("in" or
+            "out"). Only these lists are assigned to
+            interfaces.</para>
+          </listitem>
+        </itemizedlist>
+
+	<para>You can fork processing between rule sets with the
+	"Branch/Chain/Anchor" (depending on platform) Action in a
+	rule. This rule causes packets headed for the "fw-mgmt" host
+	to be passed to the "mgmt" rule set.</para>
+
+        <figure float="1" id="policy-rulesets3">
+          <title>Passing a packet to the "mgmt" rule set</title>
+              <graphic scale="70" fileref="policy-rulesets3.png" />
+        </figure>
+
+	<para>A packet directed to the "mgmt" rule set leaves the main
+	rule set and begins matching against rules in the "mgmt" rule
+	set. If it matches in the "mgmt" rule set, then that action is
+	taken. If it does not match in the "mgmt" rule set, then
+	processing is passed back to the calling rule set.</para>
+      </sect2>
+    </sect1>
+
+    <sect1 id="nat">
+      <title>Network Address Translation Rules</title>
+
+      <note><para>As with Access Policy rule sets, you can create
+      multiple NAT rule sets. However, in Firewall Builder 3.X, you
+      cannot branch between the rule sets. Only the rule set marked as
+      "top" is used.</para></note>
+
+      <sect2>
+        <title>Basic NAT Rules</title>
+				
+	<para>Address translation is useful when you need to provide
+	Internet access to machines on the internal network using
+	private address space (10.0.0.0/8, 172.16.0.0/12, and
+	192.168.0.0/16 as defined in RFC1918). Private addresses are
+	not routable on the Internet, which means clients out on the
+	Internet cannot connect to servers with private
+	addresses. Conversely, machines on the network using one of
+	these addresses cannot connect to servers on the Internet
+	directly. In order to allow internal machines to establish
+	connections with external machines, we need the firewall to
+	convert the private addresses to public addresses and vice
+	versa. In other words, we need the firewall to perform Network
+	Address Translation (NAT). In Firewall Builder, NAT rules are
+	added in the NAT ruleset, located under the firewall object in
+	the tree:</para>
+
+      <figure float="1" id="nat-rule-set-in-fw">
+          <title>NAT rule set</title>
+              <graphic scale="50" fileref="fwobj-rulesets-nat.png" />
+        </figure>
+
+        <figure float="1" id="nat-policy">
+          <title>Network Address Translation Rules</title>
+              <graphic scale="50" fileref="nat_policy.png" />
+        </figure>
+
+        <para>Just like the firewall policy, the Network Address Translation
+        (NAT) rules are inspected by the firewall in the order they appear in
+        the NAT policy. Each NAT rule consists of the following rule
+        elements:</para>
+
+        <itemizedlist spacing="compact">
+            <listitem>
+              <para>Original Src</para>
+
+              <para>An address object to compare to the the source address of the incoming packet.</para>
+            </listitem>
+
+            <listitem>
+              <para>Original Dst</para>
+
+              <para>An address object to compare to the the destination address of the incoming packet.</para>
+            </listitem>
+
+            <listitem>
+              <para>Original Srv</para>
+
+              <para>One or more service objects to compare to the packet's service.</para>
+            </listitem>
+
+            <listitem>
+              <para>Translated Src</para>
+
+              <para>If the original source, destination, and service
+              all matched, this object becomes the new source address
+              of the packet.</para>
+            </listitem>
+
+            <listitem>
+              <para>Translated Dst</para>
+
+              <para>If the original source, destination, and service
+              all matched, this object becomes the new destination
+              address of the packet.</para>
+            </listitem>
+
+            <listitem>
+              <para>Translated Srv</para>
+
+              <para>If the original source, destination, and service
+              all matched, this object is the new service (port
+              number) of the packet.</para>
+            </listitem>
+
+            <listitem>
+              <para>Options</para>
+
+              <para>This field lets you specify platform-specific
+              options for the packet. Right-click in the field and
+              select <guimenuitem>Rule Options</guimenuitem> to see
+              options for your
+              platform. Click <guibutton>Help</guibutton> in the
+              Options dialog to see help for available parameters for
+              your platform. See <xref linkend="options" /> for more
+              information.</para>
+            </listitem>
+
+            <listitem>
+              <para>Comment</para>
+            </listitem>
+          </itemizedlist>
+
+        <para>Here is how it works:</para>
+
+        <para>The original packet is compared with NAT rules, one at a
+        time, starting with the topmost rule. Once a rule that matches
+        a packet's source address, destination address and service is
+        found, the firewall takes parameters from the second half of
+        that rule and makes the indicated substitutions. Some rule
+        elements in the first half of the rule may be set to match
+        "any", which means that that element matches no matter what is
+        in the packet. Some rule elements in the second half of the
+        rule may be set to <emphasis>original</emphasis>, which means
+        that parameter is not changed even if the rule matches. (No
+        substitution happens for that element.)</para>
+
+        <para>In addition to making the substitution, the firewall
+        also makes a record in its internal table of the original and
+        modified values. The firewall uses this information to perform
+        a reverse translation when the reply packet comes back.</para>
+
+        <para>The NAT rules in the screenshot (<xref linkend="nat-policy" />)
+        tell the firewall to do the following:</para>
+
+        <para><itemizedlist spacing="compact">
+            <listitem>
+              <para>Rule #0:</para>
+
+	      <para>If the original packet originated on the internal
+	      subnet 192.168.2.0/24 and is destined for the internal
+	      subnet 192.168.1.0/24, then there is no need to
+	      translate the packet.</para>
+            </listitem>
+
+            <listitem>
+              <para>Rule #1:</para>
+
+              <para>If a packet is headed to the Internet from either
+              the 192.168.2.0/24 or 192.168.1.0/24 subnet, then the
+              source IP address should be set to the IP address of the
+              firewall's "outside" interface.</para>
+            </listitem>
+
+            <listitem>
+              <para>Rule #2:</para>
+
+              <para>If any packet was originally destined for the
+              "outside" interface on the firewall, the destination IP
+              address should be re-written to be the IP address of the
+              "server on dmz" host IP (in this case,
+              192.168.2.10).</para>
+            </listitem>
+          </itemizedlist></para>
+
+        <para>Some firewall platforms support negation in NAT
+        rules. If it is supported, this feature can be activated by
+        right-clicking on the rule element in the NAT
+        rule. <xref linkend="rule-elements" /> shows what firewall
+        platforms support negation in NAT.</para>
+
+        <para>You can create NAT rules and edit them using the same methods as
+        described in <xref linkend="editing-policy-and-nat" /></para>
+      </sect2>
+
+      <sect2>
+        <title>Source Address Translation</title>
+
+       <para>
+        Using NAT to translate private IP addresses to public, and vice versa, is often called
+        "masquerading". When configured this way, the firewall rewrites the source
+        IP address of each packet sent by internal machines to the Internet,
+        replacing the private IP address with the address of its external
+        interface.</para>
+
+        <para>In Firewall Builder this type of NAT rule is composed as
+        shown in Rule 1 in <xref linkend="nat-policy" />.</para>
+
+        <para>In this rule objects representing internal networks are
+        placed in
+        <guilabel>Original Src</guilabel> and the firewall's outside
+        interface object is placed in <guilabel>Translated
+        Src</guilabel>, indicating that we want the source address of
+        the packets to be translated. As before, we do not need to
+        worry about reply packets because the underlying firewall
+        software keeps track of translations done for all the
+        connections opened through the firewall and rewrites addresses
+        in all reply packets automatically.</para>
+
+        <para>In <xref linkend="nat-policy" />, Rule 1 uses the
+        firewall interface object in the Translated Src, which means
+        the source address of the packet will be substituted with the
+        address of firewall outside interface. If there is more than
+        one external interface, the decision of which interface to use
+        is made by the firewall's routing table.</para>
+
+        <para>One of the consequences of this design is that rule #1 on <xref
+        linkend="nat-policy" /> provides translation for packets coming from
+        internal subnets going out to the Internet.</para>
+
+        <note>
+          <para>Interface object can be used in the NAT rules even if the
+          address of this interface is obtained dynamically and is not known
+          beforehand.</para>
+        </note>
+
+        <figure id="src-nat">
+            <title>Translations done to packets going in different directions:
+            (A) when firewall object is used in TSrc in the NAT rule; (B) when
+            interface eth1 is used in TSrc in the NAT rule; (C) when host
+            object with address 192.0.2.50 is used in TSrc in the NAT
+            rule</title>
+
+            <graphic scale="50" fileref="src-translations.png" />
+
+          </figure>
+					
+					     <sect3>
+      <title>Examples of Source Address Translation Rules</title>
+
+        <para>
+          This section demonstrates examples of NAT rules that
+          manipulate the source address and ports of packets.                
+        </para>
+
+	<sect4>
+        <title>Basic Source Address Translation Rule</title>
+
+        <para>
+          Source address translation is useful when you need to let
+          machines using private address space (e.g., as defined in
+          RFC1918) access the Internet. The firewall manipulates the
+          source address of IP packets to make them appear to come
+          from one of the public addresses assigned to the firewall
+          instead of coming from the actual, private address on the
+          internal network.
+	</para>
+  
+
+        <para>
+          In the following examples we will use a firewall
+          object configured as follows:
+	</para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="fwobj-dnat-2.png"/></figure>
+
+        <para>
+          The external interface of the firewall is <emphasis>eth0</emphasis>,
+          it has a static IP address 192.0.2.1 (this is an
+          example address, normally external interface would
+          have a publicly routable address).
+	</para>
+  
+
+        <para>
+          The simplest source address translation rule looks
+          like this:
+	</para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="snat-rule-1.png"/></figure>
+
+        <para>
+          We put the interface of the firewall
+            into <guilabel>Translated Src</guilabel> and an object
+            representing the internal network in the
+          <guilabel>Original Src</guilabel> element of the rule. This tells
+          the firewall to replace the source address of packets
+          that match the "Original" side of the rule with the 
+          address of the interface <emphasis>eth0</emphasis>.  
+	</para>
+  
+
+        <para>
+          This rule translates into the following simple iptables
+          command:
+	</para>
+  
+
+  <screen>
+
+# Rule 0 (NAT)
+# 
+$IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24  \
+    -j SNAT --to-source 192.0.2.1 
+
+  </screen>
+
+        <para>
+          Note that Firewall Builder uses the chain <emphasis>POSTROUTING</emphasis>
+          for the source address translation rules. It will
+          use <emphasis>PREROUTING</emphasis> for the destination
+          translation rules.   
+	</para>
+  
+
+        <para>
+          For PF, Firewall Builder uses <emphasis>nat</emphasis> rule:       
+	</para>
+  
+
+  <screen>
+
+# Rule  0 (NAT)
+# 
+nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.1 
+
+  </screen>
+
+        <para>
+          Finally, for PIX, Firewall Builder knows to use global pool
+          in combination with "nat" command and automatically
+          determines which interfaces to
+          associate <emphasis>global</emphasis>
+          and <emphasis>nat</emphasis> commands with:
+	</para>
+  
+
+  <screen>
+
+! Rule  0 (NAT)
+! 
+global (outside) 1 interface
+access-list id43442X30286.0 permit ip 172.16.22.0 255.255.255.0  any 
+nat (inside) 1 access-list id43442X30286.0 tcp 0 0
+
+  </screen>
+
+        <para>
+          Note that the generated PIX configuration has been optimized
+          and the "global" command takes address from the interface
+          "outside" regardless of how this address is assigned,
+          statically or dynamically.
+	</para>
+  
+
+	</sect4>
+
+	<sect4>
+        <title>Source Address Translation Using Interface with Dynamic Address</title>
+
+        <para>
+          The generated configurations in the previous examples used
+          the IP address of the external interface for
+          translation. Let's see what configuration Firewall Builder
+          will produce if the external interface has a dynamic address
+          that is not known at the time when configuration is
+          generated.
+	</para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="fwobj-snat-2.png"/></figure>
+
+        <para>
+          The NAT rule looks exactly the same as in examples above: we
+          still put interface <emphasis>eth0</emphasis> in
+          <guilabel>Translated Src</guilabel> even though its address is
+          unknown. 
+	</para>
+  
+
+        <para>
+          Iptables uses target MASQUERADE when the source NAT is
+          requested with a dynamic interface. Firewall Builder
+          generates the following command:
+	</para>
+  
+
+  <screen>
+
+# Rule 0 (NAT)
+# 
+$IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24 -j MASQUERADE  
+
+  </screen>
+
+        <para>
+          PF supports special syntax for the dynamic
+          interface, <emphasis>(en0)</emphasis>, which makes it take
+          the address of the interface automatically:
+	</para>
+  
+
+  <screen>
+
+# Rule  0 (NAT)
+# 
+nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; (en0) 
+
+                </screen>
+
+        <para>
+          There is no difference in the generated PIX configuration
+          because fwbuilder optimizes it and uses the "global
+          (outside) 1 interface" command which takes the address from
+          the outside interface regardless of whether the address is
+          assigned statically or dynamically.
+	</para>
+  
+
+	</sect4>
+
+	<sect4>
+        <title>Port Translation</title>
+
+        <para>
+          Firewall Builder can generate configurations for the NAT
+          rules that manipulate not only addresses, but also ports and
+          port ranges. Consider this hypothetical example where we
+          want to squeeze source port range from the whole
+          unprivileged range 1024 - 65535 to rather limited range
+          10000 - 20000 on all connections from internal network to
+          the server on DMZ:
+        </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="snat-rule-3.png"/></figure>
+
+        <para>
+          TCP Service object "sport range 10000-20000" is defined as
+          follows:
+        </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="snat-tcp-service-1.png"/></figure>
+
+        <para>
+          For iptables fwbuilder generates the following command for
+          this rule:
+        </para>
+  
+
+  <screen>
+
+# Rule 0 (NAT)
+# 
+$IPTABLES -t nat -A POSTROUTING -o eth+ -p tcp -m tcp  -s 172.16.22.0/24 \
+    --sport 1024:65535  -d 192.168.2.10 -j SNAT --to-source :10000-20000 
+
+  </screen>
+
+        <para>
+          This rule matches source port range "1024-65535" and
+          original destination address 192.168.2.10 and only
+          translates source ports to the range 10000-20000. Firewall
+          Builder generated SNAT rule because the object in the
+          Translated Source requested a change in the source port
+          range. If this object had zeros in the source port range but
+          defined some non-zero destination port range, the program
+          would have generated DNAT rule to translate destination
+          ports.
+        </para>
+  
+	</sect4>
+
+	<sect4>
+        <title>Load Balancing NAT Rules</title>
+
+  
+
+        <para>
+          
+          Many firewall platforms can use NAT to perform
+          simple load balancing of outgoing sessions across a
+          pool of IP addresses. To set this up in fwbuilder,
+          we start with an address range object:
+                
+        </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="snat-address-range-1.png"/></figure>
+
+        <para>
+  
+                  We then use it in the "Translated Source" of the NAT rule:
+                
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="snat-rule-4.png"/></figure>
+
+        <para>
+  
+                  Here is what we get for the iptables firewall:
+                
+  </para>
+  
+
+  <screen>
+
+# Rule 0 (NAT)
+# 
+$IPTABLES -t nat -A POSTROUTING -o eth+  -s 172.16.22.0/24 \
+    -j SNAT --to-source 192.0.2.10-192.0.2.20 
+
+                </screen>
+
+        <para>
+  
+                  In case of PIX, fwbuilder builds complex global pool
+                  to reflect requested address range:
+                
+  </para>
+  
+
+  <screen>
+
+! Rule  0 (NAT)
+! 
+global (outside) 1 192.0.2.10-192.0.2.20 netmask 255.255.255.0
+access-list id54756X30286.0 permit ip 172.16.22.0 255.255.255.0  any 
+nat (inside) 1 access-list id54756X30286.0 tcp 0 0
+
+                </screen>
+
+        <para>
+  
+                  For PF, compiler converted range
+                  192.0.2.10-192.0.2.20 to the minimal set of subnets
+                  and produced the following configuration line:
+                
+  </para>
+  
+
+  <screen>
+
+# Rule  0 (NAT)
+# 
+nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; \
+    { 192.0.2.10/31 , 192.0.2.12/30 , 192.0.2.16/30 , 192.0.2.20 } 
+
+                </screen>
+
+        <para>
+  
+                  It is possible to use network object of smaller size
+                  in <guilabel>Translated Source</guilabel> which is equivalent to using
+                  a small address range:
+                
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="snat-small-net-1.png"/></figure>
+
+        <para>
+  
+                  We can use it in the rule just like the range object:
+                
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="snat-rule-5.png"/></figure>
+
+        <para>
+  
+                  This yields for PF:
+                
+  </para>
+  
+
+  <screen>
+
+# Rule  0 (NAT)
+# 
+nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27
+
+                </screen>
+
+        <para>
+  
+                  Unfortunately, the smaller network object in Translated
+                  Source is not supported for iptables because in
+                  iptables, SNAT target can only accept a single IP
+                  address or a range of addresses,  but not a subnet
+                  specification.
+                
+  </para>
+  
+
+        <para>
+  
+                  PF supports different modes of load balancing for
+                  rules like this. To add configuration parameters
+                  that control this, open the NAT rule options dialog by
+                  double-clicking in the column "Options" of the NAT rule:
+                
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="snat-nat-rule-options-pf-1.png"/></figure>
+
+        <para>
+  
+                  When option "source-hash" is checked, the generated command becomes
+                
+  </para>
+  
+
+  <screen>
+
+# Rule  0 (NAT)
+# 
+nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-hash 
+
+                </screen>
+
+	</sect4>
+
+	</sect3>
+      </sect2>
+
+      <sect2>
+        <title>Destination Address Translation</title>
+
+        <para>Suppose we have a network using private IP addresses behind the
+        firewall, and the network contains a server. We need to provide access to this server
+        from the Internet in a such way that connections will be established
+        to the address of the firewall. In this case we need destination
+        address of packets to be rewritten so packets would reach the server
+        on internal network. The simplest rule that translates destination
+        address of incoming packets looks like the one on <xref linkend="nat-policy" />, Rule 2.</para>
+
+        <para>Basically this rule says "if destination address of the
+        packet matches the external address of the firewall, replace
+        it with the address defined by the object <emphasis>server on
+        dmz</emphasis>". If we had used the "firewall" object as the
+        original destination, instead of the interface, then all
+        external interfaces would be mapped to the DMZ
+        server. <xref linkend="dst-nat" /> (A) illustrates this. The
+        red, green and blue packets come to the firewall from
+        different subnets and all have destination addresses that
+        match address of the corresponding interface. If it were not
+        for our NAT rule, packets like that would have been accepted
+        by the firewall and sent to a process expecting them. However
+        NAT rule comes to play and changes destination address of all
+        three packets to 10.3.14.100 (the address of server). Packets
+        with this address do not match any address belonging to the
+        firewall and therefore get sent out of the firewall according
+        to the rules of routing.</para>
+
+        <para>A rule that does not specify
+        any service for the translation translates addresses in
+        packets of all protocols. This approach can make some rules impractical
+        impractical because they will translate and bounce any packets that are
+        headed for the firewall, making it impossible to connect to the
+        firewall itself using telnet or any other protocol. This is especially
+        inconvenient since as we saw earlier translation happens for packets
+        coming from all directions; this means that you won't be able to
+        connect to the firewall even from inside of your network. To alleviate
+        this problem we just add an appropriate service object to the rule as
+        shown in <xref linkend="basic-nat-10" />:</para>
+
+        <figure id="basic-nat-10">
+            <title>Translation limited to packets of HTTP protocol</title>
+                <graphic scale="60" fileref="basic-nat-10.png" />
+          </figure>
+
+        <para>Rule #0 in <xref linkend="basic-nat-10" /> has limited scope
+        because of the service object "http" in Original Service; it matches
+        and performs address translation only for packets of HTTP protocol,
+        while other packets are processed by TCP/IP stack on the firewall as
+        usual. Very often we only want to translate address for packets coming
+        from particular side of the firewall, typically from the Internet, and
+        do not change other packets. Rule #0 on <xref
+        linkend="basic-nat-11" /> achieves this goal by using firewall's
+        interface object in Original Destination. Only packets with
+        destination address the same as that of interface eth1 of the firewall
+        match this rule and get their address translated. Packets coming from
+        other directions will have different destination address and won't
+        match the rule (see <xref linkend="dst-nat" /> (B) ).</para>
+
+        <figure id="basic-nat-11">
+            <title>Destination Address Translation Rule Using Interface of the
+            Firewall</title>
+                <graphic scale="60" fileref="basic-nat-11.png" />
+          </figure>
+
+        <figure id="dst-nat">
+            <title>Translations done to packets going in different directions:
+            (A) when firewall object is used in ODst in the NAT rule and (B)
+            when interface eth1 is used in ODst in the NAT rule</title>
+                <graphic scale="50" fileref="dst-translations.png" />
+          </figure>
+					
+	<sect3>
+          <title>Examples of Destination Address Translation Rules in  Firewall Builder</title>
+
+        <para>
+  
+                This section demonstrates examples of NAT rules that
+                manipulate the destination address and ports of packets.
+              
+        </para>
+
+	<sect4>
+        <title>Configuring NAT for the server using an IP address that
+              belongs to the firewall</title>
+
+        <para>
+  
+                In case when we have no public IP addresses to spare,
+                we can still use NAT to permit access to the
+                server. In this case we will use address that belongs
+                to the firewall's external interface. Here is a
+                screenshot showing the firewall object, its interfaces
+                and an address object that belongs to the external
+                interface:
+              
+        </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="fwobj-dnat-2.png"/></figure>
+
+        <para>
+  
+                We can either use an interface object or a corresponding
+                address object in the rule. The following two examples
+                of rules are equivalent:
+              
+  </para>
+  
+
+        <para>
+  
+                Using interface object:
+              
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="dnat-rule-1.png"/></figure>
+
+        <para>
+  
+                Using an address object:
+              
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="dnat-rule-2.png"/></figure>
+
+        <para>
+  
+                External interface <emphasis>eth0</emphasis> of the firewall has
+                just one IP address, therefore these two variants of
+                the NAT rule are equivalent.
+              
+  </para>
+  
+
+        <para>
+  
+                If the firewall has multiple public IP addresses, then
+                you can add them as additional Address objects to the
+                external interface object and then use them in the NAT
+                rules. All Address objects attached to an interface
+                are equivalent from a NAT rule standpoint.
+              
+  </para>
+  
+
+        <para>
+  
+                Both NAT rules demonstrated in this example provide
+                translation for the destination address of the packet
+                so it can reach the server behind the firewall. We
+                still need a policy rule to actually permit this kind
+                of connection. This rule can be added to the global
+                policy as follows:
+              
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="dnat-rule-3.png"/></figure>
+
+        <para>
+  
+                You always need a combination of the NAT rule and a
+                policy rule to do both address translation and then
+                permit translated packet.
+              
+  </para>
+  
+
+        <para>
+  
+                Here is what Firewall Builder generates for iptables
+                using these NAT and policy rules:
+              
+  </para>
+  
+
+  <screen>
+
+# Rule 0 (NAT)
+# 
+$IPTABLES -t nat -A PREROUTING  -p tcp -m tcp -m multiport   -d 192.0.2.1 \
+    --dports 21,25 -j DNAT --to-destination 172.16.22.100 
+
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD  -i + -p tcp -m tcp  -m multiport  -d 172.16.22.100 \
+    --dports 21,25  -m state --state NEW  -j ACCEPT 
+
+              </screen>
+
+        <para>
+  
+                For PF:
+              
+  </para>
+  
+
+  <screen>
+
+# Rule  0 (NAT)
+# 
+# 
+rdr on eth0 proto tcp from any to 192.0.2.1 port 21 -&gt; 172.16.22.100 port 21 
+rdr on eth0 proto tcp from any to 192.0.2.1 port 25 -&gt; 172.16.22.100 port 25 
+
+# Rule  0 (global)
+# 
+# 
+pass in quick inet proto tcp  from any  to 172.16.22.100 port { 21, 25 }
+
+              </screen>
+
+        <para>
+  
+                These are rather standard destination translation
+                rules. Let's look what Firewall Builder generates for
+                the same rules in the GUI when target firewall
+                platform is set to "PIX":
+              
+  </para>
+  
+
+  <screen>
+
+class-map inspection_default
+  match default-inspection-traffic
+
+policy-map global_policy
+  class inspection_default
+    inspect ftp
+    inspect esmtp
+
+service-policy global_policy global
+
+clear config access-list
+clear config object-group
+clear config icmp
+clear config telnet
+clear config ssh
+
+object-group service outside.id13228X30286.srv.tcp.0 tcp
+ port-object eq 21
+ port-object eq 25
+ exit
+
+! Rule  0 (global)
+! 
+! 
+access-list outside_acl_in  remark 0 (global)
+access-list outside_acl_in permit tcp any host 172.16.22.100 object-group 
+      outside.id13228X30286.srv.tcp.0 
+access-list inside_acl_in  remark 0 (global)
+access-list inside_acl_in permit tcp any host 172.16.22.100 object-group 
+      outside.id13228X30286.srv.tcp.0 
+access-list dmz50_acl_in  remark 0 (global)
+access-list dmz50_acl_in permit tcp any host 172.16.22.100 object-group 
+      outside.id13228X30286.srv.tcp.0 
+
+
+access-group dmz50_acl_in in interface dmz50
+access-group inside_acl_in in interface inside
+access-group outside_acl_in in interface outside
+
+! NAT compiler errors and warnings:
+! 
+
+clear xlate
+clear config static
+clear config global
+clear config nat
+! 
+! Rule  0 (NAT)
+! 
+! 
+access-list id13242X30286.0 permit tcp host 172.16.22.100  eq 21 any 
+static (inside,outside) tcp interface 21  access-list id13242X30286.0 tcp 0 0
+access-list id13242X30286.1 permit tcp host 172.16.22.100  eq 25 any 
+static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
+
+              </screen>
+
+        <para>
+  
+                PIX configuration is considerably more complex. First,
+                protocol inspectors have been activated to set up
+                protocol support. TCP ports were arranged in an
+                object group that is then used in all rules. Access
+                lists were created and attached to all interfaces with
+                "access-group" commands. Destination address
+                translation in PIX configuration is done using
+                "static" commands, which use small access lists to
+                match packets that should be translated. All of this,
+                however, was generated from exactly the same rules and
+                objects in the GUI. All we did is change the firewall
+                platform in the firewall object dialog and make sure
+                network zones and security levels were configured
+                properly. We did not have to configure two interfaces
+                for each NAT rule for PIX: Firewall Builder figured
+                out which interfaces it should use for the "static"
+                command automatically.
+              
+  </para>
+  
+
+	</sect4>
+
+	<sect4>
+        <title>Configuring NAT for the server using dedicated public IP
+              address</title>
+
+        <para>
+  
+                Suppose for some reason you do not want to add an
+                address that should be used for NAT to an interface of
+                the firewall. You can use any Address object in the
+                "Original Destination" even if this Address object is
+                not attached to the interface of the firewall. The
+                problem with this is that the firewall must "own"
+                public address used for NAT in order for it to answer
+                ARP requests for this address from the upstream
+                routers. If the firewall does not "own" the address
+                and does not answer ARP requests, the router will not
+                know where to send packets with this address in
+                destination. To help you solve this problem, Firewall
+                Builder can automatically add virtual address to the
+                firewall's interface when you use an address in a NAT
+                rule. This is controlled by a checkbox <guilabel>Add virtual
+                addresses for NAT</guilabel> in the "Script" tab of the
+                firewall's platform "advanced" settings dialog. If
+                this checkbox is turned on, and you use an address
+                object that does not belong to any interface of the
+                firewall, the program adds a code fragment to the
+                generated script to create virtual address of the
+                interface of the firewall to make sure NAT rule will
+                work. If this is not desired, you can turn this
+                automation off by un-checking this option.
+              
+        </para>
+  
+
+        <para>
+  
+                If you use this feature, the NAT rules look exactly
+                the same as shown above, except address objects are
+                taken from the <emphasis>Objects/Addresses</emphasis> branch of the
+                tree instead of the interfaces of the firewall. In
+                case of iptables, generated script adds virtual
+                addresses to the firewall with a label that starts
+                with "FWB:" prefix. This helps the script identify and
+                remove addresses it controls when you remove them in
+                Firewall Builder GUI.
+              
+        </para>
+  
+
+	</sect4>
+
+	<sect4>
+        <title>NAT rules using an address of dynamic external
+                interface</title>
+
+  
+
+        <para>
+  
+                In all previous examples, the external interface of the
+                firewall had a static IP address that was used in the
+                destination address translation rules. But what if the
+                address is dynamic and not known at the time when
+                Firewall Builder processes rules? Let's see what happens.
+              
+  </para>
+  
+
+        <para>
+  
+                Configuration of objects used in this example:
+              
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="fwobj-dnat-4.png"/></figure>
+
+        <para>
+  
+                The only difference is that interface <emphasis>eth0</emphasis> of
+                the firewall is dynamic and has no IP address. In
+                order to build NAT rules we use this interface in
+                <guilabel>Original Destination</guilabel> (the rule looks exactly the
+                same as rules in the previous examples):
+              
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="dnat-rule-5.png"/></figure>
+
+        <para>
+  
+                Firewall Builder uses method specific to the target
+                firewall platform that allows it to use an interface a with
+                dynamic address in policy and NAT rules. For example,
+                iptables script generated by fwbuilder runs commands
+                that retrieve the actual address of the interface and
+                assign it to the shell variable. This variable is then
+                used in iptables commands to build policy and NAT
+                rules. OpenBSD PF permits using of interface name in
+                rules, PIX has special syntax for "nat", "static" and
+                "access-list" commands that also permit using
+                interface in place of the address.
+              
+  </para>
+  
+
+        <para>
+  
+                Here is generated iptables script:
+              
+  </para>
+  
+
+  <screen>
+
+getaddr() {
+  dev=$1
+  name=$2
+  L=`$IP -4 addr show dev $dev | grep inet | grep -v :`
+  test -z "$L" &amp;&amp; { 
+    eval "$name=''"
+    return
+  }
+  OIFS=$IFS
+  IFS=" /"
+  set $L
+  eval "$name=$2"
+  IFS=$OIFS
+}
+
+getaddr eth0  i_eth0
+
+# Rule 0 (NAT)
+# 
+test -n "$i_eth0" &amp;&amp; $IPTABLES -t nat -A PREROUTING   -d $i_eth0 \
+     -j DNAT --to-destination 172.16.22.100 
+
+              </screen>
+
+        <para>
+  
+                It defines function getaddr() that retrieves IP
+                address of a given interface and assigns it to a
+                variable, in this example to <emphasis>i_eth0</emphasis>. The script
+                checks if this variable has a non-empty value and uses it in
+                <emphasis>-d</emphasis> clause of iptables command to match
+                destination address of incoming packet. Generated
+                script checks the value of this variable because, if
+                some interface does not have any address at the moment
+                when script is executed, it should not try to run
+                incorrect iptables command or, worse, install iptables
+                rule matching "any". Either way machine would end up
+                with firewall configuration that would have a meaning
+                different from what was intended.
+              
+  </para>
+  
+
+        <para>
+  
+                In PF we can use clause <emphasis>(en0)</emphasis> to make the
+                firewall match address of an interface without having
+                to retrieve the address manually:
+              
+  </para>
+  
+
+  <screen>
+
+# Rule  0 (NAT)
+# 
+rdr on en0 proto {tcp udp icmp} from any to (en0) -&gt; 172.16.22.100 
+
+              </screen>
+
+        <para>
+  
+                Generated PIX configuration uses <emphasis>interface</emphasis>
+                clause to match address of the interface:
+              
+  </para>
+  
+
+  <screen>
+
+! Rule  0 (NAT)
+! 
+access-list id29402X30286.0 permit ip host 172.16.22.100   any 
+static (inside,outside) interface  access-list id29402X30286.0 tcp 0 0
+
+              </screen>
+
+	</sect4>
+
+	<sect4>
+        <title>Port Translation</title>
+
+  
+
+        <para>
+  
+                Rules shown in examples above only translated the
+                destination address of packets. Sometimes the
+                server uses different ports as well, and the firewall should
+                convert from the standard port numbers to the ones used by the host. For example, the web server
+                might be running on port 8080, but we may want clients
+                to access it using standard port 80. Here is how to do
+                it.
+              
+  </para>
+  
+
+        <para>
+  
+                First, we create TCP Service object that defines
+                destination port 8080:
+              
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="dnat-tcp-service-1.png"/></figure>
+
+        <para>
+  
+                This service object does not have any source port
+                specification. Only the destination port is defined. Now
+                we can use it in the NAT rule as follows:
+              
+  </para>
+  
+
+        <figure float="1"><title/><graphic scale="50" fileref="dnat-rule-7.png"/></figure>
+
+        <para>
+  
+                Firewall Builder generates the following iptables
+                script for this rule:
+              
+  </para>
+  
+
+  <screen>
+
+# Rule 0 (NAT)
+# 
+$IPTABLES -t nat -A PREROUTING  -p tcp -m tcp   -d 192.0.2.1 --dport 80 \
+    -j DNAT --to-destination 172.16.22.100:8080 
+
+              </screen>
+
+        <para>
+  
+                It uses <emphasis>-j DNAT --to-destination
+                &lt;address&gt;:&lt;port&gt;</emphasis> to translate both
+                destination address and destination port.
+              
+  </para>
+  
+
+        <para>
+  
+                Here is how this looks for PF:
+              
+  </para>
+  
+
+  <screen>
+
+# Rule  0 (NAT)
+# 
+rdr on en0 proto tcp from any to 192.0.2.1 port 80 -&gt; 172.16.22.100 port 8080 
+
+              </screen>
+
+        <para>
+  
+                PIX rules look like this:
+              
+  </para>
+  
+
+  <screen>
+
+! Rule  0 (NAT)
+! 
+! 
+access-list id37125X30286.0 permit tcp host 172.16.22.100  eq 8080 any 
+static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
+
+              </screen>
+
+	</sect4>
+
+     </sect3>	
+					
+      </sect2>
+
+      </sect1>
+
+    <sect1 id="routing">
+      <title>Routing Ruleset</title>
+
+      <para>Though not strictly a firewall function, Firewall Builder
+      also lets you configure the routing tables of iptables, PIX and
+      Cisco IOS firewalls. Routing rules are ignored for other
+      firewalls.</para>
+
+      <para>Construct these rules the same way you construct access
+      policy or NAT rules, by dragging the appropriate objects into
+      the rules. When you run the compiled script on the target
+      firewall, the routing rule set rules create static routes in the
+      firewall.</para>
+
+      <note><para>When executing a firewall script, all existing
+      routing rules previously set by user space processes are
+      deleted. To see which rules will be deleted, you can use the
+      command <command>ip route show</command>. All lines not
+      including "proto kernel" will be deleted upon reload of the
+      firewall script.</para></note>
+
+      <para>If you want to use ECMP (Equal Cost Multi Path) routing
+      rules with your iptables-based firewall, make sure your kernel
+      is compiled with the CONFIG_IP_ROUTE_MULTIPATH option. See
+      <xref linkend="ecmp" /> for instructions on creating multiple
+      paths to a destination.</para>
+
+          <figure float="1" id="routing-rule1">
+            <title>A Routing Rule</title>
+                <graphic scale="70" fileref="routing-rule1.png" />
+          </figure>
+
+<itemizedlist spacing="compact">
+            <listitem>
+              <para>Destination</para>
+
+              <para>Can be any addressable object (hosts, addresses,
+              address ranges, groups, networks.) The default
+              destination ("Default") is 0.0.0.0/0.</para>
+            </listitem>
+
+            <listitem>
+              <para>Gateway</para>
+
+              <para>Can be an IP address, an interface, or a host with only one interface.</para>
+            </listitem>
+
+            <listitem>
+              <para>Interface</para>
+
+              <para>Specify an outbound interface for packets. This interface must be a child interface of the firewall.</para>
+            </listitem>
+
+            <listitem>
+              <para>Metric</para>
+
+              <para>The metric of the route. The default metric for
+              PIX is 1, so a "0" in a rule is automatically changed to
+              1 at compilation.</para>
+            </listitem>
+
+            <listitem>
+              <para>Comment</para>
+
+              <para>A free-form text field.</para>
+            </listitem>
+          </itemizedlist>
+
+	<note>
+	  <para>RedHat seems to reset routing rules explicitly upon
+	  system startup. Therefore, it's hard to distinguish
+	  interface rules from rules set up by the user. On RedHat
+	  systems you need to include the interface basic routing
+	  rules into your Firewall Builder routing setup. IF YOU DO
+	  NOT FOLLOW THIS HINT, YOUR MACHINE WILL FREEZE ANY NETWORK
+	  TRAFFIC UPON START OF THE FIREWALL SCRIPT.  This means, for
+	  example, if eth0 has network 192.168.3.0/24 attached to it,
+	  you need to add a route with
+	  Destination=Network(192.168.3.0/24), Gateway empty and
+	  Interface=eth0.  This problem was encountered on RedHat 8.0,
+	  but other versions and distributions might be affected
+	  too. (Debian sarge and SuSE Linux work fine without
+	  interface routing rules being included in Firewall Builder
+	  routing rules.)
+	  </para>
+	</note>
+
+      <sect2>
+	<title>Handling of the Default Route</title>
+
+	  <para>"Default route" is special in that it is critical for
+	  your ability to access the firewall machine when it is
+	  managed remotely. To make sure you do not cut off access
+	  accidentally by not adding default to the routing rules in
+	  Firewall Builder, Firewall Builder treats the default route
+	  in a special way. If the default route is configured in the
+	  routing rule set in Firewall Builder, then the default route
+	  found in the routing table is deleted and replaced with the
+	  one configured in Firewall Builder. However, if there is no
+	  default route in the routing rule set in Firewall Builder
+	  configuration, then the original default route found in the
+	  routing table is not deleted. Additionally, the script
+	  checks if the installation of routing entries was successful
+	  and rolls changes back in case of errors. This ensures that
+	  the firewall machine will not be left with no default route
+	  and therefore no way to access it remotely.</para>
+
+      </sect2>
+
+      <sect2 id="ecmp">
+	<title>ECMP routes</title>
+
+	  <para>Firewall Builder supports ECMP routes in Linux-based
+	  firewalls using iptables. To create an ECMP rule simply
+	  specify several rules with different paths, i.e. different
+	  combinations of Gateway and Interface, for the same
+	  Destination and with the same metric.</para>
+
+	  <para>In this example, there are three different paths to HostA.</para>
+
+          <figure float="1" id="routing-rule2">
+            <title>ECMP Routing Rule</title>
+                <graphic scale="60" fileref="routing-rule2.png" />
+          </figure>
+
+	  <para>Rules are automatically classified in ECMP rules and
+	  non-ECMP.  The ECMP rules are written out in a separated
+	  section of the firewall script after the "normal" routing
+	  rules.</para>
+      </sect2>
+    </sect1>
+
+      <sect1 id="editing-policy-and-nat">
+        <title>Editing Firewall Rulesets</title>
+
+        <sect2>
+          <title>Adding and removing rules</title>
+
+          <figure float="1" id="editing-policy1">
+            <title>Modifying Policy rules</title>
+                <graphic scale="60" fileref="editing_policy1.png" />
+          </figure>
+
+          <para>Rules can be added, removed or moved around in the
+          policy using commands in a popup menu. The menu appears if
+          you right-click rule element "Number" (the very first rule
+          element, counting from the left).
+          <xref linkend="editing-policy1" /> illustrates this
+          menu.</para>
+
+          <para>This menu allows you to add new rules above or below the
+          currently selected rule in the policy, remove rules, move the
+          current rule up or down, plus the usual
+          <guimenuitem>Copy</guimenuitem>/<guimenuitem>Paste</guimenuitem>
+          operations done on policy rules.</para>
+
+          <para>Functions of this pop-up menu are also duplicated in the
+           <guimenu>Rules</guimenu> menu.</para>
+
+          <para>You can also use the drag and drop operation to move rules up
+          and down in the policy. Just drag the rule by its
+          "number" rule element.</para>
+        </sect2>
+
+        <sect2>
+          <title>Adding, removing and modifying objects in the policy and NAT
+          rules</title>
+
+          <para>To add objects to the policy or NAT rule you can either drag
+          them from the tree and drop them into the corresponding rule
+          element, or use the
+          <guimenuitem>Copy</guimenuitem>/<guimenuitem>Paste</guimenuitem>
+          operation. Objects can be copied into clipboard both from the tree
+          and from another policy rule; in both cases use the pop-up menu or
+          main menu <guimenu>Edit</guimenu>.</para>
+
+          <para>Clicking the right mouse button when the cursor is over rule
+          elements "Source","Destination" or "Service" brings a
+          context-sensitive pop-up menu ( <xref linkend="editing-policy2" />
+          ). The same pop-up menu appears when you do that over the "Original
+          Source", "Original Destination", "Original Service", "Translated
+          Source", "Translated Destination" and "Translated Service" rule
+          elements in the NAT rule.</para>
+
+          <figure float="1" id="editing-policy2">
+            <title>Modifying Object in the Policy Rule</title>
+                <graphic scale="60" fileref="editing_policy2.png" />
+          </figure>
+
+          <para>This menu provides items for the following functions:</para>
+
+          <para><itemizedlist spacing="compact">
+              <listitem>
+                <para>New Group</para>
+
+                <para>Contiguous rules can be grouped together for
+                easier handling. A group of rules can be collapsed in
+                the GUI so that only the group name appears. This can
+                make it easier to deal with rulesets with many
+                rules. The <guimenu>New Group</guimenu> command opens
+                a dialog that lets you create and name a new
+                group. The current rule is automatically added to the
+                group. <xref linkend="using-rule-groups" /> has more
+                information on rule groups.</para>
+              </listitem>
+
+              <listitem>
+                <para>Add to the group</para>
+
+                <para>The selection only appears if you right-click on
+                a rule directly above or below an existing group. If
+                selected, the current rule is added to the indicated
+                group. <xref linkend="using-rule-groups" /> has more
+                information on rule groups.</para>
+              </listitem>
+<!--
+              <listitem>
+                <para>Remove from the group</para>
+
+                <para>The selection only appears if you right-click on a rule that is currently in a group. This selection removes the rule from the group. If you remove a rule from the middle of a group, the group splits into two groups, one above and one below the current rule. Both groups have the same name as the original group. <xref linkend="using-rule-groups" /> has more information on rule groups.</para>
+              </listitem>
+-->
+              <listitem>
+                <para>Edit</para>
+
+                <para>This menu item opens the currently selected object in the dialog area.</para>
+              </listitem>
+
+              <listitem>
+                <para>Copy</para>
+
+                <para>The object is copied into clipboard.</para>
+              </listitem>
+
+              <listitem>
+                <para>Cut</para>
+
+                <para>The object is copied into clipboard and removed from the
+                rule.</para>
+              </listitem>
+
+              <listitem>
+                <para>Paste</para>
+
+                <para>The object on the clipboard is pasted into the
+                field in the the rule. A copy of the object stays on
+                the clipboard, so it may be pasted multiple
+                times.</para>
+              </listitem>
+
+              <listitem>
+                <para>Where used</para>
+
+                <para>Opens a dialog that shows a list of where the
+                rule is used in all rule sets in the current
+                firewall. In addition, simply clicking on an object
+                puts a red rectangle around that object everywhere it
+                occurs in the rule set.</para>
+              </listitem>
+
+              <listitem>
+                <para>Reveal in tree</para>
+
+                <para>Shows the object in its location in the
+                appropriate tree. Simply clicking on the object does
+                the same thing.</para>
+              </listitem>
+
+              <listitem>
+                <para>Negate</para>
+
+                <para>All objects in the selected rule element are negated.
+                The rule element "Source" is negated in rule #1 in screenshot
+                <xref linkend="editing-policy2" />.</para>
+              </listitem>
+            </itemizedlist></para>
+        </sect2>
+
+        <sect2>
+          <title>Changing rule action</title>
+
+          <para>Clicking the right mouse button when the cursor is over the
+          rule element <guilabel>Action</guilabel> opens a context-sensitive pop-up menu ( <xref
+          linkend="editing-policy3" /> ).</para>
+
+          <figure float="1" id="editing-policy3">
+            <title>Modifying the Action of the Policy Rule</title>
+                <graphic scale="80" fileref="editing_policy3.png" />  
+          </figure>
+
+          <para>The options for this menu are described in <xref linkend="action" />.</para>
+
+        </sect2>
+
+        <sect2>
+          <title>Changing rule direction</title>
+
+          <para>Clicking the right mouse button when the cursor is
+          over the rule element <guilabel>Direction</guilabel> opens a
+          context-sensitive pop-up menu (
+          <xref linkend="editing-policy4" /> ).</para>
+
+          <figure float="1" id="editing-policy4">
+            <title>Modifying the Direction of the Policy Rule</title>
+                <graphic scale="80" fileref="editing_policy4.png" />
+              </figure>
+
+          <para>This menu provides items for the following functions:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Inbound:</para>
+
+              <para>The rule matches packets entering the firewall</para>
+            </listitem>
+
+            <listitem>
+              <para>Outbound:</para>
+
+              <para>The rule matches packets exiting the firewall</para>
+            </listitem>
+
+            <listitem>
+              <para>Both:</para>
+
+              <para>The rule matches both entering and exiting packets</para>
+            </listitem>
+          </itemizedlist>
+        </sect2>
+
+        <sect2 id="rule-options">
+          <title>Changing rule options and logging</title>
+
+          <para>clicking the right mouse button when the cursor is over the
+          rule element <guilabel>"Options"</guilabel> brings up a context-sensitive pop-up menu (
+          <xref linkend="editing-policy5" />. )</para>
+
+          <figure float="1" id="editing-policy5">
+            <title>Logging and Options in a Policy Rule</title>
+                <graphic scale="70" fileref="editing_policy5.png" />
+          </figure>
+
+          <para>This menu provides items for the following functions:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Modify Options:</para>
+
+              <para>This menu item brings up a dialogue that allows
+              you to modify certain options specific to the target
+              firewall platform, as in <xref linkend="rule-options1"
+              />. These settings are associated with the current rule
+              only. For more information on the options available,
+              click <guibutton>Help</guibutton> in the Option
+              dialogue.</para>
+            </listitem>
+
+            <listitem>
+              <para>Turn logging ON:</para>
+
+              <para>Turns logging on for all packets matching this rule. If
+              the target firewall platform does not support selective logging
+              of packets, this menu item is disabled.</para>
+            </listitem>
+
+            <listitem>
+              <para>Turn logging OFF:</para>
+
+              <para>Turn logging off for packets matching this rule. If the
+              target firewall platform does not support selective logging of
+              packets, this menu item is disabled.</para>
+            </listitem>
+          </itemizedlist>
+
+          <figure float="1" id="rule-options1">
+            <title>iptables Options dialog</title>
+                <graphic scale="70" fileref="rule-options1.png" />
+          </figure>
+        </sect2>
+
+    <sect2 id="using-rule-groups">
+      <title>Using Rule Groups</title>
+
+	<sect3>
+	  <title>Creating rule groups</title>
+
+      <para>If you have a rule set with quite a few rules, it can be
+      useful to lump some of them together into rule groups. A rule
+      group is a contiguous set of rules that you have grouped
+      together and assigned a name to. Once you have a group, you can
+      collapse it down visually to save screen real estate, then pop
+      it back open when you need to look inside.</para>
+
+      <para>Rule groups <emphasis>only</emphasis> affect how the rules
+      are displayed visually. They have <emphasis>no</emphasis> on how
+      the rule set is compiled or how it works on the firewall.</para>
+
+      <para>Let's look at a simple example of using rule groups.</para>
+
+      <para><xref linkend="rule-group1" /> shows a fragment of a set
+      of rules. There are two rules for packets destined for eth0,
+      several rules for packets destined for eth1, and a couple rules
+      for eth2-destined packets.</para>
+
+          <figure float="1" id="rule-group1">
+            <title>Rules without grouping</title>
+                <graphic scale="70" fileref="rule-group1.png" />  
+          </figure>
+
+      <para>The eth2 rules take up a lot of space, so let's group them
+      together. We can then collapse the group so it uses less
+      space.</para>
+
+      <para>To create the group, right-click anywhere in the first
+      "eth1" rule and select <guimenuitem>New
+      group</guimenuitem>. (You don't have to click on the first
+      rule. Any rule in the group will do.)</para>
+
+          <figure float="1" id="rule-group2">
+            <title>Create the group</title>
+                <graphic scale="70" fileref="rule-group2.png" />  
+          </figure>
+      
+      <para>A dialog appears. Enter the name of the group. This name
+      is for your convenience only, so it can be anything. Here we're
+      naming the group after the interface, but a more descriptive
+      name can be more useful.</para>
+
+          <figure float="1" id="rule-group3">
+            <title>Name the group</title>
+                <graphic scale="70" fileref="rule-group3.png" />  
+          </figure>
+
+      <para>Now we have a group with one entry. This doesn't provide
+      much value, so let's add other rules to the group. You can add
+      as many rules as you want, but they must all be contiguous in
+      the rule set.</para>
+
+          <figure float="1" id="rule-group4">
+            <title>Group with one entry</title>
+                <graphic scale="70" fileref="rule-group4.png" />  
+          </figure>
+
+      <para>To add more rules, right-click on a rule adjacent to the
+      rule in the group, then select <guimenuitem>Add to the group
+      eth1</guimenuitem>.</para>
+
+          <figure float="1" id="rule-group5">
+            <title>Add a rule to the group</title>
+                <graphic scale="70" fileref="rule-group5.png" />  
+          </figure>
+
+      <para>Do that to the rest of the "eth1" rows, and we now have a
+      populated group.</para>
+
+          <figure float="1" id="rule-group6">
+            <title>A group of rules</title>
+                <graphic scale="70" fileref="rule-group6.png" />  
+          </figure>
+
+      <para>To collapse the group, just click the little minus (-)
+      icon in the upper left of the group.</para>
+
+          <figure float="1" id="rule-group7">
+            <title>Collapsed group</title>
+                <graphic scale="70" fileref="rule-group7.png" />  
+          </figure>
+
+      <para>The group now takes up less room on your screen, though it
+      has not changed in function.</para>
+      </sect3>
+
+      <sect3>
+	<title>Modifying rule groups</title>
+	  <para>You can modify a rule group after you have created
+	  it. Options are as follows:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Rename a group</para>
+
+              <para>To rename a group, right-click the group name (or
+              anywhere on the gray bar that heads the rule, and
+              select <guimenuitem>Rename group</guimenuitem>. Then,
+              change the name in the dialog and
+              click <guibutton>OK</guibutton>.</para>
+            </listitem>
+            <listitem>
+              <para>Add more rules to a group</para>
+
+              <para>You can add an existing rule to a group if the
+              rule is directly above or below the group. Simply
+              right-click the rule and select <guimenuitem>Add to the
+              group eth1</guimenuitem>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Remove a rule</para>
+
+              <para>You can remove a rule in a group entirely by
+              right-clicking the number of the rule (left-most column)
+              and selecting <guimenuitem>Remove
+              rule</guimenuitem>. This will remove the rule from the
+              rule set entirely. If you want to move the rule to
+              anther part of the rule set, select <guimenuitem>Cut
+              rule</guimenuitem> instead, and then paste the rule
+              elsewhere.</para>
+            </listitem>
+<!--
+            <listitem>
+              <para>Remove a rule from the group while leaving it in place</para>
+
+              <para>To remove a rule from the group while leaving it in place in the rule set, right-click the rule and select <guimenuitem>Remove from the group</guimenuitem>. If you do this to a rule in the middle of the group, the group splits in two. You will now have two different groups, both with the same name, with the removed rule between them. You can rename one or both of the groups using the <guimenuitem>Rename group</guimenuitem> right-click option.</para>
+            </listitem>
+-->
+          </itemizedlist>
+      </sect3>
+    </sect2>
+
+    <sect2 id="rule-elements">
+      <title>Support for Rule Elements and Features on Various Firewalls</title>
+
+      <para>Certain fields in the rules are only available if the target
+      firewall platform supports them. For example, the iptables firewall
+      provides controls for logging of matched packets, while Cisco PIX does
+      not; PIX always logs every packet it drops. Where possible, the policy
+      compiler tries to emulate the missing feature. For example,
+      OpenBSD PF does not support negation natively, but the policy compiler
+      provides a workaround and tries to emulate
+      this feature for PF. Another example is policy rules with "Outbound"
+      direction. Cisco PIX supports only inbound Access Lists, so the policy
+      compiler emulates outbound Access Lists while generating configuration
+      for PIX. <xref linkend="policy-rule-elements" /> represents a list of
+      fields in the rules and which firewall platforms support them.
+      Information about these fields and features is available for Firewall Builder
+      GUI that disables corresponding menu items and hides associated policy
+      elements when they are not supported.</para>
+
+      <para><table id="policy-rule-elements">
+          <title>Rule features available on different platforms</title>
+
+          <tgroup cols="11">
+            <thead>
+              <row>
+                <entry>Firewall Platform</entry>
+
+                <entry>Source</entry>
+
+                <entry>Destination</entry>
+
+                <entry>Service</entry>
+
+                <entry>Time Interval</entry>
+
+                <entry>Direction</entry>
+
+                <entry>Action</entry>
+
+                <entry>Logging/ Options</entry>
+
+                <entry>Comment</entry>
+
+                <entry>Negation in Policy rules</entry>
+
+                <entry>Negation in NAT rules</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry>iptables</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+              </row>
+
+              <row>
+                <entry>ipfilter</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>-</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>-</entry>
+              </row>
+
+              <row>
+                <entry>pf</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>-</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+              </row>
+
+              <row>
+                <entry>Cisco PIX</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>-</entry>
+
+                <entry>+</entry>
+
+                <entry>+</entry>
+
+                <entry>-</entry>
+
+                <entry>+</entry>
+
+                <entry>-</entry>
+
+                <entry>-</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table></para>
+    </sect2>
+
+    </sect1>
+
+    <sect1 id="rcs">
+      <title>Using Built-in Revision Control in Firewall Builder</title>
+
+	<note><para>Linux and *BSD users must install RCS before using
+	revision control in Firewall Builder.</para></note>
+
+	<para>    Firewall Builder GUI has built-in revision control
+                  system that can be used to keep track of changes in
+                  the objects and policy rules. If data file has been
+                  added to the revision control system, every time it
+                  is saved, the system asks the user to enter a
+                  comment that describes changes done in the file in
+                  this session and stores it along with the data. The
+                  program also assigns new revision number to the data
+                  file using standard software versioning system with
+                  major and minor version numbers separated by a
+                  dot. When you open this data file next time, the
+                  program presents a list of revisions alongside with
+                  dates and comments, letting you choose which revision
+                  you want to use. You can open the latest revision and
+                  continue working with the file from the point where
+                  you left off last time, or open one of the older
+                  revisions to inspect how the configuration looked
+                  like in the past and possibly create a branch in the
+                  revision control system. Here we take a closer look
+                  at the built-in revision control system.</para>
+
+ <para>
+  
+                  We start with a regular data file which we open in
+                  the Firewall Builder GUI as usual. Note that the
+                  name of the file appears in the title bar of the main
+                  window, here it is <emphasis>test2.fwb</emphasis>:
+                
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_1.png"/></figure>
+
+  <para>
+  
+                You can always see additional information about the
+                file using main menu <emphasis>File/Properties</emphasis>.  There
+                is not much the program can report about this file
+                that we do not know already. It shows full path where
+                it is located on the file system and the date and time
+                of last modification, but otherwise since it has not
+                been added to the revision control system, there is no
+                additional information it can report.
+              
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_3.png"/></figure>
+
+  <para>
+  
+                To start tracking revisions of this data file, use
+                menu <guimenuitem>File/Add File to RCS</guimenuitem>, the program
+                creates all necessary files and reports result in a
+                pop-up dialog. If for some reason adding file to the
+                revision control has failed, the program reports error
+                in the same pop-up dialog.
+                
+
+		<xref linkend="rcs-troubleshooting" /> has a list of
+                  typical problems that may occur at this point.
+              
+  </para>
+
+      <table frame='none'><title></title>
+	<tgroup cols='2' align='left'  rowsep='0'>
+	  <tbody>
+      <row>
+	<entry>
+	  <inlinegraphic fileref="rcs_screenshot_4.png"/>
+        </entry>
+
+	<entry>
+	    <inlinegraphic fileref="rcs_screenshot_5.png"/>
+        </entry>
+      </row>
+      </tbody>
+      </tgroup>
+    </table>
+
+  <para>
+  
+                A few things have changed in the GUI after the file
+                has been added to the revision control system. First,
+                in addition to the file name, the title bar now also
+                shows its revision. The initial revision number after
+                checkin is <emphasis>1.1</emphasis>.
+              
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_6.png"/></figure>
+
+  <para>
+  
+                The File/Properties dialog shows that the file is now
+                being tracked by the revision control system and that its
+                current revision is <emphasis>1.1</emphasis>. There is only one
+                revision in the history and the comment
+                is "Initial revision", which is added
+                automatically by the program.
+              
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_7.png"/></figure>
+
+  <para>
+  
+                Let's see how the revision control system keeps track
+                of the changes in the data file. To demonstrate this,
+                we are going to make a change in one of the objects,
+                save the object file and check it in (this creates new
+                revision). Then we'll close the object file. Then,
+                we'll open both revisions to see the differences.
+              
+  </para>
+  
+
+  <para>
+  
+                Here is the rule set of the new firewall. It is very simple and consists of just 5 rules:
+              
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_8.png"/></figure>
+
+  <para>
+  
+                Now we add one more rule (to permit <emphasis>HTTP</emphasis> to the firewall).
+                This is rule #3, it is colored yellow:
+              
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_9.png"/></figure>
+
+  <para>
+  
+                Now we save this file using <guimenuitem>File/Save</guimenuitem> and
+                exit the program. Before we can do that, however, the
+                program tries to check the file in to the RCS and
+                presents a dialog where we can add a comment to
+                document the change we made. We enter the comment and
+                click <guibutton>Check file in</guibutton> to complete the
+                operation. The file is now checked in and the program
+                exits.
+              
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_10.png"/></figure>
+
+  <para>
+  
+                Now we restart the program and open the same
+                file using <guimenuitem>File/Open</guimenuitem>. Since the file is now
+                in revision control, the program presents the dialog with the list
+                of its revisions. Each revision has a comment
+                associated with it, shown at the bottom of the
+                dialog. Note also that each revision also shows the
+                user name of the user who checked it in, which is very
+                useful in a multi-user environment.
+              
+  </para>
+
+      <table frame='none'><title></title>
+	<tgroup cols='2' align='left'  rowsep='0'>
+	  <tbody>
+      <row>
+	<entry>
+	  <inlinegraphic fileref="rcs_screenshot_11.png"/>
+        </entry>
+
+	<entry>
+	    <inlinegraphic fileref="rcs_screenshot_12.png"/>
+        </entry>
+      </row>
+      </tbody>
+      </tgroup>
+    </table>
+
+      <para>
+        If we choose revision <emphasis>1.2</emphasis> (the latest)
+        and click <guibutton>Open</guibutton>, we see the rule that
+        permits HTTP to the firewall:
+      </para>
+      
+      
+      <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_13.png"/></figure>
+      
+      <para>
+        If we choose revision <emphasis>1.1</emphasis> and open the file, we
+        get this policy (note revision
+        number in the main window title bar, it
+        is <emphasis>1.1</emphasis>):
+      </para>
+      
+
+      <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_14.png"/></figure>
+
+      <para>
+                The rule to permit HTTP to the firewall is not there
+                because we opened the earlier revision of the data
+                file. Essentially, we rolled back the change we made
+                in rev <emphasis>1.2</emphasis>. If we only opened the
+                earlier file to take a quick look, we can now just
+                close the file, then open the latest version to
+                continue working. However, if we wanted, we could
+                compile and install the old revision. Note that this
+                can break things if some protocols were added to the
+                firewall rules later, but this can be useful if you
+                need to test things as they were few days ago.
+              
+  </para>
+  
+
+  <para>
+                However, if we want to roll back the change and
+                continue without it, all we need to do is make the
+                change in this revision (1.1) and then save and check
+                it in. This will create a branch in RCS and we will be
+                able to continue working with it later. The previous
+                change, checked in as rev 1.2 will always be there,
+                and we will always be able to revert to it if we
+                want. The program does not merge branches, merging
+                changes in XML files is a complex task and is not
+                implemented at this time.
+              
+  </para>
+  
+
+  <para>
+  
+                To illustrate creation of a branch, we are making a
+                change to the revision 1.1 of the data file as shown
+                on the next screenshot:
+              
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_15.png"/></figure>
+
+  <para>
+  
+                We then save and check this file in with an appropriate
+                comment. To check it in we use
+                <guimenuitem>File/Commit</guimenuitem>. We then close the file
+                using <guimenuitem>File/Close</guimenuitem> and reopen it again
+                using <guimenuitem>File/Open</guimenuitem>. This accomplishes the same
+                operation as in the example above in this document,
+                except we do not close the program. When we try to open
+                it, the program shows the branch and new
+                revision <emphasis>1.1.1.1</emphasis> that we just created. Note
+                that the time of the revision <emphasis>1.1.1.1</emphasis> is
+                later than the time of revision <emphasis>1.2</emphasis>:
+              
+  </para>
+  
+
+  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_16.png"/></figure>
+
+  <para>
+  
+                Now if we open rev <emphasis>1.1.1.1</emphasis>, continue
+                working with and check new changes in, the program
+                will create revision <emphasis>1.1.1.2</emphasis> and so on.
+              
+  </para>
+  
+
+  <para>
+  
+                This section demonstrates how the built-in revision
+                control system in Firewall Builder GUI can be used to
+                document changes in the file. It can also be used to
+                roll back changes to a previous revision both
+                temporary or permanently. Using RCS helps establish
+                accountability if several administrators can make
+                changes to the policy of firewalls because RCS keeps
+                track of the user name of the user who checked changes
+                in. RCS in Firewall Builder works on all supported OS,
+                that is Linux, FreeBSD, OpenBSD, Windows and Mac OS
+                X. On Linux, *BSD and Mac OS X it relies on
+                system-wide installed <emphasis>rcs</emphasis>
+                package, while on Windows rcs tools are installed as
+                part of the Firewall Builder package. In general, it's
+                useful to always use revision control even in simple
+                cases when only one administrator uses the tool. The
+                ability to document changes and roll back if necessary
+                greatly improve the process of security policy
+                management.
+              
+  </para>
+
+    </sect1>
+
+    <sect1 id="compile-install-policy">
+      <title>Compiling and Installing firewall policies</title>
+
+	<note><para>This section offers a quick description of the
+	process to compile and install a
+	policy. <xref linkend="compile-install-detail" /> contains
+	more detailed instructions on installing a compiled policy
+	onto your firewall device.</para></note>
+	
+	<para>Once you have a policy created, you need to compile it
+	into a script that can run on your target device. You then
+	need to install it on that device.</para>
+
+	<para>Let's walk through compiling and installing a simple
+	iptables firewall onto a Linux machine. Here is the access
+	policy of the firewall:</para>
+
+        <figure float="1" id="compile-install-firewall-1">
+          <title>A policy to compile and install</title>
+              <graphic scale="50" fileref="compile-install-firewall-1.png" />
+        </figure>
+
+	<para>To compile it, select the firewall icon, then select <guimenuitem>Rules/Compile</guimenuitem>.</para>
+
+        <figure float="1" id="compile-install-firewall-2">
+          <title>Select Rules/Compile</title>
+              <graphic scale="70" fileref="compile-install-firewall-2.png" />
+        </figure>
+
+	<para>Select your firewall in the dialog. If your object file
+	has more than one firewall, you will see an entry for each
+	firewall. To compile several of them at once, just check the
+	checkboxes.</para>
+
+        <figure float="1" id="compile-install-firewall-3">
+          <title>Select your firewall</title>
+              <graphic scale="50" fileref="compile-install-firewall-3.png" />
+        </figure>
+
+	<para>Click <guibutton>Next</guibutton>.</para>
+
+	<para>A dialog appears that tracks the status of the
+	compile. If everything goes well, the output will look
+	something like this:</para>
+
+        <figure float="1" id="compile-install-firewall-4">
+          <title>Compile status messages</title>
+              <graphic scale="50" fileref="compile-install-firewall-4.png" />
+        </figure>
+
+	<para>If you get an error, see <xref linkend="troubleshooting-compiler-runtime" />.</para>
+
+	<para>To see the created script, look in the same directory as
+	your .fwb file. The file will be called
+	&lt;firewallName&gt;.fw. (If you changed your default
+	directory in the Preferences, then the generated script will
+	be there instead.)</para>
+
+	<note><para>This rest of this section offers a quick
+	description of the process of installing a
+	policy. <xref linkend="compile-install-detail" /> contains
+	more detailed instructions, including how to set up SSH on a
+	variety of platforms.</para></note>
+
+	<para>Create directory <emphasis>/etc/fw/</emphasis> on your firewall.</para>
+
+	<para>Now let's install the script using Firewall Builder's
+	"install"
+	functionality. Select <guimenuitem>Rules/Install</guimenuitem>.</para>
+
+
+
+        <figure float="1" id="compile-install-firewall-2-2">
+          <title>Select Rules/Install</title>
+              <graphic scale="70" fileref="compile-install-firewall-2.png" />
+        </figure>
+
+	<para>The following dialog appears:</para>
+
+        <figure float="1" id="compile-install-firewall-5">
+          <title>Select Install</title>
+              <graphic scale="50" fileref="compile-install-firewall-5.png" />
+        </figure>
+
+	<para>Make sure the <guilabel>Install</guilabel> checkbox is
+	checked, then click <guibutton>Next</guibutton>. The following
+	dialog appears:</para>
+
+        <figure float="1" id="compile-install-firewall-6">
+          <title>Firewall SSH and install parameters</title>
+              <graphic scale="50" fileref="compile-install-firewall-6.png" />
+        </figure>
+
+	<para>Enter the root username and password for the device, and
+	specify the IP address of the management interface of the
+	device. The first time you test your firewall, it's best to
+	leave the <guilabel>Test run</guilabel> checkbox checked. If
+	something goes wrong, you have only to reboot your device to
+	get back the old configuration. If, however, you want your
+	policy to be permanent on the device, uncheck this box.</para>
+
+	<para>Then click <guibutton>OK</guibutton>.</para>
+
+	<para>If everything goes well, the following dialog appears
+	and reports success. (If not, it will report failure. The log
+	will tell you what went wrong. If the error is unclear, see
+	<xref linkend="troubleshooting-compiler-runtime" />.)</para>
+
+	<figure float="1" id="compile-install-firewall-7">
+          <title>Installation status</title>
+              <graphic scale="50" fileref="compile-install-firewall-7.png" />
+        </figure>
+
+	<para>Log into the firewall to see the policy in place. For
+	iptables, run <command>sudo iptables -L</command>.</para>
+
+    </sect1>
+  </chapter>
