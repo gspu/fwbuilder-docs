@@ -100,13 +100,15 @@
 /*    line-height: 170%; */
 }
 
-.column_users_guide .NAVHEADER {
+.column_users_guide .navheader table {
     color: blue;  
-    font-size:   10pt;
+    font-size:   1em;
     font-weight: bold;
     padding-bottom: 10px;
 }
 
+
+/*
 .column_users_guide .NAVHEADER TABLE {
     color: blue;  
     font-size:   10pt;
@@ -116,25 +118,28 @@
 .column_users_guide .NAVHEADER TABLE TH {
     font-size:   14pt;
 }
+*/
 
-.column_users_guide .NAVHEADER HR {
+.column_users_guide .navheader hr {
     display: block;
 }
 
-.column_users_guide .NAVFOOTER {
+.column_users_guide .navfooter table {
     color: blue;  
-    font-size:   10pt;
+    font-size:   1em;
     font-weight: bold;
     padding-top: 10px;
 }
 
+/*
 .column_users_guide .NAVFOOTER TABLE{
     color: blue;  
     font-size:   10pt;
     font-weight: bold;
 }
+*/
 
-.column_users_guide .NAVFOOTER HR {
+.column_users_guide .navfooter hr {
     display: block;
 }
 
