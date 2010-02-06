@@ -80,10 +80,11 @@
 
       <para>
         <itemizedlist spacing="compact">
-          <listitem><para>Create your firewall objects. Assign platform and host OS and
-            name interfaces as usual. Do not add any policy or NAT
-            rules. These are your real (member) firewalls. Interfaces should
-            have their real IP addresses (not CARP or VRRP addresses).
+          <listitem><para>Create your firewall objects. Assign
+            platform and host OS and name interfaces as usual. Do not
+            add any policy or NAT rules. These are your real (member)
+            firewalls. Interfaces should have their real IP addresses
+            (not CARP or VRRP addresses).
           </para></listitem>
 
           <listitem>
@@ -531,7 +532,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
       <para>
         <figure float="1" id="linux_cluster_statesync_group">
           <title>Interfaces and addresses of the cluster members</title>
-          <graphic scale="60" fileref="linux-cluster-statesync-group.png"/>
+          <graphic fileref="linux-cluster-statesync-group.png"/>
         </figure>
       </para>
 
@@ -549,9 +550,9 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
       </para>
 
       <para>
-        <figure float="1" id="conntrack_parameters">
+        <figure id="conntrack_parameters">
           <title>Editing parameters for the Conntrack state synchronization protocol</title>
-          <graphic scale="60" fileref="conntrack-parameters.png"/>
+          <graphic fileref="conntrack-parameters.png"/>
         </figure>
       </para>
 

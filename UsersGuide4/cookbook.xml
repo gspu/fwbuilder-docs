@@ -34,7 +34,7 @@
 
       <figure id="replace-network-template1">
           <title>New firewall</title>
-              <graphic scale="50" fileref="pict_1.png" />
+              <graphic fileref="pict_1.png" />
         </figure>
 
       <para>Edit the IP address (and possibly the netmask if needed),
@@ -43,7 +43,7 @@
 
       <figure id="replace-network-template2">
           <title>Edit the network address</title>
-              <graphic scale="60" fileref="pict_10.png" />
+              <graphic fileref="pict_10.png" />
         </figure>
 
       <para>Now we need to change the IP address used in the rules. To
@@ -55,7 +55,7 @@
 
       <figure id="replace-network-template3">
           <title>Create new network object</title>
-              <graphic scale="70" fileref="pict_20.png" />
+              <graphic fileref="pict_20.png" />
         </figure>
 
       <para>A new Network object is created with default name "New
@@ -63,7 +63,7 @@
 
       <figure id="replace-network-template4">
           <title>New object</title>
-              <graphic scale="60" fileref="pict_30.png" />
+              <graphic fileref="pict_30.png" />
         </figure>
 
       <para>Edit object name and address, then
@@ -71,7 +71,7 @@
 
       <figure id="replace-network-template5">
           <title>Edit name and address</title>
-              <graphic scale="60" fileref="pict_40.png" />
+              <graphic fileref="pict_40.png" />
         </figure>
 
       <para>Select <guimenuitem>Object/Find</guimenuitem> to activate
@@ -79,7 +79,7 @@
 
       <figure id="replace-network-template6">
           <title>Activate Find dialog</title>
-              <graphic scale="60" fileref="pict_50.png" />
+              <graphic fileref="pict_50.png" />
         </figure>
 
       <para>Drag and drop the object "net-192.168.1.0" from a policy
@@ -88,7 +88,7 @@
 
       <figure id="replace-network-template7">
           <title>Drag original object to the Find field</title>
-              <graphic scale="50" fileref="pict_60.png" />
+              <graphic fileref="pict_60.png" />
         </figure>
 
       <para>Locate the new Network object you just created and drag
@@ -97,7 +97,7 @@
 
       <figure id="replace-network-template8">
           <title>Drag new object to the Replace field</title>
-              <graphic scale="50" fileref="pict_70.png" />
+              <graphic fileref="pict_70.png" />
         </figure>
 
       <para>Change the scope to <guimenuitem>Policy of all
@@ -109,7 +109,7 @@
 
       <figure id="replace-network-template9">
           <title>Drag new object to the Replace field</title>
-              <graphic scale="80" fileref="pict_80.png" />
+              <graphic fileref="pict_80.png" />
         </figure>
 
       <para>Note how the search and replace function replaced object
@@ -123,7 +123,7 @@
 
       <figure id="replace-network-template10">
           <title>New object used in all rule sets</title>
-              <graphic scale="60" fileref="pict_90.png" />
+              <graphic fileref="pict_90.png" />
         </figure>
 
     </sect1>
@@ -157,7 +157,7 @@
       <figure id="policy-examples-linux-fw">
         <title>Firewall and its interfaces used in the examples in this chapter.
         </title>
-        <graphic scale="70" fileref="policy-examples-fw-linux.png" />
+        <graphic fileref="policy-examples-fw-linux.png" />
       </figure>
     </sect2>
 
@@ -181,7 +181,7 @@
 
       <figure id="policy-1-3">
         <title>Permit internal network to connect to Internet</title>
-        <graphic scale="70" fileref="policy-1-3.png" />
+        <graphic fileref="policy-1-3.png" />
       </figure>
 
       <para>
@@ -4084,27 +4084,30 @@ root@linux-test-2:~# ip -4  addr ls
         </note>
 
         <para>
-          On the next page <xref linkend="cookbook_linux_vrrpd_cluster_5"/> of
-          the wizard we configure the mapping between cluster interfaces
+          On the next page
+          <xref linkend="cookbook_linux_vrrpd_cluster_5"/> of the
+          wizard we configure the mapping between cluster interfaces
           and interfaces of the member firewalls. In this simple setup
           the mapping is direct: interface "eth0" of the cluster
-          represents interfaces "eth0" of both members and the same goes
-          for "eth1" and loopback. Things may be more complicated if
-          failover protocol used for the cluster creates its own
-          interfaces, such as CARP on OpenBSD. In that case the name of
-          the interface that is configured at the top of the wizard page
-          would be "carp0" and we would map it to interfaces of the
-          members, say "en0" on both, using controls at the bottom of
-          the sizard page. However in the case of VRRP, heartbeat and
-          keepalived on Linux the name of the cluster interface must
-          match the name of the member interfaces, that is, in our case
-          we create cluster interfaces "eth0" and "eth1". The wizard
-          does this automatically, it finds interfaces with the same
-          name in both members and suggests cluster interfaces with the
-          same name, mapped to those interfaces of the member
+          represents interfaces "eth0" of both members and the same
+          goes for "eth1" and loopback. Things may be more complicated
+          if failover protocol used for the cluster creates its own
+          interfaces, such as CARP on OpenBSD. In that case the name
+          of the interface that is configured at the top of the wizard
+          page would be "carp0" and we would map it to interfaces of
+          the members, say "en0" on both, using controls at the bottom
+          of the wizard page. However in the case of VRRP, heartbeat
+          and keepalived on Linux the name of the cluster interface
+          must match the name of the member interfaces, that is, in
+          our case we create cluster interfaces "eth0" and "eth1". The
+          wizard does this automatically, it finds interfaces with the
+          same name in both members and suggests cluster interfaces
+          with the same name, mapped to those interfaces of the member
           firewalls. Feel free to edit if this guess was incorrect for
-          your setup. The "+" and "x" buttons in the top corners of the
-          page allow you to add and remove cluster interfaces.
+          your setup. The "+" and "x" buttons in the top corners of
+          the page allow you to add and remove cluster interfaces. See
+          <xref linkend="linux_cluster"/> for more information on the
+          cluster inetrfaces in Firewall Builder.
         </para>
 
         <figure id="cookbook_linux_vrrpd_cluster_5">
@@ -4187,7 +4190,7 @@ root@linux-test-2:~# ip -4  addr ls
 
         <figure id="cookbook_linux_vrrpd_cluster_7">
           <title>Final page of the new cluster wizard</title>
-          <graphic scale="60" fileref="linux-vrrpd-cluster-7.png"/>
+          <graphic fileref="linux-vrrpd-cluster-7.png"/>
         </figure>
 
         <para>
@@ -4197,15 +4200,15 @@ root@linux-test-2:~# ip -4  addr ls
 
         <figure id="cookbook_linux_vrrpd_cluster_8">
           <title>Cluster object</title>
-          <graphic scale="60" fileref="linux-vrrpd-cluster-8.png"/>
+          <graphic fileref="linux-vrrpd-cluster-8.png"/>
         </figure>
 
 
         <para>
           Each cluster interface has additional child object (located
           underneath it in the tree) with the
-          name <emphasis>linux-test-1:eth0:memvers</emphasis> and
-          <emphasis>linux-test-1:eth1:memvers</emphasis>. These objects
+          name <emphasis>linux-test-1:eth0:members</emphasis> and
+          <emphasis>linux-test-1:eth1:members</emphasis>. These objects
           are failover groups, this is where the failover protocol and
           mapping between the cluster and member interfaces is
           configured. Screenshot <xref linkend="cookbook_linux_vrrpd_cluster_9"/>
@@ -4214,7 +4217,7 @@ root@linux-test-2:~# ip -4  addr ls
 
         <figure id="cookbook_linux_vrrpd_cluster_9">
           <title>Cluster Failover Group in the object tree</title>
-          <graphic scale="60" fileref="linux-vrrpd-cluster-9.png"/>
+          <graphic fileref="linux-vrrpd-cluster-9.png"/>
         </figure>
 
         <para>
@@ -4227,7 +4230,7 @@ root@linux-test-2:~# ip -4  addr ls
 
         <figure id="cookbook_linux_vrrpd_cluster_10">
           <title>Cluster Failover Group object</title>
-          <graphic scale="60" fileref="linux-vrrpd-cluster-10.png"/>
+          <graphic fileref="linux-vrrpd-cluster-10.png"/>
         </figure>
 
 
@@ -4252,14 +4255,14 @@ root@linux-test-2:~# ip -4  addr ls
 
         <note>
           <para>
-            The purpose of this new object is to provide all necessary
-            configuration parameters to let fwbuilder generate policy
-            rules to permit packets of this protocol. In some other cases,
-            such as with PF on OpenBSD where state synchronization is done
+            The purpose of this new object is to provide configuration
+            parameters to let fwbuilder generate policy rules to
+            permit packets of this protocol. In some other cases, such
+            as with PF on OpenBSD where state synchronization is done
             via <emphasis>pfsync</emphasis> interface, fwbuilder can
-            generate actual configuration for the protocol itself. However
-            at this time fwbuilder does not generate configuration or
-            command line for the conntrackd daemon.
+            generate actual configuration for the protocol
+            itself. However at this time fwbuilder does not generate
+            configuration or command line for the conntrackd daemon.
           </para>
         </note>
 
@@ -4277,6 +4280,21 @@ root@linux-test-2:~# ip -4  addr ls
           <title>State Synchronization Group object</title>
           <graphic scale="60" fileref="linux-vrrpd-cluster-12.png"/>
         </figure>
+
+        <para>
+          If you do not use <emphasis>conntrackd</emphasis> in your
+          cluster setup and do not need iptables rules to permit its
+          packets in the generated script, then just do not configure
+          State Synchronization group object with inetrfaces of the
+          member firewalls. Such empty State Synchronization group
+          object will look like this when opened in the editor:
+        </para>
+
+        <figure id="cookbook_linux_vrrpd_cluster_12-1">
+          <title>Empty State Synchronization Group object</title>
+          <graphic fileref="linux-cluster-empty-state-sync-group.png"/>
+        </figure>
+
 
         <para>
           You can edit parameters of the state synchronization protocol,
@@ -4818,24 +4836,11 @@ root@linux-test-2:~# ip -4 addr ls
         </figure>
 
         <para>
-          There are two ways to create new cluster object: you can
-          either use main menu "Object / New Object" (or a toolbar
-          button that calls the same function), or select two or more
-          firewall objects that are to become cluster members and
-          click right mouse button to open context menu, then use menu
-          item "New cluster from selected firewalls" as shown on
-          <xref linkend="cookbook_linux_hb_cluster_3"/>. The
-          difference between this method and main menu "Object / New
-          object" is that when you use the "New object" menu or
-          toolbutton, you get all firewalls from the currently opened
-          library to choose from in the first page of the wizard that
-          creates new cluster.  When you use context menu, you make
-          the choice when you select firewall objects and the wizard
-          opens up with a list of firewalls limited to selected
-          firewall objects. Obviously there is no difference when
-          object tree has only two firewall objects, but the shortcut
-          via context menu is more convenient when you have lots of
-          them.
+          Now create new cluster. First, select firewalls
+          "linux-test-1" and "linux-test-2" in the tree, then click
+          right mouse button to open context menu and use item "New
+          cluster from selected firewalls" as shown on
+          <xref linkend="cookbook_linux_hb_cluster_3"/>.
         </para>
 
         <figure id="cookbook_linux_hb_cluster_3">
@@ -4846,12 +4851,283 @@ root@linux-test-2:~# ip -4 addr ls
 
         <para>
           This method opens up wizard that creates new cluster object
-          with the list of the firewalls shortened down to only two
-          selected firewalls.
+          with the list of the firewalls that shows two firewalls that
+          were selected in the tree:
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_4">
+          <title>Creating new cluster object</title>
+          <graphic fileref="linux-hb-cluster-4.png"/>
+        </figure>
+
+        <para>
+          After you click "Next", you aarrive on the next page where
+          you establish correspondence between cluster interfaces and
+          interfaces of the member firewalls. The program finds
+          interfaces of the members with the same name that can be
+          used for a cluster and preconfigures cluster interfaces
+          using this information. In our case, it created cluster
+          interfaces <emphasis>"eth0"</emphasis>, <emphasis>"eth1"</emphasis>
+          and <emphasis>"lo"</emphasis> and mapped them to the
+          inetrfaces with the same name in both members. See
+          <xref linkend="cookbook_linux_hb_cluster_5"/>:
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_5">
+          <title>Arranging cluster interfaces</title>
+          <graphic fileref="linux-hb-cluster-5.png"/>
+        </figure>
+
+        <para>
+          This example is straightforward because there is direct
+          correspondence between them. In more complex cases member
+          firewalls may have different number of interfaces, only some
+          of which should be used for the cluster configuration. Or
+          failover protocol used for the cluster may create its own
+          interfaces, such as CARP on OpenBSD. In that case the name
+          of the interface that is configured at the top of the wizard
+          page would be "carp0" and we would map it to interfaces of
+          the members, say "en0" on both, using controls at the bottom
+          of the wizard page. However heartbeat does not create new
+          interface so the cluster interface objects must have the
+          same name as corresponding member interfaces, in our
+          case <emphasis>"eth0"</emphasis>, <emphasis>"eth1"</emphasis>
+          and
+          <emphasis>"lo"</emphasis>. You can create new cluster
+          interfaces or delete existing ones on this page using the
+          "+" and "x" buttons. See <xref linkend="linux_cluster"/> for
+          more information on the cluster interfaces in Firewall
+          Builder.
         </para>
 
         <para>
+          We assign IP addresses and choose failover protocols for the
+          cluster interfaces on the next page of the wizard
+          <xref linkend="cookbook_linux_hb_cluster_6"/>:
         </para>
+
+        <figure id="cookbook_linux_hb_cluster_6">
+          <title>Configuring IP addresses of the cluster interfaces</title>
+          <graphic fileref="linux-hb-cluster-6.png"/>
+        </figure>
+
+        <para>
+          Most protocols require IP address which you can add by
+          clicking "Add address" button.  The only exception at this
+          time is Cisco PIX where HA pair uses IP addresses of the
+          master instead of using special virtual addresses. In that
+          case the part of the wizard page where you configure IP
+          addresses will be disabled.
+        </para>
+
+        <para>
+          Choose failover protocol using drop-down list. Among other
+          "real" protocols list includes item "None". Use this item if
+          you do not want fwbuilder to add automatic policy rules to the
+          generated configuration and plan to do this yourself. Also use
+          this "protocol" to configure cluster loopback interface. In
+          any case cluster interfaces must be configured with
+          corresponding interfaces of the member firewalls to establish
+          the mapping.
+        </para>
+
+        <note>
+          <para>
+            The address and netmask pair of the cluster interface must
+            be configured exactly the same as done by the cluster
+            software. In the case of heartbeat, the netmask is /24.
+            See the output of "ip addr show" command above where it is
+            visible that the address added by heartbeat comes with
+            netmask /24. The netmask is defined in
+            the <emphasis>"haresources"</emphasis> file. We use the
+            same netmask in the address configuration in cluster
+            interfaces <emphasis>eth0</emphasis>
+            and <emphasis>eth1</emphasis>. See
+            <xref linkend="cookbook_managing_cluster_addresses"/> for
+            the explanation of why this netmask is important.
+          </para>
+        </note>
+
+        <para>
+          Final page of the
+          wizard <xref linkend="cookbook_linux_hb_cluster_7"/> allows you to
+          choose to copy Policy and NAT rules from one of the members to
+          the new cluster object.  This can be useful if you used to
+          manage a cluster with fwbuilder by maitaining two firewall
+          objects manually or with the aid of external scripts. If you
+          decide to use this option, fwbuilder GUI copies policy and NAT
+          rules from the member you choose to the new cluster object,
+          then creates backup copies of both member firewall objects
+          with the name with suffix "-bak" and deletes all Policy and
+          NAT rules in the rule sets of the member firewall objects it
+          uses for the cluster. This way, you can always return to your
+          old setup using these backup objects and at the same time, new
+          cluster configuration has all the rules in the cluster object.
+        </para>
+
+        <note>
+          <para>
+            This is important because if member firewall object has Policy
+            or NAT rule set with the same name as the one in the cluster,
+            then fwbuilder will use rules from the rule set of the member,
+            thus overriding all the rules in the cluster's rule set with
+            the same name. This allows you to create complex
+            configurations where majority of the rules are defined and
+            maintained in the cluster object, but a few rules can be
+            created separately in the members to complement rules of the
+            cluster.
+          </para>
+        </note>
+
+        <figure id="cookbook_linux_hb_cluster_7">
+          <title>Final page of the new cluster wizard</title>
+          <graphic fileref="linux-hb-cluster-7.png"/>
+        </figure>
+
+        <para>
+          Screenshot <xref linkend="cookbook_linux_hb_cluster_8"/>
+          demonstrates newly created cluster object.
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_8">
+          <title>Cluster object</title>
+          <graphic fileref="linux-hb-cluster-8.png"/>
+        </figure>
+
+        <para>
+          Each cluster interface has additional child object (located
+          underneath it in the tree) with the
+          name <emphasis>linux-test-1:eth0:members</emphasis> and
+          <emphasis>linux-test-1:eth1:members</emphasis>. These objects
+          are failover groups, this is where the failover protocol and
+          mapping between the cluster and member interfaces is
+          configured. Screenshot <xref linkend="cookbook_linux_hb_cluster_9"/>
+          highlights failover group that belongs to interface eth0:
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_9">
+          <title>Cluster Failover Group in the object tree</title>
+          <graphic fileref="linux-hb-cluster-9.png"/>
+        </figure>
+
+        <para>
+          Failover group is configured with the name, protocol and
+          interfaces of the member firewalls that correspond to the
+          cluster interface this failover group belongs to. Failover group
+          object selected on <xref linkend="cookbook_linux_hb_cluster_9"/>
+          looks like this:
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_10">
+          <title>Cluster Failover Group object</title>
+          <graphic fileref="linux-hb-cluster-10.png"/>
+        </figure>
+
+
+        <para>
+          Failover group for the interface <emphasis>eth1</emphasis>
+          should look the same, except for using
+          interfaces <emphasis>eth1</emphasis> of the member
+          firewalls. Use button <emphasis>Manage Members</emphasis> to
+          open a dialog that lets you add and remove member firewall
+          interfaces in the failover group.
+        </para>
+
+
+        <para>
+          Another new type of object that appears in the clusters is
+          State Synchronization group
+          <xref linkend="cookbook_linux_hb_cluster_11"/>. This group object
+          defines state synchronization protocol used for the cluster
+          and interfaces of the member firewalls where this protocol
+          runs. In the case of Linux firewalls
+          only <emphasis>conntrack</emphasis> protocol is available.
+        </para>
+
+        <note>
+          <para>
+            The purpose of this new object is to provide all necessary
+            configuration parameters to let fwbuilder generate policy
+            rules to permit packets of this protocol. In some other cases,
+            such as with PF on OpenBSD where state synchronization is done
+            via <emphasis>pfsync</emphasis> interface, fwbuilder can
+            generate actual configuration for the protocol itself. However
+            at this time fwbuilder does not generate configuration or
+            command line for the conntrackd daemon.
+          </para>
+        </note>
+
+        <figure id="cookbook_linux_hb_cluster_11">
+          <title>State Synchronization Group in the object tree</title>
+          <graphic scale="60" fileref="linux-hb-cluster-11.png"/>
+        </figure>
+
+        <para>
+          Just like Failover Group, State Synchronization Group object is
+          configured with the name, protocol and member interfaces:
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_12">
+          <title>State Synchronization Group object</title>
+          <graphic scale="60" fileref="linux-hb-cluster-12.png"/>
+        </figure>
+
+        <para>
+          If you do not use <emphasis>conntrackd</emphasis> in your
+          cluster setup and do not need iptables rules to permit its
+          packets in the generated script, then just do not configure
+          State Synchronization group object with inetrfaces of the
+          member firewalls. Such empty State Synchronization group
+          object will look like this when opened in the editor:
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_12-1">
+          <title>Empty State Synchronization Group object</title>
+          <graphic fileref="linux-cluster-empty-state-sync-group.png"/>
+        </figure>
+
+        <para>
+          You can edit parameters of the state synchronization protocol,
+          such as IP address of the multicast group it uses and port
+          number if you click <emphasis>Edit protocol
+            parameters</emphasis> button:
+        </para>
+
+        <figure id="cookbook_linux_hb_cluster_13">
+          <title>State Synchronization protocol parameters</title>
+          <graphic scale="60" fileref="linux-hb-cluster-13.png"/>
+        </figure>
+
+        <para>
+          Firewall Builder uses this information to generate policy
+          rules to permit conntrack packets. See examples of the output
+          generated by the policy compiler below.
+        </para>
+
+
+
+        <para>
+
+        </para>
+
+
+
+
+        <note>
+          <para>
+            There is very little difference between building a cluster
+            using VRRPd or heartbeat in Firewall Builder. To switch
+            from one protocol to the other you would need to do the
+            following:
+            <itemizedlist>
+              <listitem><para>Open each failover group object in the editor and change protocol</para></listitem>
+              <listitem><para>VRRPd uses netmask /32 for the virtual IP addresses, so if your heartbeat setup uses /24, then you need to change these too.</para></listitem>
+            </itemizedlist>
+            This is it. If your heartbeat setup uses /32 netmask, then
+            all you need to do is switch the protocol in the failover
+            groups.
+          </para>
+        </note>
 
       </sect3>
 

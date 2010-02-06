@@ -431,6 +431,58 @@
           </ClusterGroupOptions>
         </StateSyncClusterGroup>
       </Cluster>
+      <Cluster id="id2449X2867" host_OS="linux24" lastCompiled="0" lastInstalled="0" lastModified="1265416019" platform="iptables" name="linux-cluster-hb" comment="" ro="False">
+        <NAT id="id2453X2867" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </NAT>
+        <Policy id="id2451X2867" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Policy>
+        <Routing id="id2455X2867" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Routing>
+        <Interface id="id2459X2867" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
+          <IPv4 id="id2460X2867" name="linux-cluster-hb:eth0:ip" comment="" ro="False" address="10.3.14.150" netmask="255.255.255.0"/>
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id2462X2867" master_iface="id2239X22057" type="heartbeat" name="linux-cluster-hb:eth0:members" comment="">
+            <ObjectRef ref="id2239X22057"/>
+            <ObjectRef ref="id2014X22130"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <Interface id="id2466X2867" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
+          <IPv4 id="id2467X2867" name="linux-cluster-hb:eth1:ip" comment="" ro="False" address="10.1.1.254" netmask="255.255.255.0"/>
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id2469X2867" master_iface="id2242X22057" type="heartbeat" name="linux-cluster-hb:eth1:members" comment="">
+            <ObjectRef ref="id2242X22057"/>
+            <ObjectRef ref="id2019X22130"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <Interface id="id2473X2867" dedicated_failover="False" dyn="False" label="loopback" security_level="0" unnum="False" unprotected="False" name="lo" comment="" ro="False">
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id2475X2867" master_iface="id2236X22057" type="none" name="linux-cluster-hb:lo:members" comment="">
+            <ObjectRef ref="id2236X22057"/>
+            <ObjectRef ref="id2011X22130"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <FirewallOptions/>
+        <StateSyncClusterGroup id="id2457X2867" type="conntrack" name="State Sync Group" comment="">
+          <ObjectRef ref="id2242X22057"/>
+          <ObjectRef ref="id2019X22130"/>
+          <ClusterGroupOptions>
+            <Option name="conntrack_address">225.0.0.50</Option>
+            <Option name="conntrack_port">3780</Option>
+          </ClusterGroupOptions>
+        </StateSyncClusterGroup>
+      </Cluster>
     </ObjectGroup>
     <IntervalGroup id="id2205X22057" name="Time" comment="" ro="False"/>
   </Library>
