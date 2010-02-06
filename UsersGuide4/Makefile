@@ -73,5 +73,5 @@ fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 pdf: UsersGuide4.pdf
 
 UsersGuide4.pdf: fo/UsersGuide4.fo
-	FOP_OPTS="-Xmx256m" fop --execdebug fo/UsersGuide4.fo UsersGuide4.pdf
+	FOP_OPTS="-Xmx256m" fop fo/UsersGuide4.fo UsersGuide4.pdf
 
