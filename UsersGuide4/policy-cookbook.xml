@@ -1,0 +1,3256 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+
+    <sect1 id="policy-cookbook">
+
+    <title>Examples of Access Policy Rules</title>
+
+    <sect2>
+      <title>Firewall object used in examples</title>
+
+      <para>
+        We start with the firewall object that looks like shown on
+        <xref linkend="policy-examples-linux-fw" />. This firewall has
+        three interfaces: eth0 (outside), eth1 (inside) and loopback.
+        All addresses are assigned statically. Address of the inside
+        interface "eth1" is 192.168.1.1/24, we also have network
+        object with name "net-192.168.1.0" that defines internal
+        network 192.168.1.0/24.
+      </para>
+
+      <para>
+        To illustrate generated configurations for platforms other
+        than iptables/Linux in this chapter, I am using similarly
+        configured firewall objects with different platform and host
+        OS settings.
+      </para>
+
+      <figure id="policy-examples-linux-fw">
+        <title>Firewall and its interfaces used in the examples in this chapter.
+        </title>
+        <graphic fileref="policy-examples-fw-linux.png" />
+      </figure>
+    </sect2>
+
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Permit internal LAN to connect to the Internet</title>
+
+      <para>
+        In this example we create a rule to permit our internal LAN to
+	connect to the Internet using any protocol. Network object
+	"net-192.168.1.0" should be configured with the IP address and
+	netmask corresponding to those used on the internal network
+	behind the firewall. Since internal LAN in this example uses
+	private address block, the rules described here are
+	insufficient and should be accompanied with corresponding NAT
+	(Network Address Translation) rules. We discuss NAT rules in
+	the next chapter.
+      </para>
+
+      <figure id="policy-1-3">
+        <title>Permit internal network to connect to Internet</title>
+        <graphic fileref="policy-1-3.png" />
+      </figure>
+
+      <para>
+        Here are the iptables command generated for this example:
+      </para>
+
+      <screen>
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A OUTPUT  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A FORWARD  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N RULE_1
+$IPTABLES -A OUTPUT  -j RULE_1 
+$IPTABLES -A INPUT  -j RULE_1 
+$IPTABLES -A FORWARD  -j RULE_1 
+$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
+$IPTABLES -A RULE_1  -j DROP 
+      </screen>
+
+      <para>
+        Rules that utilize module <emphasis>state</emphasis> and match
+        states <emphasis>ESTABLISHED,RELATED</emphasis> permit reply
+        packets, such as TCP ACKs, UDP reply packets and ICMP messages
+        associated with known sessions. These rules are automatically
+        added at the beginning of generated iptables script if the
+        option "Accept ESTABLISHED and RELATED packets before the
+        first rule" is turned on in the firewall object "Advanced"
+        settings dialog. If you turn this option off, the rule will
+        not be added automatically and you'll have to add it
+        yourself. You can use Custom Service
+        object <emphasis>ESTABLISHED</emphasis> you can find in
+        the <emphasis>Standard</emphasis> objects library to do this.
+      </para>
+
+      <para>
+        The first rule was placed in all three
+        chains: <emphasis>INPUT</emphasis>, <emphasis>OUTPUT</emphasis>
+        and <emphasis>FORWARD</emphasis> because option "Assume
+        firewall is part of any" was turned on in the "Advanced"
+        settings dialog of this firewall object. This option directs
+        policy compiler to assume that
+        object <emphasis>"Any"</emphasis> matches firewall itself as
+        well. In other words, using "Any" in Destination of the rule
+        is equivalent to using a combination of any address and the
+        firewall. To match packets headed for the firewall, the rule
+        should be placed in the <emphasis>INPUT</emphasis> chain.
+        Also, network object within address 192.168.1.0/24 matches one
+        of the interfaces of the firewall that has address on this
+        network. This means, this rule should also match packets sent
+        by the firewall itself provided source address is that of the
+        interface on the internal net. This requires iptables command
+        in the <emphasis>OUTPUT</emphasis> chain. And finally,
+        iptables command in the <emphasis>FORWARD</emphasis> chain
+        matches packets sent by machines on the internal net.
+      </para>
+
+      <para>
+        Rule #1 catches all other packets going to, from and across
+        the firewall and logs and drops them.
+      </para>
+
+      <para>
+        Lets see what gets generated for iptables if option "Assume
+        firewall is part of any" is turned off:
+      </para>
+
+      <screen>
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD  -s 192.168.1.0/24   -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N RULE_1
+$IPTABLES -A FORWARD  -j RULE_1 
+$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
+$IPTABLES -A RULE_1  -j DROP 
+      </screen>
+
+      <para>
+        Automatically added rules that match packets in states
+        ESTABLISHED,RELATED are not affected by the "Assume firewall
+        is part of any" option and always match in chains INPUT,
+        OUTPUT and FORWARD.
+      </para>
+
+      <para>
+        Since the compiler does not assume firewall matches "any" anymore,
+        the rule with "any" is destination yields iptables command only in
+        the FORWARD chain. This applies both to the rule that permits
+        outgoing connections from internal LAN and to the "Catch all" rule
+        #1. The choice of the setting for this option is up to the policy
+        designer. Some people find it more intuitive to leave it off and add
+        rules to control access to and from the firewall explicitly. Note
+        that default policy for all chains is set to DROP with the
+        following commands at the very top of the generated iptables
+        script:
+      </para>
+
+      <screen>
+$IPTABLES -P OUTPUT  DROP
+$IPTABLES -P INPUT   DROP
+$IPTABLES -P FORWARD DROP
+      </screen>
+
+      <para>
+        This means that if you do not add rules to permit access to
+        the firewall and turn option "Assume firewall is part of any"
+        off, then all generated iptables rules will be in the FORWARD
+        chain and all access to the firewall itself will be blocked by
+        the default policy in the INPUT chain. On the other hand, if
+        the option "Assume firewall is part of any" is on, then the
+        rule permitting access from internal network to "any" gets
+        side effect of permitting access to the firewall as well. It
+        is up to you to decide whether this is a good or bad
+        thing. You can always restrict access to the firewall and
+        control it with a few rules somewhere close to the beginning
+        of the policy regardless of the setting of this option. We
+        look at the examples of rules controlling access to the
+        firewall in <xref linkend="control-access-to-fw"/>.
+      </para>
+
+      <para>
+        Even if you choose to turn option "Assume firewall is part of any"
+        off and do not add any rules to permit access to the firewall in
+        your policy rule set, you can use another option in the firewall
+        object "advanced" settings dialog for this. The option is called
+        "Always permit ssh access to the firewall from management station"
+        and allows you to enter single ip address or subnet and then
+        automatically adds a rule to the generated script to permit ssh
+        access to the firewall from this address. We demonstrate this
+        feature in one of the examples below.
+      </para>
+
+      <para>
+        <emphasis>Examples below have been compiled with the option
+          "Assume firewall is part of any" turned on.</emphasis>
+      </para>
+
+      <para>
+        Here is the PF configuration created for the same rules:
+      </para>
+
+      <screen>
+# Rule  0 (global)
+# 
+pass  quick inet  from 192.168.1.0/24  to any keep state 
+# 
+# Rule  1 (global)
+# 
+block  log  quick inet  from any  to any 
+      </screen>
+      
+      <para>
+        Firewall Builder always generates PF configuration using
+        its <emphasis>"quick"</emphasis> clause to switch to the
+        first-match mode. In this PF configuration example, the first
+        rule permits packets with source address on the 192.168.1.0/24
+        network and stops processing. The second rule will only
+        inspect packets not matched by the first rule.
+      </para>
+
+
+      <para>
+        Here is the fragment of the PIX config generated for the same
+        combination of rules:
+      </para>
+
+      <screen>
+ Rule  0 (global)
+! 
+access-list inside_acl_in  remark 0 (global)
+access-list inside_acl_in permit ip 192.168.1.0 255.255.255.0 any 
+! 
+! Rule  1 (global)
+! 
+access-list outside_acl_in  remark 1 (global)
+access-list outside_acl_in deny   ip any any log 4 interval 300 
+access-list dmz50_acl_in  remark 1 (global)
+access-list dmz50_acl_in deny   ip any any log 4 interval 300 
+access-list inside_acl_in  remark 1 (global)
+access-list inside_acl_in deny   ip any any log 4 interval 300 
+
+
+access-group dmz50_acl_in in interface dmz50
+access-group inside_acl_in in interface inside
+access-group outside_acl_in in interface outside
+      </screen>
+
+      <para>
+        Since source address in the rule #0 is limited to the internal
+        network, policy compiler was able to determine which interface
+        the access list command should be associated with and added it
+        only to the ACL <emphasis>"inside_acl_in"</emphasis>.
+      </para>
+
+      <para>
+        The <emphasis>"access-group"</emphasis> commands are actually
+        located at the very bottom of the generated script, after all
+        other <emphasis>access-list</emphasis> commands. It is shown
+        right next to the ACL rules here for presentation.
+      </para>
+      
+    </sect2>
+
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Letting certain protocols through, while blocking everything
+      else</title>
+
+      <para>This is one of the simplest, most basic tasks you may want your
+      firewall to do - block all the traffic while letting certain protocols
+      through. Let's assume that we have a network consisting of just the
+      firewall "firewall1" and a few hosts behind it. We want to let SMTP 
+      through to the mail server from the Internet, and block
+      everything else. All we need to do is put the following rules in the
+      Global Policy:</para>
+
+      <figure>
+          <title>Example of a rule permitting only certain protocols to the
+          server and blocking everything else.</title>
+              <graphic scale="70" fileref="policy-1.png" />
+        </figure>
+
+      <para>
+        Rule #0 allows SMTP through to the server, while rule #1
+        blocks and logs everything else. It is worth mentioning that
+        this policy also blocks all the access to firewall itself,
+        including access to it from internal hosts.
+      </para>
+
+      <para>
+        We do not need any additional rules to take care of "reply"
+        packets coming back from the server to clients because our
+        underlying firewall software supports stateful inspection and
+        "understands" that such packets should be let through.
+      </para>
+
+      <para>
+        Here is iptables script generated for these two simple rules:
+      </para>
+
+      <screen>
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Rule 0 (global)
+# 
+$IPTABLES -A OUTPUT -p tcp -m tcp  -d 192.168.1.100  \
+     --dport 25  -m state --state NEW  -j ACCEPT 
+$IPTABLES -A FORWARD -p tcp -m tcp  -d 192.168.1.100 \
+     --dport 25  -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N RULE_1
+$IPTABLES -A OUTPUT  -m state --state NEW  -j RULE_1 
+$IPTABLES -A INPUT  -m state --state NEW  -j RULE_1 
+$IPTABLES -A FORWARD  -m state --state NEW  -j RULE_1 
+$IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
+$IPTABLES -A RULE_1  -j DROP 
+      </screen>
+
+      <para>
+        Generated iptables rules were placed in
+        both <emphasis>OUTPUT</emphasis>
+        and <emphasis>FORWARD</emphasis> chains because option "Assume
+        firewall is part of any" was turned on in the "Advanced"
+        settings dialog of this firewall object. This option directs
+        policy compiler to assume that
+        object <emphasis>"Any"</emphasis> matches firewall itself as
+        well. In other words, using "Any" in Source of the rule was
+        equivalent to using a combination of any address and the
+        firewall. Resultant iptables commands should be placed in
+        the <emphasis>OUTPUT</emphasis> chain to match packets
+        generated by the firewall and <emphasis>FORWARD</emphasis> to
+        match packets crossing the firewall. If you turn this option
+        off, the program will only generate iptables rules in
+        the <emphasis>FORWARD</emphasis> chain for this rule.
+      </para>
+
+      <para>
+        Here is the code generated for PF for the same rule:
+      </para>
+
+      <screen>
+# Rule  0 (global)
+# 
+pass  quick inet proto tcp  from any  to 192.168.1.100 port 25 keep state 
+# 
+# Rule  1 (global)
+# 
+block  log  quick inet  from any  to any 
+      </screen>
+
+      <para>
+        In PF we do not have to worry about chains and there is no
+        option "Assume firewall is part of any" because there is no
+        difference.
+      </para>
+
+      <para>
+        Here is the code generated for PIX for the same rule:
+      </para>
+
+      <screen>
+! Rule  0 (global)
+! 
+access-list outside_acl_in  remark 0 (global)
+access-list outside_acl_in permit tcp any host 192.168.1.100 eq 25 
+access-list dmz50_acl_in  remark 0 (global)
+access-list dmz50_acl_in permit tcp any host 192.168.1.100 eq 25 
+access-list inside_acl_in  remark 0 (global)
+access-list inside_acl_in permit tcp any host 192.168.1.100 eq 25 
+! 
+! Rule  1 (global)
+! 
+access-list outside_acl_in  remark 1 (global)
+access-list outside_acl_in deny   ip any any log 0 interval 300 
+access-list dmz50_acl_in  remark 1 (global)
+access-list dmz50_acl_in deny   ip any any log 0 interval 300 
+access-list inside_acl_in  remark 1 (global)
+access-list inside_acl_in deny   ip any any log 0 interval 300 
+      </screen>
+
+      <para>
+        In PIX, all access lists must be attached to interfaces of the
+        firewall. Since the rule did not specify source address, the
+        program has to generate access lists that would match any
+        source, which means they should be attached to all interfaces
+        of the firewall. Since my PIX test object has three
+        interfaces: <emphasis>outside</emphasis>, <emphasis>inside</emphasis>
+        and <emphasis>dmz</emphasis>, I ended up with ACL lines in
+        three access lists, one for each interface.
+      </para>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+
+    <sect2>
+      <title> Letting certain protocols through from specific source.</title>
+
+      <para>
+        In this example, we look at the rule that is similar to the
+        previous one, but also matches source address. This rule
+        permits access to the mail server inside from mail relay on
+        DMZ and from no other source. Generated rules for iptables and
+        pf are very similar, they just add source address
+        matching. Generated rules for PIX are different because now
+        the program can intelligently pick the right access list and
+        avoid generating redundant rules.
+      </para>
+
+
+      <figure>
+          <title>Example of a rule permitting only certain protocols
+          from limited set of sources to the server.</title>
+          <graphic scale="70" fileref="policy-1-2.png" />
+        </figure>
+
+
+      <para>
+        Here is the code generated for iptables from this rule:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   -d 192.168.1.100  \
+     --dport 25  -m state --state NEW  -j ACCEPT 
+      </screen>
+
+      <para>
+        Since source rule element was limited to the host on DMZ,
+        generated iptables rule is placed only in the FORWARD chain
+        and also matches the source using "-s" clause.
+      </para>
+
+      <para>
+        Lets look at the configuration generated for PIX from the same rule:
+      </para>
+
+      <screen>
+! Rule  0 (global)
+! 
+access-list dmz50_acl_in  remark 0 (global)
+access-list dmz50_acl_in permit tcp host 192.168.2.22 host 192.168.1.100 eq 25 
+
+
+access-group dmz50_acl_in in interface dmz50
+access-group inside_acl_in in interface inside
+access-group outside_acl_in in interface outside
+      </screen>
+
+      <para>
+        the rule was placed only in the access list attached to the
+        DMZ interface because packets with source address of the host
+        on DMZ can only cross this interface of the firewall, assuming
+        spoofed packets are blocked by special rule, which will
+        discuss below.
+      </para>
+
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Interchangeable and non-interchangeable objects</title>
+
+      <!-- TODO: Need examples for this section -->
+
+      <para>In the previous example we put object "mail server" into
+      the Destination field of the policy rule #0 because our goal was
+      to permit protocol SMTP to that host and not to any other
+      one. This actually reflects general principle Firewall Builder
+      is based on: put the object you want to control access for in
+      the Source or Destination field of the policy rule. Two
+      different objects with the same address may or may not be
+      interchangeable, depending on their type and other
+      parameters. One of the frequent mistakes is to create Host
+      object with IP address of the firewall, then use it in the
+      policy and expect Firewall Builder to build policy controlling
+      access to the firewall. Unfortunately it does not always work
+      that way. If you wish to control access to or from the firewall
+      machine, then put Firewall object into the policy rule.</para>
+
+      <para>Another example of two objects which may on the first
+      glance represent the same thing, but in fact are not
+      interchangeable, is IP service object with protocol number set
+      to 1 and ICMP service object with type and code set to
+      "any". Both objects might represent the same type of service,
+      namely "Any ICMP message". IP protocol 1 is in fact ICMP, so one
+      would expect the behaviour of the firewall to be the same
+      regardless of what type of service object is used. However,
+      target firewall software typically uses special syntax for
+      indication of different protocols, so using proper syntax for
+      ICMP protocol turns certain features on, like for example
+      session state tracking and association of the ICMP packets to
+      known sessions these packets might carry error messages
+      for. Using just IP with protocol number 1 will most likely not
+      turn these features on and therefore will lead to unexpected
+      results.</para>
+
+      <para>Interface object and its ip address are interchangeable in
+      rules, provided the interface has only one address. If interface
+      object has several address child objects, then using the
+      interface object in a rule is equivalent to using all of its
+      addresses in the same place. If interface has only one address,
+      then the result will be the same whether you put interface
+      object or its address in the rule. Also, using firewall object
+      in the rule should yield the same policy script as if you put
+      all its interfaces in the same place instead. This one comes
+      with a caveat though: many firewall platforms offer special
+      syntax for rules that control access to or from the firewall
+      itself and fwbuilder takes advantage of this syntax, so the
+      result may not look exactly the same, but should be equivalent
+      in function. Some platforms, such as iptables, require using
+      different chain to control access to and from
+      firewall. Fwbuilder compares ip addresses used in source and
+      destination of rules to addresses of all interfaces of the
+      firewall and uses proper chains even if the address object in
+      the rule is not the firewall object itself.
+      </para>
+
+      <para>Two objects of the same type with different names but the
+      same values of all other parameters are always
+      interchangeable. Using different objects to describe the same
+      object may be confusing, but the final firewall policy will be
+      correct. Firewall Builder leaves design of the objects up to the
+      firewall administrator.</para>
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+
+    <sect2>
+      <title>Anti-spoofing rules</title>
+
+
+      <para>
+        Generally speaking, IP spoofing is a technique of generating
+        IP packets with source address that belongs to someone
+        else. Spoofing creates a danger when hosts on the LAN permit
+        access to their resources and services to trusted hosts by
+        checking the source IP of the packets.  Using spoofing, an
+        intruder can fake the source address of his packets and make
+        them look like they originated on the trusted hosts. The basic
+        idea of anti-spoofing protection is to create a firewall rule
+        assigned to the external interface of the firewall that
+        examines source address of all packets crossing that interface
+        coming from outside. If the address belongs to the internal
+        network or the firewall itself, the packet is dropped.
+      </para>
+
+      <para>
+        Simple anti-spoofing rule looks like shown on
+        <xref linkend="anti-spoof-rule-1" />. Unlike the rule in the
+        previous example, anti-spoofing rule requires matching of the
+        interface and direction. The idea is that packets that come
+        from outside must not have source addresses that match
+        internal network or the firewall itself. The only way to
+        distinguish packets coming from outside from those coming from
+        inside is to check which interface of the firewall they cross
+        and in which direction. Here the rule matches
+        interface <emphasis>eth0</emphasis>, which is external, and direction
+        <emphasis>inbound</emphasis>.
+      </para>
+
+      <para>
+        <xref linkend="gettingstarted" /> explains how a firewall
+        object and its interfaces can be
+        created. <xref linkend="host-interface" /> has more details on
+        the firewall's interfaces, their types and other
+        properties. <xref linkend="direction" /> explains the concept
+        of direction.
+      </para>
+
+      <figure id="anti-spoof-rule-1">
+        <title>Basic anti-spoofing rule</title>
+        <graphic scale="70" fileref="policy-antispoof-rule-1.png" />
+      </figure>
+
+      <para>
+        Here are the iptables commands generated for this rule:
+      </para>
+
+      <screen>
+# Rule 0 (eth0)
+# 
+# anti spoofing rule
+# 
+$IPTABLES -N In_RULE_0
+$IPTABLES -A INPUT  -i eth0   -s 192.0.2.1   -j In_RULE_0 
+$IPTABLES -A INPUT  -i eth0   -s 192.168.1.1   -j In_RULE_0 
+$IPTABLES -A INPUT  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.0.2.1   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
+$IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "
+$IPTABLES -A In_RULE_0  -j DROP 
+      </screen>
+
+      <para>
+        Iptables commands were placed in INPUT and FORWARD chains to
+        match both packets that are headed for the firewall and
+        through the firewall to hosts behind it. Rules match source
+        address of the packets and then log and drop them. Fwbuilder
+        generated iptables commands to match all addresses of the
+        firewall (192.168.1.1, 192.0.2.1) and network behind it
+        (192.168.1.0/24). 
+      </para>
+
+      <para>
+        Lets see what gets generated for the same rule for PF:
+      </para>
+
+      <screen>
+# Tables: (1)
+table &lt;tbl.r0.s&gt; { 192.0.2.1 , 192.168.1.1 } 
+
+# Rule  0 (en0)
+# anti spoofing rule
+# 
+block in   log  quick on en0 inet  from &lt;tbl.r0.s&gt;  to any 
+block in   log  quick on en0 inet  from 192.168.1.0/24  to any 
+# 
+      </screen>
+      
+      <para>
+        Here compiler uses tables to make generated PF code more
+        compact. Table <emphasis>tbl.r0.s</emphasis> can be used in
+        other rules wherever we need to operate with all addresses of
+        the firewall.
+      </para>
+
+      <para>
+        Here is the same rule, compiled for PIX:
+      </para>
+
+      <screen>
+! Rule  0 (Ethernet1/0)
+! anti-spoofing rule
+! 
+access-list outside_acl_in  remark 0 (Ethernet1/0)
+access-list outside_acl_in  remark anti-spoofing rule
+access-list outside_acl_in deny   ip host 192.0.2.1 any 
+access-list outside_acl_in deny   ip host 192.168.2.1 any 
+access-list outside_acl_in deny   ip host 192.168.1.1 any 
+access-list outside_acl_in deny   ip 192.168.1.0 255.255.255.0 any
+
+access-group outside_acl_in in interface outside
+
+      </screen>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Anti-spoofing rules for the firewall with dynamic address</title>
+
+      <para>
+        Anti-spoofing rule must match all addresses of the firewall to
+        leave no holes. However it is difficult to do if one interface
+        of the firewall gets its ip address dynamically via DHCP or
+        PPP protocol. This address is unknown at the compile time and
+        proper configuration can not be generated by just including
+        it. Some firewall platforms have syntax in their configuration
+        language that provides a way to match an address of an
+        interface at run time, but other platforms do not have
+        anything like this. Lets see how fwbuilder works around this problem.
+      </para>
+
+      <para>
+        In this test I use variation of the same firewall object where
+         external interface <emphasis>"eth0"</emphasis> is configured
+         as "dynamic". The anti-spoofing rule looks exactly like the
+         rule in the previous example and matches the same external
+         interface "eth0", direction "inbound":
+      </para>
+
+      <figure id="anti-spoof-rule-2">
+        <title>Basic anti-spoofing rule</title>
+        <graphic scale="70" fileref="policy-antispoof-rule-2.png" />
+      </figure>
+
+      <para>
+        Generated iptables script looks like this:
+      </para>
+
+      <screen>
+getaddr eth0  i_eth0
+
+
+# Rule 0 (eth0)
+# 
+# anti spoofing rule
+# 
+$IPTABLES -N In_RULE_0
+test -n "$i_eth0" &amp;&amp; $IPTABLES -A INPUT  -i eth0   -s $i_eth0   -j In_RULE_0 
+$IPTABLES -A INPUT  -i eth0   -s 192.168.1.1   -j In_RULE_0 
+$IPTABLES -A INPUT  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
+test -n "$i_eth0" &amp;&amp; $IPTABLES -A FORWARD  -i eth0   -s $i_eth0   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0 
+$IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
+$IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "
+$IPTABLES -A In_RULE_0  -j DROP 
+      </screen>
+
+      <para>
+        The script defines shell
+        function <emphasis>"getaddr"</emphasis> at the beginning. This
+        function uses <emphasis>"ip addr show"</emphasis> command to
+        determine actual address of the interface at the time when
+        script is running and assigns the address to the shell
+        variable <emphasis>i_eth0</emphasis>. Iptables commands then
+        use this variable to build rules matching address of this
+        interface. Otherwise generated rules are the same as in the
+        previous example.
+      </para>
+
+      <para>
+        Here is what is generated for PF:
+      </para>
+
+      <screen>
+table &lt;tbl.r0.d&gt; { en0 , 192.168.1.1 } 
+
+# Rule  0 (en0)
+# anti spoofing rule
+# 
+block in   log  quick on en0 inet  from &lt;tbl.r0.d&gt;  to any 
+block in   log  quick on en0 inet  from 192.168.1.0/24  to any 
+      </screen>
+
+      <para>
+        In PF, one can place interface name ("en0") in the table and
+        PF will use its address at the execution time.
+      </para>
+
+      <para>
+        Unfortunately there is no workaround for this problem for PIX.
+      </para>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Using groups</title>
+
+      <para>
+        Sometimes we need to define a lot of very similar rules for
+        multiple hosts or networks. For example, there may be a need
+        to permit the same service to 10 different hosts on the
+        network, while still blocking it to all others. The simplest
+        way to accomplish this is to add 10 rules with the same source
+        and service fields and just different destinations. Another
+        method is to add 10 objects to the Source or Destination rule
+        element of the same rule. Both methods can make firewall
+        policy quite cluttered and hardly readable.  To avoid this we
+        can use groups. Group is just a container which includes
+        references to multiple objects of the same or similar type.
+        Firewall Builder supports groups of objects and groups of
+        services. You can
+        put <emphasis>"Address"</emphasis>, <emphasis>"Host"</emphasis>, <emphasis>"Network"</emphasis>
+        and <emphasis>"Firewall"</emphasis> objects in an object
+        group, but you cannot put service objects in a such
+        group. Similarly, a service group can contain <emphasis>"IP Service"</emphasis>,
+        <emphasis>"TCP Service"</emphasis>, <emphasis>"UDP
+        Service"</emphasis> and <emphasis>"ICMP Service"</emphasis>
+        objects, but cannot contain hosts or networks. Groups can
+        contain other groups of the same type as
+        well. <xref linkend="object-group-2" /> represents object
+        group used in this example.
+      </para>
+
+
+      <para>
+        Groups not only make policy rules more readable, another great
+        advantage of object groups is that they are reusable. You can
+        now have many different rules using this same group object. If
+        you ever need to add another host or address to the group, you
+        only need to do it once and all rules will automatically pick
+        the change after recompile.
+      </para>
+
+      <figure id="object-group-2">
+          <title>Object group that consists of three host objects.</title>
+          <graphic scale="70" fileref="policy-rule-group-object.png" />
+      </figure>
+
+      <para>
+        To add objects to a group simply drag them from the tree on
+        the left into group view on the right, or use Copy/Paste
+        functions available via menus.
+      </para>
+
+      <para>
+        Once appropriate group has been created, it can be used for
+        the policy and NAT rules just like any other object.
+      </para>
+
+      <figure>
+          <title>Example of a rule using object group.</title>
+          <graphic scale="70" fileref="policy-rule-group-1.png" />
+      </figure>
+
+      <para>
+        Here is iptables commands generated for this example:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -N Cid17843X27745.0
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22 -m state --state NEW  -j Cid17843X27745.0 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.110   -j ACCEPT 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.111   -j ACCEPT 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.112   -j ACCEPT 
+      </screen>
+
+      <para>
+        Generated iptables command is placed only in
+        the <emphasis>INPUT</emphasis> chain because it controls
+        access to the firewall and not to any addresses across it.
+        The first iptables command matches chain, tcp port and state.
+        If this rule does not match the packet, there is no need to
+        waste CPU cycles checking source ip addresses. However if the
+        first rule matches, it passes control to the special
+        user-defined chain "Cid17843X27745.0" where it checks source
+        address of the packet. If compiler were to generate iptables
+        script not using this temporary chain, it would end up
+        comparing tcp port and state three times, together with each
+        possible source address. This can be rather wasteful if the
+        rule should match a lot of addresses. Separation of the
+        matches using temporary chain can improve performance a lot.
+      </para>
+
+      <para>
+        Compiler decides whether to use temporary chain not because
+        administrator used object group in source in the original rule
+        in the GUI, but because it determined that in the end it needs
+        to compare source address of the packet against several
+        addresses defined in the policy. If the group contained just
+        one address, the generated iptables script would have
+        consisted of just one iptables command without temporary
+        chain. If there was no group in "Source" of the rule but
+        instead all these host objects were placed in "source" of the
+        rule directly, generated iptables script would look exactly
+        like shown above, using temporary chain for optimization.
+      </para>
+
+
+      <para>
+        Here is the code generated for PF for the same rule:
+      </para>
+
+
+      <screen>
+table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.168.1.1 } 
+table &lt;tbl.r0.s&gt; { 192.168.1.110 , 192.168.1.111 , 192.168.1.112 } 
+
+# Rule  0 (global)
+# 
+pass  quick inet proto tcp  from &lt;tbl.r0.s&gt;  to &lt;tbl.r0.d&gt; port 22 keep state 
+      </screen>
+
+      <para>
+        Policy compiler for PF extensively uses tables to produce
+        compact code. PF tables are reused when needed.
+      </para>
+
+      <para>
+        Here is the config generated for PIX:
+      </para>
+
+      <screen>
+object-group network inside.id20599X27745.src.net.0
+ network-object  host 192.168.1.110 
+ network-object  host 192.168.1.111 
+ network-object  host 192.168.1.112 
+ exit
+
+! Rule  0 (global)
+! 
+access-list inside_acl_in  remark 0 (global)
+access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
+         host 192.0.2.1 eq 22 
+access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
+         host 192.168.1.1 eq 22 
+! 
+      </screen>
+
+      <para>
+        Just like in case of iptables, it is not that a group object
+        was used in the original rule what triggered using
+        <emphasis>object-group</emphasis> PIX clause. Compiler always
+        checks the number of objects it needs to compare the packet
+        against and uses
+        <emphasis>object-groups</emphasis> statements to optimize
+        generated code as appropriate.
+      </para>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+
+    <sect2>
+
+      <title>Using Address Range instead of a group</title>
+
+
+      <para>
+        In the example above, three hosts used for the
+        group <emphasis>"management hosts"</emphasis> have consecutive
+        addresses 192.168.1.110, 192.168.1.111,
+        192.168.1.112. Although this example may be artificial, it
+        allows us to illustrate how a different type of object could
+        be used to achieve the same goal - to permit access to the
+        firewall from these three addresses. The difference may be
+        negligible when we deal with just three addresses, but when
+        the list gets into hundreds it may become significant.
+      </para>
+
+      <para>
+        Since addresses of the management hosts are consecutive, we
+        can use Address Range object to describe them:
+      </para>
+
+      <figure id="address-range-obj-1">
+        <title>Policy for server</title>
+        <graphic scale="60" fileref="policy-rule-address-range-object.png" />
+      </figure>
+
+      <para>
+        We use this object in the rule just like any other
+        object. <xref linkend="policy-rule-with-address-range-obj"/> shows the rule:
+      </para>
+
+      <figure id="policy-rule-with-address-range-obj">
+        <title>Policy for server</title>
+        <graphic scale="60" fileref="policy-rule-with-address-range.png" />
+      </figure>
+
+      <para>
+        The main difference in generated code for the rule using
+        Address Range compared to the rule using collection of
+        individual addresses is that compiler is allowed to optimize
+        it. It tries to squeeze the address range to the minimal set
+        of address and network objects. Here is how it looks like for
+        iptables:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT  -s 192.168.1.110/31   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A INPUT  -s 192.168.1.112   -m state --state NEW  -j ACCEPT 
+      </screen>
+
+      <para>
+        Again, the difference may not be very great when we have only
+        three ip addresses, but in case of a range that spans hundred
+        addresses the performance gain and reduction in the size of
+        generated script are significant.
+      </para>
+
+      <para>
+        Generated PF and PIX configurations look similar.
+      </para>
+
+    </sect2>
+
+
+    <!-- ********************************************************* -->
+    <sect2 id="control-access-to-fw">
+      <title>Controlling access to the firewall</title>
+
+      <para>
+        Suppose we need to permit SSH access to the firewall. In the
+        simplest case we just create a rule with firewall object (fw)
+        in Destination and a service object SSH in Service. Service
+        object SSH can be found in the Standard objects tree, under
+        Services/TCP. Here is the rule:
+      </para>
+
+      <figure id="policy-14">
+        <title>SSH from anywhere</title>
+        <graphic scale="70" fileref="policy-14.png" />
+      </figure>
+
+      <para>
+        This almost trivial rule compiles into configurations using
+        entirely different concepts depending on the chosen target
+        firewall platform. Generated iptables rule is rather simple:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT 
+      </screen>
+
+      <para>
+        Generated PF configuration uses tables to list all ip
+        addresses that belong to the firewall:
+      </para>
+
+      <screen>
+table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.168.1.1 } 
+
+# Rule  0 (global)
+# 
+pass in   quick inet proto tcp  from any  to &lt;tbl.r0.d&gt; port 22 keep state 
+      </screen>
+
+      <para>
+        Iptables has concept of chains that separate different packet
+        flow paths inside netfilter engine and packets headed for the
+        firewall itself are always processed in the INPUT chain. This
+        means generated iptables script could be optimized. If
+        comparison is done in the INPUT chain, the script does not
+        have to verify destination address to make sure it belongs to
+        the firewall since this has already been done by the
+        kernel. PF does not have mechanism like this, therefore
+        generated PF configuration must compare destination address of
+        the packet with all addresses of the firewall. This can be
+        done in a more elegant way using PF tables, but still, we make
+        the firewall compare destination address of the packet against
+        a list of addresses.
+      </para>
+
+      <para>
+        Ipfw offers a shortcut for this, it is called configuration
+        option <emphasis>"me"</emphasis>. Here is how generated ipfw
+        script looks like for the same simple rule controlling ssh
+        access to the firewall:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+"$IPFW" add 10 set 1 permit tcp  from any  to me 22 in  setup keep-state  || exit 1
+      </screen>
+
+      <para>
+        <emphasis>"me"</emphasis> here means any address that belongs
+        to the firewall.
+      </para>
+
+      <para>
+        The rule #0 on <xref linkend="policy-14"/> matches
+        service <emphasis>ssh</emphasis> which has special meaning in
+        case of PIX. There, control to the firewall for protocols such
+        as <emphasis>ssh</emphasis> and <emphasis>telnet</emphasis> is
+        configured using special configuration commands <emphasis>"ssh"</emphasis> and
+        <emphasis>"telnet"</emphasis> instead of generic access
+        lists. Here is what we get when we compile exactly the same
+        rule for PIX:
+      </para>
+
+      <screen>
+! Rule  0 (global)
+! 
+ssh    0.0.0.0 0.0.0.0 outside
+ssh    0.0.0.0 0.0.0.0 dmz50
+ssh    0.0.0.0 0.0.0.0 inside
+      </screen>
+
+
+      <para>
+        The rule in this example leaves source address "any", which is
+        why generated PIX commands match "0.0.0.0 0.0.0.0".  Fwbuilder
+        generated "ssh" command for all interfaces of the PIX for the
+        same reason.
+      </para>
+
+      <para>
+        Obviously this rule makes our firewall too open because it
+        permits SSH connections to it from any host on the
+        Internet. It would be a good idea to restrict it so that it
+        permitted connections only from the internal LAN. This is
+        easy, we just put object "LAN" in the source of the
+        corresponding rule:
+      </para>
+
+      <figure id="policy-15">
+        <title>SSH from LAN</title>
+        <graphic scale="70" fileref="policy-15.png" />
+      </figure>
+
+
+      <para>
+        Generated configuration for all supported firewall platforms
+        will follow the same pattern but add matching of the source
+        address of the packet to make sure it comes from local LAN. In
+        case of PIX, there is only one "ssh" command attached to the
+        internal interface because the program determined that network
+        object used in "Source" of the rule matches only this
+        interface of the firewall:
+      </para>
+
+      <screen>
+! Rule  0 (global)
+! 
+ssh    192.168.1.0 255.255.255.0 inside
+      </screen>
+
+      <para>
+        This is better, but we should be careful not to permit more
+        protocols to the firewall than we really intend to. Let's look
+        at the simple rule permitting connects from internal LAN to
+        the Internet (rule #0 on the screenshot below):
+      </para>
+
+      <figure id="policy-16">
+        <title>LAN to anywhere</title>
+        <graphic scale="70" fileref="policy-16.png" />
+      </figure>
+
+      <para>
+        Logic says that destination "any" should match any address,
+        including the ones that belong to the firewall itself. In
+        Firewall Builder this can actually be changed using a checkbox
+        in the <guilabel>Compiler</guilabel> tab of
+        the <guilabel>Firewall Settings</guilabel> dialog of the
+        firewall object. If the checkbox <guilabel>"Assume firewall is
+        part of any"</guilabel> is checked, then the compiler
+        generates rules assuming that "any" matches the firewall as
+        well. So, if this option is on, then this rule permits any
+        connections from internal LAN to the firewall, regardless of
+        the protocol! Here is how we can modify the rule permitting
+        access to the Internet to exclude firewall from it:
+      </para>
+
+      <figure id="policy-17">
+        <title>Negating the firewall as a destination from the LAN</title>
+        <graphic scale="70" fileref="policy-17.png" />
+      </figure>
+
+      <para>
+        We are now using negation in the destination; the meaning of
+        this rule is "permit connections on any protocols from
+        machines on the network 'LAN' to any host except the
+        firewall". We still need a rule described above to permit ssh
+        to the firewall, but the rule permitting access from LAN to
+        anywhere does not open additional access to the firewall
+        anymore. I am going to demonstrate generated iptables and pf
+        configurations for rules with negation like this later.
+      </para>
+
+      <para>
+        But is there any way to make it even more restrictive? Of
+        course there is. It is always a good idea to restrict access
+        to the firewall to just one machine and use that machine to
+        compile the policy and manage the firewall. Let's call this
+        machine a management station "fw-mgmt". Here is more
+        restrictive combination of rules that permits ssh access to
+        the firewall only from <emphasis>fw-mgmt</emphasis>, permits
+        access from LAN to anywhere except the firewall on any
+        protocol and blocks everything else. This combination of rules
+        works the same regardless of the setting of the option "Assume
+        firewall is part of any".
+      </para>
+
+      <figure id="policy-18">
+        <title>Firewall access from only one machine</title>
+        <graphic scale="70" fileref="policy-18.png" />
+      </figure>
+
+      <para>
+        Three rules shown above are very good at restricting access to
+        the firewall from all sources except for the dedicated
+        management workstation. The problem with them is that the
+        firewall policy is never this simple and short. As you add
+        more rules, you can add a rule with a side effect of
+        permitting access to the firewall sooner or later. This is one
+        of the reason many administrators prefer to keep option
+        "Assume firewall is part of any" turned off. In any case, it
+        may be a good idea to build rules for the access to the
+        firewall explicitly and group them together. It would look
+        like something like this:
+      </para>
+
+      <figure id="policy-18-a">
+        <title>Firewall access from only one machine; all other
+        access to the firewall explicitly denied</title>
+        <graphic scale="70" fileref="policy-18-a.png" />
+      </figure>
+
+      <para>
+        I do not include generated iptables, pf, pix code because it
+        should be clear by now how should it look like. It is more
+        important that rules in Firewall Builder GUI look exactly the
+        same regardless of the chosen target firewall platform.
+      </para>
+
+      <para>
+        Policy rules demonstrated in these examples are good at
+        restricting access to the firewall while making it possible to
+        manage it remotely via ssh. The problem with these rules is
+        that administrator has to be careful to not break them in any
+        way. One would think it should be hard to make an error in a
+        policy fragment consisting of two rules, but this
+        happens. These two rules are just a small part of a much
+        larger rule set and may not be located in a prominent place
+        right on top of it. As new rules are added to the policy, at
+        some point some rule located above may block access to the
+        whole network or range of addresses that accidentally includes
+        management address of the firewall. This means even though the
+        rules are there, the access to the firewall gets blocked as
+        soon as updated policy is uploaded and activated. This is
+        really bad news if the firewall machine is located far away in
+        a remote office or data center.
+      </para>
+
+      <para>
+        To help avoid this bad (but all too familiar) situation,
+        Firewall Builder offers yet another feature. To access it,
+        select firewall object in the tree and open it in the editor,
+        then click "Firewall Settings" button. This is described in
+        more details in <xref linkend="firewall-object"/>.  In the
+        dialog that appears, locate controls shown on
+        <xref linkend="ssh-access-from-mgmt"/>
+      </para>
+
+      <figure id="ssh-access-from-mgmt">
+        <title>Option that enabled automatic rule to permit ssh access from management workstation</title>
+        <graphic scale="70" fileref="ssh-access-from-mgmt.png" />
+      </figure>
+
+
+      <para>
+        Enter single IP as shown on the screenshot or subnet
+        definition in the input field and hit "OK", then recompile the
+        policy. Here is what gets added on the top of the generated
+        iptables script:
+      </para>
+
+      <screen>
+$IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# backup ssh access
+#
+$IPTABLES -A INPUT  -p tcp -m tcp  -s 192.168.1.110/255.255.255.255 \
+     --dport 22  -m state --state NEW,ESTABLISHED -j ACCEPT
+$IPTABLES -A OUTPUT  -p tcp -m tcp  -d 192.168.1.110/255.255.255.255 \
+     --sport 22  -m state --state ESTABLISHED,RELATED -j ACCEPT
+      </screen>
+
+      <para>
+        I included rules matching "ESTABLISHED,RELATED" states in the
+        screenshot to demonstrate that automatic rule for ssh access
+        is added right after them. In other words, the ssh access rule
+        is added at the very beginning of the script before any other
+        rule. There are actually two rules, one to permit inbound
+        packets in chain INPUT, it matches protocol tcp, destination
+        port 22 and states "NEW,ESTABLISHED". The other rule permits
+        outbound packets in chain OUTPUT, also protocol tcp, source
+        port 22 and states "ESTABLISHED,RELATED". The purpose of this
+        complexity is to make sure not only newly established ssh
+        sessions are permitted, but also "old" ones, established
+        before iptables rules are purged and reinstalled during
+        firewall configuration reload. This helps ensure ssh session
+        used to activate updated firewall policy does not get blocked
+        and stall in the middle of the policy update process.
+      </para>
+
+      <para>
+        The same option is provided in the "Firewall settings" dialog
+        for all supported firewall platforms. Firewall Builder always
+        generates command to permit ssh to the firewall and makes it
+        the very first in the access control rule set.
+      </para>
+
+      <para>
+        Now all administrator needs to do is enter ip address of the
+        management workstation or address block it belongs to in the
+        "Firewall Settings" dialog, then recompile and update
+        generated policy on the firewall. There is no need to remember
+        to add special rule to permit ssh to the firewall in the
+        policy ruleset since this rule is now generated
+        automatically. Generated rule is always on top of all other
+        rules, so any mistake in the policy rule set will never block
+        ssh access to the firewall. This is a good way to reduce the
+        risk of locking yourself out of your own firewall. Using this
+        feature is highly recommended.
+      </para>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Controlling access to different ports on the server</title>
+
+      <para>Firewall Builder can be used to generate a policy for the
+	firewall running on the server. Here is an example that shows
+	how to set up a policy to permit access to different ports on
+	the server. First of all, we need to create a Firewall object
+	to represent our server. The only difference between this case
+	and a usual case where firewall protects one or more networks
+	behind it is that for the server-firewall we only need to
+	create one interface besides the loopback. The following
+	screenshot demonstrates a policy that permits access to the
+	web server running on this machine (both HTTP and HTTPS), as
+	well as FTP and management access via SSH. Rule #1 allows the
+	server to use DNS for name resolution. Service object used in
+	the "Service" column in rule #1 is in fact a group that
+	consists of TCP and UDP service objects that represent tcp and
+	UDP variants of the protocol (both use the same destination
+	port 53).</para>
+
+      <figure id="port-access-control1">
+        <title>Policy for server</title>
+        <graphic scale="60" fileref="port-access-control1.png" />
+      </figure>
+
+      
+      <para>
+        In this example I turned option "Assume firewall is part of
+        any" off to simplify generated script. Here is the iptables
+        script created for these rules:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp  -m multiport  --dports 80,443,21,22 \
+     -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+#
+$IPTABLES -A OUTPUT -p tcp -m tcp  --dport 53  -m state --state NEW  -j ACCEPT 
+$IPTABLES -A OUTPUT -p udp -m udp  --dport 53  -m state --state NEW  -j ACCEPT 
+# 
+# Rule 2 (global)
+# 
+$IPTABLES -N RULE_2
+$IPTABLES -A INPUT  -j RULE_2 
+$IPTABLES -A RULE_2  -j LOG  --log-level info --log-prefix "RULE 2 -- DENY "
+$IPTABLES -A RULE_2  -j DROP 
+      </screen>
+
+      <para>
+        Firewall Builder optimized generated rule and used module
+        multiport to put all four TCP ports used in rule #0 in one
+        iptables command. The program always uses module multiport to
+        make generated script more compact, even if you use a mix of
+        TCP, UDP and ICMP services in the same rule. Since iptables
+        does not support using a mix of protocols in the same command,
+        the program generates several iptables commands, one for each
+        protocol, but still can use module multiport in each command
+        if there are several ports to match.
+      </para>
+
+      <para>
+        Rule #1 was split because it matches both tcp and udp
+        protocols. Because of that, in the generated iptables script
+        we have one command for tcp and another for udp.
+      </para>
+
+      <para>
+        Note how iptables commands generated for rule #0 went into
+        chain INPUT, whereas commands generated for rule #1 went into
+        chain OUTPUT. Rule #0 controls access to the server (object
+        "server" is in "Destination" in the rule) but rule #1 controls
+        connections initiated by the server (object "server" is in
+        "Source" of the rule). Firewall Builder picks the right chain
+        automatically.
+      </para>
+
+      <para>
+        Generated PF script uses tables to match four tcp ports in the same rule:
+      </para>
+
+      <screen>
+
+# Rule  0 (global)
+# 
+pass in   quick inet proto tcp  from any  to 192.168.1.10 \
+    port { 80, 443, 21, 22 } keep state
+# 
+# Rule  1 (global)
+# 
+pass out  quick inet proto tcp  from 192.168.1.10  to any port 53 keep state
+pass out  quick inet proto udp  from 192.168.1.10  to any port 53 keep state
+# 
+# Rule  2 (global)
+# 
+block in   log  quick inet  from any  to 192.168.1.10 
+      </screen>
+
+
+      <para>
+        Sometimes the web server is bound to a several IP addresses on
+	the same machine. One typical situation when this is needed is
+	when the web server supports multiple sites using HTTPS
+	protocol. The following firewall configuration demonstrates
+	the case when interface eth0 has two IP addresses (192.0.2.1
+	and 192.0.2.2):
+      </para>
+
+      <figure id="port-access-control2">
+        <title>Policy for server</title>
+        <graphic scale="80" fileref="port-access-control2.png" />
+      </figure>
+
+      <para>
+        Suppose the web server should accept HTTPS connections
+	to both IP addresses, while HTTP and FTP are allowed only on
+	address 192.0.2.1. The management access to the server is
+	allowed only via protocol SSH and only from the management
+	workstation "fw-mgmt". The following rules enforce this
+	policy:
+      </para>
+
+      <figure id="port-access-control3">
+        <title>Policy for server</title>
+        <graphic scale="60" fileref="port-access-control3.png" />
+      </figure>
+
+      <note><para>
+          The same rules could be used to permit or deny
+          access to different ports on a server located on the network
+          behind a dedicated firewall.
+      </para></note>
+
+      <para>
+        Here is how generated iptables script looks like:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp -d 192.0.2.1 --dport 443 -m state --state NEW \
+    -j ACCEPT 
+$IPTABLES -A INPUT -p tcp -m tcp -d 192.0.2.2 --dport 443 -m state --state NEW \
+    -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp -m multiport -d 192.0.2.1 --dports 80,21  \
+    -m state --state NEW  -j ACCEPT 
+# 
+# Rule 2 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp -s 192.0.2.100 -d 192.0.2.1 --dport 22  \
+    -m state --state NEW  -j ACCEPT 
+# 
+      </screen>
+
+      <para>
+        These iptables commands should be quite obvious. PF rules in
+        this example also look very familiar:
+      </para>
+
+      <screen>
+# Tables: (1)
+table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.0.2.2 } 
+
+
+# Rule  0 (global)
+# 
+# 
+pass  quick inet proto tcp  from any  to &lt;tbl.r0.d&gt; port 443 keep state
+# 
+# Rule  1 (global)
+# 
+# 
+pass  quick inet proto tcp  from any  to 192.0.2.1 port { 80, 21 } keep state
+# 
+# Rule  2 (global)
+# 
+# 
+pass  quick inet proto tcp  from 192.0.2.100  to 192.0.2.1 port 22 keep state
+      </screen>
+      
+    </sect2>
+
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Firewall talking to itself</title>
+
+      <para>Many services running on the firewall machine need to be
+      able to establish connections to the same machine. X11, RPC, DNS
+      are services like that, to name a few. Blocking these services
+      on the firewall can cause various problems, depending on what
+      protocol is being blocked. If it is DNS, then it may take a lot
+      longer than usual to get to a command line prompt when logging
+      in to the machine using telnet or ssh. Once logged in, you won't
+      be able to resolve any host names into addresses.  If X11 is
+      blocked, then X server and any graphic environment using it
+      (KDE, Gnome etc.) won't start. In any case though the problem
+      can easily be solved by adding a simple any-any rule and
+      specifying the loopback interface of the firewall to permit all
+      sorts of communications. As shown on
+      <xref linkend="rule-on-loopback" />, this rule must specify the
+      loopback interface, have action <emphasis>Accept</emphasis> and
+      direction <emphasis>Both</emphasis>.</para>
+
+      <figure id="rule-on-loopback">
+          <title>Rule permitting everything on the loopback interface</title>
+              <graphic scale="70" fileref="policy-10.png" />
+        </figure>
+
+      <note>
+        <para>Running X11 and other complex services on the dedicated
+        firewall machine should be discouraged. However, you may want
+        to run a firewall to protect a server, workstation, or laptop
+        where X11, RPC and other services are perfectly normal.</para>
+      </note>
+
+      <para>
+        Generated iptables commands are placed in INPUT and OUTPUT
+        chains because packets sent by the firewall to itself never
+        hit FORWARD chain. Options "-i lo" and "-o lo" nail interface
+        and direction:
+      </para>
+
+      <screen>
+$IPTABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
+      </screen>
+
+      <para>
+        For PF, we can specify interface to match but keep direction
+        open so both "in" and "out" will match:
+      </para>
+
+      <screen>
+pass  quick on lo inet  from any  to any keep state
+      </screen>
+
+      <para>
+
+      </para>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Blocking unwanted types of packets</title>
+
+      <para>Fragmented IP packets, although useful in certain situations, are
+      often used as a tool to probe and penetrate simple packet filters.
+      Particular kinds of fragmented packets, namely those with incorrect
+      length specifications, are especially bad because they can cause some
+      operating systems to crash (for example Windows NT was known to crash
+      before a fix was developed and published by Microsoft). These packets
+      therefore are considered potentially harmful and should be blocked on
+      the perimeter of your network. Many firewall platforms provide ways to
+      deal with such packets.</para>
+
+      <para>In Firewall Builder, we provide a way to set flags or options in
+      the IP service object. Two options deal with fragments: one is called
+      "all fragments" and another "short fragments". <xref
+      linkend="f-policy-2" /> shows how a user-defined object called "fragments" looks
+      with both options turned on. Policy compilers recognize this object and
+      generate correct code for underlying firewall software platform.</para>
+
+      <figure id="f-policy-2">
+          <title>IP Service object which represents fragmented
+          packets.</title>
+              <graphic scale="60" fileref="policy-2.png" />
+        </figure>
+
+      <para>Object "ip_fragments", which is included in the section "Services/IP" of
+      the Standard objects tree, is set to block 'short' fragments only.</para>
+
+      <para>Another potentially harmful type of packets is so called
+      "Christmas tree" packet. This one is just a TCP packet with impossible
+      combination of TCP flags or even all TCP flags turned on at once (for
+      example SYN, ACK, FIN, RST, PSH). This combination is never used in real
+      communications, so if a packet like that appears at the boundary of your
+      network, it should be considered illegal and blocked. Object "tcp-xmas"
+      is included in the section "Services/TCP" of the standard objects
+      database coming with Firewall Builder.</para>
+
+      <para>Some platforms provide a mechanism to turn on and off stateful
+      inspection on individual rules. Turning it off on those rules which do
+      not require it may improve performance of the firewall. Obviously we do
+      not need stateful inspection while analysing fragmented packets as we do
+      not really want any session to be established, so we can safely use this
+      option on this rule. One example of firewall platform which supports
+      stateful inspection but provides a way to turn it on and off is
+      iptables. In Firewall Builder, this can be done in the rule options
+      dialog (which is platform-sensitive and shows different options for
+      different platforms). <xref linkend="f-policy-3" /> shows rule logging options
+      dialog for iptables:</para>
+
+      <figure id="f-policy-3">
+          <title>Rule options dialog for iptables firewall</title>
+              <graphic scale="70" fileref="iptables-options-logging.png" />
+        </figure>
+
+      <para>Here is an example of the policy rule which is intended to block
+      short fragments and TCP "Christmas scan" packets. The icon in the Options column indicates that logging is turned on.</para>
+
+      <figure>
+          <title>Rule blocking short fragmented packets and TCP "Christmas scan"
+          packets</title>
+              <graphic scale="60" fileref="policy-4.png" />
+        </figure>
+
+      <para>This rule applies to
+      all packets crossing the firewall regardless of their origin. This means
+      that it will block such packets originating in your network, too. If by
+      some reason you might want to be able to send this kind of packets out,
+      then specify your external interface in the <guilabel>Interface</guilabel> column.</para>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Using Action 'Reject': blocking Ident protocol</title>
+
+      <para>Suppose we want to block connections to certain ports on the
+      server behind the firewall, but want to do it in a "polite" manner that
+      lets the sender host know right away that the connection attempt
+      was blocked so our server would look like nothing is listening on that
+      port at all. One of the practical applications of this setup would be
+      blocking Ident connections to a mail relay or a mail server. Sendmail
+      and many other MTA's (Mail Transport Agents) attempt to connect to Ident
+      port (TCP port 113) on the mail relay every time they accept email from
+      that relay. Many believe Ident protocol is practically useless and does
+      not really serve as a protection against SPAM or for any other useful
+      purpose. Unfortunately silent blocking of ident connections on the
+      firewall using a rule with action <emphasis>"Deny"</emphasis> adds a
+      delay in the email delivery. This happens because when sender host tries
+      to establish Ident connection to the recipient, it sends TCP SYN packet
+      to it (the first packet in three-way TCP handshake) and then waits for
+      TCP ACK packet in response. However, it never sees it because
+      recipient's firewall blocked its first TCP SYN packet. In situations
+      like this, the sender host assumes the reply packet got lost and tries to
+      send TCP SYN packet again. It repeats this for a few seconds (usually 30
+      sec) before it gives up. This adds 30 sec delay to email delivery. Our
+      intent is to show how one can construct a policy rule to block Ident
+      without causing this delay.</para>
+
+      <para>The simplest way to block any protocol is to use "Deny"
+      action in the policy rule. Since "Deny" causes firewall to
+      silently drop the packet, sender never knows what happened to it
+      and keeps waiting for response. To avoid this delay we will set
+      rule Action to "Reject".  Normally "Reject" makes firewall to
+      send ICMP "unreachable" message back to sender, thus indicating
+      that access to requested port is denied by the firewall. This
+      may be insufficient in some cases because the host trying to
+      connect to our Ident port won't understand this type of ICMP
+      message and will keep trying. In fact, most OS do not recognize
+      ICMP "administratively prohibited" message and do keep
+      trying. To make host on the other side stop its attempts right
+      away we need to send TCP RST packet back instead of ICMP
+      message. This can be done by setting the appropriate parameter
+      for the "Reject" action. To set an Action parameter, change the
+      Action to "Reject," then double-click the Reject icon to get the
+      parameters dialog. (see <xref linkend="f-policy-7" />). It is
+      also safe to turn stateful inspection off on this rule since we
+      do not want connection to be established and therefore do not
+      need to keep track of it.</para>
+
+      <figure>
+          <title>Using action "Reject" with rule option</title>
+              <graphic scale="70" fileref="policy-6.png" />
+        </figure>
+
+      <figure id="f-policy-7">
+          <title>Adding rule option to make send TCP RST packet</title>
+              <graphic scale="70" fileref="action-parameters-reject.png" />
+      </figure>
+
+      <para>
+        Supported firewall platforms use different syntax for rules
+        that should drop packets and send icmp or tcp rst back. Here
+        is what Firewall Builder generates for the rule shown above
+        for iptables:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp  -d 192.168.1.100 --dport 113 \
+    -j REJECT  --reject-with tcp-reset 
+      </screen>
+
+      <para>
+        For PF it uses "return-rst" option:
+      </para>
+
+      <screen>
+# Rule  0 (global)
+# 
+block return-rst  quick inet proto tcp  from any  to 192.168.1.100 port 113 
+      </screen>
+
+      <para>
+        There is no equivalent configuration option for PIX
+      </para>
+
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+    <sect2>
+      <title>Using negation in policy rules</title>
+
+      <para>
+        Suppose we want to set up a rule to permit access from the
+        host on DMZ net "mail_relay_1" to hosts on the Internet, but
+        do not want to open access from it to machines on our internal
+        network represented by the object "internal-network". Since we
+        want it to connect to hosts on the Internet and cannot predict
+        their addresses, we have to use "any" as a destination in the
+        policy rule. Unfortunately "any" includes our internal net as
+        well, which is going to open undesired hole in the
+        firewall.
+      </para>
+
+      <para>
+        There are two solutions to this problem. First, we can use two
+        rules: first will deny access from "mail_relay_1" to
+        "internal_net" and the second will permit access from
+        "mail_relay_1" to "any". Since rules are consulted in the
+        order they are specified in the policy, access to internal net
+        will be blocked by the first rule since the packet would hit
+        it first. These two rules are represented on
+        <xref linkend="f-policy-8" />
+      </para>
+
+      <figure id="f-policy-8">
+          <title>Using two rules to block access from DMZ to internal net and
+          permit access to the Internet</title>
+              <graphic scale="60" fileref="policy-8.png" />
+      </figure>
+
+      <para>
+        Here are the generated iptables rules:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 -d 192.168.1.0/24 \
+    --dport 25  -j DROP 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 --dport 25  \
+    -m state --state NEW  -j ACCEPT 
+      </screen>
+
+      <para>
+        Another solution uses negation. We can specify destination in
+        the rule as "not internal_net", thus permitting access to
+        anything but "internal_net". Negation can be enabled and
+        disabled in the pop-up menu which you call by clicking right
+        mouse button on the corresponding rule field. This rule
+        depends on the rules below it to block access from
+        "mail_relay1" to the "internal_net". If the policy was built
+        using general principle of blocking everything and then
+        enabling only types of connections that must be permitted,
+        then it usually has a "catch-all" rule at the bottom that
+        blocks everything. This last rule is going to deny connections
+        from the "mail_relay1" to "internal_net".
+      </para>
+
+      <figure id="f-policy-9">
+          <title>Using rule with negation to block access from DMZ to internal
+          net and permit access to the Internet</title>
+              <graphic scale="60" fileref="policy-9.png" />
+      </figure>
+
+      <para>
+        Firewall Builder can use the "!" option to generate compact
+        iptables command for this rule:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22 -d ! 192.168.1.0/24 \
+      --dport 25  -m state --state NEW  -j ACCEPT 
+      </screen>
+
+      <para>Negation can be used in NAT rules in a similar way.</para>
+
+      <para>
+        Firewall Builder can use similar "!" option for PF as well, but
+        there is no negation in the PIX ACL syntax.
+      </para>
+
+      <para>
+        Things get more complicated if we have several networks inside
+        and want to build a rule to permit connects from a server on DMZ
+        to everywhere except for the three internal networks:
+      </para>
+
+      <figure id="f-policy-9-a">
+        <title>Using rule with negation to block access from DMZ to internal
+          net and permit access to the Internet</title>
+        <graphic scale="60" fileref="policy-9-a.png" />
+      </figure>
+
+      <para>
+        Simple "!" negation in the generated iptables command won't
+        work, so the program generates the following more complicated
+        script:
+      </para>
+
+      <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -N Cid168173X9037.0
+$IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   --dport 25  \
+    -m state --state NEW  -j Cid168173X9037.0 
+$IPTABLES -A Cid168173X9037.0  -d 192.168.1.0/24   -j RETURN 
+$IPTABLES -A Cid168173X9037.0  -d 192.168.10.0/24   -j RETURN 
+$IPTABLES -A Cid168173X9037.0  -d 192.168.20.0/24   -j RETURN 
+$IPTABLES -A Cid168173X9037.0  -j ACCEPT 
+      </screen>
+
+      <para>
+        The first rule checks protocol, port number and source address
+        and if they match, passes control to the user-defined chain
+        where destination address is compared with addresses of the
+        three networks we want to protect. If either one of them
+        matches, iptables target "RETURN" terminates analysis in the
+        temporary chain and returns control. Note that in this case
+        the firewall does not make any decision what to do with the
+        packet. The rule <xref linkend="f-policy-9-a"/> in the GUI
+        specifies action for the packets that <emphasis>do
+        not</emphasis> head for the internal networks but does not say
+        anything about those that do. Some other rules in the policy
+        should decide what to do with them. This is why generated
+        iptables script uses target "RETURN" instead of "DROP" or
+        "ACCEPT" to simply return from the temporary chain and
+        continue analysis of the packet further.
+      </para>
+
+      <para>
+        For PF, Firewall Builder uses combination of "!" option and a
+        table:
+      </para>
+
+      <screen>
+
+table &lt;tbl.r0.d&gt; { 192.168.1.0/24 , 192.168.10.0/24 , 192.168.20.0/24 } 
+
+# Rule  0 (global)
+# 
+pass  quick inet proto tcp  from 192.168.2.22  to ! &lt;tbl.r0.d&gt; port 25 keep state 
+      </screen>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+    <sect2 id="tag-rules">
+      <title>Tagging packets</title>
+
+      <para>
+        Tagging packets can be very useful facility that allows you to
+        match a packet at one point in the rule set but act on it
+        later on. This can be combined with rule branching for even
+        more flexibility. Packet tagging is only supported in Firewall
+        Builder for the firewall platforms that can do it, these are
+        iptables and pf. Tagging sometimes can also be used to
+        interact with packet processing not intended to enforce
+        security policy, such as traffic shaping or QoS. Packet tags
+        assigned by iptables can later be used for traffic shaping
+        with Linux utility "tc".
+      </para> 
+
+      <para>
+        In Firewall Builder tagging of packets is done using special
+        service object type. First, you create an object of this type
+        and configure tag number or a string. Once this is done, you
+        can use this object to match tagged packets by just dropping
+        the object to the "Service" column of a policy rule. To assign
+        tag to a packet you choose action "Mark" (iptables) or "Tag"
+        (PF) and drop the same Tag service object to a well in the
+        action options dialog. Lets use an example given in the "A
+        Practical Guide to Linux Traffic Control"
+        (http://blog.edseek.com/~jasonb/articles/traffic_shaping/index.html)
+        to illustrate this. They show how packets can be tagged using
+        iptables target "MARK" so that they can be placed in the right
+        queue for traffic shaping later on. The iptables rule we will
+        create looks like this:
+      </para>
+
+      <screen>
+iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
+      </screen>
+
+
+      <para>
+        Note how the rule should be placed in the table "mangle",
+        chain "POSTROUTING". This is how target MARK works,
+        administrator just has to know that if they write iptables
+        rules by hand.
+      </para>
+
+      <para>
+        We start with a Tag Service object configured with tag "1":
+      </para>
+
+      <figure id="tag-service-1">
+        <title>Simple tag service</title>
+        <graphic scale="60" fileref="tag-service-1.png" />
+      </figure>
+
+      <para>
+        We also need tcp service object to match source port 80:
+      </para>
+
+      <figure id="tcp-sport-80">
+        <title>TCP service to match source port 80</title>
+        <graphic scale="60" fileref="tcp-service-sport-80.png" />
+      </figure>
+
+      <para>
+        And now the rule:
+      </para>
+
+      <figure id="iptables-tag-rule-1">
+        <title>Rule matching Tag Service</title>
+        <graphic scale="60" fileref="iptables-tag-rule-1.png" />
+      </figure>
+
+      <para>
+        In order to replicate the rule from the Guide, I leave Source
+        and Destination "any", put outside interface of the firewall
+        in "Interface" column, set direction to "Outbound", set action
+        to "Tag" and make it stateless. The following screenshots
+        demonstrate how this is done:
+      </para>
+
+      <figure id="iptables-tag-rule-1-a">
+        <title>Configuring Tag action</title>
+        <graphic scale="60" fileref="iptables-tag-rule-1-a.png" />
+      </figure>
+
+      <figure id="iptables-tag-rule-1-b">
+        <title>Configuring rule options to make the rule stateless</title>
+        <graphic scale="60" fileref="iptables-tag-rule-1-b.png" />
+      </figure>
+
+
+      <para>
+        This configuration makes fwbuilder generate iptables command
+        that is exactly the same as the one given in "A Practical
+        Guide to Linux Traffic Control".
+      </para>
+
+      <para>
+        The rule reproduced from the Guide is stateless and matches
+        and tags every reply HTTP packet crossing the firewall. This
+        is not very efficient in case the firewall has to forward
+        heavy HTTP traffic because it has to work on every single
+        packet. To make things more efficient, iptables can mark whole
+        sessions which means individual packets can be marked
+        automatically as long as they belong to the session that was
+        marked once. To use this feature with Firewall Builder, turn
+        on checkbox "Mark connections created by packets that match
+        this rule" in the dialog
+        <xref linkend="iptables-tag-rule-1-a"/> where you configure
+        options for the rule action and where the well into which you
+        had to drop Tag Service object is located. This checkbox
+        modifies generated iptables script by adding a call to
+        CONNMARK iptables target that marks whole connection and also
+        by adding the following rule on top of the script:
+      </para>
+
+      <screen>
+# ================ Table 'mangle', automatic rules
+$IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
+      </screen>
+
+      <para>
+        This rule automatically restores mark on the packets that
+        belong to the marked session.
+      </para>
+
+    </sect2>
+
+    <!-- ********************************************************* -->
+
+       <sect2 id="ipv6-policy">
+	<title>Adding IPv6 Rules to a Policy</title>
+	
+	<para>
+          We start with a firewall object that has some basic IPv4
+          policy. First, we need to add IPv6 addresses to its
+          interfaces. Open context menu associated with interface
+          object in the tree and click on the item "Add IPv6
+          address".
+        </para>
+
+      <figure id="ipv6_slide_1">
+          <title>Add IPv6 addresses to an interface</title>
+              <graphic scale="70" fileref="ipv6_slide_1.png" />
+        </figure>
+
+      <para>
+        Enter the address and netmask length (Use your own address!)
+      </para>
+
+        <figure id="ipv6_slide_2">
+          <title>Enter address and netmask</title>
+              <graphic scale="70" fileref="ipv6_slide_2.png" />
+        </figure>
+
+        <para>
+          Add IPv6 to internal interface
+        </para>
+
+        <figure id="ipv6_slide_3">
+          <title>Internal Interface</title>
+              <graphic scale="70" fileref="ipv6_slide_3.png" />
+        </figure>
+
+	<para>
+          We also need to create network object to represent our local
+          IPv6 network. Click <guimenuitem>New Network
+          IPv6</guimenuitem> in the new object menu.
+        </para>
+
+        <figure id="ipv6_slide_7">
+          <title>Create IPv6 network object</title>
+              <graphic scale="70" fileref="ipv6_slide_7.png" />
+        </figure>
+
+	<para>
+          Enter the name and address of this network. We are using the
+          link-local address for illustration purposes.
+        </para>
+
+        <figure id="ipv6_slide_8">
+          <title>IPv6 network object name and address</title>
+              <graphic scale="70" fileref="ipv6_slide_8.png" />
+        </figure>
+
+        <para>
+          Inspect the regular Policy object. To see its parameters,
+          double-click on it in the tree to open it in the
+          editor (see screenshot below). This object has
+          a <guilabel>Name</guilabel>, <guilabel>IPv4/IPv6
+          setting</guilabel> and a <guilabel>Top ruleset</guilabel>
+          checkbox. For iptables firewalls, there is also a pair of
+          radio buttons that indicates whether the policy should
+          affect <guilabel>filter+mangle</guilabel> tables or
+          just <guilabel>mangle</guilabel> table.
+        </para>
+        
+        <figure id="ipv6_slide_4">
+          <title>Policy parameters</title>
+              <graphic scale="70" fileref="ipv6_slide_4.png" />
+        </figure>
+
+        <para>
+          The <emphasis>IPv4/IPv6</emphasis> setting tells the
+          compiler how it should interpret addresses of objects that
+          appear in the rules. Possible configurations are "IPv4
+          only", "IPv6 only" and "Mixed IPv4 and IPv6":
+        </para>
+
+        <figure id="ipv6_slide_4_1">
+          <title>IPv4/IPv6 rule set configuration</title>
+              <graphic scale="70" fileref="ipv6_slide_4_1.png" />
+        </figure>
+
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis>"IPv4 only rule set"</emphasis> - Only
+              addressable objects with IPv4 addresses will be used in
+              the rules. If an object with ipv6 address appears in
+              rules, it is ignored. IPv6-only services such as ICMPv6
+              are also ignored. TCP and UDP services are used since
+              they apply for both IPv4 and IPv6 rules.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <emphasis>"IPv6 only rule set"</emphasis> - The
+              opposite, only objects with ipv6 addresses are used and
+              those with ipv4 addresses are ignored. IPv6-only
+              services such as ICMPv6 are used but IPv4-only services
+              such as ICMP are ignored. TCP and UDP services are used
+              since they apply for both IPv4 and IPv6 rules.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <emphasis>"Mixed IPv4 and IPv6 only rule set"</emphasis>
+              - compiler makes two passes over the same rules, first
+              to produce IPV4 configuration and then to produce IPV6
+              configuration. On each pass it uses only address objects
+              with addresses matching address family of the pass. This
+              is the best configuration for transitional
+              configurations when IPv6 rules are gradually added to
+              existing IPv4 configuration. Note that if you add IPv6
+              address to an interface of a firewall or a host object
+              used in the rules, compiler will use IPv4 addresses of
+              the interface on IPv4 pass and new IPv6 address of the
+              same interface on the IPv6 pass. This principle also
+              applies to the mixed groups of addresses and services.
+            </para>
+          </listitem>
+        </itemizedlist>
+
+
+        <para>
+          Compilers treat the <emphasis>"top rule set"</emphasis>
+          parameter differently, depending on the firewall platform:
+        </para>
+
+        <itemizedlist>
+          <listitem>
+            <para>
+              iptables: rules defined in such rule set will go into
+              built-in chains INPUT,OUTPUT,FORWARD etc. Rules defined
+              in rule sets where this checkbox is not checked go into
+              user-defined chain with the name the same as the name of
+              the rule set.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              PF: rules defined in the rule set with "top rule set"
+              checkbox turned off go into an anchor with the name of
+              the rule set.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              Cisco IOS access lists: if <guilabel>top rule
+              set</guilabel> checkbox is turned off, the rules go into
+              access list with the name prefixed with the name of the
+              rule set; this access list will not be assigned to
+              interfaces via "ip access-group" command. Rulesets with
+              checkbox "top rule set" checked generate ACLs with names
+              consisting of the shortened name of interface and
+              direction abbreviation ("in" or "out"). Only these lists
+              are assigned to interfaces.
+            </para>
+          </listitem>
+        </itemizedlist>
+
+	<para>
+          To add new policy, right-click on the firewall object in the
+          tree to open the context menu and use menu
+          item <guimenuitem>Add Policy Rule Set</guimenuitem>.
+        </para>
+
+        <figure id="ipv6_slide_5">
+          <title>Add policy rule set</title>
+              <graphic scale="70" fileref="ipv6_slide_5.png" />
+        </figure>
+
+	<para>
+          Assign a unique name to the new policy object, make it IPv6
+          and check the <guilabel>top ruleset</guilabel> checkbox,
+          then click <guibutton>Apply</guibutton>.
+        </para>
+
+        <figure id="ipv6_slide_6">
+          <title>Set rule set parameters</title>
+              <graphic scale="70" fileref="ipv6_slide_6.png" />
+        </figure>
+
+	<para>
+          Now click on the new policy object in the tree
+          ("Policy_ipv6") and add some rules as usual. Here we have
+          added a rule to permit all on loopback, a rule to permit
+          incoming HTTP and ICMP6 to the firewall and a rule to permit
+          outgoing sessions from the internal network (object "local
+          ipv6 net") and the firewall itself.
+        </para>
+
+        <figure id="ipv6_slide_9">
+          <title>Add policy rules</title>
+              <graphic scale="70" fileref="ipv6_slide_9.png" />
+        </figure>
+
+	<para>
+          Now compile the policy. Note that in the progress output the
+          compiler shows that it first processes IPv4 policy rule set,
+          then compiles IPv6 policy rule set. I still have bunch of
+          rules in the IPv4 policy from the previous examples in this
+          section but the IPv6 policy is small and only has a few
+          rules as shown on the screenshot above.
+        </para>
+
+        <screen>
+$ fwb_ipt -v -f policy_rules.fwb fw
+ *** Loading data ... done
+ Compiling rules for 'nat' table
+ processing 1 rules
+ rule 0 (NAT)
+ Compiling ruleset Policy for 'mangle' table
+ processing 1 rules
+ rule 0 (eth2)
+ Compiling ruleset Policy for 'filter' table
+ processing 17 rules
+ rule 1 (global)
+ rule 2 (global)
+ rule 3 (global)
+ rule 4 (global)
+ rule 5 (global)
+ rule 6 (global)
+ rule 7 (global)
+ rule 8 (global)
+ rule 9 (global)
+ rule 10 (global)
+ rule 11 (eth2)
+ rule 12 (lo)
+ rule 13 (global)
+ rule 14 (global)
+ rule 15 (global)
+ rule 16 (global)
+ rule 17 (global)
+ Compiling ruleset Policy_ipv6 for 'mangle' table, IPv6
+ Compiling ruleset Policy_ipv6 for 'filter' table, IPv6
+ processing 4 rules
+ rule Policy_ipv6 1 (global)
+ rule Policy_ipv6 2 (global)
+ rule Policy_ipv6 3 (global)
+ Compiled successfully
+        </screen>
+
+	<para>
+          Here is a fragment of the generated script. The script uses
+          the ip6tables routine to load rules into the kernel. Option
+          "Assume firewall is part of any" was turned off in this
+          firewall object so the rule #1 generated only iptables
+          commands in the INPUT chain.
+        </para>
+
+
+        <screen>
+# ================ Table 'filter', rule set Policy_ipv6
+# Policy compiler errors and warnings:
+# 
+# Rule Policy_ipv6 0 (lo)
+# 
+$IP6TABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_ipv6 1 (global)
+# 
+echo "Rule Policy_ipv6 1 (global)"
+# 
+$IP6TABLES -A INPUT -p tcp -m tcp  --dport 80  -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_ipv6 2 (global)
+# 
+echo "Rule Policy_ipv6 2 (global)"
+# 
+$IP6TABLES -A OUTPUT  -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A FORWARD  -s 2001:db8:ffff:ffff::/64   -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_ipv6 3 (global)
+# 
+echo "Rule Policy_ipv6 3 (global)"
+# 
+$IP6TABLES -N Policy_ipv6_3
+$IP6TABLES -A FORWARD  -j Policy_ipv6_3 
+$IP6TABLES -A Policy_ipv6_3  -j LOG  --log-level info --log-prefix "RULE 3 -- DENY "
+$IP6TABLES -A Policy_ipv6_3  -j DROP 
+        </screen>
+
+	<para>
+          Lets try to compile policy rule set configured as mixed
+          IPv4+IPv6. To illustrate, I am using two simple rules.
+        </para>
+
+        <figure id="ipv6_slide_6_1">
+          <title>Mixed IPv4/IPv6 rule set parameters</title>
+              <graphic scale="70" fileref="ipv6_slide_6_1.png" />
+        </figure>
+
+        <para>
+          Rule #0 permits everything on loopback. Loopback interface
+          of the firewall has two addresses: 127.0.0.1/8 and
+          ::1/128. Rule #1 permits http and any ICMPv6 to the
+          firewall. Here is generated iptables script for these two
+          rules:
+        </para>
+
+        <screen>
+# ================ IPv4
+
+# ================ Table 'filter', rule set Policy_mix
+# Policy compiler errors and warnings:
+# 
+# Rule Policy_mix 0 (lo)
+# 
+$IPTABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_mix 1 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 80  -m state --state NEW  -j ACCEPT 
+
+# ================ IPv6
+
+# ================ Table 'filter', rule set Policy_mix
+# Policy compiler errors and warnings:
+# 
+# Rule Policy_mix 0 (lo)
+# 
+$IP6TABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
+# 
+# Rule Policy_mix 1 (global)
+# 
+$IP6TABLES -A INPUT -p tcp -m tcp  --dport 80  -m state --state NEW  -j ACCEPT 
+$IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT 
+        </screen>
+
+
+        <para>
+          The script has two parts, one for IPv4 and another for IPv6,
+          generated from the same rule set "Policy_mix". The IPv4 part
+          has only IPv4 addresses and services. The rule that permits
+          ICMPv6 to the firewall is missing in this part of the script
+          because ICMPv6 does not match address family. The rule that
+          permits HTTP to the firewall is there though.  The second
+          (IPv6) part of the script both permits HTTP and ICMPv6 to
+          the firewall.
+        </para>
+
+        <para>
+          Note: the rule that matches on an interface (column
+          "Interface" is not "any") will compile for IPv6 only if this
+          interface has IPv6 address.
+        </para>
+
+        <para>
+          If loopback interface of the firewall did not have an
+          address ::1/128, then the IPv6 part of the generated script
+          would not have rules permitting anything on loopback (those
+          with "-i lo" and "-o lo"). This may not be very obvious and
+          may be confusing at first, but this behavior is very useful
+          during transition from purely IPv4 network to a mix of IPv4
+          and IPv6 when you enable IPv6 only on some interfaces but
+          not others.
+        </para>
+
+        <para>
+          Finally, lets look at the generated PF configuration for the
+          same rules in the same mixed policy rule set:
+        </para>
+
+        <screen>
+
+table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 192.168.1.1 } 
+table &lt;tbl.r1.dx&gt; { 2001:db8:1:1::1 , 2001:db8:ffff:ffff::1 } 
+
+# Rule  Policy_mix 0 (lo)
+# 
+pass quick on lo inet  from any  to any keep state
+# 
+# Rule  Policy_mix 1 (global)
+# 
+pass in quick inet proto tcp  from any  to &lt;tbl.r9999.d&gt; port 80 keep state
+ 
+
+# Rule  Policy_mix 0 (lo)
+# 
+pass quick on lo inet6  from any  to any keep state
+# 
+# Rule  Policy_mix 1 (global)
+# 
+pass in quick inet6 proto tcp  from any  to &lt;tbl.r1.dx&gt; port 80 keep state
+pass in quick inet6 proto icmp6  from any  to &lt;tbl.r1.dx&gt; keep state
+
+        </screen>
+
+       </sect2>
+
+       <sect2>
+         <title>Using mixed IPv4+IPv6 rule set to simplify adoption of
+          IPv6</title>
+
+        <para>
+          Mixed IPv4/IPv6 rule sets can be especially useful in the
+          configuration of the routers access lists and firewall
+          policies where rules can become rather complicated when IPv6
+          is added to existing IPv4 network. Since most firewalls and
+          routers require different syntax for ipv6 ACL and rules,
+          administrator has to implement second rule set for IPv6,
+          carefully trying to copy existing IPv4 rules to preserve
+          general structure and meaning of the security policy. Things
+          get even more complicated after that because every change in
+          the policy should now be reflected in two sets of ACL or
+          firewall rules. Keeping these synchronized can quickly turn
+          into major task that can significantly elevate probability
+          of human error and network outage. Mixed IPv4+IPv6 rule sets
+          in Firewall Builder help solve this problem.
+        </para>
+
+        <para>
+          Lets illustrate this using simplified example of a Cisco
+          router access list configuration that we migrate from IPv4
+          only to mixed IPv4+IPv6. We start with simple two rules that
+          use only IPv4 address and service objects:
+        </para>
+
+        <figure id="ipv6_slide_19">
+          <title>IPv4 only rule set</title>
+              <graphic scale="70" fileref="ipv6_slide_19.png" />
+        </figure>
+
+        <para>
+          In this example router has just two interfaces,
+          FastEthernet0/0 and FastEthernet0/1, both interfaces have
+          only IPv4 addresses when we start. Generated configuration
+          looks like this:
+        </para>
+
+        <screen>
+! ================ IPv4
+! Policy compiler errors and warnings:
+! 
+no ip access-list extended fe0_0_in
+no ip access-list extended fe0_1_in
+
+ip access-list extended fe0_0_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+exit
+
+ip access-list extended fe0_1_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+  permit tcp any  192.168.1.0 0.0.0.255 eq 80 
+exit
+
+interface FastEthernet0/0
+  ip access-group fe0_0_in in
+exit
+interface FastEthernet0/1
+  ip access-group fe0_1_in in
+exit
+        </screen>
+
+        <para>
+          Here rule #0 permits ICMP ping requests to the firewall
+          through all interfaces and rule #1 permits http to internal
+          network through interface FastEthernet0/1 (external),
+          direction inbound. As the result, we get two access lists
+          "fe0_0_in" and "fw0_1_in", one for each interface, that
+          reflect these rules.
+        </para>
+
+
+        <para>
+          Suppose we need to add IPv6 to this network. To do this, I
+          add IPv6 addresses to the interfaces of the router and
+          create network object to describe IPv6 internal network.  I
+          then add new IPv6 network object to the rule #1 to permit
+          HTTP to internal net both on IPv4 and IPv6. Rule #0 should
+          also permit ICMPv6 neighbor solicitation and advertisement
+          messages, as well as ICMP v6 ping since it is different from
+          IPv4 ICMP ping. Lets permit any ICMPv6 to the internal
+          network as well. I'll just add IPv6 objects to existing
+          rules, mark rule set as "Mixed IPv4 and IPv6" and let the
+          program sort it out. Here is how updated rules look like:
+        </para>
+
+
+        <figure id="ipv6_slide_20">
+          <title>Mixed IPv4/IPv6 rule set</title>
+              <graphic scale="70" fileref="ipv6_slide_20.png" />
+        </figure>
+
+        <para>
+          Now router has the same two interfaces, FastEthernet0/0 and
+          FastEthernet0/1, but both interfaces have IPv4 and IPv6
+          addresses. Here is the result:
+        </para>
+
+        <screen>
+! ================ IPv4
+! Policy compiler errors and warnings:
+! 
+no ip access-list extended fe0_0_in
+no ip access-list extended fe0_1_in
+
+ip access-list extended fe0_0_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+exit
+
+ip access-list extended fe0_1_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+  permit tcp any  192.168.1.0 0.0.0.255 eq 80 
+exit
+
+
+interface FastEthernet0/0
+  ip access-group fe0_0_in in
+exit
+interface FastEthernet0/1
+  ip access-group fe0_1_in in
+exit
+
+! ================ IPv6
+! Policy compiler errors and warnings:
+! 
+no ipv6 access-list ipv6_fe0_0_in
+no ipv6 access-list ipv6_fe0_1_in
+
+ipv6 access-list ipv6_fe0_0_in
+  permit icmp any  host 2001:db8:1:1::1 135 
+  permit icmp any  host 2001:db8:1:1::1 136 
+  permit icmp any  host 2001:db8:1:1::1 128 
+  permit icmp any  host 2001:db8:ffff:ffff::1 135 
+  permit icmp any  host 2001:db8:ffff:ffff::1 136 
+  permit icmp any  host 2001:db8:ffff:ffff::1 128 
+exit
+
+ipv6 access-list ipv6_fe0_1_in
+  permit icmp any  host 2001:db8:1:1::1 135 
+  permit icmp any  host 2001:db8:1:1::1 136 
+  permit icmp any  host 2001:db8:1:1::1 128 
+  permit icmp any  host 2001:db8:ffff:ffff::1 135 
+  permit icmp any  host 2001:db8:ffff:ffff::1 136 
+  permit icmp any  host 2001:db8:ffff:ffff::1 128 
+  permit tcp any  2001:db8:ffff:ffff::/64 eq 80 
+  permit icmp any  2001:db8:ffff:ffff::/64 
+exit
+
+interface FastEthernet0/0
+  ipv6 traffic-filter ipv6_fe0_0_in in
+exit
+interface FastEthernet0/1
+  ipv6 traffic-filter ipv6_fe0_1_in in
+exit
+        </screen>
+
+        <para>
+          The IPv4 part looks exactly the same as before, but we also
+          have additional IPv6 access lists. For IPv6, rule #1 permits
+          ICMPv6 neighbor solicitation, neighbor advertisement and
+          ipv6 ping request messages to the firewall through all
+          interfaces, direction inbound, and rule #1 permits http and
+          all ICMPv6 to the internal network through FastEthernet0/1,
+          inbound. Generated ipv6 access lists "ipv6_fe0_0_in" and
+          "ipv6_fe0_1_in" reflect this. ACL ipv6_fe0_0_in permits icmp
+          types 128, 135 and 136 to ipv6 addresses that belong to the
+          firewall and ACL ipv6_fe0_1_in permits the same icmp
+          messages to the firewall, plus tcp port 80 and any ipv6 icmp
+          to the internal ipv6 network.
+        </para>
+
+        <para>
+          The program automatically separated IPv4 and IPv6 objects
+          and created two sets of access lists to implement policies
+          for both address families. This simplifies adoption of IPv6
+          into existing network because you don't have to reimplement
+          access lists and firewall rules written for IPv4 again and
+          then maintain two rule sets coordinated as you make
+          changes. Instead, the structure of existing policy rule set
+          is preserved, you just add IPv6 objects to the same rules
+          and the program generates both IPv4 and IPv6 configurations
+          from it.
+        </para>
+
+      </sect2>
+
+      <sect2>
+	<title>Running multiple services on the same machine on
+	different virtual addresses and different ports</title>
+
+	  <para> Here is an example of how Firewall Builder can be
+	  used to build a firewall protecting a server. Suppose we run
+	  several secure web servers on the same machine and use
+	  virtual IP addresses to be able to supply different
+	  certificates for each one.</para>
+
+	  <para>In addition, we run webmin on the same machine that we
+	  use to manage it. We need to permit access on protocol HTTPS
+	  to virtual addresses web servers are using from anywhere,
+	  and limited access to the webmin port on a specific
+	  address.</para>
+
+	  <para>Here is the firewall object:</para>
+
+        <figure id="ex2-server-1">
+          <title>Firewall object with multiple services</title>
+              <graphic scale="70" fileref="ex2-server-1.png" />
+        </figure>
+
+	<para>Here are the policy rules:</para>
+
+        <figure id="ex2-server-2">
+          <title>Policy rules</title>
+              <graphic scale="70" fileref="ex2-server-2.png" />
+        </figure>
+
+	  <para> Access to webmin service is only permitted from the
+	  local network, while access to the secure web servers
+	  running on virtual addresses fxp0-ip1, fxp0-ip2 and fxp0-ip3
+	  is permitted from anywhere.</para>
+
+	  <para>The following screenshot illustrates how the TCP
+	  Service object webmin is created.</para>
+
+        <figure id="ex2-server-3">
+          <title>webmin object</title>
+              <graphic scale="70" fileref="ex2-server-3.png" />
+        </figure>
+
+	<para>Webmin uses port 10000, so we put this port number in
+	both the beginning and end of the destination port range. We
+	do not need to do any inspection of the TCP flags and leave
+	all of them unchecked in this object.</para>
+      </sect2>
+
+      <sect2>
+	<title>Using firewall as DHCP and DNS server for the local net</title>
+
+	<para>It is often convenient to use a firewall as a DHCP and
+	DNS server for the local net, especially in small
+	installations like that in a home office. It is not really
+	difficult, but building rules properly requires understanding
+	of how DHCP and DNS work.</para>
+
+	<para>The following combination of rules permits machines on
+	the local net to use the firewall as DHCP server:</para>
+
+        <figure id="policy-10-2">
+          <title>Rules with DHCP</title>
+              <graphic scale="70" fileref="policy-10-2.png" />
+        </figure>
+
+	<para> The first rule permits two types of DHCP requests: the
+	initial discovery request that is sent to the broadcast
+	address 255.255.255.255 and the renewal request that is sent
+	to the firewall's address. The address range object
+	"broadcast" can be found in the Standard objects tree, under
+	Objects/Address Ranges; this object defines broadcast address
+	255.255.255.255. The second rule in the pair permits DHCP
+	replies sent by the firewall. The Service object "DHCP" can be
+	found in the "Standard" objects tree, under
+	Services/Groups.</para>
+
+	<para>We could make these rules more narrow if we used the
+	internal interface of the firewall in place of the firewall
+	object. Assuming interface eth0 is connected to internal net,
+	the rules would look like this:</para>
+
+        <figure id="policy-11">
+          <title>Rules with DHCP using Firewall interface</title>
+              <graphic scale="70" fileref="policy-11.png" />
+        </figure>
+
+	<para>To permit the local network to use the firewall as a DNS
+	server, we need to permit DNS queries directed to the
+	firewall, DNS replies sent by the firewall, DNS queries sent
+	by the firewall to servers on the Internet and replies sent
+	back to it. The following pair of rules does just that:</para>
+
+        <figure id="policy-12">
+          <title>Rules with DNS</title>
+              <graphic scale="70" fileref="policy-12.png" />
+        </figure>
+
+	<para>The Service object group object DNS can be found in the
+	"Standard" objects tree, under Services/Groups. This group
+	consist of both the UDP object domain and TCP object
+	domain. Both objects define destination port 53 and ignore
+	source port. Since we do not specify the source port, these
+	objects match both queries sent by the domain name server
+	(source port is 53) and the resolver on the workstations on
+	the local net (source port is >1024). We need to use objects
+	representing both UDP and TCP protocols because DNS falls back
+	to TCP if the answer for the query is too big and won't fit in
+	the standard UDP datagram. DNS zone transfers also use TCP
+	protocol.</para>
+      </sect2>
+
+
+      <sect2>
+	<title>Controlling outgoing connections from the firewall</title>
+
+	  <para>This example shows the rule that permits only certain
+	  types of outgoing connections. To permit outgoing web access
+	  but nothing else, we put the firewall object in Source and
+	  corresponding service object in Service:</para>
+
+        <figure id="policy-19">
+          <title>HTTP only</title>
+              <graphic scale="70" fileref="policy-19.png" />
+        </figure>
+
+	  <para>Rule #1 blocking packets going from any source to any
+	  destination also blocks packet originating on the firewall
+	  (provided option "Assume firewall is part of any" is
+	  on). The combination of these two rules permits only
+	  outgoing HTTP connections from the firewall and nothing
+	  else.</para>
+
+	  <para>Although we permit outgoing HTTP connections here, we
+	  should probably permit outgoing DNS queries as well. The
+	  browser running on this machine would not be able to connect
+	  to a web site if it cannot resolve the name via DNS. Here is
+	  the corrected policy:</para>
+
+        <figure id="policy-20">
+          <title>HTTP and DNS</title>
+              <graphic scale="70" fileref="policy-20.png" />
+        </figure>
+
+	  <para> Service object DNS, which includes both the UDP and
+	  TCP versions, can be found in
+	  the <guilabel>"Standard"</guilabel> tree
+	  under <guimenuitem>Services/Groups</guimenuitem>.</para>
+
+	  <para>We may also want to permit protocols used for
+	  troubleshooting, such as ping. In order to permit it, we
+	  just add ICMP Service object "ping request" to the list of
+	  services permitted by rule #0:</para>
+
+        <figure id="policy-21">
+          <title>HTTP,DNS and ping</title>
+              <graphic scale="70" fileref="policy-21.png" />
+        </figure>
+
+	  <note><para>In Firewall Builder, a firewall object
+	  represents any machine that runs firewall software. This is
+	  not necessarily a dedicated firewall protecting a local
+	  network, but may actually be a server or a laptop. For
+	  example, rules permitting HTTP to the dedicated firewall
+	  machine may not be very practical because running the web
+	  server on it would be risky, but if the firewall object
+	  represents a web server with iptables or ipfilter running on
+	  it, such rules make perfect sense. The rule permitting
+	  outbound HTTP access from the firewall
+	  machine&mdash;explained in this example&mdash;can be used as
+	  a part of the policy protecting a laptop or a
+	  workstation.</para></note>
+      </sect2>
+
+      <!-- ================================================================ -->
+      <sect2>
+        <title>Branching rules</title>
+
+        <para>
+          Many firewall platforms support mechanism by which control
+          can be passed from one group of rules to another, much like
+          in programming languages control can be passed to a
+          subroutine. The rule set that gets control in such operation
+          can then make final decision about the packet and accept or
+          deny it, or it can return control back to the rule set that
+          was running before. Firewall Builder provides the same
+          mechanism using branching action that is
+          called <emphasis>"Chain"</emphasis> for iptables firewalls
+          and <emphasis>"Anchor"</emphasis> for PF firewalls to reuse
+          familiar the names using in iptables and pf respectively.
+        </para>
+
+        <note>
+          <para>
+            Platform-specific action
+            names <emphasis>"Chain"</emphasis>
+            and <emphasis>"Anchor"</emphasis> will disappear in
+            Firewall Builder v4.0. The name of the action that creates
+            a branch in the rule set processing sequence will be just
+            <emphasis>"Branch"</emphasis> regardless of the chosen
+            target firewall platform.
+          </para>
+        </note>
+
+        <para>
+          Branching rules can be used to create optimized rule sets or
+          to improve readability or both. Consider example shown in
+          the following screenshot:
+        </para>
+
+        <figure id="branch_rule_1">
+          <title>Firewall object with two policy rule sets</title>
+          <graphic scale="50" fileref="branch_rule_1.png" />
+        </figure>
+        
+        <para>
+          Firewall fw2 has two rule sets: "Policy" and "rate_limit". I
+          am going to demonstrate how the second rule set can be used
+          to rate limit packets that match different rules in the main
+          rule set "Policy".
+        </para>
+
+        <note>
+          <para>
+            <xref linkend="ipv6_slide_5"/> demonstrated how to add
+            policy rule set object to the firewall.
+          </para>
+        </note>
+
+        <para>
+          Lets create a rule to match ssh sessions to the firewall and
+          instead of accepting or dropping them right away, pass
+          control to the rule set "rate_limit" that will accept them
+          only if they are not opened too fast. First, create this
+          rule and choose action "Chain", then double click on the
+          action and drag rule set object "rate_limit" into the well
+          in the action dialog as shown in the screenshot:
+        </para>
+
+        <figure id="branch_rule_2">
+          <title>Rule with action "Chain"</title>
+          <graphic scale="50" fileref="branch_rule_2.png" />
+        </figure>
+        
+        <para>
+          Now we can configure rate limiting rule in the "rate_limit"
+          rule set. I am going to use iptables module "hashlimit" to
+          configure rather sophisticated rate limiting. When I
+          recreate the same example for PF below, the options will look
+          different.
+        </para>
+
+        <figure id="branch_rule_3">
+          <title>Rate limiting rule </title>
+          <graphic scale="50" fileref="branch_rule_3.png" />
+        </figure>
+
+        <para>
+          Here is iptables script generated by the program for these
+          rules:
+        </para>
+
+        <screen>
+# Rule 0 (global)
+# 
+$IPTABLES -N rate_limit
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -j rate_limit 
+
+# ================ Table 'filter', rule set rate_limit
+# 
+# Rule rate_limit 0 (global)
+# 
+$IPTABLES -A rate_limit  -m state --state NEW  \
+    -m hashlimit --hashlimit 5/minute --hashlimit-mode srcip \
+    --hashlimit-name htable_rule_0 -j ACCEPT 
+        </screen>
+
+        <para>
+          Those familiar with iptables will notice that Firewall
+          Builder created user-defined chain with the name of the
+          second rule set ("rate_limit") and used "-j" option to pass
+          control to it from the top-level rule.
+        </para>
+
+        <para>
+          Branching from a single rule is not very interesting. I
+          could just use the same options with the rule #0 in the top
+          level Policy rule set and get the same result, except
+          instead of the user defined chain "rate_limit" this all
+          would have been done in the same iptables command. However
+          branching to a dedicated rule set becomes more useful if I
+          want to use the same rate limiting to control access to
+          several servers behind the firewall on entirely different
+          protocols. Here is new example:
+        </para>
+
+        <figure id="branch_rule_4">
+          <title>Several rules branching to the same rule set "rate_limit"</title>
+          <graphic scale="50" fileref="branch_rule_4.png" />
+        </figure>
+        
+        <para>
+          Here is how generated iptables script looks like:
+        </para>
+        
+        <screen>
+# ================ Table 'filter', rule set Policy
+# 
+# Rule 0 (global)
+# 
+$IPTABLES -N rate_limit
+$IPTABLES -A INPUT -p tcp -m tcp --dport 22 -j rate_limit 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp -d 192.168.1.100 --dport 25 -j rate_limit 
+# 
+# Rule 2 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp -d 192.168.1.200 --dport 80 -j rate_limit 
+
+# ================ Table 'filter', rule set rate_limit
+# 
+# Rule rate_limit 0 (global)
+# 
+$IPTABLES -A rate_limit  -m state --state NEW  \
+    -m hashlimit --hashlimit 5/minute --hashlimit-mode srcip \
+    --hashlimit-name htable_rule_0 -j ACCEPT 
+        </screen>
+
+        <para>
+          Here are three iptables rules that match different addresses
+          and services but pass control to the same chain
+          "rate_limit". Now if I need to tune my rate limiting
+          parameters for all destinations, I can do it in one place
+          instead of three.
+        </para>
+
+        <para>
+          The rule #0 in the "rate_limit" rule set matches packets
+          only if they come at the rate no more than 5 per minute per
+          source IP address. Packets that match these criteria will be
+          accepted, but those that don't will not match the
+          rule. Since this rule is the last in the branch rule set,
+          control will return to the top level and firewall will
+          continue examining the packet with rules below the one that
+          passed control to "rate_limit" rule set. Eventually it may
+          hit the "catch all" rule and get dropped, but more complex
+          policies may do something else with these packets such as
+          try different rate limiting criteria or mark them for
+          traffic shaping.
+        </para>
+
+        <para>
+          Action that creates a branch is available in Firewall
+          Builder only if target firewall platform provides some kind
+          of mechanism to support it. In iptables it is user-defined
+          chains, in PF it is anchors. Unfortunately branching can not
+          be implemented in Cisco IOS access lists and PIX. Lets try
+          to recompile the same rules for PF. First, we'll need to
+          change rate limiting parameters because its implementation
+          in PF is different from that in iptables.
+        </para>
+        
+        <figure id="branch_rule_5">
+          <title>Rate limiting rule for PF</title>
+          <graphic scale="50" fileref="branch_rule_5.png" />
+        </figure>
+
+        <para>
+          I am using the same three rules in the main Policy to rate
+          limit connections to the firewall itself and two servers
+          behind it. Generated PF config is split so that main policy
+          rules are in the file <emphasis>"fw2-pf.conf"</emphasis> and
+          rules for the ruleset <emphasis>"rate_limit"</emphasis> are
+          in the
+          file <emphasis>"fw2-pf-rate_limit.conf"</emphasis>. When
+          configuration with multiple rule sets is compiled for PF,
+          each new branch rule set has its own separate file with the
+          name composed from the name of the firewall object and the
+          name of the rule set object.
+        </para>
+
+        <para>File <emphasis>fw2-pf.conf</emphasis>:</para>
+
+        <screen>
+# Tables: (1)
+table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 192.168.1.1 } 
+
+# Policy compiler errors and warnings:
+# 
+# Rule  0 (global)
+# 
+anchor rate_limit in  inet proto tcp  from any  to &lt;tbl.r9999.d&gt; port 22 
+# 
+# Rule  1 (global)
+# 
+anchor rate_limit inet proto tcp  from any  to 192.168.1.100 port 25 
+# 
+# Rule  2 (global)
+# 
+anchor rate_limit inet proto tcp  from any  to 192.168.1.200 port 80 
+        </screen>
+
+        <para>File <emphasis>fw2-pf-rate_limit.conf</emphasis>:</para>
+
+        <screen>
+# Tables: (0)
+
+# Policy compiler errors and warnings:
+# 
+# Rule  rate_limit 0 (global)
+# 
+pass  quick inet  from any  to any keep state  (  max-src-conn 10, max-src-conn-rate 5/60 ) 
+        </screen>
+
+        <para>
+          Firewall Builder also generates a shell script to load these
+          rules. The script is in the file with the name the same as
+          the name of the firewall, with extension ".fw":
+        </para>
+
+        <para>Here is the code that loads rules in the
+        file <emphasis>fw2-pf.fw</emphasis>:</para>
+
+        <screen>
+
+$PFCTL -f ${FWDIR}/fw2-pf.conf || exit 1
+$PFCTL -a rate_limit -f ${FWDIR}/fw2-pf-rate_limit.conf || exit 1
+        </screen>
+
+        <para>
+          Rules from the
+          file <emphasis>"fw2-pf-rate_limit.conf"</emphasis> are
+          loaded into anchor "rate_limit".
+        </para>
+
+
+      </sect2>
+
+
+      <!-- ================================================================ -->
+
+      <sect2>
+	<title>Using branch rule set with external script that adds
+	rules "on the fly"</title>
+
+        <para>
+          Branch rule sets created in the Firewall Builder GUI get
+          translated into user-defined chains (iptables) or anchors
+          (pf) in the generated configuration. It is not required
+          however that you put any rules in this branch rule set. If
+          it is left empty, it won't make packet checks and return
+          back to the top level rule that called it right away. Such
+          empty rule set can be very useful if you populate it with
+          rules using some external script after firewall policy has
+          been loaded. In the following example I use this idea to add
+          firewall policy rules dynamically to block ssh scanners. The
+          goal is to build policy rules to do the following:
+        </para>
+
+	<orderedlist numeration="arabic">
+	  <listitem>
+            <para>
+              Always permit ssh from internal network to the
+              firewall. Our algorithm for identification of ssh
+              scanners is based on the log records of failed login
+              attempts, so it is important to have a rule to permit
+              ssh from inside.  Without this rule, if administrator
+              made a typo entering the password, this could trigger
+              the next rule for the source address they tried to
+              connect from and block them.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              If source ip address of the ssh client that tries to
+              connect was identified as ssh scanner, block connection
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              permit all other ssh connections from all sources
+            </para>
+          </listitem>
+        </orderedlist>
+
+        <para>
+          This policy is rather permissive but it can easily be
+          modified to suite more strict security requirements.
+        </para>
+
+	<para>
+          I start with an existing firewall policy. The rules I am
+	  going to add to block ssh scans do not depend on other rules
+	  in the policy.  First, I create a new policy rule set with
+	  name "block_ssh". This rule set is not the "top ruleset", so
+	  generated iptables rules will be placed in the chain
+	  "block_ssh". I do not add any rules here. Rules will be
+	  added to this chain by an external script.
+        </para>
+
+        <figure id="block-ssh-scan-using-branch-1">
+          <title>Create "block_ssh" rule set</title>
+          <graphic scale="50" fileref="block_ssh_1.png" />
+        </figure>
+
+	<para>
+          Create rule #0 in the main policy to permit ssh to the
+	  firewall from internal network, then another one where the
+	  destination the firewall itself, the service is "ssh", the
+	  direction "Inbound" and action is "Chain". Open the action
+	  in the editor by double-clicking on it, then drag the object
+	  representing rule set "block_ssh" into the well in the
+	  action editor panel. The idea is to first permit ssh to the
+	  firewall from internal net (rule #0), but for attempts to
+	  connect to the firewall on ssh port from other sources pass
+	  control to chain "block_ssh". If that chain does not block
+	  the ssh session, the next rule #2 permits it.
+        </para>
+
+        <figure id="block-ssh-scan-using-branch-2">
+          <title>Set the "chain" action</title>
+          <graphic scale="50" fileref="block_ssh_2.png" />
+        </figure>
+
+	<para>
+          Here is what the iptables commands generated for rules
+	  0-1 look like. Note that although the script creates chain
+	  "block_ssh", it does not put any rules in it.
+        </para>
+
+        <screen>
+# ================ Table 'filter', rule set Policy
+# Policy compiler errors and warnings:
+# 
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp  -s 192.168.1.0/24 \
+      --dport 22  -m state --state NEW  -j ACCEPT 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -N block_ssh
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -j block_ssh 
+# 
+# Rule 2 (global)
+# 
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT 
+        </screen>
+
+
+	<para>
+          I am using <emphasis>swatch</emphasis> to watch the log and
+	  add iptables rules with addresses of scanners to the chain
+	  "block_ssh". The screen shot below shows the contents of the
+	  swatch config file /root/.swatchrc. This configuration makes
+	  swatch detect log lines added by ssh when an attempt is made
+	  to log in using an invalid user account or invalid
+	  password. Swatch then runs script
+	  /root/swatch/block_ssh_scanner.sh.
+        </para>
+
+        <screen>
+# cat /root/.swatchrc
+
+watchfor /sshd\[\d+\]: Failed password for invalid user (\S+) from (\S+)/
+echo bold
+exec "/root/swatch/block_ssh_scanner.sh $2"
+
+watchfor /sshd\[\d+\]: Failed password for (\S+) from (\S+)/
+echo bold
+exec "/root/swatch/block_ssh_scanner.sh $2"
+
+watchfor /sshd\[\d+\]: Did not receive identification string from (\S+)/
+echo bold
+exec "/root/swatch/block_ssh_scanner.sh $1"
+
+watchfor /sshd\[\d+\]: Invalid user (\S+) from (\S+)/
+echo bold
+exec "/root/swatch/block_ssh_scanner.sh $2"
+        </screen>
+
+	<para>
+          The following script adds an iptables rule to chain
+	  "block_ssh" and also adds the address of the scanner to the
+	  file /root/swatch/ssh_scan_addresses to avoid duplications
+	  in the future.
+        </para>
+
+        <screen>
+# cat /root/swatch/block_ssh_scanner.sh
+#!/bin/sh
+
+addr=$1
+test -z "$addr" &amp;&amp; exit 1
+grep $addr /root/swatch/ssh_scan_addresses &amp;&amp; exit 0
+
+cmd="iptables -A block_ssh -s $addr -j DROP"
+echo "$cmd" >> /root/swatch/ssh_scan_addresses
+$cmd
+        </screen>
+
+
+	<para>
+          Here is the command line you can use to start the
+	  swatch daemon. Add this command to the /etc/rc.d/rc.local
+	  script to start it when you reboot your machine.
+        </para>
+
+        <screen>
+/usr/bin/swatch --daemon --tail-file=/var/log/secure --use-cpan-file-tail &lt;/dev/null &amp;
+        </screen>
+
+	<para>
+          This method of blocking ssh scan attacks is effective
+	  but might be too "sharp". It will block access from
+	  legitimate machines outside your network as soon as you
+	  mistype your password even once. This can be dangerous
+	  because you'll block yourself until you either restart the
+	  firewall or remove the blocked address from iptables rules
+	  in chain "block_ssh". Ssh access to the firewall from the
+	  internal network is always permitted because of the rule #0,
+	  so this setup will not cut you off the firewall
+	  completely. Using ssh keys for authentication instead of the
+	  password when you log in from outside is a good way to avoid
+	  this problem.
+        </para>
+
+        <note>
+	  <para>
+            This example was intended to demonstrate how branch rule
+            set can be used in combination with external script that
+            populates rule set. There are better ways to block ssh
+            scanners, for example using iptables module "recent" which
+            solves a problem of blocking legitimate client addresses
+            after user mistypes the password. Module "recent" can
+            block an address for a limited period of time, which
+            should be enough for the ssh scanner to time out and go
+            away, yet the user who mistyped their password will be
+            able to log in again some time later. The shell script
+            that adds iptables commands to the chain "block_ssh" or
+            addresses to the module recent table can also be improved
+            to only add them after they appear in the ssh log a few
+            times to avoid blocking client addresses after single
+            error entering password.
+          </para>
+        </note>
+
+      </sect2>
+
+    </sect1>
+
