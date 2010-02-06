@@ -14,7 +14,13 @@ SOURCES = Introduction.xml \
 		network-discovery.xml \
 		remote-management.xml \
 		using-gui.xml \
-		working-with-objects.xml
+		working-with-objects.xml \
+		change-ip-address-in-template.xml \
+		policy-cookbook.xml \
+		nat-cookbook.xml \
+		linux-cluster-cookbook.xml \
+		tricks.xml
+
 CATALOGS = catalog-Darwin.xml catalog-Linux.xml
 HTML_STYLESHEETS = html.xsl
 FO_STYLESHEETS = fo.xsl
@@ -67,5 +73,5 @@ fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 pdf: UsersGuide4.pdf
 
 UsersGuide4.pdf: fo/UsersGuide4.fo
-	./fop.sh fo/UsersGuide4.fo UsersGuide4.pdf
+	fop fo/UsersGuide4.fo UsersGuide4.pdf
 
