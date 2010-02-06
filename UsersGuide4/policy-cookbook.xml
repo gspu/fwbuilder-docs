@@ -1582,10 +1582,10 @@ pass  quick on lo inet  from any  to any keep state
       generate correct code for underlying firewall software platform.</para>
 
       <figure id="f-policy-2">
-          <title>IP Service object which represents fragmented
+        <title>IP Service object which represents fragmented
           packets.</title>
-              <graphic scale="60" fileref="policy-2.png" />
-        </figure>
+        <graphic scale="60" fileref="policy-2.png" />
+      </figure>
 
       <para>Object "ip_fragments", which is included in the section "Services/IP" of
       the Standard objects tree, is set to block 'short' fragments only.</para>
@@ -1612,18 +1612,18 @@ pass  quick on lo inet  from any  to any keep state
       dialog for iptables:</para>
 
       <figure id="f-policy-3">
-          <title>Rule options dialog for iptables firewall</title>
-              <graphic scale="70" fileref="iptables-options-logging.png" />
-        </figure>
-
+        <title>Rule options dialog for iptables firewall</title>
+        <graphic scale="70" fileref="iptables-options-logging.png" />
+      </figure>
+      
       <para>Here is an example of the policy rule which is intended to block
       short fragments and TCP "Christmas scan" packets. The icon in the Options column indicates that logging is turned on.</para>
 
       <figure>
-          <title>Rule blocking short fragmented packets and TCP "Christmas scan"
+        <title>Rule blocking short fragmented packets and TCP "Christmas scan"
           packets</title>
-              <graphic scale="60" fileref="policy-4.png" />
-        </figure>
+        <graphic scale="60" fileref="policy-4.png" />
+      </figure>
 
       <para>This rule applies to
       all packets crossing the firewall regardless of their origin. This means
@@ -1683,13 +1683,13 @@ pass  quick on lo inet  from any  to any keep state
       need to keep track of it.</para>
 
       <figure>
-          <title>Using action "Reject" with rule option</title>
-              <graphic scale="70" fileref="policy-6.png" />
-        </figure>
+        <title>Using action "Reject" with rule option</title>
+        <graphic scale="70" fileref="policy-6.png" />
+      </figure>
 
       <figure id="f-policy-7">
-          <title>Adding rule option to make send TCP RST packet</title>
-              <graphic scale="70" fileref="action-parameters-reject.png" />
+        <title>Adding rule option to make send TCP RST packet</title>
+        <graphic scale="70" fileref="action-parameters-reject.png" />
       </figure>
 
       <para>
@@ -1752,9 +1752,9 @@ block return-rst  quick inet proto tcp  from any  to 192.168.1.100 port 113
       </para>
 
       <figure id="f-policy-8">
-          <title>Using two rules to block access from DMZ to internal net and
+        <title>Using two rules to block access from DMZ to internal net and
           permit access to the Internet</title>
-              <graphic scale="60" fileref="policy-8.png" />
+        <graphic scale="60" fileref="policy-8.png" />
       </figure>
 
       <para>
@@ -1789,9 +1789,9 @@ $IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 --dport 25  \
       </para>
 
       <figure id="f-policy-9">
-          <title>Using rule with negation to block access from DMZ to internal
+        <title>Using rule with negation to block access from DMZ to internal
           net and permit access to the Internet</title>
-              <graphic scale="60" fileref="policy-9.png" />
+        <graphic scale="60" fileref="policy-9.png" />
       </figure>
 
       <para>

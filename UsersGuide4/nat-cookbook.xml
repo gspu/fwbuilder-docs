@@ -97,127 +97,115 @@ nat (inside) 1 access-list id54756X30286.0 tcp 0 0
             to host a server in DMZ, but the block is so small that
             subnetting it does not make sense.
           </para>
-  
+          
 
-         <figure float="1"><title/><graphic scale="50" fileref="fwobj-snat-3.png"/></figure>
-                    
+          <figure float="1">
+            <title/>
+            <graphic scale="50" fileref="fwobj-snat-3.png"/>
+          </figure>
+
+          <para>
+            Firewall object <emphasis>fw-1-1</emphasis> has 4
+            interfaces:
+          </para>
+
+          <table>
+	    <title></title>
+            <tgroup cols='3' align='left'  rowsep='1'>
+              <colspec colnum="1" colname="col1" colwidth="1*"/>
+              <colspec colnum="2" colname="col2" colwidth="1*"/>
+              <colspec colnum="3" colname="col3" colwidth="1*"/>
+	      <tbody>
+
+                <row>
+                  <entry>Interface</entry>
+                  <entry>Network zone</entry>
+                  <entry>Address</entry>
+                </row>
+
+                <row>
+                  <entry><emphasis>eth0</emphasis></entry>
+                  <entry>external interface</entry>
+                  <entry>dynamic</entry>
+                </row>
+
+                <row>
+                  <entry><emphasis>eth1</emphasis></entry>
+                  <entry>internal interface</entry>
+                  <entry>172.16.22.1/24</entry>
+                </row>
+
+                <row>
+                  <entry><emphasis>eth2</emphasis></entry>
+                  <entry>DMZ</entry>
+                  <entry>192.0.2.1/29</entry>
+                </row>
+
+                <row>
+                  <entry><emphasis>lo</emphasis></entry>
+                  <entry>loopback</entry>
+                  <entry>127.0.0.1</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
 
-                      
-
-        <para>
-  
-                        Firewall object <emphasis>fw-1-1</emphasis> has 4
-                        interfaces:
-                      
-  </para>
-  
-                      
-
-        <table>
-	  <title></title>
-	  <tgroup cols="3">
-	    <tbody>
-
-        <row>
-
-        <entry>Interface</entry>
-
-        <entry>Network zone</entry>
-
-        <entry>Address</entry>
-                        </row>
-
-        <row>
-
-        <entry><emphasis>eth0</emphasis></entry>
-
-        <entry>external interface</entry>
-
-        <entry>dynamic</entry>
-                        </row>
-
-        <row>
-
-        <entry><emphasis>eth1</emphasis></entry>
-
-        <entry>internal interface</entry>
-
-        <entry>172.16.22.1/24</entry>
-                        </row>
-
-        <row>
-
-        <entry><emphasis>eth2</emphasis></entry>
-
-        <entry>DMZ</entry>
-
-        <entry>192.0.2.1/29</entry>
-                        </row>
-
-        <row>
-
-        <entry><emphasis>lo</emphasis></entry>
-
-        <entry>loopback</entry>
-
-        <entry>127.0.0.1</entry>
-                        </row></tbody></tgroup></table>
 
         <para>
-  
-                  Here the publicly routable address block is very small,
-                  it is just a /29 (6 usable addresses). It is assigned
-                  to the DMZ interface <emphasis>eth2</emphasis>, and the firewall's address
-                  is 192.0.2.1. The outside interface <emphasis>eth0</emphasis> can
-                  be either dynamic or have private address. In fact,
-                  this is a rather typical configuration for when your
-                  firewall is behind a DSL router and segment between
-                  the firewall and the router uses private addresses
-                  such as 192.168.1.0. It is more useful to keep that
-                  segment private and allocate all routable addresses
-                  to the DMZ instead of trying to subnet the routable
-                  subnet. The problem now is that a Source Address
-                  translation rule should use address that belongs to
-                  the DMZ interface <emphasis>eth2</emphasis> but "-o" parameter
-                  should use interface <emphasis>eth0</emphasis> or should be
-                  omitted all together. The "-o eth2" would not work
-                  at all.
-                
-  </para>
-  
+          
+          Here the publicly routable address block is very small,
+          it is just a /29 (6 usable addresses). It is assigned
+          to the DMZ interface <emphasis>eth2</emphasis>, and the firewall's address
+          is 192.0.2.1. The outside interface <emphasis>eth0</emphasis> can
+          be either dynamic or have private address. In fact,
+          this is a rather typical configuration for when your
+          firewall is behind a DSL router and segment between
+          the firewall and the router uses private addresses
+          such as 192.168.1.0. It is more useful to keep that
+          segment private and allocate all routable addresses
+          to the DMZ instead of trying to subnet the routable
+          subnet. The problem now is that a Source Address
+          translation rule should use address that belongs to
+          the DMZ interface <emphasis>eth2</emphasis> but "-o" parameter
+          should use interface <emphasis>eth0</emphasis> or should be
+          omitted all together. The "-o eth2" would not work
+          at all.
+          
+        </para>
+        
 
         <para>
-  
-                  To do this is Firewall Builder, create an Address
-                  object with an IP address equivalent to the one you
-                  want to use for source NAT. Since in this example we
-                  want to use address 192.0.2.1 which belongs to the
-                  firewall, we call this new address object "like
-                  fw-1-1:eth2:ip". This is just a regular IPv4 address
-                  object, there is nothing special about it:
-                
-  </para>
-  
+          
+          To do this is Firewall Builder, create an Address
+          object with an IP address equivalent to the one you
+          want to use for source NAT. Since in this example we
+          want to use address 192.0.2.1 which belongs to the
+          firewall, we call this new address object "like
+          fw-1-1:eth2:ip". This is just a regular IPv4 address
+          object, there is nothing special about it:
+          
+        </para>
+        
 
         <figure float="1"><title/><graphic scale="50" fileref="snat-address-obj-2.png"/></figure>
 
         <para>
-  
-                  Now we use it in the NAT rule:
-                
-  </para>
-  
+          
+          Now we use it in the NAT rule:
+          
+        </para>
+        
 
         <figure float="1"><title/><graphic scale="50" fileref="snat-rule-6.png"/></figure>
 
         <para>
-  
-                  Here is what fwbuilder generates for iptables for
-                  this rule:
-                
-  </para>
-  
+          
+          Here is what fwbuilder generates for iptables for
+          this rule:
+          
+        </para>
+        
 
   <screen>
 
@@ -265,54 +253,44 @@ $IPTABLES -t nat -A POSTROUTING -o eth+  -s 172.16.22.0/24 -j SNAT --to-source 1
 
         <table>
 	  <title></title>
-	<tgroup cols='2'>
-	<tbody>
+          <tgroup cols='3' align='left'  rowsep='1'>
+            <colspec colnum="1" colname="col1" colwidth="1*"/>
+            <colspec colnum="2" colname="col2" colwidth="1*"/>
+            <colspec colnum="3" colname="col3" colwidth="1*"/>
+	    <tbody>
 
-        <row>
+              <row>
+                <entry>Interface</entry>
+                <entry>Network zone</entry>
+                <entry>Address</entry>
+              </row>
 
-        <entry>Interface</entry>
+              <row>
+                <entry><emphasis>eth0</emphasis></entry>
+                <entry>external interface</entry>
+                <entry>192.0.2.1/24</entry>
+              </row>
 
-        <entry>Network zone</entry>
+              <row>
+                <entry><emphasis>eth1</emphasis></entry>
+                <entry>internal interface</entry>
+                <entry>172.16.22.1/24</entry>
+              </row>
 
-        <entry>Address</entry>
-        </row>
+              <row>
+                <entry><emphasis>eth2</emphasis></entry>
+                <entry>DMZ</entry>
+                <entry>192.168.2.1/24</entry>
+              </row>
 
-        <row>
-
-        <entry><emphasis>eth0</emphasis></entry>
-
-        <entry>external interface</entry>
-
-        <entry>192.0.2.1/24</entry>
-                      </row>
-
-        <row>
-
-        <entry><emphasis>eth1</emphasis></entry>
-
-        <entry>internal interface</entry>
-
-        <entry>172.16.22.1/24</entry>
-                      </row>
-
-        <row>
-
-        <entry><emphasis>eth2</emphasis></entry>
-
-        <entry>DMZ</entry>
-
-        <entry>192.168.2.1/24</entry>
-                      </row>
-
-        <row>
-
-        <entry><emphasis>lo</emphasis></entry>
-
-        <entry>loopback</entry>
-
-        <entry>127.0.0.1</entry>
-        </row>
-        </tbody></tgroup></table>
+              <row>
+                <entry><emphasis>lo</emphasis></entry>
+                <entry>loopback</entry>
+                <entry>127.0.0.1</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
 
         <para>
           Internal interface <emphasis>eth1</emphasis> also has IPv6 address
