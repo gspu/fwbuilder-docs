@@ -3007,44 +3007,48 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
           <para>
                 Consider the following IP Service objects:
           </para>
-  
+          
 
-        <table frame='all'><title></title>
-	<tgroup cols="2">
-	  <tbody>
+          <table frame='all'><title></title>
+	    <tgroup cols="2">
+	      <tbody>
                 <row>
-        <entry>
-        <inlinegraphic fileref="ip_service_2.png"/></entry>
+                  <entry>
+                    <inlinegraphic scale="50" fileref="ip_service_2.png"/></entry>
 
-        <entry>
-        <inlinegraphic fileref="ip_service_5.png"/></entry>
+                  <entry>
+                    <inlinegraphic scale="50" fileref="ip_service_5.png"/></entry>
                 </row>
 
                 <row>
-        <entry>
+                  <entry>
 
-        <inlinegraphic fileref="ip_service_3.png"/></entry>
+                    <inlinegraphic scale="50" fileref="ip_service_3.png"/></entry>
                   
-        <entry>
-        <inlinegraphic fileref="ip_service_4.png"/></entry>
+                  <entry>
+                    <inlinegraphic scale="50" fileref="ip_service_4.png"/></entry>
                 </row>
-	</tbody></tgroup></table>
+	      </tbody>
+            </tgroup>
+          </table>
 
           <para>
-  
-                Object <emphasis>EF</emphasis> has DSCP matching turned on, matching
-                traffic class <emphasis>EF</emphasis>. Object <emphasis>TOS 0x10</emphasis> matches
-                packets with TOS bits set to 0x10 (low delay).
-                Object <emphasis>all_fragments</emphasis> has flag "all fragments"
-                turned on, and finally object
-                <emphasis>lsrr</emphasis> matches "loose source routing"
-                option. Here is what we get for iptables when we use
-                these objects in policy rules as follows:
-              
+            
+            Object <emphasis>EF</emphasis> has DSCP matching turned on, matching
+            traffic class <emphasis>EF</emphasis>. Object <emphasis>TOS 0x10</emphasis> matches
+            packets with TOS bits set to 0x10 (low delay).
+            Object <emphasis>all_fragments</emphasis> has flag "all fragments"
+            turned on, and finally object
+            <emphasis>lsrr</emphasis> matches "loose source routing"
+            option. Here is what we get for iptables when we use
+            these objects in policy rules as follows:
+            
           </para>
-  
+          
 
-        <figure float="1"><title/><graphic scale="50" fileref="ip_service_rule_1.png"/></figure>
+          <figure float="1"><title/>
+            <graphic scale="50" fileref="ip_service_rule_1.png"/>
+          </figure>
 
           <para>
   

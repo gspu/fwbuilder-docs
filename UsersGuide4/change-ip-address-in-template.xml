@@ -26,7 +26,7 @@
 
   <figure id="replace-network-template1">
     <title>New firewall</title>
-    <graphic fileref="pict_1.png" />
+    <graphic scale="50" fileref="pict_1.png" />
   </figure>
 
   <para>Edit the IP address (and possibly the netmask if needed),
@@ -35,7 +35,7 @@
 
   <figure id="replace-network-template2">
     <title>Edit the network address</title>
-    <graphic fileref="pict_10.png" />
+    <graphic scale="50" fileref="pict_10.png" />
   </figure>
 
   <para>Now we need to change the IP address used in the rules. To
@@ -47,7 +47,7 @@
 
   <figure id="replace-network-template3">
     <title>Create new network object</title>
-    <graphic fileref="pict_20.png" />
+    <graphic scale="50" fileref="pict_20.png" />
   </figure>
 
   <para>A new Network object is created with default name "New
@@ -55,7 +55,7 @@
 
   <figure id="replace-network-template4">
     <title>New object</title>
-    <graphic fileref="pict_30.png" />
+    <graphic scale="50" fileref="pict_30.png" />
   </figure>
 
   <para>Edit object name and address, then
@@ -63,7 +63,7 @@
 
   <figure id="replace-network-template5">
     <title>Edit name and address</title>
-    <graphic fileref="pict_40.png" />
+    <graphic scale="50" fileref="pict_40.png" />
   </figure>
 
   <para>Select <guimenuitem>Object/Find</guimenuitem> to activate
@@ -71,7 +71,7 @@
 
   <figure id="replace-network-template6">
     <title>Activate Find dialog</title>
-    <graphic fileref="pict_50.png" />
+    <graphic scale="50" fileref="pict_50.png" />
   </figure>
 
   <para>Drag and drop the object "net-192.168.1.0" from a policy
@@ -80,7 +80,7 @@
 
   <figure id="replace-network-template7">
     <title>Drag original object to the Find field</title>
-    <graphic fileref="pict_60.png" />
+    <graphic scale="50" fileref="pict_60.png" />
   </figure>
 
   <para>Locate the new Network object you just created and drag
@@ -89,7 +89,7 @@
 
   <figure id="replace-network-template8">
     <title>Drag new object to the Replace field</title>
-    <graphic fileref="pict_70.png" />
+    <graphic scale="50" fileref="pict_70.png" />
   </figure>
 
   <para>Change the scope to <guimenuitem>Policy of all
@@ -101,7 +101,7 @@
 
   <figure id="replace-network-template9">
     <title>Drag new object to the Replace field</title>
-    <graphic fileref="pict_80.png" />
+    <graphic scale="50" fileref="pict_80.png" />
   </figure>
 
   <para>Note how the search and replace function replaced object
@@ -115,7 +115,7 @@
 
   <figure id="replace-network-template10">
     <title>New object used in all rule sets</title>
-    <graphic fileref="pict_90.png" />
+    <graphic scale="50" fileref="pict_90.png" />
   </figure>
 
 </sect1>

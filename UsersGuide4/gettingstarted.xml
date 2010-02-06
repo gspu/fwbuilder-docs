@@ -30,7 +30,7 @@
 
     <figure id="pict_030">
       <title>Select New Firewall</title>
-      <graphic scale="70" fileref="pict_030.png" />
+      <graphic scale="50" fileref="pict_030.png" />
     </figure>
 
     <para>The first page of the New Firewall wizard appears. In this
@@ -40,7 +40,7 @@
 
     <figure id="pict_040">
       <title>Define firewall platform</title>
-      <graphic scale="70"  fileref="pict_040.png" />
+      <graphic scale="50"  fileref="pict_040.png" />
     </figure>
     
     <para>The name of the new firewall object can be anything you
@@ -89,7 +89,7 @@
 
     <figure id="pict_050">
       <title>Pick a template</title>
-      <graphic scale="70" fileref="pict_050.png" />
+      <graphic scale="50" fileref="pict_050.png" />
     </figure>
 
     <para>Our new firewall object is show in <xref linkend="pict_060"
@@ -115,7 +115,7 @@
 
     <figure id="pict_070">
       <title>Save firewall</title>
-      <graphic scale="70" fileref="pict_070.png" />
+      <graphic scale="50" fileref="pict_070.png" />
     </figure>
     
     <para>Pick a location and name for the new data file. Firewall
@@ -123,7 +123,7 @@
 
     <figure id="pict_080">
       <title>Specify filename</title>
-      <graphic scale="70" fileref="pict_080.png" />
+      <graphic scale="50" fileref="pict_080.png" />
     </figure>
 
     <para>Note that once the firewall data is saved to a file, its
@@ -132,7 +132,7 @@
     
     <figure id="pict_090">
       <title>Filename displayed</title>
-      <graphic scale="60" fileref="pict_090.png" />
+      <graphic scale="50" fileref="pict_090.png" />
     </figure>
 
     <para>Let's take a little tour of the network and service objects
@@ -148,7 +148,7 @@
 
     <figure id="pict_093">
       <title>Objects tree</title>
-      <graphic scale="70" fileref="pict_093.png" />
+      <graphic scale="50" fileref="pict_093.png" />
     </figure>
 
     <para>Folder <guilabel>Objects/Hosts</guilabel> contains a few
@@ -160,7 +160,7 @@
 
     <figure id="pict_094">
       <title>Host and Network objects</title>
-      <graphic scale="70" fileref="pict_094.png" />
+      <graphic scale="50" fileref="pict_094.png" />
     </figure>
 
     <para>Firewall Builder also comes with an extensive collection of
@@ -169,21 +169,21 @@
 
     <figure id="pict_095">
       <title>TCP objects</title>
-      <graphic scale="70" fileref="pict_095.png" />
+      <graphic scale="50" fileref="pict_095.png" />
     </figure>
 
     <para>ICMP service objects. </para>
     
     <figure id="pict_096">
       <title>ICMP objects</title>
-      <graphic scale="70" fileref="pict_096.png" />
+      <graphic scale="50" fileref="pict_096.png" />
     </figure>
 
     <para>UDP service objects. </para>
 
     <figure id="pict_097">
       <title>UDP objects</title>
-      <graphic scale="70" fileref="pict_097.png" />
+      <graphic scale="50" fileref="pict_097.png" />
     </figure>
 
     <para>Let's inspect some of the objects Firewall Builder created
@@ -193,7 +193,7 @@
 
     <figure id="pict_100">
       <title>Firewall object</title>
-      <graphic scale="60" fileref="pict_100.png" />
+      <graphic scale="50" fileref="pict_100.png" />
     </figure>
 
     <para>You can also right-click on the object in the tree to open a
@@ -202,7 +202,7 @@
 
     <figure id="pict_101">
       <title>Edit an object</title>
-      <graphic scale="70" fileref="pict_101.png" />
+      <graphic scale="50" fileref="pict_101.png" />
     </figure>
 
     <para>Every object in Firewall Builder has basic attributes such
@@ -220,7 +220,7 @@
 
     <figure id="pict_102">
       <title>Firewall attributes</title>
-      <graphic scale="60" fileref="pict_102.png" />
+      <graphic scale="50" fileref="pict_102.png" />
     </figure>
 
     <para>Here are the choices for the firewall platform, version (for
@@ -228,7 +228,7 @@
 
     <figure id="pict_103">
       <title>iptables attributes</title>
-      <graphic scale="70" fileref="pict_103.png" />
+      <graphic scale="50" fileref="pict_103.png" />
     </figure>
 
     <para>Interfaces of the firewall are represented by objects
@@ -246,7 +246,7 @@
 
     <figure id="pict_104">
       <title>Firewall interface objects</title>
-      <graphic scale="70" fileref="pict_104.png" />
+      <graphic scale="50" fileref="pict_104.png" />
     </figure>
 
     <para>An interface object has several attributes that define its
@@ -349,7 +349,7 @@
 
     <figure id="pict_105">
       <title>Interface object attributes</title>
-      <graphic scale="70" fileref="pict_105.png" />
+      <graphic scale="50" fileref="pict_105.png" />
     </figure>
 
     <para>Here is IP address of interface eth0. The address and
@@ -365,7 +365,7 @@
 
     <figure id="pict_110">
       <title>Interface IP address</title>
-      <graphic scale="70" fileref="pict_110.png" />
+      <graphic scale="50" fileref="pict_110.png" />
     </figure>
 
     <para>This is the IP address of the internal interface of the
@@ -386,7 +386,7 @@
 
     <figure id="pict_120">
       <title>Firewall internal interface</title>
-      <graphic scale="70" fileref="pict_120.png" />
+      <graphic scale="50" fileref="pict_120.png" />
     </figure>
 
     <para>Here is the IP address of the DMZ interface of the
@@ -396,7 +396,7 @@
 
     <figure id="pict_130">
       <title>Firewall DMZ interface</title>
-      <graphic scale="70" fileref="pict_130.png" />
+      <graphic scale="50" fileref="pict_130.png" />
     </figure>
 
     <para>Let's inspect the properties of the firewall
@@ -407,7 +407,7 @@
 
     <figure id="pict_140">
       <title>Firewall Compiler properties</title>
-      <graphic scale="60" fileref="pict_140.png" />
+      <graphic scale="50" fileref="pict_140.png" />
     </figure>
 
     <para>Click the <guibutton>Help</guibutton> button to open help
@@ -423,7 +423,7 @@
 
     <figure id="pict_145">
       <title>Compiler properties online help</title>
-      <graphic scale="60" fileref="pict_145.png" />
+      <graphic scale="50" fileref="pict_145.png" />
     </figure>
 
     <para>This page defines various parameters for the built-in policy
@@ -508,7 +508,7 @@
 
     <figure id="pict_200">
       <title>Template rulesets</title>
-      <graphic scale="70" fileref="pict_200.png" />
+      <graphic scale="50" fileref="pict_200.png" />
     </figure>
 
     <para>Access policy rules belong to the object "Policy", which is
@@ -545,7 +545,7 @@
 
     <figure id="pict_210">
       <title>Policy ruleset</title>
-      <graphic scale="60" fileref="pict_210.png" />
+      <graphic scale="50" fileref="pict_210.png" />
     </figure>
 
     <para>Here are the pre-configured NAT rules.</para>
@@ -572,7 +572,7 @@
 
     <figure id="pict_220">
       <title>NAT ruleset</title>
-      <graphic scale="70" fileref="pict_220.png" />
+      <graphic scale="50" fileref="pict_220.png" />
     </figure>
     
     <para>Now we compile the policy of the firewall "guardian" and
@@ -583,7 +583,7 @@
 
     <figure id="pict_230">
       <title>Compile the firewall rulesets</title>
-      <graphic scale="70" fileref="pict_230.png" />
+      <graphic scale="50" fileref="pict_230.png" />
     </figure>
     
     <para>A new dialog appears that allows you to choose which
@@ -612,7 +612,7 @@
 
     <figure id="pict_260">
       <title>Generated file</title>
-      <graphic scale="70" fileref="pict_260.png" />
+      <graphic scale="50" fileref="pict_260.png" />
     </figure>
 
     <para>Here is the how generated script looks (this is just the
@@ -637,7 +637,7 @@
 
     <figure id="pict_280">
       <title>Policy installer</title>
-      <graphic scale="70" fileref="pict_280.png" />
+      <graphic scale="100" fileref="pict_280.png" />
     </figure>
  
   </chapter>

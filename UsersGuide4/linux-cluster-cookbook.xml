@@ -30,7 +30,7 @@
 
     <figure id="cookbook_linux_vrrpd_cluster_1">
       <title>HA configuration using two Linux machines running vrrpd</title>
-      <graphic scale="60" fileref="linux-vrrpd-cluster-1.png"/>
+      <graphic scale="50" fileref="linux-vrrpd-cluster-1.png"/>
     </figure>
 
     <sect3>
@@ -147,7 +147,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_2">
         <title>Interfaces and addresses of the cluster members</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-2.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-2.png"/>
       </figure>
 
       <para>
@@ -157,7 +157,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_3">
         <title>Creating new cluster object</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-3.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-3.png"/>
       </figure>
 
       <para>
@@ -172,7 +172,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_4">
         <title>First page of the new cluster wizard</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-4.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-4.png"/>
       </figure>
 
       <note>
@@ -213,7 +213,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_5">
         <title>Configuring cluster interfaces</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-5.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-5.png"/>
       </figure>
 
 
@@ -241,7 +241,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_6">
         <title>Configuring virtual IP addresses of cluster interfaces</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-6.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-6.png"/>
       </figure>
 
       <note>
@@ -291,7 +291,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_7">
         <title>Final page of the new cluster wizard</title>
-        <graphic fileref="linux-vrrpd-cluster-7.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-7.png"/>
       </figure>
 
       <para>
@@ -301,7 +301,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_8">
         <title>Cluster object</title>
-        <graphic fileref="linux-vrrpd-cluster-8.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-8.png"/>
       </figure>
 
 
@@ -318,7 +318,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_9">
         <title>Cluster Failover Group in the object tree</title>
-        <graphic fileref="linux-vrrpd-cluster-9.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-9.png"/>
       </figure>
 
       <para>
@@ -331,7 +331,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_10">
         <title>Cluster Failover Group object</title>
-        <graphic fileref="linux-vrrpd-cluster-10.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-10.png"/>
       </figure>
 
 
@@ -369,7 +369,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_11">
         <title>State Synchronization Group in the object tree</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-11.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-11.png"/>
       </figure>
 
       <para>
@@ -379,7 +379,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_12">
         <title>State Synchronization Group object</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-12.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-12.png"/>
       </figure>
 
       <para>
@@ -393,7 +393,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_12-1">
         <title>Empty State Synchronization Group object</title>
-        <graphic fileref="linux-cluster-empty-state-sync-group.png"/>
+        <graphic scale="50" fileref="linux-cluster-empty-state-sync-group.png"/>
       </figure>
 
 
@@ -406,7 +406,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_13">
         <title>State Synchronization protocol parameters</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-13.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-13.png"/>
       </figure>
 
       <para>
@@ -433,7 +433,7 @@ root@linux-test-2:~# ip -4  addr ls
 
       <figure id="cookbook_linux_vrrpd_cluster_14">
         <title>Compiling single rule</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-14.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-14.png"/>
       </figure>
 
       <para>
@@ -446,7 +446,7 @@ root@linux-test-2:~# ip -4  addr ls
       <figure id="cookbook_linux_vrrpd_cluster_15">
         <title>Simple policy for the cluster, also showing generated
           iptables commands for the anti-spoofing rule</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-15.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-15.png"/>
       </figure>
 
 
@@ -631,7 +631,7 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
 
       <figure id="cookbook_linux_vrrpd_cluster_16">
         <title>NAT rule for the cluster</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-16.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-16.png"/>
       </figure>
 
 
@@ -668,7 +668,7 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
 
       <figure id="cookbook_linux_vrrpd_cluster_17">
         <title>Options in the "Script" tab of the firewall object dialog</title>
-        <graphic scale="60" fileref="linux-vrrpd-cluster-17.png"/>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-17.png"/>
       </figure>
 
 
@@ -762,7 +762,7 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
 
     <figure id="cookbook_linux_hb_cluster_1">
       <title>HA configuration using two Linux machines running heartbeat</title>
-      <graphic scale="60" fileref="linux-heartbeat-cluster-1.png"/>
+      <graphic scale="50" fileref="linux-heartbeat-cluster-1.png"/>
     </figure>
 
     <sect3>
@@ -933,7 +933,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_2">
         <title>Interfaces and addresses of the cluster members</title>
-        <graphic fileref="linux-hb-cluster-2.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-2.png"/>
       </figure>
 
       <para>
@@ -947,7 +947,7 @@ root@linux-test-2:~# ip -4 addr ls
       <figure id="cookbook_linux_hb_cluster_3">
         <title>Creating new cluster object from selected member
           firewalls</title>
-        <graphic fileref="linux-hb-cluster-3.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-3.png"/>
       </figure>
 
       <para>
@@ -958,7 +958,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_4">
         <title>Creating new cluster object</title>
-        <graphic fileref="linux-hb-cluster-4.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-4.png"/>
       </figure>
 
       <para>
@@ -976,7 +976,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_5">
         <title>Arranging cluster interfaces</title>
-        <graphic fileref="linux-hb-cluster-5.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-5.png"/>
       </figure>
 
       <para>
@@ -1009,7 +1009,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_6">
         <title>Configuring IP addresses of the cluster interfaces</title>
-        <graphic fileref="linux-hb-cluster-6.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-6.png"/>
       </figure>
 
       <para>
@@ -1082,7 +1082,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_7">
         <title>Final page of the new cluster wizard</title>
-        <graphic fileref="linux-hb-cluster-7.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-7.png"/>
       </figure>
 
       <para>
@@ -1092,7 +1092,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_8">
         <title>Cluster object</title>
-        <graphic fileref="linux-hb-cluster-8.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-8.png"/>
       </figure>
 
       <para>
@@ -1108,7 +1108,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_9">
         <title>Cluster Failover Group in the object tree</title>
-        <graphic fileref="linux-hb-cluster-9.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-9.png"/>
       </figure>
 
       <para>
@@ -1121,7 +1121,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_10">
         <title>Cluster Failover Group object</title>
-        <graphic fileref="linux-hb-cluster-10.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-10.png"/>
       </figure>
 
 
@@ -1160,7 +1160,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_11">
         <title>State Synchronization Group in the object tree</title>
-        <graphic scale="60" fileref="linux-hb-cluster-11.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-11.png"/>
       </figure>
 
       <para>
@@ -1170,7 +1170,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_12">
         <title>State Synchronization Group object</title>
-        <graphic scale="60" fileref="linux-hb-cluster-12.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-12.png"/>
       </figure>
 
       <para>
@@ -1184,7 +1184,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_12-1">
         <title>Empty State Synchronization Group object</title>
-        <graphic fileref="linux-cluster-empty-state-sync-group.png"/>
+        <graphic scale="50" fileref="linux-cluster-empty-state-sync-group.png"/>
       </figure>
 
       <para>
@@ -1196,7 +1196,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <figure id="cookbook_linux_hb_cluster_13">
         <title>State Synchronization protocol parameters</title>
-        <graphic scale="60" fileref="linux-hb-cluster-13.png"/>
+        <graphic scale="50" fileref="linux-hb-cluster-13.png"/>
       </figure>
 
       <para>

@@ -67,9 +67,9 @@
       <sect1 id="gui-menus">
 	<title>GUI Menu and Button Bars</title>
 
-      <figure id="main-win-menus">
+        <figure id="main-win-menus">
           <title>Menu and Button Bars</title>
-              <graphic scale="70" fileref="fwbMainWindow-3.png" />
+          <graphic scale="70" fileref="fwbMainWindow-3.png" />
         </figure>
 
       <para>The <guimenu>File</guimenu> menu provides the same file
@@ -179,7 +179,7 @@
 
       <figure id="preferences-dialog">
         <title>The GUI Preferences Dialog</title>
-            <graphic scale="60" fileref="fwbPrefGeneral.png" />
+        <graphic scale="60" fileref="fwbPrefGeneral.png" />
       </figure>
 
       <table frame='none' tabstyle='reg_table'>
@@ -606,9 +606,9 @@
       functions:</para>
 
       <figure id="main-buttons">
-          <title>Buttons</title>
-              <graphic scale="70" fileref="fwbMainWindow-3.png" />
-        </figure>
+        <title>Buttons</title>
+        <graphic scale="70" fileref="fwbMainWindow-3.png" />
+      </figure>
 
      <table frame='none' tabstyle='reg_table'><title>Button bar</title>
 	<tgroup cols='2' align='left' rowsep='1'>
@@ -675,9 +675,9 @@
       time.</para>
 
       <figure id="main-win2">
-          <title>The main window</title>
-              <graphic scale="40" fileref="fwbMainWindow-2.png" />
-        </figure>
+        <title>The main window</title>
+        <graphic scale="40" fileref="fwbMainWindow-2.png" />
+      </figure>
 
       <para>Drag-and-drop and Copy/Paste operations work across
       different windows.</para>
@@ -687,10 +687,10 @@
     <sect1 id="object_tree">
     <title>Object Tree</title>
 
-      <figure float="1" id="tree-structure" pgwide="0">
-        <title>Object Tree Structure</title>
-        <graphic fileref="fwbMainWindow-4.png" />
-      </figure>
+    <figure float="1" id="tree-structure" pgwide="0">
+      <title>Object Tree Structure</title>
+      <graphic scale="50" fileref="fwbMainWindow-4.png" />
+    </figure>
 
       <para>The object tree stores all objects in a predefined
       hierarchy.  Types that correspond to network objects (hosts,
@@ -735,7 +735,7 @@
 
       <figure id="main-standard-objects">
         <title>Standard Objects</title>
-        <graphic fileref="pict_095.png" />
+        <graphic scale="50" fileref="pict_095.png" />
       </figure>
 
       <para>Firewall Builder understands and uses the object and
@@ -909,7 +909,7 @@
 
       <figure float="1" id="menu-new-object">
         <title>Creating Objects Using The Object Menu</title>
-            <graphic fileref="menu-new-object.png" />
+            <graphic scale="50" fileref="menu-new-object.png" />
       </figure>
 
       <para>You can create all objects except physical address objects
@@ -925,7 +925,7 @@
 
       <figure float="1" id="menu-right-click-new-object">
         <title>Creating Objects by Right-Clicking</title>
-            <graphic fileref="menu-right-click-new-object.png" />
+            <graphic scale="50" fileref="menu-right-click-new-object.png" />
       </figure>
 
       <para>Another way to create objects is to use

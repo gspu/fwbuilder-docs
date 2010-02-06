@@ -48,9 +48,9 @@
       rules are applied.</para>
 
       <figure float="1" id="policies-seq">
-        <title>The sequence in which NAT and Policy rules are applied to the packet
-        in Firewall Builder</title>
-            <graphic width="150" fileref="policies-seq.png" />
+        <title>The sequence in which NAT and Policy rules
+          are applied to the packet in Firewall Builder</title>
+        <graphic width="100" fileref="policies-seq.png"/>
       </figure>
 
       <para><xref linkend="policies-seq" /> represents the logical
@@ -68,9 +68,9 @@
     <sect1 id="global-policy">
       <title>Firewall Access Policy Rulesets</title>
 
-      <figure float="1" id="global-policy1">
+      <figure id="global-policy1">
         <title>Access Policy</title>
-            <graphic scale="60" fileref="policy_example_1.png" />
+        <graphic scale="50" fileref="policy_example_1.png" />
       </figure>
 
       <para>The main Firewall access policy consists of a set of
@@ -2102,7 +2102,7 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
           <figure float="1" id="editing-policy3">
             <title>Modifying the Action of the Policy Rule</title>
-                <graphic scale="80" fileref="editing_policy3.png" />  
+                <graphic scale="50" fileref="editing_policy3.png" />  
           </figure>
 
           <para>The options for this menu are described in <xref linkend="action" />.</para>
@@ -2119,7 +2119,7 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
           <figure float="1" id="editing-policy4">
             <title>Modifying the Direction of the Policy Rule</title>
-                <graphic scale="80" fileref="editing_policy4.png" />
+                <graphic scale="50" fileref="editing_policy4.png" />
               </figure>
 
           <para>This menu provides items for the following functions:</para>
@@ -2540,47 +2540,49 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
   </para>
   
 
-  <figure float="1"><title/><graphic scale="60" fileref="rcs_screenshot_3.png"/></figure>
+  <figure float="1"><title/>
+    <graphic scale="60" fileref="rcs_screenshot_3.png"/>
+  </figure>
 
   <para>
-  
-                To start tracking revisions of this data file, use
-                menu <guimenuitem>File/Add File to RCS</guimenuitem>, the program
-                creates all necessary files and reports result in a
-                pop-up dialog. If for some reason adding file to the
-                revision control has failed, the program reports error
-                in the same pop-up dialog.
-                
+    
+    To start tracking revisions of this data file, use
+    menu <guimenuitem>File/Add File to RCS</guimenuitem>, the program
+    creates all necessary files and reports result in a
+    pop-up dialog. If for some reason adding file to the
+    revision control has failed, the program reports error
+    in the same pop-up dialog.
+    
 
-		<xref linkend="rcs-troubleshooting" /> has a list of
-                  typical problems that may occur at this point.
-              
+    <xref linkend="rcs-troubleshooting" /> has a list of
+    typical problems that may occur at this point.
+    
   </para>
 
-      <table frame='none' tabstyle='reg_table'>
-        <title></title>
-	<tgroup cols='2' align='left'  rowsep='0'>
-	  <tbody>
-      <row>
-	<entry>
-	  <inlinegraphic fileref="rcs_screenshot_4.png"/>
-        </entry>
+  <table frame='none' tabstyle='reg_table'>
+    <title></title>
+    <tgroup cols='2' align='left'  rowsep='0'>
+      <tbody>
+        <row>
+	  <entry>
+	    <inlinegraphic scale="50" fileref="rcs_screenshot_4.png"/>
+          </entry>
 
-	<entry>
-	    <inlinegraphic fileref="rcs_screenshot_5.png"/>
-        </entry>
-      </row>
+	  <entry>
+	    <inlinegraphic scale="50" fileref="rcs_screenshot_5.png"/>
+          </entry>
+        </row>
       </tbody>
-      </tgroup>
-    </table>
+    </tgroup>
+  </table>
 
   <para>
-  
-                A few things have changed in the GUI after the file
-                has been added to the revision control system. First,
-                in addition to the file name, the title bar now also
-                shows its revision. The initial revision number after
-                checkin is <emphasis>1.1</emphasis>.
+    
+    A few things have changed in the GUI after the file
+    has been added to the revision control system. First,
+    in addition to the file name, the title bar now also
+    shows its revision. The initial revision number after
+    checkin is <emphasis>1.1</emphasis>.
               
   </para>
   
@@ -2667,11 +2669,11 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	  <tbody>
       <row>
 	<entry>
-	  <inlinegraphic fileref="rcs_screenshot_11.png"/>
+	  <inlinegraphic scale="50" fileref="rcs_screenshot_11.png"/>
         </entry>
 
 	<entry>
-	    <inlinegraphic fileref="rcs_screenshot_12.png"/>
+	    <inlinegraphic scale="50" fileref="rcs_screenshot_12.png"/>
         </entry>
       </row>
       </tbody>

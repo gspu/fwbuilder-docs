@@ -30,7 +30,7 @@
       <figure id="policy-examples-linux-fw">
         <title>Firewall and its interfaces used in the examples in this chapter.
         </title>
-        <graphic fileref="policy-examples-fw-linux.png" />
+        <graphic scale="50" fileref="policy-examples-fw-linux.png" />
       </figure>
     </sect2>
 
@@ -54,7 +54,7 @@
 
       <figure id="policy-1-3">
         <title>Permit internal network to connect to Internet</title>
-        <graphic fileref="policy-1-3.png" />
+        <graphic scale="50" fileref="policy-1-3.png" />
       </figure>
 
       <para>
@@ -290,7 +290,7 @@ access-group outside_acl_in in interface outside
       <figure>
           <title>Example of a rule permitting only certain protocols to the
           server and blocking everything else.</title>
-              <graphic scale="70" fileref="policy-1.png" />
+          <graphic scale="50" fileref="policy-1.png" />
         </figure>
 
       <para>
@@ -429,7 +429,7 @@ access-list inside_acl_in deny   ip any any log 0 interval 300
       <figure>
           <title>Example of a rule permitting only certain protocols
           from limited set of sources to the server.</title>
-          <graphic scale="70" fileref="policy-1-2.png" />
+          <graphic scale="50" fileref="policy-1-2.png" />
         </figure>
 
 
@@ -592,7 +592,7 @@ access-group outside_acl_in in interface outside
 
       <figure id="anti-spoof-rule-1">
         <title>Basic anti-spoofing rule</title>
-        <graphic scale="70" fileref="policy-antispoof-rule-1.png" />
+        <graphic scale="50" fileref="policy-antispoof-rule-1.png" />
       </figure>
 
       <para>
@@ -696,7 +696,7 @@ access-group outside_acl_in in interface outside
 
       <figure id="anti-spoof-rule-2">
         <title>Basic anti-spoofing rule</title>
-        <graphic scale="70" fileref="policy-antispoof-rule-2.png" />
+        <graphic scale="50" fileref="policy-antispoof-rule-2.png" />
       </figure>
 
       <para>
@@ -802,7 +802,7 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any
 
       <figure id="object-group-2">
           <title>Object group that consists of three host objects.</title>
-          <graphic scale="70" fileref="policy-rule-group-object.png" />
+          <graphic scale="50" fileref="policy-rule-group-object.png" />
       </figure>
 
       <para>
@@ -818,7 +818,7 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any
 
       <figure>
           <title>Example of a rule using object group.</title>
-          <graphic scale="70" fileref="policy-rule-group-1.png" />
+          <graphic scale="50" fileref="policy-rule-group-1.png" />
       </figure>
 
       <para>
@@ -946,7 +946,7 @@ access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
 
       <figure id="address-range-obj-1">
         <title>Policy for server</title>
-        <graphic scale="60" fileref="policy-rule-address-range-object.png" />
+        <graphic scale="50" fileref="policy-rule-address-range-object.png" />
       </figure>
 
       <para>
@@ -956,7 +956,7 @@ access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
 
       <figure id="policy-rule-with-address-range-obj">
         <title>Policy for server</title>
-        <graphic scale="60" fileref="policy-rule-with-address-range.png" />
+        <graphic scale="50" fileref="policy-rule-with-address-range.png" />
       </figure>
 
       <para>
@@ -1003,7 +1003,7 @@ $IPTABLES -A INPUT  -s 192.168.1.112   -m state --state NEW  -j ACCEPT
 
       <figure id="policy-14">
         <title>SSH from anywhere</title>
-        <graphic scale="70" fileref="policy-14.png" />
+        <graphic scale="50" fileref="policy-14.png" />
       </figure>
 
       <para>
@@ -1103,7 +1103,7 @@ ssh    0.0.0.0 0.0.0.0 inside
 
       <figure id="policy-15">
         <title>SSH from LAN</title>
-        <graphic scale="70" fileref="policy-15.png" />
+        <graphic scale="50" fileref="policy-15.png" />
       </figure>
 
 
@@ -1132,7 +1132,7 @@ ssh    192.168.1.0 255.255.255.0 inside
 
       <figure id="policy-16">
         <title>LAN to anywhere</title>
-        <graphic scale="70" fileref="policy-16.png" />
+        <graphic scale="50" fileref="policy-16.png" />
       </figure>
 
       <para>
@@ -1152,7 +1152,7 @@ ssh    192.168.1.0 255.255.255.0 inside
 
       <figure id="policy-17">
         <title>Negating the firewall as a destination from the LAN</title>
-        <graphic scale="70" fileref="policy-17.png" />
+        <graphic scale="50" fileref="policy-17.png" />
       </figure>
 
       <para>
@@ -1182,7 +1182,7 @@ ssh    192.168.1.0 255.255.255.0 inside
 
       <figure id="policy-18">
         <title>Firewall access from only one machine</title>
-        <graphic scale="70" fileref="policy-18.png" />
+        <graphic scale="50" fileref="policy-18.png" />
       </figure>
 
       <para>
@@ -1202,7 +1202,7 @@ ssh    192.168.1.0 255.255.255.0 inside
       <figure id="policy-18-a">
         <title>Firewall access from only one machine; all other
         access to the firewall explicitly denied</title>
-        <graphic scale="70" fileref="policy-18-a.png" />
+        <graphic scale="50" fileref="policy-18-a.png" />
       </figure>
 
       <para>
@@ -1243,7 +1243,7 @@ ssh    192.168.1.0 255.255.255.0 inside
 
       <figure id="ssh-access-from-mgmt">
         <title>Option that enabled automatic rule to permit ssh access from management workstation</title>
-        <graphic scale="70" fileref="ssh-access-from-mgmt.png" />
+        <graphic scale="50" fileref="ssh-access-from-mgmt.png" />
       </figure>
 
 
@@ -1332,7 +1332,7 @@ $IPTABLES -A OUTPUT  -p tcp -m tcp  -d 192.168.1.110/255.255.255.255 \
 
       <figure id="port-access-control1">
         <title>Policy for server</title>
-        <graphic scale="60" fileref="port-access-control1.png" />
+        <graphic scale="50" fileref="port-access-control1.png" />
       </figure>
 
       
@@ -1422,7 +1422,7 @@ block in   log  quick inet  from any  to 192.168.1.10
 
       <figure id="port-access-control2">
         <title>Policy for server</title>
-        <graphic scale="80" fileref="port-access-control2.png" />
+        <graphic scale="50" fileref="port-access-control2.png" />
       </figure>
 
       <para>
@@ -1436,7 +1436,7 @@ block in   log  quick inet  from any  to 192.168.1.10
 
       <figure id="port-access-control3">
         <title>Policy for server</title>
-        <graphic scale="60" fileref="port-access-control3.png" />
+        <graphic scale="50" fileref="port-access-control3.png" />
       </figure>
 
       <note><para>
@@ -1522,7 +1522,7 @@ pass  quick inet proto tcp  from 192.0.2.100  to 192.0.2.1 port 22 keep state
 
       <figure id="rule-on-loopback">
           <title>Rule permitting everything on the loopback interface</title>
-              <graphic scale="70" fileref="policy-10.png" />
+          <graphic scale="50" fileref="policy-10.png" />
         </figure>
 
       <note>
@@ -1584,7 +1584,7 @@ pass  quick on lo inet  from any  to any keep state
       <figure id="f-policy-2">
         <title>IP Service object which represents fragmented
           packets.</title>
-        <graphic scale="60" fileref="policy-2.png" />
+        <graphic scale="50" fileref="policy-2.png" />
       </figure>
 
       <para>Object "ip_fragments", which is included in the section "Services/IP" of
@@ -1613,7 +1613,7 @@ pass  quick on lo inet  from any  to any keep state
 
       <figure id="f-policy-3">
         <title>Rule options dialog for iptables firewall</title>
-        <graphic scale="70" fileref="iptables-options-logging.png" />
+        <graphic scale="50" fileref="iptables-options-logging.png" />
       </figure>
       
       <para>Here is an example of the policy rule which is intended to block
@@ -1622,7 +1622,7 @@ pass  quick on lo inet  from any  to any keep state
       <figure>
         <title>Rule blocking short fragmented packets and TCP "Christmas scan"
           packets</title>
-        <graphic scale="60" fileref="policy-4.png" />
+        <graphic scale="50" fileref="policy-4.png" />
       </figure>
 
       <para>This rule applies to
@@ -1684,12 +1684,12 @@ pass  quick on lo inet  from any  to any keep state
 
       <figure>
         <title>Using action "Reject" with rule option</title>
-        <graphic scale="70" fileref="policy-6.png" />
+        <graphic scale="50" fileref="policy-6.png" />
       </figure>
 
       <figure id="f-policy-7">
         <title>Adding rule option to make send TCP RST packet</title>
-        <graphic scale="70" fileref="action-parameters-reject.png" />
+        <graphic scale="50" fileref="action-parameters-reject.png" />
       </figure>
 
       <para>
@@ -1754,7 +1754,7 @@ block return-rst  quick inet proto tcp  from any  to 192.168.1.100 port 113
       <figure id="f-policy-8">
         <title>Using two rules to block access from DMZ to internal net and
           permit access to the Internet</title>
-        <graphic scale="60" fileref="policy-8.png" />
+        <graphic scale="50" fileref="policy-8.png" />
       </figure>
 
       <para>
@@ -1791,7 +1791,7 @@ $IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 --dport 25  \
       <figure id="f-policy-9">
         <title>Using rule with negation to block access from DMZ to internal
           net and permit access to the Internet</title>
-        <graphic scale="60" fileref="policy-9.png" />
+        <graphic scale="50" fileref="policy-9.png" />
       </figure>
 
       <para>
@@ -1822,7 +1822,7 @@ $IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22 -d ! 192.168.1.0/24 \
       <figure id="f-policy-9-a">
         <title>Using rule with negation to block access from DMZ to internal
           net and permit access to the Internet</title>
-        <graphic scale="60" fileref="policy-9-a.png" />
+        <graphic scale="50" fileref="policy-9-a.png" />
       </figure>
 
       <para>
@@ -1930,7 +1930,7 @@ iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
 
       <figure id="tag-service-1">
         <title>Simple tag service</title>
-        <graphic scale="60" fileref="tag-service-1.png" />
+        <graphic scale="50" fileref="tag-service-1.png" />
       </figure>
 
       <para>
@@ -1939,7 +1939,7 @@ iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
 
       <figure id="tcp-sport-80">
         <title>TCP service to match source port 80</title>
-        <graphic scale="60" fileref="tcp-service-sport-80.png" />
+        <graphic scale="50" fileref="tcp-service-sport-80.png" />
       </figure>
 
       <para>
@@ -1948,7 +1948,7 @@ iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
 
       <figure id="iptables-tag-rule-1">
         <title>Rule matching Tag Service</title>
-        <graphic scale="60" fileref="iptables-tag-rule-1.png" />
+        <graphic scale="50" fileref="iptables-tag-rule-1.png" />
       </figure>
 
       <para>
@@ -1961,12 +1961,12 @@ iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
 
       <figure id="iptables-tag-rule-1-a">
         <title>Configuring Tag action</title>
-        <graphic scale="60" fileref="iptables-tag-rule-1-a.png" />
+        <graphic scale="50" fileref="iptables-tag-rule-1-a.png" />
       </figure>
 
       <figure id="iptables-tag-rule-1-b">
         <title>Configuring rule options to make the rule stateless</title>
-        <graphic scale="60" fileref="iptables-tag-rule-1-b.png" />
+        <graphic scale="50" fileref="iptables-tag-rule-1-b.png" />
       </figure>
 
 
@@ -2022,7 +2022,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
       <figure id="ipv6_slide_1">
           <title>Add IPv6 addresses to an interface</title>
-              <graphic scale="70" fileref="ipv6_slide_1.png" />
+          <graphic scale="50" fileref="ipv6_slide_1.png" />
         </figure>
 
       <para>
@@ -2031,7 +2031,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
         <figure id="ipv6_slide_2">
           <title>Enter address and netmask</title>
-              <graphic scale="70" fileref="ipv6_slide_2.png" />
+          <graphic scale="50" fileref="ipv6_slide_2.png" />
         </figure>
 
         <para>
@@ -2040,7 +2040,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
         <figure id="ipv6_slide_3">
           <title>Internal Interface</title>
-              <graphic scale="70" fileref="ipv6_slide_3.png" />
+          <graphic scale="50" fileref="ipv6_slide_3.png" />
         </figure>
 
 	<para>
@@ -2051,7 +2051,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
         <figure id="ipv6_slide_7">
           <title>Create IPv6 network object</title>
-              <graphic scale="70" fileref="ipv6_slide_7.png" />
+          <graphic scale="50" fileref="ipv6_slide_7.png" />
         </figure>
 
 	<para>
@@ -2061,7 +2061,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
         <figure id="ipv6_slide_8">
           <title>IPv6 network object name and address</title>
-              <graphic scale="70" fileref="ipv6_slide_8.png" />
+              <graphic scale="50" fileref="ipv6_slide_8.png" />
         </figure>
 
         <para>
@@ -2078,7 +2078,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
         
         <figure id="ipv6_slide_4">
           <title>Policy parameters</title>
-              <graphic scale="70" fileref="ipv6_slide_4.png" />
+              <graphic scale="50" fileref="ipv6_slide_4.png" />
         </figure>
 
         <para>
@@ -2090,7 +2090,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
         <figure id="ipv6_slide_4_1">
           <title>IPv4/IPv6 rule set configuration</title>
-              <graphic scale="70" fileref="ipv6_slide_4_1.png" />
+              <graphic scale="50" fileref="ipv6_slide_4_1.png" />
         </figure>
 
         <itemizedlist>
@@ -2183,7 +2183,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
         <figure id="ipv6_slide_5">
           <title>Add policy rule set</title>
-              <graphic scale="70" fileref="ipv6_slide_5.png" />
+              <graphic scale="50" fileref="ipv6_slide_5.png" />
         </figure>
 
 	<para>
@@ -2194,7 +2194,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
         <figure id="ipv6_slide_6">
           <title>Set rule set parameters</title>
-              <graphic scale="70" fileref="ipv6_slide_6.png" />
+              <graphic scale="50" fileref="ipv6_slide_6.png" />
         </figure>
 
 	<para>
@@ -2208,7 +2208,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
 
         <figure id="ipv6_slide_9">
           <title>Add policy rules</title>
-              <graphic scale="70" fileref="ipv6_slide_9.png" />
+              <graphic scale="50" fileref="ipv6_slide_9.png" />
         </figure>
 
 	<para>
@@ -2306,7 +2306,7 @@ $IP6TABLES -A Policy_ipv6_3  -j DROP
 
         <figure id="ipv6_slide_6_1">
           <title>Mixed IPv4/IPv6 rule set parameters</title>
-              <graphic scale="70" fileref="ipv6_slide_6_1.png" />
+              <graphic scale="50" fileref="ipv6_slide_6_1.png" />
         </figure>
 
         <para>
@@ -2439,7 +2439,7 @@ pass in quick inet6 proto icmp6  from any  to &lt;tbl.r1.dx&gt; keep state
 
         <figure id="ipv6_slide_19">
           <title>IPv4 only rule set</title>
-              <graphic scale="70" fileref="ipv6_slide_19.png" />
+              <graphic scale="50" fileref="ipv6_slide_19.png" />
         </figure>
 
         <para>
@@ -2502,7 +2502,7 @@ exit
 
         <figure id="ipv6_slide_20">
           <title>Mixed IPv4/IPv6 rule set</title>
-              <graphic scale="70" fileref="ipv6_slide_20.png" />
+              <graphic scale="50" fileref="ipv6_slide_20.png" />
         </figure>
 
         <para>
@@ -2621,14 +2621,14 @@ exit
 
         <figure id="ex2-server-1">
           <title>Firewall object with multiple services</title>
-              <graphic scale="70" fileref="ex2-server-1.png" />
+              <graphic scale="50" fileref="ex2-server-1.png" />
         </figure>
 
 	<para>Here are the policy rules:</para>
 
         <figure id="ex2-server-2">
           <title>Policy rules</title>
-              <graphic scale="70" fileref="ex2-server-2.png" />
+              <graphic scale="50" fileref="ex2-server-2.png" />
         </figure>
 
 	  <para> Access to webmin service is only permitted from the
@@ -2641,7 +2641,7 @@ exit
 
         <figure id="ex2-server-3">
           <title>webmin object</title>
-              <graphic scale="70" fileref="ex2-server-3.png" />
+              <graphic scale="50" fileref="ex2-server-3.png" />
         </figure>
 
 	<para>Webmin uses port 10000, so we put this port number in
@@ -2664,7 +2664,7 @@ exit
 
         <figure id="policy-10-2">
           <title>Rules with DHCP</title>
-              <graphic scale="70" fileref="policy-10-2.png" />
+              <graphic scale="50" fileref="policy-10-2.png" />
         </figure>
 
 	<para> The first rule permits two types of DHCP requests: the
@@ -2685,7 +2685,7 @@ exit
 
         <figure id="policy-11">
           <title>Rules with DHCP using Firewall interface</title>
-              <graphic scale="70" fileref="policy-11.png" />
+              <graphic scale="50" fileref="policy-11.png" />
         </figure>
 
 	<para>To permit the local network to use the firewall as a DNS
@@ -2696,7 +2696,7 @@ exit
 
         <figure id="policy-12">
           <title>Rules with DNS</title>
-              <graphic scale="70" fileref="policy-12.png" />
+              <graphic scale="50" fileref="policy-12.png" />
         </figure>
 
 	<para>The Service object group object DNS can be found in the
@@ -2724,7 +2724,7 @@ exit
 
         <figure id="policy-19">
           <title>HTTP only</title>
-              <graphic scale="70" fileref="policy-19.png" />
+              <graphic scale="50" fileref="policy-19.png" />
         </figure>
 
 	  <para>Rule #1 blocking packets going from any source to any
@@ -2742,7 +2742,7 @@ exit
 
         <figure id="policy-20">
           <title>HTTP and DNS</title>
-              <graphic scale="70" fileref="policy-20.png" />
+              <graphic scale="50" fileref="policy-20.png" />
         </figure>
 
 	  <para> Service object DNS, which includes both the UDP and
@@ -2757,7 +2757,7 @@ exit
 
         <figure id="policy-21">
           <title>HTTP,DNS and ping</title>
-              <graphic scale="70" fileref="policy-21.png" />
+              <graphic scale="50" fileref="policy-21.png" />
         </figure>
 
 	  <note><para>In Firewall Builder, a firewall object
