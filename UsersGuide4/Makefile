@@ -19,7 +19,15 @@ SOURCES = Introduction.xml \
 		policy-cookbook.xml \
 		nat-cookbook.xml \
 		linux-cluster-cookbook.xml \
-		tricks.xml
+		tricks.xml \
+		vrrpd_cluster.xml \
+		heartbeat_cluster.xml \
+		heartbeat_vlan_cluster.xml \
+		heartbeat_dedicated_interface.xml \
+		state_sync_conntrackd.xml \
+		pf_cluster.xml \
+		pix_cluster.xml
+
 
 CATALOGS = catalog-Darwin.xml catalog-Linux.xml
 HTML_STYLESHEETS = html.xsl

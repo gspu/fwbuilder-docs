@@ -361,7 +361,7 @@
       </para>
 
       <para>
-        <figure float="1" id="linux_cluster_interface_mappings">
+        <figure id="linux_cluster_interface_mappings">
           <title>Failover group objects and mapping between
             cluster and member interfaces</title>
           <graphic scale="50" fileref="linux-cluster-interface-mappings.png"/>
@@ -444,8 +444,8 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
       </para>
 
       <para>
-        <figure float="1" id="linux_heartbeat_cluster_2">
-          <title>Interfaces and addresses of the cluster members</title>
+        <figure id="linux_heartbeat_cluster_2">
+          <title>Failover Group object configuration</title>
           <graphic scale="50" fileref="linux-heartbeat-cluster-2.png"/>
         </figure>
       </para>
@@ -519,7 +519,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
       </para>
 
       <para>
-        <figure float="1" id="linux_cluster_statesync_mappings">
+        <figure id="linux_cluster_statesync_mappings">
           <title>Interfaces and addresses of the cluster members</title>
           <graphic scale="50" fileref="linux-cluster-statesync-mappings.png"/>
         </figure>
@@ -530,7 +530,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
       </para>
 
       <para>
-        <figure float="1" id="linux_cluster_statesync_group">
+        <figure id="linux_cluster_statesync_group">
           <title>Interfaces and addresses of the cluster members</title>
           <graphic scale="50" fileref="linux-cluster-statesync-group.png"/>
         </figure>
