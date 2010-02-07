@@ -100,7 +100,9 @@
         Here is the configuration for the test setup I am using:
       </para>
 
-      <screen>
+      <figure id="heartbeat_mcast_config_1">
+        <title>Heartbeat configuration files</title>
+        <screen>
 # cat ha.cnf:
 
 mcast eth0 225.0.0.1 694 1 0
@@ -108,22 +110,20 @@ mcast eth1 225.0.0.1 694 1 0
 auto_failback on
 node linux-test-1
 node linux-test-2
-      </screen>
 
-      <screen>
+
 # cat haresources 
 
 linux-test-1 IPaddr::10.3.14.150/24/eth0/10.3.14.255
 linux-test-1 IPaddr::10.1.1.254/24/eth1/10.1.1.255 
-      </screen>
 
 
-      <screen>
 # cat authkeys 
 
 auth 3
 3 md5 hb-auth-key
-      </screen>
+        </screen>
+      </figure>
 
       <para>
         This tells heartbeat to run two sessions, on interfaces eth0
@@ -499,7 +499,329 @@ root@linux-test-2:~# ip -4 addr ls
     <sect3>
       <title>Policy and NAT rules for the cluster</title>
 
+      <note>
+        <para>
+          Examples in this recipe illustrate another useful feature of
+          cluster configurations in Firewall Builder: cluster object
+          <emphasis>"linux-cluster-hb"</emphasis> used in this recipe
+          and cluster object <emphasis>"linux-cluster"</emphasis> from
+          the previous one (<xref linkend="vrrpd_cluster"/>) use the
+          same firewall objects as member firewalls but generate
+          configurations for clusters based on different failover
+          protocols.  The same member firewall object may be used with
+          several cluster objects to test different configurations or
+          for migration.
+        </para>
+      </note>
+
       <para>
+        Now we can move on to building cluster policy and NAT
+        rules. In the examples below I am using a new feature in
+        Firewall Builder 4.0 that lets you quickly compile single rule
+        and see the result in the bottom panel of the GUI
+        immediately. To do this, click right mouse button anywhere in
+        the rule to open context menu and use item "Compile" or
+        highlight the rule and hit keyboard key
+        "X". <xref linkend="cookbook_linux_hb_cluster_14"/>
+      </para>
+
+      <figure id="cookbook_linux_hb_cluster_14">
+        <title>Compiling single rule</title>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-14.png"/>
+      </figure>
+
+      <para>
+        <xref linkend="cookbook_linux_hb_cluster_15"/> demonstrates minimal
+        policy rule set for the cluster that demonstrates general
+        principles used by fwbuilder to generate configurations for
+        the member firewalls.
+      </para>
+
+      <figure id="cookbook_linux_hb_cluster_15">
+        <title>Simple policy for the cluster, also showing generated
+          iptables commands for the anti-spoofing rule</title>
+        <graphic scale="50" fileref="linux-hb-cluster-15.png"/>
+      </figure>
+
+
+      <para>
+        Lets inspect policy rules shown in
+        <xref linkend="cookbook_linux_hb_cluster_15"/>. All rules are built
+        with global option "Assume firewall is part of any" turned off
+        in both linux-test-1 and linux-test-2 firewalls.
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Rule 0: anti-spoofing rule. When we build
+            anti-spoofing rule for a standalone firewall, we put
+            firewall object in "Source", its external interface in
+            "Interface" and make direction "Inbound". When we do this
+            for a cluster, we put cluster object in "Source" instead of
+            the member firewall object. The interface object in
+            "Interface" element of this rule is the one that belongs to
+            the cluster rather than its members. All other aspects of
+            the rule are the same. Fwbuilder generates iptables commands
+            for this rule using ip addresses of the cluster (10.3.14.150
+            and 10.1.1.254 in our example) and addresses of the member
+            firewall it compiles for, in this case 10.3.14.108 and
+            10.1.1.1 for linux-test-1 and 10.3.14.109 and 10.1.1.2 for
+            linux-test-2. This is clearly visible in the generated
+            output shown in <xref linkend="cookbook_linux_hb_cluster_15"/>. In
+            other words, policy compiler processes rules twice, first
+            compiling for the first member firewall and then for the
+            second one. On each pass, cluster object represents
+            corresponding member, plus virtual addresses configured in
+            the cluster's interfaces.
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>Rules 1 and 2: heartbeat can be configured to use
+          either multicast or unicast addresses. See below for the
+          example of configuration with unicast addresses, but by
+          default it is assumed to use multicast.  Rules 1 and 2
+          permit IGMP packets that the system needs to be able to join
+          multicast group.  Rules 1 and 2 permit packets sent to the
+          standard multicast address registered for IGMP in both
+          directions (in and out). These rules use standard IPv4
+          address object "IGMP" that is available in the Standard
+          objects library. The rules could be even more restrictive
+          and also match IP service object "IGMP", also available in
+          the Standard objects library.  Since this service object
+          matches protocol number 2 and IP option
+          "router-alert". Unfortunately only the very latest Linux
+          distributions ship iptables module ipv4options that is
+          needed to match IP options so I did not put the service
+          object in the rule. Here is how generated iptables script
+          look like when "Service" field on the rules 1 and 2 is "any"
+          </para>
+
+          <para>
+            <screen>
+linux-test-1 / Policy / rule 1 
+$IPTABLES -A OUTPUT -d 224.0.0.22 -m state --state NEW -j ACCEPT
+
+linux-test-2 / Policy / rule 1 
+$IPTABLES -A OUTPUT -d 224.0.0.22 -m state --state NEW -j ACCEPT
+            </screen>
+
+
+            <screen>
+linux-test-1 / Policy / rule 2 
+$IPTABLES -A INPUT -s 224.0.0.22 -m state --state NEW -j ACCEPT
+
+linux-test-2 / Policy / rule 2 
+$IPTABLES -A INPUT -s 224.0.0.22 -m state --state NEW -j ACCEPT
+            </screen>
+
+          </para>
+
+          <para>
+            If I put standard IP service object "IGMP" in the
+            "Service" field of rules 1 and 2, I get the following
+            iptables commands for the rule 1:
+          </para>
+
+          <para>
+            <screen>
+linux-test-1 / Policy / rule 1 
+$IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW -j ACCEPT
+
+linux-test-2 / Policy / rule 1 
+$IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW -j ACCEPT
+            </screen>
+          </para>
+        </listitem>
+
+
+        <listitem>
+          <para>
+            The rest of the rules are fairly usual and serve to
+            illustrate that building a policy for the cluster is no
+            different than building the policy for a regular
+            standalone firewall. Rules 3 and 4 permit access from the
+            firewall to internal network and the other way
+            around. Generated iptables commands use INPUT and OUTPUT
+            chains and look like this:
+          </para>
+          
+          <para>
+            <screen>
+linux-test-1 / Policy / rule 3 
+$IPTABLES -A OUTPUT -d 10.1.1.0/24 -m state --state NEW -j ACCEPT
+
+linux-test-2 / Policy / rule 3 
+$IPTABLES -A OUTPUT -d 10.1.1.0/24 -m state --state NEW -j ACCEPT
+            </screen>
+
+            <screen>
+linux-test-1 / Policy / rule 4 
+$IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
+
+linux-test-2 / Policy / rule 4 
+$IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
+            </screen>
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            Rule 5 permits outbound access from the internal net to the
+            Internet and uses chain FORWARD. Generated iptables code for
+            this rule is no different from that produced for a regular
+            standalone firewall.
+          </para>
+        </listitem>
+
+      </itemizedlist>
+
+      <para>
+        Note that we don't need to add explicit rule to permit heartbeat
+        and conntrackd packets to the policy. This is because
+        fwbuilder adds these rules automatically. Here is how they
+        look like in the generated iptables script for
+        the <emphasis>linux-test-1</emphasis> firewall:
+      </para>
+
+      <screen>
+# ================ Table 'filter', rule set Policy
+# 
+# Rule -6 heartbeat (automatic)
+# 
+$IPTABLES -A OUTPUT -o eth1 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule -5 heartbeat (automatic)
+# 
+$IPTABLES -A INPUT -i eth1 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule -4 heartbeat (automatic)
+# 
+$IPTABLES -A OUTPUT -o eth0 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule -3 heartbeat (automatic)
+# 
+$IPTABLES -A INPUT -i eth0 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule -2 CONNTRACK (automatic)
+# 
+$IPTABLES -A OUTPUT -o eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
+# 
+# Rule -1 CONNTRACK (automatic)
+# 
+$IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
+      </screen>
+
+      <para>
+        Rules for conntrack are associated with ineterface eth1
+        because the State Synchronization group is configured with
+        interfaces eth1 of the member firewalls (<xref linkend="cookbook_linux_hb_cluster_12"/>).
+      </para>
+
+      <para>
+        Failover protocol heartbeat and state synchronization protocol
+        conntrack can work using either multicast or unicast
+        addresses. Configuration described in this recipe so far used
+        multicast addresses for both. To switch to unicast, you need
+        to change configuration of heartbeat in the ha.cnf file to use
+        unicast. Here is how it looks like for the machine
+        linux-test-1:
+
+        <screen>
+# cat ha.cnf
+ucast eth0 10.3.14.109
+ucast eth1 10.1.1.2
+        </screen>
+
+        Before, when heartbeat was configured to use multicast, the
+        ha.cnf file was identical on both cluster member firewalls.
+        Now that each machine is configured with IP address of the
+        other machine in the cluster, ha.cnf files are different.
+      </para>
+
+      <para>
+        Apparently conntrackd can also work using unicast addresses
+        however I can not provide example of its configuration.
+      </para>
+
+      <para>
+        To build iptables rules for heartbeat and conntrack working
+        with unicast addresses, open failover group objects associated
+        with cluster interfaces as shown in
+        <xref linkend="cookbook_linux_hb_cluster_9"/> and
+        <xref linkend="cookbook_linux_hb_cluster_10"/>, click
+        <emphasis>"Edit protocol parameters"</emphasis> button and
+        turn on checkbox "Use unicast address":
+      </para>
+
+      <figure id="cookbook_linux_hb_cluster_unicast_heartbeat">
+        <title>Using heartbeat in unicast mode</title>
+        <graphic scale="50" fileref="linux-hb-cluster-unicast-heartbeat.png"/>
+      </figure>
+
+      <para>
+        To switch to unicast for conntrackd, open State
+        Synchronization group object in the editor and
+        click <emphasis>"Edit protocol parameters"</emphasis>
+        button, then turn on "Use unicast address" checkbox:
+      </para>
+
+      <figure id="cookbook_linux_hb_cluster_unicast_conntrack">
+        <title>Using heartbeat in unicast mode</title>
+        <graphic scale="50" fileref="linux-hb-cluster-unicast-conntrack.png"/>
+      </figure>
+
+      <note>
+        <para>
+          When you switch to unicast, the "Address" input field in the
+          heartbeat and conntrack protocol parameters dialogs becomes
+          disabled.
+        </para>
+      </note>
+
+      <para>
+        Switching to unicast makes fwbuilder generate iptables
+        commands that match IP address of the peer firewall for the
+        corresponding interface pair. Here is the script generated for
+        the machine <emphasis>linux-test-1</emphasis>:
+      </para>
+
+      <screen>
+# Rule -4 heartbeat (automatic)
+# 
+$IPTABLES -A OUTPUT -o eth0 -p udp -m udp -d 10.3.14.109 --dport 694 -j ACCEPT
+# 
+# Rule -3 heartbeat (automatic)
+# 
+$IPTABLES -A INPUT -i eth0 -p udp -m udp -s 10.3.14.109 --dport 694 -j ACCEPT
+# 
+# Rule -2 CONNTRACK (automatic)
+# 
+$IPTABLES -A OUTPUT -o eth1 -p udp -m udp -d 10.1.1.2 --dport 3780 -j ACCEPT
+# 
+# Rule -1 CONNTRACK (automatic)
+# 
+$IPTABLES -A INPUT -i eth1 -p udp -m udp -s 10.1.1.2 --dport 3780 -j ACCEPT
+      </screen>
+
+
+      <para>
+        Now lets look at the NAT rule built for this cluster
+        <xref linkend="cookbook_linux_hb_cluster_16"/>
+      </para>
+
+      <figure id="cookbook_linux_hb_cluster_16">
+        <title>NAT rule for the cluster</title>
+        <graphic scale="50" fileref="linux-hb-cluster-16.png"/>
+      </figure>
+
+
+      <para>
+        Interface <emphasis>eth0</emphasis> used in the "Translated
+        Source" element of this rule is the one that belongs to the
+        cluster, not member firewalls. Generated iptables commands use
+        cluster interface that belongs to this interface for the
+        translation. Otherwise this is very common SNAT rule.
       </para>
 
     </sect3>
@@ -507,6 +829,43 @@ root@linux-test-2:~# ip -4 addr ls
 
     <sect3>
       <title>Managing IP addresses of the interfaces in heartbeat cluster setup</title>
+
+      <para>
+        In order to ensure the environment in which generated iptables
+        rules will work really matches assumptions under which these
+        rules were generated, fwbuilder can manage IP addresses of the
+        interfaces of the firewall machine. This feature is optional
+        and is controlled by the checkbox "Configure interfaces of the
+        firewall machine" in the "Script" tab of the firewall object
+        "advanced settings" dialog,
+        <xref linkend="cookbook_linux_hb_cluster_17"/>:
+
+        <figure id="cookbook_linux_hb_cluster_17">
+          <title>Options in the "Script" tab of the firewall object dialog</title>
+          <graphic scale="50" fileref="linux-vrrpd-cluster-17.png"/>
+        </figure>
+        
+        The reason for this is that if the program generates rules
+        assuming certain addresses belong to the firewall, but in fact
+        they do not, packets will go into chains different from those
+        used in the generated iptables commands and behavior of the
+        firewall will be wrong.
+      </para>
+
+      <para>
+        The code that manages addresses of interfaces should be able
+        to find and ignore addresses added by the failover daemons
+        such as VRRPd, heartbeat or keepalived. The program does this
+        by looking at the ip addresses of the cluster interfaces. It
+        is important therefore to configure these addresses exactly as
+        they are done by the failover daemons, including both the
+        address and netmask. Heartbeat configuration used in the
+        recipe <xref linkend="heartbeat_mcast_config_1"/> configure
+        virtual IP address with netmask /24. The addresses of the
+        cluster interfaces must be configured just like that,
+        otherwise generated script will kill them when it activates
+        firewall policy. This is shown in <xref linkend="cookbook_linux_hb_cluster_6"/>
+      </para>
 
     </sect3>
 

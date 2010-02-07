@@ -30,7 +30,7 @@
       <ServiceGroup id="id2202X22057" name="TagServices" comment="" ro="False"/>
     </ServiceGroup>
     <ObjectGroup id="id2203X22057" name="Firewalls" comment="" ro="False">
-      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="1265233553" lastInstalled="0" lastModified="1265131284" platform="iptables" name="linux-test-1" comment="" ro="False">
+      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="1265573372" lastInstalled="0" lastModified="1265131284" platform="iptables" name="linux-test-1" comment="" ro="False">
         <NAT id="id2232X22057" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -120,7 +120,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="1265233553" lastInstalled="0" lastModified="1265131290" platform="iptables" name="linux-test-2" comment="" ro="False">
+      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="1265573372" lastInstalled="0" lastModified="1265131290" platform="iptables" name="linux-test-2" comment="" ro="False">
         <NAT id="id2007X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -431,11 +431,172 @@
           </ClusterGroupOptions>
         </StateSyncClusterGroup>
       </Cluster>
-      <Cluster id="id2449X2867" host_OS="linux24" lastCompiled="0" lastInstalled="0" lastModified="1265416019" platform="iptables" name="linux-cluster-hb" comment="" ro="False">
+      <Cluster id="id2449X2867" host_OS="linux24" lastCompiled="1265573372" lastInstalled="0" lastModified="1265575035" platform="iptables" name="linux-cluster-hb" comment="" ro="False">
         <NAT id="id2453X2867" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <NATRule id="id43994X40411" disabled="False" position="0" action="Translate" comment="">
+            <OSrc neg="False">
+              <ObjectRef ref="id32739X22130"/>
+            </OSrc>
+            <ODst neg="False">
+              <ObjectRef ref="sysid0"/>
+            </ODst>
+            <OSrv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </OSrv>
+            <TSrc neg="False">
+              <ObjectRef ref="id2459X2867"/>
+            </TSrc>
+            <TDst neg="False">
+              <ObjectRef ref="sysid0"/>
+            </TDst>
+            <TSrv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </TSrv>
+            <NATRuleOptions/>
+          </NATRule>
           <RuleSetOptions/>
         </NAT>
         <Policy id="id2451X2867" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <PolicyRule id="id2794X40411" disabled="False" log="True" position="0" action="Deny" direction="Inbound" comment="">
+            <Src neg="False">
+              <ObjectRef ref="id2449X2867"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <Itf neg="False">
+              <ObjectRef ref="id2459X2867"/>
+            </Itf>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions>
+              <Option name="stateless">True</Option>
+            </PolicyRuleOptions>
+          </PolicyRule>
+          <PolicyRule id="id2748X40411" disabled="False" log="False" position="1" action="Accept" direction="Outbound" comment="">
+            <Src neg="False">
+              <ObjectRef ref="id2449X2867"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="id2777X88798"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <Itf neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Itf>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions>
+              <Option name="stateless">False</Option>
+            </PolicyRuleOptions>
+          </PolicyRule>
+          <PolicyRule id="id2702X40411" disabled="False" log="False" position="2" action="Accept" direction="Inbound" comment="">
+            <Src neg="False">
+              <ObjectRef ref="id2777X88798"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="id2449X2867"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <Itf neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Itf>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions>
+              <Option name="stateless">False</Option>
+            </PolicyRuleOptions>
+          </PolicyRule>
+          <PolicyRule id="id2656X40411" disabled="False" group="" log="False" position="3" action="Accept" direction="Both" comment="">
+            <Src neg="False">
+              <ObjectRef ref="id2449X2867"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="id32739X22130"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <Itf neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Itf>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions>
+              <Option name="stateless">False</Option>
+            </PolicyRuleOptions>
+          </PolicyRule>
+          <PolicyRule id="id2610X40411" disabled="False" log="False" position="4" action="Accept" direction="Both" comment="">
+            <Src neg="False">
+              <ObjectRef ref="id32739X22130"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="id2449X2867"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <Itf neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Itf>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions>
+              <Option name="stateless">False</Option>
+            </PolicyRuleOptions>
+          </PolicyRule>
+          <PolicyRule id="id2564X40411" disabled="False" log="False" position="5" action="Accept" direction="Both" comment="">
+            <Src neg="False">
+              <ObjectRef ref="id32739X22130"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <Itf neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Itf>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions>
+              <Option name="stateless">False</Option>
+            </PolicyRuleOptions>
+          </PolicyRule>
+          <PolicyRule id="id2518X40411" disabled="False" log="True" position="6" action="Deny" direction="Both" comment="">
+            <Src neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <Itf neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Itf>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions>
+              <Option name="stateless">True</Option>
+            </PolicyRuleOptions>
+          </PolicyRule>
           <RuleSetOptions/>
         </Policy>
         <Routing id="id2455X2867" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
@@ -449,7 +610,11 @@
           <FailoverClusterGroup id="id2462X2867" master_iface="id2239X22057" type="heartbeat" name="linux-cluster-hb:eth0:members" comment="">
             <ObjectRef ref="id2239X22057"/>
             <ObjectRef ref="id2014X22130"/>
-            <ClusterGroupOptions/>
+            <ClusterGroupOptions>
+              <Option name="heartbeat_address">224.0.10.100</Option>
+              <Option name="heartbeat_port">694</Option>
+              <Option name="heartbeat_unicast">True</Option>
+            </ClusterGroupOptions>
           </FailoverClusterGroup>
         </Interface>
         <Interface id="id2466X2867" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
@@ -480,6 +645,7 @@
           <ClusterGroupOptions>
             <Option name="conntrack_address">225.0.0.50</Option>
             <Option name="conntrack_port">3780</Option>
+            <Option name="conntrack_unicast">True</Option>
           </ClusterGroupOptions>
         </StateSyncClusterGroup>
       </Cluster>
