@@ -2,7 +2,9 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 <xsl:import href="chunk.xsl"/>
 <!-- <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh/html/chunk.xsl"/> -->
+<xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
+<xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
 <xsl:param name="base.dir" select="'./html/'"/>
 <xsl:param name="html.stylesheet" select="'users_guide_3.css'"/>
 <xsl:param name="section.autolabel" select="1"/>
@@ -88,7 +90,7 @@ user.footer.navigation	Called after the standard navigational footer
                     </xsl:call-template>
                   </a>
                 </xsl:if>
-                <xsl:text>&#160;</xsl:text>
+                <xsl:text> </xsl:text>
               </td>
               <th width="60%" align="center">
                 <xsl:choose>
@@ -99,11 +101,11 @@ user.footer.navigation	Called after the standard navigational footer
                     <xsl:apply-templates select="$up" mode="object.title.markup"/>
 -->
                   </xsl:when>
-                  <xsl:otherwise>&#160;</xsl:otherwise>
+                  <xsl:otherwise> </xsl:otherwise>
                 </xsl:choose>
               </th>
               <td width="20%" align="right">
-                <xsl:text>&#160;</xsl:text>
+                <xsl:text> </xsl:text>
                 <xsl:if test="count($next)>0">
                   <a accesskey="n">
                     <xsl:attribute name="href">
