@@ -16,7 +16,7 @@
     you can always launch it from the command line by just
     typing <command>fwbuilder</command> at the shell prompt.</para>
 
-    <para>The program starts by opening the main window and a wecome
+    <para>The program starts by opening the main window and a welcome
     dialog.</para>
 
     <figure id="pict_020"><title>Starting Firewall Builder</title>
@@ -157,7 +157,7 @@
         process and can postpone it for later. Each IP address will
         appear as a separate object in the object tree, right under
         the object representing interface it belongs to and you will
-        be able to open this address obejct in the editor and make the
+        be able to open this address object in the editor and make the
         changes. However, if you change addresses of interfaces while
         still in the wizard that creates new firewall object, the
         program will also adjust policy and NAT rules that comes with
@@ -173,7 +173,7 @@
     </note>
 
     <para>
-      After you adjust IP addresses of all inetrfaces, click Finish
+      After you adjust IP addresses of all interfaces, click Finish
       button to create firewall object.
     </para>
 
@@ -219,7 +219,7 @@
     </para>
     
     <figure id="pict_090">
-      <title>Filename displayed</title>
+      <title>File name displayed</title>
       <graphic scale="50" fileref="gettingstarted_fig_9.png" />
     </figure>
 
@@ -310,7 +310,7 @@
         screen to keep them away when you do not need them but still
         within reach so you can quickly find objects and change their
         properties.  Use main menu "View" to open and close panels;
-        the tree panel can be opened and closed using keyboar shortcut
+        the tree panel can be opened and closed using keyboard shortcut
         Ctrl+T.
 
         <figure id="pict_100_1">
@@ -370,7 +370,7 @@
 
     <tip>
       <para>
-        Firewall Builder 4.0 has full Undo/Redu functions of unlimited
+        Firewall Builder 4.0 has full Undo/Redo functions of unlimited
         depth. You can monitor undo stack if you open it using main
         menu "View / Undo stack".
       </para>
@@ -431,12 +431,12 @@
       will be something like "eth0", "eth1", "en0", "br0", and so on.
 	</para></listitem>
 
-	<listitem><para><guilabel>Label</guilabel>: On most OS's this
+	<listitem><para><guilabel>Label</guilabel>: On most OS this
 	field is not used and serves the purpose of a descriptive
 	label. Firewall Builder GUI uses a label, if it is not blank,
 	to show interfaces in the tree. One of the suggested uses for
 	this field is to mark interfaces to reflect the network
-	topology ('outside', 'inside') or the purpose ('web frontend'
+	topology ('outside', 'inside') or the purpose ('web front-end'
 	or 'backup subnet'). The label is mandatory for Cisco PIX
 	though, where it must reflect the network topology.
 	</para></listitem>
@@ -508,7 +508,7 @@
 
 
     <para>
-      Secreenshot below shows IP address of
+      Screenshot below shows IP address of
       interface <emphasis>eth0</emphasis>. The address and netmask are
       attributes of the child object of the type "IPv4 address". Here
       the address is "192.0.2.1" and netmask "255.255.255.0". (Netmask
@@ -643,7 +643,7 @@
     </itemizedlist>
 
     <figure id="pict_200">
-      <title>Template rulesets</title>
+      <title>Template rule sets</title>
       <graphic scale="50" fileref="gettingstarted_fig_27.png" />
     </figure>
 
@@ -664,7 +664,7 @@
       Now click "Compile rule" (keyboard shortcut is "X") to see the
       result in the panel at the bottom of the main window. The is a
       great way to experiment with rules and see what is being
-      generated in responce to your changes.
+      generated in response to your changes.
     </para>
 
     <figure id="pict_202">
@@ -708,10 +708,10 @@
 
       <listitem>
         <para>
-          The "Top ruleset" is the one the compiler will use to
+          The "Top rule set" is the one the compiler will use to
 	  populate iptables built-in chains INPUT/OUTPUT/FORWARD. (If
-	  you have only one ruleset, then mark it as the top ruleset.)
-	  If a policy is not marked as "top ruleset", generated rules
+	  you have only one rule set, then mark it as the top rule set.)
+	  If a policy is not marked as "top rule set", generated rules
 	  will go into a user-defined chain with the same name as the
 	  policy object.
 	</para>
@@ -719,7 +719,7 @@
     </itemizedlist>
 
     <figure id="pict_210">
-      <title>Properties of the Policy ruleset object</title>
+      <title>Properties of the Policy rule set object</title>
       <graphic scale="50" fileref="gettingstarted_fig_28.png" />
     </figure>
 
@@ -756,7 +756,7 @@
     </itemizedlist>
 
     <figure id="pict_220">
-      <title>NAT ruleset</title>
+      <title>NAT rule set</title>
       <graphic scale="50" fileref="gettingstarted_fig_29.png" />
     </figure>
     
@@ -820,7 +820,7 @@
     </para>
 
     <para>
-      Firewall Builder can aslo transfer generated script to the
+      Firewall Builder can also transfer generated script to the
       firewall and activate it there. It uses ssh to do this (putty on
       Windows). To use the installer, click on the "Install" toolbar
       button located above the firewall policy panel or in the main
