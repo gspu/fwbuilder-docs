@@ -219,7 +219,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id2699X72742" host_OS="linux24" inactive="False" lastCompiled="1265575152" lastInstalled="0" lastModified="1265740004" platform="iptables" version="" name="linux-test-3" comment="" ro="False">
+      <Firewall id="id2699X72742" host_OS="linux24" inactive="False" lastCompiled="1265575152" lastInstalled="0" lastModified="1265753892" platform="iptables" version="" name="linux-test-3" comment="" ro="False">
         <NAT id="id2730X72742" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -237,7 +237,7 @@
           <IPv4 id="id2718X72742" name="linux-test-3:eth0:ip" comment="" ro="False" address="10.3.14.108" netmask="255.255.255.0"/>
           <InterfaceOptions/>
         </Interface>
-        <Interface id="id2721X72742" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
+        <Interface id="id2721X72742" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="100" unnum="True" unprotected="False" name="eth1" comment="" ro="False">
           <InterfaceOptions/>
           <Interface id="id2891X72742" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="eth1.101" comment="" ro="False">
             <IPv4 id="id3400X72742" name="linux-test-3:eth1:ip" comment="" ro="False" address="10.1.1.1" netmask="255.255.255.0"/>
@@ -286,7 +286,7 @@
           <Option name="configure_bonding_interfaces">False</Option>
           <Option name="configure_bridge_interfaces">False</Option>
           <Option name="configure_interfaces">True</Option>
-          <Option name="configure_vlan_interfaces">False</Option>
+          <Option name="configure_vlan_interfaces">True</Option>
           <Option name="debug">False</Option>
           <Option name="drop_invalid">False</Option>
           <Option name="epilog_script"></Option>
@@ -327,7 +327,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id2780X72742" host_OS="linux24" inactive="False" lastCompiled="1265575152" lastInstalled="0" lastModified="1265740638" platform="iptables" version="" name="linux-test-4" comment="" ro="False">
+      <Firewall id="id2780X72742" host_OS="linux24" inactive="False" lastCompiled="1265575152" lastInstalled="0" lastModified="1265754118" platform="iptables" version="" name="linux-test-4" comment="" ro="False">
         <NAT id="id2811X72742" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -345,7 +345,7 @@
           <IPv4 id="id2799X72742" name="linux-test-4:eth0:ip" comment="" ro="False" address="10.3.14.109" netmask="255.255.255.0"/>
           <InterfaceOptions/>
         </Interface>
-        <Interface id="id2802X72742" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
+        <Interface id="id2802X72742" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="100" unnum="True" unprotected="False" name="eth1" comment="" ro="False">
           <InterfaceOptions/>
           <Interface id="id5811X72742" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="eth1.101" comment="" ro="False">
             <IPv4 id="id5813X72742" name="linux-test-4:eth1:ip" comment="" ro="False" address="10.1.1.2" netmask="255.255.255.0"/>
@@ -394,7 +394,7 @@
           <Option name="configure_bonding_interfaces">False</Option>
           <Option name="configure_bridge_interfaces">False</Option>
           <Option name="configure_interfaces">True</Option>
-          <Option name="configure_vlan_interfaces">False</Option>
+          <Option name="configure_vlan_interfaces">True</Option>
           <Option name="debug">False</Option>
           <Option name="drop_invalid">False</Option>
           <Option name="epilog_script"></Option>
@@ -872,6 +872,64 @@
             <Option name="conntrack_port">3780</Option>
             <Option name="conntrack_unicast">True</Option>
           </ClusterGroupOptions>
+        </StateSyncClusterGroup>
+      </Cluster>
+      <Cluster id="id6444X72742" host_OS="linux24" lastCompiled="0" lastInstalled="0" lastModified="1265754118" platform="iptables" name="linux-cluster-hb-vlan" comment="" ro="False">
+        <NAT id="id6448X72742" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </NAT>
+        <Policy id="id6446X72742" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Policy>
+        <Routing id="id6450X72742" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Routing>
+        <Interface id="id6454X72742" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
+          <IPv4 id="id6455X72742" name="linux-cluster-hb-vlan:eth0:ip" comment="" ro="False" address="10.3.14.150" netmask="255.255.255.0"/>
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id6457X72742" master_iface="id2714X72742" type="heartbeat" name="linux-cluster-hb-vlan:eth0:members" comment="">
+            <ObjectRef ref="id2795X72742"/>
+            <ObjectRef ref="id2714X72742"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <Interface id="id6461X72742" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth1.101" comment="" ro="False">
+          <IPv4 id="id6462X72742" name="linux-cluster-hb-vlan:eth1.101:ip" comment="" ro="False" address="10.1.1.254" netmask="255.255.255.0"/>
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id6464X72742" type="heartbeat" name="linux-cluster-hb-vlan:eth1.101:members" comment="">
+            <ObjectRef ref="id5811X72742"/>
+            <ObjectRef ref="id2891X72742"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <Interface id="id6468X72742" dedicated_failover="False" dyn="False" label="" security_level="0" unnum="False" unprotected="False" name="eth1.102" comment="" ro="False">
+          <IPv4 id="id6469X72742" name="linux-cluster-hb-vlan:eth1.102:ip" comment="" ro="False" address="10.1.2.254" netmask="255.255.255.0"/>
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id6471X72742" type="heartbeat" name="linux-cluster-hb-vlan:eth1.102:members" comment="">
+            <ObjectRef ref="id5822X72742"/>
+            <ObjectRef ref="id3382X72742"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <Interface id="id6475X72742" dedicated_failover="False" dyn="False" label="loopback" security_level="0" unnum="False" unprotected="False" name="lo" comment="" ro="False">
+          <InterfaceOptions>
+            <Option name="type">cluster_interface</Option>
+          </InterfaceOptions>
+          <FailoverClusterGroup id="id6477X72742" master_iface="id2707X72742" type="none" name="linux-cluster-hb-vlan:lo:members" comment="">
+            <ObjectRef ref="id2788X72742"/>
+            <ObjectRef ref="id2707X72742"/>
+            <ClusterGroupOptions/>
+          </FailoverClusterGroup>
+        </Interface>
+        <FirewallOptions/>
+        <StateSyncClusterGroup id="id6452X72742" type="conntrack" name="State Sync Group" comment="">
+          <ClusterGroupOptions/>
         </StateSyncClusterGroup>
       </Cluster>
     </ObjectGroup>
