@@ -29,6 +29,16 @@
       <graphic scale="50" fileref="linux-vrrpd-cluster-1.png"/>
     </figure>
 
+    <note>
+      <para>
+        IPv6 addresses are not used in this recipe. Some interface
+        objects in the screenshots have ipv6 addresses because firewall
+        objects were "discovered" using snmp which finds ipv6
+        addresses. You can disregard these addresses while working
+        with examples in this chapter.
+      </para>
+    </note>
+
     <sect3>
       <title>Setting up VRRPd daemon</title>
 

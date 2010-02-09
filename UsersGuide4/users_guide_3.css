@@ -35,6 +35,7 @@
 }
 
 .column_users_guide .figure .title {
+    font-size: 1em;
     color: black;
 }
 
@@ -183,6 +184,15 @@
 
 .column_users_guide .reg_table table TH {
     border-bottom: 1px solid black;  
+}
+
+.column_users_guide .two_columns_layout_table table {
+    font-size: 1em;
+    border: 0px;
+}
+
+.column_users_guide .two_columns_layout_table table TD {
+    padding-right: 20px;
 }
 
 

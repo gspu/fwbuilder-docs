@@ -3,7 +3,7 @@
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
   <sect2 id="heartbeat_vlan_cluster">
-    <title>Linux cluster using heartbeat and VLAN inetrfaces</title>
+    <title>Linux cluster using heartbeat and VLAN interfaces</title>
 
     <para>
       In this recipe we are looking at the Linux cluster configuration
@@ -17,16 +17,27 @@
       <emphasis>eth1.101</emphasis> and <emphasis>eth1.102</emphasis>.
       This recipe demosntrates use of VLAN interfaces in fwbuilder.
 
+
       <figure id="cookbook_linux_hb_cluster_vlan">
         <title>Linux cluster using heartbeat and VLANs</title>
         <graphic scale="50" fileref="linux-heartbeat-cluster-vlan.png"/>
       </figure>
     </para>
 
+    <note>
+      <para>
+        IPv6 addresses are not used in this recipe. Some interface
+        objects in the screenshots have ipv6 addresses because firewall
+        objects were "discovered" using snmp which finds ipv6
+        addresses. You can disregard these addresses while working
+        with examples in this chapter.
+      </para>
+    </note>
+
     <para>
       As in the previous examples, we start with member firewall
       objcts. The difference between this and previous examples is
-      that now we need to configure VLAN inetrfaces. Lets start with a
+      that now we need to configure VLAN interfaces. Lets start with a
       firewall objects with interfaces <emphasis>eth0</emphasis>
       and <emphasis>eth1</emphasis>. In fact, these objects are copies
       of the <emphasis>linux-test-1</emphasis>
@@ -50,7 +61,7 @@
       object:
     </para>
 
-    <table frame='none' tabstyle='reg_table'>
+    <table frame='none' tabstyle='two_columns_layout_table'>
       <title></title>
       <tgroup cols='2' align='left'  rowsep='1'>
         <colspec colnum="1" colname="col1" colwidth="1*"/>
@@ -68,7 +79,7 @@
             <entry>
               <para>
                 <figure id="cookbook_linux_hb_cluster_vlan_3">
-                  <title>Subintrface has been created with default name</title>
+                  <title>Subinterface has been created with default name</title>
                   <graphic scale="50" fileref="linux-hb-cluster-vlan-3.png"/>
                 </figure>
               </para>
@@ -79,10 +90,20 @@
     </table>
 
     <para>
-      New inetrface object is created with default name
+      New interface object is created with default name
       "Interface". Double click it to open it in the editor and rename
-      it to <emphasis>eth1.101</emphasis>. Click the "Advanced
-      interface settings" button to verify its VLAN configuration:
+      it to <emphasis>eth1.101</emphasis>:
+    </para>
+
+    <figure id="cookbook_linux_hb_cluster_vlan_3_1">
+      <title>VLAN subinterface in the editor</title>
+      <graphic scale="50" fileref="linux-hb-cluster-vlan-3-1.png"/>
+    </figure>
+
+
+    <para>
+      Click the "Advanced interface settings" button to verify its
+      VLAN configuration:
     </para>
 
     <figure id="cookbook_linux_hb_cluster_vlan_4">
@@ -98,7 +119,7 @@
       standard vlan interface name for the chosen host OS, then it
       will automatically become VLAN subinterface and the program will
       extract VLAN ID from its name. For example, supported vlan
-      inetrface names on Linux are "eth1.101", "eth1.0101", "vlan101",
+      interface names on Linux are "eth1.101", "eth1.0101", "vlan101",
       "vlan0101". On other OS naming conventions are often different.
     </para>
 
@@ -112,13 +133,53 @@
       interface <emphasis>eth1</emphasis> to
       subinterface <emphasis>eth1.101</emphasis>. Use context menu
       items <emphasis>Cut</emphasis> and <emphasis>Paste</emphasis> to
-      do this.  You should arrive at the following configuration:
+      do this. While doing this, I also got rid of IPv6 addresses that
+      are not used in this example. You should arrive at the following
+      configuration:
     </para>
 
     <figure id="cookbook_linux_hb_cluster_vlan_5">
       <title>IP addresses reassigned to the subinterface</title>
       <graphic scale="50" fileref="linux-hb-cluster-vlan-5.png"/>
     </figure>
+
+    <para>
+      We also need to configure IP address for the second VLAN
+      interface <emphasis>eth1.102</emphasis> using context menu item
+      "New address".
+    </para>
+
+    <para>
+      Finally, we have firewall
+      object <emphasis>linux-test-3</emphasis> configured according to
+      the network diagram
+      <xref linkend="cookbook_linux_hb_cluster_vlan"/>:
+    </para>
+
+    <figure id="cookbook_linux_hb_cluster_vlan_7">
+      <title>Adding IP addresses to VLAN subinterface</title>
+      <graphic scale="50" fileref="linux-hb-cluster-vlan-7.png"/>
+    </figure>
+
+    <para>
+      We need to configure the second firewall
+      object <emphasis>linux-test-4</emphasis> as well. You can repeat
+      the process you just used to add subinterfaces and addresses
+      like it was done for <emphasis>linux-test-3</emphasis>, or
+      instead of doing this from scratch, you can copy and paste interface objects
+      <emphasis>eth1.101</emphasis> and <emphasis>eth1.102</emphasis>
+      from <emphasis>linux-test-3</emphasis> to
+      interface <emphasis>eth1</emphasis>
+      of <emphasis>linux-test-4</emphasis> and then just edit
+      addresses. Here is the final configuration of both member
+      firewalls:
+    </para>
+
+    <figure id="cookbook_linux_hb_cluster_vlan_8">
+      <title>VLAN subinterface and addresses of both member firewalls</title>
+      <graphic scale="50" fileref="linux-hb-cluster-vlan-8.png"/>
+    </figure>
+
 
 
   </sect2>

@@ -459,7 +459,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
         this:
       </para>
       
-      <table frame='none' tabstyle='reg_table'>
+      <table frame='none' tabstyle='two_columns_layout_table'>
         <title></title>
         <tgroup cols='2' align='left'  rowsep='1'>
           <colspec colnum="1" colname="col1" colwidth="1*"/>

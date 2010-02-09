@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE FWObjectDatabase SYSTEM "fwbuilder.dtd">
-<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="16" lastModified="1265680753" id="root">
+<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="16" lastModified="1265740097" id="root">
   <Library id="sysid99" name="Deleted Objects" comment="" ro="False">
     <IPv4 id="id2017X22130" name="linux-test-2:eth0:ip" comment="" ro="False" address="10.3.14.150" netmask="255.255.255.255"/>
     <IPv6 id="id2015X22130" name="linux-test-2:eth0:ip6" comment="" ro="False" address="fe80::20:5eff:fe0:11" netmask="64"/>
@@ -8,6 +8,13 @@
     <IPv6 id="id2020X22130" name="linux-test-2:eth1:ip6" comment="" ro="False" address="fe80::20:5eff:fe0:12" netmask="64"/>
     <IPv4 id="id2725X72742" name="linux-test-3:eth1:ip" comment="" ro="False" address="10.1.1.1" netmask="255.255.255.0"/>
     <IPv6 id="id2726X72742" name="linux-test-3:eth1:ip6" comment="" ro="False" address="fe80::2c:29ff:fe1e:dcb4" netmask="64"/>
+    <IPv6 id="id3405X72742" name="linux-test-3:eth1:ip6" comment="" ro="False" address="fe80::2c:29ff:fe1e:dcb4" netmask="64"/>
+    <IPv6 id="id2719X72742" name="linux-test-3:eth0:ip6" comment="" ro="False" address="fe80::2c:29ff:fe1e:dcaa" netmask="64"/>
+    <IPv6 id="id2712X72742" name="linux-test-3:lo:ip6" comment="" ro="False" address="::1" netmask="128"/>
+    <IPv6 id="id2793X72742" name="linux-test-4:lo:ip6" comment="" ro="False" address="::1" netmask="128"/>
+    <IPv6 id="id2800X72742" name="linux-test-4:eth0:ip6" comment="" ro="False" address="fe80::2c:29ff:fefc:678c" netmask="64"/>
+    <IPv6 id="id2807X72742" name="linux-test-4:eth1:ip6" comment="" ro="False" address="fe80::2c:29ff:fefc:6796" netmask="64"/>
+    <IPv4 id="id2806X72742" name="linux-test-4:eth1:ip" comment="" ro="False" address="10.1.1.2" netmask="255.255.255.0"/>
   </Library>
   <Library id="id2185X22057" color="#d2ffd0" name="User" comment="" ro="False">
     <ObjectGroup id="id2186X22057" name="Objects" comment="" ro="False">
@@ -212,7 +219,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id2699X72742" host_OS="linux24" inactive="False" lastCompiled="1265575152" lastInstalled="0" lastModified="1265680784" platform="iptables" version="" name="linux-test-3" comment="" ro="False">
+      <Firewall id="id2699X72742" host_OS="linux24" inactive="False" lastCompiled="1265575152" lastInstalled="0" lastModified="1265740004" platform="iptables" version="" name="linux-test-3" comment="" ro="False">
         <NAT id="id2730X72742" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -224,19 +231,16 @@
         </Routing>
         <Interface id="id2707X72742" dedicated_failover="False" dyn="False" label="loopback" security_level="0" unnum="False" unprotected="False" name="lo" comment="" ro="False">
           <IPv4 id="id2711X72742" name="linux-test-3:lo:ip" comment="" ro="False" address="127.0.0.1" netmask="255.0.0.0"/>
-          <IPv6 id="id2712X72742" name="linux-test-3:lo:ip6" comment="" ro="False" address="::1" netmask="128"/>
           <InterfaceOptions/>
         </Interface>
         <Interface id="id2714X72742" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
           <IPv4 id="id2718X72742" name="linux-test-3:eth0:ip" comment="" ro="False" address="10.3.14.108" netmask="255.255.255.0"/>
-          <IPv6 id="id2719X72742" name="linux-test-3:eth0:ip6" comment="" ro="False" address="fe80::2c:29ff:fe1e:dcaa" netmask="64"/>
           <InterfaceOptions/>
         </Interface>
         <Interface id="id2721X72742" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
           <InterfaceOptions/>
           <Interface id="id2891X72742" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="eth1.101" comment="" ro="False">
             <IPv4 id="id3400X72742" name="linux-test-3:eth1:ip" comment="" ro="False" address="10.1.1.1" netmask="255.255.255.0"/>
-            <IPv6 id="id3405X72742" name="linux-test-3:eth1:ip6" comment="" ro="False" address="fe80::2c:29ff:fe1e:dcb4" netmask="64"/>
             <InterfaceOptions>
               <Option name="bonding_policy"></Option>
               <Option name="bondng_driver_options"></Option>
@@ -247,6 +251,7 @@
             </InterfaceOptions>
           </Interface>
           <Interface id="id3382X72742" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="eth1.102" comment="" ro="False">
+            <IPv4 id="id4837X72742" name="linux-test-3:eth1:eth1.102:ip" comment="" ro="False" address="10.1.2.1" netmask="255.255.255.0"/>
             <InterfaceOptions>
               <Option name="bonding_policy"></Option>
               <Option name="bondng_driver_options"></Option>
@@ -322,7 +327,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id2780X72742" host_OS="linux24" inactive="False" lastCompiled="1265575152" lastInstalled="0" lastModified="1265679823" platform="iptables" version="" name="linux-test-4" comment="" ro="False">
+      <Firewall id="id2780X72742" host_OS="linux24" inactive="False" lastCompiled="1265575152" lastInstalled="0" lastModified="1265740638" platform="iptables" version="" name="linux-test-4" comment="" ro="False">
         <NAT id="id2811X72742" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -334,18 +339,36 @@
         </Routing>
         <Interface id="id2788X72742" dedicated_failover="False" dyn="False" label="loopback" security_level="0" unnum="False" unprotected="False" name="lo" comment="" ro="False">
           <IPv4 id="id2792X72742" name="linux-test-4:lo:ip" comment="" ro="False" address="127.0.0.1" netmask="255.0.0.0"/>
-          <IPv6 id="id2793X72742" name="linux-test-4:lo:ip6" comment="" ro="False" address="::1" netmask="128"/>
           <InterfaceOptions/>
         </Interface>
         <Interface id="id2795X72742" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
           <IPv4 id="id2799X72742" name="linux-test-4:eth0:ip" comment="" ro="False" address="10.3.14.109" netmask="255.255.255.0"/>
-          <IPv6 id="id2800X72742" name="linux-test-4:eth0:ip6" comment="" ro="False" address="fe80::2c:29ff:fefc:678c" netmask="64"/>
           <InterfaceOptions/>
         </Interface>
         <Interface id="id2802X72742" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
-          <IPv4 id="id2806X72742" name="linux-test-4:eth1:ip" comment="" ro="False" address="10.1.1.2" netmask="255.255.255.0"/>
-          <IPv6 id="id2807X72742" name="linux-test-4:eth1:ip6" comment="" ro="False" address="fe80::2c:29ff:fefc:6796" netmask="64"/>
           <InterfaceOptions/>
+          <Interface id="id5811X72742" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="eth1.101" comment="" ro="False">
+            <IPv4 id="id5813X72742" name="linux-test-4:eth1:ip" comment="" ro="False" address="10.1.1.2" netmask="255.255.255.0"/>
+            <InterfaceOptions>
+              <Option name="bonding_policy"></Option>
+              <Option name="bondng_driver_options"></Option>
+              <Option name="enable_stp">False</Option>
+              <Option name="type">8021q</Option>
+              <Option name="vlan_id">101</Option>
+              <Option name="xmit_hash_policy"></Option>
+            </InterfaceOptions>
+          </Interface>
+          <Interface id="id5822X72742" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="eth1.102" comment="" ro="False">
+            <IPv4 id="id5824X72742" name="linux-test-4:eth1:eth1.102:ip" comment="" ro="False" address="10.1.2.2" netmask="255.255.255.0"/>
+            <InterfaceOptions>
+              <Option name="bonding_policy"></Option>
+              <Option name="bondng_driver_options"></Option>
+              <Option name="enable_stp">False</Option>
+              <Option name="type">8021q</Option>
+              <Option name="vlan_id">102</Option>
+              <Option name="xmit_hash_policy"></Option>
+            </InterfaceOptions>
+          </Interface>
         </Interface>
         <Management address="0.0.0.0">
           <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
