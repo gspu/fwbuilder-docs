@@ -6,6 +6,24 @@
     <title>Linux cluster using heartbeat and VLAN inetrfaces</title>
 
     <para>
+      In this recipe we are looking at the Linux cluster configuration
+      using heartbeat and VLANs shown in
+      <xref linkend="cookbook_linux_hb_cluster_vlan"/>. Interface <emphasis>eth1</emphasis>
+      of both firewalls is configured to run two
+      VLANs, <emphasis>101</emphasis> and <emphasis>102</emphasis>,
+      connected to the protected subnet and DMZ
+      respectively. Heartbeat runs on all three
+      connections: <emphasis>eth0</emphasis>,
+      <emphasis>eth1.101</emphasis> and <emphasis>eth1.102</emphasis>.
+      This recipe demosntrates use of VLAN interfaces in fwbuilder.
+
+      <figure id="cookbook_linux_hb_cluster_vlan">
+        <title>Linux cluster using heartbeat and VLANs</title>
+        <graphic scale="50" fileref="linux-heartbeat-cluster-vlan.png"/>
+      </figure>
     </para>
+
+
+
   </sect2>
 

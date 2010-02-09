@@ -497,7 +497,7 @@ root@linux-test-2:~# ip -4 addr ls
 
 
     <sect3>
-      <title>Policy and NAT rules for the cluster</title>
+      <title>Policy rules for the cluster</title>
 
       <note>
         <para>
@@ -717,6 +717,10 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
         because the State Synchronization group is configured with
         interfaces eth1 of the member firewalls (<xref linkend="cookbook_linux_hb_cluster_12"/>).
       </para>
+    </sect3>
+
+    <sect3>
+      <title>Using unicast configuration for heartbeat and conntrack</title>
 
       <para>
         Failover protocol heartbeat and state synchronization protocol
@@ -803,7 +807,10 @@ $IPTABLES -A OUTPUT -o eth1 -p udp -m udp -d 10.1.1.2 --dport 3780 -j ACCEPT
 # 
 $IPTABLES -A INPUT -i eth1 -p udp -m udp -s 10.1.1.2 --dport 3780 -j ACCEPT
       </screen>
+    </sect3>
 
+    <sect3>
+      <title>NAT rules for the cluster</title>
 
       <para>
         Now lets look at the NAT rule built for this cluster
