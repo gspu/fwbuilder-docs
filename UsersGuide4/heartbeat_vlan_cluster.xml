@@ -23,6 +23,102 @@
       </figure>
     </para>
 
+    <para>
+      As in the previous examples, we start with member firewall
+      objcts. The difference between this and previous examples is
+      that now we need to configure VLAN inetrfaces. Lets start with a
+      firewall objects with interfaces <emphasis>eth0</emphasis>
+      and <emphasis>eth1</emphasis>. In fact, these objects are copies
+      of the <emphasis>linux-test-1</emphasis>
+      and <emphasis>linux-test-2</emphasis> objects used in
+      <xref linkend="heartbeat_cluster"/>. New objects have names
+      <emphasis>linux-test-3</emphasis>
+      and <emphasis>linux-test-4</emphasis>. I am going to add VLAN
+      interfaces and rearrange IP address objects to match network diagram
+      <xref linkend="cookbook_linux_hb_cluster_vlan"/>
+    </para>
+
+    <figure id="cookbook_linux_hb_cluster_vlan_1">
+      <title>Member firewall objects without VLAN interfaces</title>
+      <graphic scale="50" fileref="linux-hb-cluster-vlan-1.png"/>
+    </figure>
+
+    <para>
+      First, we need to add VLAN subinterface to eth1. To do this,
+      select eth1 in the tree and click right mouse button to open
+      context menu. Click "New interface" item to add interface
+      object:
+    </para>
+
+    <table frame='none' tabstyle='reg_table'>
+      <title></title>
+      <tgroup cols='2' align='left'  rowsep='1'>
+        <colspec colnum="1" colname="col1" colwidth="1*"/>
+        <colspec colnum="2" colname="col2" colwidth="1*"/>
+	<tbody valign='top'>
+          <row>
+            <entry>
+              <para>
+                <figure id="cookbook_linux_hb_cluster_vlan_2">
+                  <title>Using context menu to add subinterface</title>
+                  <graphic scale="50" fileref="linux-hb-cluster-vlan-2.png"/>
+                </figure>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                <figure id="cookbook_linux_hb_cluster_vlan_3">
+                  <title>Subintrface has been created with default name</title>
+                  <graphic scale="50" fileref="linux-hb-cluster-vlan-3.png"/>
+                </figure>
+              </para>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      New inetrface object is created with default name
+      "Interface". Double click it to open it in the editor and rename
+      it to <emphasis>eth1.101</emphasis>. Click the "Advanced
+      interface settings" button to verify its VLAN configuration:
+    </para>
+
+    <figure id="cookbook_linux_hb_cluster_vlan_4">
+      <title>VLAN configuration of the subinterface</title>
+      <graphic scale="50" fileref="linux-hb-cluster-vlan-4.png"/>
+    </figure>
+
+    <para>
+      Note that interface type has been set to VLAN
+      automatically. This is because Firewall Builder analyses the
+      name of the subinterface and automatically chooses correct type
+      in the "Advanced" settings dialog. If interface name matches
+      standard vlan interface name for the chosen host OS, then it
+      will automatically become VLAN subinterface and the program will
+      extract VLAN ID from its name. For example, supported vlan
+      inetrface names on Linux are "eth1.101", "eth1.0101", "vlan101",
+      "vlan0101". On other OS naming conventions are often different.
+    </para>
+
+    <para>
+      Create subinterface <emphasis>eth1.102</emphasis> using the same
+      method.
+    </para>
+
+    <para>
+      Now you can move IP address objects from the
+      interface <emphasis>eth1</emphasis> to
+      subinterface <emphasis>eth1.101</emphasis>. Use context menu
+      items <emphasis>Cut</emphasis> and <emphasis>Paste</emphasis> to
+      do this.  You should arrive at the following configuration:
+    </para>
+
+    <figure id="cookbook_linux_hb_cluster_vlan_5">
+      <title>IP addresses reassigned to the subinterface</title>
+      <graphic scale="50" fileref="linux-hb-cluster-vlan-5.png"/>
+    </figure>
 
 
   </sect2>
