@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <chapter id="interfaces">
+    <title>Configuration of interfaces</title>
+
+    <para>
+      Firewall Builder 4.0 introduces support incremental management
+      of the configuration of interfaces. It can add and remove ip
+      addresses, create and destroy vlan interfaces, add and remove
+      bridge ports and bonding interface members. Incremental
+      management means generated script can add or remove interfaces
+      or addresses only when needed, whithough having to blow
+      configuration completely first and then re-add it back. For
+      example, in case of IP addresses of interfaces, the script
+      checks if address configured in fwbuilder GUI really exists on
+      the interface it should belong to. If it is not there, the
+      script adds it, but if it exists, the script does
+      nothing. Running the script again therefore does not disturb the
+      configuration at all. It is not going to remove addresses and
+      then add them back. The same happens with VLAN interfaces,
+      bridge ports and bonding interfaces.
+    </para>
+
+    <para>
+      Not all of these features available on all supported OS.
+      <xref linkend="interface_mgmt_support"/> shows this:
+    </para>
+
+    <table frame='none'  tabstyle='reg_table' id='interface_mgmt_support'>
+      <title></title>
+      <tgroup cols='5' align='left'  rowsep='1'>
+        <colspec colnum="1" colname="col1" colwidth="5*"/>
+        <colspec colnum="2" colname="col2" colwidth="1*"/>
+        <colspec colnum="3" colname="col3" colwidth="1*"/>
+        <colspec colnum="4" colname="col4" colwidth="1*"/>
+        <colspec colnum="5" colname="col5" colwidth="1*"/>
+
+	<thead>
+          <row>
+            <entry>Feature</entry>
+            <entry>Linux</entry>
+            <entry>OpenBSD FreeBSD</entry>
+            <entry>Cisco IOS</entry>
+            <entry>Cisco ASA (PIX)</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>IP address manageemnt</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+          </row>
+
+          <row>
+	    <entry>Incremental IP address management</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry>no</entry>
+            <entry>no</entry>
+            <entry>no</entry>
+          </row>
+
+          <row>
+            <entry>VLAN interfaces</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry>no</entry>
+            <entry>no</entry>
+          </row>
+
+          <row>
+            <entry>Incremental manegement of VLAN interfaces</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry>no</entry>
+            <entry>no</entry>
+            <entry>no</entry>
+          </row>
+
+          <row>
+            <entry>Bridge ports</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry>no</entry>
+            <entry>no</entry>
+            <entry>no</entry>
+          </row>
+
+          <row>
+            <entry>Incremental manegement of bridge ports</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry>no</entry>
+            <entry>no</entry>
+            <entry>no</entry>
+          </row>
+
+          <row>
+            <entry>Bonding interfaces</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry>no</entry>
+            <entry>no</entry>
+            <entry>no</entry>
+          </row>
+
+          <row>
+            <entry>Incremental manegement of bonding interfaces</entry>
+            <entry>partial</entry>
+            <entry>no</entry>
+            <entry>no</entry>
+            <entry>no</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      The most complete implementation is available on Linux where
+      generated script can incrementally manage ip addresses, vlan
+      interfaces, bridge ports and partially bonding interfaces.
+    </para>
+
+    <sect1 id="ip_address_management">
+      <title>IP address management</title>
+
+      <!-- TODO: need examples -->
+
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              Generated script includes shell code to manage ip
+               addresses if checkbox "Configure interfaces" is
+               turned on in the "Script" tab of the firewall object
+               "advanced" settings dialog. By default, it is tuned
+               off.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Script uses <emphasis>ip</emphasis> tool which
+              should be present on the friewall. The script checks if
+              it is available and aborts if it can not find it.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              Script checks if ip address of each interface configured
+              in the GUI exists on the firewall and adds it if
+              necessary.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              If the script finds ip address on the firewall that is
+              not configured in the fwbuilder GUI, it removes it.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              If checkbox "Clear ip addresses and bring down
+              interfaces not configured in fwbuilder" is tuned on in
+              the "Script" tab of firewall settings dialog, the script
+              deletes all ip address of all interfaces that are not
+              configured in fwbuilder GUI and brings interfaces that
+              are missing in fwbuilder but are found on the firewall
+              down. The goal is to ensure that firewall rules operate
+              in the environment that matches assumptions under which
+              they were generated. If the program generated rules
+              assuming some address does not belong to the firewall,
+              but in reality it does, packets may show up in the wrong
+              chain that will lead to the wrong behavior of the
+              firewall. This feature is off by default.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+
+    </sect1>
+
+    <sect1 id="vlan_management">
+      <title>VLAN interfaces</title>
+
+      <!-- TODO need examples -->
+
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              Generated script includes shell code to manage VLAN
+              intrfaces if checkbox "Configure VLAN interfaces" is
+              turned on in the "Script" tab of the firewall object
+              "advanced" settings dialog. By default, it is tuned off.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Script uses <emphasis>vconfig</emphasis> tool which
+              should be present on the friewall. The script checks if
+              it is available and aborts if it can not find it.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              Script checks if vlan interface configured in the GUI
+              exists on the firewall and creates it if necessary.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              If the script finds vlan interface on the firewall that
+              is not configured in the fwbuilder GUI, it deletes it
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+
+    </sect1>
+
+
+
+    <sect1 id="bridge_management">
+      <title>Bridge ports</title>
+
+      <!-- TODO need examples -->
+
+      <para>
+        Support for bridge interfaces and bridge ports is only
+        available for Linux firewalls. Generated script can manage
+        bridge interfaces as follows:
+
+        <itemizedlist>
+          <listitem>
+            <para>
+              Generated script includes shell code to manage bridge
+              interfaces if checkbox "Configure bridge interfaces" is
+              turned on in the "Script" tab of the firewall object
+              "advanced" settings dialog. By default, it is tuned off.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>Script uses <emphasis>brctl</emphasis> tool which
+              should be present on the friewall. The script checks if
+              it is available and aborts if it can not find it.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              Script checks if bridge interface configured in the GUI
+              exists on the firewall and creates it if necessary.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              It then checks if bridge interface on the firewall is
+              configured with bridge ports that were defined in the
+              GUI. It adds those that are missing and removes those
+              that are not configured in the GUI.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              Adding VLAN interfaces as bridge ports, as well as mix
+              of regular ethernet and vlan inetrfaces is
+              supported. That is, the following configuration can be
+              configured in fwbuilder and generated script will create
+              it:
+
+              <screen>
+bridge name bridge id    STP enabled    interfaces
+br0  8000.000c29f6bebe   no             eth4.102
+                                        eth5
+              </screen>
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              In order to use VLAN interface as bridge port, it needs
+              to be created twice in the GUI. First time it is created
+              as a child of the regular ethernet interface and has
+              type "VLAN". The second interface object with the same
+              name should be created as a child of a bridge interface
+              with a type "ethernet".
+              <!-- TODO need example here -->
+
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+            </para>
+          </listitem>
+
+
+        </itemizedlist>
+      </para>
+
+    </sect1>
+
+
+    <sect1 id="bonding_intf_management">
+      <title>Bonding interfaces</title>
+
+      <para>
+        Support for bonding interfaces is currently available only for
+        Linux firewalls. Generated iptables script can incrementally
+        update bonding interfaces:
+
+        <itemizedlist>
+          <listitem>
+            <para>
+              Generated script includes shell code to manage bonding
+              interfaces if checkbox "Configure bonding interfaces" is
+              turned on in the "Script" tab of the firewall object
+              "advanced" settings dialog. By default, it is tuned off.
+            </para>
+          </listitem>
+
+
+          <listitem>
+            <para>Script uses <emphasis>ifenslave</emphasis> tool which
+              should be present on the friewall. The script checks if it
+              is available and aborts if it can not find it.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+	      Script creates new bonding interfaces with parameters
+	      configured in the GUI if module 'bonding' is not
+	      loaded. This is what happens if fwbuilder script runs
+	      after reboot.
+            </para>
+
+            <para>
+	      if there are no bonding interfaces in fwbuilder
+	      configuration, the script removes bonding module to kill
+	      any bonding interfaces that might exist on the machine
+            </para>
+
+            <para>
+	      if you add second bonding interface in fwbuilder, the
+	      script checks if it exists on the machine. It will not
+	      create it because to do so, it would have to remove the
+	      module which kills other bonding interfaces. If this
+	      second bonding interface exists, it will be configured
+	      with slaves and addresses. If it does not exist, script
+	      aborts. In this case you need to either 1) reload module
+	      manually or 2) add max_bonds=2 to /etc/modules.conf and
+	      reboot or 3) unload module and run fwbuilder script
+	      again (if module is not loaded, the script loads it with
+	      correct max_bonds parameter)
+            </para>
+
+            <para>
+	      if a bonding interface exists on the machine but not in
+	      fwbuilder configuration, the script removes all slaves
+	      from it and brings it down. It can not delete it because
+	      to do so it would need to remove the module, which kills
+	      other bonding interfaces.
+            </para>
+
+            <para>
+	      Limitation: currently all bonding interfaces will use
+	      the same protocol parameters. This is because module
+	      loading with parameter "-obond1" that is supposed to be
+	      the way to obtain more than one bonding interface and
+	      also the way to specify different parameters for
+	      different interfaces causes kernel panic in my
+	      tests. Tested with bonding module v3.5.0 and kernel
+	      2.6.29.4-167.fc11.i686.PAE on Fedora Core 11. The only
+	      working way to get two bonding interfaces I could find
+	      is to load the module with parameter max_bonds=2, but
+	      this means all bonding interfaces work with the same
+	      protocol parameters. If bond interfaces are configured
+	      with different parameters in fwbuilder, compiler uses
+	      the first and issues warning for others.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+
+    </sect1>
+
+  </chapter>

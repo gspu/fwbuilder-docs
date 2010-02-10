@@ -5,6 +5,7 @@ SOURCES = Introduction.xml \
 		Troubleshooting.xml \
 		UsersGuide4.xml \
 		clusters.xml \
+		interfaces.xml \
 		compile-install-detail.xml \
 		cookbook.xml \
 		definitions.xml \

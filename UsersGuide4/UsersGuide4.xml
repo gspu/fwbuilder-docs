@@ -76,6 +76,8 @@ i   xsltproc              - XSLT command line processor
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="clusters.xml"/>
 
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="interfaces.xml"/>
+
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile-install-detail.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="remote-management.xml"/>

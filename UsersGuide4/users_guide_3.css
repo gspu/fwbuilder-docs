@@ -179,10 +179,12 @@
 }
 
 .column_users_guide .reg_table table TD {
+    padding-right: 10px;
     border-bottom: 1px solid #C0C0C0;  
 }
 
 .column_users_guide .reg_table table TH {
+    padding-right: 10px;
     border-bottom: 1px solid black;  
 }
 
@@ -240,5 +242,9 @@
 
 .redtext {
     color: red;
+}
+
+.greentext {
+    color: darkgreen;
 }
 
