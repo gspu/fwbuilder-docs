@@ -235,6 +235,18 @@
         <graphic scale="50" fileref="linux-hb-cluster-vlan-10.png"/>
       </figure>
 
+      <note>
+        <para>
+          You only need to create interfaces of the cluster object
+          that correspond to the inetrfaces of member firewalls that
+          actually pass traffic and run failover protocols. This means
+          you
+          need <emphasis>eth1.101</emphasis>, <emphasis>eth1.102</emphasis>
+          cluster interfaces but do not
+          need <emphasis>eth1</emphasis>.
+        </para>
+      </note>
+
       <para>
         Moving on, on the next page of the wizard we configure IP
         addresses of the cluster interfaces accroding to our network diagram
@@ -263,7 +275,7 @@
     </sect3>
 
     <sect3>
-      <title>Generating VLAN configuration script</title>
+      <title>Managing VLAN interfaces and their IP addresses</title>
 
       <para>
         Firewall Builder can generate shell script to configure VLAN
@@ -277,13 +289,241 @@
         tab. Turn checkbox  "Configure VLAN interfaces" on:
       </para>
 
-
       <figure id="cookbook_linux_hb_cluster_vlan_13">
         <title>Turn VLAN configuration on</title>
         <graphic scale="50" fileref="linux-hb-cluster-vlan-13.png"/>
       </figure>
 
+      <para>
+        If you compile the policy for the cluster (or a standalone
+        firewall) whth "Configure VLAN interfaces" checkbox turned on,
+        generated script gets the following fragment that is executed
+        before iptables rules are loaded:
+
+        <screen>
+configure_interfaces() {
+    :
+    # Configure interfaces
+    <emphasis role="redtext">update_vlans_of_interface "eth1 eth1.101 eth1.102"</emphasis>
+    <emphasis role="redtext">clear_vlans_except_known eth1.101@eth1 eth1.102@eth1</emphasis>
+    update_addresses_of_interface "lo 127.0.0.1/8" ""
+    update_addresses_of_interface "eth0 10.3.14.108/24" "10.3.14.150/24"
+    update_addresses_of_interface "eth1" ""
+    update_addresses_of_interface "eth1.101 10.1.1.1/24" "10.1.1.254/24"
+    update_addresses_of_interface "eth1.102 10.1.2.1/24" "10.1.2.254/24"
+}
+        </screen>
+
+        Lines highlighted in red configure VLAN interfaces. The first
+        command, a call to
+        the <emphasis>update_vlans_of_interface</emphasis> shell
+        function, checks if vlan interfaces eth1.101 and eth1.102
+        already exist and adds them if they are not there. It
+        uses <emphasis>vconfig</emphasis> utility to do this. If vlan
+        interfaces with these names already exist, the function does
+        nothing. This allows for incremental management of the vlan
+        interfaces, that is, when the script runs again, it does not
+        try to add interfaces that already exist. It does not remove
+        and add them back, either.
+      </para>
+
+      <tip>
+        <para>
+          Several naming conventions exist for vlan interfaces
+          on Linux and the script recognizes all of them.  You call
+          vlan interface <emphasis>"eth1.101"</emphasis>,
+          <emphasis>"eth1.0101"</emphasis>, <emphasis>"vlan101"</emphasis>
+          or <emphasis>"vlan0101"</emphasis>.
+        </para>
+      </tip>
+
+      <para>
+        To test this feature, you can run generated script with
+        command line parameter "test_interfaces". This makes the
+        script analyse interfaces and print commands that it would
+        normally execute to configure them, but it does not actually
+        execute these commands but only prints them. To illustrate
+        this, I start with machine linux-test-4 in the state where it
+        has no VLAN interfaces and some IP addresses do not match
+        configuration defined in fwbuilder. Running the script with
+        "test_interfaces" command line parameter demonstrates what it
+        is going to do to bring configuration of the machine in sync
+        with setup configured in fwbuilder:
+      </para>
+
+      <screen>
+root@linux-test-4:~# ip addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:fc:67:8c brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.109/24 brd 10.3.14.255 scope global eth0
+    inet6 fe80::20c:29ff:fefc:678c/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:fc:67:96 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.1.2/24 brd 10.1.1.255 scope global eth1
+    inet6 fe80::20c:29ff:fefc:6796/64 scope link 
+       valid_lft forever preferred_lft forever
+
+root@linux-test-4:~# /etc/fw/linux-test-4.fw test_interfaces
+<emphasis role="redtext"># Adding VLAN interface eth1.101 (parent: eth1)
+vconfig set_name_type DEV_PLUS_VID_NO_PAD
+vconfig add eth1 101
+ifconfig eth1.101 up
+# Adding VLAN interface eth1.102 (parent: eth1)
+vconfig set_name_type DEV_PLUS_VID_NO_PAD
+vconfig add eth1 102
+ifconfig eth1.102 up</emphasis>
+# Removing ip address: eth1 10.1.1.2/24
+ip addr del 10.1.1.2/24 dev eth1
+ifconfig eth1 up
+# Interface eth1.101 does not exist
+# Adding ip address: eth1.101 10.1.1.2/24
+ip addr add 10.1.1.2/24 dev eth1.101
+ifconfig eth1.101 up
+# Interface eth1.102 does not exist
+# Adding ip address: eth1.102 10.1.2.2/24
+ip addr add 10.1.2.2/24 dev eth1.102
+ifconfig eth1.102 up
+      </screen>
+
+      <para>
+        Commands that manage VLAN interfaces are highlighted in
+        red. The script adds vlan interfaces eth1.101 and eth1.102 to
+        eth1 and brings them up, then removes IP address 10.1.1.2 from
+        eth1 and adds addresses 10.1.1.2 to eth1.101 and 10.1.2.2 to
+        eth1.102.
+      </para>
+
+      <para>
+        To set interfaces up and load iptables rules, just run the
+        script with command line parameter "start". If you only want
+        to try to configure interfaces but not load iptables rules
+        just yet, run the script with command line parameter
+        "inetrfaces". Here is what happens:
+      </para>
+
+      <screen>
+root@linux-test-2:~# /etc/fw/linux-test-4.fw interfaces
+# Adding VLAN interface eth1.101 (parent: eth1)
+Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
+Added VLAN with VID == 101 to IF -:eth1:-
+# Adding VLAN interface eth1.102 (parent: eth1)
+Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
+Added VLAN with VID == 102 to IF -:eth1:-
+# Removing ip address: eth1 10.1.1.2/24
+# Adding ip address: eth1.101 10.1.1.2/24
+# Adding ip address: eth1.102 10.1.2.2/24
+      </screen>
+
+      <para>
+        We can now verify that the script added vlan inetrfaces and
+        configured IP addresses:
+      </para>
+
+      <screen>
+root@linux-test-2:~# ip addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:fc:67:8c brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.109/24 brd 10.3.14.255 scope global eth0
+    inet6 fe80::20c:29ff:fefc:678c/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:fc:67:96 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::20c:29ff:fefc:6796/64 scope link 
+       valid_lft forever preferred_lft forever
+4: eth1.101@eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP 
+    link/ether 00:0c:29:fc:67:96 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.1.2/24 scope global eth1.101
+    inet6 fe80::20c:29ff:fefc:6796/64 scope link 
+       valid_lft forever preferred_lft forever
+5: eth1.102@eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP 
+    link/ether 00:0c:29:fc:67:96 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.2.2/24 scope global eth1.102
+    inet6 fe80::20c:29ff:fefc:6796/64 scope link 
+       valid_lft forever preferred_lft forever
+      </screen>
+
+      <para>
+        Now that vlan interfaces are there and IP addresses are
+        correct, lets see what happens if we run the script again:
+      </para>
+
+      <screen>
+root@linux-test-2:~# /etc/fw/linux-test-4.fw test_interfaces
+root@linux-test-2:~# 
+      </screen>
+
+      <para>
+        The script verified configuration and has found that it does
+        not need to change anything.
+      </para>
+
     </sect3>
 
+    <sect3>
+      <title>Heartbeat configuration</title>
+
+      <para>
+        Heartbeat configuration in this setup is rather
+        straightforward and is not very different from the one we used
+        in the previous recipe <xref linkend="heartbeat_cluster"/>.
+      </para>
+
+      <figure id="heartbeat_mcast_config_2">
+        <title>Heartbeat configuration files</title>
+        <screen>
+# cat ha.cf:
+
+mcast eth0 225.0.0.1 694 1 0
+mcast eth1.101 225.0.0.1 694 1 0
+mcast eth1.102 225.0.0.1 694 1 0
+auto_failback on
+node linux-test-1
+node linux-test-2
+
+
+# cat haresources 
+
+linux-test-1 IPaddr::10.3.14.150/24/eth0/10.3.14.255
+linux-test-1 IPaddr::10.1.1.254/24/eth1.101/10.1.1.255 
+linux-test-1 IPaddr::10.1.2.254/24/eth1.102/10.1.2.255 
+
+
+# cat authkeys 
+
+auth 3
+3 md5 hb-auth-key
+        </screen>
+      </figure>
+
+      <para>
+        The difference between heartbeat configuration in
+        <xref linkend="heartbeat_cluster"/> and this is that we now
+        run it over three interfaces, using vlan
+        interfaces <emphasis>eth1.101</emphasis>
+        and <emphasis>eth1.102</emphasis> instead
+        of <emphasis>eth1</emphasis>. Otherwise it works exacly the
+        same and manages virtual
+        addresses <emphasis>10.3.14.150</emphasis>, <emphasis>10.1.1.254</emphasis>
+        and <emphasis>10.1.2.254</emphasis> on corresponding subnets.
+      </para>
+
+      <para>
+        Policy and NAT rules configuration in this setup is also the
+        same as in <xref linkend="heartbeat_cluster"/> and we won't
+        repeat it here.
+      </para>
+
+    </sect3>
   </sect2>
 

@@ -113,7 +113,7 @@
       <figure id="heartbeat_mcast_config_1">
         <title>Heartbeat configuration files</title>
         <screen>
-# cat ha.cnf:
+# cat ha.cf:
 
 mcast eth0 225.0.0.1 694 1 0
 mcast eth1 225.0.0.1 694 1 0
