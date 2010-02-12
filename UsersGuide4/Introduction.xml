@@ -23,7 +23,13 @@
       advantage of a large collection of predefined objects describing many
       standard protocols and services. Once a policy is built in the GUI, you
       can compile it and install it on one, or several, firewall
-      machines.</para>
+      machines.
+    </para>
+
+    <figure id="example1">
+      <graphic scale="60" fileref="overview_screenshot_1.png" />
+    </figure>
+
   </sect1>
 
   <sect1 id="overview">
@@ -206,8 +212,5 @@
       news. 
     </para>
 
-    <figure id="example1">
-      <graphic scale="60" fileref="overview_screenshot_1.png" />
-    </figure>
   </sect1>
 </chapter>

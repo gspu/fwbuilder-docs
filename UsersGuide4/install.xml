@@ -11,9 +11,9 @@
       <para>You need to download and install two RPMs:</para>
 
       <itemizedlist>
-	<listitem><para>Example: <filename>libfwbuilder-3.0.0-1.i386.rpm</filename>
+	<listitem><para>Example: <filename>libfwbuilder-4.0.0-1.i386.rpm</filename>
 	</para></listitem>
-	<listitem><para>Example: <filename>fwbuilder-3.0.0-1.i386.rpm</filename>
+	<listitem><para>Example: <filename>fwbuilder-4.0.0-1.i386.rpm</filename>
 	</para></listitem>
       </itemizedlist>
 
@@ -26,19 +26,21 @@
 	</para></listitem>
 	<listitem><para>ucd-snmp or net-snmp
 	</para></listitem>
-	<listitem><para>QT 4.3.x, 4.4.x Fwbuilder depends on QT 4.3 or 4.4, it will not work with 4.2
+	<listitem><para>QT 4.3.x, 4.4.x, 4.5.x, 4.6.x. Fwbuilder uses
+	    features available in QT 4.3 or later, it will not work
+	    with 4.2
 	</para></listitem>
       </itemizedlist>
-	<para>Pre-built binary RPMs for RedHat Enterprise Linux 5 (RHEL 5) and CentOS 5.2</para>
+	<para>Pre-built binary RPMs for RedHat Enterprise Linux 5 (RHEL 5) and CentOS 5.x</para>
 
 	<para>These distributions do not come with QT4 and third-party
 	binary RPMs of QT v4.3.x and 4.4.x are hard to come by. We
-	distribute binary RPMs of Firewall Builder 3.0 statically
+	distribute binary RPMs of Firewall Builder 4.0 statically
 	linked with QT 4.4.1 for these distributions. These RPMs are
 	posted in the downloads area on the SourceForge project
 	site. These RPMs have the same standard
-	names: <filename>libfwbuilder-3.0.0-1.i386.el5.rpm</filename>
-	and <filename>fwbuilder-3.0.0-1.i386.el5.rpm</filename>, they
+	names: <filename>libfwbuilder-4.0.0-1.i386.el5.rpm</filename>
+	and <filename>fwbuilder-4.0.0-1.i386.el5.rpm</filename>, they
 	just have no dependency on QT RPMs.</para>
 
 	<para>If fwbuilder statically linked with QT crashes on start
@@ -53,7 +55,7 @@
       and run the following command (replace the filenames with the
       names of the files you actually downloaded:</para>
 
-      <screen>rpm -i libfwbuilder-3.0.0-1.i386.rpm fwbuilder-3.0.0-1.i386.rpm</screen>
+      <screen>rpm -i libfwbuilder-4.0.0-1.i386.rpm fwbuilder-4.0.0-1.i386.rpm</screen>
     </sect1>
 
     <sect1 id="ubuntu">
@@ -63,27 +65,30 @@
       <para>You need to download and install two packages: 
 
       <itemizedlist>
-	<listitem><para>Example: <filename>libfwbuilder_3.0.4-b778-ubuntu-hardy-1_i386.deb</filename>
+	<listitem><para>Example: <filename>libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</filename>
 	</para></listitem>
-	<listitem><para>Example: <filename>fwbuilder_3.0.4-b778-ubuntu-hardy-1_i386.deb</filename>
+	<listitem><para>Example: <filename>fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</filename>
 	</para></listitem>
       </itemizedlist></para>
 
       <para>To satisfy dependencies, you need the following packages installed on your system:</para>
 
       <itemizedlist>
-	<listitem><para>QT 4.3.x, 4.4.x. Fwbuilder depends on QT 4.3 or 4.4, it will not work with 4.2
-	</para></listitem>
+	<listitem>
+          <para>QT 4.3.x, 4.4.x, 4.5.x, 4.6.x. Fwbuilder uses features
+	    available in QT 4.3 or later, it will not work with 4.2
+	  </para>
+        </listitem>
       </itemizedlist>
 
-      <para>You can get QT via your regular package manager.</para>
+      <para>You can get QT via your favorite package manager.</para>
 
       <para>To install Firewall Builder, go to your download directory
       and run the following command (replace the filenames with the
       names of the files you actually downloaded:</para>
 
-      <screen>dpkg -i libfwbuilder_3.0.4-b778-ubuntu-hardy-1_i386.deb \
-	  fwbuilder_3.0.4-b778-ubuntu-hardy-1_i386.deb</screen>
+      <screen>dpkg -i libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb \
+	  fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</screen>
 
     </sect1>
 
@@ -123,45 +128,9 @@
       <title>Compiling from Source</title>
 
       <para>Firewall Builder can be compiled and works on the
-      following OS and distributions:</para>
-
-    <para><itemizedlist spacing="compact">
-        <listitem>
-          <para>Debian Linux (including Ubuntu)</para>
-        </listitem>
-
-        <listitem>
-          <para>Mandrake Linux</para>
-        </listitem>
-
-        <listitem>
-          <para>RedHat Linux</para>
-        </listitem>
-
-        <listitem>
-          <para>SuSE Linux</para>
-        </listitem>
-
-        <listitem>
-          <para>Gentoo Linux</para>
-        </listitem>
-
-        <listitem>
-          <para>FreeBSD</para>
-        </listitem>
-
-        <listitem>
-          <para>OpenBSD</para>
-        </listitem>
-
-        <listitem>
-          <para>Mac OS X</para>
-        </listitem>
-
-        <listitem>
-          <para>Solaris</para>
-        </listitem>
-      </itemizedlist></para>
+      following OS and distributions: Debian Linux (including Ubuntu), Mandrake Linux, RedHat Linux,
+        SuSE Linux, Gentoo Linux, FreeBSD, OpenBSD, Mac OS X, Solaris.
+      </para>
 
       <para>To compile from source, first download dependencies for your platform:</para>
 
@@ -254,7 +223,7 @@
       </itemizedlist>
 
       <para>Next, download source archives from SourceForge
-      (libfwbuilder-3.0.0.tar.gz and fwbuilder-3.0.0.tar.gz, for
+      (libfwbuilder-4.0.0.tar.gz and fwbuilder-4.0.0.tar.gz, for
       example) and unpack them somewhere. Then build as
       follows:
       </para>
@@ -323,6 +292,300 @@ make install
       in <filename class='directory'>/opt/lib</filename> and the
       program in <filename class='directory'>/opt/bin</filename>.
     </para> 
+
+    </sect1>
+
+    <sect1 id="repositories">
+      <title>Rpm and deb repositories for stable and testing packages</title>
+
+      <para>
+        In addition to the packages that ship with Linux
+        distributions, we maintain repositories of rpm and deb
+        packages of Firewall Builder, including both stable releases
+        and testing builds.
+      </para>
+
+
+
+      <sect2>
+        <title>Debian/Ubuntu packages repository</title>
+
+        <para></para>
+
+        <para>
+          To access <emphasis>Debian/Ubuntu repository</emphasis>
+          of <emphasis>stable</emphasis> packges, add
+          the following line to the file
+          <emphasis>/etc/apt/sources.list</emphasis> (replace "inrepid" here
+          with "hardy" or "jaunty" depending on your
+          version):
+        </para>
+
+        <screen>
+deb http://www.fwbuilder.org/deb/stable/ intrepid contrib
+        </screen>
+
+        <para>
+          To access <emphasis>Debian/Ubuntu repository</emphasis>
+          of <emphasis>testing</emphasis> packges, add
+          the following line to the file
+          <emphasis>/etc/apt/sources.list</emphasis> (replace "inrepid" here
+          with "hardy" or "jaunty" depending on your
+          version):
+        </para>
+
+        <screen>
+deb http://www.fwbuilder.org/deb/testing/ intrepid contrib
+        </screen>
+
+        <para>
+          If you wish to follow only stable releases, add
+          only the line with "/deb/stable" url.
+        </para>
+
+        <para>
+          Packages in all repositories are signed with GPG key
+          with ID EAEE08FE "Firewall Builder Project (Package
+          Signing Key) &lt;pkgadmin@fwbuilder.org&gt;".
+          Download <ulink url="http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc">public
+            key</ulink> and add it to your key chain to be able to
+          verify integrity of the packages in repositories. To
+          add the key on Debian/Ubuntu, use the following commands:
+        </para>
+
+        <screen>
+wget http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc
+apt-key add PACKAGE-GPG-KEY-fwbuilder.asc
+        </screen>
+
+        <sect3>
+          <title>Configuring debsig-verify to verify package signatures</title>
+
+          <para>
+            This part is optional, although it is highly
+            recommended in order to ensure authenticity of the
+            installed fwbuilder packages. However, if you do not
+            configure debsig-verify, package signatures will not
+            be verified but apt tools will try to install them
+            anyway.
+          </para>
+
+
+          <para>
+            Unfortunately it is not enough to just add the key
+            to apt-get, you also need to install
+            package <emphasis>debsig-verify</emphasis> and configure it.
+            Consult one of the HOWTO guides on the Internet that
+            describe how to set up debsig-verify tools to verify
+            signed packages; one such guide can be found here:
+            <ulink url="http://purplefloyd.wordpress.com/2009/02/05/signing-deb-packages/">
+              Signing .deb packages</ulink> . See section #4 "Setup
+            the machine(s) that will be downloading and
+            verifying the package" in it.
+          </para>
+
+          <para>
+            Here is a brief write-up of the debsig-verify
+            installation and configuration process.
+          </para>
+
+          <para>
+            First, you need to install <emphasis>debsig-verify</emphasis> and <emphasis>gpg</emphasis>:
+            <screen>
+aptitude install debsig-verify gpg
+            </screen>
+          </para>
+
+          <para>
+            Import our key and check its fingerprint:
+          </para>
+
+          <screen>
+gpg --import PACKAGE-GPG-KEY-fwbuilder.asc
+gpg --fingerprint
+          </screen>
+
+          <para>
+            <emphasis>gpg --fingerprint</emphasis> prints something like this:
+          </para>
+
+          <screen>
+------------------------
+pub   1024D/EAEE08FE 2009-05-17
+Key fingerprint = 5397 6AA1 5E71 2F74 947B  4496 EF2E DD98 EAEE 08FE
+uid                  Firewall Builder Project (Package Signing Key) &lt;pkgadmin@fwbuilder.org&gt;
+sub   2048g/FE31D386 2009-05-17
+          </screen>
+
+          <para>
+            Key ID is <emphasis>EAEE08FE</emphasis>, its fingerprint
+            is last 4 groups if hex digits in the "Key fingerprint"
+            line: <emphasis>EF2EDD98EAEE08FE</emphasis> (remove white
+            spaces).
+          </para>
+
+          <para>
+            Next step is to import the key into debsig keyring:
+          </para>
+
+          <screen>
+mkdir /usr/share/debsig/keyrings/EF2EDD98EAEE08FE
+gpg --no-default-keyring \
+    --keyring /usr/share/debsig/keyrings/EF2EDD98EAEE08FE/debsig.gpg \
+    --import PACKAGE-GPG-KEY-fwbuilder.asc 
+          </screen>
+
+          <para>
+            Now we need to create debsig-verify policy file:
+          </para>
+
+          <screen>
+mkdir /etc/debsig/policies/EF2EDD98EAEE08FE/
+vi /etc/debsig/policies/EF2EDD98EAEE08FE/fwbuilder-testing.pol
+          </screen>
+
+          <para>
+            The policy file is in XML and looks like this:
+          </para>
+
+          <screen>
+&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Policy SYSTEM "http://www.debian.org/debsig/1.0/policy.dtd"&gt;
+&lt;Policy xmlns="http://www.debian.org/debsig/1.0/"&gt;
+
+&lt;Origin Name="Firewall Builder" id="EF2EDD98EAEE08FE"
+Description="Firewall Builder Package"/&gt;
+
+&lt;Selection&gt;
+&lt;Required Type="origin" File="debsig.gpg" id="EF2EDD98EAEE08FE"/&gt;
+&lt;/Selection&gt;
+
+&lt;Verification MinOptional="0"&gt;
+&lt;Required Type="origin" File="debsig.gpg" id="EF2EDD98EAEE08FE"/&gt;
+&lt;/Verification&gt;
+
+&lt;/Policy&gt;
+          </screen>
+
+          <para>
+            Note how key fingerprint is used as an id in all XML
+            elements.
+          </para>
+
+          <para>
+            apt-get, aptitude and other apt tools save
+            downloaded packages in the
+            directory <emphasis>/var/cache/apt/archives/</emphasis>. You can
+            use debsig-verify to verify saved copy:
+          </para>
+
+
+          <screen>
+# debsig-verify /var/cache/apt/archives/libfwbuilder_3.0.5-b961-ubuntu-hardy-1_amd64.deb 
+debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
+          </screen>
+
+          <para>
+            Now apt-get and other apt tools will call
+            debsig-verify to verify packages they are about to
+            install or upgrade.
+          </para>
+
+        </sect3>
+
+        <sect3>
+          <title>Troubleshooting .deb repository access</title>
+
+          <para>
+            After this, you should be able to install and update
+            fwbuilder packages using synaptic or aptitude.
+          </para>
+
+          <para>
+            Note that apt caches package information, so when we
+            release new packages, they will not match cached
+            data when you try to install them. Run <emphasis>apt-get
+              update</emphasis> before you install or upgrade
+            packages to refresh cached data. If you don't,
+            you'll get <emphasis>"Size mismatch"</emphasis> error which is not very
+            descriptive. Note that if you do this from the command
+            line using apt-get, you'll notice that it suggests
+            running apt-get upate, but unfortunately update manager
+            cuts off this part of the error message. Just run
+            <emphasis>apt-get update</emphasis> or <emphasis>aptitude
+              update</emphasis> from the command line before doing
+            update.
+          </para>
+
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>RPM packages repository</title>
+
+        <para></para>
+
+        <para>
+          To access <emphasis>repository of RPM packages</emphasis>, create
+          file
+          <emphasis>/etc/yum.repos.d/fwbuilder.repo</emphasis> with the
+          following contents:
+        </para>
+
+        <screen>
+[fwbuilder]
+name=Firewall Builder
+failovermethod=priority
+baseurl=http://www.fwbuilder.org/rpm/stable/fedora-$releasever-$basearch
+enabled=1
+
+[fwbuilder-testing]
+name=Firewall Builder Test Builds
+failovermethod=priority
+baseurl=http://www.fwbuilder.org/rpm/testing/fedora-$releasever-$basearch
+enabled=0
+        </screen>
+
+        <para>
+          Packages in all repositories are signed with GPG key
+          with ID EAEE08FE "Firewall Builder Project (Package
+          Signing Key) &lt;pkgadmin@fwbuilder.org&gt;".
+          Download <ulink url="http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc">public
+            key</ulink> and add it to your key chain to be able to
+          verify integrity of the packages in repositories. To
+          add the key on Fedora, use the following commands:
+        </para>
+
+        <screen>
+wget http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc
+rpm --import PACKAGE-GPG-KEY-fwbuilder.asc
+        </screen>
+
+
+        <para>
+          To install stable package of fwbuilder with
+          dependencies, use command
+        </para>
+
+        <screen>
+yum install fwbuilder
+        </screen>
+
+        <para>
+          This should find and install both fwbuilder and
+          libfwbuilder packages and dependencies.
+        </para>
+
+        <para>
+          To install latest package from the testing
+          repository (latest nightly build), use command
+        </para>
+
+        <screen>
+yum --enablerepo=fwbuilder-testing install fwbuilder
+        </screen>
+
+      </sect2>
 
     </sect1>
   </chapter>
