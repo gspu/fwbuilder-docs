@@ -55,7 +55,7 @@
       and run the following command (replace the filenames with the
       names of the files you actually downloaded:</para>
 
-      <screen>rpm -i libfwbuilder-4.0.0-1.i386.rpm fwbuilder-4.0.0-1.i386.rpm</screen>
+      <programlisting>rpm -i libfwbuilder-4.0.0-1.i386.rpm fwbuilder-4.0.0-1.i386.rpm</programlisting>
     </sect1>
 
     <sect1 id="ubuntu">
@@ -87,8 +87,8 @@
       and run the following command (replace the filenames with the
       names of the files you actually downloaded:</para>
 
-      <screen>dpkg -i libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb \
-	  fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</screen>
+      <programlisting>dpkg -i libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb \
+	  fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</programlisting>
 
     </sect1>
 
@@ -228,7 +228,7 @@
       follows:
       </para>
 
-<screen>
+<programlisting>
 cd libfwbuilder-&lt;version_number&gt;
 ./autogen.sh
 make
@@ -238,7 +238,7 @@ cd /fwbuilder-&lt;version_number&gt;
 ./autogen.sh
 make
 make install
-</screen> 
+</programlisting> 
 
     <note><title>Compilation may require other packages for RedHat and SuSE</title>
 
@@ -256,7 +256,7 @@ make install
       autogen.sh. This looks as follows:
     </para>
 
-    <screen>
+    <programlisting>
 cd libfwbuilder-&lt;version_number&gt;
 ./autogen.sh --with-qtdir=/opt/qt4
 make
@@ -266,7 +266,7 @@ cd /fwbuilder-&lt;version_number&gt;
 ./autogen.sh --with-qtdir=/opt/qt4
 make
 make install
-    </screen>           
+    </programlisting>           
 
     <para>
       By default script configure assumes prefix="/usr/local" and
@@ -283,9 +283,9 @@ make install
       specifying new prefix as follows:
     </para>
 
-    <screen>
+    <programlisting>
 ./autogen.sh --prefix="/opt"
-    </screen>
+    </programlisting>
 
     <para>
       This will install libraries
@@ -321,9 +321,9 @@ make install
           version):
         </para>
 
-        <screen>
+        <programlisting>
 deb http://www.fwbuilder.org/deb/stable/ intrepid contrib
-        </screen>
+        </programlisting>
 
         <para>
           To access <emphasis>Debian/Ubuntu repository</emphasis>
@@ -334,9 +334,9 @@ deb http://www.fwbuilder.org/deb/stable/ intrepid contrib
           version):
         </para>
 
-        <screen>
+        <programlisting>
 deb http://www.fwbuilder.org/deb/testing/ intrepid contrib
-        </screen>
+        </programlisting>
 
         <para>
           If you wish to follow only stable releases, add
@@ -353,10 +353,10 @@ deb http://www.fwbuilder.org/deb/testing/ intrepid contrib
           add the key on Debian/Ubuntu, use the following commands:
         </para>
 
-        <screen>
+        <programlisting>
 wget http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc
 apt-key add PACKAGE-GPG-KEY-fwbuilder.asc
-        </screen>
+        </programlisting>
 
         <sect3>
           <title>Configuring debsig-verify to verify package signatures</title>
@@ -391,31 +391,31 @@ apt-key add PACKAGE-GPG-KEY-fwbuilder.asc
 
           <para>
             First, you need to install <emphasis>debsig-verify</emphasis> and <emphasis>gpg</emphasis>:
-            <screen>
+            <programlisting>
 aptitude install debsig-verify gpg
-            </screen>
+            </programlisting>
           </para>
 
           <para>
             Import our key and check its fingerprint:
           </para>
 
-          <screen>
+          <programlisting>
 gpg --import PACKAGE-GPG-KEY-fwbuilder.asc
 gpg --fingerprint
-          </screen>
+          </programlisting>
 
           <para>
             <emphasis>gpg --fingerprint</emphasis> prints something like this:
           </para>
 
-          <screen>
+          <programlisting>
 ------------------------
 pub   1024D/EAEE08FE 2009-05-17
 Key fingerprint = 5397 6AA1 5E71 2F74 947B  4496 EF2E DD98 EAEE 08FE
 uid                  Firewall Builder Project (Package Signing Key) &lt;pkgadmin@fwbuilder.org&gt;
 sub   2048g/FE31D386 2009-05-17
-          </screen>
+          </programlisting>
 
           <para>
             Key ID is <emphasis>EAEE08FE</emphasis>, its fingerprint
@@ -428,27 +428,27 @@ sub   2048g/FE31D386 2009-05-17
             Next step is to import the key into debsig keyring:
           </para>
 
-          <screen>
+          <programlisting>
 mkdir /usr/share/debsig/keyrings/EF2EDD98EAEE08FE
 gpg --no-default-keyring \
     --keyring /usr/share/debsig/keyrings/EF2EDD98EAEE08FE/debsig.gpg \
     --import PACKAGE-GPG-KEY-fwbuilder.asc 
-          </screen>
+          </programlisting>
 
           <para>
             Now we need to create debsig-verify policy file:
           </para>
 
-          <screen>
+          <programlisting>
 mkdir /etc/debsig/policies/EF2EDD98EAEE08FE/
 vi /etc/debsig/policies/EF2EDD98EAEE08FE/fwbuilder-testing.pol
-          </screen>
+          </programlisting>
 
           <para>
             The policy file is in XML and looks like this:
           </para>
 
-          <screen>
+          <programlisting>
 &lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE Policy SYSTEM "http://www.debian.org/debsig/1.0/policy.dtd"&gt;
 &lt;Policy xmlns="http://www.debian.org/debsig/1.0/"&gt;
@@ -465,7 +465,7 @@ Description="Firewall Builder Package"/&gt;
 &lt;/Verification&gt;
 
 &lt;/Policy&gt;
-          </screen>
+          </programlisting>
 
           <para>
             Note how key fingerprint is used as an id in all XML
@@ -480,10 +480,10 @@ Description="Firewall Builder Package"/&gt;
           </para>
 
 
-          <screen>
+          <programlisting>
 # debsig-verify /var/cache/apt/archives/libfwbuilder_3.0.5-b961-ubuntu-hardy-1_amd64.deb 
 debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
-          </screen>
+          </programlisting>
 
           <para>
             Now apt-get and other apt tools will call
@@ -532,7 +532,7 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
           following contents:
         </para>
 
-        <screen>
+        <programlisting>
 [fwbuilder]
 name=Firewall Builder
 failovermethod=priority
@@ -544,7 +544,7 @@ name=Firewall Builder Test Builds
 failovermethod=priority
 baseurl=http://www.fwbuilder.org/rpm/testing/fedora-$releasever-$basearch
 enabled=0
-        </screen>
+        </programlisting>
 
         <para>
           Packages in all repositories are signed with GPG key
@@ -556,10 +556,10 @@ enabled=0
           add the key on Fedora, use the following commands:
         </para>
 
-        <screen>
+        <programlisting>
 wget http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc
 rpm --import PACKAGE-GPG-KEY-fwbuilder.asc
-        </screen>
+        </programlisting>
 
 
         <para>
@@ -567,9 +567,9 @@ rpm --import PACKAGE-GPG-KEY-fwbuilder.asc
           dependencies, use command
         </para>
 
-        <screen>
+        <programlisting>
 yum install fwbuilder
-        </screen>
+        </programlisting>
 
         <para>
           This should find and install both fwbuilder and
@@ -581,9 +581,9 @@ yum install fwbuilder
           repository (latest nightly build), use command
         </para>
 
-        <screen>
+        <programlisting>
 yum --enablerepo=fwbuilder-testing install fwbuilder
-        </screen>
+        </programlisting>
 
       </sect2>
 

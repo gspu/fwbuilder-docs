@@ -69,19 +69,19 @@
         for the machine linux-test-1:
       </para>
 
-      <screen>
+      <programlisting>
 vrrpd -D -i eth0 -v 1 -a none -p 110 10.3.14.150 
 vrrpd -D -i eth1 -v 2 -a none -p 110 10.1.1.254
-      </screen>
+      </programlisting>
 
       <para>
         The same for the machine linux-test-2:
       </para>
 
-      <screen>
+      <programlisting>
 vrrpd -D -i eth0 -v 1 -a none -p 120 10.3.14.150 
 vrrpd -D -i eth1 -v 2 -a none -p 120 10.1.1.254
-      </screen>
+      </programlisting>
 
 
       <para>
@@ -100,7 +100,7 @@ vrrpd -D -i eth1 -v 2 -a none -p 120 10.1.1.254
 
 
 
-      <screen id="cookbook_ip_addresses_of_members">
+      <programlisting id="cookbook_ip_addresses_of_members">
 root@linux-test-1:~# ip -4  addr ls
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
     inet 127.0.0.1/8 scope host lo
@@ -119,7 +119,7 @@ root@linux-test-2:~# ip -4  addr ls
 3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
     inet 10.1.1.2/24 brd 10.1.1.255 scope global eth1
     <emphasis role="redtext">inet 10.1.1.254/32 scope global eth1</emphasis>
-      </screen>
+      </programlisting>
 
       <note>
         <para>
@@ -508,22 +508,22 @@ root@linux-test-2:~# ip -4  addr ls
           </para>
 
           <para>
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 1 
 $IPTABLES -A OUTPUT -d 224.0.0.22 -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 1 
 $IPTABLES -A OUTPUT -d 224.0.0.22 -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
 
 
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 2 
 $IPTABLES -A INPUT -s 224.0.0.22 -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 2 
 $IPTABLES -A INPUT -s 224.0.0.22 -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
 
           </para>
 
@@ -534,13 +534,13 @@ $IPTABLES -A INPUT -s 224.0.0.22 -m state --state NEW -j ACCEPT
           </para>
 
           <para>
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 1 
 $IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 1 
 $IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
           </para>
         </listitem>
 
@@ -557,21 +557,21 @@ $IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW 
           </para>
           
           <para>
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 3 
 $IPTABLES -A OUTPUT -d 10.1.1.0/24 -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 3 
 $IPTABLES -A OUTPUT -d 10.1.1.0/24 -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
 
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 4 
 $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 4 
 $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
           </para>
         </listitem>
 
@@ -594,7 +594,7 @@ $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
         the <emphasis>linux-test-1</emphasis> firewall:
       </para>
 
-      <screen>
+      <programlisting>
 # ================ Table 'filter', rule set Policy
 # 
 # Rule -4 VRRP (automatic)
@@ -614,7 +614,7 @@ $IPTABLES -A OUTPUT -o eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
 # Rule -1 CONNTRACK (automatic)
 # 
 $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
-      </screen>
+      </programlisting>
 
       <para>
         Rules for conntrack are associated with ineterface eth1
@@ -677,13 +677,13 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
       </para>
 
       <para>
-        <screen>
+        <programlisting>
 configure_interfaces() {
 update_addresses_of_interface "lo ::1/128 127.0.0.1/8" ""
 update_addresses_of_interface "eth0 fe80::2c:29ff:fe1e:dcaa/64 10.3.14.108/24" "10.3.14.150/32"
 update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.1.1.254/32"
 }
-        </screen>
+        </programlisting>
       </para>
 
       <para>

@@ -746,7 +746,9 @@
 
       <para>These two rules generate the following iptables
       script:</para>
-      <screen>
+
+
+      <programlisting>
 # 
 # Rule 0 (eth0)
 # 
@@ -761,7 +763,7 @@ $IPTABLES -A In_RULE_0  -j DROP
 # Rule 1 (eth1)
 # 
 $IPTABLES -A FORWARD  -i eth1  -s 172.16.22.0/24  -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
     <para> Here all iptables commands have an "-i eth0" or "-i eth1"
     clause, which makes iptables compare the interface and
@@ -770,7 +772,7 @@ $IPTABLES -A FORWARD  -i eth1  -s 172.16.22.0/24  -m state --state NEW  -j ACCEP
      <para>Here is what we get if we compile the same rules for
      PF:</para>
 
-      <screen>
+      <programlisting>
 # Tables: (1)
 table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 172.16.22.1 , 192.168.2.1 } 
 
@@ -784,7 +786,7 @@ block in   log  quick on en0 inet  from 172.16.22.0/24  to any
 # 
 pass in   quick on en1 inet  from 172.16.22.0/24  to any keep state
 # 
-      </screen>
+      </programlisting>
 
       <para> For PF, the compiler generated a "block in log quick on
       eth0" clause to make the rule match interface and
@@ -800,7 +802,7 @@ pass in   quick on en1 inet  from 172.16.22.0/24  to any keep state
       is the output produced for the rules shown above for Cisco IOS
       ACL:</para>
 
-      <screen>
+      <programlisting>
 ip access-list extended inside_in
 ! Rule  1 (eth1)
 ! 
@@ -821,7 +823,7 @@ exit
 interface FastEthernet0
   ip access-group outside_in in
 exit
-      </screen>
+      </programlisting>
 
       <para>So far, the examples in this section have demonstrated how
       to use Interface objects to associate policy rules with
@@ -857,7 +859,7 @@ exit
       rule set. For iptables, the compiler generates the following
       code:</para>
 
-      <screen>
+      <programlisting>
 # ================ IPv4
 # Rule 0 (global)
 # 
@@ -870,11 +872,11 @@ $IPTABLES -A INPUT -p tcp -m tcp  -d 172.16.22.1  --dport 22  -m state \
 # 
 $IP6TABLES -A INPUT -p tcp -m tcp  -d fe80::21d:9ff:fe8b:8e94  --dport 22 \
  -m state --state NEW  -j ACCEPT
-      </screen>
+      </programlisting>
 
       <para>For PF we get the following:</para>
 
-      <screen>
+      <programlisting>
 # Rule  0 (global)
 # 
 # 
@@ -888,7 +890,7 @@ pass in   quick inet6 proto tcp  from any  to fe80::21d:9ff:fe8b:8e94 port 22 \
 keep state
 pass out  quick inet6 proto tcp  from any  to fe80::21d:9ff:fe8b:8e94 port 22 \
 keep state
-      </screen>
+      </programlisting>
 
       <para>Since the interface has two addresses, one IPv4 and
       another IPv6, the compiler generates commands in both the IPv4
@@ -905,7 +907,7 @@ keep state
     
       <para>This generates the following code for iptables:</para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24 -j SNAT \
@@ -915,10 +917,10 @@ $IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24 -j SNAT \
 # 
 $IPTABLES -t nat -A PREROUTING  -p tcp -m tcp   -d 192.0.2.1 --dport 80 \
 -j DNAT --to-destination 172.16.22.100 
-       </screen>
+       </programlisting>
 
 		<para>And for PF:</para>
-	<screen>
+	<programlisting>
 # Rule  0 (NAT)
 # 
 nat on eth0 proto {tcp udp icmp} from 172.16.22.0/24 to any -> 192.0.2.1 
@@ -926,7 +928,7 @@ nat on eth0 proto {tcp udp icmp} from 172.16.22.0/24 to any -> 192.0.2.1
 # Rule  1 (NAT)
 # 
 rdr on eth0 proto tcp from any to 192.0.2.1 port 80 -> 172.16.22.100 port 80 
-        </screen>
+        </programlisting>
     </sect3>
 
     <sect3>
@@ -956,7 +958,7 @@ rdr on eth0 proto tcp from any to 192.0.2.1 port 80 -> 172.16.22.100 port 80
 
       <para> Here is what we get for iptables:</para>
 
-      <screen>
+      <programlisting>
 getaddr eth0  i_eth0
 getaddr6 eth0  i_eth0_v6
 
@@ -973,7 +975,7 @@ test -n "$i_eth0" &amp;&amp; $IPTABLES -A INPUT -p tcp -m tcp  -d $i_eth0  --dpo
 # 
 test -n "$i_eth0_v6" &amp;&amp; $IP6TABLES -A INPUT -p tcp -m tcp -d $i_eth0_v6  \
  --dport 22  -m state --state NEW  -j ACCEPT 
-        </screen>
+        </programlisting>
 
 	<para>Shell functions "getaddr" and "getaddr6" are defined
 	earlier in the script. The generated script determines IPv4
@@ -987,7 +989,7 @@ test -n "$i_eth0_v6" &amp;&amp; $IP6TABLES -A INPUT -p tcp -m tcp -d $i_eth0_v6 
 	current IP address automatically. Here is what is generated
 	for PF:</para>
 
-	<screen>
+	<programlisting>
 # Rule  0 (global)
 # 
 pass in   quick inet proto tcp  from any  to (en0) port 22 keep state
@@ -997,7 +999,7 @@ pass out  quick inet proto tcp  from any  to (en0) port 22 keep state
 # 
 pass in   quick inet6 proto tcp  from any  to (en0) port 22 keep state 
 pass out  quick inet6 proto tcp  from any  to (en0) port 22 keep state
-         </screen>    
+         </programlisting>    
 
 	<para>We still get two separate parts for IPv4 and IPv6
 	because the rule set is configured as IPv4+IPv6 mix, but in
@@ -1035,10 +1037,10 @@ pass out  quick inet6 proto tcp  from any  to (en0) port 22 keep state
       <para> This rule matches interface "eth1" and generates the
       following iptables command:</para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
  -d 172.16.22.255  -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>Since the interface is now a bridge port, the compiler
       uses "-m physdev --physdev-in eth1" to match it.</para>
@@ -1134,8 +1136,8 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
 	<para>Firewall Builder's iptables compiler, for example,
 	generates the following command from this rule:</para>
 
-	<screen>$IPTABLES -A INPUT -p tcp -m tcp  -d 172.16.22.1  --dport 22  -m state \
-	--state NEW  -j ACCEPT</screen>
+	<programlisting>$IPTABLES -A INPUT -p tcp -m tcp  -d 172.16.22.1  --dport 22  -m state \
+	--state NEW  -j ACCEPT</programlisting>
 
 	<para>Note how even though the Address object has a netmask,
 	the generated command matches the address as a host address,
@@ -1249,12 +1251,12 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
 
       <para>For iptables, Firewall Builder generates the following commands from this rule:</para>
 
-      <screen>
+      <programlisting>
 $IP6TABLES -A INPUT -p tcp -m tcp  -d fe80::21d:9ff:fe8b:8e94  --dport 80  \
 -m state --state NEW  -j ACCEPT 
 $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
 -m state --state NEW  -j ACCEPT
-      </screen>
+      </programlisting>
 
       <para>The rule that matches the address described
       by <emphasis>object guardian-2:eth1:ipv6</emphasis> went to the
@@ -1393,9 +1395,9 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
               </figure>
 
 	    <para> Firewall Builder generates the following simple iptables command for this rule:</para>
-<screen>
+<programlisting>
 $IPTABLES -A FORWARD  -s 10.3.14.44  -m state --state NEW  -j ACCEPT 
-</screen>                
+</programlisting>                
             </listitem>
 
             <listitem>
@@ -1409,10 +1411,10 @@ $IPTABLES -A FORWARD  -s 10.3.14.44  -m state --state NEW  -j ACCEPT
               </figure>
 
 	      <para> For this rule, the following iptables command is generated:</para>
-	      <screen>
+	      <programlisting>
 $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW \
 -j ACCEPT 
-              </screen>
+              </programlisting>
             </listitem>
 
             <listitem>
@@ -1432,10 +1434,10 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
               </figure>
 
 	      <para> For this rule, the following iptables command is generated:</para>
-	      <screen>
+	      <programlisting>
 $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -s 10.3.14.44  -m state \
 --state NEW  -j ACCEPT 
-              </screen>
+              </programlisting>
             </listitem>
           </itemizedlist></para>
 
@@ -1452,11 +1454,11 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -s 10.3.14.44  -m st
         </figure>
 
 	<para> For this rule, the following iptables commands are generated:</para>
-	<screen>
+	<programlisting>
 $IPTABLES -A FORWARD  -s 10.3.14.44  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW \
 -j ACCEPT 
-        </screen>  
+        </programlisting>  
 
 	<para>As described in <xref linkend="multiple-addresses" />,
         using an multiple objects in the rule element is like bundling
@@ -1680,13 +1682,13 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
       eth0 has two IPv4 addresses and both will be used. Here are
       iptables commands generated for this rule:</para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW \
 -j Cid6066X5981.1 
 $IPTABLES -A Cid6066X5981.1  -d 10.3.14.44  -j ACCEPT 
 $IPTABLES -A Cid6066X5981.1  -d 10.3.14.55  -j ACCEPT 
 $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>Let's see what we get for the same rule if we configure rule set object as "IPv4+IPv6":</para>
 
@@ -1700,7 +1702,7 @@ $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT
       each address family. Here is what we get (these are relevant
       fragments of the generated script):</para>
 
-      <screen>
+      <programlisting>
 # ================ IPv4
 
 $IPTABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW  \
@@ -1714,7 +1716,7 @@ $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT
 $IP6TABLES -A FORWARD -p tcp -m tcp  --dport 22  -m state --state NEW  \
 -j Cid6066X5981.1 
 $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT 
-     </screen>
+     </programlisting>
       </sect3>
 
         <sect3 id="multiple-addresses">
@@ -1851,26 +1853,26 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
       </figure>
 
 	<para> Here is what we get for iptables:</para>
-<screen>
+<programlisting>
 $IPTABLES -A FORWARD -p tcp -m tcp  -s 172.16.22.0/24  --dport 80  -m state \
 --state NEW  -j ACCEPT 
-</screen>
+</programlisting>
 
 	 <para>Here is the output produced for PF:</para>
-<screen>
+<programlisting>
 pass in   quick inet proto tcp  from 172.16.22.0/24  to any port 80 keep state
 pass out  quick inet proto tcp  from 172.16.22.0/24  to any port 80 keep state
-</screen>          
+</programlisting>          
 
 	  <para>Here is how the output looks like when the rule is
 	  compiled into Cisco IOS access-lists (this is one of the
 	  generated access lists):</para>
 
-          <screen>
+          <programlisting>
 ip access-list extended outside_out
   permit tcp 172.16.22.0 0.0.0.255 any  eq 80 
 exit
-          </screen>          
+          </programlisting>          
 
 	  <para>Here is what we get when the rule is compiled into
 	  Cisco ASA (PIX) configuration. Note how the compiler uses
@@ -1881,10 +1883,10 @@ exit
 	  rule. Because of that, the compiler put the rule only into
 	  the access list attached to interface "inside".</para>
 
-          <screen>
+          <programlisting>
 access-list inside_acl_in permit tcp 172.16.22.0 255.255.255.0 any eq 80 
 access-group inside_acl_in in interface inside
-          </screen>          
+          </programlisting>          
 
     </sect2>
 
@@ -1910,19 +1912,19 @@ access-group inside_acl_in in interface inside
       </figure>
 
       <para> Here is the command generated for iptables:</para>
-      <screen>
+      <programlisting>
 $IP6TABLES -A FORWARD -p tcp -m tcp  -s 2001:470:1f0e:162::/64  --dport 80  \
 -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>Here is what we get for PF:</para>
-      <screen>
+      <programlisting>
 pass in   quick inet6 proto tcp  from 2001:470:1f0e:162::/64  to any port 80 keep state
 pass out  quick inet6 proto tcp  from 2001:470:1f0e:162::/64  to any port 80 keep state
-      </screen>          
+      </programlisting>          
 
       <para>Here is the output for Cisco IOS access lists (only one ACL is shown):</para>
-      <screen>
+      <programlisting>
 ipv6 access-list ipv6_outside_out
   permit tcp 2001:470:1f0e:162::/64 any  eq 80 
 exit
@@ -1930,7 +1932,7 @@ exit
 interface eth0
   ipv6 traffic-filter ipv6_outside_out out
 exit
-      </screen>             
+      </programlisting>             
 
       <para>There is no IPv6 support for Cisco ASA (PIX) in Firewall Builder at this time.</para>
 
@@ -1992,24 +1994,24 @@ exit
       subnets of different lengths and ends up with the
       following:</para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -A FORWARD  -s 192.168.1.100/30  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -s 192.168.1.104/29  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -s 192.168.1.112/28  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -s 192.168.1.128/27  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A FORWARD  -s 192.168.1.160  -m state --state NEW  -j ACCEPT 
-      </screen>        
+      </programlisting>        
 
       <para>Here is how the generated configuration looks for PF (this
       is essentially the same, except it uses tables for
       brevity):</para>
       
-      <screen>
+      <programlisting>
 table &lt;tbl.r0.s&gt; { 192.168.1.100/30 , 192.168.1.104/29 , 192.168.1.112/28 , \
 192.168.1.128/27 , 192.168.1.160 } 
 
 pass in   quick inet  from &lt;tbl.r0.s&gt;  to any keep state
-      </screen>
+      </programlisting>
 
       <para>Just for completeness, let's look at the configuration
       generated for the same rule for Cisco IOS access lists. This is
@@ -2019,7 +2021,7 @@ pass in   quick inet  from &lt;tbl.r0.s&gt;  to any keep state
       interfaces, it got attached to all of them. Here we show only
       one generated ACL:</para>
 
-      <screen>
+      <programlisting>
 ip access-list extended inside_in
 ! 
 ! Rule  0 (global)
@@ -2031,7 +2033,7 @@ ip access-list extended inside_in
   permit ip 192.168.1.128 0.0.0.31 any  
   permit ip host 192.168.1.160 any  
 exit
-      </screen>
+      </programlisting>
 
     </sect2>
 
@@ -2153,7 +2155,7 @@ exit
 
       <figure float="1" id="address-table-compile-iptables">
         <title>Compile Time, iptables compile output</title>
-            <screen>
+            <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A INPUT  -d 192.168.1.1  -j DROP 
@@ -2162,7 +2164,7 @@ $IPTABLES -A FORWARD  -d 192.168.1.3/30  -j DROP
 $IPTABLES -A FORWARD  -d 192.168.2.128/25  -j DROP 
 $IPTABLES -A FORWARD  -d 192.168.1.200  -j DROP 
 $IPTABLES -A FORWARD  -d 192.168.1.201  -j DROP 
-</screen>
+</programlisting>
       </figure>
 
       <para>The compiler replaced
@@ -2183,7 +2185,7 @@ $IPTABLES -A FORWARD  -d 192.168.1.201  -j DROP
 
       <figure float="1" id="address-table-compile-pf">
         <title>Compile Time, PF compile output</title>
-            <screen>
+            <programlisting>
 # Tables: (1)
 table  { 192.168.1.1 , 192.168.1.2 , 192.168.1.3/30 , 192.168.2.128/25 , \
 192.168.1.200 , 192.168.1.201 }
@@ -2193,7 +2195,7 @@ table  { 192.168.1.1 , 192.168.1.2 , 192.168.1.3/30 , 192.168.2.128/25 , \
 block in   quick inet  from any  to &lt;tbl.r0.d&gt;
 block out  quick inet  from any  to &lt;tbl.r0.d&gt;
 
-</screen>
+</programlisting>
       </figure>
 
       <para>The output for PF is simple because Firewall Builder can
@@ -2202,7 +2204,7 @@ block out  quick inet  from any  to &lt;tbl.r0.d&gt;
 
       <figure float="1" id="address-table-run-iptables">
         <title>Run Time, iptables compile output</title>
-            <screen>
+            <programlisting>
 # Using 1 address table files
 check_file "address_table_1" "/home/vadim/addr-table-1.tbl"
 
@@ -2211,7 +2213,7 @@ check_file "address_table_1" "/home/vadim/addr-table-1.tbl"
 grep -Ev '^#|^;|^\s*$' /home/vadim/addr-table-1.tbl | while read L ; do
   set $L; at_address_table_1=$1; $IPTABLES -A FORWARD  -d $at_address_table_1  -j DROP 
 done
-</screen>
+</programlisting>
       </figure>
 
       <para> First, the generated script checks if the file specified
@@ -2239,7 +2241,7 @@ done
 
       <figure float="1" id="address-table-run-iptables-assume">
         <title>Run Time, iptables compile output, assume firewall is part of "any"</title>
-            <screen>
+            <programlisting>
 # Rule 0 (global)
 # 
 grep -Ev '^#|^;|^\s*$' /home/vadim/addr-table-1.tbl | while read L ; do
@@ -2248,7 +2250,7 @@ done
 grep -Ev '^#|^;|^\s*$' /home/vadim/addr-table-1.tbl | while read L ; do
   set $L; at_address_table_1=$1; $IPTABLES -A FORWARD  -d $at_address_table_1  -j DROP 
 done
-</screen>
+</programlisting>
       </figure>
 
       <para>The difference is that compiler generated two sets of
@@ -2266,7 +2268,7 @@ done
 
       <figure float="1" id="address-table-run-pf">
         <title>Run Time, PF compile output</title>
-            <screen>
+            <programlisting>
 # Tables: (1)
 table  persist file "/home/vadim/addr-table-1.tbl"
 # Rule  0 (global)
@@ -2274,7 +2276,7 @@ table  persist file "/home/vadim/addr-table-1.tbl"
 # 
 block in   quick inet  from any  to &lt;address_table_1&gt;
 block out  quick inet  from any  to &lt;address_table_1&gt;
-</screen>
+</programlisting>
       </figure>
 
       <para>PF is even easier in the case of run time address
@@ -2293,20 +2295,20 @@ block out  quick inet  from any  to &lt;address_table_1&gt;
 
       <para>Addresses can be added to the table later using external scripts that call pfctl like this:</para>
 
-      <screen>
+      <programlisting>
 pfctl -t bad_hosts -T add 192.0.2.1
-      </screen>
+      </programlisting>
 
       <para>Another interesting possibility is to automatically
       populate the table if option "overload" is used in combination
       with other rate limiting options on a rule. Taking an example
       from the man page for pf.conf, here is how it looks:</para>
 
-            <screen>
+            <programlisting>
 block quick from &lt;bad_hosts&gt;
 pass in on $ext_if proto tcp to $webserver port www keep state \
                    (max-src-conn-rate 100/10, overload &lt;bad_hosts&gt; flush global)
-</screen>
+</programlisting>
 
       <para>The idea behind these rules is that if some host tries to
       connect to the web server too often &mdash; more often than is
@@ -2343,7 +2345,7 @@ pass in on $ext_if proto tcp to $webserver port www keep state \
       following PF configuration that matches the one given in the man
       page:</para>
 
-            <screen>
+            <programlisting>
 # Tables: (1)
 table &lt;bad_hosts&gt; persist
 
@@ -2356,7 +2358,7 @@ block in   log  quick inet  from &lt;bad_hosts&gt;  to any
 pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
    keep state  (  max-src-conn-rate 100/10, overload &lt;bad_hosts&lt; flush global ) 
 
-</screen>
+</programlisting>
 
     </sect2>
 
@@ -2419,9 +2421,9 @@ pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
 
 	<para>For iptables, this rule translates into the following script:</para>
 
-        <screen>
+        <programlisting>
 $IPTABLES -A INPUT  -d 224.0.0.0/4  -m state --state NEW  -j ACCEPT 
-        </screen>        
+        </programlisting>        
 
 	 <para>The rule went into the INPUT chain because iptables processes multicast there.</para>
 
@@ -2444,7 +2446,7 @@ $IPTABLES -A INPUT  -d 224.0.0.0/4  -m state --state NEW  -j ACCEPT
       </figure>
 
 	  <para> these two rules translate into the following script for iptables:</para>
-          <screen>
+          <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A INPUT  -d 255.255.255.255  -m state --state NEW  -j ACCEPT 
@@ -2452,7 +2454,7 @@ $IPTABLES -A INPUT  -d 255.255.255.255  -m state --state NEW  -j ACCEPT
 # Rule 1 (global)
 # 
 $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT 
-          </screen>
+          </programlisting>
 
 	  <para>Both rules went into INPUT chain as expected.</para>
       </sect3>
@@ -2480,10 +2482,10 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
 
 	<para>This produces the following iptables commands:</para>
 
-        <screen>
+        <programlisting>
 $IPTABLES -A FORWARD  -d 172.16.22.255  -m state --state NEW  -j ACCEPT 
 $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT 
-        </screen>        
+        </programlisting>        
 
         <para>
           Rules went into both INPUT and FORWARD chains because the
@@ -2575,11 +2577,11 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
 
       <figure float="1" id="dns-name-compile-iptables">
         <title>DNS Name Compile Time, iptables compile output</title>
-            <screen>
+            <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD  -d 70.85.175.170  -m state --state NEW  -j ACCEPT  
-</screen>
+</programlisting>
       </figure>
 
       <para>In this trivial case, the compiler simply resolved
@@ -2596,11 +2598,11 @@ $IPTABLES -A FORWARD  -d 70.85.175.170  -m state --state NEW  -j ACCEPT
 
       <figure float="1" id="dns-name-compile-pf">
         <title>DNS Name Compile Time, PF compile output</title>
-            <screen>
+            <programlisting>
 # Rule  0 (global)
 # 
 pass in   quick inet  from any  to 70.85.175.170 keep state
-</screen>
+</programlisting>
       </figure>
 
       <para>The same is true in the case of PF: the compiler simply
@@ -2614,11 +2616,11 @@ pass in   quick inet  from any  to 70.85.175.170 keep state
 
       <figure float="1" id="dns-name-run-iptables">
         <title>DNS Name Run Time, iptables compile output</title>
-        <screen>
+        <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD  -d www.fwbuilder.org -m state --state NEW  -j ACCEPT
-        </screen>
+        </programlisting>
       </figure>
 
 
@@ -2628,11 +2630,11 @@ $IPTABLES -A FORWARD  -d www.fwbuilder.org -m state --state NEW  -j ACCEPT
       time DNS Name object in IPv6 policy generates the following
       iptables command:</para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IP6TABLES -A FORWARD  -d ipv6.fwbuilder.org -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>
         $IP6TABLES is the shell variable defined at the beginning of
@@ -2645,12 +2647,12 @@ $IP6TABLES -A FORWARD  -d ipv6.fwbuilder.org -m state --state NEW  -j ACCEPT
 
       <figure float="1" id="dns-name-run-pf">
         <title>DNS Name Run Time, PF compile output</title>
-        <screen>
+        <programlisting>
 # Rule  0 (global)
 #
 pass in   quick inet  from any  to www.fwbuilder.org keep state
 pass out  quick inet  from any  to www.fwbuilder.org keep state
-	</screen>
+	</programlisting>
       </figure>
       
       <para>Run time DNS Name object translates into PF configuration
@@ -3055,7 +3057,7 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
           </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (global)
 # 
@@ -3072,7 +3074,7 @@ $IPTABLES -A FORWARD  -o + -p all  -m dscp --dscp-class EF  -m state \
 $IPTABLES -A FORWARD  -o + -p all  -m tos --tos 0x10  -m state --state NEW  \
 -j ACCEPT 
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -3092,7 +3094,7 @@ $IPTABLES -A FORWARD  -o + -p all  -m tos --tos 0x10  -m state --state NEW  \
           </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (global)
 # 
@@ -3106,7 +3108,7 @@ $IP6TABLES -A RULE_0  -j DROP
 $IP6TABLES -A FORWARD  -o +  -m dscp --dscp-class EF  -m state --state NEW  -j ACCEPT 
 $IP6TABLES -A FORWARD  -o +  -m tos --tos 0x10  -m state --state NEW  -j ACCEPT 
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -3136,11 +3138,11 @@ $IP6TABLES -A FORWARD  -o +  -m tos --tos 0x10  -m state --state NEW  -j ACCEPT
           </para>
   
 
-  <screen>
+  <programlisting>
 
 pass out  quick inet  from any  to (eth0)  tos 0x10 keep state
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -3159,7 +3161,7 @@ pass out  quick inet  from any  to (eth0)  tos 0x10 keep state
           </para>
   
 
-  <screen>
+  <programlisting>
 
 ip access-list extended e1_0_out
 ! 
@@ -3173,7 +3175,7 @@ ip access-list extended e1_0_out
   permit ip any  any  dscp EF
 exit
 
-              </screen>
+              </programlisting>
 
       </sect3>
     </sect2>
@@ -3358,7 +3360,7 @@ exit
 	</para>
   
 
-  <screen>
+  <programlisting>
 # ================ IPv4
 
 # Rule 0 (global)
@@ -3373,7 +3375,7 @@ $IPTABLES -A FORWARD  -i + -p icmp  -m icmp  --icmp-type 8/0 \
 $IP6TABLES -A FORWARD  -i + -p ipv6-icmp  -m icmp6 --icmpv6-type 128/0 \
      -m state --state NEW  -j ACCEPT 
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -3382,7 +3384,7 @@ $IP6TABLES -A FORWARD  -i + -p ipv6-icmp  -m icmp6 --icmpv6-type 128/0 \
 	</para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (global)
 # 
@@ -3392,7 +3394,7 @@ pass in   quick inet proto icmp  from any  to any icmp-type 8 code 0
 # 
 pass in   quick inet6 proto icmp6  from any  to any
 
-              </screen>
+              </programlisting>
   </sect3>
     </sect2>
 
@@ -3763,7 +3765,7 @@ TCP Service dialog provides the following controls:
           </para>
   
 
-  <screen>
+  <programlisting>
 
 # ================ IPv4
 
@@ -3778,7 +3780,7 @@ $IPTABLES -A FORWARD -p tcp -m tcp  -d 70.85.175.170 \
 # 
 $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2 \
      --dport 80  -m state --state NEW  -j ACCEPT 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -3792,7 +3794,7 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2 \
           </para>
   
 
-  <screen>
+  <programlisting>
 # Rule  0 (global)
 # 
 pass in   quick inet proto tcp  from any  to 70.85.175.170 port 80 keep state
@@ -3803,7 +3805,7 @@ pass out  quick inet proto tcp  from any  to 70.85.175.170 port 80 keep state
 pass in   quick inet6 proto tcp  from any  to 2001:470:1f0e:162::2 port 80 keep state
 pass out  quick inet6 proto tcp  from any  to 2001:470:1f0e:162::2 port 80 keep state
 
-              </screen>
+              </programlisting>
     </sect4>
     <sect4>
         <title>Source port range</title>
@@ -3840,13 +3842,13 @@ pass out  quick inet6 proto tcp  from any  to 2001:470:1f0e:162::2 port 80 keep 
           </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD  -i + -p tcp -m tcp  --sport 1024:65535  -j ACCEPT 
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -3855,11 +3857,11 @@ $IPTABLES -A FORWARD  -i + -p tcp -m tcp  --sport 1024:65535  -j ACCEPT
           </para>
   
 
-  <screen>
+  <programlisting>
 # Rule  0 (global)
 # 
 pass in   quick inet proto tcp  from any port &gt;= 1024  to any
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -3869,11 +3871,11 @@ pass in   quick inet proto tcp  from any port &gt;= 1024  to any
           </para>
   
 
-  <screen>
+  <programlisting>
 
 pass in   quick inet proto tcp  from any port &gt;= 1024  to any no state
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -3882,7 +3884,7 @@ pass in   quick inet proto tcp  from any port &gt;= 1024  to any no state
           </para>
   
 
-  <screen>
+  <programlisting>
 
 ip access-list extended e1_1_in
 ! 
@@ -3891,7 +3893,7 @@ ip access-list extended e1_1_in
   permit tcp any  gt 1024 any  
 exit
 
-              </screen>
+              </programlisting>
     </sect4>
     <sect4>
         <title>Established</title>
@@ -3947,14 +3949,14 @@ exit
           </para>
   
 
-  <screen>
+  <programlisting>
 ip access-list extended e1_0_in
 ! 
 ! Rule  0 (global)
 ! 
   permit tcp any  eq 80 any  established 
 ! 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -3971,12 +3973,12 @@ ip access-list extended e1_0_in
           </para>
   
 
-  <screen>
+  <programlisting>
 
 Error (pf): TCPService object with option "established" is not supported 
    by firewall platform "pf". Use stateful rule instead.
 
-              </screen>
+              </programlisting>
 	</sect4>
       </sect3>
     </sect2>
@@ -4108,13 +4110,13 @@ Error (pf): TCPService object with option "established" is not supported
           </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD  -i + -p udp -m udp  --dport 53  -m state --state NEW  -j ACCEPT 
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -4135,13 +4137,13 @@ $IPTABLES -A FORWARD  -i + -p udp -m udp  --dport 53  -m state --state NEW  -j A
           </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (global)
 # 
 pass in   quick inet proto udp  from any  to any port 53
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -4159,7 +4161,7 @@ pass in   quick inet proto udp  from any  to any port 53
           </para>
   
 
-  <screen>
+  <programlisting>
 
 ip access-list extended fe0_0_in
 ! 
@@ -4168,7 +4170,7 @@ ip access-list extended fe0_0_in
   permit udp any  any  eq 53 
 ! 
 exit
-              </screen>
+              </programlisting>
 
        </sect4>
 
@@ -4193,13 +4195,13 @@ exit
           </para>
   
 
-  <screen>
+  <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD  -i + -p udp -m udp  --sport 1024:65535  -m state \
 --state NEW  -j ACCEPT 
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -4208,14 +4210,14 @@ $IPTABLES -A FORWARD  -i + -p udp -m udp  --sport 1024:65535  -m state \
           </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (global)
 # 
 # 
 pass in   quick inet proto udp  from any port &gt;= 1024  to any
 
-              </screen>
+              </programlisting>
 
           <para>
   
@@ -4224,7 +4226,7 @@ pass in   quick inet proto udp  from any port &gt;= 1024  to any
           </para>
   
 
-  <screen>
+  <programlisting>
 
 ip access-list extended e1_0_in
 ! 
@@ -4233,7 +4235,7 @@ ip access-list extended e1_0_in
   permit udp any  gt 1024 any  
 !
 exit
-              </screen>
+              </programlisting>
        </sect4>
      </sect3>
     </sect2>
@@ -4293,11 +4295,11 @@ exit
 
        <figure float="1" id="user-service-iptables">
         <title>User Service, iptables compile output</title>
-            <screen>
+            <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A OUTPUT -m owner --uid-owner 500  -j DROP 
-	</screen>
+	</programlisting>
       </figure>
 
       <para> The User Service translated into
@@ -4307,7 +4309,7 @@ $IPTABLES -A OUTPUT -m owner --uid-owner 500  -j DROP
 
        <figure float="1" id="user-service-pf">
         <title>User Service, PF compile output</title>
-            <screen>
+            <programlisting>
 # Tables: (1)
 table  { en0 , 192.168.1.1 }
 
@@ -4315,7 +4317,7 @@ table  { en0 , 192.168.1.1 }
 # 
 # 
 block out  quick inet  from   to any user 500 
-	</screen>
+	</programlisting>
       </figure>
 
       <para>Here the table <emphasis>tbl.r0.s</emphasis> was created
@@ -4531,7 +4533,7 @@ block out  quick inet  from   to any user 500
         </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (global)
 # 
@@ -4547,7 +4549,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       -m state --state NEW  -j ACCEPT 
 # 
 
-                </screen>
+                </programlisting>
 
         <para>
   
@@ -4611,7 +4613,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         </para>
   
 
-  <screen>
+  <programlisting>
 
 # 
 # Rule 0 (global)
@@ -4628,7 +4630,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       -m state --state NEW  -j ACCEPT 
 # 
 
-                </screen>
+                </programlisting>
 
         <para>
   

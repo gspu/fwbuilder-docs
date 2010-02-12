@@ -215,11 +215,11 @@
           </para>
   
 
-          <screen>
+          <programlisting>
 
 C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
 
-          </screen>
+          </programlisting>
 
           <para>
   
@@ -271,11 +271,11 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
                   account.
 
 
-  <screen>
+  <programlisting>
 
   useradd fwadmin
 
-</screen>
+</programlisting>
                         </para>
   </listitem>
   
@@ -287,13 +287,13 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
                   Create directory /etc/fw/ on the firewall, make
                   it belong to group fwadmin, make it group
                   writable.
-  <screen>
+  <programlisting>
 
   mkdir /etc/fw
   chgrp fwadmin /etc/fw
   chmod g+w fwadmin /etc/fw
 
-</screen>
+</programlisting>
                         </para>
   </listitem>
   
@@ -309,13 +309,13 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
           </para>
   
 
-  <screen>
+  <programlisting>
 
   Defaults:%fwbadmin   !lecture , passwd_timeout=1 , timestamp_timeout=1
   # User alias specification
   %fwbadmin  ALL = PASSWD: /etc/fw/&lt;FWNAME&gt;.fw , /usr/bin/pkill , /sbin/shutdown
 
-</screen>
+</programlisting>
           <para>
                       
                     Here &lt;FWNAME&gt; is the name of the firewall.
@@ -326,11 +326,11 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
 
 	  </para>
 
-  <screen>
+  <programlisting>
 
   ssh fwadmin@firewall sudo -S /etc/fw/&lt;FWNAME&gt;.fw
 
-</screen>
+</programlisting>
                   
 
                   
@@ -369,11 +369,11 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
 
 
 
-  <screen>
+  <programlisting>
 
   $ ssh -l fwadmin &lt;FWNAME&gt;
 
-</screen>
+</programlisting>
 
                   You may use either password or public key
                   authentication; the installer will work either
@@ -453,11 +453,11 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
 
 
 
-              <screen>
+              <programlisting>
                 
 $ ssh -l root &lt;firewall_name&gt;
 
-              </screen>
+              </programlisting>
 
               You may use either password or public key
               authentication; the installer will work either
@@ -721,11 +721,11 @@ $ ssh -l root &lt;firewall_name&gt;
           </para>
   
 
-          <screen>
+          <programlisting>
 
   ssh -l fwadmin firewall
 
-          </screen>
+          </programlisting>
 
           <para>
   
@@ -735,11 +735,11 @@ $ ssh -l root &lt;firewall_name&gt;
           </para>
   
 
-          <screen>
+          <programlisting>
     
   ssh -l root firewall
 
-          </screen>
+          </programlisting>
 
           <para>
   
@@ -749,17 +749,17 @@ $ ssh -l root &lt;firewall_name&gt;
           </para>
   
 
-          <screen>
+          <programlisting>
 
   C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin firewall
 
-          </screen>
+          </programlisting>
 
-          <screen>
+          <programlisting>
 
   C:\Users\vadim&gt;c:\PuTTY\plink.exe -l root firewall
 
-          </screen>
+          </programlisting>
 
           <para>
     
@@ -784,12 +784,12 @@ $ ssh -l root &lt;firewall_name&gt;
           </para>
   
 
-          <screen>
+          <programlisting>
 SCP: warning: Executing SCP1 compatibility. 
 SCP: FATAL: Executing ssh1 in compatibility mode failed (Check that SCP1 is in your PATH). 
 Lost connection 
 SSH session terminated, exit status: 1
-          </screen>
+          </programlisting>
 
           <para>
   
@@ -822,11 +822,11 @@ SSH session terminated, exit status: 1
           </para>
   
 
-          <screen>
+          <programlisting>
 
   C:\Users\vadim&gt;c:\PuTTY\pscp.exe test.txt root@firewall:
 
-          </screen>
+          </programlisting>
 
           <para>
   
@@ -850,11 +850,11 @@ SSH session terminated, exit status: 1
           </para></note>
   
 
-          <screen>
+          <programlisting>
 
   C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
 
-          </screen>
+          </programlisting>
 
           <note>        <para>
               Note that there is only one '-' in front of "sftp"
@@ -1400,11 +1400,11 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   /etc/firewall/firewall.fw
 
-</screen>
+</programlisting>
 
         <para>
   
@@ -1432,11 +1432,11 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   "chkconfig --level 2345 iptables off"
 
-</screen>
+</programlisting>
 
         <para>
    
@@ -1447,11 +1447,11 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
   
   chkconfig -e
 
-</screen>
+</programlisting>
 
         <para>
    
@@ -1462,13 +1462,13 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
   
   SuSEfirewall2_final       off
   SuSEfirewall2_init        off
   SuSEfirewall2_setup       off
 
-</screen>
+</programlisting>
 
         <para>
   
@@ -1497,11 +1497,11 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   "chkconfig --level 2345 iptables on"
 
-</screen>
+</programlisting>
 
         <note><para>
   
@@ -1566,12 +1566,12 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   #!/bin/sh
   /etc/firewall/firewall.fw
 
-</screen>
+</programlisting>
 
         <para>
   
@@ -1669,11 +1669,11 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   /etc/firewall.fw
 
-</screen>
+</programlisting>
 
         <para>
   
@@ -1686,13 +1686,13 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   pf=YES                          # Packet filter / NAT
   pf_rules=/etc/firewall.conf     # Packet filter rules file
   pflogd_flags=                   # add more flags, i.e. "-s 256"
 
-</screen>
+</programlisting>
 
       </sect2>
 
@@ -1721,14 +1721,14 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   firewall_enable="YES"                        
   # Set to YES to enable firewall functionality
   firewall_script="/usr/local/etc/firewall.fw" 
   # Which script to run to set up the firewall
 
-</screen>
+</programlisting>
 
       </sect2>
 
@@ -1767,14 +1767,14 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   firewall_enable="YES"                        
   # Set to YES to enable firewall functionality
   firewall_script="/usr/local/etc/firewall.fw" 
   # Which script to run to set up the firewall
 
-</screen>
+</programlisting>
 
         <para>
   
@@ -1809,7 +1809,7 @@ SSH session terminated, exit status: 1
   </para>
   
 
-  <screen>
+  <programlisting>
 
   ipfilter_enable="YES"           # Set to YES to enable ipfilter functionality
   ipfilter_program="/sbin/ipf"    # where the ipfilter program lives
@@ -1819,9 +1819,9 @@ SSH session terminated, exit status: 1
   ipnat_program="/sbin/ipnat"     # where the ipnat program lives
   ipnat_rules="/etc/ipnat.rules"  # rules definition file for ipnat
 
-</screen>
-			</sect2>
+  </programlisting>
+</sect2>
 					
-		</sect1>
+    </sect1>
   </chapter>
   

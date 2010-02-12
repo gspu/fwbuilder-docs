@@ -300,7 +300,7 @@
         generated script gets the following fragment that is executed
         before iptables rules are loaded:
 
-        <screen>
+        <programlisting>
 configure_interfaces() {
     :
     # Configure interfaces
@@ -312,7 +312,7 @@ configure_interfaces() {
     update_addresses_of_interface "eth1.101 10.1.1.1/24" "10.1.1.254/24"
     update_addresses_of_interface "eth1.102 10.1.2.1/24" "10.1.2.254/24"
 }
-        </screen>
+        </programlisting>
 
         Lines highlighted in red configure VLAN interfaces. The first
         command, a call to
@@ -351,7 +351,7 @@ configure_interfaces() {
         with setup configured in fwbuilder:
       </para>
 
-      <screen>
+      <programlisting>
 root@linux-test-4:~# ip addr ls
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -389,7 +389,7 @@ ifconfig eth1.101 up
 # Adding ip address: eth1.102 10.1.2.2/24
 ip addr add 10.1.2.2/24 dev eth1.102
 ifconfig eth1.102 up
-      </screen>
+      </programlisting>
 
       <para>
         Commands that manage VLAN interfaces are highlighted in
@@ -407,7 +407,7 @@ ifconfig eth1.102 up
         "inetrfaces". Here is what happens:
       </para>
 
-      <screen>
+      <programlisting>
 root@linux-test-2:~# /etc/fw/linux-test-4.fw interfaces
 # Adding VLAN interface eth1.101 (parent: eth1)
 Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
@@ -418,14 +418,14 @@ Added VLAN with VID == 102 to IF -:eth1:-
 # Removing ip address: eth1 10.1.1.2/24
 # Adding ip address: eth1.101 10.1.1.2/24
 # Adding ip address: eth1.102 10.1.2.2/24
-      </screen>
+      </programlisting>
 
       <para>
         We can now verify that the script added vlan inetrfaces and
         configured IP addresses:
       </para>
 
-      <screen>
+      <programlisting>
 root@linux-test-2:~# ip addr ls
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -451,17 +451,17 @@ root@linux-test-2:~# ip addr ls
     inet 10.1.2.2/24 scope global eth1.102
     inet6 fe80::20c:29ff:fefc:6796/64 scope link 
        valid_lft forever preferred_lft forever
-      </screen>
+      </programlisting>
 
       <para>
         Now that vlan interfaces are there and IP addresses are
         correct, lets see what happens if we run the script again:
       </para>
 
-      <screen>
+      <programlisting>
 root@linux-test-2:~# /etc/fw/linux-test-4.fw test_interfaces
 root@linux-test-2:~# 
-      </screen>
+      </programlisting>
 
       <para>
         The script verified configuration and has found that it does
@@ -481,7 +481,7 @@ root@linux-test-2:~#
 
       <figure id="heartbeat_mcast_config_2">
         <title>Heartbeat configuration files</title>
-        <screen>
+        <programlisting>
 # cat ha.cf:
 
 mcast eth0 225.0.0.1 694 1 0
@@ -503,7 +503,7 @@ linux-test-1 IPaddr::10.1.2.254/24/eth1.102/10.1.2.255
 
 auth 3
 3 md5 hb-auth-key
-        </screen>
+        </programlisting>
       </figure>
 
       <para>

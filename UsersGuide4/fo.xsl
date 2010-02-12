@@ -23,6 +23,23 @@ file to .pdf
 <!-- figure floats do not work in the print output -->
 <xsl:param name="default.float.class" select="none"/>
 
+<xsl:attribute-set name="monospace.verbatim.properties">
+  <xsl:attribute name="font-family">Lucida Sans Typewriter</xsl:attribute>
+  <xsl:attribute name="font-size">8pt</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+</xsl:attribute-set>
+
+
+<xsl:param name="shade.verbatim" select="1"/>
+
+<xsl:attribute-set name="shade.verbatim.style">
+  <xsl:attribute name="background-color">#E0E0E0</xsl:attribute>
+  <xsl:attribute name="border-width">0.5pt</xsl:attribute>
+  <xsl:attribute name="border-style">solid</xsl:attribute>
+  <xsl:attribute name="border-color">#575757</xsl:attribute>
+  <xsl:attribute name="padding">3pt</xsl:attribute>
+</xsl:attribute-set>
+
 
 <!-- Ignore image scaling for HTML. It is hard to guess image scaling for
      html correctly unless each image is adjusted individually.

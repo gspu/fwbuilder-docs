@@ -61,7 +61,7 @@
         Here are the iptables command generated for this example:
       </para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
 $IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
 $IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -80,7 +80,7 @@ $IPTABLES -A INPUT  -j RULE_1
 $IPTABLES -A FORWARD  -j RULE_1 
 $IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
 $IPTABLES -A RULE_1  -j DROP 
-      </screen>
+      </programlisting>
 
       <para>
         Rules that utilize module <emphasis>state</emphasis> and match
@@ -129,7 +129,7 @@ $IPTABLES -A RULE_1  -j DROP
         firewall is part of any" is turned off:
       </para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
 $IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
 $IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -144,7 +144,7 @@ $IPTABLES -N RULE_1
 $IPTABLES -A FORWARD  -j RULE_1 
 $IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
 $IPTABLES -A RULE_1  -j DROP 
-      </screen>
+      </programlisting>
 
       <para>
         Automatically added rules that match packets in states
@@ -166,11 +166,11 @@ $IPTABLES -A RULE_1  -j DROP
         script:
       </para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -P OUTPUT  DROP
 $IPTABLES -P INPUT   DROP
 $IPTABLES -P FORWARD DROP
-      </screen>
+      </programlisting>
 
       <para>
         This means that if you do not add rules to permit access to
@@ -210,7 +210,7 @@ $IPTABLES -P FORWARD DROP
         Here is the PF configuration created for the same rules:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule  0 (global)
 # 
 pass  quick inet  from 192.168.1.0/24  to any keep state 
@@ -218,7 +218,7 @@ pass  quick inet  from 192.168.1.0/24  to any keep state
 # Rule  1 (global)
 # 
 block  log  quick inet  from any  to any 
-      </screen>
+      </programlisting>
       
       <para>
         Firewall Builder always generates PF configuration using
@@ -235,7 +235,7 @@ block  log  quick inet  from any  to any
         combination of rules:
       </para>
 
-      <screen>
+      <programlisting>
  Rule  0 (global)
 ! 
 access-list inside_acl_in  remark 0 (global)
@@ -254,7 +254,7 @@ access-list inside_acl_in deny   ip any any log 4 interval 300
 access-group dmz50_acl_in in interface dmz50
 access-group inside_acl_in in interface inside
 access-group outside_acl_in in interface outside
-      </screen>
+      </programlisting>
 
       <para>
         Since source address in the rule #0 is limited to the internal
@@ -311,7 +311,7 @@ access-group outside_acl_in in interface outside
         Here is iptables script generated for these two simple rules:
       </para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
 $IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
 $IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -331,7 +331,7 @@ $IPTABLES -A INPUT  -m state --state NEW  -j RULE_1
 $IPTABLES -A FORWARD  -m state --state NEW  -j RULE_1 
 $IPTABLES -A RULE_1  -j LOG  --log-level info --log-prefix "RULE 1 -- DENY "
 $IPTABLES -A RULE_1  -j DROP 
-      </screen>
+      </programlisting>
 
       <para>
         Generated iptables rules were placed in
@@ -355,7 +355,7 @@ $IPTABLES -A RULE_1  -j DROP
         Here is the code generated for PF for the same rule:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule  0 (global)
 # 
 pass  quick inet proto tcp  from any  to 192.168.1.100 port 25 keep state 
@@ -363,7 +363,7 @@ pass  quick inet proto tcp  from any  to 192.168.1.100 port 25 keep state
 # Rule  1 (global)
 # 
 block  log  quick inet  from any  to any 
-      </screen>
+      </programlisting>
 
       <para>
         In PF we do not have to worry about chains and there is no
@@ -375,7 +375,7 @@ block  log  quick inet  from any  to any
         Here is the code generated for PIX for the same rule:
       </para>
 
-      <screen>
+      <programlisting>
 ! Rule  0 (global)
 ! 
 access-list outside_acl_in  remark 0 (global)
@@ -393,7 +393,7 @@ access-list dmz50_acl_in  remark 1 (global)
 access-list dmz50_acl_in deny   ip any any log 0 interval 300 
 access-list inside_acl_in  remark 1 (global)
 access-list inside_acl_in deny   ip any any log 0 interval 300 
-      </screen>
+      </programlisting>
 
       <para>
         In PIX, all access lists must be attached to interfaces of the
@@ -437,12 +437,12 @@ access-list inside_acl_in deny   ip any any log 0 interval 300
         Here is the code generated for iptables from this rule:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   -d 192.168.1.100  \
      --dport 25  -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>
         Since source rule element was limited to the host on DMZ,
@@ -454,7 +454,7 @@ $IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   -d 192.168.1.100  \
         Lets look at the configuration generated for PIX from the same rule:
       </para>
 
-      <screen>
+      <programlisting>
 ! Rule  0 (global)
 ! 
 access-list dmz50_acl_in  remark 0 (global)
@@ -464,7 +464,7 @@ access-list dmz50_acl_in permit tcp host 192.168.2.22 host 192.168.1.100 eq 25
 access-group dmz50_acl_in in interface dmz50
 access-group inside_acl_in in interface inside
 access-group outside_acl_in in interface outside
-      </screen>
+      </programlisting>
 
       <para>
         the rule was placed only in the access list attached to the
@@ -599,7 +599,7 @@ access-group outside_acl_in in interface outside
         Here are the iptables commands generated for this rule:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (eth0)
 # 
 # anti spoofing rule
@@ -613,7 +613,7 @@ $IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0
 $IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
 $IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "
 $IPTABLES -A In_RULE_0  -j DROP 
-      </screen>
+      </programlisting>
 
       <para>
         Iptables commands were placed in INPUT and FORWARD chains to
@@ -629,7 +629,7 @@ $IPTABLES -A In_RULE_0  -j DROP
         Lets see what gets generated for the same rule for PF:
       </para>
 
-      <screen>
+      <programlisting>
 # Tables: (1)
 table &lt;tbl.r0.s&gt; { 192.0.2.1 , 192.168.1.1 } 
 
@@ -639,7 +639,7 @@ table &lt;tbl.r0.s&gt; { 192.0.2.1 , 192.168.1.1 }
 block in   log  quick on en0 inet  from &lt;tbl.r0.s&gt;  to any 
 block in   log  quick on en0 inet  from 192.168.1.0/24  to any 
 # 
-      </screen>
+      </programlisting>
       
       <para>
         Here compiler uses tables to make generated PF code more
@@ -652,7 +652,7 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any
         Here is the same rule, compiled for PIX:
       </para>
 
-      <screen>
+      <programlisting>
 ! Rule  0 (Ethernet1/0)
 ! anti-spoofing rule
 ! 
@@ -665,7 +665,7 @@ access-list outside_acl_in deny   ip 192.168.1.0 255.255.255.0 any
 
 access-group outside_acl_in in interface outside
 
-      </screen>
+      </programlisting>
 
     </sect2>
 
@@ -703,7 +703,7 @@ access-group outside_acl_in in interface outside
         Generated iptables script looks like this:
       </para>
 
-      <screen>
+      <programlisting>
 getaddr eth0  i_eth0
 
 
@@ -720,7 +720,7 @@ $IPTABLES -A FORWARD  -i eth0   -s 192.168.1.1   -j In_RULE_0
 $IPTABLES -A FORWARD  -i eth0   -s 192.168.1.0/24   -j In_RULE_0 
 $IPTABLES -A In_RULE_0  -j LOG  --log-level info --log-prefix "RULE 0 -- DENY "
 $IPTABLES -A In_RULE_0  -j DROP 
-      </screen>
+      </programlisting>
 
       <para>
         The script defines shell
@@ -738,7 +738,7 @@ $IPTABLES -A In_RULE_0  -j DROP
         Here is what is generated for PF:
       </para>
 
-      <screen>
+      <programlisting>
 table &lt;tbl.r0.d&gt; { en0 , 192.168.1.1 } 
 
 # Rule  0 (en0)
@@ -746,7 +746,7 @@ table &lt;tbl.r0.d&gt; { en0 , 192.168.1.1 }
 # 
 block in   log  quick on en0 inet  from &lt;tbl.r0.d&gt;  to any 
 block in   log  quick on en0 inet  from 192.168.1.0/24  to any 
-      </screen>
+      </programlisting>
 
       <para>
         In PF, one can place interface name ("en0") in the table and
@@ -825,7 +825,7 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any
         Here is iptables commands generated for this example:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -N Cid17843X27745.0
@@ -833,7 +833,7 @@ $IPTABLES -A INPUT -p tcp -m tcp  --dport 22 -m state --state NEW  -j Cid17843X2
 $IPTABLES -A Cid17843X27745.0  -s 192.168.1.110   -j ACCEPT 
 $IPTABLES -A Cid17843X27745.0  -s 192.168.1.111   -j ACCEPT 
 $IPTABLES -A Cid17843X27745.0  -s 192.168.1.112   -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>
         Generated iptables command is placed only in
@@ -872,14 +872,14 @@ $IPTABLES -A Cid17843X27745.0  -s 192.168.1.112   -j ACCEPT
       </para>
 
 
-      <screen>
+      <programlisting>
 table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.168.1.1 } 
 table &lt;tbl.r0.s&gt; { 192.168.1.110 , 192.168.1.111 , 192.168.1.112 } 
 
 # Rule  0 (global)
 # 
 pass  quick inet proto tcp  from &lt;tbl.r0.s&gt;  to &lt;tbl.r0.d&gt; port 22 keep state 
-      </screen>
+      </programlisting>
 
       <para>
         Policy compiler for PF extensively uses tables to produce
@@ -890,7 +890,7 @@ pass  quick inet proto tcp  from &lt;tbl.r0.s&gt;  to &lt;tbl.r0.d&gt; port 22 k
         Here is the config generated for PIX:
       </para>
 
-      <screen>
+      <programlisting>
 object-group network inside.id20599X27745.src.net.0
  network-object  host 192.168.1.110 
  network-object  host 192.168.1.111 
@@ -905,7 +905,7 @@ access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
 access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
          host 192.168.1.1 eq 22 
 ! 
-      </screen>
+      </programlisting>
 
       <para>
         Just like in case of iptables, it is not that a group object
@@ -968,12 +968,12 @@ access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
         iptables:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A INPUT  -s 192.168.1.110/31   -m state --state NEW  -j ACCEPT 
 $IPTABLES -A INPUT  -s 192.168.1.112   -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>
         Again, the difference may not be very great when we have only
@@ -1012,24 +1012,24 @@ $IPTABLES -A INPUT  -s 192.168.1.112   -m state --state NEW  -j ACCEPT
         firewall platform. Generated iptables rule is rather simple:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>
         Generated PF configuration uses tables to list all ip
         addresses that belong to the firewall:
       </para>
 
-      <screen>
+      <programlisting>
 table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.168.1.1 } 
 
 # Rule  0 (global)
 # 
 pass in   quick inet proto tcp  from any  to &lt;tbl.r0.d&gt; port 22 keep state 
-      </screen>
+      </programlisting>
 
       <para>
         Iptables has concept of chains that separate different packet
@@ -1054,11 +1054,11 @@ pass in   quick inet proto tcp  from any  to &lt;tbl.r0.d&gt; port 22 keep state
         access to the firewall:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 "$IPFW" add 10 set 1 permit tcp  from any  to me 22 in  setup keep-state  || exit 1
-      </screen>
+      </programlisting>
 
       <para>
         <emphasis>"me"</emphasis> here means any address that belongs
@@ -1076,13 +1076,13 @@ pass in   quick inet proto tcp  from any  to &lt;tbl.r0.d&gt; port 22 keep state
         rule for PIX:
       </para>
 
-      <screen>
+      <programlisting>
 ! Rule  0 (global)
 ! 
 ssh    0.0.0.0 0.0.0.0 outside
 ssh    0.0.0.0 0.0.0.0 dmz50
 ssh    0.0.0.0 0.0.0.0 inside
-      </screen>
+      </programlisting>
 
 
       <para>
@@ -1117,11 +1117,11 @@ ssh    0.0.0.0 0.0.0.0 inside
         interface of the firewall:
       </para>
 
-      <screen>
+      <programlisting>
 ! Rule  0 (global)
 ! 
 ssh    192.168.1.0 255.255.255.0 inside
-      </screen>
+      </programlisting>
 
       <para>
         This is better, but we should be careful not to permit more
@@ -1254,7 +1254,7 @@ ssh    192.168.1.0 255.255.255.0 inside
         iptables script:
       </para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT
 $IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT
 $IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -1265,7 +1265,7 @@ $IPTABLES -A INPUT  -p tcp -m tcp  -s 192.168.1.110/255.255.255.255 \
      --dport 22  -m state --state NEW,ESTABLISHED -j ACCEPT
 $IPTABLES -A OUTPUT  -p tcp -m tcp  -d 192.168.1.110/255.255.255.255 \
      --sport 22  -m state --state ESTABLISHED,RELATED -j ACCEPT
-      </screen>
+      </programlisting>
 
       <para>
         I included rules matching "ESTABLISHED,RELATED" states in the
@@ -1342,7 +1342,7 @@ $IPTABLES -A OUTPUT  -p tcp -m tcp  -d 192.168.1.110/255.255.255.255 \
         script created for these rules:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A INPUT -p tcp -m tcp  -m multiport  --dports 80,443,21,22 \
@@ -1359,7 +1359,7 @@ $IPTABLES -N RULE_2
 $IPTABLES -A INPUT  -j RULE_2 
 $IPTABLES -A RULE_2  -j LOG  --log-level info --log-prefix "RULE 2 -- DENY "
 $IPTABLES -A RULE_2  -j DROP 
-      </screen>
+      </programlisting>
 
       <para>
         Firewall Builder optimized generated rule and used module
@@ -1393,7 +1393,7 @@ $IPTABLES -A RULE_2  -j DROP
         Generated PF script uses tables to match four tcp ports in the same rule:
       </para>
 
-      <screen>
+      <programlisting>
 
 # Rule  0 (global)
 # 
@@ -1408,7 +1408,7 @@ pass out  quick inet proto udp  from 192.168.1.10  to any port 53 keep state
 # Rule  2 (global)
 # 
 block in   log  quick inet  from any  to 192.168.1.10 
-      </screen>
+      </programlisting>
 
 
       <para>
@@ -1449,7 +1449,7 @@ block in   log  quick inet  from any  to 192.168.1.10
         Here is how generated iptables script looks like:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A INPUT -p tcp -m tcp -d 192.0.2.1 --dport 443 -m state --state NEW \
@@ -1467,14 +1467,14 @@ $IPTABLES -A INPUT -p tcp -m tcp -m multiport -d 192.0.2.1 --dports 80,21  \
 $IPTABLES -A INPUT -p tcp -m tcp -s 192.0.2.100 -d 192.0.2.1 --dport 22  \
     -m state --state NEW  -j ACCEPT 
 # 
-      </screen>
+      </programlisting>
 
       <para>
         These iptables commands should be quite obvious. PF rules in
         this example also look very familiar:
       </para>
 
-      <screen>
+      <programlisting>
 # Tables: (1)
 table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.0.2.2 } 
 
@@ -1493,7 +1493,7 @@ pass  quick inet proto tcp  from any  to 192.0.2.1 port { 80, 21 } keep state
 # 
 # 
 pass  quick inet proto tcp  from 192.0.2.100  to 192.0.2.1 port 22 keep state
-      </screen>
+      </programlisting>
       
     </sect2>
 
@@ -1539,19 +1539,19 @@ pass  quick inet proto tcp  from 192.0.2.100  to 192.0.2.1 port 22 keep state
         and direction:
       </para>
 
-      <screen>
+      <programlisting>
 $IPTABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
 $IPTABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>
         For PF, we can specify interface to match but keep direction
         open so both "in" and "out" will match:
       </para>
 
-      <screen>
+      <programlisting>
 pass  quick on lo inet  from any  to any keep state
-      </screen>
+      </programlisting>
 
       <para>
 
@@ -1699,22 +1699,22 @@ pass  quick on lo inet  from any  to any keep state
         for iptables:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD -p tcp -m tcp  -d 192.168.1.100 --dport 113 \
     -j REJECT  --reject-with tcp-reset 
-      </screen>
+      </programlisting>
 
       <para>
         For PF it uses "return-rst" option:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule  0 (global)
 # 
 block return-rst  quick inet proto tcp  from any  to 192.168.1.100 port 113 
-      </screen>
+      </programlisting>
 
       <para>
         There is no equivalent configuration option for PIX
@@ -1761,7 +1761,7 @@ block return-rst  quick inet proto tcp  from any  to 192.168.1.100 port 113
         Here are the generated iptables rules:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 -d 192.168.1.0/24 \
@@ -1771,7 +1771,7 @@ $IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 -d 192.168.1.0/24 \
 # 
 $IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 --dport 25  \
     -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>
         Another solution uses negation. We can specify destination in
@@ -1799,12 +1799,12 @@ $IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 --dport 25  \
         iptables command for this rule:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22 -d ! 192.168.1.0/24 \
       --dport 25  -m state --state NEW  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>Negation can be used in NAT rules in a similar way.</para>
 
@@ -1831,7 +1831,7 @@ $IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22 -d ! 192.168.1.0/24 \
         script:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -N Cid168173X9037.0
@@ -1841,7 +1841,7 @@ $IPTABLES -A Cid168173X9037.0  -d 192.168.1.0/24   -j RETURN
 $IPTABLES -A Cid168173X9037.0  -d 192.168.10.0/24   -j RETURN 
 $IPTABLES -A Cid168173X9037.0  -d 192.168.20.0/24   -j RETURN 
 $IPTABLES -A Cid168173X9037.0  -j ACCEPT 
-      </screen>
+      </programlisting>
 
       <para>
         The first rule checks protocol, port number and source address
@@ -1866,14 +1866,14 @@ $IPTABLES -A Cid168173X9037.0  -j ACCEPT
         table:
       </para>
 
-      <screen>
+      <programlisting>
 
 table &lt;tbl.r0.d&gt; { 192.168.1.0/24 , 192.168.10.0/24 , 192.168.20.0/24 } 
 
 # Rule  0 (global)
 # 
 pass  quick inet proto tcp  from 192.168.2.22  to ! &lt;tbl.r0.d&gt; port 25 keep state 
-      </screen>
+      </programlisting>
 
     </sect2>
 
@@ -1912,9 +1912,9 @@ pass  quick inet proto tcp  from 192.168.2.22  to ! &lt;tbl.r0.d&gt; port 25 kee
         create looks like this:
       </para>
 
-      <screen>
+      <programlisting>
 iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
-      </screen>
+      </programlisting>
 
 
       <para>
@@ -1995,10 +1995,10 @@ iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
         by adding the following rule on top of the script:
       </para>
 
-      <screen>
+      <programlisting>
 # ================ Table 'mangle', automatic rules
 $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
-      </screen>
+      </programlisting>
 
       <para>
         This rule automatically restores mark on the packets that
@@ -2220,7 +2220,7 @@ $IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
           rules as shown on the screenshot above.
         </para>
 
-        <screen>
+        <programlisting>
 $ fwb_ipt -v -f policy_rules.fwb fw
  *** Loading data ... done
  Compiling rules for 'nat' table
@@ -2255,7 +2255,7 @@ $ fwb_ipt -v -f policy_rules.fwb fw
  rule Policy_ipv6 2 (global)
  rule Policy_ipv6 3 (global)
  Compiled successfully
-        </screen>
+        </programlisting>
 
 	<para>
           Here is a fragment of the generated script. The script uses
@@ -2266,7 +2266,7 @@ $ fwb_ipt -v -f policy_rules.fwb fw
         </para>
 
 
-        <screen>
+        <programlisting>
 # ================ Table 'filter', rule set Policy_ipv6
 # Policy compiler errors and warnings:
 # 
@@ -2297,7 +2297,7 @@ $IP6TABLES -N Policy_ipv6_3
 $IP6TABLES -A FORWARD  -j Policy_ipv6_3 
 $IP6TABLES -A Policy_ipv6_3  -j LOG  --log-level info --log-prefix "RULE 3 -- DENY "
 $IP6TABLES -A Policy_ipv6_3  -j DROP 
-        </screen>
+        </programlisting>
 
 	<para>
           Lets try to compile policy rule set configured as mixed
@@ -2317,7 +2317,7 @@ $IP6TABLES -A Policy_ipv6_3  -j DROP
           rules:
         </para>
 
-        <screen>
+        <programlisting>
 # ================ IPv4
 
 # ================ Table 'filter', rule set Policy_mix
@@ -2346,7 +2346,7 @@ $IP6TABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT
 # 
 $IP6TABLES -A INPUT -p tcp -m tcp  --dport 80  -m state --state NEW  -j ACCEPT 
 $IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT 
-        </screen>
+        </programlisting>
 
 
         <para>
@@ -2382,7 +2382,7 @@ $IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT
           same rules in the same mixed policy rule set:
         </para>
 
-        <screen>
+        <programlisting>
 
 table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 192.168.1.1 } 
 table &lt;tbl.r1.dx&gt; { 2001:db8:1:1::1 , 2001:db8:ffff:ffff::1 } 
@@ -2405,7 +2405,7 @@ pass quick on lo inet6  from any  to any keep state
 pass in quick inet6 proto tcp  from any  to &lt;tbl.r1.dx&gt; port 80 keep state
 pass in quick inet6 proto icmp6  from any  to &lt;tbl.r1.dx&gt; keep state
 
-        </screen>
+        </programlisting>
 
        </sect2>
 
@@ -2449,7 +2449,7 @@ pass in quick inet6 proto icmp6  from any  to &lt;tbl.r1.dx&gt; keep state
           looks like this:
         </para>
 
-        <screen>
+        <programlisting>
 ! ================ IPv4
 ! Policy compiler errors and warnings:
 ! 
@@ -2473,7 +2473,7 @@ exit
 interface FastEthernet0/1
   ip access-group fe0_1_in in
 exit
-        </screen>
+        </programlisting>
 
         <para>
           Here rule #0 permits ICMP ping requests to the firewall
@@ -2511,7 +2511,7 @@ exit
           addresses. Here is the result:
         </para>
 
-        <screen>
+        <programlisting>
 ! ================ IPv4
 ! Policy compiler errors and warnings:
 ! 
@@ -2569,7 +2569,7 @@ exit
 interface FastEthernet0/1
   ipv6 traffic-filter ipv6_fe0_1_in in
 exit
-        </screen>
+        </programlisting>
 
         <para>
           The IPv4 part looks exactly the same as before, but we also
@@ -2863,7 +2863,7 @@ exit
           rules:
         </para>
 
-        <screen>
+        <programlisting>
 # Rule 0 (global)
 # 
 $IPTABLES -N rate_limit
@@ -2876,7 +2876,7 @@ $IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -j rate_limit
 $IPTABLES -A rate_limit  -m state --state NEW  \
     -m hashlimit --hashlimit 5/minute --hashlimit-mode srcip \
     --hashlimit-name htable_rule_0 -j ACCEPT 
-        </screen>
+        </programlisting>
 
         <para>
           Those familiar with iptables will notice that Firewall
@@ -2906,7 +2906,7 @@ $IPTABLES -A rate_limit  -m state --state NEW  \
           Here is how generated iptables script looks like:
         </para>
         
-        <screen>
+        <programlisting>
 # ================ Table 'filter', rule set Policy
 # 
 # Rule 0 (global)
@@ -2929,7 +2929,7 @@ $IPTABLES -A FORWARD -p tcp -m tcp -d 192.168.1.200 --dport 80 -j rate_limit
 $IPTABLES -A rate_limit  -m state --state NEW  \
     -m hashlimit --hashlimit 5/minute --hashlimit-mode srcip \
     --hashlimit-name htable_rule_0 -j ACCEPT 
-        </screen>
+        </programlisting>
 
         <para>
           Here are three iptables rules that match different addresses
@@ -2986,7 +2986,7 @@ $IPTABLES -A rate_limit  -m state --state NEW  \
 
         <para>File <emphasis>fw2-pf.conf</emphasis>:</para>
 
-        <screen>
+        <programlisting>
 # Tables: (1)
 table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 192.168.1.1 } 
 
@@ -3003,11 +3003,11 @@ anchor rate_limit inet proto tcp  from any  to 192.168.1.100 port 25
 # Rule  2 (global)
 # 
 anchor rate_limit inet proto tcp  from any  to 192.168.1.200 port 80 
-        </screen>
+        </programlisting>
 
         <para>File <emphasis>fw2-pf-rate_limit.conf</emphasis>:</para>
 
-        <screen>
+        <programlisting>
 # Tables: (0)
 
 # Policy compiler errors and warnings:
@@ -3015,7 +3015,7 @@ anchor rate_limit inet proto tcp  from any  to 192.168.1.200 port 80
 # Rule  rate_limit 0 (global)
 # 
 pass  quick inet  from any  to any keep state  (  max-src-conn 10, max-src-conn-rate 5/60 ) 
-        </screen>
+        </programlisting>
 
         <para>
           Firewall Builder also generates a shell script to load these
@@ -3026,11 +3026,11 @@ pass  quick inet  from any  to any keep state  (  max-src-conn 10, max-src-conn-
         <para>Here is the code that loads rules in the
         file <emphasis>fw2-pf.fw</emphasis>:</para>
 
-        <screen>
+        <programlisting>
 
 $PFCTL -f ${FWDIR}/fw2-pf.conf || exit 1
 $PFCTL -a rate_limit -f ${FWDIR}/fw2-pf-rate_limit.conf || exit 1
-        </screen>
+        </programlisting>
 
         <para>
           Rules from the
@@ -3133,7 +3133,7 @@ $PFCTL -a rate_limit -f ${FWDIR}/fw2-pf-rate_limit.conf || exit 1
 	  "block_ssh", it does not put any rules in it.
         </para>
 
-        <screen>
+        <programlisting>
 # ================ Table 'filter', rule set Policy
 # Policy compiler errors and warnings:
 # 
@@ -3150,7 +3150,7 @@ $IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -j block_ssh
 # Rule 2 (global)
 # 
 $IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT 
-        </screen>
+        </programlisting>
 
 
 	<para>
@@ -3164,7 +3164,7 @@ $IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT
 	  /root/swatch/block_ssh_scanner.sh.
         </para>
 
-        <screen>
+        <programlisting>
 # cat /root/.swatchrc
 
 watchfor /sshd\[\d+\]: Failed password for invalid user (\S+) from (\S+)/
@@ -3182,7 +3182,7 @@ exec "/root/swatch/block_ssh_scanner.sh $1"
 watchfor /sshd\[\d+\]: Invalid user (\S+) from (\S+)/
 echo bold
 exec "/root/swatch/block_ssh_scanner.sh $2"
-        </screen>
+        </programlisting>
 
 	<para>
           The following script adds an iptables rule to chain
@@ -3191,7 +3191,7 @@ exec "/root/swatch/block_ssh_scanner.sh $2"
 	  in the future.
         </para>
 
-        <screen>
+        <programlisting>
 # cat /root/swatch/block_ssh_scanner.sh
 #!/bin/sh
 
@@ -3202,7 +3202,7 @@ grep $addr /root/swatch/ssh_scan_addresses &amp;&amp; exit 0
 cmd="iptables -A block_ssh -s $addr -j DROP"
 echo "$cmd" >> /root/swatch/ssh_scan_addresses
 $cmd
-        </screen>
+        </programlisting>
 
 
 	<para>
@@ -3211,9 +3211,9 @@ $cmd
 	  script to start it when you reboot your machine.
         </para>
 
-        <screen>
+        <programlisting>
 /usr/bin/swatch --daemon --tail-file=/var/log/secure --use-cpan-file-tail &lt;/dev/null &amp;
-        </screen>
+        </programlisting>
 
 	<para>
           This method of blocking ssh scan attacks is effective

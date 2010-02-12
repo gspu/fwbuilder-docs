@@ -33,13 +33,13 @@
         </para>
   
 
-        <screen>
+        <programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING   -s 172.16.22.0/24 -j NETMAP --to 192.0.2.0/24 
 
-        </screen>
+        </programlisting>
 
         <para>
           NETMAP target maps a whole network of addresses onto another
@@ -52,13 +52,13 @@ $IPTABLES -t nat -A POSTROUTING   -s 172.16.22.0/24 -j NETMAP --to 192.0.2.0/24
         </para>
   
 
-        <screen>
+        <programlisting>
 
 # Rule  0 (NAT)
 # 
 nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/24 
 
-        </screen>
+        </programlisting>
 
         <para>
           For PIX, fwbuilder generates a "global" address pool the
@@ -66,7 +66,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/24
         </para>
   
 
-        <screen>
+        <programlisting>
 
 ! Rule  0 (NAT)
 ! 
@@ -74,7 +74,7 @@ global (outside) 1 192.0.2.0 netmask 255.255.255.0
 access-list id54756X30286.0 permit ip 172.16.22.0 255.255.255.0  any 
 nat (inside) 1 access-list id54756X30286.0 tcp 0 0
 
-        </screen>
+        </programlisting>
 
 	</sect2>
 
@@ -207,13 +207,13 @@ nat (inside) 1 access-list id54756X30286.0 tcp 0 0
         </para>
         
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING -o eth+  -s 172.16.22.0/24 -j SNAT --to-source 192.0.2.1 
 
-                </screen>
+                </programlisting>
 
         <para>
   
@@ -314,7 +314,7 @@ $IPTABLES -t nat -A POSTROUTING -o eth+  -s 172.16.22.0/24 -j SNAT --to-source 1
         </para>
   
 
-  <screen>
+  <programlisting>
 
 # 
 # Rule 0 (NAT)
@@ -322,7 +322,7 @@ $IPTABLES -t nat -A POSTROUTING -o eth+  -s 172.16.22.0/24 -j SNAT --to-source 1
 $IPTABLES -t nat -A POSTROUTING   -s 172.16.22.0/24 -d 192.168.2.0/24 -j ACCEPT  
 $IPTABLES -t nat -A PREROUTING   -s 172.16.22.0/24 -d 192.168.2.0/24 -j ACCEPT  
 
-  </screen>
+  </programlisting>
 
   <para>
     
@@ -331,14 +331,14 @@ $IPTABLES -t nat -A PREROUTING   -s 172.16.22.0/24 -d 192.168.2.0/24 -j ACCEPT
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 no nat proto {tcp udp icmp} from 172.16.22.0/24 to 192.168.2.0/24 
 no rdr proto {tcp udp icmp} from 172.16.22.0/24 to 192.168.2.0/24 
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -347,7 +347,7 @@ no rdr proto {tcp udp icmp} from 172.16.22.0/24 to 192.168.2.0/24
   </para>
   
 
-  <screen>
+  <programlisting>
 
 ! Rule  0 (NAT)
 !
@@ -355,7 +355,7 @@ access-list nat0.inside permit ip 172.16.22.0 255.255.255.0 192.168.2.0 255.255.
 nat (inside) 0 access-list nat0.inside
 ! 
 
-              </screen>
+              </programlisting>
 
 	</sect2>
 
@@ -387,14 +387,14 @@ nat (inside) 0 access-list nat0.inside
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A PREROUTING  -p tcp -m tcp  -s 172.16.22.0/24 \
      --dport 80 -j REDIRECT --to-ports 3128 
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -411,14 +411,14 @@ $IPTABLES -t nat -A PREROUTING  -p tcp -m tcp  -s 172.16.22.0/24 \
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 rdr proto tcp from 172.16.22.0/24 to any port 80 -&gt; 127.0.0.1 port 3128 
 # 
 
-              </screen>
+              </programlisting>
 
 	</sect2>
 

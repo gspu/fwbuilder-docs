@@ -276,11 +276,11 @@
               configured in fwbuilder and generated script will create
               it:
 
-              <screen>
+              <programlisting>
 bridge name bridge id    STP enabled    interfaces
 br0  8000.000c29f6bebe   no             eth4.102
                                         eth5
-              </screen>
+              </programlisting>
             </para>
           </listitem>
 

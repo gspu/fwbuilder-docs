@@ -873,14 +873,14 @@
 	</para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24  \
     -j SNAT --to-source 192.0.2.1 
 
-  </screen>
+  </programlisting>
 
         <para>
           Note that Firewall Builder uses the chain <emphasis>POSTROUTING</emphasis>
@@ -895,13 +895,13 @@ $IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24  \
 	</para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.1 
 
-  </screen>
+  </programlisting>
 
         <para>
           Finally, for PIX, Firewall Builder knows to use global pool
@@ -912,7 +912,7 @@ nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.1
 	</para>
   
 
-  <screen>
+  <programlisting>
 
 ! Rule  0 (NAT)
 ! 
@@ -920,7 +920,7 @@ global (outside) 1 interface
 access-list id43442X30286.0 permit ip 172.16.22.0 255.255.255.0  any 
 nat (inside) 1 access-list id43442X30286.0 tcp 0 0
 
-  </screen>
+  </programlisting>
 
         <para>
           Note that the generated PIX configuration has been optimized
@@ -962,13 +962,13 @@ nat (inside) 1 access-list id43442X30286.0 tcp 0 0
 	</para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24 -j MASQUERADE  
 
-  </screen>
+  </programlisting>
 
         <para>
           PF supports special syntax for the dynamic
@@ -977,13 +977,13 @@ $IPTABLES -t nat -A POSTROUTING -o eth0  -s 172.16.22.0/24 -j MASQUERADE
 	</para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; (en0) 
 
-                </screen>
+                </programlisting>
 
         <para>
           There is no difference in the generated PIX configuration
@@ -1026,14 +1026,14 @@ nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; (en0)
         </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING -o eth+ -p tcp -m tcp  -s 172.16.22.0/24 \
     --sport 1024:65535  -d 192.168.2.10 -j SNAT --to-source :10000-20000 
 
-  </screen>
+  </programlisting>
 
         <para>
           This rule matches source port range "1024-65535" and
@@ -1082,14 +1082,14 @@ $IPTABLES -t nat -A POSTROUTING -o eth+ -p tcp -m tcp  -s 172.16.22.0/24 \
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING -o eth+  -s 172.16.22.0/24 \
     -j SNAT --to-source 192.0.2.10-192.0.2.20 
 
-                </screen>
+                </programlisting>
 
         <para>
   
@@ -1099,7 +1099,7 @@ $IPTABLES -t nat -A POSTROUTING -o eth+  -s 172.16.22.0/24 \
   </para>
   
 
-  <screen>
+  <programlisting>
 
 ! Rule  0 (NAT)
 ! 
@@ -1107,7 +1107,7 @@ global (outside) 1 192.0.2.10-192.0.2.20 netmask 255.255.255.0
 access-list id54756X30286.0 permit ip 172.16.22.0 255.255.255.0  any 
 nat (inside) 1 access-list id54756X30286.0 tcp 0 0
 
-                </screen>
+                </programlisting>
 
         <para>
   
@@ -1118,14 +1118,14 @@ nat (inside) 1 access-list id54756X30286.0 tcp 0 0
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; \
     { 192.0.2.10/31 , 192.0.2.12/30 , 192.0.2.16/30 , 192.0.2.20 } 
 
-                </screen>
+                </programlisting>
 
         <para>
   
@@ -1154,13 +1154,13 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; \
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27
 
-                </screen>
+                </programlisting>
 
         <para>
   
@@ -1192,13 +1192,13 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-hash 
 
-                </screen>
+                </programlisting>
 
 	</sect4>
 
@@ -1385,7 +1385,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (NAT)
 # 
@@ -1397,7 +1397,7 @@ $IPTABLES -t nat -A PREROUTING  -p tcp -m tcp -m multiport   -d 192.0.2.1 \
 $IPTABLES -A FORWARD  -i + -p tcp -m tcp  -m multiport  -d 172.16.22.100 \
     --dports 21,25  -m state --state NEW  -j ACCEPT 
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -1406,7 +1406,7 @@ $IPTABLES -A FORWARD  -i + -p tcp -m tcp  -m multiport  -d 172.16.22.100 \
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
@@ -1419,7 +1419,7 @@ rdr on eth0 proto tcp from any to 192.0.2.1 port 25 -&gt; 172.16.22.100 port 25
 # 
 pass in quick inet proto tcp  from any  to 172.16.22.100 port { 21, 25 }
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -1431,7 +1431,7 @@ pass in quick inet proto tcp  from any  to 172.16.22.100 port { 21, 25 }
   </para>
   
 
-  <screen>
+  <programlisting>
 
 class-map inspection_default
   match default-inspection-traffic
@@ -1488,7 +1488,7 @@ static (inside,outside) tcp interface 21  access-list id13242X30286.0 tcp 0 0
 access-list id13242X30286.1 permit tcp host 172.16.22.100  eq 25 any 
 static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -1629,7 +1629,7 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
   </para>
   
 
-  <screen>
+  <programlisting>
 
 getaddr() {
   dev=$1
@@ -1653,7 +1653,7 @@ getaddr eth0  i_eth0
 test -n "$i_eth0" &amp;&amp; $IPTABLES -t nat -A PREROUTING   -d $i_eth0 \
      -j DNAT --to-destination 172.16.22.100 
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -1683,13 +1683,13 @@ test -n "$i_eth0" &amp;&amp; $IPTABLES -t nat -A PREROUTING   -d $i_eth0 \
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 rdr on en0 proto {tcp udp icmp} from any to (en0) -&gt; 172.16.22.100 
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -1699,14 +1699,14 @@ rdr on en0 proto {tcp udp icmp} from any to (en0) -&gt; 172.16.22.100
   </para>
   
 
-  <screen>
+  <programlisting>
 
 ! Rule  0 (NAT)
 ! 
 access-list id29402X30286.0 permit ip host 172.16.22.100   any 
 static (inside,outside) interface  access-list id29402X30286.0 tcp 0 0
 
-              </screen>
+              </programlisting>
 
 	</sect4>
 
@@ -1757,14 +1757,14 @@ static (inside,outside) interface  access-list id29402X30286.0 tcp 0 0
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A PREROUTING  -p tcp -m tcp   -d 192.0.2.1 --dport 80 \
     -j DNAT --to-destination 172.16.22.100:8080 
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -1782,13 +1782,13 @@ $IPTABLES -t nat -A PREROUTING  -p tcp -m tcp   -d 192.0.2.1 --dport 80 \
   </para>
   
 
-  <screen>
+  <programlisting>
 
 # Rule  0 (NAT)
 # 
 rdr on en0 proto tcp from any to 192.0.2.1 port 80 -&gt; 172.16.22.100 port 8080 
 
-              </screen>
+              </programlisting>
 
         <para>
   
@@ -1797,7 +1797,7 @@ rdr on en0 proto tcp from any to 192.0.2.1 port 80 -&gt; 172.16.22.100 port 8080
   </para>
   
 
-  <screen>
+  <programlisting>
 
 ! Rule  0 (NAT)
 ! 
@@ -1805,7 +1805,7 @@ rdr on en0 proto tcp from any to 192.0.2.1 port 80 -&gt; 172.16.22.100 port 8080
 access-list id37125X30286.0 permit tcp host 172.16.22.100  eq 8080 any 
 static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
-              </screen>
+              </programlisting>
 
 	</sect4>
 

@@ -112,7 +112,7 @@
 
       <figure id="heartbeat_mcast_config_1">
         <title>Heartbeat configuration files</title>
-        <screen>
+        <programlisting>
 # cat ha.cf:
 
 mcast eth0 225.0.0.1 694 1 0
@@ -132,7 +132,7 @@ linux-test-1 IPaddr::10.1.1.254/24/eth1/10.1.1.255
 
 auth 3
 3 md5 hb-auth-key
-        </screen>
+        </programlisting>
       </figure>
 
       <para>
@@ -149,12 +149,12 @@ auth 3
         "0600", other files can have permissions "0644":
       </para>
 
-      <screen>
+      <programlisting>
 root@linux-test-1:/etc/ha.d# ls -la authkeys  haresources ha.cf 
 -rw------- 1 root root   648 2010-02-03 09:17 authkeys
 -rw-r--r-- 1 root root 10610 2010-02-03 09:28 ha.cf
 -rw-r--r-- 1 root root   106 2010-02-04 10:21 haresources
-      </screen>
+      </programlisting>
 
       <para>
         Now we can start heartbeat on both machines
@@ -170,7 +170,7 @@ root@linux-test-1:/etc/ha.d# ls -la authkeys  haresources ha.cf
         (virtual addresses are highlited in red):
       </para>
 
-      <screen id="cookbook_ip_addresses_heartbeat_members">
+      <programlisting id="cookbook_ip_addresses_heartbeat_members">
 root@linux-test-1:~# ip -4 addr ls
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
     inet 127.0.0.1/8 scope host lo
@@ -188,7 +188,7 @@ root@linux-test-2:~# ip -4 addr ls
     inet 10.3.14.109/24 brd 10.3.14.255 scope global eth0
 3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
     inet 10.1.1.2/24 brd 10.1.1.255 scope global eth1
-      </screen>
+      </programlisting>
 
     </sect3>
 
@@ -608,22 +608,22 @@ root@linux-test-2:~# ip -4 addr ls
           </para>
 
           <para>
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 1 
 $IPTABLES -A OUTPUT -d 224.0.0.22 -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 1 
 $IPTABLES -A OUTPUT -d 224.0.0.22 -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
 
 
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 2 
 $IPTABLES -A INPUT -s 224.0.0.22 -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 2 
 $IPTABLES -A INPUT -s 224.0.0.22 -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
 
           </para>
 
@@ -634,13 +634,13 @@ $IPTABLES -A INPUT -s 224.0.0.22 -m state --state NEW -j ACCEPT
           </para>
 
           <para>
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 1 
 $IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 1 
 $IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
           </para>
         </listitem>
 
@@ -657,21 +657,21 @@ $IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW 
           </para>
           
           <para>
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 3 
 $IPTABLES -A OUTPUT -d 10.1.1.0/24 -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 3 
 $IPTABLES -A OUTPUT -d 10.1.1.0/24 -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
 
-            <screen>
+            <programlisting>
 linux-test-1 / Policy / rule 4 
 $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
 
 linux-test-2 / Policy / rule 4 
 $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
-            </screen>
+            </programlisting>
           </para>
         </listitem>
 
@@ -694,7 +694,7 @@ $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
         the <emphasis>linux-test-1</emphasis> firewall:
       </para>
 
-      <screen>
+      <programlisting>
 # ================ Table 'filter', rule set Policy
 # 
 # Rule -6 heartbeat (automatic)
@@ -720,7 +720,7 @@ $IPTABLES -A OUTPUT -o eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
 # Rule -1 CONNTRACK (automatic)
 # 
 $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
-      </screen>
+      </programlisting>
 
       <para>
         Rules for conntrack are associated with ineterface eth1
@@ -741,11 +741,11 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
         unicast. Here is how it looks like for the machine
         linux-test-1:
 
-        <screen>
+        <programlisting>
 # cat ha.cnf
 ucast eth0 10.3.14.109
 ucast eth1 10.1.1.2
-        </screen>
+        </programlisting>
 
         Before, when heartbeat was configured to use multicast, the
         ha.cnf file was identical on both cluster member firewalls.
@@ -800,7 +800,7 @@ ucast eth1 10.1.1.2
         the machine <emphasis>linux-test-1</emphasis>:
       </para>
 
-      <screen>
+      <programlisting>
 # Rule -4 heartbeat (automatic)
 # 
 $IPTABLES -A OUTPUT -o eth0 -p udp -m udp -d 10.3.14.109 --dport 694 -j ACCEPT
@@ -816,7 +816,7 @@ $IPTABLES -A OUTPUT -o eth1 -p udp -m udp -d 10.1.1.2 --dport 3780 -j ACCEPT
 # Rule -1 CONNTRACK (automatic)
 # 
 $IPTABLES -A INPUT -i eth1 -p udp -m udp -s 10.1.1.2 --dport 3780 -j ACCEPT
-      </screen>
+      </programlisting>
     </sect3>
 
     <sect3>
