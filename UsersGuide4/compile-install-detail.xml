@@ -89,7 +89,10 @@
     </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="management_interface.png"/></figure>
+    <figure>
+      <title/>
+      <graphic scale="50" fileref="management_interface.png"/>
+    </figure>
 
           <para>
   
@@ -103,7 +106,10 @@
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="alternative_fw_address.png"/></figure>
+          <figure>
+            <title/>
+            <graphic scale="50" fileref="alternative_fw_address.png"/>
+          </figure>
 
           <para>
   
@@ -122,7 +128,10 @@
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="alternative_fw_address_2.png"/></figure>
+        <figure>
+          <title/>
+          <graphic scale="50" fileref="alternative_fw_address_2.png"/>
+        </figure>
 
         <note>        <para>
                   This works for all supported firewall
@@ -216,30 +225,27 @@
   
 
           <programlisting>
-
 C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
-
           </programlisting>
 
           <para>
-  
-                
-
-        <figure float="1"><title/><graphic scale="50" fileref="plink_login.png"/></figure>
+            <figure><title/>
+              <graphic scale="50" fileref="plink_login.png"/></figure>
           </para>
   
 
-        <note>
-          <para>
-            The installer does not use the GUI ssh
-            client <emphasis>putty.exe</emphasis>, it uses command
-            line utilities that come from the same
-            author: <emphasis>plink.exe</emphasis>
-            and <emphasis>pscp.exe</emphasis>. You can test SSH
-            connectivity with <emphasis>putty.exe</emphasis>, but do
-            not enter path to it in the SSH tab of the Preferences
-            dialog in Firewall Builder. It won't work.
-        </para></note>
+          <note>
+            <para>
+              The installer does not use the GUI ssh
+              client <emphasis>putty.exe</emphasis>, it uses command
+              line utilities that come from the same
+              author: <emphasis>plink.exe</emphasis>
+              and <emphasis>pscp.exe</emphasis>. You can test SSH
+              connectivity with <emphasis>putty.exe</emphasis>, but do
+              not enter path to it in the SSH tab of the Preferences
+              dialog in Firewall Builder. It won't work.
+            </para>
+          </note>
 
   <!-- *************************************************** -->
 
@@ -272,9 +278,7 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
 
 
   <programlisting>
-
   useradd fwadmin
-
 </programlisting>
                         </para>
   </listitem>
@@ -288,11 +292,9 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
                   it belong to group fwadmin, make it group
                   writable.
   <programlisting>
-
-  mkdir /etc/fw
-  chgrp fwadmin /etc/fw
-  chmod g+w fwadmin /etc/fw
-
+mkdir /etc/fw
+chgrp fwadmin /etc/fw
+chmod g+w fwadmin /etc/fw
 </programlisting>
                         </para>
   </listitem>
@@ -310,11 +312,9 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
   
 
   <programlisting>
-
-  Defaults:%fwbadmin   !lecture , passwd_timeout=1 , timestamp_timeout=1
-  # User alias specification
-  %fwbadmin  ALL = PASSWD: /etc/fw/&lt;FWNAME&gt;.fw , /usr/bin/pkill , /sbin/shutdown
-
+Defaults:%fwbadmin   !lecture , passwd_timeout=1 , timestamp_timeout=1
+# User alias specification
+%fwbadmin  ALL = PASSWD: /etc/fw/&lt;FWNAME&gt;.fw , /usr/bin/pkill , /sbin/shutdown
 </programlisting>
           <para>
                       
@@ -327,10 +327,8 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
 	  </para>
 
   <programlisting>
-
-  ssh fwadmin@firewall sudo -S /etc/fw/&lt;FWNAME&gt;.fw
-
-</programlisting>
+ssh fwadmin@firewall sudo -S /etc/fw/&lt;FWNAME&gt;.fw
+  </programlisting>
                   
 
                   
@@ -370,10 +368,8 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
 
 
   <programlisting>
-
-  $ ssh -l fwadmin &lt;FWNAME&gt;
-
-</programlisting>
+$ ssh -l fwadmin &lt;FWNAME&gt;
+  </programlisting>
 
                   You may use either password or public key
                   authentication; the installer will work either
@@ -454,9 +450,7 @@ C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
 
 
               <programlisting>
-                
 $ ssh -l root &lt;firewall_name&gt;
-
               </programlisting>
 
               You may use either password or public key
@@ -722,9 +716,7 @@ $ ssh -l root &lt;firewall_name&gt;
   
 
           <programlisting>
-
-  ssh -l fwadmin firewall
-
+ssh -l fwadmin firewall
           </programlisting>
 
           <para>
@@ -736,9 +728,7 @@ $ ssh -l root &lt;firewall_name&gt;
   
 
           <programlisting>
-    
-  ssh -l root firewall
-
+ssh -l root firewall
           </programlisting>
 
           <para>
@@ -750,15 +740,11 @@ $ ssh -l root &lt;firewall_name&gt;
   
 
           <programlisting>
-
-  C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin firewall
-
+C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin firewall
           </programlisting>
 
           <programlisting>
-
-  C:\Users\vadim&gt;c:\PuTTY\plink.exe -l root firewall
-
+C:\Users\vadim&gt;c:\PuTTY\plink.exe -l root firewall
           </programlisting>
 
           <para>
@@ -823,9 +809,7 @@ SSH session terminated, exit status: 1
   
 
           <programlisting>
-
-  C:\Users\vadim&gt;c:\PuTTY\pscp.exe test.txt root@firewall:
-
+C:\Users\vadim&gt;c:\PuTTY\pscp.exe test.txt root@firewall:
           </programlisting>
 
           <para>
@@ -851,9 +835,7 @@ SSH session terminated, exit status: 1
   
 
           <programlisting>
-
-  C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
-
+C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
           </programlisting>
 
           <note>        <para>
@@ -1395,16 +1377,12 @@ SSH session terminated, exit status: 1
                   RedHat), <emphasis>/etc/rc.local</emphasis> (Debian, Ubuntu and derivatives)
 		  or <emphasis>/etc/init.d/boot.local</emphasis>
                   (SuSE) like this:
-
-
-  </para>
+        </para>
   
 
-  <programlisting>
-
-  /etc/firewall/firewall.fw
-
-</programlisting>
+        <programlisting>
+/etc/firewall/firewall.fw
+        </programlisting>
 
         <para>
   
@@ -1429,14 +1407,12 @@ SSH session terminated, exit status: 1
                   using command
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-
-  "chkconfig --level 2345 iptables off"
-
-</programlisting>
+        <programlisting>
+chkconfig --level 2345 iptables off
+        </programlisting>
 
         <para>
    
@@ -1444,14 +1420,12 @@ SSH session terminated, exit status: 1
                   On SuSE use command
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-  
-  chkconfig -e
-
-</programlisting>
+        <programlisting>
+chkconfig -e
+        </programlisting>
 
         <para>
    
@@ -1459,16 +1433,14 @@ SSH session terminated, exit status: 1
                   and change state of services as follows:
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-  
-  SuSEfirewall2_final       off
-  SuSEfirewall2_init        off
-  SuSEfirewall2_setup       off
-
-</programlisting>
+        <programlisting>
+SuSEfirewall2_final       off
+SuSEfirewall2_init        off
+SuSEfirewall2_setup       off
+        </programlisting>
 
         <para>
   
@@ -1494,14 +1466,12 @@ SSH session terminated, exit status: 1
                   RedHat using command
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-
-  "chkconfig --level 2345 iptables on"
-
-</programlisting>
+        <programlisting>
+chkconfig --level 2345 iptables on
+        </programlisting>
 
         <note><para>
   
@@ -1563,16 +1533,14 @@ SSH session terminated, exit status: 1
                   your firewall script from it:
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-
-  #!/bin/sh
-  /etc/firewall/firewall.fw
-
-</programlisting>
-
+        <programlisting>
+#!/bin/sh
+/etc/firewall/firewall.fw
+        </programlisting>
+        
         <para>
   
                   See man page dhclient-script(8) for a detailed explanation.
@@ -1666,14 +1634,12 @@ SSH session terminated, exit status: 1
                   file <emphasis>/etc/rc.local</emphasis> as follows:
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-
-  /etc/firewall.fw
-
-</programlisting>
+        <programlisting>
+/etc/firewall.fw
+        </programlisting>
 
         <para>
   
@@ -1683,16 +1649,14 @@ SSH session terminated, exit status: 1
                   file <emphasis>/etc/rc.conf</emphasis> as follows:
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-
-  pf=YES                          # Packet filter / NAT
-  pf_rules=/etc/firewall.conf     # Packet filter rules file
-  pflogd_flags=                   # add more flags, i.e. "-s 256"
-
-</programlisting>
+        <programlisting>
+pf=YES                          # Packet filter / NAT
+pf_rules=/etc/firewall.conf     # Packet filter rules file
+pflogd_flags=                   # add more flags, i.e. "-s 256"
+        </programlisting>
 
       </sect2>
 
@@ -1718,17 +1682,15 @@ SSH session terminated, exit status: 1
                   the <emphasis>/etc/rc.conf</emphasis> file:
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-
-  firewall_enable="YES"                        
-  # Set to YES to enable firewall functionality
-  firewall_script="/usr/local/etc/firewall.fw" 
-  # Which script to run to set up the firewall
-
-</programlisting>
+        <programlisting>
+firewall_enable="YES"                        
+# Set to YES to enable firewall functionality
+firewall_script="/usr/local/etc/firewall.fw" 
+# Which script to run to set up the firewall
+        </programlisting>
 
       </sect2>
 
@@ -1764,17 +1726,15 @@ SSH session terminated, exit status: 1
                   lines:
 
 
-  </para>
+        </para>
   
 
-  <programlisting>
-
-  firewall_enable="YES"                        
-  # Set to YES to enable firewall functionality
-  firewall_script="/usr/local/etc/firewall.fw" 
-  # Which script to run to set up the firewall
-
-</programlisting>
+        <programlisting>
+firewall_enable="YES"                        
+# Set to YES to enable firewall functionality
+firewall_script="/usr/local/etc/firewall.fw" 
+# Which script to run to set up the firewall
+        </programlisting>
 
         <para>
   
@@ -1782,14 +1742,14 @@ SSH session terminated, exit status: 1
                   three generated files from the firewall management
                   workstation to the firewall machine.
                 
-  </para>
+        </para>
   
 
         <para>
   
                   See also excellent mini-HOWTO: <ulink url="http://nil59.pisem.net/fwbuilder-relative/index.html"><citetitle>Deploy fwbuilder-generated policy to remote FreeBSD-and-ipfilter-based firewall</citetitle></ulink> by Daniel Podolsky.
                 
-  </para>
+        </para>
   
 
         <para>
@@ -1806,20 +1766,19 @@ SSH session terminated, exit status: 1
                   following lines to it:
 
 
-  </para>
+        </para>
   
+        
+        <programlisting>
+ipfilter_enable="YES"           # Set to YES to enable ipfilter functionality
+ipfilter_program="/sbin/ipf"    # where the ipfilter program lives
+ipfilter_rules="/etc/ipf.rules" # rules definition file for ipfilter, see
+# /usr/src/contrib/ipfilter/rules for examples
+ipnat_enable="YES"              # Set to YES to enable ipnat functionality
+ipnat_program="/sbin/ipnat"     # where the ipnat program lives
+ipnat_rules="/etc/ipnat.rules"  # rules definition file for ipnat
+        </programlisting>
 
-  <programlisting>
-
-  ipfilter_enable="YES"           # Set to YES to enable ipfilter functionality
-  ipfilter_program="/sbin/ipf"    # where the ipfilter program lives
-  ipfilter_rules="/etc/ipf.rules" # rules definition file for ipfilter, see
-  # /usr/src/contrib/ipfilter/rules for examples
-  ipnat_enable="YES"              # Set to YES to enable ipnat functionality
-  ipnat_program="/sbin/ipnat"     # where the ipnat program lives
-  ipnat_rules="/etc/ipnat.rules"  # rules definition file for ipnat
-
-  </programlisting>
 </sect2>
 					
     </sect1>
