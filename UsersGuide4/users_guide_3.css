@@ -165,13 +165,27 @@
     table-layout: auto;
 }
 
+/*
 .column_users_guide .reg_table table COL {
     width: 50%;
 }
+*/
 
 .column_users_guide .reg_table table TD {
     padding-right: 10px;
     border-bottom: 1px solid #C0C0C0;  
+}
+
+.column_users_guide .reg_table table th.tblcol_50pc {
+    width: 50%;
+}
+
+.column_users_guide .reg_table table th.tblcol_60pc {
+    width: 60%;
+}
+
+.column_users_guide .reg_table table th.tblcol_10pc {
+    width: 10%;
 }
 
 .column_users_guide .reg_table table TH {

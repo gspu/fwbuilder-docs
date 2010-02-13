@@ -22,6 +22,12 @@
 -->
 <xsl:param name="ignore.image.scaling"  select="1"/>
 
+<!-- tablecolumns.extension is needed to be able to control table column width
+     in HTML output. Unfortunately this does not work with xsltproc and 
+     requires xalan or saxon XSLT processors
+<xsl:param name="use.extensions" select="1"/>
+<xsl:param name="tablecolumns.extension" select="1"/>
+-->
 
 <!--
 

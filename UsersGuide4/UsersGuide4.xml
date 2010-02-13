@@ -10,24 +10,6 @@
 ]>
 
 
-<!--
-
-
-to compile the Guide on Ubuntu, I install the following packages. Some
-of them may be redundant or unnecessary
-
-
-i A docbook               - standard SGML representation system for technical documents             
-i A docbook-dsssl         - modular DocBook DSSSL stylesheets, for print and HTML                   
-i   docbook-utils         - Convert Docbook files to other formats (HTML, RTF, PS, man, PDF)        
-i A docbook-xml           - standard XML documentation system, for software and systems             
-i   docbook-xsl-doc-html  - stylesheets for processing DocBook XML files (HTML documentation)       
-i   docbook-xsl-doc-pdf   - stylesheets for processing DocBook XML files (PDF documentation)        
-i   xsltproc              - XSLT command line processor                                             
-  
-
--->
-
 <book id="book1">
   <bookinfo>
     <title>Firewall Builder 4.0 User's Guide</title>
