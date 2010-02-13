@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE FWObjectDatabase SYSTEM "fwbuilder.dtd">
-<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="16" lastModified="1266013907" id="root">
+<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="16" lastModified="1266037581" id="root">
   <Library id="sysid99" name="Deleted Objects" comment="" ro="False">
     <IPv4 id="id2017X22130" name="linux-test-2:eth0:ip" comment="" ro="False" address="10.3.14.150" netmask="255.255.255.255"/>
     <IPv6 id="id2015X22130" name="linux-test-2:eth0:ip6" comment="" ro="False" address="fe80::20:5eff:fe0:11" netmask="64"/>
@@ -15,12 +15,14 @@
     <IPv6 id="id2800X72742" name="linux-test-4:eth0:ip6" comment="" ro="False" address="fe80::2c:29ff:fefc:678c" netmask="64"/>
     <IPv6 id="id2807X72742" name="linux-test-4:eth1:ip6" comment="" ro="False" address="fe80::2c:29ff:fefc:6796" netmask="64"/>
     <IPv4 id="id2806X72742" name="linux-test-4:eth1:ip" comment="" ro="False" address="10.1.1.2" netmask="255.255.255.0"/>
-    <IPv4 id="id4754X8138" name="linux-test-1-s:eth0:ip-1" comment="" ro="False" address="192.0.2.1" netmask="255.255.255.0"/>
-    <IPv6 id="id4079X8138" name="linux-test-1-s:eth0:ipv6" comment="" ro="False" address="2001:db8:1f0e:162::2" netmask="32"/>
+    <IPv6 id="id9449X8138" name="openbsd-test-1:pcn0:ip6-1" comment="" ro="False" address="2001:db8:1f0e:162::2" netmask="32"/>
+    <IPv4 id="id9447X8138" name="openbsd-test-1:pcn0:ip-1" comment="" ro="False" address="192.0.2.1" netmask="255.255.255.0"/>
   </Library>
   <Library id="id2185X22057" color="#d2ffd0" name="User" comment="" ro="False">
     <ObjectGroup id="id2186X22057" name="Objects" comment="" ro="False">
-      <ObjectGroup id="id2187X22057" name="Addresses" comment="" ro="False"/>
+      <ObjectGroup id="id2187X22057" name="Addresses" comment="" ro="False">
+        <IPv4 id="id4788X25945" name="a-10.3.14.160" comment="" ro="False" address="10.3.14.160" netmask="0.0.0.0"/>
+      </ObjectGroup>
       <ObjectGroup id="id2188X22057" name="DNS Names" comment="" ro="False"/>
       <ObjectGroup id="id2189X22057" name="Address Tables" comment="" ro="False"/>
       <ObjectGroup id="id2190X22057" name="Groups" comment="" ro="False"/>
@@ -437,7 +439,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id3174X8138" host_OS="linux24" inactive="False" lastCompiled="1266014697" lastInstalled="0" lastModified="1266014577" platform="iptables" version="" name="linux-test-1-s" comment="" ro="False">
+      <Firewall id="id3174X8138" host_OS="linux24" inactive="False" lastCompiled="1266014697" lastInstalled="0" lastModified="1266020781" platform="iptables" version="" name="linux-test-1-s" comment="" ro="False">
         <NAT id="id3205X8138" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -454,7 +456,9 @@
         </Interface>
         <Interface id="id3189X8138" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
           <IPv4 id="id3193X8138" name="linux-test-1-s:eth0:ip" comment="" ro="False" address="10.3.14.108" netmask="255.255.255.0"/>
+          <IPv4 id="id4754X8138" name="linux-test-1-s:eth0:ip-1" comment="" ro="False" address="192.0.2.1" netmask="255.255.255.0"/>
           <IPv6 id="id3194X8138" name="linux-test-1-s:eth0:ip6" comment="" ro="False" address="fe80::20c:29ff:fe1e:dcaa" netmask="64"/>
+          <IPv6 id="id4079X8138" name="linux-test-1-s:eth0:ipv6" comment="" ro="False" address="2001:db8:1f0e:162::2" netmask="32"/>
           <InterfaceOptions/>
         </Interface>
         <Interface id="id3196X8138" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth1" comment="" ro="False">
@@ -514,6 +518,206 @@
           <Option name="modules_dir">/lib/modules/`uname -r`/kernel/net/</Option>
           <Option name="output_file"></Option>
           <Option name="prolog_place">top</Option>
+          <Option name="prolog_script"></Option>
+          <Option name="scpArgs"></Option>
+          <Option name="script_name_on_firewall"></Option>
+          <Option name="sshArgs"></Option>
+          <Option name="ulog_cprange">0</Option>
+          <Option name="ulog_nlgroup">1</Option>
+          <Option name="ulog_qthreshold">1</Option>
+          <Option name="use_ULOG">False</Option>
+          <Option name="use_iptables_restore">False</Option>
+          <Option name="use_numeric_log_levels">False</Option>
+          <Option name="verify_interfaces">True</Option>
+        </FirewallOptions>
+      </Firewall>
+      <Firewall id="id9425X8138" host_OS="openbsd" inactive="False" lastCompiled="1266037931" lastInstalled="0" lastModified="1266037940" platform="pf" version="4.3" name="openbsd-test-1" comment="" ro="False">
+        <NAT id="id9460X8138" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <NATRule id="id4766X25945" disabled="False" position="0" action="Translate" comment="">
+            <OSrc neg="False">
+              <ObjectRef ref="id32739X22130"/>
+            </OSrc>
+            <ODst neg="False">
+              <ObjectRef ref="sysid0"/>
+            </ODst>
+            <OSrv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </OSrv>
+            <TSrc neg="False">
+              <ObjectRef ref="id4788X25945"/>
+            </TSrc>
+            <TDst neg="False">
+              <ObjectRef ref="sysid0"/>
+            </TDst>
+            <TSrv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </TSrv>
+            <NATRuleOptions/>
+          </NATRule>
+          <RuleSetOptions/>
+        </NAT>
+        <Policy id="id9458X8138" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <PolicyRule id="id4754X25945" disabled="False" log="True" position="0" action="Deny" direction="Both" comment="">
+            <Src neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Src>
+            <Dst neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Dst>
+            <Srv neg="False">
+              <ServiceRef ref="sysid1"/>
+            </Srv>
+            <Itf neg="False">
+              <ObjectRef ref="sysid0"/>
+            </Itf>
+            <When neg="False">
+              <IntervalRef ref="sysid2"/>
+            </When>
+            <PolicyRuleOptions>
+              <Option name="stateless">True</Option>
+            </PolicyRuleOptions>
+          </PolicyRule>
+          <RuleSetOptions/>
+        </Policy>
+        <Routing id="id9462X8138" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Routing>
+        <Interface id="id9433X8138" dedicated_failover="False" dyn="False" label="loopback" mgmt="False" security_level="0" unnum="False" unprotected="False" name="lo0" comment="" ro="False">
+          <IPv4 id="id9437X8138" name="openbsd-test-1:lo0:ip" comment="" ro="False" address="127.0.0.1" netmask="255.0.0.0"/>
+          <IPv6 id="id9438X8138" name="openbsd-test-1:lo0:ip6" comment="" ro="False" address="::1" netmask="128"/>
+          <IPv6 id="id15962X8138" name="openbsd-test-1:lo0:ip6-1" comment="" ro="False" address="fe80::1" netmask="64"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Interface id="id9440X8138" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="100" unnum="False" unprotected="False" name="pcn0" comment="" ro="False">
+          <IPv4 id="id9446X8138" name="openbsd-test-1:pcn0:ip" comment="" ro="False" address="10.3.14.50" netmask="255.255.255.0"/>
+          <IPv6 id="id9448X8138" name="openbsd-test-1:pcn0:ip6" comment="" ro="False" address="fe80::20c:29ff:fe83:4d25" netmask="64"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Interface id="id9451X8138" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="100" unnum="False" unprotected="False" name="em0" comment="" ro="False">
+          <IPv4 id="id9455X8138" name="openbsd-test-1:em0:ip" comment="" ro="False" address="10.1.1.50" netmask="255.255.255.0"/>
+          <IPv4 id="id30123X8138" name="openbsd-test-1:em0:ip-1" comment="" ro="False" address="192.0.2.12" netmask="255.255.255.0"/>
+          <IPv6 id="id9456X8138" name="openbsd-test-1:em0:ip6" comment="" ro="False" address="fe80::20c:29ff:fe83:4d2f" netmask="64"/>
+          <IPv6 id="id30118X8138" name="openbsd-test-1:em0:ip6-1" comment="" ro="False" address="2001:db8:1f0e:162::20" netmask="32"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Management address="0.0.0.0">
+          <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
+          <FWBDManagement enabled="False" identity="" port="-1"/>
+          <PolicyInstallScript arguments="" command="" enabled="False"/>
+        </Management>
+        <FirewallOptions>
+          <Option name="accept_established">True</Option>
+          <Option name="accept_new_tcp_with_no_syn">True</Option>
+          <Option name="action_on_reject"></Option>
+          <Option name="activationCmd"></Option>
+          <Option name="add_mgmt_ssh_rule_when_stoped">False</Option>
+          <Option name="add_rules_for_ipv6_neighbor_discovery">False</Option>
+          <Option name="admUser"></Option>
+          <Option name="altAddress"></Option>
+          <Option name="bridging_fw">False</Option>
+          <Option name="check_shading">True</Option>
+          <Option name="clamp_mss_to_mtu">False</Option>
+          <Option name="classify_mark_terminating">False</Option>
+          <Option name="clear_unknown_interfaces">False</Option>
+          <Option name="cmdline"></Option>
+          <Option name="compiler"></Option>
+          <Option name="conf_file_name_on_firewall"></Option>
+          <Option name="configure_bonding_interfaces">False</Option>
+          <Option name="configure_bridge_interfaces">False</Option>
+          <Option name="configure_carp_interfaces">False</Option>
+          <Option name="configure_interfaces">True</Option>
+          <Option name="configure_pfsync_interfaces">False</Option>
+          <Option name="configure_vlan_interfaces">False</Option>
+          <Option name="debug">False</Option>
+          <Option name="drop_invalid">False</Option>
+          <Option name="epilog_script"></Option>
+          <Option name="fallback_log">False</Option>
+          <Option name="firewall_dir">/etc</Option>
+          <Option name="firewall_is_part_of_any_and_networks">False</Option>
+          <Option name="flush_and_set_default_policy">True</Option>
+          <Option name="ignore_empty_groups">False</Option>
+          <Option name="in_out_code">true</Option>
+          <Option name="ipv4_6_order">ipv4_first</Option>
+          <Option name="limit_suffix"></Option>
+          <Option name="limit_value">0</Option>
+          <Option name="linux24_ip_forward">1</Option>
+          <Option name="load_modules">True</Option>
+          <Option name="local_nat">False</Option>
+          <Option name="log_all">False</Option>
+          <Option name="log_invalid">False</Option>
+          <Option name="log_ip_opt">False</Option>
+          <Option name="log_level">info</Option>
+          <Option name="log_prefix">RULE %N -- %A </Option>
+          <Option name="log_tcp_opt">False</Option>
+          <Option name="log_tcp_seq">False</Option>
+          <Option name="loopback_interface">lo0</Option>
+          <Option name="manage_virtual_addr">True</Option>
+          <Option name="mgmt_addr">10.3.14.30</Option>
+          <Option name="mgmt_ssh">True</Option>
+          <Option name="modules_dir">/lib/modules/`uname -r`/kernel/net/</Option>
+          <Option name="openbsd_ip_forward">1</Option>
+          <Option name="output_file"></Option>
+          <Option name="pass_all_out">false</Option>
+          <Option name="pf_adaptive_end">0</Option>
+          <Option name="pf_adaptive_start">0</Option>
+          <Option name="pf_do_limit_frags">False</Option>
+          <Option name="pf_do_limit_src_nodes">False</Option>
+          <Option name="pf_do_limit_states">False</Option>
+          <Option name="pf_do_limit_table_entries">False</Option>
+          <Option name="pf_do_limit_tables">False</Option>
+          <Option name="pf_do_scrub">False</Option>
+          <Option name="pf_do_timeout_frag">False</Option>
+          <Option name="pf_do_timeout_interval">False</Option>
+          <Option name="pf_flush_states">False</Option>
+          <Option name="pf_icmp_error">0</Option>
+          <Option name="pf_icmp_first">0</Option>
+          <Option name="pf_limit_frags">5000</Option>
+          <Option name="pf_limit_src_nodes">0</Option>
+          <Option name="pf_limit_states">10000</Option>
+          <Option name="pf_limit_table_entries">0</Option>
+          <Option name="pf_limit_tables">0</Option>
+          <Option name="pf_modulate_state">False</Option>
+          <Option name="pf_optimization"></Option>
+          <Option name="pf_other_first">0</Option>
+          <Option name="pf_other_multiple">0</Option>
+          <Option name="pf_other_single">0</Option>
+          <Option name="pf_scrub_fragm_crop">False</Option>
+          <Option name="pf_scrub_fragm_drop_ovl">False</Option>
+          <Option name="pf_scrub_maxmss">1460</Option>
+          <Option name="pf_scrub_minttl">0</Option>
+          <Option name="pf_scrub_no_df">False</Option>
+          <Option name="pf_scrub_random_id">False</Option>
+          <Option name="pf_scrub_reassemble">True</Option>
+          <Option name="pf_scrub_use_maxmss">False</Option>
+          <Option name="pf_scrub_use_minttl">False</Option>
+          <Option name="pf_set_adaptive">False</Option>
+          <Option name="pf_set_icmp_error">False</Option>
+          <Option name="pf_set_icmp_first">False</Option>
+          <Option name="pf_set_other_first">False</Option>
+          <Option name="pf_set_other_multiple">False</Option>
+          <Option name="pf_set_other_single">False</Option>
+          <Option name="pf_set_tcp_closed">False</Option>
+          <Option name="pf_set_tcp_closing">False</Option>
+          <Option name="pf_set_tcp_established">False</Option>
+          <Option name="pf_set_tcp_finwait">False</Option>
+          <Option name="pf_set_tcp_first">False</Option>
+          <Option name="pf_set_tcp_opening">False</Option>
+          <Option name="pf_set_udp_first">False</Option>
+          <Option name="pf_set_udp_multiple">False</Option>
+          <Option name="pf_set_udp_single">False</Option>
+          <Option name="pf_state_policy"></Option>
+          <Option name="pf_tcp_closed">0</Option>
+          <Option name="pf_tcp_closing">0</Option>
+          <Option name="pf_tcp_established">0</Option>
+          <Option name="pf_tcp_finwait">0</Option>
+          <Option name="pf_tcp_first">0</Option>
+          <Option name="pf_tcp_opening">0</Option>
+          <Option name="pf_timeout_frag">30</Option>
+          <Option name="pf_timeout_interval">10</Option>
+          <Option name="pf_udp_first">0</Option>
+          <Option name="pf_udp_multiple">0</Option>
+          <Option name="pf_udp_single">0</Option>
+          <Option name="prolog_place">fw_file</Option>
           <Option name="prolog_script"></Option>
           <Option name="scpArgs"></Option>
           <Option name="script_name_on_firewall"></Option>
