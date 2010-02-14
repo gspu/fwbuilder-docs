@@ -75,7 +75,7 @@
           <row>
             <entry>Incremental manegement of VLAN interfaces</entry>
             <entry><emphasis role="greentext">yes</emphasis></entry>
-            <entry>no</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
             <entry>no</entry>
             <entry>no</entry>
           </row>
