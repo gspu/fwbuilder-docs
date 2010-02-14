@@ -130,7 +130,7 @@
         Generated script includes shell code to manage ip
         addresses if checkbox "Configure interfaces" is
         turned on in the "Script" tab of the firewall object
-        "advanced" settings dialog. By default, it is tuned
+        "advanced" settings dialog. By default, it is turned
         off.
       </para>
 
@@ -147,7 +147,7 @@
 
       <para>
         If checkbox "Clear ip addresses and bring down
-        interfaces not configured in fwbuilder" is tuned on in
+        interfaces not configured in fwbuilder" is turned on in
         the "Script" tab of firewall settings dialog, the script
         deletes all ip address of all interfaces that are not
         configured in fwbuilder GUI and brings interfaces that
@@ -323,7 +323,7 @@ ifconfig eth0 up
               Generated script includes shell code to manage VLAN
               intrfaces if checkbox "Configure VLAN interfaces" is
               turned on in the "Script" tab of the firewall object
-              "advanced" settings dialog. By default, it is tuned off.
+              "advanced" settings dialog. By default, it is turned off.
             </para>
           </listitem>
 
@@ -370,7 +370,7 @@ ifconfig eth0 up
               Generated script includes shell code to manage bridge
               interfaces if checkbox "Configure bridge interfaces" is
               turned on in the "Script" tab of the firewall object
-              "advanced" settings dialog. By default, it is tuned off.
+              "advanced" settings dialog. By default, it is turned off.
             </para>
           </listitem>
 
@@ -452,7 +452,7 @@ br0  8000.000c29f6bebe   no             eth4.102
               Generated script includes shell code to manage bonding
               interfaces if checkbox "Configure bonding interfaces" is
               turned on in the "Script" tab of the firewall object
-              "advanced" settings dialog. By default, it is tuned off.
+              "advanced" settings dialog. By default, it is turned off.
             </para>
           </listitem>
 
