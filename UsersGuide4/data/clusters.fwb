@@ -733,7 +733,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id4200X60708" host_OS="openbsd" inactive="False" lastCompiled="1266128651" lastInstalled="0" lastModified="1266125911" platform="pf" version="4.3" name="openbsd-test-1" comment="" ro="False">
+      <Firewall id="id4200X60708" host_OS="openbsd" inactive="False" lastCompiled="1266131261" lastInstalled="0" lastModified="1266125911" platform="pf" version="4.3" name="openbsd-test-1" comment="" ro="False">
         <NAT id="id4249X60708" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -890,7 +890,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id5140X60708" host_OS="openbsd" inactive="False" lastCompiled="1266128651" lastInstalled="0" lastModified="1266125905" platform="pf" version="4.3" name="openbsd-test-2" comment="" ro="False">
+      <Firewall id="id5140X60708" host_OS="openbsd" inactive="False" lastCompiled="1266131261" lastInstalled="0" lastModified="1266125905" platform="pf" version="4.3" name="openbsd-test-2" comment="" ro="False">
         <NAT id="id5185X60708" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -1684,7 +1684,7 @@
           <ClusterGroupOptions/>
         </StateSyncClusterGroup>
       </Cluster>
-      <Cluster id="id6195X60708" host_OS="openbsd" lastCompiled="1266128651" lastInstalled="0" lastModified="1266128139" platform="pf" name="openbsd-cluster" comment="" ro="False">
+      <Cluster id="id6195X60708" host_OS="openbsd" lastCompiled="1266131261" lastInstalled="0" lastModified="1266131258" platform="pf" name="openbsd-cluster" comment="" ro="False">
         <NAT id="id6199X60708" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id10803X60708" disabled="False" position="0" action="Translate" comment="">
             <OSrc neg="False">
@@ -1781,7 +1781,11 @@
         </Interface>
         <FirewallOptions/>
         <StateSyncClusterGroup id="id6203X60708" type="pfsync" name="State Sync Group" comment="">
-          <ClusterGroupOptions/>
+          <ObjectRef ref="id4224X60708"/>
+          <ObjectRef ref="id5164X60708"/>
+          <ClusterGroupOptions>
+            <Option name="syncpeer">False</Option>
+          </ClusterGroupOptions>
         </StateSyncClusterGroup>
       </Cluster>
     </ObjectGroup>

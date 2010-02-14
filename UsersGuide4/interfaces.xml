@@ -23,6 +23,17 @@
       bridge ports and bonding interfaces.
     </para>
 
+    <tip>
+      <para>
+        If someone reconfigures interfaces, vlans or ip addresses on
+        the machine, just run fwbuilder-generated script again and it
+        will restore configuration to the state defined in GUI without
+        taking everything down first and then reconfiguring from
+        scratch. The script is going to run only those commands that
+        are necessary to undo the changes made by hand.
+      </para>
+    </tip>
+
     <para>
       Not all of these features available on all supported OS.
       <xref linkend="interface_mgmt_support"/> shows this:
@@ -111,6 +122,21 @@
             <entry>no</entry>
             <entry>no</entry>
           </row>
+
+          <row>
+            <entry>Cluster configuration: <emphasis>carp</emphasis>
+            and <emphasis>pfsync</emphasis>
+            on <emphasis>OpenBSD</emphasis>, interface configuration
+            for failover on <emphasis>PIX</emphasis>, interface
+            configuration for clustering protocols
+            on <emphasis>Linux</emphasis></entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+            <entry>no</entry>
+            <entry><emphasis role="greentext">yes</emphasis></entry>
+          </row>
+
+
         </tbody>
       </tgroup>
     </table>
