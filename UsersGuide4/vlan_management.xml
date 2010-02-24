@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+
+
+<sect1 id="vlan_management">
+  <title>VLAN interfaces</title>
+
+  <!-- TODO need examples -->
+
+  <para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Generated script includes shell code to manage VLAN
+          intrfaces if checkbox "Configure VLAN interfaces" is
+          turned on in the "Script" tab of the firewall object
+          "advanced" settings dialog. By default, it is turned off.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>Script uses <emphasis>vconfig</emphasis> tool which
+          should be present on the friewall. The script checks if
+          it is available and aborts if it can not find it.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          Script checks if vlan interface configured in the GUI
+          exists on the firewall and creates it if necessary.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          If the script finds vlan interface on the firewall that
+          is not configured in the fwbuilder GUI, it deletes it
+        </para>
+      </listitem>
+    </itemizedlist>
+  </para>
+
+</sect1>
+
+

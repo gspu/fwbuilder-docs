@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+
+<sect1 id="bridge_management">
+  <title>Bridge ports</title>
+
+  <!-- TODO need examples -->
+
+  <para>
+    Support for bridge interfaces and bridge ports is only
+    available for Linux firewalls. Generated script can manage
+    bridge interfaces as follows:
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          Generated script includes shell code to manage bridge
+          interfaces if checkbox "Configure bridge interfaces" is
+          turned on in the "Script" tab of the firewall object
+          "advanced" settings dialog. By default, it is turned off.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>Script uses <emphasis>brctl</emphasis> tool which
+          should be present on the friewall. The script checks if
+          it is available and aborts if it can not find it.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          Script checks if bridge interface configured in the GUI
+          exists on the firewall and creates it if necessary.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          It then checks if bridge interface on the firewall is
+          configured with bridge ports that were defined in the
+          GUI. It adds those that are missing and removes those
+          that are not configured in the GUI.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          Adding VLAN interfaces as bridge ports, as well as mix
+          of regular ethernet and vlan inetrfaces is
+          supported. That is, the following configuration can be
+          configured in fwbuilder and generated script will create
+          it:
+
+          <programlisting>
+bridge name bridge id    STP enabled    interfaces
+br0  8000.000c29f6bebe   no             eth4.102
+                                        eth5
+          </programlisting>
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          In order to use VLAN interface as bridge port, it needs
+          to be created twice in the GUI. First time it is created
+          as a child of the regular ethernet interface and has
+          type "VLAN". The second interface object with the same
+          name should be created as a child of a bridge interface
+          with a type "ethernet".
+          <!-- TODO need example here -->
+
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+        </para>
+      </listitem>
+
+
+    </itemizedlist>
+  </para>
+
+</sect1>
+

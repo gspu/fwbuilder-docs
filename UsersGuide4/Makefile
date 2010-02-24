@@ -6,6 +6,11 @@ SOURCES = Introduction.xml \
 		UsersGuide4.xml \
 		clusters.xml \
 		interfaces.xml \
+		ip_address_management_linux.xml \
+		ip_address_management_bsd.xml \
+		vlan_management.xml \
+		bridge_management.xml \
+		bonding_interface_management.xml \
 		compile-install-detail.xml \
 		cookbook.xml \
 		definitions.xml \

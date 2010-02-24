@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+
+<sect1 id="bonding_intf_management">
+  <title>Bonding interfaces</title>
+
+  <para>
+    Support for bonding interfaces is currently available only for
+    Linux firewalls. Generated iptables script can incrementally
+    update bonding interfaces:
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          Generated script includes shell code to manage bonding
+          interfaces if checkbox "Configure bonding interfaces" is
+          turned on in the "Script" tab of the firewall object
+          "advanced" settings dialog. By default, it is turned off.
+        </para>
+      </listitem>
+
+
+      <listitem>
+        <para>Script uses <emphasis>ifenslave</emphasis> tool which
+          should be present on the friewall. The script checks if it
+          is available and aborts if it can not find it.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+	  Script creates new bonding interfaces with parameters
+	  configured in the GUI if module 'bonding' is not
+	  loaded. This is what happens if fwbuilder script runs
+	  after reboot.
+        </para>
+
+        <para>
+	  if there are no bonding interfaces in fwbuilder
+	  configuration, the script removes bonding module to kill
+	  any bonding interfaces that might exist on the machine
+        </para>
+
+        <para>
+	  if you add second bonding interface in fwbuilder, the
+	  script checks if it exists on the machine. It will not
+	  create it because to do so, it would have to remove the
+	  module which kills other bonding interfaces. If this
+	  second bonding interface exists, it will be configured
+	  with slaves and addresses. If it does not exist, script
+	  aborts. In this case you need to either 1) reload module
+	  manually or 2) add max_bonds=2 to /etc/modules.conf and
+	  reboot or 3) unload module and run fwbuilder script
+	  again (if module is not loaded, the script loads it with
+	  correct max_bonds parameter)
+        </para>
+
+        <para>
+	  if a bonding interface exists on the machine but not in
+	  fwbuilder configuration, the script removes all slaves
+	  from it and brings it down. It can not delete it because
+	  to do so it would need to remove the module, which kills
+	  other bonding interfaces.
+        </para>
+
+        <para>
+	  Limitation: currently all bonding interfaces will use
+	  the same protocol parameters. This is because module
+	  loading with parameter "-obond1" that is supposed to be
+	  the way to obtain more than one bonding interface and
+	  also the way to specify different parameters for
+	  different interfaces causes kernel panic in my
+	  tests. Tested with bonding module v3.5.0 and kernel
+	  2.6.29.4-167.fc11.i686.PAE on Fedora Core 11. The only
+	  working way to get two bonding interfaces I could find
+	  is to load the module with parameter max_bonds=2, but
+	  this means all bonding interfaces work with the same
+	  protocol parameters. If bond interfaces are configured
+	  with different parameters in fwbuilder, compiler uses
+	  the first and issues warning for others.
+        </para>
+      </listitem>
+    </itemizedlist>
+  </para>
+
+</sect1>
