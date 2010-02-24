@@ -16,7 +16,7 @@
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="nat-cookbook.xml"/>
 
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="linux-cluster-cookbook.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="cluster-cookbook.xml"/>
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tricks.xml"/>
 

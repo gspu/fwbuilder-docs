@@ -324,9 +324,9 @@
       <title>Linux cluster configuration with Firewall Builder</title>
 
       <para>
-        Detailed walk-through examples for different Linux cluster
-        configurations can be found in Firewall Builder Cookbook
-        chapter <xref linkend="linux-cluster-cookbook"/>
+        Detailed walk-through examples for different Linux, BSD and
+        PIX cluster configurations can be found in Firewall Builder
+        Cookbook chapter <xref linkend="cluster-cookbook"/>
       </para>
 
       <para>

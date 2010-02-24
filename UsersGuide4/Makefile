@@ -6,8 +6,7 @@ SOURCES = Introduction.xml \
 		UsersGuide4.xml \
 		clusters.xml \
 		interfaces.xml \
-		ip_address_management_linux.xml \
-		ip_address_management_bsd.xml \
+		ip_address_management.xml \
 		vlan_management.xml \
 		bridge_management.xml \
 		bonding_interface_management.xml \
@@ -24,7 +23,7 @@ SOURCES = Introduction.xml \
 		change-ip-address-in-template.xml \
 		policy-cookbook.xml \
 		nat-cookbook.xml \
-		linux-cluster-cookbook.xml \
+		cluster-cookbook.xml \
 		tricks.xml \
 		vrrpd_cluster.xml \
 		heartbeat_cluster.xml \

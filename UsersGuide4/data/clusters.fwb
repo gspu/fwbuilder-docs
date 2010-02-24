@@ -853,7 +853,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id3174X8138" host_OS="linux24" inactive="False" lastCompiled="1266014697" lastInstalled="0" lastModified="1266020781" platform="iptables" version="" name="linux-test-1-s" comment="" ro="False">
+      <Firewall id="id3174X8138" host_OS="linux24" inactive="False" lastCompiled="1266014697" lastInstalled="0" lastModified="1266975752" platform="iptables" version="" name="linux-test-1-s" comment="" ro="False">
         <NAT id="id3205X8138" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -904,7 +904,7 @@
           <Option name="configure_bonding_interfaces">False</Option>
           <Option name="configure_bridge_interfaces">False</Option>
           <Option name="configure_interfaces">True</Option>
-          <Option name="configure_vlan_interfaces">False</Option>
+          <Option name="configure_vlan_interfaces">True</Option>
           <Option name="debug">False</Option>
           <Option name="drop_invalid">False</Option>
           <Option name="epilog_script"></Option>
@@ -945,7 +945,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id9425X8138" host_OS="openbsd" inactive="False" lastCompiled="1266972386" lastInstalled="0" lastModified="1266972576" platform="pf" version="4.3" name="openbsd-test-1-s" comment="" ro="False">
+      <Firewall id="id9425X8138" host_OS="openbsd" inactive="False" lastCompiled="1266972580" lastInstalled="0" lastModified="1266972576" platform="pf" version="4.3" name="openbsd-test-1-s" comment="" ro="False">
         <NAT id="id9460X8138" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id4766X25945" disabled="False" position="0" action="Translate" comment="">
             <OSrc neg="False">
