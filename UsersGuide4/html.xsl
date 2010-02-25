@@ -8,6 +8,7 @@
 <xsl:param name="base.dir" select="'./html/'"/>
 <xsl:param name="html.stylesheet" select="'users_guide_3.css'"/>
 <xsl:param name="section.autolabel" select="1"/>
+<xsl:param name="section.label.includes.component.label" select="1"/>
 <!-- <xsl:param name="admon.graphics" select="1"/> -->
 <xsl:param name="chunker.output.indent" select="'yes'"/>
 <xsl:param name="chunk.section.depth" select="2"/>
