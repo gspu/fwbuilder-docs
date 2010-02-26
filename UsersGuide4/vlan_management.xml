@@ -89,6 +89,308 @@
       correct name type.
     </para>
 
+    <para>
+      To illustrate vlan management on Linux, consider firewall object
+      "linux-test-vlan-1" shown on <xref linkend="vlan_managemen_1"/>:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_1">
+        <title>Example configuration; VLAN inetrfaces will be added to eth1</title>
+        <graphic scale="50" fileref="vlan-management-1.png"/>
+      </figure>
+    </para>
+
+    <para>
+      Interface <emphasis>eth1</emphasis> is configured as
+      "unnumbered" interface, we are going to add VLAN subinterfaces
+      to it. To do this, select this interface in the tree and click
+      right mouse button to open context menu:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_2">
+        <title>Adding VLAN subinterface</title>
+        <graphic scale="50" fileref="vlan-management-2.png"/>
+      </figure>
+    </para>
+
+    <para>
+      New subninterface is created with generic name "Interface". To
+      make it VLAN interface we should rename it:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_3">
+        <title>VLAN subinterface eth1.100</title>
+        <graphic scale="50" fileref="vlan-management-3.png"/>
+      </figure>
+    </para>
+
+    <para>
+      The name of the interface is eth1.100, which implies VLAN ID
+      100.  Firewall Builder is aware of the naming schemes of VLAN
+      inetrfaces on Linux and automatically recognizes this name and
+      sets interface type to "VLAN" and its VLAN ID to "100". To
+      inspect and change its VLAN ID, click "Advanced Interface
+      Settings" button:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_4">
+        <title>VLAN interface parameters</title>
+        <graphic scale="50" fileref="vlan-management-4.png"/>
+      </figure>
+    </para>
+
+    <note>
+      <para>
+        The program verifies VLAN ID configured in the vlan interface
+        parameters dialog and compares it to the interface name to
+        make sure they match. It does not let you set VLAN ID that
+        does not match interface name because vconfig would not let
+        you do it on the Linux machine. The program also verifies
+        subinterface name to make sure it matches one of the supported
+        naming schemes. It allows names such as "eth1.100",
+        "eth1.0100", "vlan100", "vlan0100" but would not allow
+        any other name for the vlan subinterface.
+      </para>
+    </note>
+
+    <para>
+      I am going to add second VLAN interface eth1.101 and add IPv4
+      addresses to both VLAN interfaces. The final configuration is
+      shown in <xref linkend="vlan_managemen_5"/>:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_5">
+        <title>VLAN interface parameters</title>
+        <graphic scale="50" fileref="vlan-management-5.png"/>
+      </figure>
+    </para>
+
+    <para>
+      Generated script includes the following shell function that sets
+      up all vlans and ip addresses:
+    </para>
+
+    <programlisting>
+configure_interfaces() {
+    :
+    # Configure interfaces
+    update_vlans_of_interface "eth1 eth1.100 eth1.101"
+    clear_vlans_except_known eth1.100@eth1 eth1.101@eth1
+    update_addresses_of_interface "lo ::1/128 127.0.0.1/8" ""
+    update_addresses_of_interface "eth0 fe80::20c:29ff:fe1e:dcaa/64 10.3.14.108/24" ""
+    update_addresses_of_interface "eth1" ""
+    update_addresses_of_interface "eth1.100 10.1.1.1/24" ""
+    update_addresses_of_interface "eth1.101 10.1.2.1/24" ""
+}
+    </programlisting>
+
+    <para>
+      Call to <emphasis>update_vlans_of_interface</emphasis> adds and
+      removes vlans as needed to make sure vlan interfaces eth1.100
+      and eth1.101 exist. Call
+      to <emphasis>clear_vlans_except_known</emphasis> removes other
+      vlan interfaces that might exist on the machine but were not
+      configured in fwbuilder. Calls
+      to <emphasis>update_addresses_of_interface</emphasis> set up ip
+      addresses. To test, I am going to copy generated script to the
+      firewall and run it with command line parameter
+      "test_interfaces".  This command does not make any changes on
+      the firewall but only prints commands it would have executed to
+      configure vlans and addresses:
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-vlan-1.fw test_interfaces
+# Adding VLAN interface eth1.100 (parent: eth1)
+vconfig set_name_type DEV_PLUS_VID_NO_PAD
+vconfig add eth1 100
+ifconfig eth1.100 up
+# Adding VLAN interface eth1.101 (parent: eth1)
+vconfig set_name_type DEV_PLUS_VID_NO_PAD
+vconfig add eth1 101
+ifconfig eth1.101 up
+# Interface eth1.100 does not exist
+# Adding ip address: eth1.100 10.1.1.1/24
+ip addr add 10.1.1.1/24 dev eth1.100
+ifconfig eth1.100 up
+# Interface eth1.101 does not exist
+# Adding ip address: eth1.101 10.1.2.1/24
+ip addr add 10.1.2.1/24 dev eth1.101
+ifconfig eth1.101 up
+    </programlisting>
+
+    <para>
+      The script uses vconfig to set up naming scheme and add vlan
+      inetrfaces, then uses ip to add addresses. To make the change,
+      run the script with command line parameter "interfaces":
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-vlan-1.fw interfaces
+# Adding VLAN interface eth1.100 (parent: eth1)
+Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
+Added VLAN with VID == 100 to IF -:eth1:-
+# Adding VLAN interface eth1.101 (parent: eth1)
+Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
+Added VLAN with VID == 101 to IF -:eth1:-
+# Adding ip address: eth1.100 10.1.1.1/24
+# Adding ip address: eth1.101 10.1.2.1/24
+    </programlisting>
+
+
+    <para>
+      To inspect the result, use "ip addr show" command:
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# ip addr show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:aa brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+    inet6 fe80::20c:29ff:fe1e:dcaa/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:b4 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::20c:29ff:fe1e:dcb4/64 scope link 
+       valid_lft forever preferred_lft forever
+<emphasis role="redtext">4: eth1.100@eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP </emphasis>
+    link/ether 00:0c:29:1e:dc:b4 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.1.1/24 scope global eth1.100
+    inet6 fe80::20c:29ff:fe1e:dcb4/64 scope link 
+       valid_lft forever preferred_lft forever
+<emphasis role="redtext">5: eth1.101@eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP </emphasis>
+    link/ether 00:0c:29:1e:dc:b4 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.2.1/24 scope global eth1.101
+    inet6 fe80::20c:29ff:fe1e:dcb4/64 scope link 
+       valid_lft forever preferred_lft forever
+    </programlisting>
+
+    <para>
+      Lets try to run the same script again:
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-vlan-1.fw interfaces
+root@linux-test-1:~# 
+    </programlisting>
+
+    <para>
+      The script detected that both vlan interfaces already exist and
+      have correct ip addresses and did nothing.
+    </para>
+
+    <para>
+      Now I am going to change VLAN id on one of the interfaces and
+      demonstrate how the script executes the change on the
+      firewall. First, I rename interface eth1.100 to eth1.102:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_6">
+        <title>Configuration after VLAN interface eth1.100 was renamed eth1.102</title>
+        <graphic scale="50" fileref="vlan-management-6.png"/>
+      </figure>
+    </para>
+
+    <para>
+      Then I recompile the firewall, copy generated script to the
+      firewall and run it:
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-vlan-1.fw interfaces
+# Adding VLAN interface eth1.102 (parent: eth1)
+Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
+Added VLAN with VID == 102 to IF -:eth1:-
+# Removing VLAN interface eth1.100 (parent: eth1)
+Removed VLAN -:eth1.100:-
+# Adding ip address: eth1.102 10.1.1.1/24
+    </programlisting>
+
+    <para>
+      The script added new vlan interface eth1.102 first, then removed
+      eth1.100 and added ip address to eth1.102.
+    </para>
+
+    <para>
+      Now lets rename both vlan interfaces to use different naming scheme:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_7">
+        <title>Configuration after renaming VLAN interfaces eth1.101 and eth1.102</title>
+        <graphic scale="50" fileref="vlan-management-7.png"/>
+      </figure>
+    </para>
+
+    <note>
+      <para>
+        There is a limitation in the implementation of the incremental
+        vlan management at this time. Generated script can not
+        correctly rename vlan interfaces, that is, change the name
+        without chaning VLAN ID. There are two workarounds: 1) you can
+        remove vlan interfaces manually and then run the script to let
+        it add new ones, or 2) you can run the script twice. On the
+        first run, it will issue errors because it can't add vlan
+        interfaces with different name and the same VLAN ID, but it
+        can delete old VLAN interfaces. On the second run it adds VLAN
+        interfaces with new names.
+      </para>
+    </note>
+
+    <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-vlan-1.fw interfaces
+# Adding VLAN interface vlan0101 (parent: eth1)
+Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
+Added VLAN with VID == 101 to IF -:eth1:-
+# Adding VLAN interface vlan0102 (parent: eth1)
+Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
+Added VLAN with VID == 102 to IF -:eth1:-
+# Adding ip address: vlan0102 10.1.1.1/24
+# Adding ip address: vlan0101 10.1.2.1/24
+    </programlisting>
+
+    <para>
+      Here is how final configuration looks like:
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# ip addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:aa brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+    inet6 fe80::20c:29ff:fe1e:dcaa/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:b4 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::20c:29ff:fe1e:dcb4/64 scope link 
+       valid_lft forever preferred_lft forever
+<emphasis role="redtext">4: vlan0101@eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP </emphasis>
+    link/ether 00:0c:29:1e:dc:b4 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.2.1/24 scope global vlan0101
+    inet6 fe80::20c:29ff:fe1e:dcb4/64 scope link 
+       valid_lft forever preferred_lft forever
+<emphasis role="redtext">5: vlan0102@eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP </emphasis>
+    link/ether 00:0c:29:1e:dc:b4 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.1.1/24 scope global vlan0102
+    inet6 fe80::20c:29ff:fe1e:dcb4/64 scope link 
+       valid_lft forever preferred_lft forever
+    </programlisting>
 
 
   </sect2>
