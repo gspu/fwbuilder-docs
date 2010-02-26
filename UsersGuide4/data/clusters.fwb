@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE FWObjectDatabase SYSTEM "fwbuilder.dtd">
-<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="16" lastModified="1266125642" id="root">
+<FWObjectDatabase xmlns="http://www.fwbuilder.org/1.0/" version="16" lastModified="1267219082" id="root">
   <Library id="syslib000" color="#d4f8ff" name="Standard" comment="Standard objects" ro="True">
     <AnyNetwork id="sysid0" name="Any" comment="Any Network" ro="False" address="0.0.0.0" netmask="0.0.0.0"/>
     <AnyIPService id="sysid1" protocol_num="0" name="Any" comment="Any IP Service" ro="False"/>
@@ -431,6 +431,10 @@
     <IPv4 id="id9447X8138" name="openbsd-test-1:pcn0:ip-1" comment="" ro="False" address="192.0.2.1" netmask="255.255.255.0"/>
     <IPv6 id="id4233X60708" name="openbsd-test-1:em0:ip6-1" comment="" ro="False" address="2001:db8:1f0e:162::20" netmask="32"/>
     <IPv4 id="id4231X60708" name="openbsd-test-1:em0:ip-1" comment="" ro="False" address="192.0.2.12" netmask="255.255.255.0"/>
+    <IPv4 id="id4021X2224" name="linux-test-vlan-1:eth0:ip-1" comment="" ro="False" address="192.0.2.1" netmask="255.255.255.0"/>
+    <IPv6 id="id4023X2224" name="linux-test-vlan-1:eth0:ip6-1" comment="" ro="False" address="2001:db8:1f0e:162::2" netmask="32"/>
+    <IPv4 id="id4029X2224" name="linux-test-vlan-1:eth1:ip" comment="" ro="False" address="10.1.1.1" netmask="255.255.255.0"/>
+    <IPv6 id="id4030X2224" name="linux-test-vlan-1:eth1:ip6" comment="" ro="False" address="fe80::20c:29ff:fe1e:dcb4" netmask="64"/>
   </Library>
   <Library id="id2185X22057" color="#d2ffd0" name="User" comment="" ro="False">
     <ObjectGroup id="id2186X22057" name="Objects" comment="" ro="False">
@@ -1446,6 +1450,112 @@
           <Option name="pf_udp_multiple">0</Option>
           <Option name="pf_udp_single">0</Option>
           <Option name="prolog_place">fw_file</Option>
+          <Option name="prolog_script"></Option>
+          <Option name="scpArgs"></Option>
+          <Option name="script_name_on_firewall"></Option>
+          <Option name="sshArgs"></Option>
+          <Option name="ulog_cprange">0</Option>
+          <Option name="ulog_nlgroup">1</Option>
+          <Option name="ulog_qthreshold">1</Option>
+          <Option name="use_ULOG">False</Option>
+          <Option name="use_iptables_restore">False</Option>
+          <Option name="use_numeric_log_levels">False</Option>
+          <Option name="verify_interfaces">True</Option>
+        </FirewallOptions>
+      </Firewall>
+      <Firewall id="id3999X2224" host_OS="linux24" inactive="False" lastCompiled="1267220666" lastInstalled="0" lastModified="1267220840" platform="iptables" version="" name="linux-test-vlan-1" comment="" ro="False">
+        <NAT id="id4034X2224" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </NAT>
+        <Policy id="id4032X2224" name="Policy" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Policy>
+        <Routing id="id4036X2224" name="Routing" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
+          <RuleSetOptions/>
+        </Routing>
+        <Interface id="id4007X2224" dedicated_failover="False" dyn="False" label="loopback" security_level="0" unnum="False" unprotected="False" name="lo" comment="" ro="False">
+          <IPv4 id="id4011X2224" name="linux-test-vlan-1:lo:ip" comment="" ro="False" address="127.0.0.1" netmask="255.0.0.0"/>
+          <IPv6 id="id4012X2224" name="linux-test-vlan-1:lo:ip6" comment="" ro="False" address="::1" netmask="128"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Interface id="id4014X2224" dedicated_failover="False" dyn="False" label="" security_level="100" unnum="False" unprotected="False" name="eth0" comment="" ro="False">
+          <IPv4 id="id4020X2224" name="linux-test-vlan-1:eth0:ip" comment="" ro="False" address="10.3.14.108" netmask="255.255.255.0"/>
+          <IPv6 id="id4022X2224" name="linux-test-vlan-1:eth0:ip6" comment="" ro="False" address="fe80::20c:29ff:fe1e:dcaa" netmask="64"/>
+          <InterfaceOptions/>
+        </Interface>
+        <Interface id="id4025X2224" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="100" unnum="True" unprotected="False" name="eth1" comment="" ro="False">
+          <InterfaceOptions/>
+          <Interface id="id4120X2224" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="vlan0102" comment="" ro="False">
+            <IPv4 id="id4164X2224" name="linux-test-vlan-1:eth1:vlan0102:ip" comment="" ro="False" address="10.1.1.1" netmask="255.255.255.0"/>
+            <InterfaceOptions>
+              <Option name="bonding_policy"></Option>
+              <Option name="bondng_driver_options"></Option>
+              <Option name="enable_stp">False</Option>
+              <Option name="type">8021q</Option>
+              <Option name="vlan_id">102</Option>
+              <Option name="xmit_hash_policy"></Option>
+            </InterfaceOptions>
+          </Interface>
+          <Interface id="id4150X2224" dedicated_failover="False" dyn="False" label="" mgmt="False" security_level="0" unnum="False" unprotected="False" name="vlan0101" comment="" ro="False">
+            <IPv4 id="id4173X2224" name="linux-test-vlan-1:eth1:vlan0101:ip" comment="" ro="False" address="10.1.2.1" netmask="255.255.255.0"/>
+            <InterfaceOptions>
+              <Option name="type">8021q</Option>
+              <Option name="vlan_id">101</Option>
+            </InterfaceOptions>
+          </Interface>
+        </Interface>
+        <Management address="0.0.0.0">
+          <SNMPManagement enabled="False" snmp_read_community="" snmp_write_community=""/>
+          <FWBDManagement enabled="False" identity="" port="-1"/>
+          <PolicyInstallScript arguments="" command="" enabled="False"/>
+        </Management>
+        <FirewallOptions>
+          <Option name="accept_established">True</Option>
+          <Option name="accept_new_tcp_with_no_syn">True</Option>
+          <Option name="action_on_reject"></Option>
+          <Option name="activationCmd"></Option>
+          <Option name="add_mgmt_ssh_rule_when_stoped">False</Option>
+          <Option name="add_rules_for_ipv6_neighbor_discovery">False</Option>
+          <Option name="admUser"></Option>
+          <Option name="altAddress"></Option>
+          <Option name="bridging_fw">False</Option>
+          <Option name="check_shading">True</Option>
+          <Option name="clamp_mss_to_mtu">False</Option>
+          <Option name="classify_mark_terminating">False</Option>
+          <Option name="clear_unknown_interfaces">False</Option>
+          <Option name="cmdline"></Option>
+          <Option name="compiler"></Option>
+          <Option name="configure_bonding_interfaces">False</Option>
+          <Option name="configure_bridge_interfaces">False</Option>
+          <Option name="configure_interfaces">True</Option>
+          <Option name="configure_vlan_interfaces">True</Option>
+          <Option name="debug">False</Option>
+          <Option name="drop_invalid">False</Option>
+          <Option name="epilog_script"></Option>
+          <Option name="firewall_dir"></Option>
+          <Option name="firewall_is_part_of_any_and_networks">False</Option>
+          <Option name="flush_and_set_default_policy">True</Option>
+          <Option name="ignore_empty_groups">False</Option>
+          <Option name="ipv4_6_order">ipv4_first</Option>
+          <Option name="limit_suffix"></Option>
+          <Option name="limit_value">0</Option>
+          <Option name="linux24_ip_forward">1</Option>
+          <Option name="load_modules">True</Option>
+          <Option name="local_nat">False</Option>
+          <Option name="log_all">False</Option>
+          <Option name="log_invalid">False</Option>
+          <Option name="log_ip_opt">False</Option>
+          <Option name="log_level">info</Option>
+          <Option name="log_prefix">RULE %N -- %A </Option>
+          <Option name="log_tcp_opt">False</Option>
+          <Option name="log_tcp_seq">False</Option>
+          <Option name="loopback_interface">lo</Option>
+          <Option name="manage_virtual_addr">True</Option>
+          <Option name="mgmt_addr"></Option>
+          <Option name="mgmt_ssh">False</Option>
+          <Option name="modules_dir">/lib/modules/`uname -r`/kernel/net/</Option>
+          <Option name="output_file"></Option>
+          <Option name="prolog_place">top</Option>
           <Option name="prolog_script"></Option>
           <Option name="scpArgs"></Option>
           <Option name="script_name_on_firewall"></Option>
