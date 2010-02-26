@@ -115,8 +115,8 @@
       with two or three interfaces, a host with one interface, a web
       server or a Cisco router. We'll choose <guilabel>fw template
       3</guilabel>, a firewall with three interfaces, for this
-      example. Click <guibutton>Finish</guibutton> to create a new
-      firewall object using the chosen template.
+      example. Click <guibutton>Next</guibutton> to create a new
+      firewall object using chosen template.
     </para>
 
     <figure id="pict_050">
