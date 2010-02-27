@@ -27,7 +27,7 @@ file to .pdf
 <xsl:param name="default.float.class" select="none"/>
 
 <xsl:attribute-set name="monospace.verbatim.properties">
-  <xsl:attribute name="font-family">Lucida Sans Typewriter</xsl:attribute>
+  <xsl:attribute name="font-family">SansSerif</xsl:attribute>
   <xsl:attribute name="font-size">8pt</xsl:attribute>
   <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
 </xsl:attribute-set>

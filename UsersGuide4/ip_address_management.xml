@@ -106,7 +106,7 @@
     <para>
       <figure id="ip_addr_managemen_1">
         <title>Example configuration with several IPv4 and IPv6 addresses</title>
-        <graphic scale="50" fileref="ip-addr-management-1.png"/>
+        <graphic scale="70" fileref="ip-addr-management-1.png"/>
       </figure>
     </para>
 
@@ -183,7 +183,7 @@ root@linux-test-1:~#
       <figure id="ip_addr_managemen_2">
         <title>Configuration after additional IPv4 and IPv6
           addresses have been removed</title>
-        <graphic scale="50" fileref="ip-addr-management-2.png"/>
+        <graphic scale="70" fileref="ip-addr-management-2.png"/>
       </figure>
     </para>
 
@@ -268,7 +268,7 @@ ifconfig eth0 up
     <para>
       <figure id="ip_addr_managemen_bsd_1">
         <title>Example configuration with several IPv4 and IPv6 addresses</title>
-        <graphic scale="50" fileref="ip-addr-management-bsd-1.png"/>
+        <graphic scale="70" fileref="ip-addr-management-bsd-1.png"/>
       </figure>
     </para>
 
@@ -374,7 +374,7 @@ net.inet.ip.forwarding: 1 -&gt; 1
       <figure id="ip_addr_managemen_bsd_2">
         <title>Configuration after additional IPv4 and IPv6
           addresses have been removed</title>
-        <graphic scale="50" fileref="ip-addr-management-bsd-2.png"/>
+        <graphic scale="70" fileref="ip-addr-management-bsd-2.png"/>
       </figure>
     </para>
 

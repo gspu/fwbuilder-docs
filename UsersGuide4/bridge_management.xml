@@ -125,7 +125,7 @@ br0  8000.000c29f6bebe   no             eth4.102
     <para>
       <figure id="bridge_managemen_1">
         <title>Example configuration; inetrfaces eth1 and eth2 will become bridge ports</title>
-        <graphic scale="50" fileref="bridge-management-1.png"/>
+        <graphic scale="70" fileref="bridge-management-1.png"/>
       </figure>
     </para>
 
@@ -144,7 +144,7 @@ br0  8000.000c29f6bebe   no             eth4.102
     <para>
       <figure id="bridge_managemen_2">
         <title>Bridge interface br0</title>
-        <graphic scale="50" fileref="bridge-management-2.png"/>
+        <graphic scale="70" fileref="bridge-management-2.png"/>
       </figure>
     </para>
 
@@ -159,7 +159,7 @@ br0  8000.000c29f6bebe   no             eth4.102
     <para>
       <figure id="bridge_managemen_3">
         <title>Configuring bridge interface type</title>
-        <graphic scale="50" fileref="bridge-management-3.png"/>
+        <graphic scale="70" fileref="bridge-management-3.png"/>
       </figure>
     </para>
 
@@ -175,7 +175,7 @@ br0  8000.000c29f6bebe   no             eth4.102
     <para>
       <figure id="bridge_managemen_4">
         <title>Configuring bridge ports</title>
-        <graphic scale="50" fileref="bridge-management-4.png"/>
+        <graphic scale="70" fileref="bridge-management-4.png"/>
       </figure>
     </para>
 
@@ -197,7 +197,7 @@ br0  8000.000c29f6bebe   no             eth4.102
     <para>
       <figure id="bridge_managemen_5">
         <title>Some functions are disabled for bridge port subinterfaces</title>
-        <graphic scale="50" fileref="bridge-management-5.png"/>
+        <graphic scale="70" fileref="bridge-management-5.png"/>
       </figure>
     </para>
 
@@ -260,9 +260,9 @@ root@linux-test-1:~# ip addr show
 
     <programlisting>
 root@linux-test-1:~# brctl show
-bridge name	bridge id		STP enabled	interfaces
-br0		8000.000c291edcb4	no		eth1
-							eth2
+bridge name     bridge id               STP enabled     interfaces
+br0             8000.000c291edcb4       no              eth1
+                                                        eth2
     </programlisting>
 
     <para>
@@ -274,7 +274,7 @@ br0		8000.000c291edcb4	no		eth1
     <para>
       <figure id="bridge_managemen_6">
         <title>Adding third bridge port</title>
-        <graphic scale="50" fileref="bridge-management-6.png"/>
+        <graphic scale="70" fileref="bridge-management-6.png"/>
       </figure>
     </para>
 
@@ -290,10 +290,10 @@ root@linux-test-1:~# /etc/fw/linux-test-bridge-1.fw interfaces
 
     <programlisting>
 root@linux-test-1:~# brctl show
-bridge name	bridge id		STP enabled	interfaces
-br0		8000.000c291edcb4	no		eth1
-							eth2
-							eth3
+bridge name     bridge id               STP enabled     interfaces
+br0             8000.000c291edcb4       no              eth1
+                                                        eth2
+                                                        eth3
     </programlisting>
 
     <tip>
@@ -324,9 +324,9 @@ root@linux-test-1:~# /etc/fw/linux-test-bridge-1.fw interfaces
 
     <programlisting>
 root@linux-test-1:~# brctl show
-bridge name	bridge id		STP enabled	interfaces
-br0		8000.000c291edcb4	no		eth1
-							eth2
+bridge name     bridge id               STP enabled     interfaces
+br0             8000.000c291edcb4       no              eth1
+                                                        eth2
     </programlisting>
 
     <para>

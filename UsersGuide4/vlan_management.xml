@@ -97,7 +97,7 @@
     <para>
       <figure id="vlan_managemen_1">
         <title>Example configuration; VLAN inetrfaces will be added to eth1</title>
-        <graphic scale="50" fileref="vlan-management-1.png"/>
+        <graphic scale="70" fileref="vlan-management-1.png"/>
       </figure>
     </para>
 
@@ -111,7 +111,7 @@
     <para>
       <figure id="vlan_managemen_2">
         <title>Adding VLAN subinterface</title>
-        <graphic scale="50" fileref="vlan-management-2.png"/>
+        <graphic scale="70" fileref="vlan-management-2.png"/>
       </figure>
     </para>
 
@@ -123,7 +123,7 @@
     <para>
       <figure id="vlan_managemen_3">
         <title>VLAN subinterface eth1.100</title>
-        <graphic scale="50" fileref="vlan-management-3.png"/>
+        <graphic scale="70" fileref="vlan-management-3.png"/>
       </figure>
     </para>
 
@@ -139,7 +139,7 @@
     <para>
       <figure id="vlan_managemen_4">
         <title>VLAN interface parameters</title>
-        <graphic scale="50" fileref="vlan-management-4.png"/>
+        <graphic scale="70" fileref="vlan-management-4.png"/>
       </figure>
     </para>
 
@@ -166,7 +166,7 @@
     <para>
       <figure id="vlan_managemen_5">
         <title>Two vlan interfaces with IP addresses</title>
-        <graphic scale="50" fileref="vlan-management-5.png"/>
+        <graphic scale="70" fileref="vlan-management-5.png"/>
       </figure>
     </para>
 
@@ -298,7 +298,7 @@ root@linux-test-1:~#
     <para>
       <figure id="vlan_managemen_6">
         <title>Configuration after VLAN interface eth1.100 was renamed eth1.102</title>
-        <graphic scale="50" fileref="vlan-management-6.png"/>
+        <graphic scale="70" fileref="vlan-management-6.png"/>
       </figure>
     </para>
 
@@ -329,7 +329,7 @@ Removed VLAN -:eth1.100:-
     <para>
       <figure id="vlan_managemen_7">
         <title>Configuration after renaming VLAN interfaces eth1.101 and eth1.102</title>
-        <graphic scale="50" fileref="vlan-management-7.png"/>
+        <graphic scale="70" fileref="vlan-management-7.png"/>
       </figure>
     </para>
 
@@ -411,7 +411,7 @@ root@linux-test-1:~# ip addr ls
     <para>
       <figure id="vlan_managemen_8">
         <title>OpenBSD test firewall object</title>
-        <graphic scale="50" fileref="vlan-management-8.png"/>
+        <graphic scale="70" fileref="vlan-management-8.png"/>
       </figure>
     </para>
 
@@ -423,7 +423,7 @@ root@linux-test-1:~# ip addr ls
     <para>
       <figure id="vlan_managemen_9">
         <title>Adding VLAN subinterface</title>
-        <graphic scale="50" fileref="vlan-management-9.png"/>
+        <graphic scale="70" fileref="vlan-management-9.png"/>
       </figure>
     </para>
 
@@ -435,7 +435,7 @@ root@linux-test-1:~# ip addr ls
     <para>
       <figure id="vlan_managemen_10">
         <title>VLAN subinterface vlan100</title>
-        <graphic scale="50" fileref="vlan-management-10.png"/>
+        <graphic scale="70" fileref="vlan-management-10.png"/>
       </figure>
     </para>
 
@@ -450,7 +450,7 @@ root@linux-test-1:~# ip addr ls
     <para>
       <figure id="vlan_managemen_11">
         <title>Editing VLAN interface parameters</title>
-        <graphic scale="50" fileref="vlan-management-11.png"/>
+        <graphic scale="70" fileref="vlan-management-11.png"/>
       </figure>
     </para>
 
@@ -472,7 +472,7 @@ root@linux-test-1:~# ip addr ls
     <para>
       <figure id="vlan_managemen_12">
         <title>Two vlan interfaces with IP addresses</title>
-        <graphic scale="50" fileref="vlan-management-12.png"/>
+        <graphic scale="70" fileref="vlan-management-12.png"/>
       </figure>
     </para>
 
@@ -541,7 +541,7 @@ net.inet.ip.forwarding: 0 -> 1
     <para>
       <figure id="vlan_managemen_13">
         <title>interface vlan100 has been renamed to vlan102</title>
-        <graphic scale="50" fileref="vlan-management-13.png"/>
+        <graphic scale="70" fileref="vlan-management-13.png"/>
       </figure>
     </para>
 
