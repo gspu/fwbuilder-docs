@@ -165,7 +165,7 @@
 
     <para>
       <figure id="vlan_managemen_5">
-        <title>VLAN interface parameters</title>
+        <title>Two vlan interfaces with IP addresses</title>
         <graphic scale="50" fileref="vlan-management-5.png"/>
       </figure>
     </para>
@@ -400,7 +400,186 @@ root@linux-test-1:~# ip addr ls
     <title>VLAN interface management on BSD</title>
 
     <para>
+      Unlike on Linux, on OpenBSD, the name of the VLAN interfaces is
+      restricted to the <emphasis>"vlanNNN"</emphasis> scheme. We
+      start with a basic firewall object with two interfaces and will
+      add vlan interfaces to interface <emphasis>em0</emphasis>. Note
+      that <emphasis>em0</emphasis> is configured as "unnumbered",
+      this is a requirement for the vlan parent interface object.
     </para>
+
+    <para>
+      <figure id="vlan_managemen_8">
+        <title>OpenBSD test firewall object</title>
+        <graphic scale="50" fileref="vlan-management-8.png"/>
+      </figure>
+    </para>
+
+    <para>
+      To create vlan subinterfaces, select parent interface object in
+      the tree and click right mouse button to open context menu:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_9">
+        <title>Adding VLAN subinterface</title>
+        <graphic scale="50" fileref="vlan-management-9.png"/>
+      </figure>
+    </para>
+
+    <para>
+      New interface is created with generic name "Interface" and needs
+      to be renamed:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_10">
+        <title>VLAN subinterface vlan100</title>
+        <graphic scale="50" fileref="vlan-management-10.png"/>
+      </figure>
+    </para>
+
+    <para>
+      Firewall Builder is aware of the naming convention for vlan
+      interfaces on BSD and automatically
+      recognized <emphasis>vlan100</emphasis> as vlan interface with
+      vlan ID 100. To inspect or change vlan ID, click "Advanced
+      Interface Settings" button:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_11">
+        <title>Editing VLAN interface parameters</title>
+        <graphic scale="50" fileref="vlan-management-11.png"/>
+      </figure>
+    </para>
+
+    <note>
+      <para>
+        Firewall Builder verifies that the name of the subinterface is
+        acceptable as the name of vlan interface on OpenBSD
+        system. You can use name that looks like "vlan100" but it
+        won't accept "em0.100" or any other.
+      </para>
+    </note>
+
+    <para>
+      I am going to add second VLAN interface eth1.101 and add IPv4
+      addresses to both VLAN interfaces. The final configuration is
+      shown in <xref linkend="vlan_managemen_12"/>:
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_12">
+        <title>Two vlan interfaces with IP addresses</title>
+        <graphic scale="50" fileref="vlan-management-12.png"/>
+      </figure>
+    </para>
+
+    <para>
+      Compiling this firewall object produces script
+      /etc/fw/openbsd-test-vlan-1.fw and PF configuration file
+      /etc/fw/openbsd-test-vlan-1.conf. To activate the firewall and
+      configure interface, run script /etc/fw/openbsd-test-vlan-1.fw:
+    </para>
+
+    <programlisting>
+# /etc/fw/openbsd-test-vlan-1.fw
+Activating firewall script generated Fri Feb 26 14:57:54 2010 by vadim
+net.inet.ip.forwarding: 0 -> 1
+# Creating vlan interface vlan100
+# Creating vlan interface vlan101
+# Adding VLAN interface vlan100 (parent: em0)
+# Adding VLAN interface vlan101 (parent: em0)
+# Adding ip address: vlan100 10.1.1.1 netmask 0xffffff00
+# Adding ip address: vlan101 10.1.2.1 netmask 0xffffff00
+    </programlisting>
+
+    <para>
+      Here is how configuration of the vlan interfaces looks like in
+      the output of ifconfig:
+    </para>
+
+    <programlisting>
+vlan100: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 00:0c:29:83:4d:2f
+        vlan: 100 priority: 0 parent interface: em0
+        groups: vlan
+        inet6 fe80::20c:29ff:fe83:4d2f%vlan100 prefixlen 64 scopeid 0x6
+        inet 10.1.1.1 netmask 0xffffff00 broadcast 10.1.1.255
+vlan101: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 00:0c:29:83:4d:2f
+        vlan: 101 priority: 0 parent interface: em0
+        groups: vlan
+        inet6 fe80::20c:29ff:fe83:4d2f%vlan101 prefixlen 64 scopeid 0x7
+        inet 10.1.2.1 netmask 0xffffff00 broadcast 10.1.2.255
+    </programlisting>
+
+    <para>
+      Lets try to run the same script again:
+    </para>
+
+    <programlisting>
+#  /etc/fw/openbsd-test-vlan-1.fw  
+Activating firewall script generated Fri Feb 26 14:57:54 2010 by vadim
+net.inet.ip.forwarding: 0 -> 1
+    </programlisting>
+
+    <para>
+      The script detected that both vlan interfaces already exist and
+      have correct ip addresses and made no changes to their
+      configuration.
+    </para>
+
+    <para>
+      Lets change vlan ID of the inetrface vlan100. I can not just
+      change vlan ID but preserve its name, the name should also
+      change. When I rename inetrface vlan100 to vlan102 in Firewall
+      Builder, it changes its VLAN ID automaitcally.
+    </para>
+
+    <para>
+      <figure id="vlan_managemen_13">
+        <title>interface vlan100 has been renamed to vlan102</title>
+        <graphic scale="50" fileref="vlan-management-13.png"/>
+      </figure>
+    </para>
+
+    <para>
+      Here is what happens when I run generated script on the
+      firewall:
+    </para>
+
+    <programlisting>
+#  /etc/fw/openbsd-test-vlan-1.fw  
+Activating firewall script generated Fri Feb 26 15:57:03 2010 by vadim
+net.inet.ip.forwarding: 1 -> 1
+# Deleting vlan interface vlan100
+# Creating vlan interface vlan102
+# Adding VLAN interface vlan102 (parent: em0)
+# Adding ip address: vlan102 10.1.1.1 netmask 0xffffff00
+    </programlisting>
+
+    <para>
+      Ifconfig shows that interface vlan100 was removed and vlan102 added:
+    </para>
+
+    <programlisting>
+vlan101: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 00:0c:29:83:4d:2f
+        vlan: 101 priority: 0 parent interface: em0
+        groups: vlan
+        inet6 fe80::20c:29ff:fe83:4d2f%vlan101 prefixlen 64 scopeid 0x14
+        inet 10.1.2.1 netmask 0xffffff00 broadcast 10.1.2.255
+vlan102: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 00:0c:29:83:4d:2f
+        vlan: 102 priority: 0 parent interface: em0
+        groups: vlan
+        inet6 fe80::20c:29ff:fe83:4d2f%vlan102 prefixlen 64 scopeid 0x17
+        inet 10.1.1.1 netmask 0xffffff00 broadcast 10.1.1.255
+    </programlisting>
+
+
   </sect2>
 
 </sect1>
