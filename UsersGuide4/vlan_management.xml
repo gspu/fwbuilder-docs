@@ -62,7 +62,7 @@
       incrementally, that is, it compares actual configuration of the
       firewall machine to the configuration defined in fwbuilder and
       then adds or removes VLAN interfaces. Running the same script
-      multiple times will not make any unnecessary changes on the
+      multiple times does not make any unnecessary changes on the
       firewall. If actual configuration matches objects created in
       fwbuilder GUI, script does nut perform any actions and just
       exits.
