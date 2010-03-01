@@ -23,7 +23,7 @@
 
       <figure id="main-win1">
         <title>The main window</title>
-        <graphic scale="40" fileref="fwbMainWindow.png" />
+        <graphic scale="50" fileref="fwbMainWindow.png" />
       </figure>
 
       <para>With an object file loaded, the main window consists of
@@ -458,7 +458,10 @@
 		read-only the address objects associated with the
 		interface. (test server, because it is "above" eth0 in
 		the hierarchy, is still editable.)
-		<inlinegraphic scale="70" fileref="locked.png"/>
+      <figure id="preferences-dialog">
+        <title>locked icon</title>
+        <graphic scale="70" fileref="locked.png" />
+      </figure>
                 </entry>
 	      </row>
 	      <row>
@@ -466,7 +469,11 @@
 		<entry>Unlocks the selected icon. The object becomes
 		editable, and the objects associated with it become
 		editable as well, unless they have their own
-		locks. <inlinegraphic scale="70" fileref="unlocked.png"/>
+		locks.
+      <figure id="preferences-dialog">
+        <title>unlocked icon</title>
+        <graphic scale="70" fileref="unlocked.png" />
+      </figure>
                 </entry>
 	      </row>
 	  </tbody>
@@ -903,8 +910,11 @@
       <title>Creating Objects</title>
 
       <para>New objects can be created using the
-      <guimenu>New Object</guimenu> menu, accessed by clicking this icon above the object tree:
-	<inlinegraphic fileref="new-object-icon.png"/>. Certain objects can also
+      <guimenu>New Object</guimenu> menu, accessed by clicking this icon above the object tree:</para>
+      <figure float="1" id="new-object-icon.png">
+            <graphic scale="100" fileref="new-object-icon.png" />
+      </figure>
+	<para>Certain objects can also
       be created via a pop-up menu that can be opened by right-clicking on a parent object in the tree.</para>
 
       <figure float="1" id="menu-new-object">
