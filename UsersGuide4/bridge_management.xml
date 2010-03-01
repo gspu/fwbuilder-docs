@@ -341,7 +341,58 @@ br0             8000.000c291edcb4       no              eth1
     <title>Bridge with VLAN interfaces as bridge ports</title>
 
     <para>
+      Firewall Builder can generate configuration for the bridging
+      firewall using VLAN inetrfaces as bridge ports, however there is
+      some twist to this. Recall from
+      <xref linkend="vlan_management"/> that VLANs are created in
+      fwbuilder as subinterfaces under their respective parent
+      interface. That is, VLAN
+      interface <emphasis>"eth1.100"</emphasis> is an Interface object
+      that sits in the tree right under
+      interface <emphasis>"eth1"</emphasis>:
     </para>
+
+    <para>
+      <figure id="bridge_with_vlans_1">
+        <title>VLAN subinterface eth1.100</title>
+        <graphic scale="70" fileref="bridge_and_vlans_1.png"/>
+      </figure>
+    </para>
+
+    <para>
+      As we have seen in <xref linkend="bridge_management_linux"/> and
+      <xref linkend="bridge_vlan_management_bsd"/>, bridge ports are
+      also represented by interface objects located in the tree under
+      corresponding bridge interface, as shown in
+      <xref linkend="bridge_with_vlans_2"/>:
+    </para>
+
+    <para>
+      <figure id="bridge_with_vlans_2">
+        <title>Bridge ports are child objects of the bridge interface</title>
+        <graphic scale="70" fileref="bridge-management-4.png"/>
+      </figure>
+    </para>
+
+    <para>
+      If we want <emphasis>eth1.100</emphasis> to work as a bridge
+      port, it must be created twice, once as a child of
+      interface <emphasis>eth1</emphasis> and second time as a child
+      of interface <emphasis>br0</emphasis>. The first copy represents
+      it as VLAN subinterface while the second one represents bridge
+      port.
+    </para>
+
+    <para>
+      <figure id="bridge_with_vlans_3">
+        <title>eth1.100 and eth1.101 are VLAN interfaces that act as bridge ports as well</title>
+        <graphic scale="70" fileref="bridge_and_vlans_3.png"/>
+      </figure>
+    </para>
+
+
+
+
   </sect2>
 
 
