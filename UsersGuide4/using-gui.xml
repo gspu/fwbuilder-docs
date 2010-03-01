@@ -463,7 +463,16 @@
 	    <tbody>
 	      <row>
 		<entry>Lists of Platforms and OSs</entry>
-		<entry>Checked platforms and OSs appear in drop-down menus of platforms and OSs in the program. You can uncheck unneeded platforms and OSs to reduce clutter in GUI menus. Remember to re-check entries when you want them to re-appear in the GUI, such as when you acquire a new type of firewall Also, not all platforms and OSs supported by Firewall Builder are checked by default. If the firewall you have doesn't appear in your drop-down menus, check its entry in this tab.</entry>
+		<entry>Checked platforms and OSs appear in drop-down
+		menus of platforms and OSs in the program. You can
+		uncheck unneeded platforms and OSs to reduce clutter
+		in GUI menus. Remember to re-check entries when you
+		want them to re-appear in the GUI, such as when you
+		acquire a new type of firewall Also, not all platforms
+		and OSs supported by Firewall Builder are checked by
+		default. If the firewall you have doesn't appear in
+		your drop-down menus, check its entry in this
+		tab.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -508,20 +517,19 @@
 		read-only the address objects associated with the
 		interface. (test server, because it is "above" eth0 in
 		the hierarchy, is still editable.)
-      <figure id="preferences-dialog">
-        <title>locked icon</title>
+      <figure id="locked-icon">
+        <title>locked object</title>
         <graphic scale="70" fileref="locked.png" />
       </figure>
                 </entry>
 	      </row>
 	      <row>
 		<entry>Unlock</entry>
-		<entry>Unlocks the selected icon. The object becomes
+		<entry>Unlocks the selected object. The object becomes
 		editable, and the objects associated with it become
-		editable as well, unless they have their own
-		locks.
-      <figure id="preferences-dialog">
-        <title>unlocked icon</title>
+		editable as well, unless they have their own locks.
+      <figure id="unlocked-icon">
+        <title>unlocked object</title>
         <graphic scale="70" fileref="unlocked.png" />
       </figure>
                 </entry>
