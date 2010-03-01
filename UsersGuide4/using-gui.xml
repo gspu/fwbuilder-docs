@@ -179,7 +179,7 @@
 
       <figure id="preferences-dialog">
         <title>The GUI Preferences Dialog</title>
-        <graphic scale="60" fileref="fwbPrefGeneral.png" />
+        <graphic scale="50" fileref="fwbPrefGeneral.png" />
       </figure>
 
       <table frame='none' tabstyle='reg_table'>
@@ -204,6 +204,10 @@
                 as the original data file.</entry>
 	      </row>
 	      <row>
+		<entry>Do not show tips on startup</entry>
+		<entry>If checked, the program does not show tips on startup.</entry>
+	      </row>
+	      <row>
 		<entry>Check for updates automatically</entry>
 		<entry>If checked, the program checks for program updates every time it starts.</entry>
 	      </row>
@@ -223,6 +227,11 @@
 	</tgroup>
       </table>
 
+      <figure id="preferences-dialog-objects">
+        <title>GUI Preferences Objects tab</title>
+        <graphic scale="50" fileref="fwbPrefObjects1.png" />
+      </figure>
+
      <table frame='none' tabstyle='reg_table'>
        <title>Preferences>Objects tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
@@ -235,21 +244,6 @@
 	      </row>
 	    </thead>
 	    <tbody>
-	      <row>
-		<entry>Automatically save data in dialogs while switching
-                between objects</entry>
-		<entry>The GUI shows a dialog for every opened object
-                in the same place (the right half of the main
-                window). Normally if you have made changes to an
-                object's data and want to switch to another object
-                without clicking on the
-                <guibutton>Apply</guibutton> or
-                <guibutton>Undo</guibutton> button, GUI shows a pop-up
-                dialog asking whether data should be saved or changes
-                should be ignored. If this option is turned on, the
-                program automatically saves unsaved data every time
-                you open another object in the dialog area.</entry>
-	      </row>
 	      <row>
 		<entry>Enable object tooltips</entry>
 		<entry>Firewall Builder can show a summary of an
@@ -269,6 +263,10 @@
                 delete something by mistake, you can retrieve it.</entry>
 	      </row>
 	      <row>
+		<entry>Show object attributes in the tree</entry>
+		<entry></entry>
+	      </row>
+	      <row>
 		<entry>Clip comments in rules</entry>
 		<entry>Comments in a rule can sometimes make the rule
                 line taller, reducing the number of rules visible on a
@@ -276,9 +274,34 @@
                 truncated in the view if they take up more than one
                 line.</entry>
 	      </row>
+	      <row>
+		<entry>DNS Name - Create new objects in "Compile Time" mode by default</entry>
+		<entry></entry>
+	      </row>
+	      <row>
+		<entry>DNS Name - Create new objects in "Run Time" mode by default</entry>
+		<entry></entry>
+	      </row>
+	      <row>
+		<entry>DNS Name - Use object name for the DNS record in all objects of this type</entry>
+		<entry></entry>
+	      </row>
+	      <row>
+		<entry>Address Table - Create new objects in "Compile Time" mode by default</entry>
+		<entry></entry>
+	      </row>
+	      <row>
+		<entry>Address Table - Create new objects in "Run Time" mode by default</entry>
+		<entry></entry>
+	      </row>
 	  </tbody>
 	</tgroup>
       </table>
+
+      <figure id="preferences-dialog-datafile">
+        <title>GUI Preferences Data File tab</title>
+        <graphic scale="50" fileref="fwbPrefDataFile1.png" />
+      </figure>
 
      <table frame='none' tabstyle='reg_table'>
        <title>Preferences>Data File tab</title>
@@ -315,13 +338,18 @@
 	</tgroup>
       </table>
 
-     <table frame='none' tabstyle='reg_table'><title>Preferences>SSH tab</title>
+      <figure id="preferences-dialog-installer">
+        <title>GUI Preferences Installer tab</title>
+        <graphic scale="50" fileref="fwbPrefInstaller1.png" />
+      </figure>
+
+     <table frame='none' tabstyle='reg_table'><title>Preferences>Installer tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
-		<entry>SSH Preferences</entry>
+		<entry>Installer Preferences</entry>
 		<entry>Explanation</entry>
 	      </row>
 	    </thead>
@@ -336,9 +364,18 @@
                   <xref linkend="install-putty" /> for
                   instructions.</entry>
 	      </row>
+	      <row>
+		<entry>Enable password caching</entry>
+		<entry>If checked, the program can remember firewall passwords for the duration of the Firewall Builder GUI session. Passwords are never stored permanently in any form; they are only kept in memory of the working Firewall Builder GUI instance. You need to enter each password once when you activate a generated policy. If you keep the program open and need to modify and activate policy again, the password fields in the installer dialog can be filled automatically. Cached passwords are associated with the firewall object and account name used to activate policy. To use this feature, you must also configure a user name in the <guilabel>Installer</guilabel> tab in the <guilabel>Firewall Settings</guilabel> dialog of the firewall object. Warning: using this feature creates a risk if a working Firewall Builder GUI is left unattended on an unlocked workstation. Someone may walk up to the machine and make changes to the firewall using cached password of the administrator who used the same GUI session before. Always lock the screen or exit the Firewall Builder GUI before leaving your computer.</entry>
+	      </row>
 	  </tbody>
 	</tgroup>
       </table>
+
+      <figure id="preferences-dialog-labels">
+        <title>GUI Preferences Labels tab</title>
+        <graphic scale="50" fileref="fwbPrefLabels1.png" />
+      </figure>
 
      <table frame='none' tabstyle='reg_table'><title>Preferences>Labels tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
@@ -363,17 +400,27 @@
 	</tgroup>
       </table>
 
-     <table frame='none' tabstyle='reg_table'><title>Preferences>Icons tab</title>
+      <figure id="preferences-dialog-appearance">
+        <title>GUI Preferences Appearance tab</title>
+        <graphic scale="50" fileref="fwbPrefAppearance1.png" />
+      </figure>
+
+     <table frame='none' tabstyle='reg_table'><title>Preferences>Appearance tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
-		<entry>Icons Preferences</entry>
+		<entry>Appearance Preferences</entry>
 		<entry>Explanation</entry>
 	      </row>
 	    </thead>
 	    <tbody>
+	      <row>
+		<entry>Rules, Tree, and Compiler Output Panel Fonts</entry>
+		<entry>Use these controls to set the font used for rules, the object tree, 
+		and the compiler output panel.</entry>
+	      </row>
 	      <row>
 		<entry>Show icons in rules</entry>
 		<entry>By default, objects such as interfaces, hosts, and
@@ -390,7 +437,7 @@
 		<entry>Icon size</entry>
 		<entry>By default, icons are 25x25
                 pixels. Select <guilabel>16x16</guilabel> to make them
-                somewhat smaller. (The larger icons are easier to see,
+                somewhat smaller. (The larger icons are easier to see, but
                 the smaller ones are suitable for smaller displays,
                 such as laptop screens.)</entry>
 	      </row>
@@ -398,26 +445,29 @@
 	</tgroup>
       </table>
 
-     <table frame='none' tabstyle='reg_table'><title>Preferences>Fonts tab</title>
-	<tgroup cols='2' align='left' rowsep='1'>
+      <figure id="preferences-dialog-platformsandos">
+        <title>GUI Preferences Platforms and OS tab</title>
+        <graphic scale="50" fileref="fwbPrefPlatformsandOS1.png" />
+      </figure>
+
+     <table frame='none' tabstyle='reg_table'><title>Preferences>Platforms and OS tab</title>
+	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
-		<entry>Fonts Preferences</entry>
+		<entry>Platforms and OS Preferences</entry>
 		<entry>Explanation</entry>
 	      </row>
 	    </thead>
 	    <tbody>
 	      <row>
-		<entry>Fonts</entry>
-		<entry>Use these controls to set the font used for rules and the
-            font used in the object tree, respectively.</entry>
+		<entry>Lists of Platforms and OSs</entry>
+		<entry>Checked platforms and OSs appear in drop-down menus of platforms and OSs in the program. You can uncheck unneeded platforms and OSs to reduce clutter in GUI menus. Remember to re-check entries when you want them to re-appear in the GUI, such as when you acquire a new type of firewall Also, not all platforms and OSs supported by Firewall Builder are checked by default. If the firewall you have doesn't appear in your drop-down menus, check its entry in this tab.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
       </table>
-
       <para>The <guimenu>Object</guimenu> lets you create a new
       object, find occurrences of an object (including doing
       replaces), lock an object to prevent accidentally changes, and
