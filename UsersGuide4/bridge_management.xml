@@ -390,17 +390,6 @@ br0             8000.000c291edcb4       no              eth1
       </figure>
     </para>
 
-
-
-
-  </sect2>
-
-
-  <sect2 id="bridge_management_bsd">
-    <title>Bridge interface management on BSD</title>
-
-    <para>
-    </para>
   </sect2>
 
 

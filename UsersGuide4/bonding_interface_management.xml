@@ -65,24 +65,183 @@
 	  other bonding interfaces.
         </para>
 
-        <para>
-	  Limitation: currently all bonding interfaces will use
-	  the same protocol parameters. This is because module
-	  loading with parameter "-obond1" that is supposed to be
-	  the way to obtain more than one bonding interface and
-	  also the way to specify different parameters for
-	  different interfaces causes kernel panic in my
-	  tests. Tested with bonding module v3.5.0 and kernel
-	  2.6.29.4-167.fc11.i686.PAE on Fedora Core 11. The only
-	  working way to get two bonding interfaces I could find
-	  is to load the module with parameter max_bonds=2, but
-	  this means all bonding interfaces work with the same
-	  protocol parameters. If bond interfaces are configured
-	  with different parameters in fwbuilder, compiler uses
-	  the first and issues warning for others.
-        </para>
       </listitem>
     </itemizedlist>
   </para>
+
+  <note>
+    <para>
+      There is a limitation in the current implementation in
+      that all bonding interfaces will use the same protocol
+      parameters. This is because module loading with parameter
+      "-obond1" that is supposed to be the way to obtain more
+      than one bonding interface and also the way to specify
+      different parameters for different interfaces causes
+      kernel panic in my tests. Tested with bonding module
+      v3.5.0 and kernel 2.6.29.4-167.fc11.i686.PAE on Fedora
+      Core 11. The only working way to get two bonding
+      interfaces I could find is to load the module with
+      parameter max_bonds=2, but this means all bonding
+      interfaces work with the same protocol parameters. If bond
+      interfaces are configured with different parameters in
+      fwbuilder, compiler uses the first and issues warning for
+      others.
+    </para>
+  </note>
+
+
+  <para>
+    To conffigure bonding interface, we start with interface object
+    with name <emphasis>"bond0"</emphasis>. Create this interface as
+    usual, open it in the editor by double clicking it in the tree,
+    rename it and then and click "Advanced Interface Settings" button.
+    Set the type to "Bonding" in the drop-down list and set other
+    parameters:
+  </para>
+
+  <para>
+    <figure id="bonding_interfaces_1">
+      <title>Bonding interface settings</title>
+      <graphic scale="70" fileref="bonding_interfaces_1.png"/>
+    </figure>
+  </para>
+
+  <para>
+    To add regular ethernet interfaces as slaves to a bonding
+    inetrface, copy and paste (or create) them so they become child
+    objects of a bonding interface. Bonding interface needs an IP
+    address as any other regular interface. Final configuration looks
+    like shown in <xref linkend="bonding_interfaces_2"/>:
+  </para>
+
+  <para>
+    <figure id="bonding_interfaces_2">
+      <title>Bonding interface bond0 with two slaves</title>
+      <graphic scale="70" fileref="bonding_interfaces_2.png"/>
+    </figure>
+  </para>
+
+  <para>
+    If you only want to be able to use bonding interface in rules,
+    then this is really it. You can go ahead and add rules and place
+    object "bond0" in "Source", "Destination" or "Interface" column of
+    policy rules. If you want fwbuilder to generate script that
+    creates and configures this interface, then you need to enable
+    support for this by turning checkbox "Configure bonding
+    interfaces" on in the "Script" tab of the firewall object settings
+    dialog:
+  </para>
+
+  <para>
+    <figure id="bonding_interfaces_3">
+      <title>configuration of bonding interfaces should be enabled in firewall settings dialog</title>
+      <graphic scale="70" fileref="bonding_interfaces_3.png"/>
+    </figure>
+  </para>
+
+  <para>
+    Now compile the firewall object, copy generated script to the
+    firewall machine and run it there. If script is started with
+    command line parameter "interfaces", it only configures interfaces
+    and ip addresses but does not load iptables rules. Here is how it
+    looks like:
+  </para>
+
+  <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-bond-1.fw interfaces
+# Add bonding interface slave: bond0 eth2
+# Add bonding interface slave: bond0 eth3
+# Adding ip address: bond0 10.1.1.1/24
+  </programlisting>
+
+
+  <para>
+    Interface configuration after the script run looks like this:
+  </para>
+
+  <programlisting>
+root@linux-test-1:~# ip addr show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:aa brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+    inet6 fe80::20c:29ff:fe1e:dcaa/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:b4 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::20c:29ff:fe1e:dcb4/64 scope link 
+       valid_lft forever preferred_lft forever
+4: eth2: &lt;BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast master bond0 state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:be brd ff:ff:ff:ff:ff:ff
+5: eth3: &lt;BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast master bond0 state UP qlen 1000
+    link/ether 00:0c:29:1e:dc:be brd ff:ff:ff:ff:ff:ff
+6: bond0: &lt;BROADCAST,MULTICAST,MASTER,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP 
+    link/ether 00:0c:29:1e:dc:be brd ff:ff:ff:ff:ff:ff
+    inet 10.1.1.1/24 scope global bond0
+    inet6 fe80::20c:29ff:fe1e:dcbe/64 scope link 
+       valid_lft forever preferred_lft forever
+  </programlisting>
+
+  <programlisting>
+root@linux-test-1:~# cat /proc/net/bonding/bond0 
+Ethernet Channel Bonding Driver: v3.3.0 (June 10, 2008)
+
+Bonding Mode: IEEE 802.3ad Dynamic link aggregation
+Transmit Hash Policy: layer2 (0)
+MII Status: up
+MII Polling Interval (ms): 100
+Up Delay (ms): 0
+Down Delay (ms): 0
+
+802.3ad info
+LACP rate: slow
+Active Aggregator Info:
+	Aggregator ID: 1
+	Number of ports: 1
+	Actor Key: 9
+	Partner Key: 1
+	Partner Mac Address: 00:00:00:00:00:00
+
+Slave Interface: eth2
+MII Status: up
+Link Failure Count: 0
+Permanent HW addr: 00:0c:29:1e:dc:be
+Aggregator ID: 1
+
+Slave Interface: eth3
+MII Status: up
+Link Failure Count: 0
+Permanent HW addr: 00:0c:29:1e:dc:c8
+Aggregator ID: 2
+  </programlisting>
+
+
+  <para>
+    Running the script second time does nothing because interface
+    bond0 already exists and its configuration matches the one defined
+    in fwbuilder:
+  </para>
+
+  <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-bond-1.fw interfaces
+root@linux-test-1:~# 
+  </programlisting>
+
+  <note>
+    <para>
+      Unfortunately generated script can not manage bonding interface
+      parameters. If you change bonding policy in the GUI, recompile
+      and run the script on the firewall, nothin will happen. You need
+      to either manually unload module or reboot the machine. However
+      if you add or remove ethernet interfaces under the bonding
+      interface, the script will update its configuration accordingly
+      without the need to unload module or reboot the machine.
+    </para>
+  </note>
+
 
 </sect1>
