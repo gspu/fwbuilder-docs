@@ -45,7 +45,7 @@
                 <para>Object Trees: Object trees, displayed on the
                 left side of the window, hold firewall, host,
                 interface, service, and other "objects" that you will
-                used when creating your firewall.</para>
+                use when creating your firewall.</para>
               </listitem>
               <listitem>
                 <para>Policy View: The policy view area, in the upper
@@ -56,8 +56,7 @@
                 <para>Dialog Area: The dialog area, in the lower
                 right, is where you make changes to object
                 parameters. The dialog area, which is not visible at
-                first, appears when you select an object in the
-                GUI. </para>
+                first, appears double-click an object in the tree. </para>
               </listitem>
           </itemizedlist>
 
@@ -139,6 +138,13 @@
 		explanation.</entry>
 	      </row>
 	      <row>
+		<entry>Discard</entry>
+		<entry>Discards current changes. (This option is
+		grayed out if the file has not already been added to
+		RCS.)  See <xref linkend="rcs" /> for a detailed
+		explanation.</entry>
+	      </row>
+	      <row>
 		<entry>Import Policy</entry>
 		<entry>Allows you to import an existing policy into Firewall Builder.</entry>
 	      </row>
@@ -205,7 +211,7 @@
 	      </row>
 	      <row>
 		<entry>Do not show tips on startup</entry>
-		<entry>If checked, the program does not show tips on startup.</entry>
+		<entry>If checked, the program does not show tips on start up.</entry>
 	      </row>
 	      <row>
 		<entry>Check for updates automatically</entry>
@@ -264,7 +270,8 @@
 	      </row>
 	      <row>
 		<entry>Show object attributes in the tree</entry>
-		<entry></entry>
+		<entry>Creates a second column in the object tree. The second column
+		contains information about the object, such as how many objects a folder contains, whether a ruleset is the top ruleset, and so on.</entry>
 	      </row>
 	      <row>
 		<entry>Clip comments in rules</entry>
@@ -477,7 +484,37 @@
 	  </tbody>
 	</tgroup>
       </table>
-      <para>The <guimenu>Object</guimenu> lets you create a new
+
+      <para>The <guimenu>View</guimenu> menu lets you turn on or off various display panes.</para>
+
+      <table frame='none' tabstyle='reg_table'><title>View menu</title>
+	<tgroup cols='2' align='left' rowsep='1'>
+	  <colspec colname='c1'/>
+	  <colspec colname='c2'/>
+	    <thead>
+	      <row>
+		<entry>View Menu entry</entry>
+		<entry>Explanation</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Object Tree</entry>
+		<entry>If checked, the object tree is displayed</entry>
+	      </row>
+	      <row>
+		<entry>Editor Panel</entry>
+		<entry>Displays the object editor. You can also display this panel by double-clicking on an object.</entry>
+	      </row>
+	      <row>
+		<entry>Undo Stack</entry>
+		<entry>Displays the undo history. You can undo several changes by clicking on the last change you want to keep. With the next change, all changes after the current one are removed from the undo history.</entry>
+	      </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>The <guimenu>Object</guimenu> menu lets you create a new
       object, find occurrences of an object (including doing
       replaces), lock an object to prevent accidentally changes, and
       unlock an object when you need to edit it.</para>
@@ -527,7 +564,8 @@
 		<entry>Unlock</entry>
 		<entry>Unlocks the selected object. The object becomes
 		editable, and the objects associated with it become
-		editable as well, unless they have their own locks.
+		editable as well, unless they have their own
+		locks.
       <figure id="unlocked-icon">
         <title>unlocked object</title>
         <graphic scale="70" fileref="unlocked.png" />
@@ -538,7 +576,7 @@
 	</tgroup>
       </table>
 
-      <para>The <guimenu>Rules</guimenu> lets you add, delete, and
+      <para>The <guimenu>Rules</guimenu> menu lets you add, delete, and
       rearrange rules in a policy. In addition, it lets you compile
       and install a complete set of firewall policies.</para>
 
@@ -706,13 +744,13 @@
 	      <row>
 		<entry>Compile</entry>
 		<entry>Opens the compile
-		wizard. <xref linkend="compile-install-policy" />
+		wizard for all firewalls in the current object file. The compile button on an individual file opens the compile dialog for just the selected firewall. <xref linkend="compile-install-policy" />
 		explains this in more detail.</entry>
 	      </row>
 	      <row>
 		<entry>Install</entry>
 		<entry>Opens the compile/install
-		wizard. <xref linkend="compile-install-policy" />
+		wizard for all firewalls in the current object file. The compile/install button on an individual file opens the compile/install dialog for just the selected firewall. <xref linkend="compile-install-policy" />
 		explains this in more detail.</entry>
 	      </row>
 	  </tbody>
@@ -827,6 +865,10 @@
 		create your own.</entry>
 	      </row>
 	      <row>
+		<entry>Cluster</entry>
+		<entry>Represents a high-availability pair of firewall devices. The firewall objects themselves must be created as firewall objects, then added to the cluster. The cluster's platform and OS settings must match those of the component firewalls.</entry>
+	      </row>
+	      <row>
 		<entry>Firewall</entry>
 		<entry>Represents a physical firewall device, its
 		interfaces and addresses, and the policy rulesets
@@ -888,7 +930,7 @@
 		does have to be contiguous.</entry>
 	      </row>
 	      <row>
-		<entry>Object Group</entry>
+		<entry>Group</entry>
 		<entry>A collection of addressable objects (objects
 		that have or contain IP addresses) such as network,
 		interface, and hosts objects. Useful for creating a
@@ -899,6 +941,10 @@
 	      <row>
 		<entry>Custom Service</entry>
 		<entry>Can be used to inject arbitrary code into the generated firewall script.</entry>
+	      </row>
+	      <row>
+		<entry>ESTABLISHED and ESTABLISHED ipv6 Services</entry>
+		<entry>These services match all packets that are part of network connections established through the firewall, or connections 'related' to those established through the firewall. Term 'established' refers to the state tracking mechanism which exists inside iptables and other stateful firewalls and does not mean any particular combination of packet header options.</entry>
 	      </row>
 	      <row>
 		<entry>IP Service</entry>
@@ -961,6 +1007,17 @@
 	  </tbody>
 	</tgroup>
       </table>
+
+      <para>By default, the object tree panel and editor panels are anchored to the display area. However, you can cause each to float by clicking the little button next to the close button in the respective panel. This image shows the object tree panel floating free.</para>
+
+    <figure float="1" id="floating-object-tree" pgwide="0">
+      <title>Object Tree Floating</title>
+      <graphic scale="50" fileref="floating-object-tree1.png" />
+    </figure>
+
+    <para>The floating panels stay associated with their parent object file. If you open a different object file, that object file will have its own tree and editor panels.</para>
+
+    <para>To re-attached a floating panel, click the icon next to the close button again.</para>
 
     </sect1>
 
