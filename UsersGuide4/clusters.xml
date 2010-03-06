@@ -717,90 +717,15 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
         firewalls and install it on each, you need to compile it just
         like you would compile regular standalone firewall
         object. Here are the ways to do this:
-      </para>
 
-      <para>
         <itemizedlist>
           <listitem>
             <para>
               Open Policy or NAT rule set of the cluster by double
               clicking it in the tree, then use buttons "compile" and
               "install" located in the small toolbar above the rules,
-              next to the firewall and ruleset name as shown in
-              <xref linkend="compile-cluster-1"/>:
+              next to the firewall and ruleset name.
             </para>
-
-            <para>
-              <figure id="compile-cluster-1">
-                <title>Using toolbar buttons to compile and install cluster configuration</title>
-                <graphic scale="70" fileref="compile-cluster-1.png"/>
-              </figure>
-            </para>
-
-            <para>
-              Toolbar buttons located above the rules act only on the currently
-              visible firewall or cluster object and the tooltip shown when you
-              hover mouse cursor over these buttons makes it clear:
-            </para>
-
-            <para>
-              <figure id="compile-cluster-1-1">
-                <title>Toolbar buttons to compile and install currently visible cluster configuration</title>
-                <graphic scale="70" fileref="compile-cluster-1-1.png"/>
-              </figure>
-            </para>
-
-
-            <para>
-              This opens dialog with the list of firewalls to be
-              compiled. The list includes only the cluster and its
-              member firewalls as shown in
-              <xref linkend="compile-cluster-2"/>.  Note that the tree
-              in <xref linkend="compile-cluster-1"/> has other
-              clusters and firewall objects but they do not appear in
-              the list. Clicking toolbar buttons located next to the
-              name of the firewall and rule set acts only on the
-              firewall or cluster the currently visible policy or NAT
-              rule set belongs to; the porgram ignores other firewall
-              and cluster objects.
-            </para>
-
-            <para>
-              <figure id="compile-cluster-2">
-                <title>Compiling cluster object with two members</title>
-                <graphic scale="70" fileref="compile-cluster-2.png"/>
-              </figure>
-            </para>
-
-            <para>
-              In the compile dialog list there are two columns of
-              checkboxes: "compile" and "Install". When you compile a
-              cluster, the "Compile" checkboxes appear only next to
-              the cluster object while "Install" checkboxes appear
-              only next to the member firewall objects. This is
-              because to compile, policy compiler needs to read
-              cluster object to get all informaiton about cluster
-              configuration, including the list of member firewalls.
-              However when generated configuration is ready and needs
-              to be installed on member firewalls, the program needs
-              to communicate with each member firewall separately. So
-              the "install" checkboxes are next to the member
-              firewalls in the list, letting you turn installation on
-              and off on each member separately.
-            </para>
-
-            <tip>
-              <para>
-                PIX cluster is an exception to the rule though. In PIX
-                cluster, you only need to update configuration of the
-                active unit in the failover pair. The active unit then
-                pushes configuation to the second unit in the pair
-                automatically. Firewall Builder is aware of this and the
-                "Install" checkbox is only enabled next to the member
-                firewall marked as "master" in the cluster configuration.
-              </para>
-            </tip>
-
           </listitem>
 
           <listitem>
@@ -809,62 +734,168 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
               cluster objects in the tree, click right mouse button to open
               context menu and use menu items "Compile" or "Install".
             </para>
-
-            <para>
-              <figure id="compile-cluster-3">
-                <title>Using context menu to compiling two cluster objects</title>
-                <graphic scale="70" fileref="compile-cluster-3.png"/>
-              </figure>
-            </para>
-
-            <para>
-              This method allows you to compile several cluster
-              objects, all of them appear in the list in the compile dialog
-              together with their member firewalls:
-            </para>
-
-            <para>
-              <figure id="compile-cluster-4">
-                <title>Compiling two cluster objects</title>
-                <graphic scale="70" fileref="compile-cluster-4.png"/>
-              </figure>
-            </para>
-
           </listitem>
 
           <listitem>
             <para>
-              Finally, if you click "Compile" or "Install" buttons
-              located in the main toolbar or use main menu items
-              "Rules/Compile" or "Rules/Install", the program
-              assembles full list of all cluster and firewall objects
-              for processing.
-            </para>
-
-            <para>
-              <figure id="compile-cluster-5">
-                <title>Using buttons in the main toolbar to compiling all cluster and firewall objects</title>
-                <graphic scale="70" fileref="compile-cluster-5.png"/>
-              </figure>
-            </para>
-
-            <para>
-              <figure id="compile-cluster-6">
-                <title>Compiling all cluster and firewall objects</title>
-                <graphic scale="70" fileref="compile-cluster-6.png"/>
-              </figure>
-            </para>
-
-            <para>
-              The data file used for these examples has a mix of
-              cluster objects with corresponding member firewalls and
-              standalone firewall objects that do not belong to any
-              cluster. The latter get both "Compile" and "Install"
-              checkboxes as visible in <xref linkend="compile-cluster-6"/>.
+              Click "Compile" or "Install" buttons located in the main
+              toolbar or use main menu items "Rules/Compile" or
+              "Rules/Install" to make the program assemble full list
+              of all cluster and firewall objects for processing.
             </para>
           </listitem>
         </itemizedlist>
+
       </para>
+
+<!-- use sect3 so that it does not appear in TOC -->
+      <sect3>
+        <title>Using buttons "compile" and "install" located in the
+          small toolbar above the rules</title>
+
+        <para>
+          Open Policy or NAT rule set of the cluster by double
+          clicking it in the tree, then use buttons "compile" and
+          "install" located in the small toolbar above the rules,
+          next to the firewall and ruleset name as shown in
+          <xref linkend="compile-cluster-1"/>:
+        </para>
+
+        <para>
+          <figure id="compile-cluster-1">
+            <title>Using toolbar buttons to compile and install cluster configuration</title>
+            <graphic scale="70" fileref="compile-cluster-1.png"/>
+          </figure>
+        </para>
+
+        <para>
+          Toolbar buttons located above the rules act only on the currently
+          visible firewall or cluster object and the tooltip shown when you
+          hover mouse cursor over these buttons makes it clear:
+        </para>
+
+        <para>
+          <figure id="compile-cluster-1-1">
+            <title>Toolbar buttons to compile and install currently visible cluster configuration</title>
+            <graphic scale="70" fileref="compile-cluster-1-1.png"/>
+          </figure>
+        </para>
+
+
+        <para>
+          This opens dialog with the list of firewalls to be
+          compiled. The list includes only the cluster and its
+          member firewalls as shown in
+          <xref linkend="compile-cluster-2"/>.  Note that the tree
+          in <xref linkend="compile-cluster-1"/> has other
+          clusters and firewall objects but they do not appear in
+          the list. Clicking toolbar buttons located next to the
+          name of the firewall and rule set acts only on the
+          firewall or cluster the currently visible policy or NAT
+          rule set belongs to; the porgram ignores other firewall
+          and cluster objects.
+        </para>
+
+        <para>
+          <figure id="compile-cluster-2">
+            <title>Compiling cluster object with two members</title>
+            <graphic scale="70" fileref="compile-cluster-2.png"/>
+          </figure>
+        </para>
+
+        <para>
+          In the compile dialog list there are two columns of
+          checkboxes: "compile" and "Install". When you compile a
+          cluster, the "Compile" checkboxes appear only next to
+          the cluster object while "Install" checkboxes appear
+          only next to the member firewall objects. This is
+          because to compile, policy compiler needs to read
+          cluster object to get all informaiton about cluster
+          configuration, including the list of member firewalls.
+          However when generated configuration is ready and needs
+          to be installed on member firewalls, the program needs
+          to communicate with each member firewall separately. So
+          the "install" checkboxes are next to the member
+          firewalls in the list, letting you turn installation on
+          and off on each member separately.
+        </para>
+
+        <tip>
+          <para>
+            PIX cluster is an exception to the rule though. In PIX
+            cluster, you only need to update configuration of the
+            active unit in the failover pair. The active unit then
+            pushes configuation to the second unit in the pair
+            automatically. Firewall Builder is aware of this and the
+            "Install" checkbox is only enabled next to the member
+            firewall marked as "master" in the cluster configuration.
+          </para>
+        </tip>
+      </sect3>
+
+      <sect3>
+        <title>Using context menu in the tree</title>
+
+        <para>
+          Another way to start compile process is to select one or more
+          cluster objects in the tree, click right mouse button to open
+          context menu and use menu items "Compile" or "Install".
+        </para>
+
+        <para>
+          <figure id="compile-cluster-3">
+            <title>Using context menu to compiling two cluster objects</title>
+            <graphic scale="70" fileref="compile-cluster-3.png"/>
+          </figure>
+        </para>
+
+        <para>
+          This method allows you to compile several cluster
+          objects, all of them appear in the list in the compile dialog
+          together with their member firewalls:
+        </para>
+
+        <para>
+          <figure id="compile-cluster-4">
+            <title>Compiling two cluster objects</title>
+            <graphic scale="70" fileref="compile-cluster-4.png"/>
+          </figure>
+        </para>
+      </sect3>
+
+      <sect3>
+        <title>Using "Compile" and "Install" buttons in the  main toolbar</title>
+
+        <para>
+          Finally, if you click "Compile" or "Install" buttons
+          located in the main toolbar or use main menu items
+          "Rules/Compile" or "Rules/Install", the program
+          assembles full list of all cluster and firewall objects
+          for processing.
+        </para>
+
+        <para>
+          <figure id="compile-cluster-5">
+            <title>Using buttons in the main toolbar to compiling all cluster and firewall objects</title>
+            <graphic scale="70" fileref="compile-cluster-5.png"/>
+          </figure>
+        </para>
+
+        <para>
+          <figure id="compile-cluster-6">
+            <title>Compiling all cluster and firewall objects</title>
+            <graphic scale="70" fileref="compile-cluster-6.png"/>
+          </figure>
+        </para>
+
+        <para>
+          The data file used for these examples has a mix of
+          cluster objects with corresponding member firewalls and
+          standalone firewall objects that do not belong to any
+          cluster. The latter get both "Compile" and "Install"
+          checkboxes as visible in <xref linkend="compile-cluster-6"/>.
+        </para>
+      </sect3>
 
       <para>
         You can try to compile a firewall object that is a member of
