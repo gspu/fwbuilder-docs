@@ -319,7 +319,7 @@
     </sect1>
 
 
-    <sect1 id="linux_cluster">
+    <sect1 id="linux_cluster_overview">
 
       <title>Linux cluster configuration with Firewall Builder</title>
 
@@ -559,7 +559,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
     </sect1>
 
 
-    <sect1 id="bsd_cluster">
+    <sect1 id="bsd_cluster_overview">
       <title>OpenBSD cluster configuration with Firewall Builder</title>
 
 
@@ -568,7 +568,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
     </sect1>
 
 
-    <sect1 id="pix_cluster">
+    <sect1 id="pix_cluster_overview">
       <title>PIX cluster configuration with Firewall Builder</title>
 
       <para>
