@@ -2555,7 +2555,7 @@
       </Firewall>
     </ObjectGroup>
     <ObjectGroup id="id2204X22057" name="Clusters" comment="" ro="False">
-      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="1265233553" lastInstalled="0" lastModified="1265233512" platform="iptables" name="linux-cluster" comment="" ro="False">
+      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="1265233553" lastInstalled="0" lastModified="1268003887" platform="iptables" name="linux-cluster" comment="" ro="False">
         <NAT id="id2340X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id32717X22130" disabled="False" position="0" action="Translate" comment="">
             <OSrc neg="False">
@@ -2602,7 +2602,7 @@
             </PolicyRuleOptions>
           </PolicyRule>
           <PolicyRule id="id2686X22130" disabled="False" log="False" position="1" action="Accept" direction="Outbound" comment="">
-            <Src neg="False">
+            <Src neg="True">
               <ObjectRef ref="id2336X22130"/>
             </Src>
             <Dst neg="False">

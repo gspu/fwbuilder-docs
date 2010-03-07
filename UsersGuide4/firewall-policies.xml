@@ -1997,6 +1997,165 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
             <guimenu>Rules</guimenu> menu.
           </para>
 
+          <para>
+            Items in this menu act on selected rules even when
+            several rules are selected.
+          </para>
+
+          <para>This menu provides items for the following functions:</para>
+
+          <para>
+            <itemizedlist spacing="compact">
+              <listitem>
+                <para>New Group</para>
+
+                <para>Contiguous rules can be grouped together for
+                easier handling. A group of rules can be collapsed in
+                the GUI so that only the group name appears. This can
+                make it easier to deal with rulesets with many
+                rules. The <guimenu>New Group</guimenu> command opens
+                a dialog that lets you create and name a new
+                group. The current rule is automatically added to the
+                group. <xref linkend="using-rule-groups" /> has more
+                information on rule groups.</para>
+              </listitem>
+
+              <listitem>
+                <para>Add to the group</para>
+
+                <para>The selection only appears if you right-click on
+                a rule directly above or below an existing group. If
+                selected, the current rule is added to the indicated
+                group. <xref linkend="using-rule-groups" /> has more
+                information on rule groups.</para>
+              </listitem>
+
+              <listitem>
+                <para>Remove from the group</para>
+
+                <para>The selection only appears if you right-click on
+                a rule that is currently in a group. This selection
+                removes the rule from the group. If you remove a rule
+                from the middle of a group, the group splits into two
+                groups, one above and one below the current rule. Both
+                groups have the same name as the original
+                group. <xref linkend="using-rule-groups" /> has more
+                information on rule groups.</para>
+              </listitem>
+              
+              <listitem>
+                <para>Change Color</para>
+
+                <para>
+                  This menu item allows you to change the color of the
+                  rule background. This is a good way to group rules
+                  visually by function.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Insert Rule</para>
+
+                <para>
+                  Inserts new rule above current one.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Add Rule Below</para>
+
+                <para>
+                  Appends new rule below the current one.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Remove Rule</para>
+
+                <para>
+                  Removes rule from the rule set.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Move Rule Up</para>
+
+                <para>
+                  Moves current rule up by one position. Keyboard
+                  shortcut is "Ctrl-PgUp" on Linux and Windows or
+                  "Cmd-PgUp" on Macintosh. If you select several
+                  consequtive rules and use this menu item, all
+                  selected rules move together.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Move Rule Down</para>
+
+                <para>
+                  Moves current rule down by one position. Keyboard
+                  shortcut is "Ctrl-PgDown" on Linux and Windows or
+                  "Cmd-PgDown" on Macintosh. If you select several
+                  consequtive rules and use this menu item, all
+                  selected rules move together.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Copy Rule</para>
+
+                <para>
+                  Copies current rule to the clipboard.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Cut Rule</para>
+
+                <para>
+                  Copies current rule to the clipboard and removes it
+                  from the rule set.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Paste Rule Above</para>
+
+                <para>
+                  Inserts rule from the clipboard above the current
+                  one.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Paste Rule Below</para>
+
+                <para>
+                  Inserts rule from the clipboard below the current
+                  one.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Disable Rule</para>
+
+                <para>
+                  Marks rule as disabled, this makes policy compiler
+                  ignore it.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>Compile rule</para>
+
+                <para>This menu item compiles selected rule and shows
+                the result in the editor panel at the bottom of the
+                main window.</para>
+              </listitem>
+
+            </itemizedlist>
+          </para>
+
         </sect2>
 
         <sect2>
@@ -2021,46 +2180,18 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
           <figure id="editing-policy2">
             <title>Modifying Object in the Policy Rule</title>
-                <graphic scale="60" fileref="editing_policy2.png" />
+            <graphic scale="60" fileref="editing_policy2.png" />
           </figure>
 
           <para>This menu provides items for the following functions:</para>
 
-          <para><itemizedlist spacing="compact">
-              <listitem>
-                <para>New Group</para>
-
-                <para>Contiguous rules can be grouped together for
-                easier handling. A group of rules can be collapsed in
-                the GUI so that only the group name appears. This can
-                make it easier to deal with rulesets with many
-                rules. The <guimenu>New Group</guimenu> command opens
-                a dialog that lets you create and name a new
-                group. The current rule is automatically added to the
-                group. <xref linkend="using-rule-groups" /> has more
-                information on rule groups.</para>
-              </listitem>
-
-              <listitem>
-                <para>Add to the group</para>
-
-                <para>The selection only appears if you right-click on
-                a rule directly above or below an existing group. If
-                selected, the current rule is added to the indicated
-                group. <xref linkend="using-rule-groups" /> has more
-                information on rule groups.</para>
-              </listitem>
-<!--
-              <listitem>
-                <para>Remove from the group</para>
-
-                <para>The selection only appears if you right-click on a rule that is currently in a group. This selection removes the rule from the group. If you remove a rule from the middle of a group, the group splits into two groups, one above and one below the current rule. Both groups have the same name as the original group. <xref linkend="using-rule-groups" /> has more information on rule groups.</para>
-              </listitem>
--->
+          <para>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>Edit</para>
 
-                <para>This menu item opens the currently selected object in the dialog area.</para>
+                <para>This menu item opens the currently selected
+                object in the dialog area.</para>
               </listitem>
 
               <listitem>
@@ -2083,6 +2214,14 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
                 field in the the rule. A copy of the object stays on
                 the clipboard, so it may be pasted multiple
                 times.</para>
+              </listitem>
+
+              <listitem>
+                <para>Delete</para>
+
+                <para>The object is deleted (actually moved to the
+                "Deleted Objects" library).
+                  </para>
               </listitem>
 
               <listitem>
@@ -2110,7 +2249,16 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
                 The rule element "Source" is negated in rule #1 in screenshot
                 <xref linkend="editing-policy2" />.</para>
               </listitem>
-            </itemizedlist></para>
+
+              <listitem>
+                <para>Compile rule</para>
+
+                <para>This menu item compiles selected rule and shows
+                the result in the editor panel at the bottom of the
+                main window.</para>
+              </listitem>
+            </itemizedlist>
+          </para>
         </sect2>
 
         <sect2>
@@ -2125,7 +2273,8 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
             <graphic scale="50" fileref="editing_policy3.png" />  
           </figure>
 
-          <para>The options for this menu are described in <xref linkend="action" />.</para>
+          <para>The options for this menu are described in
+          <xref linkend="action" />.</para>
 
         </sect2>
 
@@ -2163,6 +2312,12 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               <para>The rule matches both entering and exiting packets</para>
             </listitem>
           </itemizedlist>
+
+          <para>
+            <xref linkend="direction"/> discusses direction parameter
+            in more details.
+          </para>
+
         </sect2>
 
         <sect2 id="rule-options">
@@ -2183,13 +2338,14 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
             <listitem>
               <para>Modify Options:</para>
 
-              <para>This menu item brings up a dialogue that allows
-              you to modify certain options specific to the target
-              firewall platform, as in <xref linkend="rule-options1"
-              />. These settings are associated with the current rule
-              only. For more information on the options available,
-              click <guibutton>Help</guibutton> in the Option
-              dialogue.</para>
+              <para>
+                This menu item brings up a dialogue that allows you to
+                modify certain options specific to the target firewall
+                platform, as in <xref linkend="rule-options1"/>.
+                These settings are associated with the current rule
+                only. For more information on the options available,
+                click <guibutton>Help</guibutton> in the Option
+                dialogue.</para>
             </listitem>
 
             <listitem>
@@ -2211,101 +2367,105 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
           <figure id="rule-options1">
             <title>iptables Options dialog</title>
-                <graphic scale="70" fileref="rule-options1.png" />
+            <graphic scale="70" fileref="rule-options1.png" />
           </figure>
         </sect2>
 
-    <sect2 id="using-rule-groups">
-      <title>Using Rule Groups</title>
+        <sect2 id="using-rule-groups">
+          <title>Using Rule Groups</title>
+          
+	  <sect3>
+	    <title>Creating rule groups</title>
 
-	<sect3>
-	  <title>Creating rule groups</title>
+            <para>If you have a rule set with quite a few rules, it can be
+              useful to lump some of them together into rule groups. A rule
+              group is a contiguous set of rules that you have grouped
+              together and assigned a name to. Once you have a group, you can
+              collapse it down visually to save screen real estate, then pop
+              it back open when you need to look inside.</para>
 
-      <para>If you have a rule set with quite a few rules, it can be
-      useful to lump some of them together into rule groups. A rule
-      group is a contiguous set of rules that you have grouped
-      together and assigned a name to. Once you have a group, you can
-      collapse it down visually to save screen real estate, then pop
-      it back open when you need to look inside.</para>
+            <para>Rule groups <emphasis>only</emphasis> affect how the rules
+              are displayed visually. They have <emphasis>no</emphasis> on how
+              the rule set is compiled or how it works on the firewall.</para>
 
-      <para>Rule groups <emphasis>only</emphasis> affect how the rules
-      are displayed visually. They have <emphasis>no</emphasis> on how
-      the rule set is compiled or how it works on the firewall.</para>
+            <para>Let's look at a simple example of using rule groups.</para>
 
-      <para>Let's look at a simple example of using rule groups.</para>
+            <para><xref linkend="rule-group1" /> shows a fragment of a set
+              of rules. There are two rules for packets destined for eth0,
+              several rules for packets destined for eth1, and a couple rules
+              for eth2-destined packets.</para>
 
-      <para><xref linkend="rule-group1" /> shows a fragment of a set
-      of rules. There are two rules for packets destined for eth0,
-      several rules for packets destined for eth1, and a couple rules
-      for eth2-destined packets.</para>
+            <figure id="rule-group1">
+              <title>Rules without grouping</title>
+              <graphic scale="70" fileref="rule-group1.png" />  
+            </figure>
 
-          <figure id="rule-group1">
-            <title>Rules without grouping</title>
-                <graphic scale="70" fileref="rule-group1.png" />  
-          </figure>
+            <para>The eth2 rules take up a lot of space, so let's group them
+              together. We can then collapse the group so it uses less
+              space.</para>
 
-      <para>The eth2 rules take up a lot of space, so let's group them
-      together. We can then collapse the group so it uses less
-      space.</para>
+            <para>To create the group, right-click in the rule number
+              cell of the first "eth1" rule and
+              select <guimenuitem>New group</guimenuitem>. (You don't
+              have to click on the first rule. Any rule in the group
+              will do.)</para>
 
-      <para>To create the group, right-click anywhere in the first
-      "eth1" rule and select <guimenuitem>New
-      group</guimenuitem>. (You don't have to click on the first
-      rule. Any rule in the group will do.)</para>
+            <figure id="rule-group2">
+              <title>Create the group</title>
+              <graphic scale="70" fileref="rule-group2.png" />  
+            </figure>
+            
+            <para>A dialog appears. Enter the name of the group. This name
+              is for your convenience only, so it can be anything. Here we're
+              naming the group after the interface, but a more descriptive
+              name can be more useful.</para>
 
-          <figure id="rule-group2">
-            <title>Create the group</title>
-                <graphic scale="70" fileref="rule-group2.png" />  
-          </figure>
-      
-      <para>A dialog appears. Enter the name of the group. This name
-      is for your convenience only, so it can be anything. Here we're
-      naming the group after the interface, but a more descriptive
-      name can be more useful.</para>
+            <figure id="rule-group3">
+              <title>Name the group</title>
+              <graphic scale="70" fileref="rule-group3.png" />  
+            </figure>
 
-          <figure id="rule-group3">
-            <title>Name the group</title>
-                <graphic scale="70" fileref="rule-group3.png" />  
-          </figure>
+            <para>Now we have a group with one entry. This doesn't provide
+              much value, so let's add other rules to the group. You can add
+              as many rules as you want, but they must all be contiguous in
+              the rule set.</para>
 
-      <para>Now we have a group with one entry. This doesn't provide
-      much value, so let's add other rules to the group. You can add
-      as many rules as you want, but they must all be contiguous in
-      the rule set.</para>
+            <figure id="rule-group4">
+              <title>Group with one entry</title>
+              <graphic scale="70" fileref="rule-group4.png" />  
+            </figure>
 
-          <figure id="rule-group4">
-            <title>Group with one entry</title>
-                <graphic scale="70" fileref="rule-group4.png" />  
-          </figure>
+            <para>To add more rules, right-click on a rule adjacent to the
+              rule in the group, then select <guimenuitem>Add to the group
+                eth1</guimenuitem>.</para>
 
-      <para>To add more rules, right-click on a rule adjacent to the
-      rule in the group, then select <guimenuitem>Add to the group
-      eth1</guimenuitem>.</para>
+            <figure id="rule-group5">
+              <title>Add a rule to the group</title>
+              <graphic scale="70" fileref="rule-group5.png" />  
+            </figure>
 
-          <figure id="rule-group5">
-            <title>Add a rule to the group</title>
-                <graphic scale="70" fileref="rule-group5.png" />  
-          </figure>
+            <para>Do that to the rest of the "eth1" rows, and we now
+              have a populated group. You can select several
+              consequtive rules and add them to the group at once.</para>
 
-      <para>Do that to the rest of the "eth1" rows, and we now have a
-      populated group.</para>
+            <figure id="rule-group6">
+              <title>A group of rules</title>
+              <graphic scale="70" fileref="rule-group6.png" />  
+            </figure>
 
-          <figure id="rule-group6">
-            <title>A group of rules</title>
-                <graphic scale="70" fileref="rule-group6.png" />  
-          </figure>
+            <para>To collapse the group, just click the little minus
+              (-) or a triangle icon (depends on the OS and visual
+              style) in the upper left of the group.
+            </para>
 
-      <para>To collapse the group, just click the little minus (-)
-      icon in the upper left of the group.</para>
+            <figure id="rule-group7">
+              <title>Collapsed group</title>
+              <graphic scale="70" fileref="rule-group7.png" />  
+            </figure>
 
-          <figure id="rule-group7">
-            <title>Collapsed group</title>
-                <graphic scale="70" fileref="rule-group7.png" />  
-          </figure>
-
-      <para>The group now takes up less room on your screen, though it
-      has not changed in function.</para>
-      </sect3>
+            <para>The group now takes up less room on your screen, though it
+              has not changed in function.</para>
+          </sect3>
 
       <sect3>
 	<title>Modifying rule groups</title>
@@ -2338,10 +2498,11 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               right-clicking the number of the rule (left-most column)
               and selecting <guimenuitem>Remove
               rule</guimenuitem>. This will remove the rule from the
-              rule set entirely. If you want to move the rule to
-              anther part of the rule set, select <guimenuitem>Cut
-              rule</guimenuitem> instead, and then paste the rule
-              elsewhere.</para>
+              rule set entirely and works the same regardless of
+              whether the rule is a member of a group or not. If you
+              want to move the rule to anther part of the rule set,
+              select <guimenuitem>Cut rule</guimenuitem> instead, and
+              then paste the rule elsewhere.</para>
             </listitem>
 <!--
             <listitem>
