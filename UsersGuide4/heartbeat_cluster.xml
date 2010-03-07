@@ -54,10 +54,10 @@
 
       <note>
         <para>
-          <xref linkend="linux_cluster"/> explains that this "eth0:0"
+          <xref linkend="linux_cluster_overview"/> explains that this "eth0:0"
           is not an interface and should not be used as the name of
           the interface object in fwbuilder configuration. See
-          <xref linkend="linux_cluster"/> for more detailed explanation.
+          <xref linkend="linux_cluster_overview"/> for more detailed explanation.
         </para>
       </note>
 
@@ -269,7 +269,7 @@ root@linux-test-2:~# ip -4 addr ls
         and
         <emphasis>"lo"</emphasis>. You can create new cluster
         interfaces or delete existing ones on this page using the
-        "+" and "x" buttons. See <xref linkend="linux_cluster"/> for
+        "+" and "x" buttons. See <xref linkend="linux_cluster_overview"/> for
         more information on the cluster interfaces in Firewall
         Builder.
       </para>

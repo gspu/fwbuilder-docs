@@ -213,7 +213,7 @@ root@linux-test-2:~# ip -4  addr ls
         firewalls. Feel free to edit if this guess was incorrect for
         your setup. The "+" and "x" buttons in the top corners of
         the page allow you to add and remove cluster interfaces. See
-        <xref linkend="linux_cluster"/> for more information on the
+        <xref linkend="linux_cluster_overview"/> for more information on the
         cluster inetrfaces in Firewall Builder.
       </para>
 
