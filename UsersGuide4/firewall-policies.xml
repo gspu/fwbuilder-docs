@@ -47,7 +47,7 @@
       your rules as if NAT translation will happen before the access
       rules are applied.</para>
 
-      <figure float="1" id="policies-seq">
+      <figure id="policies-seq">
         <title>The sequence in which NAT and Policy rules
           are applied to the packet in Firewall Builder</title>
         <graphic width="100" fileref="policies-seq.png"/>
@@ -158,7 +158,7 @@
 	  space.
         </para>
 
-      <figure float="1" id="policies-rule-negate-rfc1918">
+      <figure  id="policies-rule-negate-rfc1918">
         <title>Destination matches any IP that is <emphasis>not</emphasis> an RFC 1918 address</title>
             <graphic scale="60" fileref="policy_rule_negate_rfc1918.png" />
       </figure>
@@ -543,7 +543,7 @@
 	    sets, Policy, Policy_2 and mgmt:
           </para>
 
-          <figure float="1" id="policy-rulesets1">
+          <figure id="policy-rulesets1">
             <title>Firewall with more than one Policy rule set</title>
             <graphic scale="70" fileref="policy-rulesets1.png" />
           </figure>
@@ -628,7 +628,7 @@
 	rule. This rule causes packets headed for the "fw-mgmt" host
 	to be passed to the "mgmt" rule set.</para>
 
-        <figure float="1" id="policy-rulesets3">
+        <figure id="policy-rulesets3">
           <title>Passing a packet to the "mgmt" rule set</title>
           <graphic scale="70" fileref="policy-rulesets3.png" />
         </figure>
@@ -670,7 +670,7 @@
 	  firewall object in the tree:
         </para>
 
-        <figure float="1" id="nat-rule-set-in-fw">
+        <figure id="nat-rule-set-in-fw">
           <title>NAT rule set</title>
           <graphic scale="50" fileref="fwobj-rulesets-nat.png" />
         </figure>
@@ -3009,14 +3009,14 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	iptables firewall onto a Linux machine. Here is the access
 	policy of the firewall:</para>
 
-        <figure float="1" id="compile-install-firewall-1">
+        <figure id="compile-install-firewall-1">
           <title>A policy to compile and install</title>
               <graphic scale="50" fileref="compile-install-firewall-1.png" />
         </figure>
 
 	<para>To compile it, select the firewall icon, then select <guimenuitem>Rules/Compile</guimenuitem>.</para>
 
-        <figure float="1" id="compile-install-firewall-2">
+        <figure id="compile-install-firewall-2">
           <title>Select Rules/Compile</title>
               <graphic scale="70" fileref="compile-install-firewall-2.png" />
         </figure>
@@ -3026,7 +3026,7 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	firewall. To compile several of them at once, just check the
 	checkboxes.</para>
 
-        <figure float="1" id="compile-install-firewall-3">
+        <figure id="compile-install-firewall-3">
           <title>Select your firewall</title>
               <graphic scale="50" fileref="compile-install-firewall-3.png" />
         </figure>
@@ -3037,7 +3037,7 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	compile. If everything goes well, the output will look
 	something like this:</para>
 
-        <figure float="1" id="compile-install-firewall-4">
+        <figure id="compile-install-firewall-4">
           <title>Compile status messages</title>
               <graphic scale="50" fileref="compile-install-firewall-4.png" />
         </figure>
@@ -3064,14 +3064,14 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
 
 
-        <figure float="1" id="compile-install-firewall-2-2">
+        <figure id="compile-install-firewall-2-2">
           <title>Select Rules/Install</title>
               <graphic scale="70" fileref="compile-install-firewall-2.png" />
         </figure>
 
 	<para>The following dialog appears:</para>
 
-        <figure float="1" id="compile-install-firewall-5">
+        <figure id="compile-install-firewall-5">
           <title>Select Install</title>
               <graphic scale="50" fileref="compile-install-firewall-5.png" />
         </figure>
@@ -3080,7 +3080,7 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	checked, then click <guibutton>Next</guibutton>. The following
 	dialog appears:</para>
 
-        <figure float="1" id="compile-install-firewall-6">
+        <figure id="compile-install-firewall-6">
           <title>Firewall SSH and install parameters</title>
               <graphic scale="50" fileref="compile-install-firewall-6.png" />
         </figure>
@@ -3100,9 +3100,9 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 	will tell you what went wrong. If the error is unclear, see
 	<xref linkend="troubleshooting-compiler-runtime" />.)</para>
 
-	<figure float="1" id="compile-install-firewall-7">
+	<figure id="compile-install-firewall-7">
           <title>Installation status</title>
-              <graphic scale="50" fileref="compile-install-firewall-7.png" />
+          <graphic scale="50" fileref="compile-install-firewall-7.png" />
         </figure>
 
 	<para>Log into the firewall to see the policy in place. For
