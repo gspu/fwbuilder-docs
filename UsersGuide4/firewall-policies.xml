@@ -2469,48 +2469,64 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
       <sect3>
 	<title>Modifying rule groups</title>
-	  <para>You can modify a rule group after you have created
-	  it. Options are as follows:</para>
+
+	  <para>
+            You can modify a rule group after you have created
+	    it. Options are as follows:
+          </para>
 
           <itemizedlist spacing="compact">
             <listitem>
               <para>Rename a group</para>
 
-              <para>To rename a group, right-click the group name (or
-              anywhere on the gray bar that heads the rule, and
-              select <guimenuitem>Rename group</guimenuitem>. Then,
-              change the name in the dialog and
-              click <guibutton>OK</guibutton>.</para>
+              <para>
+                To rename a group, right-click the group name (or
+                anywhere on the gray bar that heads the rule, and
+                select <guimenuitem>Rename group</guimenuitem>. Then,
+                change the name in the dialog and
+                click <guibutton>OK</guibutton>.
+              </para>
             </listitem>
             <listitem>
               <para>Add more rules to a group</para>
 
-              <para>You can add an existing rule to a group if the
-              rule is directly above or below the group. Simply
-              right-click the rule and select <guimenuitem>Add to the
-              group eth1</guimenuitem>.</para>
+              <para>
+                You can add an existing rule to a group if the rule is
+                directly above or below the group. Simply right-click
+                the rule and select <guimenuitem>Add to the group
+                eth1</guimenuitem>.
+              </para>
             </listitem>
 
             <listitem>
-              <para>Remove a rule</para>
+              <para>Remove a rule from a group</para>
 
-              <para>You can remove a rule in a group entirely by
-              right-clicking the number of the rule (left-most column)
-              and selecting <guimenuitem>Remove
-              rule</guimenuitem>. This will remove the rule from the
-              rule set entirely and works the same regardless of
-              whether the rule is a member of a group or not. If you
-              want to move the rule to anther part of the rule set,
-              select <guimenuitem>Cut rule</guimenuitem> instead, and
-              then paste the rule elsewhere.</para>
+              <para>
+                To remove a rule from the group while leaving it in
+                the rule set, right-clickin the number of the rule
+                (left-most column) and select <guimenuitem>Remove from
+                the group</guimenuitem>. You can only remove the first
+                or the last rule in the group. Rules in the middle of
+                the group can not be removed from it.
+              </para>
             </listitem>
-<!--
+
             <listitem>
-              <para>Remove a rule from the group while leaving it in place</para>
+              <para>Remove a rule completely</para>
 
-              <para>To remove a rule from the group while leaving it in place in the rule set, right-click the rule and select <guimenuitem>Remove from the group</guimenuitem>. If you do this to a rule in the middle of the group, the group splits in two. You will now have two different groups, both with the same name, with the removed rule between them. You can rename one or both of the groups using the <guimenuitem>Rename group</guimenuitem> right-click option.</para>
+              <para>
+                You can remove a rule in a group entirely by
+                right-clicking the number of the rule (left-most
+                column) and selecting <guimenuitem>Remove
+                rule</guimenuitem>. This will remove the rule from the
+                rule set entirely and works the same regardless of
+                whether the rule is a member of a group or not. If you
+                want to move the rule to anther part of the rule set,
+                select <guimenuitem>Cut rule</guimenuitem> instead,
+                and then paste the rule elsewhere.
+              </para>
             </listitem>
--->
+
           </itemizedlist>
       </sect3>
     </sect2>
