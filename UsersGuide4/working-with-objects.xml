@@ -126,7 +126,7 @@
         Firewall</guimenuitem>.</para>
 
 	<para>The first page of this wizard is displayed.</para>
-        <figure float="1" id="creating-firewall1-2">
+        <figure id="creating-firewall1-2">
           <title>First Page of the Wizard</title>
               <graphic scale="60" fileref="creating_firewall1.png" />
         </figure>
@@ -143,7 +143,7 @@
 
 	<para>Click <guibutton>Next</guibutton>.</para>
 
-        <figure float="1" id="creating-firewall_manual1">
+        <figure id="creating-firewall_manual1">
           <title>Choose Configure Interfaces Manually</title>
               <graphic scale="60" fileref="creating_firewall_manual1.png" />
         </figure>
@@ -152,7 +152,7 @@
 	manually</guibutton> and
 	click <guibutton>Next</guibutton>.</para>
 
-        <figure float="1" id="creating-firewall_manual2">
+        <figure id="creating-firewall_manual2">
           <title>Adding Interfaces to the new Firewall Object</title>
               <graphic scale="60" fileref="creating_firewall_manual2.png" />
         </figure>
@@ -240,7 +240,7 @@
 	  yourself some time by using SNMP discovery to automatically
 	  create interfaces of the new firewall object.</para>
 
-        <figure float="1" id="new_firewall_snmp1">
+        <figure id="new_firewall_snmp1">
           <title>SNMP 'read' community string</title>
               <graphic scale="70" fileref="new_firewall_wizard_4.png" />
         </figure>
@@ -251,7 +251,7 @@
 	  community. Then click <guibutton>Discover interfaces using
 	  SNMP</guibutton>.</para>
 
-        <figure float="1" id="new_firewall_snmp2">
+        <figure id="new_firewall_snmp2">
           <title>Discovering interfaces via SNMP</title>
               <graphic scale="70" fileref="new_firewall_wizard_5.png" />
         </figure>
@@ -263,7 +263,7 @@
 	  discovery process finishes,
 	  click <guibutton>Next</guibutton>.</para>
 
-        <figure float="1" id="new_firewall_snmp3">
+        <figure id="new_firewall_snmp3">
           <title>Discovering interfaces via SNMP</title>
               <graphic scale="70" fileref="new_firewall_wizard_6.png" />
         </figure>
@@ -287,7 +287,7 @@
         rule sets. All these controls become available when you
         double-click the firewall object in the tree.</para>
 
-        <figure float="1" id="edit_firewall_base_controls">
+        <figure id="edit_firewall_base_controls">
           <title>Firewall Controls</title>
               <graphic scale="60" fileref="edit_firewall_base_controls.png" />
         </figure>
@@ -353,7 +353,7 @@
         <para>For explanations of the various controls, click
         the <guilabel>Help</guilabel> button in the dialog.</para>
 
-        <figure float="1" id="edit_firewall_howtos_options">
+        <figure id="edit_firewall_howtos_options">
           <title>Firewall Host OS Settings dialog (Linux)</title>
               <graphic scale="70" fileref="edit_firewall_howtos_options.png" />
         </figure>
@@ -365,7 +365,7 @@
 	<para>For explanations of the various controls, click
 	the <guilabel>Help</guilabel> button in the dialog.</para>
 
-        <figure float="1" id="edit_firewall_firewallsettings_compiler">
+        <figure id="edit_firewall_firewallsettings_compiler">
           <title>Firewall Settings dialog (iptables)</title>
               <graphic scale="60" fileref="edit_firewall_firewallsettings_compiler.png" />
         </figure>
@@ -430,7 +430,7 @@
 	</para></listitem>
       </itemizedlist>
 
-	    <figure float="1" id="rule-set-options1">
+	    <figure id="rule-set-options1">
 	      <title>Rule set options</title>
               <graphic scale="70" fileref="rule-set-options1.png" />
 	    </figure>
@@ -441,7 +441,7 @@
     <sect2 id="host-interface">
       <title>Interface Object</title>
 
-      <figure float="1" id="host-interface1">
+      <figure id="host-interface1">
         <title>Interface Object</title>
             <graphic scale="70" fileref="host_example_1.png" />
       </figure>
@@ -454,7 +454,7 @@
       here. Controls that are only valid for the firewall, and not
       host objects, are marked as such.</para>
 
-      <figure float="1" id="interface1">
+      <figure id="interface1">
         <title>Interface Object</title>
             <graphic scale="70" fileref="interface-1.png" />
       </figure>
@@ -582,7 +582,7 @@
 	<para>Consider the network layout as in
         <xref linkend="network-zones" />. </para>
 
-        <figure float="1" id="network-zones">
+        <figure id="network-zones">
           <title>Choosing Network Zones</title>
               <graphic scale="100" fileref="fwbuilder-using-netzone1.jpg" />
         </figure>
@@ -726,7 +726,7 @@
       defined in column <guilabel>Direction</guilabel>. Consider the
       following example:</para>
 
-      <figure float="1" id="rules_with_interface_1">
+      <figure id="rules_with_interface_1">
         <title>Rule using an Interface object</title>
             <graphic scale="70" fileref="rules_with_interface_1.png" />
       </figure>
@@ -841,7 +841,7 @@ exit
       interfaces can belong either to a Firewall or a Host
       object.</para>
 
-      <figure float="1" id="interface-2">
+      <figure id="interface-2">
         <title>Interface object with both address families</title>
             <graphic scale="70" fileref="interface-2.png" />
       </figure>
@@ -850,7 +850,7 @@ exit
       address fe80::21d:9ff:fe8b:8e94. It is used in a simple policy
       rule as follows:</para>
 
-      <figure float="1" id="interface-rule-1">
+      <figure id="interface-rule-1">
         <title>Interface object in a rule</title>
             <graphic scale="70" fileref="interface-rule-1.png" />
       </figure>
@@ -900,7 +900,7 @@ keep state
       source or destination element of a rule. It can also be used in
       NAT rules. Here is an example:</para>
 
-      <figure float="1" id="interface-nat-rule-1">
+      <figure id="interface-nat-rule-1">
         <title>IPv4 Address object assigned to an interface</title>
             <graphic scale="70" fileref="interface-nat-rule-1.png" />
       </figure>
@@ -944,14 +944,14 @@ rdr on eth0 proto tcp from any to 192.0.2.1 port 80 -> 172.16.22.100 port 80
       interface object eth0. The radio-button <guilabel>Address is
       assigned dynamically</guilabel> is selected.</para>
 
-      <figure float="1" id="interface-3">
+      <figure id="interface-3">
         <title>Interface with dynamic address</title>
             <graphic scale="60" fileref="interface-3.png" />
       </figure>
 
 	<para>The following policy rule uses interface eth0  in destination:</para>
 
-      <figure float="1" id="interface-rule-3">
+      <figure id="interface-rule-3">
         <title>Interface with dynamic address in a rule</title>
             <graphic scale="70" fileref="interface-rule-3.png" />
       </figure>
@@ -1021,7 +1021,7 @@ pass out  quick inet6 proto tcp  from any  to (en0) port 22 keep state
       ports. Here is the interface "eth1" which is configured as a
       bridge port:</para>
 
-      <figure float="1" id="bridge_interface_dialog_1">
+      <figure id="bridge_interface_dialog_1">
         <title>Bridge interface</title>
             <graphic scale="60" fileref="bridge_interface_dialog_1.png" />
       </figure>
@@ -1029,7 +1029,7 @@ pass out  quick inet6 proto tcp  from any  to (en0) port 22 keep state
       <para>Consider the following rule in the policy of the firewall
       this interface belongs to:</para>
 
-      <figure float="1" id="rules_with_interface_2">
+      <figure id="rules_with_interface_2">
         <title>Bridge interface in rule</title>
             <graphic scale="70" fileref="rules_with_interface_2.png" />
       </figure>
@@ -1066,7 +1066,7 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
 	  object. To create this kind of an Address, right-click on
 	  the interface object to bring up the context menu.</para>
 
-      <figure float="1" id="ipv4-address1">
+      <figure id="ipv4-address1">
         <title>IPv4 Address object assigned to an interface</title>
             <graphic scale="50" fileref="ipv4_1.png" />
       </figure>
@@ -1128,7 +1128,7 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
 
 	<para>Here we use our IPv4 address in a rule (remember, it belongs to the interface):</para>
 
-      <figure float="1" id="ipv4-address2">
+      <figure id="ipv4-address2">
         <title>IPv4 Address object assigned to an interface and used in a rule</title>
             <graphic scale="70" fileref="ipv4_1_rule_1.png" />
       </figure>
@@ -1171,7 +1171,7 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
 	  Address</guimenuitem> or use the right-click menu associated
 	  with the Addresses folder in the tree.</para>
 
-      <figure float="1" id="ipv4-address3">
+      <figure id="ipv4-address3">
         <title>Stand-alone IPv4 Address object</title>
             <graphic scale="50" fileref="ipv4_2.png" />
       </figure>
@@ -1204,7 +1204,7 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
       <sect3>
 	<title>IPv6 Address Object When Used as an Address of an Interface</title>
 
-      <figure float="1" id="ipv6-address1">
+      <figure id="ipv6-address1">
         <title>IPv6 Address Object assigned to an Interface object</title>
             <graphic scale="60" fileref="ipv6_1.png" />
       </figure>
@@ -1218,7 +1218,7 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
       <sect3>
 	<title>IPv6 Address Object When Used as Stand-alone Object</title>
 
-      <figure float="1" id="ipv6-address2">
+      <figure id="ipv6-address2">
         <title>Stand-alone IPv6 Address Object</title>
             <graphic scale="60" fileref="ipv6_2.png" />
       </figure>
@@ -1244,7 +1244,7 @@ $IPTABLES -A FORWARD  -m physdev --physdev-in eth1  -s 172.16.22.0/24 \
       interface inside of the firewall while another is the IPv6
       address of the project's web site.</para>
 
-      <figure float="1" id="ipv6-address3">
+      <figure id="ipv6-address3">
         <title>IPv6 Address objects in a rule</title>
             <graphic scale="70" fileref="ipv6_1_rule_1.png" />
       </figure>
@@ -1272,7 +1272,7 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
     <sect2>
       <title>Physical Address Object</title>
 
-      <figure float="1" id="physAddress1">
+      <figure id="physAddress1">
         <title>The Physical Address Object</title>
 
             <graphic scale="60" fileref="physaddress1.png" />
@@ -1358,7 +1358,7 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
         objects are visible in the tree under the Interface
         "eth0". </para>
 
-        <figure float="1" id="host-with-addr-and-physaddr">
+        <figure id="host-with-addr-and-physaddr">
           <title>The Host object with Address and Physical Address</title>
               <graphic scale="60" fileref="using-physaddress-1.png" />
         </figure>
@@ -1389,7 +1389,7 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2  --dport 80  \
               the firewall inspects only IP address and ignores the MAC
               address of the packets.</para>
 
-              <figure float="1" id="only-addr">
+              <figure id="only-addr">
                 <title>Policy rule using only Address object</title>
 		  <graphic scale="70" fileref="using-physaddress-4.png" />
               </figure>
@@ -1405,7 +1405,7 @@ $IPTABLES -A FORWARD  -s 10.3.14.44  -m state --state NEW  -j ACCEPT
               permits all kinds of traffic coming from the trusted host even
               if its IP address changes.</para>
 
-              <figure float="1" id="only-phaddr">
+              <figure id="only-phaddr">
                 <title>Policy rule using only Physical Address object</title>
 		  <graphic scale="70" fileref="using-physaddress-5.png" />
               </figure>
@@ -1423,12 +1423,12 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
               IP address and MAC address. This may be used as a sophisticated
               anti-spoofing rule.</para>
 
-              <figure float="1" id="using-host">
+              <figure id="using-host">
                 <title>Policy rule using Host object</title>
 		  <graphic scale="70" fileref="using-physaddress-6.png" />
               </figure>
 
-              <figure float="1" id="using-interface">
+              <figure id="using-interface">
                 <title>Policy rule using Interface object</title>
 		  <graphic scale="70" fileref="using-physaddress-3.png" />
               </figure>
@@ -1447,7 +1447,7 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -s 10.3.14.44  -m st
         happens if we put objects representing IP address and MAC
         address in the rule:</para>
 
-        <figure float="1" id="addr-and-phaddr">
+        <figure id="addr-and-phaddr">
           <title>Policy rule using Address and Physical Address
           objects</title>
               <graphic scale="70" fileref="using-physaddress-7.png" />
@@ -1534,7 +1534,7 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
       computer.
       </para>
 
-      <figure float="1" id="host-in-tree">
+      <figure id="host-in-tree">
         <title>A Host Object With One Interface And Multiple Virtual
         Addresses</title>
             <graphic scale="70" fileref="host_in_tree.png" />
@@ -1611,7 +1611,7 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
     <sect3>
       <title>Editing a Host Object</title>
 
-      <figure float="1" id="host-dialog1">
+      <figure id="host-dialog1">
         <title>Editing The Host Object</title>
             <graphic scale="60" fileref="host_dialog1.png" />
       </figure>
@@ -1664,14 +1664,14 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
 	(loopback) with its own IP address and interface sit0 (tunnel)
 	with no address.</para>
 
-      <figure float="1" id="host_example_1">
+      <figure id="host_example_1">
         <title>Host with multiple interfaces, some with multiple addresses</title>
             <graphic scale="70" fileref="host_example_1.png" />
       </figure>
 
       <para>Let's put this host object in a rule as follows:</para>
 
-      <figure float="1" id="host_example_2">
+      <figure id="host_example_2">
         <title>Host in a rule</title>
             <graphic scale="70" fileref="host_example_2.png" />
       </figure>
@@ -1692,7 +1692,7 @@ $IPTABLES -A Cid6066X5981.1  -d  -j ACCEPT
 
       <para>Let's see what we get for the same rule if we configure rule set object as "IPv4+IPv6":</para>
 
-      <figure float="1" id="host_example_3">
+      <figure id="host_example_3">
         <title>Host in a rule with both IPv4 and IPv6</title>
             <graphic scale="70" fileref="host_example_3.png" />
       </figure>
@@ -1728,13 +1728,13 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
       objects. In fact, an interface object can have more than one
       associated address object. Let's see how this works:</para>
 
-      <figure float="1" id="multiple-addresses-obj1">
+      <figure id="multiple-addresses-obj1">
         <title>Host object with an interface that has multiple
         addresses</title>
             <graphic scale="70" fileref="multiple-addresses-obj1.png" />
       </figure>
 
-      <figure float="1" id="multiple-addresses1">
+      <figure id="multiple-addresses1">
         <title>Using objects with multiple addresses in policy
         rules</title>
             <graphic scale="70" fileref="multiple-addresses-rule1.png" />
@@ -1759,7 +1759,7 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
       linkend="multiple-addresses2" /> (original rule #9 also shown there, but
       it is disabled.)</para>
 
-      <figure float="1" id="multiple-addresses2">
+      <figure id="multiple-addresses2">
         <title>Equivalent rules</title>
             <graphic scale="60" fileref="multiple-addresses-rule2.png" />
       </figure>
@@ -1799,7 +1799,7 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
     <sect2>
       <title>IPv4 Network Object</title>
 
-      <figure float="1" id="network-dialog1">
+      <figure id="network-dialog1">
         <title>The Network Object</title>
             <graphic scale="60" fileref="network_dialog1.png" />
       </figure>
@@ -1847,7 +1847,7 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
 
 	<para>Let's use the Network object shown above in a policy rule compiled for different target platforms.</para>
 
-      <figure float="1" id="network_example_1">
+      <figure id="network_example_1">
         <title>IPv4 Network object used in a rule</title>
             <graphic scale="70" fileref="network_example_1.png" />
       </figure>
@@ -1893,7 +1893,7 @@ access-group inside_acl_in in interface inside
     <sect2>
       <title>IPv6 Network Object</title>
 
-      <figure float="1" id="ipv6-network-dialog1">
+      <figure id="ipv6-network-dialog1">
         <title>IPv6 Network Object</title>
             <graphic scale="60" fileref="ipv6-network_dialog1.png" />
       </figure>
@@ -1906,7 +1906,7 @@ access-group inside_acl_in in interface inside
 
       <para>Let's see what we get if we use an IPv6 Network object in a policy rule as shown:</para>
 
-      <figure float="1" id="ipv6_network_example_1">
+      <figure id="ipv6_network_example_1">
         <title>IPv6 Network object used in a rule</title>
             <graphic scale="70" fileref="ipv6_network_example_1.png" />
       </figure>
@@ -1941,7 +1941,7 @@ exit
     <sect2>
       <title>Address Range Object</title>
 
-      <figure float="1" id="address_range_1">
+      <figure id="address_range_1">
         <title>The Address Range Object</title>
             <graphic scale="60" fileref="address_range_1.png" />
       </figure>
@@ -2039,7 +2039,7 @@ exit
 
 
 
-    <sect2>
+    <sect2 id="address-table-object">
       <title>Address Tables Object</title>
 
       <para>Sometimes you need to apply a rule to a set of addresses,
@@ -2047,7 +2047,7 @@ exit
       writing the policy. The <guilabel>Address Table</guilabel>
       object can help.</para>
 
-      <figure float="1" id="address-table-dialog1">
+      <figure id="address-table-dialog1">
         <title>The Address Table Object</title>
             <graphic scale="70" fileref="address_table_2.png" />
       </figure>
@@ -2121,7 +2121,7 @@ exit
 	you see if you click "Preview" button in the object
 	dialog):</para>
 
-      <figure float="1" id="address-table-textfile">
+      <figure id="address-table-textfile">
         <title>Address Table text file</title>
             <graphic scale="70" fileref="address_table_4.png" />
       </figure>
@@ -2146,14 +2146,14 @@ exit
       and then as "Run Time". The rule is very simple and looks like
       (<xref linkend="address-table-rule" />):</para>
 
-      <figure float="1" id="address-table-rule">
+      <figure id="address-table-rule">
         <title>Rule using an Address Object</title>
             <graphic scale="70" fileref="address_table_3.png" />
       </figure>
 
       <para>This rule, with the object set to <guilabel>Compile Time</guilabel>, generates the following output:</para>
 
-      <figure float="1" id="address-table-compile-iptables">
+      <figure id="address-table-compile-iptables">
         <title>Compile Time, iptables compile output</title>
             <programlisting>
 # Rule 0 (global)
@@ -2183,7 +2183,7 @@ $IPTABLES -A FORWARD  -d 192.168.1.201  -j DROP
       would use IPv4 addresses in IPv4 rules and IPv6 addresses in
       IPv6 rules.</para>
 
-      <figure float="1" id="address-table-compile-pf">
+      <figure id="address-table-compile-pf">
         <title>Compile Time, PF compile output</title>
             <programlisting>
 # Tables: (1)
@@ -2202,7 +2202,7 @@ block out  quick inet  from any  to &lt;tbl.r0.d&gt;
       use the built-in table facility. All addresses are copied from
       the file verbatim into the table tbl.r0.d.</para>
 
-      <figure float="1" id="address-table-run-iptables">
+      <figure id="address-table-run-iptables">
         <title>Run Time, iptables compile output</title>
             <programlisting>
 # Using 1 address table files
@@ -2239,7 +2239,7 @@ done
       firewall is part of any"</guilabel> is turned on in the firewall
       object settings:</para>
 
-      <figure float="1" id="address-table-run-iptables-assume">
+      <figure id="address-table-run-iptables-assume">
         <title>Run Time, iptables compile output, assume firewall is part of "any"</title>
             <programlisting>
 # Rule 0 (global)
@@ -2266,7 +2266,7 @@ done
       destination if source is "any" and option <guilabel>Assume
       firewall is part of any</guilabel> is turned on.</para>
 
-      <figure float="1" id="address-table-run-pf">
+      <figure id="address-table-run-pf">
         <title>Run Time, PF compile output</title>
             <programlisting>
 # Tables: (1)
@@ -2321,7 +2321,7 @@ pass in on $ext_if proto tcp to $webserver port www keep state \
       create an Address Table object with name "bad_hosts" but a blank
       file name, configured to resolve at run time:</para>
 
-      <figure float="1" id="address-table-bad-hosts">
+      <figure id="address-table-bad-hosts">
         <title>Address Table Object bad_hosts</title>
             <graphic scale="70" fileref="address_table_5.png" />
       </figure>
@@ -2336,7 +2336,7 @@ pass in on $ext_if proto tcp to $webserver port www keep state \
       the overload table "bad_hosts" that matches the name of the
       Address Table object.</para>
 
-      <figure float="1" id="address-table-bad-hosts-rules">
+      <figure id="address-table-bad-hosts-rules">
         <title>Address Table Object bad_hosts Rules</title>
             <graphic scale="60" fileref="address_table_6.png" />
       </figure>
@@ -2404,7 +2404,7 @@ pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
 
 	<para>Here are few examples:</para>
 
-      <figure float="1" id="multicast_object_1">
+      <figure id="multicast_object_1">
         <title>Multicast object</title>
             <graphic scale="60" fileref="multicast_object_1.png" />
       </figure>
@@ -2414,7 +2414,7 @@ pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
 	address block allocated for multicasts. Consider a simple
 	policy rule that permits all multicasts:</para>
 
-      <figure float="1" id="multicast_rule_1">
+      <figure id="multicast_rule_1">
         <title>Multicast rule</title>
             <graphic scale="70" fileref="multicast_rule_1.png" />
       </figure>
@@ -2440,7 +2440,7 @@ $IPTABLES -A INPUT  -d 224.0.0.0/4  -m state --state NEW  -j ACCEPT
 	  library under the name "broadcast". Here are the
 	  rules:</para>
 
-      <figure float="1" id="broadcast_rules_1">
+      <figure id="broadcast_rules_1">
         <title>Broadcast rules</title>
             <graphic scale="70" fileref="broadcast_rules_1.png" />
       </figure>
@@ -2468,14 +2468,14 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
 	be turned on in the firewall settings dialog and one or more
 	interface objects should be marked as "Bridge port":</para>
 
-      <figure float="1" id="bridge-broadcast-multicast">
+      <figure id="bridge-broadcast-multicast">
         <title>Broadcast and Multicast address in a bridging firewall</title>
             <graphic scale="50" fileref="bridge_interface_dialog_1.png" />
       </figure>
 
 	<para>Now the rule that matches the broadcast destination address will be treated differently:</para>
 
-      <figure float="1" id="broadcast_rules_2">
+      <figure id="broadcast_rules_2">
         <title>Broadcast and Multicast address in a rule</title>
             <graphic scale="70" fileref="broadcast_rules_2.png" />
       </figure>
@@ -2501,7 +2501,7 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
       </sect3>
     </sect2>
 
-    <sect2>
+    <sect2 id="dns-name-object">
       <title>DNS Name Objects</title>
 
       <para>A DNS Name object represents a DNS "A" or "AAAA"
@@ -2518,7 +2518,7 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
 
       <para>The <guilabel>DNS Name</guilabel> object dialog looks like this:</para>
 
-      <figure float="1" id="dns-name">
+      <figure id="dns-name">
         <title>DNS Name Object</title>
             <graphic scale="70" fileref="dns_name_2.png" />
       </figure>
@@ -2570,12 +2570,12 @@ $IPTABLES -A INPUT  -d 172.16.22.255  -m state --state NEW  -j ACCEPT
 
 	<para>Let's look at how the simple rule shown in <xref linkend="group-dialog1" /> compiles for iptables and PF, both for compile time and run time DNS Name object.</para>
 
-      <figure float="1" id="dns-name-3">
+      <figure id="dns-name-3">
         <title>Rule using DNS Name object</title>
             <graphic scale="70" fileref="dns_name_3.png" />
       </figure>
 
-      <figure float="1" id="dns-name-compile-iptables">
+      <figure id="dns-name-compile-iptables">
         <title>DNS Name Compile Time, iptables compile output</title>
             <programlisting>
 # Rule 0 (global)
@@ -2596,7 +2596,7 @@ $IPTABLES -A FORWARD  -d 70.85.175.170  -m state --state NEW  -j ACCEPT
       used in IPv6 rule set because there is only AAAA record with
       this name.</para>
 
-      <figure float="1" id="dns-name-compile-pf">
+      <figure id="dns-name-compile-pf">
         <title>DNS Name Compile Time, PF compile output</title>
             <programlisting>
 # Rule  0 (global)
@@ -2614,7 +2614,7 @@ pass in   quick inet  from any  to 70.85.175.170 keep state
       would only produce pf.conf configuration for IPv6 and not for
       IPv4.</para>
 
-      <figure float="1" id="dns-name-run-iptables">
+      <figure id="dns-name-run-iptables">
         <title>DNS Name Run Time, iptables compile output</title>
         <programlisting>
 # Rule 0 (global)
@@ -2645,7 +2645,7 @@ $IP6TABLES -A FORWARD  -d ipv6.fwbuilder.org -m state --state NEW  -j ACCEPT
         policy.
       </para>
 
-      <figure float="1" id="dns-name-run-pf">
+      <figure id="dns-name-run-pf">
         <title>DNS Name Run Time, PF compile output</title>
         <programlisting>
 # Rule  0 (global)
@@ -2665,7 +2665,7 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
     <sect2>
       <title>A Group of Addressable Objects</title>
 
-      <figure float="1" id="group-dialog1">
+      <figure id="group-dialog1">
         <title>Group of Objects</title>
             <graphic scale="50" fileref="group-view1.png" />
       </figure>
@@ -2934,7 +2934,7 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
       <para>You can create your own IP Service objects in the <guilabel>User</guilabel> library.</para>
 
 
-      <figure float="1" id="ip-service-dialog2">
+      <figure id="ip-service-dialog2">
         <title>Creating/Editing an IP Service Object</title>
 
             <graphic scale="50" fileref="ip_service_dialog2.png" />
@@ -4247,7 +4247,7 @@ exit
 	the firewall that send the packet. It translates to the
 	"owner" match in iptables and "user" parameter for PF.</para>
 
-      <figure float="1" id="user-service-dialog">
+      <figure id="user-service-dialog">
           <title>User Service Dialog</title>
               <graphic scale="70" fileref="user_service_2.png" />
         </figure>
@@ -4280,7 +4280,7 @@ exit
 
 	<para>Let's look at how the simple rule shown in <xref linkend="user-service-rule" /> compiles for iptables and PF.</para>
  
-      <figure float="1" id="user-service-rule">
+      <figure id="user-service-rule">
           <title>User Service Rule Example</title>
               <graphic scale="70" fileref="user_service_3.png" />
         </figure>
@@ -4293,7 +4293,7 @@ exit
 	reason, the object in the <guilabel>Source</guilabel> column
 	must be the firewall.</para>
 
-       <figure float="1" id="user-service-iptables">
+       <figure id="user-service-iptables">
         <title>User Service, iptables compile output</title>
             <programlisting>
 # Rule 0 (global)
@@ -4307,7 +4307,7 @@ $IPTABLES -A OUTPUT -m owner --uid-owner 500  -j DROP
       iptables man page for a more detailed explanation of this
       match.</para>
 
-       <figure float="1" id="user-service-pf">
+       <figure id="user-service-pf">
         <title>User Service, PF compile output</title>
             <programlisting>
 # Tables: (1)
@@ -4651,7 +4651,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       based on the time as known <emphasis>by the firewall
       device</emphasis>.</para>
 
-      <figure float="1" id="time-interval2">
+      <figure id="time-interval2">
           <title>Time Interval dialog</title>
               <graphic scale="60" fileref="time-interval2.png" />
         </figure>
@@ -4747,7 +4747,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
 	<para>Another possibility is to limit recreational activities to non-work hours.</para>
 
-      <figure float="1" id="time-interval1">
+      <figure id="time-interval1">
           <title>Time Interval rule example</title>
               <graphic scale="50" fileref="time-interval1.png" />
         </figure>
@@ -4777,14 +4777,14 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       Library</guilabel>, which is empty by default, except for the
       standard folders.</para>
 
-      <figure float="1" id="user-defined-library1">
+      <figure id="user-defined-library1">
           <title>A new, empty user-defined library</title>
               <graphic scale="70" fileref="user-defined-library1.png" />
         </figure>
 
       <para>Click on the New Library icon to bring up the library dialog.</para>
 
-      <figure float="1" id="user-defined-library2">
+      <figure id="user-defined-library2">
           <title>Library dialog</title>
               <graphic scale="70" fileref="user-defined-library2.png" />
         </figure>
@@ -4796,7 +4796,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       when you're in that particular library. In this case, we have
       set the color to a shade of blue.</para>
 
-      <figure float="1" id="user-defined-library3">
+      <figure id="user-defined-library3">
           <title>ACME library with blue background</title>
               <graphic scale="70" fileref="user-defined-library3.png" />
         </figure>
@@ -4807,7 +4807,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       address. We've also created a network object for the
       192.168.3.0/24 subnet.</para>
 
-      <figure float="1" id="user-defined-library4">
+      <figure id="user-defined-library4">
           <title>Library with user-created objects</title>
               <graphic scale="70" fileref="user-defined-library4.png" />
         </figure>
@@ -4818,7 +4818,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       select <guimenuitem>File/Export Library</guimenuitem>. The
       following dialog appears:</para>
 
-      <figure float="1" id="user-defined-library5">
+      <figure id="user-defined-library5">
           <title>Export your library</title>
               <graphic scale="70" fileref="user-defined-library5.png" />
         </figure>
@@ -4833,7 +4833,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       name and location for the file. Be sure the file has
       a <emphasis>.fwl</emphasis> file extension.</para>
 
-      <figure float="1" id="user-defined-library6">
+      <figure id="user-defined-library6">
           <title>Save dialog box</title>
               <graphic scale="60" fileref="user-defined-library6.png" />
         </figure>
@@ -4858,7 +4858,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
 
       <para>Imagine you have an access policy that looks something like this:</para>
 
-      <figure float="1" id="find-replace1">
+      <figure id="find-replace1">
           <title>Policy before the Find/Replace</title>
               <graphic scale="70" fileref="find-replace1.png" />
         </figure>
@@ -4876,7 +4876,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
       the <guimenu>Object</guimenu> menu to open the Find and Replace
       dialog, shown here:</para>
 
-            <figure float="1" id="find-replace2">
+            <figure id="find-replace2">
           <title>Find/Replace dialog</title>
               <graphic scale="50" fileref="find-replace2.png" />
         </figure>
@@ -4891,14 +4891,14 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
               pull-down menu to <guimenuitem>policy of the opened
               firewall</guimenuitem>, as shown here:</para>
 
-            <figure float="1" id="find-replace3">
+            <figure id="find-replace3">
           <title>Objects to find and replace</title>
               <graphic scale="50" fileref="find-replace3.png" />
         </figure>
 
       <para>Click <guibutton>Replace All</guibutton> to replace all instances.</para>
 
-            <figure float="1" id="find-replace4">
+            <figure id="find-replace4">
           <title>Policy with objects replaced</title>
               <graphic scale="60" fileref="find-replace4.png" />
         </figure>
