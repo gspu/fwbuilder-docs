@@ -800,7 +800,7 @@
       </figure>
       </para>
 
-      <para>Drag-and-drop and Copy/Paste operations work across
+      <para>Copy/Paste operations work across
       different windows.</para>
 
       </sect1>
@@ -1264,7 +1264,7 @@
       <para>
   <figure>
     <title>Data file</title>
-    <graphic width="50%" fileref="multifile_slide_1.png"/>
+    <graphic width="80%" fileref="multifile_slide_1.png"/>
   </figure>
       </para>
 
@@ -1276,7 +1276,7 @@
       <para>
   <figure>
     <title>Data file</title>
-    <graphic width="50%" fileref="multifile_slide_2.png"/>
+    <graphic width="80%" fileref="multifile_slide_2.png"/>
   </figure>
       </para>
 
@@ -1288,7 +1288,7 @@
       <para>
   <figure>
     <title>clusters.fwb</title>
-    <graphic width="50%" fileref="multifile_slide_3.png"/>
+    <graphic width="80%" fileref="multifile_slide_3.png"/>
   </figure>
       </para>
 
@@ -1301,7 +1301,7 @@
       <para>
   <figure>
     <title>Window menu</title>
-    <graphic width="50%" fileref="multifile_slide_4.png"/>
+    <graphic width="80%" fileref="multifile_slide_4.png"/>
   </figure>
       </para>
 
@@ -1316,8 +1316,8 @@
 
       <para>
   <figure>
-    <title>Dragging between windows</title>
-    <graphic width="50%" fileref="multifile_slide_5.png"/>
+    <title>Copy/pasting between windows</title>
+    <graphic width="80%" fileref="multifile_slide_5.png"/>
   </figure>
       </para>
 
@@ -1329,7 +1329,7 @@
       <para>
   <figure>
     <title>Top window now has the object</title>
-    <graphic width="50%" fileref="multifile_slide_6.png"/>
+    <graphic width="80%" fileref="multifile_slide_6.png"/>
   </figure>
       </para>
 
@@ -1343,7 +1343,7 @@
       <para>
   <figure>
     <title>dmz-server</title>
-    <graphic width="50%" fileref="multifile_slide_7.png"/>
+    <graphic width="80%" fileref="multifile_slide_7.png"/>
   </figure>
       </para>
   
