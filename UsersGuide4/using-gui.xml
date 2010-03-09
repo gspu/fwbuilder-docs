@@ -14,9 +14,9 @@
     <sect1 id="main_window">
       <title>The Main Window</title>
 
-      <para>The main window mainly consists of a menu bar and a
-      display area. Normally, the display area holds the object file
-      (or files) you are working on. (An object file holds the objects
+      <para>The main window consists of a menu bar and a
+      display area. The display area holds the object file
+      (or files) you are working on. (An object file holds objects
       that represent your real devices, interfaces, networks and so on
       that you'll use to configure your firewall device and its
       policies.)</para>
@@ -41,24 +41,37 @@
                 <para>Display area: Below the menus is the Display
                 area. The display area displays one or more open
                 object files. An object file contains the Object
-                Trees, Policy Views, and Dialog Area.</para>
+                Trees and Policy Views, and the Dialog Area.</para>
               </listitem>
               <listitem>
                 <para>Object Trees: Object trees, displayed on the
                 left side of the window, hold firewall, host,
                 interface, service, and other "objects" that you will
-                use when creating your firewall.</para>
+                use when creating your firewall. You can make the object tree "float" as 
+                its own window by clicking the float button at the top of the object tree pane.
+		</para>
+		<para>
+		 <figure id="float-button">
+  		   <title>Float Button</title>
+  		   <graphic scale="100" fileref="float-button.png" />
+  		 </figure>
+  		</para>
               </listitem>
               <listitem>
                 <para>Policy View: The policy view area, in the upper
-                right of the screen, displays the access, NAT, or
+                right of the window, displays the access, NAT, or
                 routing policy you're working on. </para>
               </listitem>
               <listitem>
-                <para>Dialog Area: The dialog area, in the lower
-                right, is where you make changes to object
-                parameters. The dialog area, which is not visible at
-                first, appears double-click an object in the tree. </para>
+                <para>Dialog Area: The dialog area, across the bottom of the main window, 
+                is where you make changes to object
+                parameters, do finds-and-replaces, and see the output from single-rule compiles. 
+                The dialog area, which is not visible at
+                first, appears when you double-click an object. See 
+                <xref linkend="find-replace" /> for an explanation of the 
+                find-and-replace tab. See 
+                <xref linkend="policy-and-nat-rules-for-the-cluster" /> for 
+                details on compiling a single rule and viewing the results in the Output tab.</para>
               </listitem>
           </itemizedlist>
 
@@ -95,7 +108,7 @@
 	      <row>
 		<entry>New Object File</entry>
 		<entry>Opens a "file" dialog that lets you name your
-		new object file. Object file names should end with
+		new object file. Object file names end with
 		".fwb". In general, you should create a new directory
 		for your object files.</entry>
 	      </row>
@@ -150,7 +163,7 @@
 	      </row>
 	      <row>
 		<entry>Import Policy</entry>
-		<entry>Allows you to import an existing policy into Firewall Builder.</entry>
+		<entry>Allows you to import an existing policy into Firewall Builder. See <xref linkend="policy-importer" /> for a detailed explanation.</entry>
 	      </row>
 	      <row>
 		<entry>Import Library</entry>
@@ -210,9 +223,9 @@
 		<entry>Working Directory</entry>
 		<entry>This option tells the program where it should store the
                 data file. Policy compilers also store firewall configuration
-                files or scripts they produce in the this directory. If this
+                files and scripts they produce in this directory. If this
                 parameter is left blank, then the policy compiler will store
-                the firewall configuration it generates in the same directory
+                the firewall configurations it generates in the same directory
                 as the original data file.</entry>
 	      </row>
 	      <row>
@@ -221,7 +234,7 @@
 	      </row>
 	      <row>
 		<entry>Check for updates automatically</entry>
-		<entry>If checked, the program checks for program updates every time it starts.</entry>
+		<entry>If checked, the program checks for program updates every time it starts. If unchecked, the program will not check for updates unless you specifically tell it to by clicking the <guibutton>Check Now</guibutton> button.</entry>
 	      </row>
 	      <row>
 		<entry>Check Now</entry>
@@ -290,8 +303,8 @@
                 line.</entry>
 	      </row>
 	      <row>
-		<entry>DNS Name - Create new objects in "Compile Time" mode by default</entry>
-		<entry>Sets the default for when DNS Name object addresses will be read from a file: when the firewall script is generated by Firewall Builder or when the firewall runs the script. This just sets the default; you can override this setting for individual objects. <xref linkend="dns-name-object" /> has more information on DNS Name object creation.</entry>
+		<entry>DNS Name - Create new objects in "Compile Time" or "Run Time" mode by default</entry>
+		<entry>These radio buttons set the default for when DNS Name object addresses will be read from a file: when the firewall script is generated by Firewall Builder or when the firewall runs the script. This just sets the default; you can override this setting for individual objects. <xref linkend="dns-name-object" /> has more information on DNS Name object creation.</entry>
 	      </row>
 	      <row>
 		<entry>DNS Name - Use object name for the DNS record in all objects of this type</entry>
@@ -299,7 +312,7 @@
 	      </row>
 	      <row>
 		<entry>Address Table - Create new objects in "Compile Time" mode or "Run Time" mode by default radio buttons</entry>
-		<entry>Sets the default for when Address Table object addresses will be read from a file: when the firewall script is generated by Firewall Builder or when the firewall runs the script. This just sets the default; you can override this setting for individual objects. <xref linkend="address-table-object" /> has more information on Address Table object creation.</entry>
+		<entry>These radio buttons set the default for when Address Table object addresses will be read from a file: when the firewall script is generated by Firewall Builder or when the firewall runs the script. This just sets the default; you can override this setting for individual objects. <xref linkend="address-table-object" /> has more information on Address Table object creation.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -377,7 +390,7 @@
 	      </row>
 	      <row>
 		<entry>Enable password caching</entry>
-		<entry>If checked, the program can remember firewall passwords for the duration of the Firewall Builder GUI session. Passwords are never stored permanently in any form; they are only kept in memory of the working Firewall Builder GUI instance. You need to enter each password once when you activate a generated policy. If you keep the program open and need to modify and activate policy again, the password fields in the installer dialog can be filled automatically. Cached passwords are associated with the firewall object and account name used to activate policy. To use this feature, you must also configure a user name in the <guilabel>Installer</guilabel> tab in the <guilabel>Firewall Settings</guilabel> dialog of the firewall object. Warning: using this feature creates a risk if a working Firewall Builder GUI is left unattended on an unlocked workstation. Someone may walk up to the machine and make changes to the firewall using cached password of the administrator who used the same GUI session before. Always lock the screen or exit the Firewall Builder GUI before leaving your computer.</entry>
+		<entry>If checked, the program can remember firewall passwords for the duration of the Firewall Builder GUI session. Passwords are never stored permanently in any form; they are only kept in memory for the working Firewall Builder GUI instance. You need to enter each password once when you activate a generated policy. If you keep the program open and need to modify and activate policy again, the password fields in the installer dialog can be filled automatically. Cached passwords are associated with the firewall object and account name used to activate the policy. To use this feature, you must also configure a user name in the <guilabel>Installer</guilabel> tab in the <guilabel>Firewall Settings</guilabel> dialog of the firewall object. Caution: using this feature creates a risk if a working Firewall Builder GUI is left unattended on an unlocked workstation.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -591,90 +604,11 @@
       </table>
 
       <para>The <guimenu>Rules</guimenu> menu lets you add, delete, and
-      rearrange rules in a policy. In addition, it lets you compile
-      and install a complete set of firewall policies.</para>
-
-      <table frame='none' tabstyle='reg_table'><title>Rules menu</title>
-	<tgroup cols='2' align='left' rowsep='1'>
-	  <colspec colname='c1'/>
-	  <colspec colname='c2'/>
-	    <thead>
-	      <row>
-		<entry>Rules Menu entry</entry>
-		<entry>Explanation</entry>
-	      </row>
-	    </thead>
-	    <tbody>
-	      <row>
-		<entry>Insert Rule</entry>
-		<entry>Inserts a blank rule above the currently
-		selected rule. If no rule is selected, inserts a blank
-		rule in position 0 of the current ruleset.</entry>
-	      </row>
-	      <row>
-		<entry>Add Rule Below</entry>
-		<entry>Adds a rule below the currently selected rule.</entry>
-	      </row>
-	      <row>
-		<entry>Remove Rule</entry>
-		<entry>Removes the currently selected rule.</entry>
-	      </row>
-	      <row>
-		<entry>Move Selected Rules</entry>
-		<entry>
-                  <para>Opens a dialog that lets you specify
-		    where the selected rule(s) should go. Firewall Builder
-		    will move rules down to make room for the rule;
-		    selecting a rule that has contents does not replace
-		    the rule, it moves it down.
-                  </para>
-
-		  <para>
-                    To select multiple rules, click on one rule, then
-		    shift-click on another rule <emphasis>in the first
-		    column</emphasis> (the rule number column). You
-		    must select a contiguous set. To select one rule,
-		    click anywhere.
-                  </para>
-                </entry>
-	      </row>
-	      <row>
-		<entry>Copy Rule</entry>
-		<entry>Copies the selected rule to the clipboard.</entry>
-	      </row>
-	      <row>
-		<entry>Cut Rule</entry>
-		<entry>Copies the selected rule to the clipboard and removes it from the ruleset.</entry>
-	      </row>
-	      <row>
-		<entry>Paste Rule Above</entry>
-		<entry>Pastes the rule on the clipboard into the
-		currently selected rule row. Moves the selected rule
-		(and all other rules below it) down to make
-		room.</entry>
-	      </row>
-	      <row>
-		<entry>Paste Rule Below</entry>
-		<entry>Pastes the rule on the clipboard below the
-		currently selected rule. Moves lower rules down to
-		make room.</entry>
-	      </row>
-	      <row>
-		<entry>Compile</entry>
-		<entry>Opens a dialog that lets you specify which of
-		the firewalls in the current object file you wish to
-		compile. See <xref linkend="compile-install-policy"
-		/>.</entry>
-	      </row>
-	      <row>
-		<entry>Install</entry>
-		<entry>Opens a dialog that lets you install a compiled
-		firewall onto an actual target device. See
-		<xref linkend="compile-install-policy" />.</entry>
-	      </row>
-	  </tbody>
-	</tgroup>
-      </table>
+      rearrange rules and rule groups in a policy. In addition, it lets you 
+      compile an individual rule or an entire policy, and it lets you  
+      install an entire policy. The menu is context sensitive, so not all 
+      options are visible at all times. See <xref linkend="editing-policy-and-nat" /> 
+      for details.</para>
 
      <para>The <guimenu>Tools</guimenu> menu provides access to useful
      tools.</para>
@@ -1093,15 +1027,12 @@
     </sect1>
 
     <sect1 id="tree_navigation">
-      <title>Navigating The Object Tree and Editing Objects in the Object Dialog</title>
+      <title>The Object Dialog</title>
 
-      <para>The object selected in the tree automatically appears in
-      the dialog area, where it can be reviewed or modified. Objects
-      are opened by a single mouse click in the tree. Clicking the
-      right button when the mouse cursor is over the object's label in
-      the tree brings up the pop-up menu. This menu is
-      context-sensitive and provides items for the following
-      functions:</para>
+      <para>The object dialog has three tabs. The <guilabel>Editor</guilabel> lets you view and modify an object's properties. The <guilabel>Find</guilabel> tab lets you do finds and finds-and-replaces on objects. The <guilabel>Output</guilabel> tab shows you the results of single rule compiles.</para>
+
+      <para>Right-click an object's label to bring up a
+      context menu for the following functions:</para>
 
       <table frame='none' tabstyle='reg_table'><title>Object Right-Click Menu</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
@@ -1116,8 +1047,8 @@
 	    <tbody>
 	      <row>
 		<entry>Edit</entry>
-		<entry>Opens the Edit dialog for that object. (You can
-		get the same result by left-clicking on the
+		<entry>Opens the Editor dialog for that object. (You can
+		get the same result by double-clicking the
 		object.)</entry>
 	      </row>
 	      <row>
@@ -1153,7 +1084,8 @@
 	      <row>
 		<entry>Find</entry>
 		<entry><para>Brings up a Find/Find-and-Replace
-		panel. Click <guibutton>Next</guibutton> in the panel
+		panel, which is another tab in the object dialog. 
+                Click <guibutton>Next</guibutton> in the panel
 		to see all instances of the object boxed in
 		red.</para>
 		<para>To do a Search and Replace, drag another object
@@ -1163,8 +1095,8 @@
 		All</guibutton>, <guibutton>Replace</guibutton>, <guibutton>Replace
 		&amp; Find</guibutton>,
 		and <guibutton>Next</guibutton> buttons.</para>
-		<xref linkend="find-replace" /> has details on this
-		dialog.</entry>
+		<para><xref linkend="find-replace" /> has details on this
+		dialog.</para></entry>
 	      </row>
 	      <row>
 		<entry>Used Where</entry>
@@ -1189,6 +1121,10 @@
       address objects, depending on what type of object was clicked
       on.</para>
 
+      <para>In addition, the right-click context menu on policy rules has a selection for <guimenuitem>Compile Rule</guimenuitem>. Selecting this compiles the rule and shows you the output in the <guilabel>Output</guilabel> tab of the Editor dialog. See 
+                <xref linkend="policy-and-nat-rules-for-the-cluster" /> for 
+                details on compiling a single rule and viewing the results in the Output tab.</para>
+
       <para>In general, the GUI has been designed to "look and feel"
       like a typical file browser (for example, Windows Explorer). It
       shows object groups as a collection of icons, where each icon
@@ -1207,16 +1143,7 @@
       </figure>
       </para>
 
-      <para>Dialogs for objects that can be edited have an
-      <guibutton>Apply</guibutton> button
-      at the bottom. Initially this button is inactive, but once the
-      object's parameters have been modified in the dialog, or group members
-      have been added or removed, the button becomes active so you
-      can click <guibutton>Apply</guibutton> to save new data.
-      If you try to switch to another object without saving, the program shows a pop-up dialog
-      asking if you want to save the changes, discard them, or continue editing them. There is also an option to
-      make the program automatically save modified data when you switch
-      between objects. See the <guimenuitem>Edit>Preferences</guimenuitem> dialog in <xref linkend="gui-menus" />.</para>
+      <para>All changes made in dialog entry fields are saved into the object immediately. This does not change the data in the .fwb file, only objects in memory. If you wish to cancel a change, select <guimenuitem>Edit > Undo</guimenuitem>.</para>
     </sect1>
 
     <sect1 id="policy-rulesets">
