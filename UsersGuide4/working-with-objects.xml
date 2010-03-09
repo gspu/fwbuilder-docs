@@ -2733,7 +2733,7 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
                 Security Payload, part of the IPSEC protocol family)
                 which uses the IP protocol number 50.</para>
 
-        <figure float="1"><title/><graphic scale="50" fileref="ip_service_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="ip_service_1.png"/></figure>
       
       <note>
 	<para>Protocol numbers are assigned by IANA; one can look up the number for a
@@ -3048,7 +3048,7 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
           </para>
           
 
-          <figure float="1"><title/>
+          <figure><title/>
             <graphic scale="50" fileref="ip_service_rule_1.png"/>
           </figure>
 
@@ -3131,7 +3131,7 @@ $IP6TABLES -A FORWARD  -o +  -m tos --tos 0x10  -m state --state NEW  -j ACCEPT
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="ip_service_rule_2.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="ip_service_rule_2.png"/></figure>
 
           <para>
   
@@ -3154,7 +3154,7 @@ pass out  quick inet  from any  to (eth0)  tos 0x10 keep state
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="ip_service_rule_3.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="ip_service_rule_3.png"/></figure>
 
           <para>
   
@@ -3222,7 +3222,7 @@ exit
   </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="icmp_service_tree.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="icmp_service_tree.png"/></figure>
 
         <para>
   
@@ -3262,9 +3262,9 @@ exit
   </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="icmp_service_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="icmp_service_1.png"/></figure>
 
-        <figure float="1"><title/><graphic scale="50" fileref="icmp6_service_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="icmp6_service_1.png"/></figure>
 
         <para>
   
@@ -3276,7 +3276,7 @@ exit
   </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="icmp_service_2.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="icmp_service_2.png"/></figure>
 
         <para>
   
@@ -3347,7 +3347,7 @@ exit
   </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="icmp_service_rule_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="icmp_service_rule_1.png"/></figure>
 
         <para>
   
@@ -3452,7 +3452,7 @@ pass in   quick inet6 proto icmp6  from any  to any
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_1_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_1_1.png"/></figure>
 
           <para>
   
@@ -3462,7 +3462,7 @@ pass in   quick inet6 proto icmp6  from any  to any
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_1.png"/></figure>
 
           <para>
   
@@ -3488,7 +3488,7 @@ pass in   quick inet6 proto icmp6  from any  to any
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_2.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_2.png"/></figure>
 
           <para>
   
@@ -3635,7 +3635,7 @@ pass in   quick inet6 proto icmp6  from any  to any
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_3.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_3.png"/></figure>
 
           <para>
   
@@ -3653,7 +3653,7 @@ pass in   quick inet6 proto icmp6  from any  to any
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_4.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_4.png"/></figure>
 
           <para>
   
@@ -3742,7 +3742,7 @@ TCP Service dialog provides the following controls:
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_5.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_5.png"/></figure>
 
           <para>
   
@@ -3756,7 +3756,7 @@ TCP Service dialog provides the following controls:
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_rule_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_rule_1.png"/></figure>
 
           <para>
   
@@ -3819,7 +3819,7 @@ pass out  quick inet6 proto tcp  from any  to 2001:470:1f0e:162::2 port 80 keep 
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_6.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_6.png"/></figure>
 
           <para>
   
@@ -3828,7 +3828,7 @@ pass out  quick inet6 proto tcp  from any  to 2001:470:1f0e:162::2 port 80 keep 
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_rule_2.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_rule_2.png"/></figure>
 
           <para>
   
@@ -3931,7 +3931,7 @@ exit
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_7.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_7.png"/></figure>
 
           <para>
   
@@ -3940,7 +3940,7 @@ exit
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="tcp_service_rule_3.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="tcp_service_rule_3.png"/></figure>
 
           <para>
   
@@ -4020,7 +4020,7 @@ Error (pf): TCPService object with option "established" is not supported
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="udp_service_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="udp_service_1.png"/></figure>
 
           <para>
   
@@ -4101,7 +4101,7 @@ Error (pf): TCPService object with option "established" is not supported
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="udp_service_rule_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="udp_service_rule_1.png"/></figure>
 
           <para>
   
@@ -4185,7 +4185,7 @@ exit
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="udp_service_2.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="udp_service_2.png"/></figure>
 
           <para>
   
@@ -4378,7 +4378,7 @@ block out  quick inet  from   to any user 500
                       </para></note>
   
 
-        <figure float="1"><title/><graphic scale="60" fileref="custom_service_1.png"/></figure>
+        <figure><title/><graphic scale="60" fileref="custom_service_1.png"/></figure>
 
         <para>
   
@@ -4473,7 +4473,7 @@ block out  quick inet  from   to any user 500
         </para>
   
 
-        <figure float="1"><title/><graphic scale="60" fileref="custom_service_2.png"/></figure>
+        <figure><title/><graphic scale="60" fileref="custom_service_2.png"/></figure>
 
         <para>
   
@@ -4494,7 +4494,7 @@ block out  quick inet  from   to any user 500
         </para>
   
 
-        <figure float="1"><title/><graphic scale="60" fileref="custom_service_3.png"/></figure>
+        <figure><title/><graphic scale="60" fileref="custom_service_3.png"/></figure>
 
         <para>
   
@@ -4523,7 +4523,7 @@ block out  quick inet  from   to any user 500
         </para>
   
 
-        <figure float="1"><title/><graphic scale="60" fileref="custom_service_rule_1.png"/></figure>
+        <figure><title/><graphic scale="60" fileref="custom_service_rule_1.png"/></figure>
 
         <para>
   
@@ -4603,7 +4603,7 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="custom_service_rule_2.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="custom_service_rule_2.png"/></figure>
 
         <para>
   
