@@ -423,7 +423,7 @@ root@linux-test-2:~# ip -4  addr ls
 
     </sect3>
 
-    <sect3>
+    <sect3 id="policy-and-nat-rules-for-the-cluster">
       <title>Policy and NAT rules for the cluster</title>
 
       <para>
