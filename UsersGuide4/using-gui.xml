@@ -1152,7 +1152,7 @@
       <para>The main purpose of Firewall Builder is, of course, to
       create actual firewall policies. For that you use the rule sets
       view. This figure shows the Access Policy ruleset for a firewall
-      called "guardian":</para>
+      called "fw":</para>
 
       <para>
       <figure id="policy-rulesets-figure">
@@ -1162,7 +1162,7 @@
       </para>
 
       <para>You can see on the left that <guilabel>Policy</guilabel>
-      is selected under the "guardian" firewall. The access policy
+      is selected under the "fw" firewall. The access policy
       (Policy), NAT, and Routing rulesets exist as leaves under a
       particular firewall in the object tree. Selecting the rule set
       in the object tree causes it to appear on the right. The same
@@ -1191,7 +1191,7 @@
       <para>
   <figure>
     <title>Data file</title>
-    <graphic width="80%" fileref="multifile_slide_1.png"/>
+    <graphic width="50%" fileref="multifile_slide_1.png"/>
   </figure>
       </para>
 
@@ -1203,7 +1203,7 @@
       <para>
   <figure>
     <title>Data file</title>
-    <graphic width="80%" fileref="multifile_slide_2.png"/>
+    <graphic width="50%" fileref="multifile_slide_2.png"/>
   </figure>
       </para>
 
@@ -1215,7 +1215,7 @@
       <para>
   <figure>
     <title>clusters.fwb</title>
-    <graphic width="80%" fileref="multifile_slide_3.png"/>
+    <graphic width="50%" fileref="multifile_slide_3.png"/>
   </figure>
       </para>
 
@@ -1228,7 +1228,7 @@
       <para>
   <figure>
     <title>Window menu</title>
-    <graphic width="80%" fileref="multifile_slide_4.png"/>
+    <graphic width="50%" fileref="multifile_slide_4.png"/>
   </figure>
       </para>
 
@@ -1237,14 +1237,14 @@
     rather small to keep the size of the screen shots down, so two
     windows do not fit well. However even with such a cramped layout
     we can move objects from one to another using copy/paste operations. In this example we are going to copy-and-paste the 
-    firewall object "fw" from the bottom window to the top one. We
+    firewall object "fw" from the top window to the bottom one. We
     are going to paste it into the folder "Firewalls" in the tree.
   </para>
 
       <para>
   <figure>
     <title>Copy/pasting between windows</title>
-    <graphic width="80%" fileref="multifile_slide_5.png"/>
+    <graphic width="50%" fileref="multifile_slide_5.png"/>
   </figure>
       </para>
 
@@ -1256,12 +1256,12 @@
       <para>
   <figure>
     <title>Top window now has the object</title>
-    <graphic width="80%" fileref="multifile_slide_6.png"/>
+    <graphic width="50%" fileref="multifile_slide_6.png"/>
   </figure>
       </para>
 
   <para>
-    Firewall "fw" used a host object called "dmz-server" in the data
+    In addition, firewall "fw" used a host object called "dmz-server" in the data
     file "policy_rules.fwb". Copying the firewall object "fw" also copied
     all other objects it depended on. This image shows that host
     "dmz-server" is now part of the data file "clusters.fwb".
@@ -1270,7 +1270,7 @@
       <para>
   <figure>
     <title>dmz-server</title>
-    <graphic width="80%" fileref="multifile_slide_7.png"/>
+    <graphic width="50%" fileref="multifile_slide_7.png"/>
   </figure>
       </para>
   
