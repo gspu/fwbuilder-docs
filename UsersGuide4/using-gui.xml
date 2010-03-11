@@ -292,7 +292,7 @@
 	      <row>
 		<entry>Show object attributes in the tree</entry>
 		<entry>Creates a second column in the object tree. The second column
-		contains information about the object, such as how many objects a folder contains, whether a ruleset is the top ruleset, and so on.</entry>
+		contains information about the object, such as how many objects a folder contains, whether a ruleset is the top ruleset, IP addresses, and so on. See <xref linkend="object-attributes" /> for a description.</entry>
 	      </row>
 	      <row>
 		<entry>Clip comments in rules</entry>
@@ -743,7 +743,7 @@
     <title>Object Tree</title>
 
       <para>
-    <figure id="tree-structure" pgwide="0">
+    <figure id="tree-structure">
       <title>Object Tree Structure</title>
       <graphic scale="50" fileref="fwbMainWindow-4.png" />
     </figure>
@@ -1003,6 +1003,35 @@
       </para>
 
       <para>Objects are always displayed with their parent objects, so you can always see where your objects "live" in the tree.</para>
+
+      <para>When you enter a string into the <guilabel>Filter</guilabel> field, that string is added to the field's history, which is accessible by clicking the down arrow next to the field. Here we see our recent history of filters.</para>
+
+    <para>
+    <figure id="filter-history">
+      <title>Filter Field History</title>
+      <graphic scale="50" fileref="filter-history.png" />
+    </figure>
+      </para>
+
+    <para>You can clear the history by clicking the <guibutton>X</guibutton> button next to the field.</para>
+
+     </sect2>
+
+     <sect2 id="object-attributes">
+       <title>Object Attributes in the Tree</title>
+        <para>If you check the <guilabel>Show object attributes in the tree</guilabel> checkbox in the <guilabel>Preferences>Object</guilabel> tab, then the object tree displays a second column of information, like shown here.</para>
+
+
+    <para>
+    <figure id="object-attributes-in-tree">
+      <title>Object Attributes Column</title>
+      <graphic scale="50" fileref="object-attributes-in-tree.png" />
+    </figure>
+      </para>
+
+    <para>The information shown depends on the type of object.</para>
+
+    <para>If you check the checkbox, but don't see the second column, open the panel wider until you see the column separator, then drag it until the columns are in the right position. Column sizing is saved with the object file, so the next time you open it, the columns will be the sizes you left them.</para>
 
      </sect2>
     </sect1>
