@@ -964,6 +964,8 @@
 	</tgroup>
       </table>
 
+      <sect2>
+	<title>Floating the Object Tree</title>
       <para>By default, the object tree panel and editor panels are anchored to the display area. However, you can cause each to float by clicking the little button next to the close button in the respective panel. This image shows the object tree panel floating free.</para>
 
       <para>
@@ -976,7 +978,33 @@
     <para>The floating panels stay associated with their parent object file. If you open a different object file, that object file will have its own tree and editor panels.</para>
 
     <para>To re-attached a floating panel, click the icon next to the close button again.</para>
+     </sect2>
 
+     <sect2>
+	<title>Filtering the Object Tree</title>
+	<para>There are a lot of objects in the tree, nested in their respective categories. You can filter the tree to have only certain objects and categories appear based on a string. For example, typing "eth" in the <guilabel>Filter</guilabel> field causes all the objects with "eth" in the object name to appear.</para>
+
+      <para>Here we have the object tree with all categories collapsed and the <guilabel>Filter</guilabel> field unpopulated.</para>
+
+    <para>
+    <figure id="filter-before">
+      <title>Empty Filter Field</title>
+      <graphic scale="50" fileref="filter-before.png" />
+    </figure>
+      </para>
+
+     <para>Next we start to type into the <guilabel>Filter</guilabel> field. In this example, we start to type the word "address" to get all the address-related objects. As you can see from the screen shot below, the filter begins to work immediately. We have only typed "ad" and yet the tree is already filtered by those characters, showing the <guilabel>Address Range</guilabel>, <guilabel>Address Table</guilabel>, and <guilabel>Addresses</guilabel> categories and their contents.</para>
+
+    <para>
+    <figure id="filter-after">
+      <title>Populated Filter Field</title>
+      <graphic scale="50" fileref="filter-after.png" />
+    </figure>
+      </para>
+
+      <para>Objects are always displayed with their parent objects, so you can always see where your objects "live" in the tree.</para>
+
+     </sect2>
     </sect1>
 
     <sect1 id="creating-objects">
