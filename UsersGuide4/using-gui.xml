@@ -975,7 +975,7 @@
     </figure>
       </para>
 
-    <para>The floating panels stay associated with their parent object file. If you open a different object file, that object file will have its own tree and editor panels.</para>
+    <para>A floating object tree stays associated with its parent object file. However, there is only one object editor panel. It is associated with whichever object file is active.</para>
 
     <para>To re-attached a floating panel, click the icon next to the close button again.</para>
      </sect2>
