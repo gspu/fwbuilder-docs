@@ -21,7 +21,7 @@
       <para>
       <figure id="main-win1">
         <title>The main window</title>
-        <graphic scale="50" fileref="fwbMainWindow.png" />
+        <graphic scale="50" fileref="fwbMainWindow-wUndo.png" />
       </figure>
       </para>
 
@@ -69,8 +69,7 @@
 	      </row>
 	      <row>
 		<entry>Policy Ruleset Workspace</entry>
-		<entry>Displayed on the
-                right side of the window, holds the ruleset you're currently working on. This space is blank when you first load an object file. It only appears when you double-click a policy, NAT, or routing ruleset link in a firewall object. (So, you have to create a firewall object before you can work on a policy.)
+		<entry>Displayed to the right of the object tree, this area holds the ruleset you're currently working on. This space is blank when you first load an object file. It only appears when you double-click a policy, NAT, or routing ruleset link in a firewall object. (So, you have to create a firewall object before you can work on a policy.)
       <para>See <xref linkend="firewall-object" /> for instructions on creating a firewall object. See <xref linkend="firewall-policies" /> for instructions on working with policies.</para>
 	<para>The two buttons on the top of the ruleset let you compile (the hammer) or compile-and-install (arrow and wall) the current firewall policy. <xref linkend="compile-install-policy" /> describes both compiling and compiling-and-installing a firewall policy.</para>
       <para>
@@ -114,20 +113,28 @@
       </para>
 		</entry>
 	      </row>
+	      <row>
+		<entry>Undo Stack</entry>
+		<entry><para>Displayed on the
+                right side of the window, the Undo Stack is not displayed by default. To activate it, select <guimenuitem>View > Undo Stack</guimenuitem>.</para>
+		<para>As you make changes to your object file, those changes show up in the <guilabel>Undo Stack</guilabel> window. You can "undo" an action by clicking the action above it (in other words, prior to it) in the window. Clicking any action in the window rolls back all changes after that action. However, the "future" changes stay in the Undo Stack until you make another edit. At that point, all changes after the current point in the stack are removed.</para>
+		<para>Like the object tree, the Undo Stack can "float" as its own window.</para>
+      <para>See <xref linkend="using-undo" /> for a more detailed explanation of the Undo Stack window.</para>
+      <para>
+        <figure id="undo-stack">
+          <title>Undo Stack</title>
+          <graphic scale="50" fileref="undo-stack.png" />
+        </figure>
+      </para>
+		</entry>
+	      </row>
+
 	  </tbody>
 	</tgroup>
       </table>
 
       <para>You can open more than one object file window at a
-      time. You can even have the same object file open in two
-      different windows at the same time. (Just use
-      the <guimenuitem>Open</guimenuitem> or <guimenuitem>Open
-      Recent</guimenuitem> again.) If you do, the two views onto the
-      same file are synchronized and work with the same object
-      tree. Changes made to the object in one window are immediately
-      reflected in all windows, both in the tree and in the
-      dialog, and Copy/Paste operations work across
-      different windows. See <xref linkend="multiple-data-files" /> for an
+      time, and you can copy objects between them. See <xref linkend="multiple-data-files" /> for an
       example of working with multiple data files.</para>
       </sect1>
 
@@ -902,6 +909,55 @@
       vice versa.</para>
 	</sect2>
     </sect1>
+
+	<sect1 id="using-undo">
+	  <title>Undo Stack</title>
+
+	  <para>The undo stack shows you a list of your changes, and lets you roll back changes you don't want. You can roll back just one change, all changes after a certain point, or all changes.</para>
+	  <para>A change enters the stack as soon as you "commit" it. In other words, as soon as you drag an object into a new position, that change appears in the stack. For field edits, the change appears as soon as you move the GUI focus out of a field by pressing Enter or Tab, or by clicking outside the field.</para>
+          <para>Rolling back a change does not immediately remove that change from the stack. You can "redo" a change by clicking on it. Changes after the current change stay in the stack until you do a new edit. At that point, the new change appears as current, and all the undone changes after that point are removed.</para>
+
+	  <para>This screenshot shows a portion of an object tree, an access policy, and the <guilabel>Undo Stack</guilabel>. The stack has been "floated," so it can be moved as its own window. (Click the button next to the close button in the panel to float.)</para>
+
+          <para>As you can see from the stack, we have just added a new, blank rule to the policy.</para>
+
+      <para>
+      <figure id="undo-stack1">
+        <title>Policy and Undo Stack</title>
+            <graphic scale="50" fileref="undo-stack1.png" />
+      </figure>
+      </para>
+
+	  <para>We will now add the "inside range" IP object to the Source of the new rule, and the "outside range 2" IP object to the Destination of the rule. However, we have made a mistake: Instead of adding "outside range 2" to the Destination, we accidentally added the "outside range" object to the Source field.</para>
+
+	  <para>You can see the object in the policy and the undo history in this screenshot.</para>
+
+      <para>
+      <figure id="undo-stack2">
+        <title>Added Inside Range and Outside Range</title>
+            <graphic scale="50" fileref="undo-stack2.png" />
+      </figure>
+      </para>
+	  
+	  <para>To fix this, we do two things. First, we click on "insert inside range" in the <guilabel>Undo Stack</guilabel>. This rolls back the stack to before we inserted "outside range 2."</para>
+
+      <para>
+      <figure id="undo-stack3">
+        <title>Removed Outside Range from Source</title>
+            <graphic scale="50" fileref="undo-stack3.png" />
+      </figure>
+      </para>
+
+	<para>Now we drag "outside range 2" into the Destination field. You can see that the "insert outside range" entry has been removed from the stack, and the "insert outside range 2" edit now appears as the most recent change.</para>
+
+      <para>
+      <figure id="undo-stack4">
+        <title>Added Outside Range 2 to Destination</title>
+            <graphic scale="50" fileref="undo-stack4.png" />
+      </figure>
+      </para>
+
+	</sect1>
 
       <sect1 id="preferences">
         <title>Preferences dialog</title>
