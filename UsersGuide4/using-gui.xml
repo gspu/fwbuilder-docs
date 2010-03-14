@@ -152,8 +152,8 @@
       <table frame='none' tabstyle='reg_table'>
         <title>File Menu</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colnum="1" colname='c1'  colwidth='2*'/>
-	  <colspec colnum="2" colname='c2'  colwidth='4*'/>
+	  <colspec colnum="1" colname="c1"  colwidth="120pt"/>
+	  <colspec colnum="2" colname="c2"  />
 	    <thead>
 	      <row>
 		<entry>File Menu entry</entry>
@@ -258,9 +258,10 @@
 	<title>View menu</title>
       <para>The <guimenu>View</guimenu> menu lets you turn on or off various display panes.</para>
 
-      <table frame='none' tabstyle='reg_table'><title>View menu</title>
+      <table frame='none' tabstyle='reg_table'>
+        <title>View menu</title>
 	<tgroup cols='2' align='left' rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -292,9 +293,10 @@
       replaces), lock an object to prevent accidentally changes, and
       unlock an object when you need to edit it.</para>
 
-      <table frame='none' tabstyle='reg_table'><title>Object menu</title>
+      <table frame='none' tabstyle='reg_table'>
+        <title>Object menu</title>
 	<tgroup cols='2' align='left' rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -367,9 +369,10 @@
      <para>The <guimenu>Tools</guimenu> menu provides access to useful
      tools.</para>
 
-     <table frame='none' tabstyle='reg_table'><title>Tools menu</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Tools menu</title>
 	<tgroup cols='2' align='left' rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -416,9 +419,10 @@
       <para>The <guimenu>Context Menu</guimenu> for a particular object provides a short-cut to menu commands for that object. Right-click an object's label to bring up a
       menu of the following functions:</para>
 
-      <table frame='none' tabstyle='reg_table'><title>Object Right-Click Menu</title>
+      <table frame='none' tabstyle='reg_table'>
+        <title>Object Right-Click Menu</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -519,9 +523,10 @@
       </figure>
       </para>
 
-     <table frame='none' tabstyle='reg_table'><title>Tool Bar</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Tool Bar</title>
 	<tgroup cols='2' align='left' rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -629,9 +634,10 @@
       <xref linkend="working-with-services" /> for more detailed
       information.</para>
 
-     <table frame='none' tabstyle='reg_table'><title>Object Types</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Object Types</title>
 	<tgroup cols='2' align='left' rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -975,7 +981,7 @@
       <table frame='none' tabstyle='reg_table'>
         <title>Preferences>General tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -1027,7 +1033,7 @@
      <table frame='none' tabstyle='reg_table'>
        <title>Preferences>Objects tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -1093,7 +1099,7 @@
      <table frame='none' tabstyle='reg_table'>
        <title>Preferences>Data File tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -1134,7 +1140,7 @@
 
      <table frame='none' tabstyle='reg_table'><title>Preferences>Installer tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -1168,9 +1174,10 @@
       </figure>
       </para>
 
-     <table frame='none' tabstyle='reg_table'><title>Preferences>Labels tab</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Preferences>Labels tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -1200,7 +1207,7 @@
 
      <table frame='none' tabstyle='reg_table'><title>Preferences>Appearance tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
@@ -1245,9 +1252,10 @@
       </figure>
       </para>
 
-     <table frame='none' tabstyle='reg_table'><title>Preferences>Platforms and OS tab</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Preferences>Platforms and OS tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
-	  <colspec colname='c1'/>
+	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
 	    <thead>
 	      <row>
