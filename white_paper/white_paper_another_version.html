@@ -1,0 +1,377 @@
+
+<h1>Introduction to Firewall Builder</h1>
+
+<p>
+  <font size="-1">Vadim Kurland  vadim@fwbuilder.org</font>
+</p>
+
+<p>
+  This is the first article in the mini-series of two articles about
+  Firewall Builder.
+</p>
+
+<p>
+  Eveyone knows about netfilter/iptables, a powerful firewall
+  framework and command line tool that is part of every Linux
+  distribution. Unfortunately, the task of managing security policy
+  with it remains difficult for several reasons. Partially this is
+  because of the complex syntax of the command line interface and
+  multitude of the available options and parameters. Another reason is
+  that administrator has to understand internal path of the packet
+  inside Linux kernel and its interaction with different parts of
+  netfilter in order to build rules correctly. iptables administrator
+  must understand very clearly concepts of tables and chains and their
+  relationship with the source and destination address of the packet,
+  direction in which packet crosses the firewall and the operation
+  that needs to be performed. The concept of chains is very powerful,
+  it makes iptables configuration flexible, enables grouping of the
+  rules, passing control from one group to another and so
+  on. Administrator who understands these ideas can design policy that
+  can deliver good performance and is relatively easy to maintain. But
+  those who haven't mastered the concept get lost in the maze of
+  tables and chains rather quickly. No wonder the poster-sized
+  printout of the iptables packet flow diagram is usually pinned to
+  the wall in the office of any iptables firewall administrator.
+</p>
+
+<p>
+  This problem is not specific to iptables though, other popular Open
+  Source firewall platforms, such as OpenBSD PF, ipfilter and ipfw
+  present similar challenges. For example, PF on OpenBSD and FreeBSD
+  represents another very popular and very capable Open Source
+  firewall platform that can do just as much, and in many cases more
+  than, iptables on Linux. Performance is excellent and configuration
+  language in some parts is simpler than iptables. However, it is very
+  different. With iptables, administrator needs to know that they have
+  to use different chains to inspect packets headed for the firewall
+  itself or packets forwarded by the firewall. This complication does
+  not exist with PF, but on the other hand, PF inspects the same
+  packet twice, when it crosses ingress and then when it crosses
+  egress interface of the firewall, which is not the case with
+  iptables. Another conceptual difference is that in iptables, the
+  first rule that matches the packet makes the decision whether it
+  should be forwarded or blocked, where as in PF by default it is the
+  last rule (although this is optional). This, of course, means that
+  the whole rule set must be designed in the "opposite order" when
+  firewall is built with PF, compared to how it is designed with
+  iptables.  Note that these differences are not limited to the
+  configuration languge syntax or to whether rules are entered using
+  command line tool one by one, or written in a relatively
+  user-friendly configuration language in a plain text file. The
+  differences we are talking about are fundamental and in fact reflect
+  internal logic implemented inside the iptables and PF packet
+  inspection engines.
+</p>
+
+<p>
+  Established commercial firewalls of course add another set of
+  complexities since they are all different from each other and from
+  Open Source implementations. Again, the differences we are talking
+  about are not in the configuration language, they lay much
+  deeper. For example, both iptables and PF execute address and port
+  translations defined by the NAT rules first and then apply filtering
+  rules to already translated packet. Cisco ASA (PIX), on the other
+  hand, does it in the opposite order. PIX applies filtering rules
+  first and performs translations only after that. Administrator who
+  has to write configurations for the dedicated ASA/PIX firewall and
+  bunch of Linux or BSD servers has to be very careful and remember to
+  switch from one paradigm to another all the time. What if the same
+  administrator also needs to manage access lists on the border
+  routers running Cisco IOS, where one has to use inverted "wildcard"
+  bits representation of netmask ? In a multi-vendor mix like this
+  probability of making an error goes up dramatically.
+</p>
+
+<p>
+  In the end, every firewall platform has its own set of
+  complexities. Knowledge of these details separates experts in the
+  field from those who only need to create minimal configurations or
+  manage configurations written by others. Unfortunately, as
+  organization grows and adds more services and network segments,
+  sooner or later firewall configuration reaches the level where an
+  expert in the given platform becomes a necessity. As the result,
+  network or security administrator spends a lot of time training
+  themselves in the low level details of the firewall configuration
+  instead of focusing on the security policy and its proper
+  implementation.
+</p>
+
+<p>
+  Many firewall appliances based on iptables or pf offer web-based GUI
+  interface that helps configure these, but such interface usually
+  closely reflects the structure and ideas of the the underlying
+  configuration language. One still finds column "chain" in the most
+  iptables GUIs and needs to know which target to use to build the NAT
+  rule that they intended.
+</p>
+
+<p>
+  Most modern networks that consist of more than just a few nodes and
+  exist for a long time end up being a mix of devices from different
+  vendors and servers running different operating systems.  "Security
+  in depth" principles require security elements to be installed and
+  activated on many different components on the network, including
+  servers, routers and dedicated firewalls. This means security policy
+  becomes distributed and its implementation requires coordinated
+  changes in configurations of all these components. Now systems or
+  network administrator responsible for these changes must be well
+  versed in several very different firewall platforms in order to be
+  able to make these coordinated changes. They have to constantly
+  break their habits while switching from one platform to another and
+  back. This inevitably leads to human errors in the configurations
+  they write and as a consequence, network outages.
+</p>
+
+<p>
+  What is needed is a tool that could let administrator define
+  security policy on a higher level of abstraction and hide internal
+  structure of the target firewall platform. For example, such tool
+  should decide which iptables chain is right for each generated
+  iptables rule automatically, without administrator's input. It
+  should also pick the right iptables targets for both policy and NAT
+  (Network Address Translation) rules as well as properly use most
+  popular iptables modules, all automatically. Such tool should also
+  implement best practices in policy design and help administrator
+  deploy and activate generated policy on the firewall.
+</p>
+
+<p>
+  Firewall Builder does just that.
+</p>
+
+<h2>Introduction</h2>
+
+<p>
+  One of the fundamental principles on which Firewall Builder is based
+  is that it does not aim at just supporting one particular firewall
+  platform. The goal is to be able to generate configuration for many
+  different firewalls from the same representation in the GUI. To do
+  this, Firewall Builder works with an abstract high level model of a
+  firewall which incorporates features found in all target
+  firewalls. In other words, Firewall Builder is not another iptables
+  GUI, or PF GUI, or ipfilter GUI. Firewall Builder works with a
+  firewall that is neither one of these, and yet at the same time it
+  is all of them combined. It has useful features found in all of the
+  target platforms. If a feature that it implements is not supported
+  in some target firewall, it tries to emulate it (if possible) to
+  make it look like the target really supports it.
+</p>
+
+<p>
+  Since Firewall Builder works with an abstract firewall, all
+  discrepancies go away and administrator always sees consistent model
+  regardless of the chosen target firewall platform. For PIX, the
+  program can make it look like NAT is done after access control rules
+  (but this is optional). For PF, the program always uses PF option
+  that switches it to the non-default "first match" behavior. In the
+  end, the program takes care of translating the firewall model it
+  presents to the user into configuration of the actual target
+  firewall.
+</p>
+
+<p>
+  Policy and NAT rules built in Firewall Builder look very familiar to
+  anyone who ever worked with Firewall-1, PIX, iptables, PF and so
+  on. This is because these rules are just generalization of the ideas
+  and features found in all of those firewalls. The GUI helps
+  administrator create and manage rule sets and policy compilers then
+  translate them into configuration language of the chosen target
+  firewall platform.
+</p>
+
+<img src="overview_screenshot_1.png"/>
+
+<p>
+  Firewall Builder is a GUI firewall configuration and management tool
+  that supports <strong>iptables (netfilter), ipfilter, pf, ipfw, Cisco
+    ASA (FWSM, PIX) and Cisco routers extended access lists</strong>. It
+  presents all supported firewalls to the administrator in terms of
+  unified abstract firewall that takes the best features from all of
+  them and hides their specifics and inconveniences. Firewall Builder
+  is more complex than many basic firewall configuration GUIs such as
+  Firestarter, but on the other hand one can build very complex
+  policies with Firewall Builder and fully utilize flexibility and
+  power of iptables and other supported firewalls.
+</p>
+
+<p>
+  General idea should be familiar to anyone who ever worked with
+  commercial firewall management systems. All configuration management
+  operations can be performed from one central place, Firewall Builder
+  GUI. You create and manage collection of objects that describe
+  network addresses, hosts and firewalls, as well as services, and
+  then build firewall policy and NAT rules using these objects. Policy
+  rules are defined in terms of "Source" and "Destination" addresses
+  and "Service" and can have additional parameters such as interface
+  association, direction, time interval and optional
+  platform-dependent attributes. NAT rules are defined by addresses
+  and services before and after translation.
+</p>
+
+<p>
+  Rules are built with simple drag and drop operations and then
+  firewall configuration can be generated with one click of a
+  mouse. In the end, Firewall Builder produces a script or
+  configuration file in the language of the target firewall. For
+  iptables, it creates shell script that loads iptables rules, while
+  for other platforms it creates configuration file suitable for
+  them. This makes it simple to deploy and activate generated policy
+  and also helps integrate Firewall Builder with existing automation
+  scripts.
+</p>
+
+<p>
+  Firewall Builder GUI has built-in component that uses external ssh
+  client to copy generated configuration to the firewall and then
+  activate it. This works with all supported platforms, including
+  iptables on Linux, PF, ipfilter or ipfw on BSD and Cisco routers and
+  ASA (PIX) firewalls.
+</p>
+
+<p>
+  The program comes with a collection of over 100 standard objects
+  that can be used to describe standard address blocks and networks,
+  such as those defined by RFC1918, whole multicast address block as
+  well as addresses of multicast groups used by popular protocols,
+  various standard IPv4 and IPv6 address allocations. The library of
+  standard objects also includes popular TCP, UDP and ICMP servcies.
+</p>
+
+<p>
+  Firewall Builder implements many best practices in firewall policy
+  design and firewall management procedures. Here are just a few
+  examples:
+</p>
+
+<p>
+  <ul>
+    <li>It enforces policy structure that denies all traffic by
+      default and only permits what is necessary.</li>
+
+    <li>Administrator can easily define ip address of the management
+      workstation and Firewall Builder will automatically add rule to
+      ensure that ssh access from it to the firewall is always
+      permitted. This rule is designed to assure that ssh session over
+      which installer activates new policy does not break or
+      hang. This helps avoid accidents when errors in the policy rules
+      cut remote access to the firewall off in the middle of
+      activation, making it impossible to fix the error and causing
+      prolonged network outage.</li>
+
+    <li>For Cisco PIX (ASA) and IOS access lists, where each
+      access-list commands are immediately activated as they are
+      entered, Firewall Builder can optionally create temporary access
+      list to ensure uninterrupted ssh access from the management
+      workstation to the firewall for the duration of the policy
+      reload session. This method provides the best protection against
+      outages caused by loss of contact with the firewall because of
+      errors in policy.</li>
+
+    <li>For iptables, Firewall Builder can generate script using
+      iptables-restore for atomic activation. If iptables-resore
+      detects an error in the script and refuses to load policy,
+      script leaves the firewall in the state it was in before. For
+      other firewall platforms it uses appropriate activation methods
+      to achieve the same goal.</li>
+
+    <li>Built-in policy installer supports "test" install mode with
+      automatic roll-back. This is another safety mechanism that helps
+      minimize outages in case of errors in the policy. These mearures
+      are available for all supported systems, such as linux/iptables,
+      *BSD/pf, Cisco PIX and Cisco IOS.</li>
+  </ul>
+</p>
+
+
+
+<h2>New features in Firewall Builder 4.0</h2>
+
+<p>
+  Recently released Firewall Builder 4.0 beta adds support for the
+  high availability firewall configurations. It helps generate
+  iptables confgurations for member firewalls for clusters built with
+  <strong>heartbeat</strong>, <strong>vrrpd</strong>
+  and <strong>OpenAIS</strong> on Linux. Policy rules that permit
+  packets sent by the failover protocol agents can be added
+  automatically. Administrator manages one set of policy and NAT rules
+  for the cluster and the program automatically does all address
+  substitutions to generate separate iptables scripts for each member
+  firewall. The program takes into account native addresses of each
+  member and shared addresses managed by the failover protocol when it
+  generates script for each member.
+</p>
+
+<p>
+  Other supported platforms for the high availability firewall
+  configurations are <strong>CARP and pfsync on OpenBSD</strong>
+  and <strong>Cisco ASA (PIX)</strong>.
+</p>
+
+<p>
+  At this time Firewall Builder does not generate configuration for
+  heartbeat, vrrpd or other HA agents on Linux, leaving this task to
+  the other existing configuration management tools. It does, however,
+  generate script that creates and manages <strong>CARP</strong>
+  and <strong>pfsync</strong> interfaces on <strong>OpenBSD</strong>,
+  as well as complete <strong>Cisco ASA (PIX) failover
+  configuration</strong>.
+</p>
+
+<p>
+  Script generated by the Firewall Builder 4.0 can also manage IP
+  addresses of the firewall interfaces. The script adds and removes ip
+  addresses of interfaces as needed when administrator adds or removes
+  them in the Firewall Builder GUI. All changes are done incrementally
+  to avoid complete configuration resets. Firewall Builder 4.0 can
+  also manage VLANs, bridge ports and bonding interfaces and follows
+  the same principles of incremental management for these.
+</p>
+
+<p>
+  Firewall Builder 4.0 comes with host of improvements in all
+  components. These include unlimited depth undo/redo facility in the
+  GUI, temporary password caching in the built-in policy installer,
+  better integration of policy compiler components with the GUI,
+  ability to quickly compile single rule and immediately see the
+  result in the GUI and many other new features. Complete list is
+  available in Firewall Builder 4.0.0 <a href="http://www.fwbuilder.org/4.0/docs/firewall_builder_release_notes.html">Release Notes</a>
+</p>
+
+
+<h2>Benefits</h2>
+
+<p>
+
+</p>
+
+
+<h2>Conclusion</h2>
+
+<p>
+  As all Open Source projects, Firewall Builder depends on the user
+  community who provide testing, bug reports and other forms of
+  feedback. You can file bug reports and feature requests
+  using <a href="https://sourceforge.net/tracker/?group_id=5314&atid=1129518">bug
+  tracking system</a>. Our <a href="https://lists.sourceforge.net/lists/listinfo/fwbuilder-discussion">mailing
+  list </a> is great place to ask for help and discuss the program
+  with other users.
+</p>
+
+<p>
+  The project has been around for almost 10 years, you can see some
+  interesting statistics on
+  our <a href="https://www.ohloh.net/p/fwbuilder"> Ohloh project
+  page</a>.
+</p>
+
+<p>
+  This was just a brief introduction to the Firewall Builder. If you
+  are interested in the program, you can find more information on the
+  project web site at <a href="http://www.fwbuilder.org">
+  http://www.fwbuilder.org</a>.
+</p>
+
+<p>
+  In the next article I am going to demonstrate the process of
+  creation of the firewall configuration with Firewall Builder.
+</p>
