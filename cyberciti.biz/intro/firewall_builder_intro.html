@@ -99,7 +99,7 @@
   Firewall Builder supports <strong>iptables (netfilter), ipfilter,
     pf, ipfw, Cisco ASA (FWSM, PIX) and Cisco routers extended access
     lists</strong>.  Firewall Builder is more complex than many basic
-    firewall configuration GUIs such as Firestarter, but on the other
+    firewall configuration GUI such as Firestarter, but on the other
     hand one can build very complex policies with Firewall Builder and
     fully utilize flexibility and power of iptables and other
     supported firewalls. Firewall Builder works well both as a
@@ -158,7 +158,7 @@
   such as those defined by RFC1918, whole multicast address block as
   well as addresses of multicast groups used by popular protocols,
   various standard IPv4 and IPv6 address allocations. The library of
-  standard objects also includes popular TCP, UDP and ICMP servcies.
+  standard objects also includes popular TCP, UDP and ICMP services.
 </p>
 
 <p>
@@ -197,7 +197,7 @@
     </li>
 
     <li>For iptables, Firewall Builder can generate script that would
-      use iptables-restore for atomic activation. If iptables-resore
+      use iptables-restore for atomic activation. If iptables-restore
       detects an error in the script and refuses to load policy,
       script leaves the firewall in the state it was in before. For
       other firewall platforms it uses appropriate activation methods
@@ -206,9 +206,10 @@
 
     <li>Built-in policy installer supports "test" install mode with
       automatic roll-back. This is another safety mechanism that helps
-      minimize outages in case of errors in the policy. These mearures
-      are available for all supported systems, such as linux/iptables,
-      *BSD/pf, Cisco PIX and Cisco IOS.
+      minimize outages in case of errors in the policy. It is
+      available for all supported OS and firewall platforms, although
+      implementation is not always the most elegant, we are working to
+      improve it.
     </li>
   </ul>
 </p>
@@ -220,7 +221,7 @@
 <p>
   Recently released <strong>Firewall Builder 4.0 beta</strong> adds
   support for the high availability firewall configurations. It helps
-  generate iptables confgurations for member firewalls for clusters
+  generate iptables configurations for member firewalls for clusters
   built with
   <strong>heartbeat</strong>, <strong>vrrpd</strong>
   and <strong>OpenAIS</strong> on Linux. Policy rules that permit
@@ -269,7 +270,7 @@
   fwbuilder with their own, where they can make any modifications they
   want to tailor generated scripts and configuration files to their
   needs. We plan to expand macro language in the future, make it more
-  scaleable and add more modern language constructs.
+  scalable and add more modern language constructs.
 </p>
 
 <p>
@@ -305,7 +306,7 @@
 
 <p>
   Firewall Builder is available in Debian, Ubuntu, Fedora Core Linux,
-  Gentoo and other Linux distrobutions. It is part of OpenBSD and
+  Gentoo and other Linux distributions. It is part of OpenBSD and
   FreeBSD ports. NetCitadel LLC distributes commercially licensed
   Windows and Mac OS X packages that are available
   for <a href="http://www.fwbuilder.org/4.0/netcitadel/index.html">
