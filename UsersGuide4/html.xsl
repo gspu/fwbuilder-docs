@@ -1,17 +1,18 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-<xsl:import href="chunk.xsl"/>
+<xsl:import href="chunkfast.xsl"/>
 <!-- <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh/html/chunk.xsl"/> -->
 <xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
-<xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
 <xsl:param name="base.dir" select="'./html/'"/>
 <xsl:param name="html.stylesheet" select="'users_guide_4.css'"/>
 <xsl:param name="section.autolabel" select="1"/>
 <xsl:param name="section.label.includes.component.label" select="1"/>
 <!-- <xsl:param name="admon.graphics" select="1"/> -->
+<xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
 <xsl:param name="chunker.output.indent" select="'yes'"/>
 <xsl:param name="chunk.section.depth" select="2"/>
+<xsl:param name="chunk.first.sections" select="'yes'"/>
 <xsl:param name="use.id.as.filename" select="1"/>
 <xsl:param name="xref.with.number.and.title" select="0"/>
 

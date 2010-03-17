@@ -26,6 +26,7 @@ SOURCES = Introduction.xml \
 		cluster-cookbook.xml \
 		tricks.xml \
 		vrrpd_cluster.xml \
+		web_server_cluster.xml \
 		heartbeat_cluster.xml \
 		heartbeat_vlan_cluster.xml \
 		heartbeat_dedicated_interface.xml \

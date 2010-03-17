@@ -51,6 +51,9 @@ Version: 1.73.2.dfsg.1-5
     <uri 
         name="chunk.xsl"
         uri="docbook/stylesheet/nwalsh/html/chunk.xsl" />
+    <uri 
+        name="chunkfast.xsl"
+        uri="docbook/stylesheet/nwalsh/html/chunkfast.xsl" />
     <uri
         name="fo-docbook.xsl"
         uri="docbook/stylesheet/nwalsh/fo/docbook.xsl" />

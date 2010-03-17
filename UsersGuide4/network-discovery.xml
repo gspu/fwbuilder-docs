@@ -484,7 +484,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_1.png"/></figure>
 
 	<sect3>
         <title>Importing an iptables configuration created in FireStarter</title>
@@ -507,7 +507,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_2.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_2.png"/></figure>
 
           <para>
   
@@ -556,7 +556,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_3.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_3.png"/></figure>
 
           <para>
   
@@ -573,11 +573,11 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_7.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_7.png"/></figure>
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_8.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_8.png"/></figure>
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_9.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_9.png"/></figure>
 
           <para>
   
@@ -619,7 +619,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_10.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_10.png"/></figure>
 
           <para>
   
@@ -639,7 +639,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_14.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_14.png"/></figure>
 
           <para>
   
@@ -679,7 +679,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_15.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_15.png"/></figure>
 
           <para>
   
@@ -693,7 +693,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_11.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_11.png"/></figure>
 
           <para>
   
@@ -735,7 +735,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_16.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_16.png"/></figure>
 
           <para>
   
@@ -803,7 +803,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_17.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_17.png"/></figure>
 
       </sect3>
 
@@ -861,7 +861,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_20.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_20.png"/></figure>
 
           <para>
   
@@ -874,7 +874,7 @@ iptables-save &gt; iptables_config.conf
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_21.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_21.png"/></figure>
 
           <para>
   
@@ -933,7 +933,7 @@ ip access-list extended e1_0_acl_out
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_22.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_22.png"/></figure>
 
           <para>
   
@@ -948,7 +948,7 @@ ip access-list extended e1_0_acl_out
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_30.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_30.png"/></figure>
 
           <para>
   
@@ -991,7 +991,7 @@ interface Ethernet1/2
           </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="importer_31.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="importer_31.png"/></figure>
 
           <para>
   

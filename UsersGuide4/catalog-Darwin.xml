@@ -48,6 +48,9 @@
     <uri 
         name="chunk.xsl"
         uri="html/chunk.xsl" />
+    <uri 
+        name="chunkfast.xsl"
+        uri="html/chunkfast.xsl" />
     <uri
         name="fo-docbook.xsl"
         uri="fo/docbook.xsl" />

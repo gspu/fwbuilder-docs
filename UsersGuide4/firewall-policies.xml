@@ -47,21 +47,6 @@
       your rules as if NAT translation will happen before the access
       rules are applied.</para>
 
-      <figure id="policies-seq">
-        <title>The sequence in which NAT and Policy rules
-          are applied to the packet in Firewall Builder</title>
-        <graphic width="100" fileref="policies-seq.png"/>
-      </figure>
-
-      <para><xref linkend="policies-seq" /> represents the logical
-      sequence in which rules defined in Firewall Builder affect the
-      network packet. This diagram describes an abstract firewall that
-      Firewall Builder represents for the user. In some cases the
-      target firewall may work the same way, in some other cases it
-      won't. Either way, you can build your rules as if all your
-      firewalls, regardless of platform, work like
-      <xref linkend="policies-seq" />.
-      </para>
 
     </sect1>
 

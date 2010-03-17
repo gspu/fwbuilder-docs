@@ -63,7 +63,7 @@
     <para>In this section we examine object types that represent
     addresses or groups of addresses.</para>
 
-    <sect2>
+    <sect2 id="common-properties">
       <title>Common Properties of Addressable Objects</title>
       <para>Objects that contain IP address fields provide validity
       checking for the address when the object is saved. Invalid IP
@@ -72,6 +72,7 @@
 
     <sect2 id="firewall-object">
       <title>The Firewall Object</title>
+
 	<para>A firewall object represents a real firewall device in
 	your network. This firewall object will have interface and IP
 	address objects that mirror the real interfaces and IP
@@ -359,6 +360,8 @@
         </figure>
 
 	</sect4>
+
+
 	<sect4 id="firewall-settings-dialog">
 	  <title>Firewall Settings dialog</title>
 
@@ -372,70 +375,350 @@
 
 	</sect4>
 
-	<sect4 id="rule-set-objects">
-	  <title>Editing Rule Set Objects</title>
+      </sect3>
+    </sect2>
 
-	    <para>Firewalls can have one or more of the of the
-	    following types of rule sets: access policy, NAT, and
-	    Routing. A firewall has, by default, one access policy
-	    rule set, one NAT rule set, and one routing rule
-	    set. However, you can add additional rule sets if you
-	    like.</para>
+    <sect2 id="cluster-object">
+      <title>The Cluster Object</title>
 
-	    <para>Rule sets are child objects of the a firewall
-	    object. They cannot stand alone.</para>
+      <para>
+        Cluster object represents an abstraction of a high
+        availability (HA) setup that consists of two or more member
+        firewalls, each represented by its own Firewall object.
+      </para>
 
-	    <para>As objects, rule sets have parameters. In Firewall
-	    Builder, rule sets have the following parameters:</para>
+
+      <para>
+        New object type "Cluster" (located under Clusters in the tree)
+        represents the HA pair.  You configure policy and NAT rules in the
+        rule sets of this object rather than in the actual firewalls.
+      </para>
+
+      <para>
+        Here is what you need to do to set up HA configuration:
+      </para>
+
+      <para>
+        <itemizedlist spacing="compact">
+          <listitem><para>Create your firewall objects. Assign
+            platform and host OS and name interfaces as usual. Do not
+            add any policy or NAT rules. These are your real (member)
+            firewalls. Interfaces should have their real IP addresses
+            (not CARP or VRRP addresses).
+          </para></listitem>
+
+          <listitem>
+            <para>
+              Create a Cluster object which you configure with proper
+              platform and host OS. Use the usual "New Object" menu or
+              toolbar button to create this object. Note that in order
+              for the firewall object to become a member of a cluster,
+              their platform and host OS settings must match.
+            </para>
+
+            <para>
+              There are two ways to create new cluster object: first,
+              you can use main menu "Object / New Object" (or a
+              toolbar button that calls the same function) as shown on
+              <xref linkend="new_cluster_method_1"/>:
+            </para>
+
+            <figure id="new_cluster_method_1">
+              <title>Create new cluster using main menu "Object / New
+              Object" or toolbar button </title>
+              <graphic scale="50" fileref="new-cluster-method-1.png"/>
+            </figure>
+
+            <para>
+              This opens a wizard that will guide you through the
+              steps of creating new cluster object. The first page of
+              the wizard shows all the available firewall object where
+              you need to choose which ones will become cluster
+              members:
+            </para>
+
+            <figure id="new_cluster_method_1_1">
+              <title>First page of the wizard, choosing firewall
+              objects to become cluster members </title>
+              <graphic scale="50" fileref="new-cluster-method-1-1.png"/>
+            </figure>
+
+
+            <para>
+              Another method is to select two or more firewall objects
+              that are to become cluster members and click right mouse
+              button to open context menu, then use menu item "New
+              cluster from selected firewalls" as shown on
+              <xref linkend="new_cluster_method_2"/>. You can select
+              two or more objects in the tree by clicking the object
+              while holding the "Ctrl" key ("Cmd" on Macintosh).
+            </para>
+
+            <figure id="new_cluster_method_2">
+              <title>Create new cluster using context menu menu</title>
+              <graphic scale="50" fileref="new-cluster-method-2.png"/>
+            </figure>
+
+            <para>
+              This opens the same wizard, except the list on its first
+              page is populated only with selected firewall objects:
+            </para>
+
+            <figure id="new_cluster_method_2_1">
+              <title>First page of the wizard, only selected firewall
+              objects are listed </title>
+              <graphic scale="50" fileref="new-cluster-method-2-1.png"/>
+            </figure>
+
+            <para>
+              Obviously there is no difference when object tree has
+              only two firewall objects, but the shortcut via context
+              menu is more convenient when you have lots of them.
+            </para>
+
+          </listitem>
+
+          <listitem><para>
+            The program guides you through the process of creation of the
+            new Cluster object using wizard-like dialog. You start with the
+            list of firewall objects where you choose which firewalls should
+            become members of the cluster. Next, the program finds
+            interfaces of the member firewalls that have the same name and
+            can be part of the cluster and creates cluster interfaces with
+            the same name. Not all interfaces are eligible, for example
+            bridge ports, bonding interface slaves or parents of vlan
+            interfaces can not be used for the cluster. Cluster interfaces
+            define failover groups. You can add, remove or rename cluster
+            interfaces, as well as change which interfaces of the member
+            firewalls are used with each one. On the next page of the wizard
+            you can change failover protocols and add, remove or change IP
+            addresses of cluster interfaces. Not all failover protocols
+            require IP addresses, for example VRRP or CARP do but heartbeat
+            or OpenAIS don't. Finally, you can choose to use policy and NAT
+            rules of one of the member firewalls to populate Policy and NAT
+            rule sets of the new cluster. If this is done, all references to
+            the original member firewall and its interfaces in rules are
+            replaced with references to the cluster and its interfaces. The
+            program also creates backup copies of the member firewall
+            objects with the name with suffix "-bak" and clears Policy and
+            NAT rule sets of the member firewall objects used with the
+            cluster before new cluster is created.
+          </para></listitem>
+
+          <listitem><para>
+            OpenBSD or FreeBSD cluster gets carp interfaces. Name them
+            "carp0", "carp1" or whatever indexes they have on your
+            machines. You can add CARP password and ID at the same time, but
+            if you don't, you can add them later.
+          </para></listitem>
+
+          <listitem><para>
+            If you use heartbeat or OpenAIS (on Linux) for failover, cluster
+            interfaces should have the same names as corresponding member
+            firewall interfaces. In this case, cluster interfaces are
+            virtual entities that represent interfaces of the corresponding
+            member firewalls. The program will make substitution when it
+            compiles rules. This is also how it works for PIX failover
+            configuration.
+          </para></listitem>
+
+          <listitem><para>
+            Each cluster interface has child "Failover group" object with
+            the name "firewall:carp0:members" or similar.  This is where you
+            configure associated member firewall interfaces.  Double click
+            this object in the tree and then click "Manage Members" button
+            in the dialog. Select interfaces of the member firewalls in the
+            panel on the left hand side and click arrow button to add them
+            to the list on the right. Use checkbox to select master. Click
+            OK when done. The platform and host OS of the cluster object and
+            members must match, otherwise firewall objects do not appear in
+            the "members" dialog panel.
+          </para></listitem>
+
+          <listitem><para>
+            Besides interfaces, the Cluster object has a new child object
+            "State Sync Group". This group represents state synchronization
+            protocol. Currently <emphasis>pfsync</emphasis> is supported for OpenBSD and
+            <emphasis>conntrackd</emphasis> for Linux. To configure, double click it in
+            the tree to open it in the dialog and click "Manage
+            Members". Select interfaces of the member firewalls in the panel
+            on the left hand side and click arrow button to add them to the
+            list on the right. Use checkbox to select master. Click OK when
+            done. They should appear in the "members" table in the State
+            Sync Group dialog. The platform and host OS of the cluster
+            object and members must match, otherwise firewall objects do not
+            appear in the "members" dialog panel.
+          </para></listitem>
+
+          <listitem><para>
+            Button "Edit protocol parameters" allows you to edit some
+            parameters for chosen failover protocol. This is where you can
+            configure an address and port for heartbeat and OpenAIS.
+          </para></listitem>
+
+          <listitem><para>
+            There are few new checkboxes in the "Script" tab of the firewall
+            object dialog. These allow you to control whether the program
+            will add shell commands to create and configure bonding, bridge
+            and VLAN interfaces.
+          </para></listitem>
+
+          <listitem><para>
+            Compile by clicking right mouse button on the cluster object and
+            using menu item "Compile". This will in fact compile each member
+            firewall separately so you'll get .fw and .conf files for both
+            of them.
+          </para></listitem>
+
+          <listitem><para>
+            Again, you configure all the rules in the policy and NAT rule
+            sets that belong to the cluster object. If you put cluster's
+            interfaces in rules, the program replaces them with interfaces
+            of the member firewall when it compiles rules. If you put
+            cluster object in a rule, it is like if you put member firewall
+            object there instead, except the program automatically picks the
+            member firewall it compiles the policy for.
+          </para></listitem>
+
+          <listitem><para>
+            First, the program looks at Policy and NAT rule set objects of
+            the cluster and member firewalls and compares their names. If
+            there is rule set object with the same name in both the cluster
+            and member firewall and both have non-zero number of rules, the
+            rule set object from the member is used and the one from the
+            cluster is ignored. The program prints a warning message when
+            this is done. If rule set objects with the same name exist but
+            the one in the member firewall has zero rules, it is ignored and
+            the one from the cluster is used (no warning is
+            issued). Likewise, if there are rule sets with the same name but
+            the one in the cluster has zero rules, it is ignored.
+          </para></listitem>
+
+          <listitem>
+            <para>
+              Here is what you need to do if you want to have most rules
+              defined in the cluster so they will translate into rules for all
+              member firewalls, but have some rules defined in the members so
+              you can make configurations of the members slightly different:
+              <itemizedlist>
+
+                <listitem><para>Create separate rule set object in the
+                  cluster and in each member. Use name different from
+                  "Policy" or "NAT". Lets use name
+                  "member_override".</para></listitem>
+
+                <listitem><para>Create a rule with action "Branch" in
+                  the main Policy or NAT rule set of the cluster, drag
+                  rule set object "member_override" that belongs to
+                  the cluster to the well in the Branch action
+                  parameters dialog.</para></listitem>
+
+                <listitem><para>Leave "member_override" rule set that
+                    is a child of the cluster
+                    object empty (no rules)</para></listitem>
+
+                <listitem><para>Add rules to the rule set
+                  "member_override" in each member
+                  firewall</para></listitem>
+
+                <listitem><para>Make sure rule set "member_override"
+                  is not marked as "Top ruleset" in the cluster and
+                  each member. This rule set translates into
+                  user-defined chain (iptables) or anchor (PF) and
+                  should not be the "top ruleset".</para></listitem>
+                
+              </itemizedlist>
+              This method works for both policy and NAT rules for all
+              platforms.
+            </para>
+          </listitem>
+
+        </itemizedlist>
+      </para>
+
+    </sect2>
+
+    <sect2 id="rule-set-objects">
+      <title>Editing Rule Set Objects</title>
+
+      <para>
+        Firewalls and Clusters can have one or more of the of the
+	following types of rule sets: access policy, NAT, and
+	Routing. A firewall has, by default, one access policy rule
+	set, one NAT rule set, and one routing rule set. However, you
+	can add additional rule sets if you like.
+      </para>
+
+      <para>
+        Rule sets are child objects of the a firewall
+	object. They cannot stand alone.
+      </para>
+
+      <para>
+        As objects, rule sets have parameters. In Firewall
+	Builder, rule sets have the following parameters:
+      </para>
 
       <itemizedlist>
-	<listitem><para><guilabel>Name</guilabel>: The name of the
-	rule set. If you only have one of each type of rule set, you
-	can leave this at its default.
-	</para></listitem>
-	<listitem><para><guilabel>Rule Set family</guilabel>: This
-	pull-down menu lets you specify whether policy compiler should
-	treat the rule set as an IPv4 rule set, an IPv6 rule set, or a
-	combined rule set. If set to IPv4, then only IPv4 rules will
-	be processed and IPv6 rules will be ignored. The opposite is
-	true if you specify an IPv6 rule set. If you
-	select <guimenuitem>This is combined IPv4 and IPv6 rule
-	set</guimenuitem>, then the compiler will process both types
-	of rules and place them into the appropriate places in the
-	install script.
-	</para></listitem>
-	<listitem><para><guilabel>filter+mangle table</guilabel>
-	or <guilabel>mangle table</guilabel>: These radio buttons let
-	you specify whether the rules will apply to the iptables
-	filter table <emphasis>and</emphasis> mangle table, or just
-	the mangle table. (These radio buttons only appear for access
-	policy rule sets, and only for iptables.) Under most
-	circumstances, the compiler places each rule into the correct
-	table (filter or mangle) automatically. However some
-	combinations of service objects and actions are ambiguous and
-	can be used in both filter and mangle tables. In cases like
-	these, you can clarify things for the compiler by creating a
-	separate Policy ruleset that will be translated only into the
-	mangle table.
-	</para></listitem>
-	<listitem><para><guilabel>Top ruleset</guilabel>: One of your
-	rule sets must be the "top" rule set. The top ruleset is the
-	one used by the firewall. Other rule sets of that type are
-	used only if you branch to them using branching logic in the
-	top rule set. (If you don't use branching, then only the rule
-	set tagged as "top" is used.)
-	</para></listitem>
-	<listitem><para><guilabel>Comment</guilabel>: A free-form
-	comment field.
-	</para></listitem>
+	<listitem>
+          <para><guilabel>Name</guilabel>: The name of the
+	    rule set. If you only have one of each type of rule set, you
+	    can leave this at its default.
+	  </para>
+        </listitem>
+
+	<listitem>
+          <para><guilabel>Rule Set family</guilabel>: This
+	    pull-down menu lets you specify whether policy compiler should
+	    treat the rule set as an IPv4 rule set, an IPv6 rule set, or a
+	    combined rule set. If set to IPv4, then only IPv4 rules will
+	    be processed and IPv6 rules will be ignored. The opposite is
+	    true if you specify an IPv6 rule set. If you
+	    select <guimenuitem>This is combined IPv4 and IPv6 rule
+	      set</guimenuitem>, then the compiler will process both types
+	    of rules and place them into the appropriate places in the
+	    install script.
+	  </para>
+        </listitem>
+
+	<listitem>
+          <para><guilabel>filter+mangle table</guilabel>
+	    or <guilabel>mangle table</guilabel>: These radio buttons let
+	    you specify whether the rules will apply to the iptables
+	    filter table <emphasis>and</emphasis> mangle table, or just
+	    the mangle table. (These radio buttons only appear for access
+	    policy rule sets, and only for iptables.) Under most
+	    circumstances, the compiler places each rule into the correct
+	    table (filter or mangle) automatically. However some
+	    combinations of service objects and actions are ambiguous and
+	    can be used in both filter and mangle tables. In cases like
+	    these, you can clarify things for the compiler by creating a
+	    separate Policy ruleset that will be translated only into the
+	    mangle table.
+	  </para>
+        </listitem>
+
+	<listitem>
+          <para><guilabel>Top ruleset</guilabel>: One of your
+	    rule sets must be the "top" rule set. The top ruleset is the
+	    one used by the firewall. Other rule sets of that type are
+	    used only if you branch to them using branching logic in the
+	    top rule set. (If you don't use branching, then only the rule
+	    set tagged as "top" is used.)
+	  </para>
+        </listitem>
+
+	<listitem>
+          <para><guilabel>Comment</guilabel>: A free-form
+	    comment field.
+	  </para>
+        </listitem>
       </itemizedlist>
 
-	    <figure id="rule-set-options1">
-	      <title>Rule set options</title>
-              <graphic scale="70" fileref="rule-set-options1.png" />
-	    </figure>
-	</sect4>
-      </sect3>
+      <figure id="rule-set-options1">
+	<title>Rule set options</title>
+        <graphic scale="70" fileref="rule-set-options1.png" />
+      </figure>
     </sect2>
 
     <sect2 id="host-interface">
@@ -3180,8 +3463,8 @@ exit
       </sect3>
     </sect2>
 
-    <sect2>
-      <title>Using ICMP and ICMP6 Service Objects   in Firewall Builder</title>
+    <sect2 id="icmp-service">
+      <title>ICMP and ICMP6 Service Objects</title>
 
         <para>
   
@@ -3983,7 +4266,7 @@ Error (pf): TCPService object with option "established" is not supported
       </sect3>
     </sect2>
 
-    <sect2>
+    <sect2 id="udp-service">
       <title>UDP Service</title>
 
           <para>

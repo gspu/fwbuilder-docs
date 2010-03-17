@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <sect2 id="web_server_cluster">
+    <title>Web server cluster</title>
+
+    <para>
+      This example demonstrates practical configuration of a clustered
+      web server with multiple virtual IP addresses. It is loosely
+      based on <xref linkend="heartbeat_cluster"/> although which high
+      availability software is used to build the cluster is not
+      essential. I start with the setup that consists of two identical
+      servers running Linux but in the end of the chapter I am going
+      demonstrate how this configuration can be converted to OpenBSD
+      with CARP.
+    </para>
+
+    <para>
+      In this example I am working with redundant web server
+      configuration where each machine has its own IP address, plus
+      three additional virtual addresses that can be used for virtual
+      hosts. Firewall Builder generates iptables script for both
+      machines. Configuration of the HA agent should be handled either
+      manually or using specialized configuration system such as
+      pacemaker. When I convert the same setup from Linux to OpenBSD,
+      I am going to show how fwbuilder can generate not only firewall
+      configuration, but also the script that manages CARP and pfsync
+      interfaces.
+    </para>
+
+    <figure id="web_server_cluster_1">
+      <title>HA configuration using two web servers</title>
+      <graphic scale="50" fileref="web-server-cluster-1.png"/>
+    </figure>
+
+    <note>
+      <para>
+        IPv6 addresses are not used in this recipe. Some interface
+        objects in the screenshots have ipv6 addresses because firewall
+        objects were "discovered" using snmp which finds ipv6
+        addresses. You can disregard these addresses while working
+        with examples in this chapter.
+      </para>
+    </note>
+
+    <sect3>
+      <title>Setting up heartbeat</title>
+
+      <para>
+        I am going to use an "old" heartbeat configuration files in
+        this example just to demonstrate how the configuration looks
+        like. You should probably use modern CLuster Resource Manager
+        software such as
+        <ulink url="http://www.clusterlabs.org/wiki/Main_Page">
+          Pacemaker</ulink>.
+      </para>
+
+      <para>As shown in <xref linkend="web_server_cluster_1"/>,
+        machines linux-test-1 and linux-test-2 run heartbeat daemon
+        (<ulink url="http://www.linux-ha.org/"><citetitle>Linux-HA
+        home page</citetitle></ulink>) to create virtual IP addresses.
+        Heartbeat adds virtual IP address to the same interface eth0.
+        One of the daemons becomes master and takes owbership of the
+        virtual address by adding it to the interface with the label
+        "eth0:0" or "eth0:1".
+      </para>
+
+      <note>
+        <para>
+          <xref linkend="linux_cluster_overview"/> explains that
+          "eth0:0" is not an interface and should not be used as the
+          name of the interface object in fwbuilder configuration. See
+          <xref linkend="linux_cluster_overview"/> for more detailed
+          explanation.
+        </para>
+      </note>
+      
+      <para>
+        In this example I am using heartbeat in multicast mode where
+        it sends UDP datagram to the multicast address 225.0.0.1 every
+        second or so to declare that it is up and running and owns the
+        address.
+      </para>
+
+      <para>
+        If you are interested in the "old" style heartbeat
+        configuration files used to set up this example, see
+        <xref linkend="heartbeat_cluster"/> above.
+      </para>
+
+      <para>
+        Once heartbeat daemon is configured and started on both
+        servers, their IP address configuration looks like shown in
+        <xref linkend="web_server_cluster_ip_addr_config_1"/> and
+        <xref linkend="web_server_cluster_ip_addr_config_2"/>. Note
+        that virtual addresses are highlighted to illustrate that the
+        heartbeat is running in active/active configuration, that is,
+        two virtual addresses are active on one machine and the third
+        is active on another. If either machine dies, all three
+        virtual addresses will move over to the one that is left
+        working.
+      </para>
+
+      <figure id="web_server_cluster_ip_addr_config_1">
+        <title>IP addresses of the web server linux-test-1</title>
+        <programlisting>
+root@linux-test-1:/etc/ha.d# ip addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:aa brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+    <emphasis role="redtext">inet 10.3.14.150/24 brd 10.3.14.255 scope global secondary eth0:0</emphasis>
+    <emphasis role="redtext">inet 10.3.14.151/24 brd 10.3.14.255 scope global secondary eth0:1</emphasis>
+    inet6 fe80::20c:29ff:fe1e:dcaa/64 scope link 
+       valid_lft forever preferred_lft forever
+        </programlisting>
+      </figure>
+
+      <figure id="web_server_cluster_ip_addr_config_2">
+        <title>IP addresses of the web server linux-test-2</title>
+        <programlisting>
+root@linux-test-2:/etc/ha.d# ip addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:fc:67:8c brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.109/24 brd 10.3.14.255 scope global eth0
+    <emphasis role="redtext">inet 10.3.14.152/24 brd 10.3.14.255 scope global secondary eth0:0</emphasis>
+    inet6 fe80::20c:29ff:fefc:678c/64 scope link 
+       valid_lft forever preferred_lft forever
+        </programlisting>
+      </figure>
+    </sect3>
+
+
+    <sect3>
+      <title>Creating Firewall and Cluster objects</title>
+
+      <para>
+        The process of creating firewall and cluster objects has been
+        described in this Users Guide many times. For the detailed
+        walk-through see <xref linkend="firewall-object"/> and 
+        <xref linkend="cluster-object"/>
+      </para>
+
+    </sect3>
+
+  </sect2>
