@@ -916,7 +916,15 @@
 	</sect2>
     </sect1>
 
-	<sect1 id="using-undo">
+	<sect1 id="undoredo">
+	  <title>Undo and Redo</title>
+	    <para>Firewall Builder supports Undo and Redo from the GUI and from the keyboard. In the GUI, both are in the <guimenu>Edit</guimenu> menu. The keyboard commands are Ctrl-Z for Undo, and Ctrl-Y for Redo.</para>
+
+            <para>The Undo stack is essentially infinite, so you can press Ctrl-Z repeatedly to roll back numerous changes.</para>
+
+	    <para>In addition, you can view the Undo stack itself by selecting <guimenuitem>Edit > Undo Stack</guimenuitem>. From there you can roll back several changes with a single mouse click.</para>
+
+	<sect2 id="using-undo">
 	  <title>Undo Stack</title>
 
 	  <para>The undo stack shows you a list of your changes, and lets you roll back changes you don't want. You can roll back just one change, all changes after a certain point, or all changes.</para>
@@ -962,7 +970,7 @@
             <graphic scale="50" fileref="undo-stack4.png" />
       </figure>
       </para>
-
+	</sect2>
 	</sect1>
 
       <sect1 id="preferences">
