@@ -145,11 +145,250 @@ root@linux-test-2:/etc/ha.d# ip addr ls
       <title>Creating Firewall and Cluster objects</title>
 
       <para>
-        The process of creating firewall and cluster objects has been
-        described in this Users Guide many times. For the detailed
-        walk-through see <xref linkend="firewall-object"/> and 
-        <xref linkend="cluster-object"/>
+        Here I present an abbreviated explanation of the process of
+         creating firewall and cluster objects. More detailed
+         step-by-step guides are available in
+         <xref linkend="firewall-object"/> and
+         <xref linkend="cluster-object"/>
       </para>
+
+
+
+      <para>
+        As usual, to create a firewall object I use main menu
+        "Object/New object" which opens a menu of object types:
+      </para>
+
+      <figure id="web_server_cluster_fw_1">
+        <title>Creating first member firewall object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-1.png"/>
+      </figure>
+
+      <para>
+        After I choose the type "Firewall", a wizard used to create
+        new firewall object opens:
+      </para>
+
+      <figure id="web_server_cluster_fw_2">
+        <title>Choosing the name, platform and host OS for the firewall object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-2.png"/>
+      </figure>
+
+      <para>
+        To make things simpler, I am going to use preconfigured
+        template object "web server" that comes with the package. This
+        object represents a machine with one interface "eth0" and
+        comes with some basic firewall policy that can be useful as a
+        starting point for the firewall configuration for a web server.
+      </para>
+
+      <figure id="web_server_cluster_fw_3">
+        <title>Choosing template firewall object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-3.png"/>
+      </figure>
+
+      <para>
+        Template firewall object has IP address that does not match
+        address chosen for this example. The next page of the wizard
+        allows me to change the address and add two more:
+      </para>
+
+      <figure id="web_server_cluster_fw_4">
+        <title>Changing ip address of the firewall object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-4.png"/>
+      </figure>
+
+      <para>
+        Once I am done changing ip addresses and click "Finish", the
+        new firewall object is created and is added to the library of
+        objects that was opened at the moment. In this example this
+        library is called "Cookbook2". I "floated" the object tree
+        panel to make the screenshot more compact. You can see the new
+        firewall object in the tree, its interfaces and ip addresses,
+        as well as preconfigured policy rule set on screenshot
+        <xref linkend="web_server_cluster_fw_5"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_5">
+        <title>Firewall object created from the template</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-5.png"/>
+      </figure>
+
+      <para>
+        The member firewall object's interface "eth0" has only one IP
+        address which is its own, in our example 10.3.14.108. Virtual
+        addresses managed by heartbeat will be added to the cluster
+        object later.
+      </para>
+
+      <para>
+        Next, I create the second member firewall linux-test-2 with
+        its own ip address:
+      </para>
+
+      <figure id="web_server_cluster_fw_6">
+        <title>Two member firewall objects</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-6.png"/>
+      </figure>
+
+      <para>
+        Because our firewall objects represent web servers which
+        should never have to forward packets, we should turn ip
+        forwarding off. To do this, double click the firewall object
+        in the tree to open it in the editor, then click "Host OS
+        settings" button and turn IP forwarding off as shown in
+        <xref linkend="web_server_cluster_fw_6_1"/>. Turning ip
+        forwarding off in this dialog has several consequences:
+        generated firewall script will actually turn it off on the
+        server and Firewall Builder policy compiler will not generate
+        any rules in the FORWARD chain.
+      </para>
+
+      <figure id="web_server_cluster_fw_6_1">
+        <title>Turn off ip forwarding</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-6-1.png"/>
+      </figure>
+
+
+      <para>
+        Now that I have both firewall objects, I can create cluster
+        object that will represent my HA pair. To do this, I select
+        both firewall objects in the tree by clicking on them while
+        holding Ctrl key, then click right mouse button to open
+        context menu and choose item "New cluster from selected firewalls":
+      </para>
+
+      <figure id="web_server_cluster_fw_7">
+        <title>Create cluster object from two member firewalls</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-7.png"/>
+      </figure>
+
+      <para>
+        This opens a wizard that will walk you through the process of
+        creating new cluster object. The wizard was opened using "New
+        cluster from selected firewalls" menu, because of that there
+        are only two firewall objects in the list. If I used main menu
+        "Object/New Object" and then "New Cluster", I would see all
+        firewalls defined in my data file in the list which can be
+        quite long.
+      </para>
+
+      <figure id="web_server_cluster_fw_8">
+        <title>Choosing the name for the new cluster object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-8.png"/>
+      </figure>
+
+      <note>
+        <para>
+          A word about "Master" column. Not all failover protocols
+          require one of the member firewalls to be designated as
+          "master". Most protocols used on Linux don't, so you can
+          disregard this setting on the first page of the wizard.  It
+          is needed for other platforms, such as PIX. In this sense
+          setting "master" on the first page of the wizard is not
+          optimal. We will rectify this in the future versions of
+          Firewall Builder.
+        </para>
+      </note>
+
+      <figure id="web_server_cluster_fw_9">
+        <title>Choosing interfaces of the member firewalls</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-9.png"/>
+      </figure>
+
+      <para>
+        This page of the wizard allows me to establish correspondence
+        between interfaces of the member firewalls create cluster
+        interface objects that will represent them. Cluster interface
+        object should have the same name as corresponding member
+        firewall interfaces. The program tries to guess what
+        interfaces of the member firewalls can be used for the cluster
+        and in a simple configuration like the one I am working with,
+        guesses right.
+      </para>
+
+      <para>
+        On the next page of the wizard I can choose failover protocol
+        used by the cluster on each interface (in principle, I can run
+        different protocols on different inetrfaces) and virtual IP
+        addresses.
+      </para>
+
+      <figure id="web_server_cluster_fw_10">
+        <title>Choosing IP addresses for the interfaces of the cluster</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-10.png"/>
+      </figure>
+
+      <para>
+        Next page of the wizard is particularly interesting. Here I
+        can choose which member firewall's policy to use for the
+        cluster. This feature is designed mostly for those who convert
+        from the old manually maintained configuration of redundant
+        firewalls to the new cluster object and want to reuse policy
+        rules that used to belong to one of the member firewalls.
+      </para>
+
+      <figure id="web_server_cluster_fw_11">
+        <title>Cluster will inherit rules of one of the member firewalls</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-11.png"/>
+      </figure>
+
+      <para>
+        When new cluster object inherits policy and other rule sets of
+        one of the members, the program copies rules from the
+        designated member to the cluster, then it creates copies of
+        all member firewalls, clears their rule sets and sets the
+        cluster up to use these copies as members. It keeps old member
+        firewall objects in the file, but they are marked as inactive
+        and renamed. These objects are kept as a backup in case you
+        may want to check their configuration or copy rules. New
+        cluster object is shown in <xref linkend="web_server_cluster_fw_12"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_12">
+        <title>New cluster obejct</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-12.png"/>
+      </figure>
+
+      <para>
+        Each cluster interface has child "Failover group" object with
+        the name "firewall:eth0:members" or similar. This is where you
+        configure associated member firewall interfaces.  Double click
+        this object in the tree and then click "Manage Members" button
+        in the dialog. Select interfaces of the member firewalls in
+        the panel on the left hand side and click arrow button to add
+        them to the list on the right.  When you create cluster object
+        using the wizard, the Failover Group objects are created
+        automatically.
+      </para>
+
+      <figure id="web_server_cluster_fw_13">
+        <title>Failover group object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-13.png"/>
+      </figure>
+
+      <para>
+        Failover Group object not only ties interfaces of the member
+        firewalls together, it is also the place where you configure
+        failover protocol and its parameters. I am using heartbeat in
+        this example and failover group object
+        "web_server_cluster:eth0:members" is configured with this
+        protocol as shown in
+        <xref linkend="web_server_cluster_fw_13"/>. To configure
+        parameters of the protocol, click "Edit protocol parameters"
+        button. This opens dialog <xref linkend="web_server_cluster_fw_14"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_14">
+        <title>Parameters of heartbeat protocol</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-14.png"/>
+      </figure>
+
+      <para>
+        These parameters are used to generate policy rules that permit
+        packets of the protocol.
+      </para>
+
 
     </sect3>
 
