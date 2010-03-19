@@ -636,7 +636,7 @@
         </itemizedlist>
       </para>
 
-      <sect3>
+      <sect3 id="cluster_rule_set_override">
         <title>Handling of the cluster rule set and member firewalls rule sets</title>
 
         <para>

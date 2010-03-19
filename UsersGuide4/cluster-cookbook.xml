@@ -6,6 +6,8 @@
 <sect1 id="cluster-cookbook">
   <title>Examples of cluster configurations</title>
 
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="web_server_cluster.xml"/>
+
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vrrpd_cluster.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_cluster.xml"/>
@@ -13,8 +15,6 @@
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_vlan_cluster.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_dedicated_interface.xml"/>
-
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="web_server_cluster.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="state_sync_conntrackd.xml"/>
 
