@@ -5,17 +5,23 @@ SHELL = /bin/sh
 DESTDIR = 
 
 
+SYSTEM := $(shell uname -s)
+SOURCES = FAQ4.xml
 
-FAQ2.html:  FAQ2.sgml FAQ.dsl 
-	db2html -d `pwd`/FAQ.dsl -o . FAQ2.sgml
+CATALOGS = catalog-Darwin.xml catalog-Linux.xml
+HTML_STYLESHEETS = html.xsl
 
-FAQ2: FAQ2.html
-	links -dump FAQ2.html > FAQ2
+.PHONY: all html
 
+all:  html
 
-Build.html:  Build.sgml Build.dsl 
-	db2html -d `pwd`/Build.dsl -o . Build.sgml
+clean:
+	rm -rf html
+	rm -f $(STAGEDIR)/*
 
-Build: Build.html
-	links -dump Build.html  > Build
+html: FAQ4.html 
+
+FAQ4.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
+	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl FAQ4.xml > FAQ4.html
+
 

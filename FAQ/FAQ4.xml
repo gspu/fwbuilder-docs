@@ -1,44 +1,49 @@
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
-<!entity fwbuilder-url    "http://www.fwbuilder.org/">
-<!entity netcitadel-url   "/netcitadel/index.html">
-<!entity guide-url        "http://www.fwbuilder.org/UsersGuide.pdf">
-<!entity cookb-url        "/guides/firewall_builder_cookbook.html">
-<!entity build-url        "/guides/firewall_builder_installation.html">
-<!entity iptables-url     "http://www.iptables.org/">
-<!entity ipfilter-url     "http://coombs.anu.edu.au/~avalon/">
-<!entity pf-url           "http://www.benzedrine.cx/pf.html">
-<!entity qt-url           "http://www.trolltech.com/">
-<!entity sveasoft-url     "http://www.sveasoft.com/">
-<!entity gtkmm-url        "http://gtkmm.sourceforge.net/">
-<!entity gtkmm-download   "http://www.hvrlab.org/pub/gtkmm/">
-<!entity cvs-checkout     "http://sourceforge.net/cvs/?group_id=5314">
-<!entity sf-files         "http://sourceforge.net/project/showfiles.php?group_id=5314">
-<!entity nightly-builds   "http://www.fwbuilder.org/nightly_builds/">
-<!entity gtkmm-ximian     "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/gtkmm-1.2.9-1.ximian.1.src.rpm">
-<!entity libsigcpp-ximian "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/libsigc++-1.0.4-1.ximian.4.src.rpm">
-<!entity installer-howto  "http://www.fwbuilder.org/guides/firewall_builder_policy_installer.html">
-<!entity nf-conntrack-page "http://www.netfilter.org/projects/patch-o-matic/pom-extra.html#pom-extra-nf_conntrack">
-<!entity nf-conntrack-discussion "http://lists.netfilter.org/pipermail/netfilter-devel/2006-July/024879.html">
-<!entity debugview-download "http://www.microsoft.com/technet/sysinternals/utilities/debugview.mspx">
-<!entity check-libs-script "http://www.fwbuilder.org/downloads/scripts/check_libs.sh">
-<!entity contact-us-page "http://www.fwbuilder.org/contact.html">
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY fwbuilder-url "http://www.fwbuilder.org/">
+<!ENTITY iptables-url "http://netfilter.filewatcher.org/">
+<!ENTITY ipfilter-url "http://coombs.anu.edu.au/~avalon/">
+<!ENTITY gtkmm-url "http://gtkmm.sourceforge.net/">
+<!ENTITY gtkmm-download "http://www.hvrlab.org/pub/gtkmm/">
+<!ENTITY faq-url "http://www.fwbuilder.org/4.0/docs/firewall_builder_faq.html">
+
+<!ENTITY fwbuilder-url    "http://www.fwbuilder.org/">
+<!ENTITY netcitadel-url   "/4.0/netcitadel/index.html">
+<!ENTITY install-url      "/4.0/docs/firewall_builder_installation.html">
+<!ENTITY iptables-url     "http://www.iptables.org/">
+<!ENTITY ipfilter-url     "http://coombs.anu.edu.au/~avalon/">
+<!ENTITY pf-url           "http://www.benzedrine.cx/pf.html">
+<!ENTITY qt-url           "http://www.trolltech.com/">
+<!ENTITY sveasoft-url     "http://www.sveasoft.com/">
+<!ENTITY gtkmm-url        "http://gtkmm.sourceforge.net/">
+<!ENTITY gtkmm-download   "http://www.hvrlab.org/pub/gtkmm/">
+<!ENTITY cvs-checkout     "http://sourceforge.net/cvs/?group_id=5314">
+<!ENTITY sf-files         "http://sourceforge.net/project/showfiles.php?group_id=5314">
+<!ENTITY nightly-builds   "http://www.fwbuilder.org/nightly_builds/">
+<!ENTITY gtkmm-ximian     "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/gtkmm-1.2.9-1.ximian.1.src.rpm">
+<!ENTITY libsigcpp-ximian "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/libsigc++-1.0.4-1.ximian.4.src.rpm">
+<!ENTITY installer-howto  "http://www.fwbuilder.org/4.0/docs/users_guide/compile-install-detail.html">
+<!ENTITY nf-conntrack-page "http://www.netfilter.org/projects/patch-o-matic/pom-extra.html#pom-extra-nf_conntrack">
+<!ENTITY nf-conntrack-discussion "http://lists.netfilter.org/pipermail/netfilter-devel/2006-July/024879.html">
+<!ENTITY debugview-download "http://www.microsoft.com/technet/sysinternals/utilities/debugview.mspx">
+<!ENTITY check-libs-script "http://www.fwbuilder.org/downloads/scripts/check_libs.sh">
+<!ENTITY contact-us-page "http://www.fwbuilder.org/4.0/contact.html">
 ]>
 
-<article class="FAQ" id="FAQ">
-  <?dbhtml filename="FAQ2.html">
+<article id="FAQ">
 
   <articleinfo>
 
-    <title>Firewall Builder</title>
-    <subtitle> Frequently Asked Questions for Firewall Builder 2.0, 2.1, 3.0</subtitle>
+    <title>Frequently Asked Questions for Firewall Builder 2.0, 2.1, 3.0, 4.0</title>
 
     <author>
       <firstname>Vadim</firstname>
       <surname>Kurland</surname>
       <affiliation>
-	<address>
-	  <email>vadim@fwbuilder.org</email>
-	</address>
+        <address>
+          <email>vadim@fwbuilder.org</email>
+        </address>
       </affiliation>
     </author>
 
@@ -49,59 +54,7 @@
         <authorinitials>vadim</authorinitials> 
       </revision>
     </revhistory>
-
-    <abstract>
-      
-<!--      <title>Abstract</title> -->
-      
-      <para>
-	Firewall Builder consists of an object-oriented GUI and a set
-	of policy compilers for various firewall platforms. In
-	Firewall Builder, a firewall policy is a set of rules; each
-	rule consists of abstract objects that represent real network
-	objects and services (hosts, routers, firewalls, networks,
-	protocols). Firewall Builder helps users maintain a database
-	of objects and allows policy editing using simple
-	drag-and-drop operations.
-      </para>
-
-      <para>
-	Object databases are stored in XML format.  The GUI and policy
-	compilers are completely independent. The GUI requires only
-	minimal changes in order to add support for a new firewall
-	platform even though a new policy compiler must be
-	written. This provides for a consistent abstract model and the
-	same GUI for different firewall platforms. Standardized XML
-	data format opens possibility for many user interfaces and
-	policy compiler implementations, all interchangeable.
-      </para>
-
-      <para>
-	We have policy compilers for the popular free firewalls
-	iptables (<ulink url="&iptables-url">&iptables-url</ulink>),
-	ipfilter (<ulink url="&ipfilter-url">&ipfilter-url</ulink>),
-	pf (<ulink url="&pf-url">&pf-url</ulink>), as well as for
-	Cisco PIX and FWSM and IOS access lists.  Because of the
-	modular architecture, the same Firewall Builder instance can
-	be used to manage firewalls built on a variety of platforms.
-      </para>
-
-      <para>
-	The GUI is written using <ulink url="&qt-url"> QT</ulink>. 
-      </para>
-
-      <para>
-	Solutions to many typical problems and answers to many
-	questions can be found in Firewall Builder Users
-	Guide <ulink url="&guide-url">&guide-url</ulink> and 
-        <ulink url="&cookb-url">Firewall Builder Cookbook</ulink>
-      </para>
-
-    </abstract>
-
   </articleinfo>
-
-
 
   <!-- ******************** Chapter 1 ************************************************* -->
 
@@ -117,13 +70,13 @@
 	</question>
 
 	<answer>
-
-
           <para>
-            <table>
+            <table frame='none' tabstyle='reg_table'>
               <title>Firewall Builder can generate configuration for
               the following firewalls and OS:</title>
-              <tgroup cols="2">
+              <tgroup cols='2' rowsep='1'>
+	        <colspec colname='c1'  colwidth="120pt"/>
+	        <colspec colname='c2'/>
                 <thead>
                   <row>
                     <entry>Firewall</entry>
@@ -183,7 +136,7 @@
           </para>
 
           <para>
-            <table>
+            <table frame='none' tabstyle='reg_table'>
               <title>Operating Systems Firewall Builder has been ported to</title>
               <tgroup cols="4">
                 <thead>
@@ -233,15 +186,15 @@
                   </row>
                   <row>
                     <entry>Mac OS X</entry>
-                    <entry>Tiger and Leopard</entry>
+                    <entry>Leopard and Snow Leopard</entry>
                     <entry>yes</entry>
-                    <entry><ulink url="&netcitadel-url">binary packages available here</ulink></entry>
+                    <entry><ulink url="&netcitadel-url;">binary packages available here</ulink></entry>
                   </row>
                   <row>
                     <entry>Windows</entry>
                     <entry>2000, XP, Vista</entry>
                     <entry>yes</entry>
-                    <entry><ulink url="&netcitadel-url">binary packages available here</ulink></entry>
+                    <entry><ulink url="&netcitadel-url;">binary packages available here</ulink></entry>
                   </row>
                 </tbody>
               </tgroup>
@@ -261,9 +214,10 @@
 	<answer>
 	  <para>
 	    These are listed in the file "Build" in the docs
-	    directory. It is fwbuilder/doc/Build if you unpack
-	    source tarball, or can be found online: <ulink
-	    url="&build-url">"Installation Guide"</ulink>
+	    directory. It is fwbuilder/doc/Build if you unpack source
+	    tarball, or can be found
+	    online: <ulink url="&install-url;">Installation
+	    Guide</ulink>
 	  </para>
 	</answer>
 
@@ -278,8 +232,8 @@
             Binary packages and a source code for the recent release
             can be downloaded from the "Downloads" page on the
             project's web site <ulink
-            url="&fwbuilder-url">&fwbuilder-url</ulink> or from <ulink
-            url="&sf-files">Source Forge </ulink>. 
+            url="&fwbuilder-url;">&fwbuilder-url;</ulink> or from <ulink
+            url="&sf-files;">Source Forge </ulink>. 
           </para>
         </answer>
       </qandaentry>
@@ -293,10 +247,10 @@
           <para>
             Binary packages and a source code for the very latest code
             can be downloaded from the "CVS" section on our <ulink
-            url="&sf-files">Source Forge </ulink> site. Nightly builds
+            url="&sf-files;">Source Forge </ulink> site. Nightly builds
             and experimental packages are available on our ftp site
             <ulink
-            url="&nightly-builds">&nightly-builds</ulink>. Nightly
+            url="&nightly-builds;">&nightly-builds;</ulink>. Nightly
             builds include latest bug fixes and are great way to test
             and see what is going to be included in the next
             release. At the same time nightly builds are certainly a
@@ -317,7 +271,7 @@
 
 	<answer>
 	  <para>
-            The answer is provided here: <ulink url="http://www.fwbuilder.org/4.0/docs/firewall_builder_installation.html"/>
+            <ulink url="&install-url;">"Installation Guide"</ulink>
 	  </para>
 	</answer>
       </qandaentry>
@@ -336,7 +290,7 @@
             <emphasis>apt-get</emphasis>,
             <emphasis>aptitude</emphasis>, <emphasis>synaptic</emphasis>
             and so on).  See here
-            <ulink url="http://www.fwbuilder.org/4.0/docs/firewall_builder_installation.html"/>
+            <ulink url="&install-url;">"Installation Guide"</ulink>
             for more details.
           </para>
 
@@ -387,7 +341,7 @@
 
 	<answer>
 	  <para>
-            See <ulink url="&build-url">"Installation Guide"</ulink>
+            See <ulink url="&install-url;">"Installation Guide"</ulink>
 	    on our web site.
           </para>
 	</answer>
@@ -429,7 +383,7 @@
 
         <answer>
           <para>You need to install prerequisite libraries. See the
-          list of RPMs in the <ulink url="&build-url">Installation
+          list of RPMs in the <ulink url="&install-url;">Installation
           Guide</ulink></para>
 
           <note>
@@ -584,47 +538,6 @@
       </qandaentry>
 
 
-      <qandaentry>
-
-	<question>
-	  <para>fwbuilder binary does not start. You get an error
-	    <emphasis>"fwbuilder: error while loading shared libraries: fwbuilder: undefined symbol: _ZN7QActionC1EP7QObjectPKc"</emphasis>
-          </para>
-	</question>
-
-	<answer>
-          <para>
-          </para>
-
-          <note>
-            <para>The answer applies to Firewall Builder v2.1 which
-              used QT3. Firewall Builder 3.0 and later is built using
-              QT4. Make sure QT4 is installed on your system. If you
-              use KDE graphical environment, then you already have
-              it.</para>
-          </note>
-
-	  <para>
-            The erorr points at a missing symbol in QT
-            library. Firewall Builder requires QT v3.2 or 3.3; error
-            like this happens when the program tries to load QT v3.1.
-            Use ldd to find out which QT library the binary is trying
-            to load:
-          </para>
-
-          <programlisting format="linespecific">
-
-ldd /usr/bin/fwbuilder | grep qt 
- 
-I have QT 3.3.2 so I get this: 
- 
-$ ldd /usr/bin/fwbuilder | grep qt 
-libqt-mt.so.3 => /usr/lib/qt-3.3/lib/libqt-mt.so.3 (0x00d09000) 
-
-          </programlisting>
-	</answer>
-      </qandaentry>
-
 
 
 
@@ -686,10 +599,8 @@ libqt-mt.so.3 => /usr/lib/qt-3.3/lib/libqt-mt.so.3 (0x00d09000)
             work around it try the following command:
           </para>
 
-          <programlisting format="linespecific">
-
+          <programlisting>
 chcon -t texrel_shlib_t /usr/lib/libfwbuilder.so*
-
           </programlisting>
 	</answer>
       </qandaentry>
@@ -707,7 +618,7 @@ chcon -t texrel_shlib_t /usr/lib/libfwbuilder.so*
 	  <para>
 	    Please file a bug on Sourceforge and provide information
 	    we might need to fix the problem. See the list on the
-            <ulink url="&contact-us-page">Contact Us</ulink> page.
+            <ulink url="&contact-us-page;">Contact Us</ulink> page.
 	  </para>
 
 	</answer>
@@ -819,7 +730,7 @@ ios_base::failbit set
           remotely. In order to make this little bit easier, fwbuilder
           GUI has built-in debugging capability. You need to download
           and run debugView program (you can download it
-            <ulink url="&debugview-download">here </ulink>).
+            <ulink url="&debugview-download;">here </ulink>).
           </para>
 
           <para> Basically, you start debugView, then you start
@@ -1093,7 +1004,7 @@ c:\FWBuilder30\fwbuilder.exe -d
           <para>
             The following HOWTO article describes the ways to use
             Built-in installer in fwbuilder:
-            <ulink url="&installer-howto">&installer-howto</ulink>.
+            <ulink url="&installer-howto;">&installer-howto;</ulink>.
           </para>
         </answer>
       </qandaentry>
@@ -1478,9 +1389,9 @@ Device or resource busy
           </programlisting>
 
           <para>
-            Here is the <ulink url="&nf-conntrack-page">link</ulink>
+            Here is the <ulink url="&nf-conntrack-page;">link</ulink>
             to the nf_conntrack page in patch-o-matic catalog. Here is the
-            <ulink url="&nf-conntrack-discussion">link</ulink> to the
+            <ulink url="&nf-conntrack-discussion;">link</ulink> to the
             discussion on netfilter-devel mailing list.
           </para>
 
@@ -1756,7 +1667,7 @@ Device or resource busy
                   then execute the following command:
                 </para>
 
-                <programlisting format="linespecific">
+                <programlisting>
 c:\FWBuilder\co.exe -l filename.fwb
                 </programlisting>
 
@@ -1767,7 +1678,7 @@ c:\FWBuilder\co.exe -l filename.fwb
                 <para>After you do that, you need to check the file in
                   to RCS again. Do it like this:</para>
 
-                <programlisting format="linespecific">
+                <programlisting>
 c:\FWBuilder\ci.exe -u filename.fwb
                 </programlisting>
 
@@ -1782,12 +1693,12 @@ c:\FWBuilder\ci.exe -u filename.fwb
                   checkout and checkin commands:</para>
 
                 <para>To check the file out use</para>
-                <programlisting format="linespecific">
+                <programlisting>
 co -l filename.fwb
                 </programlisting>
 
                 <para>To check the file in use</para>
-                <programlisting format="linespecific">
+                <programlisting>
 ci -u filename.fwb
                 </programlisting>
 
