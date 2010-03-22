@@ -1,0 +1,1221 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<book id="web_server_cluster_guide">
+
+  <sect1 id="web_server_cluster">
+    <title>Using Firewal Builder to generate firewall configuration
+    for the web server cluster running Linux or OpenBSD</title>
+
+    <para>
+      This article continues mini-series started with the post
+      <ulink url="http://www.cyberciti.biz/tips/introduction-to-firewall-builder-4-0.html"
+             >Introduction to Firewall Builder 4.0</ulink>.
+    </para>
+
+    <para>
+      This article is also available as a section in
+        the <ulink url="http://www.fwbuilder.org/4.0/docs/users_guide/cookbook.html">"Firewall
+        Builder Cookbook"</ulink> chapter
+        of <ulink url="http://www.fwbuilder.org/4.0/docs/users_guide/">Firewall
+        Builder Usersa Guide 4.0</ulink>.
+    </para>
+
+    <para>
+      Firewall Builder 4.0 is currently in beta testing phase. If you
+      find it interesting after reading this post, please download and
+      try it out. Source code archives, binary deb and rpm packages
+      for popular Linux distributions and commercially distributed
+      Windows and Mac OS X packages are available for
+      <ulink url="http://www.fwbuilder.org/4.0/docs/firewall_builder_packages.html">
+        download here</ulink>.
+    </para>
+
+    <para>
+      In this post I demonstrate how Firewall Builder can be used to
+      generate firewall configuration for a clustered web server with
+      multiple virtual IP addresses. The firewall is running on each
+      web server in the cluster.  This example assumes the cluster is
+      built with heartbeat using "old" style configuration files, but
+      which high availability software is used to build the cluster is
+      not really essential. I start with the setup that consists of
+      two identical servers running Linux but in the end of the
+      article I am going to demonstrate how this configuration can be
+      converted to OpenBSD with CARP.
+    </para>
+
+    <para>
+      In this example I am working with redundant web server
+      configuration where each machine has its own IP address, plus
+      three additional virtual addresses that can be used for virtual
+      hosts. Firewall Builder generates iptables script for both
+      machines. Configuration of the HA agent should be handled either
+      manually or using specialized configuration system such as
+      pacemaker. When I convert the same setup from Linux to OpenBSD,
+      I am going to show how fwbuilder can generate not only firewall
+      configuration, but also the script that manages CARP and pfsync
+      interfaces.
+    </para>
+
+    <figure id="web_server_cluster_1">
+      <title>HA configuration using two web servers</title>
+      <graphic scale="50" fileref="web-server-cluster-1.png"/>
+    </figure>
+
+    <note>
+      <para>
+        IPv6 addresses are not used in this example. Some interface
+        objects in the screenshots have ipv6 addresses because firewall
+        objects were "discovered" using snmp which finds ipv6
+        addresses. You can disregard these addresses while working
+        with examples in this chapter.
+      </para>
+    </note>
+
+    <sect2>
+      <title>Setting up heartbeat</title>
+
+      <note>
+        <para>
+          I am going to use an "old" heartbeat configuration files in
+          this example just to demonstrate how the configuration looks
+          like. You should probably use modern CLuster Resource Manager
+          software such as
+          <ulink url="http://www.clusterlabs.org/wiki/Main_Page">
+            Pacemaker</ulink>.
+        </para>
+      </note>
+
+      <para>As shown in <xref linkend="web_server_cluster_1"/>,
+        machines linux-test-1 and linux-test-2 run heartbeat daemon
+        (<ulink url="http://www.linux-ha.org/"><citetitle>Linux-HA
+        home page</citetitle></ulink>) to create virtual IP addresses.
+        Heartbeat adds virtual IP address to the same interface eth0.
+        One of the daemons becomes master and takes owbership of the
+        virtual address by adding it to the interface with the label
+        "eth0:0" or "eth0:1".
+      </para>
+
+      <note>
+        <para>
+          Section <olink targetdoc="UsersGuide4"
+                 targetptr="linux_cluster_overview">"Linux cluster
+                 configuration with Firewall Builder"</olink> of
+                 Firewall Builder Users Guide explains that "eth0:0"
+                 is not an interface and should not be used as the
+                 name of the interface object in fwbuilder
+                 configuration.
+        </para>
+      </note>
+      
+      <para>
+        In this example I am using heartbeat in multicast mode where
+        it sends UDP datagram to the multicast address 225.0.0.1 every
+        second or so to declare that it is up and running and owns the
+        address.
+      </para>
+
+      <para>
+        If you are interested in more detailed explanation of the
+        "old" style heartbeat configuration files used to set up
+        example similar to this one,
+        see <olink targetdoc="UsersGuide4"
+        targetptr="heartbeat_cluster"> Section "Linux cluster using
+        heartbeat" of Firewall Builder Users Guide</olink>
+      </para>
+
+      <para>
+        Once heartbeat daemon is configured and started on both
+        servers, their IP address configuration looks like shown in
+        <xref linkend="web_server_cluster_ip_addr_config_1"/> and
+        <xref linkend="web_server_cluster_ip_addr_config_2"/>. Virtual
+        addresses were highlighted to illustrate that the heartbeat is
+        running in active/active configuration, that is, two virtual
+        addresses are active on one machine and the third is active on
+        another. If either machine dies, all three virtual addresses
+        will move over to the one that is left working.
+      </para>
+
+      <figure id="web_server_cluster_ip_addr_config_1">
+        <title>IP addresses of the web server linux-test-1</title>
+        <programlisting>
+root@linux-test-1:/etc/ha.d# ip addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:aa brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+    <emphasis role="redtext">inet 10.3.14.150/24 brd 10.3.14.255 scope global secondary eth0:0</emphasis>
+    <emphasis role="redtext">inet 10.3.14.151/24 brd 10.3.14.255 scope global secondary eth0:1</emphasis>
+    inet6 fe80::20c:29ff:fe1e:dcaa/64 scope link 
+       valid_lft forever preferred_lft forever
+        </programlisting>
+      </figure>
+
+      <figure id="web_server_cluster_ip_addr_config_2">
+        <title>IP addresses of the web server linux-test-2</title>
+        <programlisting>
+root@linux-test-2:/etc/ha.d# ip addr ls
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:fc:67:8c brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.109/24 brd 10.3.14.255 scope global eth0
+    <emphasis role="redtext">inet 10.3.14.152/24 brd 10.3.14.255 scope global secondary eth0:0</emphasis>
+    inet6 fe80::20c:29ff:fefc:678c/64 scope link 
+       valid_lft forever preferred_lft forever
+        </programlisting>
+      </figure>
+    </sect2>
+
+
+    <sect2>
+      <title>Creating Firewall and Cluster objects</title>
+
+      <para>
+        Here I present an abbreviated explanation of the process of
+         creating firewall and cluster objects. More detailed
+         step-by-step guides are available in sections
+        <olink targetdoc="UsersGuide4" targetptr="firewall-object">"Firewall Object"</olink> and
+        <olink targetdoc="UsersGuide4"
+               targetptr="cluster-object">"Cluster Object"</olink> of
+               the Firewall Builder Users Guide
+      </para>
+
+
+
+      <para>
+        As usual, to create a firewall object I use main menu
+        "Object/New object" which opens a menu of object types:
+      </para>
+
+      <figure id="web_server_cluster_fw_1">
+        <title>Creating first member firewall object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-1.png"/>
+      </figure>
+
+      <para>
+        After I choose the type "Firewall", a wizard used to create
+        new firewall object opens:
+      </para>
+
+      <figure id="web_server_cluster_fw_2">
+        <title>Choosing the name, platform and host OS for the firewall object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-2.png"/>
+      </figure>
+
+      <para>
+        To make things simpler, I am going to use preconfigured
+        template object "web server" that comes with the package. This
+        object represents a machine with one interface "eth0" and
+        comes with some basic firewall policy that can be useful as a
+        starting point for the firewall configuration for a web server.
+      </para>
+
+      <figure id="web_server_cluster_fw_3">
+        <title>Choosing template firewall object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-3.png"/>
+      </figure>
+
+      <para>
+        Template firewall object has IP address that does not match
+        address chosen for this example. The next page of the wizard
+        allows me to change the address and add two more:
+      </para>
+
+      <figure id="web_server_cluster_fw_4">
+        <title>Changing ip address of the firewall object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-4.png"/>
+      </figure>
+
+      <para>
+        Once I am done changing ip addresses and click "Finish", the
+        new firewall object is created and is added to the library of
+        objects that was opened at the moment. In this example this
+        library is called "Cookbook2". I "floated" the object tree
+        panel to make the screenshot more compact. You can see the new
+        firewall object in the tree, its interfaces and ip addresses,
+        as well as preconfigured policy rule set on screenshot
+        <xref linkend="web_server_cluster_fw_5"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_5">
+        <title>Firewall object created from the template</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-5.png"/>
+      </figure>
+
+      <para>
+        The member firewall object's interface "eth0" has only one IP
+        address which is its own, in our example 10.3.14.108. Virtual
+        addresses managed by heartbeat will be added to the cluster
+        object later.
+      </para>
+
+      <para>
+        Next, I create the second member firewall linux-test-2 with
+        its own ip address:
+      </para>
+
+      <figure id="web_server_cluster_fw_6">
+        <title>Two member firewall objects</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-6.png"/>
+      </figure>
+
+      <para>
+        Because our firewall objects represent web servers which
+        should never have to forward packets, we should turn ip
+        forwarding off. To do this, double click the firewall object
+        in the tree to open it in the editor, then click "Host OS
+        settings" button and turn IP forwarding off as shown in
+        <xref linkend="web_server_cluster_fw_6_1"/>. Turning ip
+        forwarding off in this dialog has several consequences:
+        generated firewall script will actually turn it off on the
+        server and Firewall Builder policy compiler will not generate
+        any rules in the FORWARD chain.
+      </para>
+
+      <figure id="web_server_cluster_fw_6_1">
+        <title>Turn off ip forwarding</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-6-1.png"/>
+      </figure>
+
+
+      <para>
+        Now that I have both firewall objects, I can create cluster
+        object that will represent my HA pair. To do this, I select
+        both firewall objects in the tree by clicking on them while
+        holding Ctrl key, then click right mouse button to open
+        context menu and choose item "New cluster from selected firewalls":
+      </para>
+
+      <figure id="web_server_cluster_fw_7">
+        <title>Create cluster object from two member firewalls</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-7.png"/>
+      </figure>
+
+      <para>
+        This opens a wizard that will walk you through the process of
+        creating new cluster object. The wizard was opened using "New
+        cluster from selected firewalls" menu, because of that there
+        are only two firewall objects in the list. If I used main menu
+        "Object/New Object" and then "New Cluster", I would see all
+        firewalls defined in my data file in the list which can be
+        quite long.
+      </para>
+
+      <figure id="web_server_cluster_fw_8">
+        <title>Choosing the name for the new cluster object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-8.png"/>
+      </figure>
+
+      <note>
+        <para>
+          A word about "Master" column. Not all failover protocols
+          require one of the member firewalls to be designated as
+          "master". Most protocols used on Linux don't, so you can
+          disregard this setting on the first page of the wizard.  It
+          is needed for other platforms, such as PIX. In this sense
+          setting "master" on the first page of the wizard is not
+          optimal. We will rectify this in the future versions of
+          Firewall Builder.
+        </para>
+      </note>
+
+      <figure id="web_server_cluster_fw_9">
+        <title>Choosing interfaces of the member firewalls</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-9.png"/>
+      </figure>
+
+      <para>
+        This page of the wizard allows me to establish correspondence
+        between interfaces of the member firewalls create cluster
+        interface objects that will represent them. Cluster interface
+        object should have the same name as corresponding member
+        firewall interfaces. The program tries to guess what
+        interfaces of the member firewalls can be used for the cluster
+        and in a simple configuration like the one I am working with,
+        guesses right.
+      </para>
+
+      <para>
+        On the next page of the wizard I can choose failover protocol
+        used by the cluster on each interface (in principle, I can run
+        different protocols on different inetrfaces) and virtual IP
+        addresses.
+      </para>
+
+      <figure id="web_server_cluster_fw_10">
+        <title>Choosing IP addresses for the interfaces of the cluster</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-10.png"/>
+      </figure>
+
+      <para>
+        Next page of the wizard is particularly interesting. Here I
+        can choose which member firewall's policy to use for the
+        cluster. This feature is designed mostly for those who convert
+        from the old manually maintained configuration of redundant
+        firewalls to the new cluster object and want to reuse policy
+        rules that used to belong to one of the member firewalls.
+      </para>
+
+      <figure id="web_server_cluster_fw_11">
+        <title>Cluster will inherit rules of one of the member firewalls</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-11.png"/>
+      </figure>
+
+      <para>
+        When new cluster object inherits policy and other rule sets of
+        one of the members, the program copies rules from the
+        designated member to the cluster, then it creates copies of
+        all member firewalls, clears their rule sets and sets the
+        cluster up to use these copies as members. It keeps old member
+        firewall objects in the file, but they are marked as inactive
+        and renamed. These objects are kept as a backup in case you
+        may want to check their configuration or copy rules. New
+        cluster object is shown in <xref linkend="web_server_cluster_fw_12"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_12">
+        <title>New cluster obejct</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-12.png"/>
+      </figure>
+
+      <para>
+        Each cluster interface has child "Failover group" object with
+        the name "firewall:eth0:members" or similar. This is where you
+        configure associated member firewall interfaces.  Double click
+        this object in the tree and then click "Manage Members" button
+        in the dialog. Select interfaces of the member firewalls in
+        the panel on the left hand side and click arrow button to add
+        them to the list on the right.  When you create cluster object
+        using the wizard, the Failover Group objects are created
+        automatically.
+      </para>
+
+      <figure id="web_server_cluster_fw_13">
+        <title>Failover group object</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-13.png"/>
+      </figure>
+
+      <para>
+        Failover Group object not only ties interfaces of the member
+        firewalls together, it is also the place where you configure
+        failover protocol and its parameters. I am using heartbeat in
+        this example and failover group object
+        "web_server_cluster:eth0:members" is configured with this
+        protocol as shown in
+        <xref linkend="web_server_cluster_fw_13"/>. To configure
+        parameters of the protocol, click "Edit protocol parameters"
+        button. This opens dialog <xref linkend="web_server_cluster_fw_14"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_14">
+        <title>Parameters of heartbeat protocol</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-14.png"/>
+      </figure>
+
+      <para>
+        These parameters are used to generate policy rules that permit
+        packets of the protocol.
+      </para>
+    </sect2>
+
+
+    <sect2>
+      <title>Building rules for the cluster</title>
+
+      <para>
+        Now that all objects are ready and heartbeat is configured on
+        the machines, we can move on and build some firewall
+        rules. Since this is a cluster configuration, all rules go
+        into the rule set objects that belong to the cluster rather
+        than its member firewalls.
+      </para>
+
+      <para>
+        Because all policy and NAT rules are entered in the rule set
+        objects of the cluster, all member firewalls end up running
+        firewall configuration that implement the same rules. The
+        difference is that whenever you use cluster object or one of
+        its interfaces in a rule, the program replaces it with actual
+        IP addresses of the member firewall it compiles for and
+        virtual addresses that belong to the cluster. Each member
+        fireall gets slightly different script, the difference is in
+        the part that matches addresses of the member: script on each
+        one matches its own addresses. If you wish to build a rule to
+        match addresses of both members, just put corresponding
+        firewall objects in the rule.
+      </para>
+
+      <note>
+        <para>
+          You can override this algorithm and make the program
+          generate different rules for each member if you wish. See
+          section
+          <olink targetdoc="UsersGuide4"
+          targetptr="cluster_rule_set_override">"Cluster
+          object"</olink> of the Firewall Builder Users Guide.
+        </para>
+      </note>
+
+      <para>
+        Rules that we've got from the template object are shown in
+        <xref linkend="web_server_cluster_fw_15"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_15">
+        <title>Overview of the policy rules and compiled output for rule #0</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-15.png"/>
+      </figure>
+
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              Rule #0: anti-spoofing rule. This is the only rule in
+              this simple setup that generates different iptables
+              commands for two member firewalls. Fwbuilder optimizes
+              other rules using INPUT and OUTPUT chains as appropriate
+              so they look identical on both firewalls. The bottom
+              panel visible in
+              <xref linkend="web_server_cluster_fw_15"/> shows
+              generated iptables script for the rule #0. To get that,
+              select the rule in the rule set, click right mouse
+              button and use menu item "Compile", or use keyboard
+              shortcut "X".
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              Rule #1: permits everything on loopback. This rule is
+              configured as "stateless" to simplify generated iptables
+              code. The oputput looks like this (commands for
+              linux-test-2 firewall look the same):
+            </para>
+
+            <programlisting>
+linux-test-1 / Policy / rule 1 
+$IPTABLES -A INPUT  -i lo   -j ACCEPT
+$IPTABLES -A OUTPUT  -o lo   -j ACCEPT
+            </programlisting>
+
+          </listitem>
+
+          <listitem>
+            <para>
+              Rule #2: permits access to the web server on limited set
+              of protocols.
+            </para>
+
+            <programlisting>
+linux-test-1 / Policy / rule 2 
+$IPTABLES -A INPUT -p icmp  -m icmp  --icmp-type 11/0   -m state --state NEW  -j ACCEPT
+$IPTABLES -A INPUT -p icmp  -m icmp  --icmp-type 11/1   -m state --state NEW  -j ACCEPT
+$IPTABLES -A INPUT -p icmp  -m icmp  --icmp-type 0/0   -m state --state NEW  -j ACCEPT
+$IPTABLES -A INPUT -p icmp  -m icmp  --icmp-type 3  -m state --state NEW  -j ACCEPT
+$IPTABLES -A INPUT -p tcp -m tcp  -m multiport  --dports 80,22  -m state --state NEW  -j ACCEPT
+            </programlisting>
+
+          </listitem>
+
+          <listitem>
+            <para>
+              Rule #3: this rule makes it possible for the web server
+              to send DNS queries:
+            </para>
+
+            <programlisting>
+linux-test-1 / Policy / rule 3 
+# server needs DNS to back-resolve clients IPs.
+# Even if it does not log host names during its
+# normal operations, statistics scripts such as
+# webalizer need it for reporting.
+$IPTABLES -A OUTPUT -p tcp -m tcp  --dport 53  -m state --state NEW  -j ACCEPT
+$IPTABLES -A OUTPUT -p udp -m udp  --dport 53  -m state --state NEW  -j ACCEPT
+            </programlisting>
+
+          </listitem>
+
+          <listitem>
+            <para>
+              rule #4: this rule permits the server to send email:
+            </para>
+
+            <programlisting>
+linux-test-1 / Policy / rule 4 
+# this rule allows the server to send
+# statistics and reports via email. Disable
+# this rule if you do not need it.
+$IPTABLES -A OUTPUT -p tcp -m tcp  --dport 25  -m state --state NEW  -j ACCEPT
+            </programlisting>
+
+          </listitem>
+
+          <listitem>
+            <para>
+              Rule #5: reject auth (ident) protocol. This is optional
+              and depends on your MTA configuration:
+            </para>
+
+            <programlisting>
+linux-test-1 / Policy / rule 5 
+# this rejects auth (ident) queries that remote
+# mail relays may send to this server when it
+# tries to send email out.
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 113  -j REJECT
+            </programlisting>
+
+          </listitem>
+
+          <listitem>
+            <para>
+              Rule #6: "Catch all" rule that disables everything that
+              was not explicitly enabled by rules above and logs:
+            </para>
+
+            <programlisting>
+linux-test-1 / Policy / rule 6 
+$IPTABLES -N RULE_6
+$IPTABLES -A INPUT  -j RULE_6
+$IPTABLES -A RULE_6  -j LOG  --log-level info --log-prefix "RULE 6 -- DENY "
+$IPTABLES -A RULE_6  -j DROP
+            </programlisting>
+
+          </listitem>
+        </itemizedlist>
+      </para>
+
+      <para>
+        You should modify the rules to suit your security policy, of
+        course.
+      </para>
+
+      <para>
+        Once you are happy with the rules, you can try to compile the
+        whole script and deploy it to both member firewalls. To do
+        this, I am going to use "Compile this" toolbar button located
+        right above the rules as shown in <xref linkend="web_server_cluster_fw_16"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_16">
+        <title>"Compile this" toolbar button</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-16.png"/>
+      </figure>
+
+      <para>
+        This opens standard "compile" dialog but it only shows the
+        cluster and its two member firewalls. I actually have many
+        other firewall and cluster objects in my test data file, but
+        since I started compile process using "compile this" button,
+        only those that are relevant to the cluster configuration I am
+        working with at the moment are shown.
+      </para>
+
+      <figure id="web_server_cluster_fw_17">
+        <title>Compiling cluster configuration</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-17.png"/>
+      </figure>
+
+      <para>
+        Clicking "Next" on the first page of the dialog starts the
+        compiler. It processes both member firewalls, one after
+        another, and prints its progress output in the window on the
+        next page of the dialog. Errors and warnings, if any, appear
+        there as well.
+      </para>
+
+      <figure id="web_server_cluster_fw_18">
+        <title>Compiling process progress window</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-18.png"/>
+      </figure>
+
+      <tip>
+        <para>
+          If compiler generates any errors or warnings, they are
+          highlighted in the output using different colors. Errors
+          appear red and warnings appear blue. The text lines of
+          errors are warnings are clickable. Clicking on one
+          automatically makes the main window switch to the firewall,
+          rule set and rule that caused the message.
+        </para>
+      </tip>
+
+      <para>
+        If you inspect the output of the compiler, you'll notice that
+        it processed 11 rules, while the main window shows only 7. To
+        find out what are these additional 4 rules, we are going to
+        look inside the generated script. There are two scripts,
+        actually, one for each member firewall. Their names are the
+        same as names of the member firewall objects, "linux-test-1"
+        and "linux-test-2", with extension .fw. Other chapters of the
+        Users Guide discuss various parts of the generated script,
+        here we are going to look at the automatically added
+        rules. Here is a fragment of the script linux-test-1.fw,
+        specifically the beginning of the part that defines iptables
+        rules:
+      </para>
+
+      <programlisting>
+# ================ Table 'filter', rule set Policy
+# 
+# Rule -4 heartbeat (automatic)
+# 
+echo "Rule -4 heartbeat (automatic)"
+# 
+$IPTABLES -A OUTPUT -o lo -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule -3 heartbeat (automatic)
+# 
+echo "Rule -3 heartbeat (automatic)"
+# 
+$IPTABLES -A INPUT -i lo -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule -2 heartbeat (automatic)
+# 
+echo "Rule -2 heartbeat (automatic)"
+# 
+$IPTABLES -A OUTPUT -o eth0 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule -1 heartbeat (automatic)
+# 
+echo "Rule -1 heartbeat (automatic)"
+# 
+$IPTABLES -A INPUT -i eth0 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule 0 (eth0)
+# 
+echo "Rule 0 (eth0)"
+# 
+$IPTABLES -N In_RULE_0
+$IPTABLES -A INPUT -i eth0 -s 10.3.14.152 -j In_RULE_0
+$IPTABLES -A INPUT -i eth0 -s 10.3.14.151 -j In_RULE_0
+$IPTABLES -A INPUT -i eth0 -s 10.3.14.150 -j In_RULE_0
+$IPTABLES -A INPUT -i eth0 -s 10.3.14.108 -j In_RULE_0
+$IPTABLES -A In_RULE_0 -j LOG --log-level info --log-prefix "RULE 0 -- DENY "
+$IPTABLES -A In_RULE_0 -j DROP
+      </programlisting>
+
+      <para>
+        Rules with negative numbers were added by the program
+        automaitcally to permit packets of the heartbeat
+        protocol. Rules added to interface "eth0" look right, they are
+        in the right chains INPUT and OUTPUT and match multicast group
+        224.0.10.100 and port 694 which were configured in the
+        protocol settings dialog
+        <xref linkend="web_server_cluster_fw_14"/>. The program also
+        added the same rules to the loopback interface which we
+        probably do not need. This is because the wizard that creates
+        new cluster object treats all interfaces equally and since it
+        has found two interfaces in each member firewall, "eth0" and
+        "lo", it set up failover groups on both. In other words, the
+        program assumed that I want to run heartbeat on all
+        interfaces.  I could have fixed this right in the wizard when
+        I was creating new cluster object. To do that, I would have to
+        switch to the tab "lo" in
+        <xref linkend="web_server_cluster_fw_10"/> page of the wizard
+        and set "Protocol" to "None" for the interface "lo". However,
+        I did not do it then, so I need to fix it now, when cluster
+        object and its interfaces have already been created.
+      </para>
+
+      <para>
+        To fix this, I find interface "lo" of the cluster and failover
+        group object "web_server_cluster:lo:members" located right
+        under it in the tree:
+      </para>
+
+      <figure id="web_server_cluster_fw_19">
+        <title>Failover group that was added to loopback interface</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-19.png"/>
+      </figure>
+
+      <para>
+        Then I double click on the failover group
+        "web_server_cluster:lo:members" in the tree to open it in the
+        editor and switch the type from "heartbeat" to "None". Once
+        this is done, I recompile the firewall again and inspect
+        generated script:
+      </para>
+
+      <programlisting>
+# ================ Table 'filter', rule set Policy
+# 
+# Rule -2 heartbeat (automatic)
+# 
+echo "Rule -2 heartbeat (automatic)"
+# 
+$IPTABLES -A OUTPUT -o eth0 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule -1 heartbeat (automatic)
+# 
+echo "Rule -1 heartbeat (automatic)"
+# 
+$IPTABLES -A INPUT -i eth0 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT
+# 
+# Rule 0 (eth0)
+# 
+echo "Rule 0 (eth0)"
+# 
+$IPTABLES -N In_RULE_0
+$IPTABLES -A INPUT -i eth0 -s 10.3.14.152 -j In_RULE_0
+$IPTABLES -A INPUT -i eth0 -s 10.3.14.151 -j In_RULE_0
+$IPTABLES -A INPUT -i eth0 -s 10.3.14.150 -j In_RULE_0
+$IPTABLES -A INPUT -i eth0 -s 10.3.14.108 -j In_RULE_0
+$IPTABLES -A In_RULE_0 -j LOG --log-level info --log-prefix "RULE 0 -- DENY "
+$IPTABLES -A In_RULE_0 -j DROP
+# 
+      </programlisting>
+
+      <para>
+        The rules attached to loopback are gone.
+      </para>
+
+      <para>
+        Last change I am going to do before I upload generated script
+        to my firewalls is switch to iptables-restore format in the
+        generated script. This offers many advantages over entering
+        iptables commands one by one, the most important is that
+        iptables-restore policy update is atomic. If it encounters an
+        error, it aborts without changing running firewall policy.
+        Also the update happens much faster and the firewall does not
+        run in the undefined state with only part of its policy
+        loaded. To switch, find firewall object in the tree, double
+        click it to open it in the editor and click "Firewall
+        Settings" button. Navigate to the tab "Script" and turn on
+        checkbox "Use iptables-restore to activate policy". Do it in
+        both member firewall objects, then recompile again. Generated
+        script now looks like this (this is only relevant part of the
+        script):
+      </para>
+
+      <programlisting>
+(
+echo '*filter'
+# ================ Table 'filter', automatic rules
+echo :INPUT DROP [0:0]
+echo :FORWARD DROP [0:0]
+echo :OUTPUT DROP [0:0]
+# accept established sessions
+echo "-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT "
+echo "-A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT "
+echo "-A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT "
+# ================ Table 'filter', rule set Policy
+# 
+# Rule -2 heartbeat (automatic)
+echo "-A OUTPUT -o eth0 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT "
+# 
+# Rule -1 heartbeat (automatic)
+echo "-A INPUT -i eth0 -p udp -m udp -d 224.0.10.100 --dport 694 -j ACCEPT "
+# 
+# Rule 0 (eth0)
+echo ":In_RULE_0 - [0:0]"
+echo "-A INPUT -i eth0 -s 10.3.14.152 -j In_RULE_0 "
+echo "-A INPUT -i eth0 -s 10.3.14.151 -j In_RULE_0 "
+echo "-A INPUT -i eth0 -s 10.3.14.150 -j In_RULE_0 "
+echo "-A INPUT -i eth0 -s 10.3.14.108 -j In_RULE_0 "
+echo "-A In_RULE_0 -j LOG --log-level info --log-prefix \"RULE 0 -- DENY \""
+echo "-A In_RULE_0 -j DROP "
+
+ . . . . . . more rules here . . . . . . 
+
+# Rule 6 (global)
+echo ":RULE_6 - [0:0]"
+echo "-A INPUT -j RULE_6 "
+echo "-A RULE_6 -j LOG --log-level info --log-prefix \"RULE 6 -- DENY \""
+echo "-A RULE_6 -j DROP "
+#
+echo COMMIT
+) | $IPTABLES_RESTORE; IPTABLES_RESTORE_RES=$?
+test $IPTABLES_RESTORE_RES != 0 &amp;&amp; run_epilog_and_exit $IPTABLES_RESTORE_RES
+      </programlisting>
+
+      <note>
+        <para>
+          In addition to rules for the failover protocol, Firewall
+          Builder can automatically add rules to permit packets used
+          by the state synchronisation protocol. In case of iptables
+          this is <emphasis>conntrackd</emphasis>. Protocol parameters are
+          configured in the "State Sync Group" object that is located
+          in the tree immediately under the cluster.
+        </para>
+      </note>
+
+
+    </sect2>
+
+    <sect2>
+      <title>Installing cluster configuration using built-in policy installer</title>
+
+      <para>
+        More details on the installer and explanation of its options
+        can be found in chapter <olink targetdoc="UsersGuide4"
+        targetptr="compile-install-detail">"Installing a Policy onto a
+        Firewall"</olink> in Firewall Builder Users Guide.
+      </para>
+
+      <para>
+        To upload generated script to both firewalls and activate it,
+        use toolbar button "Install" that is located next to the
+        button "Compile". It also opens wizard-like dialog that lists
+        the cluster and member firewalls and provides checkboxes that
+        allow you to choose which firewall you want to install on
+        (both by default).
+      </para>
+
+      <figure id="web_server_cluster_fw_20">
+        <title>Policy installer parameters</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-20.png"/>
+      </figure>
+
+      <para>
+        Once you choose which firewalls you want to install the policy
+        on and click Next, you are presented with policy installer
+        dialog <xref linkend="web_server_cluster_fw_20"/> where you
+        need to enter authentication credential and some other
+        parameters that control installation process. 
+      </para>
+ 
+      <para>
+        Policy installer shows its progress in the dialog that looks
+        like this:
+      </para>
+
+      <figure id="web_server_cluster_fw_21">
+        <title>Policy installer progress</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-21.png"/>
+      </figure>
+
+      <para>
+        Installer copies the script to the firewall using scp
+        (pscp.exe on Windows), then runs it there. If this is the
+        first time you connect to the firewall using ssh, installer
+        recognizes ssh warning about unknown host key and opens
+        another pop-up dialog where it shows the key and asks
+        administrator to verify it. If there were no errors during
+        policy install, corresponding status is declared "success" in
+        the left hand side column and installer tries to do the same
+        for the next member firewall.
+      </para>
+
+
+    </sect2>
+
+    <sect2>
+
+      <title>Converting configuration to OpenBSD and PF</title>
+
+      <para>
+        Lets see how much effort it is going to take to convert this
+        configuration to entirely different firewall platform - PF on
+        OpenBSD. There are different ways to do this. I could make a
+        copy of each member firewall (linux-test-1 and linux-test-2),
+        set platform and host OS in the copy to PF and OpenBSD and
+        then create new cluster object. This would be a sensible way
+        because it preserves old objects which helps to roll back in
+        case something does not work out. However, to make the
+        explanation shorter, I am going to make the changes in place
+        by modifying existing objects.
+      </para>
+
+      <para>
+        I start with member firewalls. Open each one in the editor and
+        change its name, platform and host OS as shown in
+        <xref linkend="web_server_cluster_fw_22"/> for the first
+        member:
+      </para>
+
+      <figure id="web_server_cluster_fw_22">
+        <title>Converting member firewall to PF/OpenBSD</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-22.png"/>
+      </figure>
+
+      <para>
+        Set version of PF to match version of your OpenBSD machine.
+        Do the same change to the second member firewall, then check
+        failover group of interface "eth0" of the cluster object:
+      </para>
+
+      <figure id="web_server_cluster_fw_23">
+        <title>Failover group indicates that the cluster configuration does not match members</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-23.png"/>
+      </figure>
+
+      <para>
+        Failover group declares status of both members "Invalid", this
+        is because the platform and host OS of members do not match
+        configuration of the cluster object anymore. They should match
+        exactly, so we have to reconfigure the cluster object to platform
+        "PF" and host OS "OpenBSD" as well. This should fix the status
+        of both members in the failover group dialog.
+      </para>
+
+      <para>
+        To switch to OpenBSD from Linux we need to change failover
+        protocol from heartbeat to CARP as well. The protocol is
+        configured in the failover group object. List of available
+        protocols depends on the firewall platform chosen in the
+        parent cluster object. While cluster was set up as "iptables",
+        possible choices of failover protocols were "heartbeat",
+        "VRRP", "OpenAIS" and "None". "CARP" was not in the list
+        because it is not available on Linux. After the cluster is
+        switched to "PF", the list consists only of "CARP" and "None"
+        as shown in <xref linkend="web_server_cluster_fw_24"/>:
+      </para>
+
+      <figure id="web_server_cluster_fw_24">
+        <title>Failover protocol choices for PF/OpenBSD </title>
+        <graphic scale="50" fileref="web-server-cluster-fw-24.png"/>
+      </figure>
+
+      <para>
+        Firewall Builder can configure CARP interfaces on BSD. For
+        that, it needs some parameters of the CARP protocol. You can
+        configure these if you click "Edit protocol parameters" button
+        in the failover group object dialog. This brings another
+        dialog where you can configure CARP password, vhid and some
+        other parameters:
+      </para>
+
+      <figure id="web_server_cluster_fw_24-1">
+        <title>CARP parameters </title>
+        <graphic scale="50" fileref="web-server-cluster-fw-24-1.png"/>
+      </figure>
+
+
+
+      <para>
+        Last thing we have to change is the names of interfaces. On
+        OpenBSD loopback is "lo0" and ethernet interface can be for
+        example "pcn0". To rename interfaces find them in the tree,
+        open in the editor and change the name. This needs to be done
+        with interface objects of both member firewalls and the
+        cluster. Significant difference between CARP protocol and
+        heartbeat on Linux is that CARP creates its own network
+        interfaces named <emphasis>"carpNN"</emphasis>. In Firewall
+        Builder terms this means we need to name cluster interface
+        object <emphasis>"carp0"</emphasis> (in case of Linux cluster,
+        cluster interface name was the same as names of corresponding
+        member firewalls).  After all renamings are done, my final
+        configuration looks like shown in
+        <xref linkend="web_server_cluster_fw_25"/>:
+      </para>
+
+      <note>
+        <para>
+          I also changed ip addresses of interfaces pcn0 of both
+          member firewalls to avoid conflict with still running linux
+          firewalls.
+        </para>
+      </note>
+
+      <figure id="web_server_cluster_fw_25">
+        <title>Final configuration for PF cluster</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-25.png"/>
+      </figure>
+
+      <para>
+        Now we can recompile the cluster again. For PF fwbuilder
+        generates two files for each member firewall. One file has
+        extension .conf and contains PF configuration. The other file
+        has extension .fw and is an activation script.
+      </para>
+
+      <para>
+        Looking inside the generated .conf file, we see PF
+        implementation of the same policy rules (this is just a
+        fragment with first few rules):
+      </para>
+
+      <programlisting>
+# Tables: (2)
+table &lt;tbl.r0.d&gt; { 10.3.14.50 , 10.3.14.152 , 10.3.14.151 , 10.3.14.150 } 
+table &lt;tbl.r0.s&gt; { 10.3.14.152 , 10.3.14.151 , 10.3.14.150 , 10.3.14.50 } 
+
+# # Rule -2 CARP (automatic)
+pass quick on pcn0 inet proto carp from any to any label "RULE -2 -- ACCEPT "
+# 
+# Rule backup ssh access rule
+# backup ssh access rule 
+pass in quick inet proto tcp from 10.3.14.0/24 to &lt;tbl.r0.d&gt; port 22 \
+    flags any label "RULE -1 -- ACCEPT " 
+# 
+# Rule 0 (carp0)
+block in log quick on pcn0 inet from &lt;tbl.r0.s&gt; to &lt;tbl.r0.s&gt; \
+    no state label "RULE 0 -- DROP " 
+# 
+# Rule 1 (lo0)
+pass quick on lo0 inet from any to any no state label "RULE 1 -- ACCEPT " 
+
+      </programlisting>
+
+
+      <figure id="web_server_cluster_fw_26">
+        <title>Example of a rule associated with a cluster interface</title>
+        <graphic scale="50" fileref="web-server-cluster-fw-26.png"/>
+      </figure>
+
+      <para>
+        Look at the rule #0 in the screenshot
+        <xref linkend="web_server_cluster_fw_15"/> (the anti-spoofing
+        rule). The same rule is shown in
+        <xref linkend="web_server_cluster_fw_26"/>, except I removed
+        label "outside" from the interface carp0 to make it clear
+        which interface is placed in the "Interface" column of the
+        rule.
+      </para>
+
+      <para>
+        This rule has interface object that belongs to the cluster in
+        its "Interface" column.  Firewall Builder GUI does not accept
+        member firewall interface in this column. Only interfaces of
+        the cluster are allowed in the "Interface" column of the rule
+        set that belongs to the cluster. Interfaces of the Linux
+        cluster have the same names as corresponding member firewall
+        interfaces. In my example above member interfaces were "eth0"
+        and cluster interface had the same name. This is because
+        cluster interface object is an abstraction that serves several
+        purposes: it is a place where failover protocol parameters are
+        configured and also it represents member firewall interfaces
+        in rules when the program compiles the policy and generates
+        firewall script or configuration file. Cluster interface
+        object will be replaced with interface of the member firewall
+        for which the policy is being compiled. When fwbuilder
+        compiles it for the member #1, it replaces cluster interface
+        objects with interfaces of member #1. When it then compiles
+        the same rules for member #2, it replaces cluster interfaces
+        with interfaces of member #2.
+      </para>
+
+      <para>
+        This feels intuitive when we build Linux cluster because names
+        of member interfaces and cluster interfaces are the same. When
+        I use cluster interface "eth0" in the rule, it is essentially
+        the same as using firewall's interface with the same name
+        (except it is not the same, internally) so it is the
+        configuration I am used to when I start configuring clusters
+        have spent some time working with regular firewalls in fwbuilder.
+      </para>
+
+      <para>
+        Interfaces of BSD cluster have names that directly correspond
+        to the names of failover protocol
+        interfaces <emphasis>carpNN</emphasis> which really exist on
+        the firewall machine. The problem is that PF does not inspect
+        packets on these interfaces and therefore PF rules should not
+        be attached to these interfaces. Yet, fwbuilder uses BSD
+        cluster interfaces <emphasis>carpNN</emphasis> in the same way
+        as explained above.  if you want to attach rules to particular
+        interfaces using "on &lt;intf&gt;" clause, you need to use
+        cluster interface object in the rules. In this case, just like
+        when we were building Linux cluster, fwbuilder will
+        replace <emphasis>carpNN</emphasis> with interfaces of member
+        firewall that are configured in the failover group of the
+        cluster interface.
+      </para>
+
+      <para>
+        I realize this can be counter-intuitive, especially to those
+        who know all details of BSD cluster configuration by heart
+        and are very used to working with CARP. We may be able to
+        improve the model in future verisons of fwbuilder if there
+        is enough user demand.
+      </para>
+
+
+      <note>
+        <para>
+          In addition to rules for the failover protocol, Firewall
+          Builder can automatically add rules to permit packets used
+          by the state synchronisation protocol. In case of PF this
+          is <emphasis>pfsync</emphasis>. Protocol parameters are
+          configured in the "State Sync Group" object that is located
+          in the tree immediately under the cluster. Generated script
+          can also configure pfsync interface and some parameters of
+          the protocol.
+        </para>
+      </note>
+
+
+      <para>
+        The bottom part of the activation script is interesting. This
+        is where CARP interface is configured and PF configuration is
+        activated. Here is how this looks like:
+      </para>
+
+      <programlisting>
+configure_interfaces() {
+    sync_carp_interfaces carp0
+    $IFCONFIG carp0 vhid 100 pass secret    carpdev pcn0
+    
+    update_addresses_of_interface \
+  "carp0 10.3.14.152/0xffffff00 10.3.14.151/0xffffff00 10.3.14.150/0xffffff00" ""
+    update_addresses_of_interface "lo0 ::1/128 127.0.0.1/0xff000000" ""
+    update_addresses_of_interface "pcn0 10.3.14.50/0xffffff00" ""
+}
+
+log "Activating firewall script generated Thu Mar 18 20:19:42 2010 by vadim"
+
+set_kernel_vars
+configure_interfaces
+prolog_commands
+
+$PFCTL   \
+     -f \
+    ${FWDIR}/bsd-test-1.conf || exit 1
+      </programlisting>
+
+      <para>
+        Shell function "sync_carp_interfaces" is defined at the
+        beginning of the same script, it compares list of carp
+        interfaces defined in Firewall Builder with carp interfaces
+        that really exist on the firewall machine. Interfaces that are
+        missing are created and those that exist but are not defined
+        in fwbuilder are deleted. If the set of carp interfaces
+        matches those defined in fwbuilder, this function does
+        nothing. Next, the script configured interface carp0 using
+        parameters entered in the failover protocol dialog
+        <xref linkend="web_server_cluster_fw_24-1"/> shown above.
+        Calls to shell function "update_addresses_of_interface" update
+        ip addresses of interfaces, including carp0. This function
+        also does it incrementally by comparing required list of
+        addresses with those that really are configured on the
+        interface. If lists match, the function does not do anything,
+        otherwise it adds or deletes addresses as appropriate.
+      </para>
+
+      <para>
+        Basically, you can start with OpenBSD or FreeBSD machine
+        configured with one IP address on the interface that you can
+        use to communicate with it. Script generated by fwbuilder will
+        set up other addresses and failover protocol.
+      </para>
+
+      <para>
+        As you can see, conversion required few changes but not that
+        much. I had to change firewall platform and host OS in member
+        firewalls and cluster object, rename interfaces, possibly
+        change IP addresses, change the name of the failover protocol
+        and its parameters. Relationships between the cluster and
+        member firewalls remained the same and so I did not have to
+        add or remove firewalls to cluster failover group
+        objects. Most importantly, I did not have to touch rules at
+        all. Granted, this was very simple example and in more
+        complicated cases some rules may need to be adjusted. Most
+        often this is the case when original iptables policy used some
+        modules and features unique to iptables. Most typical rules
+        can be translated automatically with no change in the GUI.
+      </para>
+
+    </sect2>
+
+
+  </sect1>
+</book>
