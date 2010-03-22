@@ -53,7 +53,7 @@
         <para>
           I am going to use an "old" heartbeat configuration files in
           this example just to demonstrate how the configuration looks
-          like. You should probably use modern CLuster Resource Manager
+          like. You should probably use modern Cluster Resource Manager
           software such as
           <ulink url="http://www.clusterlabs.org/wiki/Main_Page">
             Pacemaker</ulink>.
@@ -65,7 +65,7 @@
         (<ulink url="http://www.linux-ha.org/"><citetitle>Linux-HA
         home page</citetitle></ulink>) to create virtual IP addresses.
         Heartbeat adds virtual IP address to the same interface eth0.
-        One of the daemons becomes master and takes owbership of the
+        One of the daemons becomes master and takes ownership of the
         virtual address by adding it to the interface with the label
         "eth0:0" or "eth0:1".
       </para>
@@ -313,7 +313,7 @@ root@linux-test-2:/etc/ha.d# ip addr ls
       <para>
         On the next page of the wizard I can choose failover protocol
         used by the cluster on each interface (in principle, I can run
-        different protocols on different inetrfaces) and virtual IP
+        different protocols on different interfaces) and virtual IP
         addresses.
       </para>
 
@@ -349,7 +349,7 @@ root@linux-test-2:/etc/ha.d# ip addr ls
       </para>
 
       <figure id="web_server_cluster_fw_12">
-        <title>New cluster obejct</title>
+        <title>New cluster object</title>
         <graphic scale="50" fileref="web-server-cluster-fw-12.png"/>
       </figure>
 
@@ -413,7 +413,7 @@ root@linux-test-2:/etc/ha.d# ip addr ls
         its interfaces in a rule, the program replaces it with actual
         IP addresses of the member firewall it compiles for and
         virtual addresses that belong to the cluster. Each member
-        fireall gets slightly different script, the difference is in
+        firewall gets slightly different script, the difference is in
         the part that matches addresses of the member: script on each
         one matches its own addresses. If you wish to build a rule to
         match addresses of both members, just put corresponding
@@ -460,7 +460,7 @@ root@linux-test-2:/etc/ha.d# ip addr ls
             <para>
               Rule #1: permits everything on loopback. This rule is
               configured as "stateless" to simplify generated iptables
-              code. The oputput looks like this (commands for
+              code. The output looks like this (commands for
               linux-test-2 firewall look the same):
             </para>
 
@@ -668,7 +668,7 @@ $IPTABLES -A In_RULE_0 -j DROP
 
       <para>
         Rules with negative numbers were added by the program
-        automaitcally to permit packets of the heartbeat
+        automatically to permit packets of the heartbeat
         protocol. Rules added to interface "eth0" look right, they are
         in the right chains INPUT and OUTPUT and match multicast group
         224.0.10.100 and port 694 which were configured in the
@@ -804,7 +804,7 @@ test $IPTABLES_RESTORE_RES != 0 &amp;&amp; run_epilog_and_exit $IPTABLES_RESTORE
         <para>
           In addition to rules for the failover protocol, Firewall
           Builder can automatically add rules to permit packets used
-          by the state synchronisation protocol. In case of iptables
+          by the state synchronization protocol. In case of iptables
           this is <emphasis>conntrackd</emphasis>. Protocol parameters are
           configured in the "State Sync Group" object that is located
           in the tree immediately under the cluster.
@@ -961,7 +961,7 @@ test $IPTABLES_RESTORE_RES != 0 &amp;&amp; run_epilog_and_exit $IPTABLES_RESTORE
         heartbeat on Linux is that CARP creates its own network
         interfaces named <emphasis>"carpNN"</emphasis>. In Firewall
         Builder terms this means we need to name cluster interface
-        object <emphasis>"carp0"</emphasis> (remmber that in case of
+        object <emphasis>"carp0"</emphasis> (remember that in case of
         Linux cluster, cluster interface name was the same as names of
         corresponding member firewalls). After all interfaces have
         been renamed, my final configuration looks like shown in
@@ -1085,7 +1085,7 @@ pass quick on lo0 inet from any to any no state label "RULE 1 -- ACCEPT "
         I realize this can be counter-intuitive, especially to those
         who know all details of BSD cluster configuration by heart
         and are very used to working with CARP. We may be able to
-        improve the model in future verisons of fwbuilder if there
+        improve the model in future versions of fwbuilder if there
         is enough user demand.
       </para>
 
@@ -1094,7 +1094,7 @@ pass quick on lo0 inet from any to any no state label "RULE 1 -- ACCEPT "
         <para>
           In addition to rules for the failover protocol, Firewall
           Builder can automatically add rules to permit packets used
-          by the state synchronisation protocol. In case of PF this
+          by the state synchronization protocol. In case of PF this
           is <emphasis>pfsync</emphasis>. Protocol parameters are
           configured in the "State Sync Group" object that is located
           in the tree immediately under the cluster. Generated script
