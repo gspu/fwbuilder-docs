@@ -6,6 +6,18 @@
 <sect1 id="cluster-cookbook">
   <title>Examples of cluster configurations</title>
 
+  <para>
+    This chapter is dedicated to high availability (HA) or cluster
+    configurations that involve two or more firewalls sharing the same
+    set of virtual addresses. Examples are written assuming that the
+    reader will probably jump straight to the one that is most close
+    to the configuration they have, instead of reading all of them in
+    order, so many procedures and explainations are repeated in each
+    example. Nevertheless, sometimes examples refer to each other and
+    other chapters in this Guide to reduce amount of redundant
+    material.
+  </para>
+
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="web_server_cluster.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vrrpd_cluster.xml"/>

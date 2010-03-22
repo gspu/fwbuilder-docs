@@ -40,7 +40,7 @@ HTML_STYLESHEETS = html.xsl
 FO_STYLESHEETS = fo.xsl
 
 
-.PHONY: all html fo pdf stage
+.PHONY: all html fo pdf stage targets
 
 all:  html pdf
 
@@ -49,9 +49,11 @@ clean:
 	rm -f $(STAGEDIR)/*
 
 
-
-#	docbook2html -d `pwd`/html.dsl -o html UsersGuide4.xml
-# XML_DEBUG_CATALOG=1 
+targets:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
+	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
+			--stringparam  collect.xref.targets  "only" \
+			--xinclude html.xsl \
+			UsersGuide4.xml
 
 stage: html
 	./upload-glitch.sh
@@ -59,13 +61,13 @@ stage: html
 html: html/index.html 
 
 html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
-
 	rm -rf html
 	mkdir -p html
 	cp *.jpg html/
 	cp *.png html/
 	cp *.css html/
-	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl UsersGuide4.xml
+	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl \
+			UsersGuide4.xml
 	chmod +x html/*.html
 
 
