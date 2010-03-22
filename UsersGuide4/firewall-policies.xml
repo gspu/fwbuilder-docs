@@ -629,10 +629,14 @@
     <sect1 id="nat">
       <title>Network Address Translation Rules</title>
 
-      <note><para>As with Access Policy rule sets, you can create
-      multiple NAT rule sets. However, in Firewall Builder 3.X, you
-      cannot branch between the rule sets. Only the rule set marked as
-      "top" is used.</para></note>
+      <note>
+        <para>As with Access Policy rule sets, you can create multiple
+          NAT rule sets. However, in Firewall Builder v3.X, you could
+          not branch between the rule sets. Only the rule set marked
+          as "top" was used in v3.x. Firewall Builder 4.0 fixes this,
+          now you can build branches in the NAT rule set.
+        </para>
+      </note>
 
       <sect2>
         <title>Basic NAT Rules</title>
