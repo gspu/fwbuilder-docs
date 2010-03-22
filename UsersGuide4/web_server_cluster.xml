@@ -951,7 +951,6 @@ test $IPTABLES_RESTORE_RES != 0 &amp;&amp; run_epilog_and_exit $IPTABLES_RESTORE
       </figure>
 
 
-
       <para>
         Last thing we have to change is the names of interfaces. On
         OpenBSD loopback is "lo0" and ethernet interface can be for
@@ -962,10 +961,10 @@ test $IPTABLES_RESTORE_RES != 0 &amp;&amp; run_epilog_and_exit $IPTABLES_RESTORE
         heartbeat on Linux is that CARP creates its own network
         interfaces named <emphasis>"carpNN"</emphasis>. In Firewall
         Builder terms this means we need to name cluster interface
-        object <emphasis>"carp0"</emphasis> (in case of Linux cluster,
-        cluster interface name was the same as names of corresponding
-        member firewalls).  After all renamings are done, my final
-        configuration looks like shown in
+        object <emphasis>"carp0"</emphasis> (remmber that in case of
+        Linux cluster, cluster interface name was the same as names of
+        corresponding member firewalls). After all interfaces have
+        been renamed, my final configuration looks like shown in
         <xref linkend="web_server_cluster_fw_25"/>:
       </para>
 
