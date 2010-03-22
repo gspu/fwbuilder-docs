@@ -17,7 +17,10 @@
 <xsl:param name="xref.with.number.and.title" select="0"/>
 
 <!-- what level gets TOC and what goes there -->
-<xsl:param name="generate.toc" select="'book toc'"/>
+<xsl:param name="generate.toc">
+book toc
+chapter toc
+</xsl:param>
 
 <!-- Ignore image scaling for HTML. It is hard to guess image scaling for
      html correctly unless each image is adjusted individually.
