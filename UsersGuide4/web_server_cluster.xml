@@ -3,17 +3,19 @@
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
   <sect2 id="web_server_cluster">
-    <title>Web server cluster running Linux and OpenBSD</title>
+    <title>Web server cluster running Linux or OpenBSD</title>
 
     <para>
-      This example demonstrates practical configuration of a clustered
-      web server with multiple virtual IP addresses.  This example
-      assumes the cluster is built with heartbeat using "old" style
-      configuration files, but which high availability software is
-      used to build the cluster is not really essential. I start with
-      the setup that consists of two identical servers running Linux
-      but in the end of the chapter I am going demonstrate how this
-      configuration can be converted to OpenBSD with CARP.
+      This example demonstrates how Firewall Builder can be used to
+      generate firewall configuration for a clustered web server with
+      multiple virtual IP addresses. The firewall is running on each
+      web server in the cluster.  This example assumes the cluster is
+      built with heartbeat using "old" style configuration files, but
+      which high availability software is used to build the cluster is
+      not really essential. I start with the setup that consists of
+      two identical servers running Linux but in the end of the
+      chapter I am going to demonstrate how this configuration can be
+      converted to OpenBSD with CARP.
     </para>
 
     <para>
