@@ -72,7 +72,7 @@
 		<entry>Policy Ruleset Workspace</entry>
 		<entry>Displayed to the right of the object tree, this area holds the ruleset you're currently working on. This space is blank when you first load an object file. It only appears when you double-click a policy, NAT, or routing ruleset link in a firewall object. (So, you have to create a firewall object before you can work on a policy.)
       <para>See <xref linkend="firewall-object" /> for instructions on creating a firewall object. See <xref linkend="firewall-policies" /> for instructions on working with policies.</para>
-	<para>The two buttons on the top of the ruleset let you compile (the hammer) or compile-and-install (arrow and wall) the current firewall policy. <xref linkend="compile-install-policy" /> describes both compiling and compiling-and-installing a firewall policy.</para>
+	<para>The two buttons on the top of the ruleset let you compile (the hammer) or compile-and-install (arrow and wall) the current firewall policy. <xref linkend="compile-install-detail" /> describes both compiling and compiling-and-installing a firewall policy.</para>
       <para>
         <figure id="policy-small">
           <title>Policy Area</title>
@@ -556,13 +556,13 @@
 	      <row>
 		<entry>Compile</entry>
 		<entry>Opens the compile
-		wizard for all firewalls in the current object file. The compile button on an individual file opens the compile dialog for just the selected firewall. <xref linkend="compile-install-policy" />
+		wizard for all firewalls in the current object file. The compile button on an individual file opens the compile dialog for just the selected firewall. <xref linkend="compile-install-detail" />
 		explains this in more detail.</entry>
 	      </row>
 	      <row>
 		<entry>Install</entry>
 		<entry>Opens the compile/install
-		wizard for all firewalls in the current object file. The compile/install button on an individual file opens the compile/install dialog for just the selected firewall. <xref linkend="compile-install-policy" />
+		wizard for all firewalls in the current object file. The compile/install button on an individual file opens the compile/install dialog for just the selected firewall. <xref linkend="compile-install-detail" />
 		explains this in more detail.</entry>
 	      </row>
 	  </tbody>

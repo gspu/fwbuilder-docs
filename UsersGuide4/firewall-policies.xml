@@ -5,6 +5,8 @@
   <chapter id="firewall-policies">
     <title>Firewall Policies</title>
 
+	<para>This chapter describes working with policies. <xref linkend="compile-install-detail" /> describes compiling and installing a policy.</para>
+
     <sect1 id="policies-and-rules">
       <title>Policies and Rules</title>
 
@@ -2673,6 +2675,12 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
 
     </sect1>
 
+    <sect1>
+	<title>Compiling and Installing Your Policy</title>
+
+	<para>See <xref linkend="compile-install-detail" /> for full details on compiling and installing your firewall policy.</para>
+    </sect1>
+
     <sect1 id="rcs">
       <title>Using Built-in Revision Control in Firewall Builder</title>
 
@@ -2978,124 +2986,6 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
                 management.
               
   </para>
-
-    </sect1>
-
-    <sect1 id="compile-install-policy">
-      <title>Compiling and Installing firewall policies</title>
-
-	<note><para>This section offers a quick description of the
-	process to compile and install a
-	policy. <xref linkend="compile-install-detail" /> contains
-	more detailed instructions on installing a compiled policy
-	onto your firewall device.</para></note>
-	
-	<para>Once you have a policy created, you need to compile it
-	into a script that can run on your target device. You then
-	need to install it on that device.</para>
-
-	<para>Let's walk through compiling and installing a simple
-	iptables firewall onto a Linux machine. Here is the access
-	policy of the firewall:</para>
-
-        <figure id="compile-install-firewall-1">
-          <title>A policy to compile and install</title>
-              <graphic scale="50" fileref="compile-install-firewall-1.png" />
-        </figure>
-
-	<para>To compile it, select the firewall icon, then select <guimenuitem>Rules/Compile</guimenuitem>.</para>
-
-        <figure id="compile-install-firewall-2">
-          <title>Select Rules/Compile</title>
-              <graphic scale="70" fileref="compile-install-firewall-2.png" />
-        </figure>
-
-	<para>Select your firewall in the dialog. If your object file
-	has more than one firewall, you will see an entry for each
-	firewall. To compile several of them at once, just check the
-	checkboxes.</para>
-
-        <figure id="compile-install-firewall-3">
-          <title>Select your firewall</title>
-              <graphic scale="50" fileref="compile-install-firewall-3.png" />
-        </figure>
-
-	<para>Click <guibutton>Next</guibutton>.</para>
-
-	<para>A dialog appears that tracks the status of the
-	compile. If everything goes well, the output will look
-	something like this:</para>
-
-        <figure id="compile-install-firewall-4">
-          <title>Compile status messages</title>
-              <graphic scale="50" fileref="compile-install-firewall-4.png" />
-        </figure>
-
-	<para>If you get an error, see <xref linkend="troubleshooting-compiler-runtime" />.</para>
-
-	<para>To see the created script, look in the same directory as
-	your .fwb file. The file will be called
-	&lt;firewallName&gt;.fw. (If you changed your default
-	directory in the Preferences, then the generated script will
-	be there instead.)</para>
-
-	<note><para>This rest of this section offers a quick
-	description of the process of installing a
-	policy. <xref linkend="compile-install-detail" /> contains
-	more detailed instructions, including how to set up SSH on a
-	variety of platforms.</para></note>
-
-	<para>Create directory <emphasis>/etc/fw/</emphasis> on your firewall.</para>
-
-	<para>Now let's install the script using Firewall Builder's
-	"install"
-	functionality. Select <guimenuitem>Rules/Install</guimenuitem>.</para>
-
-
-
-        <figure id="compile-install-firewall-2-2">
-          <title>Select Rules/Install</title>
-              <graphic scale="70" fileref="compile-install-firewall-2.png" />
-        </figure>
-
-	<para>The following dialog appears:</para>
-
-        <figure id="compile-install-firewall-5">
-          <title>Select Install</title>
-              <graphic scale="50" fileref="compile-install-firewall-5.png" />
-        </figure>
-
-	<para>Make sure the <guilabel>Install</guilabel> checkbox is
-	checked, then click <guibutton>Next</guibutton>. The following
-	dialog appears:</para>
-
-        <figure id="compile-install-firewall-6">
-          <title>Firewall SSH and install parameters</title>
-              <graphic scale="50" fileref="compile-install-firewall-6.png" />
-        </figure>
-
-	<para>Enter the root username and password for the device, and
-	specify the IP address of the management interface of the
-	device. The first time you test your firewall, it's best to
-	leave the <guilabel>Test run</guilabel> checkbox checked. If
-	something goes wrong, you have only to reboot your device to
-	get back the old configuration. If, however, you want your
-	policy to be permanent on the device, uncheck this box.</para>
-
-	<para>Then click <guibutton>OK</guibutton>.</para>
-
-	<para>If everything goes well, the following dialog appears
-	and reports success. (If not, it will report failure. The log
-	will tell you what went wrong. If the error is unclear, see
-	<xref linkend="troubleshooting-compiler-runtime" />.)</para>
-
-	<figure id="compile-install-firewall-7">
-          <title>Installation status</title>
-          <graphic scale="50" fileref="compile-install-firewall-7.png" />
-        </figure>
-
-	<para>Log into the firewall to see the policy in place. For
-	iptables, run <command>sudo iptables -L</command>.</para>
 
     </sect1>
   </chapter>

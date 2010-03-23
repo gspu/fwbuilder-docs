@@ -828,7 +828,7 @@
       compiled already) and then open a dialog where you can configure
       the parameters of the installer. Here you need to enter a
       password to authenticate to the firewall. Section
-      <xref linkend="compile-install-policy" /> of the Users Guide has
+      <xref linkend="compile-install-detail" /> of the Users Guide has
       detailed instructions for setting up and using the installer.
     </para>
 
