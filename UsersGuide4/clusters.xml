@@ -218,7 +218,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
             <row>
               <entry>
                 <para>
-                  <figure float="1" id="heartbeat_parameters">
+                  <figure id="heartbeat_parameters">
                     <title>Editing parameters for the heartbeat protocol</title>
                     <graphic scale="50" fileref="heartbeat-parameters.png"/>
                   </figure>
@@ -226,7 +226,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
               </entry>
               <entry>
                 <para>
-                  <figure float="1" id="openais_parameters">
+                  <figure id="openais_parameters">
                     <title>Editing parameters for the OpenAIS protocol</title>
                     <graphic scale="50" fileref="openais-parameters.png"/>
                   </figure>
@@ -270,7 +270,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
 
       <para>
         <figure id="linux_cluster_statesync_mappings">
-          <title>Interfaces and addresses of the cluster members</title>
+          <title>State synchronization group object in the tree</title>
           <graphic scale="50" fileref="linux-cluster-statesync-mappings.png"/>
         </figure>
       </para>
@@ -281,7 +281,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
 
       <para>
         <figure id="linux_cluster_statesync_group">
-          <title>Interfaces and addresses of the cluster members</title>
+          <title>State synchronization group object parameters</title>
           <graphic scale="50" fileref="linux-cluster-statesync-group.png"/>
         </figure>
       </para>
@@ -346,7 +346,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
         object. Here is an example of correct interface mapping between
         cluster and member firewalls:
 
-        <figure float="1" id="pix_cluster_example1">
+        <figure id="pix_cluster_example1">
           <title>Failover group objects and mapping between
             cluster and member interfaces</title>
           <graphic scale="50" fileref="pix-failover-groups-mapping.png"/>
@@ -357,7 +357,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
         The Failover Group object "cluster1:e0.101:members" is
         configured with interfaces "Ethernet0.101" of both members:
 
-        <figure float="1" id="pix_cluster_failover_group_example_1">
+        <figure id="pix_cluster_failover_group_example_1">
           <title>Example of failover group object</title>
           <graphic scale="50" fileref="pix-failover-group-1.png"/>
         </figure>
@@ -408,7 +408,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
         Here is an example of the state synchronization and failover using
         the same interface Ethernet2:
 
-        <figure float="1" id="state_sync_conf_1">
+        <figure id="state_sync_conf_1">
           <title>Example of the state synchronization and failover
             using the same interface Ethernet2</title>
           <graphic scale="50" fileref="pix-statesync-group-mapping.png"/>
@@ -419,7 +419,7 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
         The State Synchronization Group object "State Sync Group" is
         configured with interfaces "Ethernet2" of both members:
 
-        <figure float="1" id="pix_cluster_statesync_group_example_1">
+        <figure id="pix_cluster_statesync_group_example_1">
           <title>Example of state synchronization group object</title>
           <graphic scale="50" fileref="pix-statesync-group-1.png"/>
         </figure>
