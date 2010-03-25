@@ -352,8 +352,6 @@
 				<string>{0.45055, 0.295482}</string>
 				<string>{0.119529, -0.37037}</string>
 			</array>
-			<key>ManualSizeImage</key>
-			<string>YES</string>
 			<key>Shape</key>
 			<string>Rectangle</string>
 			<key>Style</key>
@@ -361,7 +359,7 @@
 				<key>image fill</key>
 				<dict>
 					<key>ImageSizing</key>
-					<integer>0</integer>
+					<integer>2</integer>
 				</dict>
 				<key>stroke</key>
 				<dict>
@@ -369,6 +367,8 @@
 					<real>2</real>
 				</dict>
 			</dict>
+			<key>TiledImage</key>
+			<string>YES</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
@@ -385,8 +385,6 @@
 				<string>{-0.333333, 0.0213675}</string>
 				<string>{-0.340741, 0.294872}</string>
 			</array>
-			<key>ManualSizeImage</key>
-			<string>YES</string>
 			<key>Shape</key>
 			<string>Rectangle</string>
 			<key>Style</key>
@@ -394,7 +392,7 @@
 				<key>image fill</key>
 				<dict>
 					<key>ImageSizing</key>
-					<integer>0</integer>
+					<integer>2</integer>
 				</dict>
 				<key>stroke</key>
 				<dict>
@@ -402,6 +400,8 @@
 					<real>2</real>
 				</dict>
 			</dict>
+			<key>TiledImage</key>
+			<string>YES</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
@@ -418,8 +418,6 @@
 				<string>{-0.344444, 0.0128205}</string>
 				<string>{-0.337037, 0.290598}</string>
 			</array>
-			<key>ManualSizeImage</key>
-			<string>YES</string>
 			<key>Shape</key>
 			<string>Rectangle</string>
 			<key>Style</key>
@@ -427,7 +425,7 @@
 				<key>image fill</key>
 				<dict>
 					<key>ImageSizing</key>
-					<integer>0</integer>
+					<integer>2</integer>
 				</dict>
 				<key>stroke</key>
 				<dict>
@@ -435,6 +433,8 @@
 					<real>2</real>
 				</dict>
 			</dict>
+			<key>TiledImage</key>
+			<string>YES</string>
 		</dict>
 	</array>
 	<key>GridInfo</key>
@@ -501,7 +501,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2010-03-25 14:33:15 -0700</string>
+	<string>2010-03-25 14:43:17 -0700</string>
 	<key>Modifier</key>
 	<string>vadim</string>
 	<key>NotesVisible</key>
@@ -572,7 +572,7 @@
 		<key>ExpandedCanvases</key>
 		<array/>
 		<key>Frame</key>
-		<string>{{521, 261}, {860, 891}}</string>
+		<string>{{-889, 253}, {860, 891}}</string>
 		<key>ListView</key>
 		<false/>
 		<key>OutlineWidth</key>
