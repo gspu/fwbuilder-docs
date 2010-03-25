@@ -50,133 +50,131 @@
     then at configuring the management workstation.
   </para>
   
-  <sect2 id="firewall_setup_for_remote_management">
+  <sect1 id="firewall_setup_for_remote_management">
 
-    <title>The Firewall</title>
+    <title>Dedicated Firewall machine</title>
     
     <para>
-      The choice of the hardware for the firewall
-      depends on how much bandwidth is needed by the
-      network it protects. Our experience indicates that
-      a Pentium-II or Celeron machine running at 233 MHz
-      or above is more than enough for a group of 2-5
-      people doing regular web surfing, sending and
-      receiving email and doing some other
-      not-very-demanding tasks. We have run firewalls
-      like that at various times using Linux/iptables,
-      FreeBSD/ipfilter and OpenBSD/pf combinations and
+      The choice of the hardware for the firewall depends on how much
+      bandwidth is needed by the network it protects. Our experience
+      indicates that an old Pentium machine is sufficient for a group
+      of 2-5 people doing regular web surfing, sending and receiving
+      email and doing some other not-very-demanding tasks. Small
+      firewall appliances made by Linksys or DLink demonstrate good
+      performance as well. These appliances do not allow ssh access by
+      default, so fwbuilder won't be able to upload generated firewall
+      configuration, however their firmware can be replaced with
+      <ulink url="http://www.dd-wrt.com/site/index">DD-WRT</ulink>
+      or <ulink url="http://openwrt.org/">OpenWRT</ulink> which
+      enabled ssh and many other powerful features. Firewall Builder
+      4.0 comes with direct support for OpenWRT and can generate a
+      drop-in replacement for its standard firewall configuration
+      (just choose host OS "OpenWRT" in the firewall object).
+    </para>
+
+    <para>
+      We have ran firewalls like that at various times using
+      Linux/iptables, FreeBSD/ipfilter and OpenBSD/pf combinations and
       can't say that any particular platform has better
-      performance. They all just work. A firewall like
-      one of these won't slow down file transfer on a
-      DSL or a cable network, easily supporting download
-      speeds of 1.5 - 2 Mbit/sec. Since hardware like
-      this is very obsolete and can be had for almost
-      nothing, we never saw the need to investigate
-      which OS and firewall performs better on a slower
-      CPU. People have had good results using old
-      notebooks as their firewalls, too. The advantage
-      of the notebook is that is has a monitor which
-      makes troubleshooting easier in case you make a
-      mistake in the policy rules and block your own
-      access to the firewall over the network.
+      performance. They all just work. A firewall like one of these
+      won't slow down file transfer on a DSL or a cable network,
+      easily supporting download speeds of 1.5 - 2 Mbit/sec. Since
+      hardware like this is very obsolete and can be had for almost
+      nothing, we never saw the need to investigate which OS and
+      firewall performs better on a slower CPU. People have had good
+      results using old notebooks as their firewalls, too. The
+      advantage of the notebook is that is has a monitor which makes
+      troubleshooting easier in case you make a mistake in the policy
+      rules and block your own access to the firewall over the
+      network.
     </para>
 
     <para>
-      For a larger installation (more people or long
-      policy) a faster CPU is needed.
+      For a larger installation (more people or long policy) a faster
+      CPU is needed.
     </para>
 
     <para>
-      The OS installed on the firewall machine
-      should be minimal. Basically, all you need is the
-      kernel, basic tools usually found in /bin, and
-      ssh. This is true regardless of what OS you
-      choose, so just follow installation instructions
-      appropriate for your OS. Do not install
-      development tools, X11, editors, graphics software
-      and so on and you'll be fine. Make sure you get
-      ssh, though, and in some cases you may need
-      Perl.
+      The OS installed on the firewall machine should be
+      minimal. Basically, all you need is the kernel, basic tools
+      usually found in /bin, and ssh. This is true regardless of what
+      OS you choose, so just follow installation instructions
+      appropriate for your OS. Do not install development tools, X11,
+      editors, graphics software and so on and you'll be fine. Make
+      sure you get ssh, though, and in some cases you may need Perl.
     </para>
 
     <para>
-      Once you install the firewall machine, check
-      if the ssh daemon is running. It usually is, but
-      some OS have different installation options and if
-      you choose "workstation" install, they may not
-      start ssh daemon automatically. Use <command>ps
-	-ax | grep sshd</command> to check if the daemon
-      is running, and if it is not, activate it.</para>
-  </sect2>
+      Once you install the firewall machine, check if the ssh daemon
+      is running. It usually is, but some OS have different
+      installation options and if you choose "workstation" install,
+      they may not start ssh daemon automatically. Use <command>ps -ax
+      | grep sshd</command> to check if the daemon is running, and if
+      it is not, activate it.</para>
+  </sect1>
   
-  <sect2 id="diskless_firewall_configuration">
+  <sect1 id="diskless_firewall_configuration">
 
     <title>Using Diskless Firewall Configuration</title>
     
     <para>
-      Several projects came up with a decent
-      distributions intended for a small diskless
-      router/firewall. We have experience
+      Several projects came up with a decent distributions intended
+      for a small diskless router/firewall. We have experience
       with <ulink url="http://www.zelow.no/floppyfw/"><citetitle>floppyfw</citetitle></ulink>
       and <ulink url="http://www.devil-linux.org"><citetitle>Devil
-	  Linux</citetitle></ulink>, consequently Firewall
-      Builder has policy install scripts for these. The
-      advantage of using either one of these is that you
-      won't have to install OS and software on the
-      firewall machine; you just pop in a floppy or a
-      CD-ROM and boot from it. This is as close as it
-      comes to the firewall appliance, yet you get a
-      modern Linux kernel and iptables with both. The
-      whole OS is stored on the write-protected media and
-      can be easily replaced or upgraded simply by
-      changing the disk. Floppy FW comes on a single
-      floppy. (These guys managed to pack a kernel, a
-      busybox application and bunch of other programs on a
-      single compressed ram disk.) You don't get ssh with
-      floppyfw though. The firewall configuration is
-      located in a text file that can be edited off-line
-      and then written to the floppy. Firewall Builder's
-      install script also writes the firewall policy to
-      this floppy when you call main menu
+      Linux</citetitle></ulink>, consequently Firewall Builder has
+      policy install scripts for these. The advantage of using either
+      one of these is that you won't have to install OS and software
+      on the firewall machine; you just pop in a floppy or a CD-ROM
+      and boot from it. This is as close as it comes to the firewall
+      appliance, yet you get a modern Linux kernel and iptables with
+      both. The whole OS is stored on the write-protected media and
+      can be easily replaced or upgraded simply by changing the
+      disk. Floppy FW comes on a single floppy. (These guys managed to
+      pack a kernel, a busybox application and bunch of other programs
+      on a single compressed ram disk.) You don't get ssh with
+      floppyfw though. The firewall configuration is located in a text
+      file that can be edited off-line and then written to the
+      floppy. Firewall Builder's install script also writes the
+      firewall policy to this floppy when you call main menu
       item <guimenuitem>Rules/Install</guimenuitem>. Once
-      configuration is written to the floppy, you insert
-      it in the firewall and reboot. That's it.
+      configuration is written to the floppy, you insert it in the
+      firewall and reboot. That's it.
     </para>
 
     <para>
-      Devil Linux comes on a CD-ROM and obviously
-      has lot more stuff on it. They also keep
-      configuration on a floppy disk. Firewall Builder's
-      install script writes firewall policy to this
-      floppy, which you then need to insert in the
-      firewall. See detailed documentation on
+      Devil Linux comes on a CD-ROM and obviously has lot more stuff
+      on it. They also keep configuration on a floppy disk. Firewall
+      Builder's install script writes firewall policy to this floppy,
+      which you then need to insert in the firewall. See detailed
+      documentation on
       using <ulink url="http://www.devil-linux.org/home/index.php"><citetitle>Devil
-	  Linux</citetitle></ulink> on their web site.
+      Linux</citetitle></ulink> on their web site.
     </para>
-  </sect2>
+  </sect1>
   
-  <sect2 id="management_workstation">
+  <sect1 id="management_workstation">
     <title>The Management Workstation</title>
     
-    <para>The management workstation runs fwbuilder, so
-      it needs X11 and all other libraries fwbuilder
-      depends upon. Follow Installation instructions in
-      <xref linkend="install" /> to install fwbuilder on
-      the machine. Start fwbuilder by
-      typing <command>"fwbuilder"</command> at a shell
-      prompt to test it.</para>
+    <para>
+      The management workstation runs fwbuilder, so it needs X11 and
+      all other libraries fwbuilder depends upon. Follow Installation
+      instructions in <xref linkend="install" /> to install fwbuilder
+      on the machine. Start fwbuilder by
+      typing <command>"fwbuilder"</command> at a shell prompt to test
+      it.
+    </para>
 
-    <para>Once you get the Firewall Builder GUI up and
-      running on the management workstation, you need to
-      build a firewall policy and, eventually, compile
-      it and install on the firewall. Other sections of
-      this Guide describe all steps of this
-      process. Configuration of the built-in policy
-      installer and different ways to use it to install
-      and activate generated policy on the dedicated
-      firewall can be found in
+    <para>
+      Once you get the Firewall Builder GUI up and running on the
+      management workstation, you need to build a firewall policy and,
+      eventually, compile it and install on the firewall. Other
+      sections of this Guide describe all steps of this
+      process. Configuration of the built-in policy installer and
+      different ways to use it to install and activate generated
+      policy on the dedicated firewall can be found in
       <xref linkend="compile-install-detail" />.
     </para>
     
-  </sect2>
+  </sect1>
 </chapter>
