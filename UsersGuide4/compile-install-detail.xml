@@ -6,7 +6,7 @@
     <title>Compiling and Installing a Policy</title>
 
     <sect1 id="compile-single-rule">
-      <title>Policy and NAT rules for the cluster</title>
+      <title>Compiling single rule in the GUI</title>
 
       <para>
         While you're developing your firewall policy, you can compile 
