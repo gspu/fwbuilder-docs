@@ -457,4 +457,46 @@ eth0:0    Link encap:Ethernet  HWaddr 00:0c:29:1e:dc:aa
 
     </sect1>
 
+
+    <sect1 id="cluster_rule_set_override">
+      <title>Handling of the cluster rule set and member firewalls rule sets</title>
+
+      <para>
+        Normally, only the cluster object should have non-empty
+        policy, NAT and routing rule sets, while member firewall
+        objects should have empty rule sets. In this case, Firewall
+        Builder policy compilers will use rules they find in the
+        cluster rule sets. However, if a member firewall hs rule set
+        object of any type (Policy, NAT, Routing) with the name the
+        same as the name of the cluster rule set object and the same
+        type, then compilers will use rules from the member firewall
+        and ignore cluster object rule set. They also issue a warning
+        that looks like shown in <xref linkend="cluster_rule_set_override_warning"/>:
+      </para>
+
+      <figure id="cluster_rule_set_override_warning">
+        <title>A warning shown when a rule set that belongs to the member firewall overrides rule set that belongs to the cluster</title>
+        <graphic scale="50" fileref="cluster-rule-set-override-warning.png"/>
+      </figure>
+
+      <para>
+        Suggested use case for this feature is to create a small
+        non-top rule set in the cluster, that can be used as a
+        branch using a rule with action "Branch" to pass control to
+        it. The cluster can define some rules in this rule set that
+        are common for all member firewalls. However if for some
+        reason you want to implement these rules differently for one
+        member, you ust create rule set with the same name in it and
+        add some different rules there. Of course two members can
+        have the rule set with this name and both will override the
+        one that belongs to the cluster. The warning is only given
+        if member firewall rule set is not empty. If it exists and
+        has the same name as the one that belongs to the cluster,
+        but has no rules, then the warning does not appear.
+      </para>
+
+    </sect1>
+
+
+
   </chapter>
