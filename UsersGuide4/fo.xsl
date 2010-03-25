@@ -23,6 +23,11 @@ file to .pdf
 <xsl:param name="use.id.as.filename" select="1"/>
 <xsl:param name="xref.with.number.and.title" select="0"/>
 
+<!-- what level gets TOC and what goes there -->
+<xsl:param name="generate.toc">
+book toc
+</xsl:param>
+
 <!-- figure floats do not work in the print output -->
 <xsl:param name="default.float.class" select="none"/>
 
