@@ -2247,6 +2247,116 @@ ipnat_rules="/etc/ipnat.rules"  # rules definition file for ipnat
 
     </sect1>
 
+    <sect1 id="installer_on_pix">
+      <title>Installing generated configuration onto Cisco ASA (PIX) firewalls</title>
+
+      <para>
+        Built-in installer can use command <command>scp</command> to
+        copy generated configuration to the firewall and then
+        command <command>"copy file running-config"</command> to
+        activate it.  This method is much faster than running
+        configuration line by line.  The firewall should be configured
+        with ssh v2 and scp server. This method can be combined with
+        rollback. To use this method, turn on checkbox in the
+        tab <emphasis>"Installer"</emphasis> of
+        the <emphasis>"advanced settings"</emphasis> dialog of the PIX
+        firewall.  Since this option is configured separately for each
+        firewall object, you can have a mix of installation methods if
+        some firewalls do not support <command>scp</command>.
+      </para>
+
+      <para>
+        To configure <command>scp</command> on the PIX firewall you
+        need to do the following:
+
+        <itemizedlist>
+
+          <listitem>
+            <para>
+              Create RSA keys
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              enable ssh v2 using command <command>"ssh version
+            2"</command> in configuration mode
+          </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              enable scp using command <command>"ssh scopy enable"</command> in configuration
+              mode
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              make sure user account used to copy configuration has
+              "privilege 15": <command>"username fwbadmin password XXXXXXX privilege
+                15"</command>
+            </para>
+          </listitem>
+
+        </itemizedlist>
+      </para>
+
+      <para>
+        To troubleshoot when scp is not working:
+        <itemizedlist>
+
+          <listitem>
+            <para>
+              Test using command line scp tool rather than fwbuilder
+              installer. Use
+              <command>"scp"</command> on Linux and Mac OS X
+              and <command>"pscp.exe"</command> on Windows like
+              this: <command>"scp file.fw
+              firewall:flash:file.fw"</command>
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              check that ssh and scopy are enabled on the firewall
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              check that user account has privilege 15
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              Use command <command>"debug ssh 10"</command> on PIX to
+              turn debugging on. Diagnostic messages that it prints to
+              the console and to log may help you identify the problem
+            </para>
+          </listitem>
+
+        </itemizedlist>
+      </para>
+
+      <para>
+        Note that when fwbuilder uses command <command>"copy file.fw
+        running-config"</command> to activate uploaded policy, the
+        firewall does not print it. If there are errors, they are
+        printed but the lines they refer to are not printed. Some
+        configuration lines trigger lines because they try to
+        configure things that are already configured, such as some
+        parameters of interfaces, global pools etc.
+      </para>
+
+      <para>
+        Generated PIX configuration will include commands that enable ssh v2
+        and enable scopy if this option is turned on to make sure they stay
+        enabled after configuration is reloaded from the file.
+      </para>
+
+    </sect1>
 
   </chapter>
   
