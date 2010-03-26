@@ -806,6 +806,12 @@
         generates "anchor" or "nat-anchor" (depending on the version
         of PF).
       </para>
+
+      <figure id="branch-in-nat-pf">
+        <title>Example of branching NAT rule, compiled for PF</title>
+        <graphic scale="50" fileref="branch_in_nat_example.png"/>
+      </figure>
+
     </sect1>
 
     <sect1>
