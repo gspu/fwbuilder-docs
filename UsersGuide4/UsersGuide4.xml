@@ -66,6 +66,8 @@
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="support_for_specific_firewall_os.xml"/>
 
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="configlets.xml"/>
+
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="cookbook.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Troubleshooting.xml"/>
