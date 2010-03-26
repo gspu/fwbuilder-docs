@@ -2081,6 +2081,13 @@ ipnat_rules="/etc/ipnat.rules"  # rules definition file for ipnat
     <sect1 id="installer_on_ios">
       <title>Installing generated configuration onto Cisco routers</title>
 
+      <para>
+        Firewall Builder 4.0 introduces two improvements in the
+        built-in policy installer for Cisco routers: ability to
+        install generated configuration using scp and support for
+        Embedded Event Manager for automated rollback.
+      </para>
+
       <sect2>
         <title>Installing configuration with scp</title>
 
