@@ -23,44 +23,12 @@
       </figure>
 
       <figure id="compile-single-rule-image2">
-        <title>Generated
-          iptables commands for the anti-spoofing rule</title>
+        <title>Generated iptables script for the rule #0 is shown in the GUI</title>
         <graphic scale="50" fileref="linux-vrrpd-cluster-15.png"/>
       </figure>
-
-
-      <para>
-        Lets inspect the compiled rule shown in 
-        <xref linkend="compile-single-rule-image2"/>. The rule is built
-        with global option "Assume firewall is part of any" turned off
-        in both linux-test-1 and linux-test-2 firewalls.
-      </para>
-
-          <para>Rule 0: anti-spoofing rule. When we build
-            anti-spoofing rule for a standalone firewall, we put
-            firewall object in "Source", its external interface in
-            "Interface" and make direction "Inbound". When we do this
-            for a cluster, we put cluster object in "Source" instead of
-            the member firewall object. The interface object in
-            "Interface" element of this rule is the one that belongs to
-            the cluster rather than its members. All other aspects of
-            the rule are the same. Fwbuilder generates iptables commands
-            for this rule using ip addresses of the cluster (10.3.14.150
-            and 10.1.1.254 in our example) and addresses of the member
-            firewall it compiles for, in this case 10.3.14.108 and
-            10.1.1.1 for linux-test-1 and 10.3.14.109 and 10.1.1.2 for
-            linux-test-2. This is clearly visible in the generated
-            output shown in <xref linkend="cookbook_linux_vrrpd_cluster_15"/>. In
-            other words, policy compiler processes rules twice, first
-            compiling for the first member firewall and then for the
-            second one. On each pass, cluster object represents
-            corresponding member, plus virtual addresses configured in
-            the cluster's interfaces.
-          </para>
-
     </sect1>
 
-      <sect1 id="compile-install-policy">
+    <sect1 id="compile-install-policy">
       <title>Compiling firewall policies</title>
 
 	<para>Once you have a policy created, you need to compile it
