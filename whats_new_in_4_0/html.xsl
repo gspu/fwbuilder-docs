@@ -22,7 +22,7 @@
 
 <!-- what level gets TOC and what goes there -->
 <xsl:param name="generate.toc">
-book toc
+chapter toc
 </xsl:param>
 
 <!-- Ignore image scaling for HTML. It is hard to guess image scaling for
