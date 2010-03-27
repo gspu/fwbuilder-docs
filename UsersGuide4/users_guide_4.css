@@ -63,7 +63,11 @@
 .column_users_guide .REVHISTORY TABLE {
 }
 
-.column_users_guide .TOC A {
+.column_users_guide .toc A {
+}
+
+.column_users_guide .toc {
+    padding-bottom: 20px;
 }
 
 .column_users_guide .chapter {
