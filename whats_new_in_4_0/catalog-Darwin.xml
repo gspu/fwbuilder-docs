@@ -60,6 +60,17 @@
         name="fo-docbook.xsl"
         uri="fo/docbook.xsl" />
 
+    <uri
+       name="targetdatabase.dtd"
+       uri="common/targetdatabase.dtd" />
+
+  </group>
+
+
+  <group  xml:base="file:///Users/vadim/src/fwbuilder/docs/">
+    <uri
+        name="target.db"
+        uri="UsersGuide4/target.db" />
   </group>
 
 

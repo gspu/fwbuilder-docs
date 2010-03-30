@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?> 
-<!DOCTYPE targetset 
-       SYSTEM "file:///opt/local/share/xsl/docbook-xsl/common/targetdatabase.dtd" [
-<!ENTITY ugtargets SYSTEM "file:///Users/vadim/src/fwbuilder/docs//UsersGuide4/target.db">
+<!DOCTYPE targetset SYSTEM "targetdatabase.dtd" [
+<!ENTITY ugtargets SYSTEM "target.db">
 ]>
 <targetset> 
   <targetsetinfo> 
