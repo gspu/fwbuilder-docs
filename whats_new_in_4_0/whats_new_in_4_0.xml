@@ -31,19 +31,13 @@
       <itemizedlist>
         <listitem>
           <para>
-            <ulink url="http://www.fwbuilder.org/4.0/slideshows/brief_introduction/slide_1.html">Introduction to Firewall Builder for the impatient.</ulink>
+            <ulink url="http://www.fwbuilder.org/docs/firewall_builder_intro.html">Introduction to Firewall Builder.</ulink>
           </para>
         </listitem>
 
         <listitem>
           <para>
             <ulink url="http://www.fwbuilder.org/4.0/docs/users_guide/gettingstarted.html">Getting Started with Firewall Builder</ulink>
-          </para>
-        </listitem>
-
-        <listitem>
-          <para>
-            <ulink url="http://www.cyberciti.biz/tips/introduction-to-firewall-builder-4-0.html">Introduction to Firewall Builder 4.0 (nixCraft blog)</ulink>
           </para>
         </listitem>
 
