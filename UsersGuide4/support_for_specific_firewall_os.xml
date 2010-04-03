@@ -25,7 +25,7 @@
     in the firewall object dialog.
   </para>
 
-  <sect1>
+  <sect1 id="gen-linux">
     <title>Generic Linux OS</title>
 
     <para>
@@ -67,7 +67,7 @@
   </sect1>
 
 
-  <sect1>
+  <sect1 id="openwrt">
     <title>OpenWRT</title>
 
     <para>
@@ -168,7 +168,7 @@
     </para>
   </sect1>
 
-  <sect1>
+  <sect1 id="dd-wrt">
     <title>DD-WRT</title>
 
     <para>
@@ -256,7 +256,7 @@
   </sect1>
 
 
-  <sect1>
+  <sect1 id="sveasoft">
     <title>Sveasoft</title>
 
     <para>
@@ -293,7 +293,7 @@
   </sect1>
 
 
-  <sect1>
+  <sect1 id="ipcop">
     <title>IPCOP</title>
 
     <para>
@@ -321,7 +321,7 @@
     </para>
   </sect1>
 
-  <sect1>
+  <sect1 id="bsd">
     <title>OpenBSD and FreeBSD</title>
 
     <para>
