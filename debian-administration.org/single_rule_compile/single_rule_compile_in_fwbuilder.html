@@ -65,10 +65,33 @@
 </p>
 
 <div class="figure">
-<a name="compile-single-rule-image2"></a><p class="title"><b>Figure 1. Generated iptables script for the rule #0 is shown in the GUI</b></p>
+<a name="compile-single-rule-image2"></a>
+<p class="title"><b>Figure 1. Generated iptables script for the rule #0 is shown in the GUI</b></p>
 <div class="figure-contents"><div><img src="http://www.fwbuilder.org/4.0/images/single_rule_compile.png" alt="Generated iptables script for the rule #0 is shown in the GUI"></div></div>
 </div>
 
+<p>
+  When you hit 'x' to compile a rule, the program executes the same
+  policy compiler code as when the whole configuration is compiled,
+  except only for one rule. Shadowing detection is not done,
+  obviously, because compiler looks only at one rule, however all
+  error checks are performed as usual. When rule belongs to a firewall
+  cluster, it is compiled for all member firewalls with all address
+  substitutions and the output panel shows generated iptables code for
+  each member. This is shown in the screenshot above. If compiler
+  finds any errors or issues warnings, they are visible in the output
+  panel as well.
+</p>
+
+<p>
+  Support for firewall clusters built on Linux with vrrpd, heartbeat,
+  keepalived, pacemaker or OpenAIS is a new feature available in
+  Firewall Builder 4.0. It also supports OpenBSD clusters with CARP
+  and pfsync and Cisco ASA (PIX) clusters. Firewall Builder 4.0 has
+  many other new features and improvements, all listed
+  here: <a href="http://www.fwbuilder.org/4.0/docs/whats_new/firewall_builder_whats_new_in_4_0.html">
+  What is new in Firewall Builder v4.0</a>.
+</p>
 
 <p>
   If you are not familiar with Firewall Builder, you can find many
