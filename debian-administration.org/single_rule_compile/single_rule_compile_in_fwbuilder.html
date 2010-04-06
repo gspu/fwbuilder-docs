@@ -1,0 +1,97 @@
+
+<h1>Compiling Single Rule in Firewall Builder 4.0</h1>
+
+<p>
+  Article <a href="http://www.debian-administration.org/articles/632">Getting
+  Started With Firewall Builder</a> here on Debian Administration site
+  attracted many comments.
+  <a href="http://www.fwbuilder.org/4.0">Firewall Builder 4.0</a>
+  addresses some concerns and suggestions expressed there.
+</p>
+
+<p>
+  One thing comments posted with the article <a class="ulink"
+  href="http://www.debian-administration.org/articles/632">Getting
+  Started With Firewall Builder</a> show quite clearly, is that
+  administrators do not like GUI (or any other kind of high level)
+  tools that aren't transparent. It is true that most GUI tools hide
+  actual actions they perform because authors believed the tool should
+  be trusted completely and therefore it is not necessary to keep
+  administrator "in the loop". Applying this to firewall
+  administration, this means that the firewall configuration GUI does
+  not let the administrator check generated configuration easily,
+  assuming that they should trust the tool. Experienced system
+  administrators who are experts in iptables or other firewall
+  platform understandably do not like that. The program should "earn
+  their trust" first, and for that, administrator must have easy
+  access to the generated configuration at all times, as simply as
+  possible, in order to be able to verify and check the result. This
+  leads to the conclusion that such GUI tool is only good for the
+  beginners because they do not understand underlying technology
+  anyway and so can only get any work done if they use such tool.
+</p>
+
+<p>
+  As an author of <a href="http://www.fwbuilder.org/4.0">Firewall
+  Builder</a> and systems and network administrator with over 10 years
+  of experience, I believe the GUI tool such as Firewall Builder can
+  be very useful for both categories of users: the beginners and
+  experienced administrators as well. Firewall Builder, when properly
+  used, reduces repetitive tasks, helps perform coordinated policy
+  changes for multiple firewalls and routers, provides early error
+  checking and simplifies deployment. In the end, it saves time in
+  regular day-to-day maintenance and helps reduce potential downtime
+  caused by errors.  There is value in that, even for someone who can
+  write or maintain complex iptables scripts by hand. Still, to make
+  experienced administrators more comfortable, the program should make
+  it easy to quickly check what iptables (or other) commands are being
+  generated.
+</p>
+
+<p>
+ With this in mind, Firewall Builder 4.0 adds new feature that does
+ just that.
+</p>
+
+<p>
+  While you're developing your firewall policy, you can now compile
+  individual rules to confirm that they do what you intended. To do
+  this, right-click anywhere in the rule to open context menu, then
+  select menu item "Compile". Or, highlight the rule and use keyboard
+  shortcut "x". This is a great way to experiment with fwbuilder and
+  see what it generates for different rule configurations built in the
+  GUI. This feature works for all supported firewall platforms and all
+  types of rules (Policy, NAT and routing).
+</p>
+
+<div class="figure">
+<a name="compile-single-rule-image2"></a><p class="title"><b>Figure 1. Generated iptables script for the rule #0 is shown in the GUI</b></p>
+<div class="figure-contents"><div><img src="http://www.fwbuilder.org/4.0/images/single_rule_compile.png" alt="Generated iptables script for the rule #0 is shown in the GUI"></div></div>
+</div>
+
+
+<p>
+  If you are not familiar with Firewall Builder, you can find many
+  introductory articles on the Internet and our own project web
+  site. Articles <a class="ulink"
+  href="http://www.debian-administration.org/articles/632">Getting
+  Started With Firewall Builder</a> on this stie and <a class="ulink"
+  href="http://www.fwbuilder.org/docs/firewall_builder_intro.html">Introduction
+  to Firewall Builder</a> on the project web site give good overview.
+</p>
+
+<p>
+  <a href="http://www.fwbuilder.org/4.0">Firewall Builder 4.0</a> is
+  currently in public beta testing. Latest binary packages and source
+  tar.gz archives are distributed from the
+  <a class="ulink"
+    href="https://sourceforge.net/projects/fwbuilder/files/">SourceForge
+    download pages</a>.  Please file bug reports
+    using <a class="ulink"
+    href="https://sourceforge.net/tracker/?group_id=5314&amp;atid=1129518">
+    Source Forge bug tracking system</a>.
+</p>
+
+
+
+
