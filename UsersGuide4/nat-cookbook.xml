@@ -79,7 +79,8 @@ nat (inside) 1 access-list id54756X30286.0 tcp 0 0
 	</sect2>
 
    	<sect2>
-          <title>Using Address of "wrong" Interface for Source Address Translation</title>
+          <title>Using Address of "wrong" Interface for Source Address
+          Translation</title>
 
           <para>
             Normally, generated iptables SNAT rule includes a "-o
@@ -153,7 +154,6 @@ nat (inside) 1 access-list id54756X30286.0 tcp 0 0
 
 
         <para>
-          
           Here the publicly routable address block is very small,
           it is just a /29 (6 usable addresses). It is assigned
           to the DMZ interface <emphasis>eth2</emphasis>, and the firewall's address
@@ -171,12 +171,10 @@ nat (inside) 1 access-list id54756X30286.0 tcp 0 0
           should use interface <emphasis>eth0</emphasis> or should be
           omitted all together. The "-o eth2" would not work
           at all.
-          
         </para>
         
 
         <para>
-          
           To do this is Firewall Builder, create an Address
           object with an IP address equivalent to the one you
           want to use for source NAT. Since in this example we
@@ -184,45 +182,42 @@ nat (inside) 1 access-list id54756X30286.0 tcp 0 0
           firewall, we call this new address object "like
           fw-1-1:eth2:ip". This is just a regular IPv4 address
           object, there is nothing special about it:
-          
         </para>
         
 
-        <figure float="1"><title/><graphic scale="50" fileref="snat-address-obj-2.png"/></figure>
+        <figure>
+          <title/>
+          <graphic scale="50" fileref="snat-address-obj-2.png"/>
+        </figure>
 
         <para>
-          
           Now we use it in the NAT rule:
-          
         </para>
         
 
-        <figure float="1"><title/><graphic scale="50" fileref="snat-rule-6.png"/></figure>
+        <figure>
+          <title/>
+          <graphic scale="50" fileref="snat-rule-6.png"/>
+        </figure>
 
         <para>
-          
           Here is what fwbuilder generates for iptables for
           this rule:
-          
         </para>
         
 
-  <programlisting>
-
+        <programlisting>
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A POSTROUTING -o eth+  -s 172.16.22.0/24 -j SNAT --to-source 192.0.2.1 
-
-                </programlisting>
+        </programlisting>
 
         <para>
-  
-                  Compiler added "-o eth+" parameter that matches any
-                  outbound interface and used address 192.0.2.1 in
-                  SNAT target as required.
-                
-  </para>
-  </sect2>
+          Compiler added "-o eth+" parameter that matches any
+          outbound interface and used address 192.0.2.1 in
+          SNAT target as required.
+        </para>
+        </sect2>
 
 	<sect2>
         <title>"No NAT" rules</title>
