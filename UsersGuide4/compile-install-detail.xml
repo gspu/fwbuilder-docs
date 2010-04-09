@@ -91,7 +91,7 @@
 
 	<para>Alternatively, click the "compile" icon (the hammer) in the policy window.</para>
 
-	<para>To compile (or compile and install) several firewalls or clusters, use Shift-left click or Ctrl-left click to select more than one firewall or cluster. Then, right-click on one of them to bring up the contect menu and select <guimenuitem>Compile</guimenuitem> or <guimenuitem>Install</guimenuitem>.</para>
+	<para>To compile (or compile and install) several firewalls or clusters, use Shift-left click or Ctrl-left click to select more than one firewall or cluster. Then, right-click on one of them to bring up the context menu and select <guimenuitem>Compile</guimenuitem> or <guimenuitem>Install</guimenuitem>.</para>
 
         <figure id="compile-install-firewall-2b">
           <title>Select the Hammer icon</title>
