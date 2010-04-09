@@ -5,6 +5,49 @@
   <chapter id="compile-install-detail">
     <title>Compiling and Installing a Policy</title>
 
+    <sect1 id="compile-and-install-options">
+      <title>Different ways to compile</title>
+
+      <figure id="compile-install-firewall-options1">
+        <title>Compile options</title>
+        <graphic scale="50" fileref="compile-install-firewall-options1.png"/>
+      </figure>
+       
+      <para>There are several ways to compile and install a policy, summarized here. The actual results are described in more detail in later sections of this chapter.</para>
+
+        <itemizedlist>
+           <listitem>        <para>
+             The hammer icon in the topmost toolbar (on the left) lets you compile, but not install,
+             one or more of the firewalls or clusters in the object file. The arrow-and-wall
+             icon lets you both compile and install firewalls.
+                          </para>
+           </listitem>
+           <listitem>        <para>
+             The <guimenuitem>Rules > Compile</guimenuitem> and <guimenuitem>Rules > Install</guimenuitem>
+             menu selections also let you compile, or compile and install, one or more firewalls or clusters.
+                          </para>
+           </listitem>
+           <listitem>        <para>
+             The hammer icon in the policy (on the right) toolbar lets you compile, but not install,
+             the firewall of the current policy. The arrow-and-wall
+             icon in the policy toolbar lets you both compile and install it. <emphasis>Note that this compiles the firewall of the shown policy. Double-clicking a different firewall to bring up that firewall's object editor does not change the policy shown, and does not change which firewall will be compiled.</emphasis>
+                          </para>
+           </listitem>
+           <listitem>        <para>
+             The <guimenuitem>Compile</guimenuitem> and <guimenuitem>Install</guimenuitem>
+             menu selections in the right-click context menu let you do a compile or compile-and-install on the firewall that you selected. You can ctrl-click or shift-click to select more than one firewall or cluster.
+                          </para>
+           </listitem>
+           <listitem>        <para>
+             To compile a single rule, select it in the rule set, right-click it and select
+             <guimenuitem>Compile</guimenuitem>. Or, select a rule, then press X on the keyboard.
+ This only compiles the single rule and shows the result. This function does
+ not produce a firewall script.
+                          </para>
+           </listitem>
+         </itemizedlist>
+    </sect1>
+
     <sect1 id="compile-single-rule">
       <title>Compiling single rule in the GUI</title>
 
@@ -40,7 +83,7 @@
 	policy of the firewall. This particular policy is designed for a cluster, but the procedure is the same.</para>
 
         <figure id="compile-install-firewall-1">
-          <title>A policy to compile and install</title>
+          <title>A policy to compile</title>
               <graphic scale="50" fileref="compile-install-firewall-1.png" />
         </figure>
 
@@ -48,7 +91,7 @@
 
 	<para>Alternatively, click the "compile" icon (the hammer) in the policy window.</para>
 
-	<para>To compile (or compile and install) several firewalls or clusters, use Shift-left click or Ctrl-left click to select more than one firewall or cluster. Then, righ-click on one of them to bring up the contect menu and select <guimenuitem>Compile</guimenuitem> or <guimenuitem>Install</guimenuitem>.</para>
+	<para>To compile (or compile and install) several firewalls or clusters, use Shift-left click or Ctrl-left click to select more than one firewall or cluster. Then, right-click on one of them to bring up the contect menu and select <guimenuitem>Compile</guimenuitem> or <guimenuitem>Install</guimenuitem>.</para>
 
         <figure id="compile-install-firewall-2b">
           <title>Select the Hammer icon</title>
@@ -56,6 +99,17 @@
         </figure>
 
 	<para>Select your firewall (or cluster) in the dialog. (If you have only one firewall, or if you selected the command to just compile one firewall/cluster, then only one will appear.) To compile several of them at once, just check the checkboxes.</para>
+
+        <para>Firewall Builder keeps track of the last time the firewall was compiled and also keeps track of any changes since then. If the firewall (or cluster) has not changed since the last compile, that firewall is unchecked by default because no compile is needed.</para>
+
+        <para>In addition, you can see which firewalls and clusters have been modified since their last compile by looking at the object tree. If a firewall has been compiled since it was last modified, it appears in normal font. If it has not been compiled since its last modification, it appears in bold.</para>
+
+        <para>To see the last time a firewall or cluster was compiled, double-click it to bring up its object editor.</para>
+
+        <figure id="compile-install-firewall-both2">
+          <title>Object Editor Dialog with last modify and compile times</title>
+              <graphic scale="50" fileref="compile-install-firewall-both2.png" />
+        </figure>
 
 	<para>Since this is a cluster policy, you see the cluster and its component firewalls. Since we are just doing a compile, the only checkbox is next to the cluster icon. If we were doing a compile and install in the same run, you would also see "install" checkboxes next to the individual firewalls.</para>
 
@@ -187,13 +241,27 @@
 
 	<para>The following dialog appears:</para>
 
-        <figure id="compile-install-firewall-5">
-          <title>Select Install</title>
-              <graphic scale="50" fileref="compile-install-firewall-5.png" />
+        <figure id="compile-install-firewall-both1">
+          <title>Select Compile and Install</title>
+              <graphic scale="50" fileref="compile-install-firewall-both1.png" />
         </figure>
 
+        <para>As you can see, a list of all firewalls and clusters in the object file appear. Notice that not all <guilabel>Compile</guilabel> checkboxes are checked by default. This is because Firewall Builder keeps track of the last time the firewall was compiled and also keeps track of any changes since then. If the firewall (or cluster) has not changed since the last compile, that firewall is unchecked by default because no compile is needed.</para>
+
+        <para>In addition, you can see which firewalls and clusters have been modified since their last compile by looking at the object tree. If a firewall has been compiled since it was last modified, it appears in normal font. If it has not been compiled since its last modification, it appears in bold.</para>
+
+        <para>To see the last time a firewall or cluster was compiled, double-click it to bring up its object editor.</para>
+
+        <figure id="compile-install-firewall-both2b">
+          <title>Object Editor Dialog with last modify and compile times</title>
+              <graphic scale="50" fileref="compile-install-firewall-both2.png" />
+        </figure>
+
+        <para>Note in the install dialog, for clusters, you compile the cluster but install the individual firewalls.</para>
+
 	<para>Make sure the <guilabel>Install</guilabel> checkbox is
-	checked, then click <guibutton>Next</guibutton>. The following
+	checked next to the firewall you want to install, then click 
+        <guibutton>Next</guibutton>. The following
 	dialog appears:</para>
 
         <figure id="compile-install-firewall-6">
