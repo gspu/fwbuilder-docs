@@ -156,11 +156,7 @@
 
 
     <para>
-      Select your firewall (or cluster) in the dialog. (If you
-      have only one firewall, or if you used the command to just
-      compile one firewall/cluster, then only one will appear.) To
-      compile several of them at once, just check the
-      checkboxes.
+      Check the <guilabel>Compile</guilabel> checkbox next to the firewall you want to compile, and uncheck all the others.
     </para>
 
     <para>
@@ -170,8 +166,7 @@
       that firewall is unchecked by default because no compile is
       needed. Any direct change done to the rules of the firewall or a
       cluster, or a change to any object used in rules, triggers the
-      recompile. You can always force compile by turning "Compile"
-      checkbox on next to the object in the list or skip it by turning
+      recompile. You can always force compile by checking the <guilabel>Compile</guilabel> next to the object in the list or skip it by turning
       it off.
     </para>
 
@@ -183,6 +178,13 @@
       compiled since its last modification, it appears in
       bold.
     </para>
+
+    <para>As you can see in this image, firewalls that need compilation are in bold and are checked by default in the Compile dialog. Firewalls that have been compiled since their last change are in regular font and are unchecked by default.</para>
+
+    <figure id="compile-install-firewall-8">
+      <title>Uncompiled firewalls are in bold</title>
+      <graphic scale="50" fileref="compile-install-firewall-8.png" />
+    </figure>
 
     <para>
       To see the last time a firewall or cluster was compiled,
@@ -222,11 +224,6 @@
       takes you to the portion of the policy where the error
       occurs. In this case, one rule is shadowing another.</para>
 
-    <figure id="compile-install-firewall-4b">
-      <title>Policy with error</title>
-      <graphic scale="50" fileref="compile-install-firewall-4b.png" />
-    </figure>
-
     <para>We fix the problem, then compile again.</para>
 
     <figure id="compile-install-firewall-4c">
@@ -265,7 +262,7 @@
         the cluster object while "Install" checkboxes appear
         only next to the member firewall objects. This is
         because to compile, policy compiler needs to read
-        cluster object to get all informaiton about cluster
+        cluster object to get all information about cluster
         configuration, including the list of member firewalls.
         However when generated configuration is ready and needs
         to be installed on member firewalls, the program needs
@@ -287,7 +284,7 @@
           PIX cluster is an exception to the rule though. In PIX
           cluster, you only need to update configuration of the
           active unit in the failover pair. The active unit then
-          pushes configuation to the second unit in the pair
+          pushes configuration to the second unit in the pair
           automatically. Firewall Builder is aware of this and the
           "Install" checkbox is only enabled next to the member
           firewall marked as "master" in the cluster configuration.
@@ -330,7 +327,7 @@
         be so generic that it can describe member firewalls in
         different locations (if potential address collisions are not
         an issue or all addresses are dynamic). For these reasons, the
-        program does not try to guess wether given firewall object
+        program does not try to guess whether given firewall object
         might be a cluster member and which cluster it is a member of
         and falls back to treating it as a simple standalone firewall
         object. However, the program shows a warning to indicate this as shown
@@ -448,8 +445,8 @@
         <graphic scale="50" fileref="compile-install-firewall-both1.png" />
       </figure>
 
-      <para>As you can see, a list of all firewalls and clusters in
-      the object file appear. Notice that not
+      <para>As you can see, a list of all firewalls in
+      the object file appear. Not
       all <guilabel>Compile</guilabel> checkboxes are checked by
       default. This is because Firewall Builder keeps track of the
       last time the firewall was compiled and also keeps track of any
@@ -457,25 +454,14 @@
       since the last compile, that firewall is unchecked by default
       because no compile is needed.</para>
 
-      <para>In addition, you can see which firewalls and clusters have
+      <para>You can see which firewalls have
       been modified since their last compile by looking at the object
       tree. If a firewall has been compiled since it was last
       modified, it appears in normal font. If it has not been compiled
       since its last modification, it appears in bold.</para>
 
-      <para>To see the last time a firewall or cluster was compiled,
-      double-click it to bring up its object editor.</para>
-
-      <figure id="compile-install-firewall-both2b">
-        <title>Object Editor Dialog with last modify and compile times</title>
-        <graphic scale="50" fileref="compile-install-firewall-both2.png" />
-      </figure>
-
-      <para>Note in the install dialog, for clusters, you compile the
-      cluster but install the individual firewalls.</para>
-
       <para>Make sure the <guilabel>Install</guilabel> checkbox is
-	checked next to the firewall you want to install, then click
+	checked next to the firewall you want to install (and the <guilabel>Compile</guilabel> checkbox if you've made changes since the last compile), then click
         <guibutton>Next</guibutton>. The following
 	dialog appears:</para>
 
@@ -571,10 +557,10 @@
 
       <note> 
         <para>
-          This works for all supported firewall platforms,
-          i.e. iptables on Linux, pf on OpenBSD and FreeBSD, ipfw on
+          This works for all supported firewall platforms: 
+          iptables on Linux, pf on OpenBSD and FreeBSD, ipfw on
           FreeBSD and Mac OS X, ipfilter on FreeBSD, Cisco IOS access
-          lists and Cisco ASA (PIX). Regardless of the platform, the
+          lists, Cisco ASA (PIX), and so on. Regardless of the platform, the
           installer follows the rules described here to determine what
           address it should use to connect to the firewall.
         </para>
