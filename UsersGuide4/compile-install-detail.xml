@@ -196,8 +196,8 @@
     <para>
       Returning to <xref linkend="compile-install-firewall-3"/>.
       Since we are just doing a compile, the only
-      checkbox is next to the cluster icon. If we were doing a compile
-      and install in the same run, you would also see "install"
+      checkbox is the <guilabel>Compile</guilabel> checkbox. If we were doing a compile
+      and install in the same run, you would also see an <guilabel>Install</guilabel>
       checkboxes next to the individual firewalls.
     </para>
 
