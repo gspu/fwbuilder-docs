@@ -118,9 +118,7 @@
       need to install it on that device.</para>
 
     <para>Let's walk through compiling a iptables firewall. Below
-      is the access policy of the firewall. This particular policy
-      is designed for a cluster, but the procedure is the
-      same.</para>
+      is the access policy of the firewall.</para>
 
     <figure id="compile-install-firewall-1">
       <title>A policy to compile</title>
@@ -131,17 +129,15 @@
     Compile</guimenuitem>.</para>
 
     <para>
-      Alternatively, open Policy, NAT or routing rules of the firewall
-      you want to compile by double clicking in the tree, then click
-      the "compile" icon (the hammer) in the policy window.
+      Alternatively, open the Policy, NAT or routing rules of the firewall
+      you want to compile by double-clicking in the tree, then click
+      the "Compile" icon (the hammer) in the policy window.
     </para>
 
-    <para>To compile (or compile and install) several firewalls or
-      clusters, use Shift-left click or Ctrl-left click to select
-      more than one firewall or cluster. Then, right-click on one of
+    <para>To compile several firewalls, use Shift-left click or Ctrl-left click to select
+      more than one firewall. Then, right-click on one of
       them to bring up the context menu and
-      select <guimenuitem>Compile</guimenuitem>
-      or <guimenuitem>Install</guimenuitem>.
+      select <guimenuitem>Compile</guimenuitem>.
     </para>
 
     <para>
@@ -162,12 +158,13 @@
     <para>
       Firewall Builder keeps track of the last time the firewall was
       compiled and also keeps track of any changes since then. If the
-      firewall (or cluster) has not changed since the last compile,
+      firewall has not changed since the last compile,
       that firewall is unchecked by default because no compile is
-      needed. Any direct change done to the rules of the firewall or a
-      cluster, or a change to any object used in rules, triggers the
-      recompile. You can always force compile by checking the <guilabel>Compile</guilabel> next to the object in the list or skip it by turning
-      it off.
+      needed. Any direct change done to the rules of the firewall, or 
+      a change to any object used in rules, triggers the
+      recompile. You can always force compile by checking the 
+      <guilabel>Compile</guilabel> next to the object in the list or 
+      skip it by unchecking it.
     </para>
 
     <para>
@@ -198,8 +195,7 @@
 
     <para>
       Returning to <xref linkend="compile-install-firewall-3"/>.
-      Since this is a cluster policy, you see the cluster and its
-      component firewalls. Since we are just doing a compile, the only
+      Since we are just doing a compile, the only
       checkbox is next to the cluster icon. If we were doing a compile
       and install in the same run, you would also see "install"
       checkboxes next to the individual firewalls.
@@ -247,9 +243,9 @@
     <para>
       Clusters are represented
       by objects of type "Cluster" located in the object group
-      "Clusters". To generate configuration for all cluster member
+      "Clusters". To a generate configuration for all cluster member
       firewalls and install it on each, you need to compile it just
-      like you would compile regular standalone firewall
+      like you would compile a regular standalone firewall
       object.</para>
 
     <sect2>
@@ -257,17 +253,17 @@
 
       <para>
         In the compile dialog list there are two columns of
-        checkboxes: "compile" and "Install". When you compile a
-        cluster, the "Compile" checkboxes appear only next to
-        the cluster object while "Install" checkboxes appear
-        only next to the member firewall objects. This is
-        because to compile, policy compiler needs to read
-        cluster object to get all information about cluster
+        checkboxes: "Compile" and "Install". When you compile a
+        cluster, the "Compile" checkboxes appear next to
+        the cluster objects only while "Install" checkboxes appear
+        next to the member firewall objects only. This is
+        because to compile, the policy compiler needs to read the
+        cluster object to get all the information about the cluster
         configuration, including the list of member firewalls.
-        However when generated configuration is ready and needs
+        However, when generated configuration is ready and needs
         to be installed on member firewalls, the program needs
         to communicate with each member firewall separately. So
-        the "install" checkboxes are next to the member
+        the "Install" checkboxes are next to the member
         firewalls in the list, letting you turn installation on
         and off on each member separately.
       </para>
@@ -281,7 +277,7 @@
 
       <tip>
         <para>
-          PIX cluster is an exception to the rule though. In PIX
+          A PIX cluster is an exception to this rule. In a PIX
           cluster, you only need to update configuration of the
           active unit in the failover pair. The active unit then
           pushes configuration to the second unit in the pair
@@ -317,9 +313,9 @@
         You can try to compile a firewall object that is a member of
         a cluster by selecting it in the tree and using the context
         menu. When you do this, the program treats the object as
-        standalone firewall rather than cluster member and does not
+        standalone firewall rather than a cluster member and does not
         generate any cluster-related part of the configuration, such
-        as policy rules for the failover protocols, configuration
+        as policy rules for the failover protocols, the configuration
         script for failover interfaces, and so on. This is because a
         firewall object can actually be a member of several clusters,
         which is useful to test different cluster configurations or
@@ -327,11 +323,11 @@
         be so generic that it can describe member firewalls in
         different locations (if potential address collisions are not
         an issue or all addresses are dynamic). For these reasons, the
-        program does not try to guess whether given firewall object
+        program does not try to guess whether given a firewall object
         might be a cluster member and which cluster it is a member of
         and falls back to treating it as a simple standalone firewall
         object. However, the program shows a warning to indicate this as shown
-        in <xref linkend="compile-cluster-7"/>. Here I selected
+        in <xref linkend="compile-cluster-7"/>. Here we selected
         firewall object "linux-test-1" in the tree and then used
         context menu to initiate compilation, forgetting that it is a
         member of two different cluster configurations:
@@ -353,7 +349,7 @@
     <title>Installing a Policy onto a Firewall</title>
 
     <para>      
-      After firewall configuration has been generated by
+      After a firewall configuration has been generated by
       one of the policy compilers and saved in a file on
       disk in the format required by the target firewall,
       it needs to be transferred to the firewall machine
@@ -376,7 +372,7 @@
     <para>
       The installer needs to be able to copy the generated firewall
       script to the firewall and then run it there. In order to do so,
-      it uses secure shell. The program does not include ssh code; it
+      it uses secure shell (ssh). The program does not include ssh code; it
       uses an external ssh client.  On Linux, BSD and Mac OS X it uses
       the standard ssh client <emphasis>ssh</emphasis> and secure
       shell file copy program <emphasis>SCP</emphasis> that come with
@@ -410,7 +406,7 @@
 
     <para>
       The built-in policy installer has been designed to work
-      with a dedicated firewall machine, in other words, when the 
+      with a dedicated firewall machine. In other words, the 
       computer where you run Firewall Builder and the actual
       firewall are different machines. Nevertheless, it can
       be used when they are the same machine as well. The
@@ -430,8 +426,9 @@
       firewall.</para>
 
       <para>Now let's install the script using Firewall Builder's
-	"install" functionality. Select <guimenuitem>Rules >
-	Install</guimenuitem>.</para>
+	"install" functionality. Open your object file, if it isn't 
+         open already, then select <guimenuitem>Rules >
+	Install</guimenuitem>. </para>
 
       <figure id="compile-install-firewall-2-2">
         <title>Select Rules/Install</title>
@@ -450,7 +447,7 @@
       all <guilabel>Compile</guilabel> checkboxes are checked by
       default. This is because Firewall Builder keeps track of the
       last time the firewall was compiled and also keeps track of any
-      changes since then. If the firewall (or cluster) has not changed
+      changes since then. If the firewall has not changed
       since the last compile, that firewall is unchecked by default
       because no compile is needed.</para>
 
