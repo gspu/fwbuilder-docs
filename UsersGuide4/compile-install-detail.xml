@@ -198,7 +198,7 @@
       Since we are just doing a compile, the only
       checkbox is the <guilabel>Compile</guilabel> checkbox. If we were doing a compile
       and install in the same run, you would also see an <guilabel>Install</guilabel>
-      checkboxes next to the individual firewalls.
+      checkbox.
     </para>
 
     <para>Click <guibutton>Next</guibutton>.</para>
@@ -218,7 +218,7 @@
 
     <para>Errors and warnings are clickable. Clicking an error
       takes you to the portion of the policy where the error
-      occurs. In this case, one rule is shadowing another.</para>
+      occurs.</para>
 
     <para>We fix the problem, then compile again.</para>
 
