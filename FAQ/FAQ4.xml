@@ -248,8 +248,7 @@
           <para>
             Nightly builds and experimental packages (source tar.gz
             and binary packages) are available on our web site
-            <ulink
-            url="&nightly-builds;">&nightly-builds;</ulink>. Nightly
+            <ulink url="&nightly-builds;">&nightly-builds;</ulink>. Nightly
             builds include latest bug fixes and are great way to test
             and see what is going to be included in the next
             release. At the same time nightly builds are certainly a
@@ -257,7 +256,9 @@
             backup copy of your data before you use it! We usually put
             the latest copy of the ChangeLog file in the same
             directory, remember to always check it before you
-            download.
+            download. See
+            <ulink url="&install-url;">"Installation Guide"</ulink>
+            for more details and build instructions.
           </para>
         </answer>
       </qandaentry>
