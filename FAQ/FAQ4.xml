@@ -18,8 +18,7 @@
 <!ENTITY sveasoft-url     "http://www.sveasoft.com/">
 <!ENTITY gtkmm-url        "http://gtkmm.sourceforge.net/">
 <!ENTITY gtkmm-download   "http://www.hvrlab.org/pub/gtkmm/">
-<!ENTITY cvs-checkout     "http://sourceforge.net/cvs/?group_id=5314">
-<!ENTITY sf-files         "http://sourceforge.net/project/showfiles.php?group_id=5314">
+<!ENTITY sf-files         "http://sourceforge.net/projects/fwbuilder/files/">
 <!ENTITY nightly-builds   "http://www.fwbuilder.org/nightly_builds/">
 <!ENTITY gtkmm-ximian     "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/gtkmm-1.2.9-1.ximian.1.src.rpm">
 <!ENTITY libsigcpp-ximian "ftp://ftp.ximian.com/pub/ximian-gnome/redhat-73-i386/source/libsigc++-1.0.4-1.ximian.4.src.rpm">
@@ -241,14 +240,14 @@
 
       <qandaentry>
         <question>
-          <para>Where can I download the latest source code and nightly builds from?</para>
+          <para>Where can I download the latest source code and
+          nightly builds from?</para>
         </question>
+
         <answer>
           <para>
-            Binary packages and a source code for the very latest code
-            can be downloaded from the "CVS" section on our <ulink
-            url="&sf-files;">Source Forge </ulink> site. Nightly builds
-            and experimental packages are available on our ftp site
+            Nightly builds and experimental packages (source tar.gz
+            and binary packages) are available on our web site
             <ulink
             url="&nightly-builds;">&nightly-builds;</ulink>. Nightly
             builds include latest bug fixes and are great way to test
