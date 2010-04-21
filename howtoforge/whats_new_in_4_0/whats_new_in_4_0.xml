@@ -5,7 +5,7 @@
 <!ENTITY netcitadel-download "http://www.fwbuilder.org/4.0/netcitadel/index.html">
 ]>
 
-<book id="whats_new_in_4_0">
+<book id="whats_new_in_fwbuilder_4_0">
 
   <chapter>
     <title>New features in Firewall Builder 4.0</title>
