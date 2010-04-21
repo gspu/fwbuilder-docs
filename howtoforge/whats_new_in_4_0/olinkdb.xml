@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE targetset SYSTEM "targetdatabase.dtd" [
+<!ENTITY ugtargets SYSTEM "target.db">
+]>
+<targetset> 
+  <targetsetinfo> 
+    Description of this target database document,
+    which is for the examples in olink doc.
+  </targetsetinfo>
+
+  <!-- Site map for generating relative paths between documents -->
+  <sitemap> 
+    <dir name="documentation"> 
+      <dir name="guides"> 
+        <dir name="mailuser"> 
+          <document targetdoc="UsersGuide4"
+                    baseuri="http://www.fwbuilder.org/4.0/docs/users_guide/"> 
+            &ugtargets; 
+          </document>
+        </dir>
+      </dir>
+    </dir>
+  </sitemap>
+</targetset>

@@ -1,0 +1,1146 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY sf-tracker-v4 "https://sourceforge.net/tracker/?group_id=5314&amp;atid=1129518">
+<!ENTITY netcitadel-download "http://www.fwbuilder.org/4.0/netcitadel/index.html">
+]>
+
+<book id="whats_new_in_4_0">
+
+  <chapter>
+    <title>New features in Firewall Builder 4.0</title>
+
+    <para>
+      Firewall Builder 4.0 is a major upgrade, it adds many
+      improvements across all components of the program. To name a
+      few, it adds support for the high availability firewall
+      configurations; improves the way generated script manages IP
+      addresses and adds ability to manage VLAN, bridge and bonding
+      interfaces; the GUI now has undo/redo facility of unlimited
+      depth and can compile a single rule and immediately show the
+      result. There are many other improvements and changes, all
+      listed in
+      the <ulink url="http://www.fwbuilder.org/4.0/docs/firewall_builder_release_notes.html">Firewall
+      Builder 4.0 Release Notes</ulink>.
+    </para>
+
+    <para>
+      If you are not familiar with Firewall Builder, you can find many
+      introductory articles on the Internet and our own project web
+      site. Here is a short list:
+      <itemizedlist>
+        <listitem>
+          <para>
+            <ulink url="http://www.fwbuilder.org/docs/firewall_builder_intro.html">Introduction to Firewall Builder.</ulink>
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            <ulink url="http://www.fwbuilder.org/4.0/docs/users_guide/gettingstarted.html">Getting Started with Firewall Builder</ulink>
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            <ulink url="http://www.linuxjournal.com/magazine/whats-new-firewall-builder-30">What's New in Firewall Builder 3.0 (Linux Journal)</ulink>
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            <ulink url="http://www.howtoforge.com/getting-started-with-firewall-builder">Getting Started With Firewall Builder (howtoforge.com)</ulink>
+          </para>
+        </listitem>
+
+      </itemizedlist>
+    </para>
+
+    <para>
+      Firewall Builder 4.0 is currently in public beta testing. Latest
+      binary packages and source tar.gz archives are distributed from
+      the
+      <ulink url="https://sourceforge.net/projects/fwbuilder/files/">SourceForge
+      download pages</ulink>, commercial binary Windows and Mac OS X
+      packages are available for download from 
+      <ulink url="&netcitadel-download;">the project web site</ulink>.
+      Please file bug reports using <ulink url="&sf-tracker-v4;">
+      Source Forge bug tracking system</ulink>.
+    </para>
+
+    <para>
+      In this article I am going to explore most interesting and
+      significant new features of the new version. You can find more
+      information on each feature and detailed HOWTO guides in the
+      <ulink url="http://www.fwbuilder.org/4.0/docs/users_guide/">Firewall
+        Builder Users Guide</ulink>
+    </para>
+
+
+    <sect1>
+      <title>"Single rule compile"</title>
+
+      <para>
+        While you're developing your firewall policy, you can now
+        compile individual rules to confirm that they do what you
+        intend. To do this, right-click anywhere in the rule to open
+        context menu, then select menu item "Compile". Or, highlight
+        the rule and use keyboard shortcut "x". This is a great way to
+        experiment with fwbuilder and see what it generates for
+        different rule configurations built in the GUI. This feature
+        works for all supported firewall platforms and all types of
+        rules (Policy, NAT and routing).
+      </para>
+
+      <figure id="compile-single-rule-image2">
+        <title>Generated iptables script for the rule #0 is shown in the GUI</title>
+        <graphic scale="50" fileref="linux-vrrpd-cluster-15.png"/>
+      </figure>
+    </sect1>
+
+
+    <sect1>
+      <title>Changes and improvements in the GUI</title>
+
+      <para>
+        The GUI was redesigned to help reduce unnecessary clicks and
+        streamline the workflow, especially for situations with many
+        objects in the object tree. The editor panel and object tree
+        are now detachable. You can "float" these windows and
+        rearrange them on the screen any way you want. If you work
+        with several data files opened simulteneously, each of them
+        appears its own project window with object tree and rules but
+        they all share the same editor panel.
+      </para>
+
+      <figure id="floating_object_tree">
+        <title>Floating object tree panel</title>
+        <graphic scale="50" fileref="floating-object-tree1.png"/>
+      </figure>
+
+      <para>
+        Object editor panel can also float, making it easier to keep
+        the tree, rule set panel and editor open on a machine with
+        small screen such is a laptop, and still have enough rules
+        visible at once. You can also change the font used to show
+        objects in the tree and in rules.
+      </para>
+
+      <para>
+        A new "Filter" input field has been added above the object
+        tree. Typing fragment of the name in this field automatically
+        limits set of objects shown in the tree to those that match
+        what was typed. The filter maintain history of strings entered
+        in it for the duration of the session.
+      </para>
+
+      <figure id="filter_tree">
+        <title>Applying filter to the object tree</title>
+        <graphic scale="50" fileref="filter-tree.png"/>
+      </figure>
+
+      <para>
+        The GUI can show brief summary of object attributes in the
+        second column in the object tree. This is controlled by a
+        checkbox in the global preferences dialog, tab "Objects" and
+        is off by default. The first column always shows object icon
+        and its name, the second (optional) column shows its
+        attributes.
+      </para>
+
+      <figure id="attributes_in_tree">
+        <title>Second column shows attributes of the objects in the tree</title>
+        <graphic scale="50" fileref="attributes-in-tree.png"/>
+      </figure>
+
+
+      <para>
+        Another convenient shortcut is a new button called "Add object
+        to a groups directly from the group dialog" that appears in
+        the group object dialog. When you click this button, a menu
+        appears that allows you to create new object and add it to the
+        group in one operation. This is shown in the screenshot below:
+      </para>
+
+      <figure id="create_and_add_to_group">
+        <graphic scale="50" fileref="create_and_add_to_group.png"/>
+      </figure>
+
+      <para>
+        The GUI now has unlimited <emphasis>Undo/Redo
+        facility</emphasis> accessible via standard keyboard shortcuts
+        Ctrl-Z and Ctrl-Y (Cmd-Z and Cmd-Y on Mac OS X). You monitor
+        undo stack using special panel that you can open using
+        menu <emphasis>"View/Undo stack"</emphasis>. Clicking on the
+        entries in undo stack rolls operations back or forward.
+      </para>
+
+      <para>
+        One of the most annoying features of the old version was the
+        neccesity to click "Apply" after each change made to an
+        object.  This amounted to significant number of clicks when
+        you had to cerate and edit many objects. Firewall Builder 4.0
+        did away with this button, all changes made in an object
+        dialog are saved into the object immediately. This does not
+        change the data in the .fwb file, only objects in
+        memory. Combined with Undo, this allows for faster object
+        editing and roll back of changes.
+      </para>
+
+      <para>
+        Error and warning messages generated by the policy compilers
+        are highlighted in the compiler output panel when you compile
+        single rule. When you compile all rules of the firewall using
+        toolbar buttons or main menu items "Compile" or "Install",
+        errors and warnings are also highlighted in the
+        dialog. Clicking on the error or warning message opens
+        corresponding firewall and selects the rule that caused it.
+      </para>
+
+      <para>
+        Firewall Builder has a great way to help you create new
+        firewall object from scratch faster, that is a collection of
+        template objects. These objects come preconfigured with
+        interfaces, ip addresses and basic rules. Unfortunately, most
+        likely these ip addresses do not match addresses you use in
+        your network, which means in the past you had change addresses
+        of interfaces after the new firewall object has been created.
+        This is not too difficult, but it wasn't enough. You had to
+        use search and replace function to change addresses of all
+        objects used in the rules as well. This was more tedious and
+        potentially error-prone.
+      </para>
+
+      <para>
+        Now you can change ip addresses of interfaces of the new
+        firewall while it is being created in the wizard dialog. When
+        you create new firewall object from a template, the "new
+        firewall" wizard includes interface editor page where you can
+        change addresses as well as interface names and types (static
+        or dynamic). The program not only changes addresses of
+        interfaces, it also scans policy and NAT rules of the template
+        looking for network objects that match original template
+        addresses and replaces them with network objects that match
+        new ones.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Password caching in built-in installer</title>
+
+      <para>
+        Built-in policy installer uses ssh to communicated with the
+        firewall and needs user name and password for authentication.
+        Firewall Builder does not store passwords permanently, which
+        means you have to enter the password every time you want to
+        update configuration of the firewall. Ssh agent certainly
+        helps alleviate this problem, but if you do not use the agent,
+        you still have to type the password again and again. Some
+        devices do not even support ssh agent authentication, these
+        are Cisco routers and ASA firewalls.
+      </para>
+
+      <para>
+        Firewall Builder 4.0 introduces password caching that can help
+        in this situation. Built-in installer can remember firewall
+        password (and enable password for Cisco) for the duration of
+        the session. Passwords are never stored permanently in any
+        form, encrypted or plain text, they are only kept in memory of
+        working Firewall Builder GUI instance. You need to enter
+        password once when you activate generated policy for the firs
+        time. If you keep the program open and need to modify and
+        activate policy again, the password fields in the installer
+        dialog can be filled automatically. The feature is optional
+        and is off by default.
+      </para>
+
+      <para>
+        <emphasis>Warning</emphasis>: using this feature creates
+        certain risk if working Firewall Builder GUI is left
+        unattended on unlocked workstation. Someone may walk up to the
+        machine and make changes to the firewall using cached password
+        of the administrator who used the same GUI session
+        before. Always lock the screen or exit Firewall Builder GUI
+        when leaving computer.
+      </para>
+
+    </sect1>
+
+    <sect1>
+      <title>Customazable templates ("configlets")</title>
+
+      <para>
+        Configlets: generated firewall script (for all platforms) is
+        assembled from small fragments we call "configlets". These
+        fragments are located in the
+        "/usr/share/fwbuilder-4.0.0/configlets" (on Linux). Each
+        configlet is a template that uses specially defined macros
+        which the program replaces with actual strings and values when
+        it generates firewall configuration. There are separate
+        templates for different firewall platforms and for different
+        parts of the configuration file to be created. Supported macro
+        language includes simple variable expansion and conditional
+        "If - then" construct. You can override configlets we provide
+        with your own if you create directory "fwbuilder/configlets"
+        in your home directory and place files with the same name
+        there. You need to retain the structure of subdirectories
+        inside this directory, that is, the directory should be
+        "$HOME/fwbuilder/configlets/linux24" for the configlets
+        installed in "linux24" subdirectory under
+        "/usr/share/fwbuilder/configlets". This way, you can change
+        virtually all aspects of generated configuration file to suite
+        your needs without having to touch C++ code and recompile the
+        whole project.
+      </para>
+
+      <para>
+        Built-in policy installer also gets commands that it needs to
+        execute on the firewall from configlets. Two configlets are
+        used for Unix-based firewalls (Linux, OpenWRT, Sveasoft, IPCOP
+        and its variants, OpenBSD, FreeBSD, MacOSX, Solaris):
+        "installer_commands_reg_user" and
+        "installer_commands_root". You can change the behavior of the
+        installer without having to touch C++ code, just create a copy
+        of the configlet file in $HOME/fwbuilder/configlets and modify
+        it.
+      </para>
+
+      <para>
+        This is the first time we introduced configlets to Firewall
+        Builder. At this time, the macro language is rather primitive
+        and will improve in the future, for example we need to add
+        support for the if-then-else construct and interations. Most
+        configlets document variables they use (and fwbuilder knows
+        about) at the top of the configlet file.
+      </para>
+
+      <para>
+        Chapter <olink targetdoc="UsersGuide4" targetptr="configlets"
+        xrefstyle="select: quotedtitle docname"/> explains the macro
+        language used in configlets and demonstrates how administrator
+        can use this feature to change script generated by fwbuilder.
+      </para>
+
+    </sect1>
+
+
+
+    <sect1>
+      <title>Changes in the structure of generated Linux firewall script</title>
+
+      <para>
+        Generated iptables script now has standard structure per LSB
+        ("Linux Standard Base Core Specification 3.1"). The script
+        supports standard actions controlled by the command line
+        arguments <emphasis role="system">"start"</emphasis>, <emphasis role="system">"stop"</emphasis>, <emphasis role="system">"reload"</emphasis>, <emphasis role="system">"status"</emphasis>. Action
+        <emphasis role="system">"start"</emphasis> reconfigures interfaces, flushes
+        current iptables tables and chains and finally loads new
+        iptables configuration. Action <emphasis role="system">"stop"</emphasis>
+        flushes all tables and chains and sets default policy in all
+        chains to "DROP" to shut down the firewall to all kinds of
+        traffic. Note that the "backup ssh access" rule that was
+        available in the previous versions of fwbuilder now has an
+        option that can make the script install this rule even when it
+        drops all other iptables rules when called with command
+        "stop". This means, you can call the script with command
+        "stop" to completely shut down all traffic to and through the
+        firewall, but still retain access to the firewall via ssh.
+        Action <emphasis role="system">"status"</emphasis> finishes with return code
+        per LSB specification. Code 0 means the firewall is loaded and
+        is running (but it does not check that the rules it is running
+        with are those defined in fwbuilder). Return code 3 means
+        iptables modules are not loaded or there are no tables. This
+        return code means the firewall is not running or not
+        configured. The script also supports additional actions
+        <emphasis role="system">"interfaces"</emphasis>
+        and <emphasis role="system">"test_interfaces"</emphasis>. Action
+        <emphasis role="system">"interfaces"</emphasis> executes only commands that
+        manage ip addresses of interfaces, configure vlan, bridge and
+        bonding
+        interfaces. Action <emphasis role="system">"test_interfaces"</emphasis> runs
+        the same commands in the test mode when it prints commands
+        that would be executed but does not actually execute them.
+        Chapter <olink targetdoc="UsersGuide4" targetptr="interfaces"
+        xrefstyle="select: quotedtitle docname"/> explains interface
+        configuration in great details.
+      </para>
+    </sect1>
+
+
+
+    <sect1>
+      <title>Support for high availability firewall
+      configurations</title>
+
+      <para>
+        The most significant improvement in Firewall Builder 4.0 is of
+        course introduction of support for the firewall clusters. The
+        code for this feature was originally contributed to the
+        project by the developers from Secunet Security Networks AG,
+        Germany. Their original add-on supported SecunetWall
+        firewalls, we have extended it, improved the GUI and added
+        support for OpenBSD (CARP) and PIX clusters as well.
+      </para>
+
+      <para>
+        In a typical High Availability (HA) configuration the firewall
+        or a server is replaced with two or more machines running
+        special software that alows them to monitor status of each
+        other. These machines share common resources, such as IP
+        addresses, and when one of the machines fails, others take
+        over resources it used. Firewall Builder generates firewall
+        configuration for each member of the cluster.
+      </para>
+
+      <para>
+        The idea is to manage configuration for multiple member
+        firewalls using single object that we call "Cluster" in
+        Firewall Builder GUI. The program then makes sure generated
+        configuration for each member firewall includes necessary
+        rules to permit packets generated by the HA software. You can
+        build policy and NAT rules just using object that represent
+        the cluster and the program will use IP shared addresses that
+        belong to the cluster and addresses that belong to each
+        individual machine. This saves time and helps avoid errors
+        because you do not need to replicate configuration changes
+        manually in the rules of each member firewall.
+      </para>
+
+      <para>
+        Firewall Builder can generate firewall rules that support both
+        failover and state synchronization protocols for clusters
+        build with iptables, PF or PIX and in some cases cluster
+        configuration itself as well. The following state
+        synchronization and failover protocols are supported at this
+        time:
+      </para>
+
+
+      <table frame='none'  tabstyle='reg_table'>
+        <title>Supported state synchronization and failover software</title>
+        <tgroup cols='3' align='left'  rowsep='1'>
+          <colspec colnum="1" colname="col1" colwidth="120pt"/>
+          <colspec colnum="2" colname="col2" colwidth="200pt"/>
+          <colspec colnum="3" colname="col3" colwidth="250pt"/>
+	  <thead>
+            <row>
+	      <entry>OS</entry>
+	      <entry>State Synchronization</entry>
+	      <entry>Failover</entry>
+            </row>
+          </thead>
+
+	  <tbody>
+            <row>
+              <entry>Linux</entry>
+              <entry>conntrackd</entry>
+              <entry>vrrpd, heartbeat, keepalived, OpenAIS</entry>
+            </row>
+
+            <row>
+              <entry>OpenBSD/FreeBSD</entry>
+              <entry>pfsync</entry>
+              <entry>CARP</entry>
+            </row>
+
+            <row>
+              <entry>Cisco ASA (PIX)</entry>
+              <entry>PIX state sync protocol</entry>
+              <entry>PIX failover protocol</entry>
+            </row>
+
+          </tbody>
+        </tgroup>
+      </table>
+      
+
+      <para>
+        Firewall Builder automatically generates policy rules to permit
+        packets of these protocols when it sees firewall cluster
+        configured with one of them. You can use cluster object and its
+        interfaces instead of the member firewall objects or their
+        interfaces in policy and NAT rules and the program will
+        substitute correct addresses when it generates iptables script
+        or PF or PIX configuration.
+      </para>
+
+      <para>
+        The new object "Cluster" represents an HA pair of
+        firewalls. To establish correspondence between interfaces of
+        the pair, we add Interface objects to the Cluster. Cluster
+        interface object is an abstraction that serves two purposes:
+        it ties together corresponding interfaces of the member
+        firewalls and also it provides the place to store
+        configuration of the failover protocol that runs on these
+        interfaces of the members. Each cluster interface object has
+        child object "Failover group" with the name
+        "firewall:eth0:members" or similar. This is where you
+        configure associated member firewall
+        interfaces. <xref linkend="linux_cluster_interface_mappings"/>
+        illustrates this. Blue arrows show that failover group object
+        "linux-cluster:eth0:members" holds pointers to interfaces
+        "eth0" of member firewalls "linux-test-1" and
+        "linux-test-2". Interface object "eth0" that belongs to the
+        cluster "linux-cluster" represents interfaces "eth0" of these
+        member firewalls in all policy and NAT rules.  IP address
+        objects that belong to the cluster interface represent shared
+        IP addresses managed by the cluster software. In Linux
+        cluster, these are the addresses managed by vrrpd or heartbeat
+        daemons.  In OpenBSD cluster, these addresses belong to the
+        "carp0" interface. Cluster interface object can have more than
+        one address, just like the cluster software can manage several
+        addresses.
+      </para>
+
+      <para>
+        Now if you need to build a policy rule for the cluster that
+        should match eth0, you can just use cluster interface object
+        "eth0" in the rule and the program will use IP address of eth0
+        of the member firewall when it compiles rules for that member.
+      </para>
+
+      <para>
+        Failover group object also has an attribute that defines the
+        type of the failover protocol used on these interfaces of
+        the member firewalls and a set of parameters for this
+        protocol, such as VHID for CARP, an address and port for
+        heartbeat and so on. Since failover protocol configuration
+        is stored separately with each cluster interface object, it
+        is easy to configure clusters running different protocols on
+        different interfaces or running failover protocol only on
+        some interfaces.
+      </para>
+
+      <para>
+        Another new type of object that is used to build cluster
+        configuration is "State Sync Group" object. This object is a
+        child of a Cluster and is located immediately under it in the
+        object tree (<xref linkend="linux_cluster_statesync_mappings"/>).
+      </para>
+
+      <para>
+        State synchronization group object is used to store
+        information about interface of the member firewalls used to
+        run state synchronization protocol and parameters of this
+        protocol. At this time Firewall Builder supports conntrackd
+        protocol for Linux, pfsync for OpenBSD and PIX synchronization
+        protocol for Cisco ASA (PIX) appliances. Firewall Builder
+        automatically generates policy rules to permit packets of the
+        protocol and in some cases configuration of the protocol
+        software.
+      </para>
+
+      <para>
+        Firewall Builder provides convenient wizard-like dialog that
+        helps create new cluster object from existing individual
+        firewall objects. You start with the list of firewall objects
+        where you choose which firewalls should become members of the
+        cluster. Next, the program finds interfaces of the member
+        firewalls that have the same name and can be part of the
+        cluster and creates cluster interfaces with the same name
+        (<xref linkend="new_cluster_wizard_page"/>). Not all
+        interfaces are eligible, for example bridge ports, bonding
+        interface slaves or parents of vlan interfaces can not be used
+        for the cluster. You can add, remove or rename cluster
+        interfaces, as well as change which interfaces of the member
+        firewalls are used with each one. On the next page of the
+        wizard you can change failover protocols and add, remove or
+        change IP addresses of cluster interfaces. Finally, you can
+        choose to use policy and NAT rules of one of the member
+        firewalls to populate Policy and NAT rule sets of the new
+        cluster. If this is done, all references to the original
+        member firewall and its interfaces in rules are replaced with
+        references to the cluster and its interfaces. The program also
+        creates backup copies of the member firewall objects with the
+        name with suffix "-bak" and clears Policy and NAT rule sets of
+        the member firewall objects used with the cluster before new
+        cluster is created.
+      </para>
+
+      <para>
+        <figure id="new_cluster_wizard_page">
+          <title>New cluster wizard</title>
+          <graphic scale="50" fileref="new-cluster-wizard-example.png"/>
+        </figure>
+      </para>
+
+      <para>
+        To generate script or configuration files for both member
+        firewalls, you need to compile cluster object just like you
+        normally compile standalone firewall. Use toolbar buttons or
+        context menu to do this. The program will compile cluster
+        Policy, NAT and Routing rule sets twice, for each member
+        firewall. As the result, it produces two scripts or
+        configuration files, one for each member. Built-in policy
+        installer then can install these geenrated files on the member
+        firewalls.
+      </para>
+ 
+      <para>
+        <figure id="compile_cluster">
+          <title>Compiling and installing cluster configuration</title>
+          <graphic scale="50" fileref="compile-cluster-2.png"/>
+        </figure>
+      </para>
+
+
+      <sect2>
+        <title>Failover and state synchronization groups in a Linux
+          cluster</title>
+
+        <para>
+          All failover protocols available on Linux do not create
+          their own interfaces on the firewall machine. This includes
+          heartbeat, vrrp, OpenAIS. To build Linux cluster
+          configuration in Firewall Builder, create cluster interfaces
+          using the same name as corresponding member firewall
+          interfaces as shown in
+          <xref linkend="linux_cluster_interface_mappings"/>.  Actual
+          mapping between the cluster interface and corresponding
+          member firewall interfaces is done in the dialog that opens
+          when you double click on the Failover Group object that
+          associated with this cluster interface.
+        </para>
+
+        <para>
+          <figure id="linux_cluster_interface_mappings">
+            <title>Failover group objects and mapping between
+              cluster and member interfaces</title>
+            <graphic scale="50" fileref="linux-cluster-interface-mappings.png"/>
+          </figure>
+        </para>
+
+        <para>
+          <figure id="linux_cluster_statesync_mappings">
+            <title>State synchronization group object</title>
+            <graphic scale="50" fileref="linux-cluster-statesync-mappings.png"/>
+          </figure>
+        </para>
+
+        <para>
+          Detailed overview of the Linux cluster configuration in
+          Firewall Builder is available in the chapter
+          <olink targetdoc="UsersGuide4"
+          targetptr="linux_cluster_overview" xrefstyle="select:
+          quotedtitle docname"/>.  Examples of cluster configurations
+          built with VRRPD or heartbeat are provided in the chapter
+          <olink targetdoc="UsersGuide4"
+                 targetptr="cluster-cookbook"
+                 xrefstyle="select: quotedtitle docname"/>.
+        </para>
+
+      </sect2>
+
+      <sect2>
+        <title>Failover and state synchronization groups in an OpenBSD
+          cluster</title>
+
+        <para>
+          OpenBSD cluster built with CARP failover protocol and pfsync
+          state synchronization protocol looks little different. CARP
+          uses its own special interface "carp0" as a configuration
+          and management mechanism on OpenBSD. In Firewall Builder,
+          this is reflected in the name of the cluster interface
+          object which becomes "carp0" or "carp1". State
+          synchronization protocol, likewise, uses interface
+          "pfsync0".  Activation script created by Firewall Builder
+          for the PF cluster includes commands that set up both carp
+          and pfsync interfaces and assign parameters. Interface
+          mapping between OpenBSD cluster object and corresponding
+          member firewall objects is shown in
+          <xref linkend="openbsd_cluster_interface_mappings"/>. To
+          configure this mapping, open Failover Group or State
+          Synchronization group object in the editor by double
+          clicking it in the tree.
+        </para>
+ 
+        <para>
+          <figure id="openbsd_cluster_interface_mappings">
+            <title>OpenBSD cluster: failover and state synchronization
+              group objects and mapping between cluster and member
+              interfaces</title>
+            <graphic scale="50" fileref="openbsd-cluster-interface-mappings.png"/>
+          </figure>
+        </para>
+
+        <para>
+          In this example interface carp0 defines CARP protocol
+          instance running on inetrfaces em0 of two member firewalls
+          and the second instance of CARP protocol (carp1) uses
+          interfaces pcn0.
+        </para>
+
+        <para>
+          Detailed overview of the OpenBSD cluster configuration in
+          Firewall Builder is available in the chapter
+          <olink targetdoc="UsersGuide4"
+                 targetptr="bsd_cluster_overview"
+                 xrefstyle="select: quotedtitle docname"/>.
+        </para>
+
+      </sect2>
+
+      <sect2>
+        <title>Failover and state synchronization groups in a PIX
+          cluster</title>
+
+        <para>
+          Firewall Builder supports PIX "LAN based" failover
+          configuration. Unlike in Linux or BSD, where each interface
+          of the firewall runs its own instance of failover protocol,
+          PIX runs one instance of failover protocol over dedicated
+          interface. PIX can also run state synchronization protocol
+          over the same or another dedicated interface. These
+          dedicated interfaces should be connected via separate switch
+          and do not see regular traffic. Here is how this is
+          implemented in Firewall Builder.
+        </para>
+
+        <para>
+          Like with all other supported firewall platforms, interface
+          objects that belong to a cluster object serve to establish
+          association between actual interfaces of the member
+          firewalls. Cluster interface object should have the same
+          name as corresponding member firewall interfaces. It should
+          have Failover Group child object which should be configured
+          with interfaces of the member firewalls. Here is an example
+          of interface mapping between cluster and member firewalls:
+        </para>
+
+        <para>
+          <figure id="pix_cluster_interface_mappings">
+            <title>PIX cluster: failover group object and mapping
+              between cluster and member interfaces</title>
+              <graphic scale="50"
+              fileref="pix-failover-groups-mapping.png"/>
+          </figure>
+        </para>
+
+        <para>
+          PIX does not use special shared IP addresses for the
+          cluster, therefore cluster interface objects in Firewall
+          Builder do not have IP addresses. Interface "Ethernet2" in
+          the screenshot above is used for the dedicated failover
+          connection; the object that represents it in each member
+          firewall should be marked as "Dedicated failover
+          interface". This is new attribute of the Interface object
+          added in Firewall Buidler 4.0.
+        </para>
+
+        <para>
+          Cluster object should have State Synchronization group child
+          object. In this object you need to configure member
+          interfaces that should be used for state
+          synchronization. You can use separate dedicated interfaces
+          or the same interfaces used for failover. If these are
+          separate, corresponding interface objects of the member
+          firewalls must be marked as "Dedicated Failover".
+        </para>
+
+        <para>
+          One of the member firewall interfaces used in the State
+          Synchronization group must be marked as "master". This is
+          where you define which PIX unit is going to be the primary
+          and which is going to be the secondary in the HA pair.
+        </para>
+
+        <para>
+          Here is an example of the state synchronization and failover
+          using the same interface Ethernet2:
+        </para>
+
+        <para>
+          <figure id="pix_state_sync_group_mapping">
+            <title>PIX cluster: state synchronization
+              group object</title>
+            <graphic scale="50" fileref="pix-statesync-group-mapping.png"/>
+          </figure>
+        </para>
+
+        <para>
+          Detailed overview of the PIX cluster configuration in
+          Firewall Builder is available in the chapter
+          <olink targetdoc="UsersGuide4"
+                 targetptr="pix_cluster_overview"
+                 xrefstyle="select: quotedtitle docname"/>.
+        </para>
+
+
+      </sect2>
+
+      <sect2>
+        <title>Handling of the cluster rule set and member firewalls rule sets</title>
+
+        <para>
+          Normally, only the cluster object should have non-empty
+          policy, NAT and routing rule sets, while member firewall
+          objects should have empty rule sets. In this case, Firewall
+          Builder policy compilers will use rules they find in the
+          cluster. However, if a member firewall has rule set object
+          of any type (Policy, NAT, Routing) with the name the same as
+          the name of the cluster object and the same type, then
+          compilers will use rules from the member firewall and ignore
+          those found in the cluster. They also issue a warning that
+          looks like shown in
+          <xref linkend="cluster_rule_set_override_warning"/>:
+        </para>
+
+        <figure id="cluster_rule_set_override_warning">
+          <title>A warning shown when a rule set that belongs to the member firewall overrides rule set that belongs to the cluster</title>
+          <graphic scale="50" fileref="cluster-rule-set-override-warning.png"/>
+        </figure>
+
+        <para>
+          Suggested use case for this feature is to create a small
+          non-top rule set in the cluster which can be used as a
+          branch using a rule with action "Branch" to pass control to
+          it. The cluster can define some rules in this rule set,
+          these rules are going to be common for all member
+          firewalls. However if for some reason you want to implement
+          these rules differently for one member, you just create rule
+          set with the same name in it and add some different rules
+          there. Of course two members can have the rule set with this
+          name and both will override the one that belongs to the
+          cluster. The warning is only given if member firewall rule
+          set is not empty. If it exists and has the same name as the
+          one that belongs to the cluster, but has no rules, then the
+          warning does not appear.
+        </para>
+      </sect2>
+
+      <sect2>
+        <title>Examples of cluster configurations</title>
+
+        <para>
+          Chapter <olink targetdoc="UsersGuide4" targetptr="cookbook"
+                         xrefstyle="select: quotedtitle docname"/> offers
+          several detailed examples of complete firewall
+          cluster configurations. We have:
+
+          <itemizedlist>
+            <listitem>
+              <para>
+                <olink targetdoc="UsersGuide4" targetptr="web_server_cluster"
+                       xrefstyle="select: title"/>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>
+                <olink targetdoc="UsersGuide4" targetptr="vrrpd_cluster"
+                       xrefstyle="select: title"/>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>
+                <olink targetdoc="UsersGuide4" targetptr="heartbeat_cluster"
+                       xrefstyle="select: title"/>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>
+                <olink targetdoc="UsersGuide4" targetptr="heartbeat_vlan_cluster"
+                       xrefstyle="select: title"/>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>
+                <olink targetdoc="UsersGuide4" targetptr="heartbeat_dedicated_interface"
+                       xrefstyle="select: title"/>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>
+                <olink targetdoc="UsersGuide4" targetptr="state_sync_conntrackd"
+                       xrefstyle="select: title"/>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>
+                <olink targetdoc="UsersGuide4" targetptr="pf_cluster"
+                       xrefstyle="select: title"/>
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>
+                <olink targetdoc="UsersGuide4" targetptr="pix_cluster"
+                       xrefstyle="select: title"/>
+              </para>
+            </listitem>
+          </itemizedlist>
+
+        </para>
+      </sect2>
+
+    </sect1>
+
+
+
+
+    <sect1>
+      <title>Support for OpenWRT and DD-WRT</title>
+
+      <para>
+        Firewall Builder 4.0 can genetate a drop-in replacement script
+        for the
+        standard <ulink url="http://openwrt.org">OpenWRT</ulink>
+        and <ulink url="http://www.dd-wrt.com">DD-WRT</ulink> firewall
+        script. On OpenWRT this was tested with stable Kamikaze
+        (v7.06) and the latest OpenWRT (v8.09 at the time of Firewall
+        Builder v4.0 release). On DD-WRT we tested with v24 and
+        v24.sp1. Chapter <olink targetdoc="UsersGuide4"
+        targetptr="support-for-os" xrefstyle="select: quotedtitle
+        docname"/> has more details on intergration with OpenWRT,
+        DD-WRT and other OS.
+      </para>
+
+    </sect1>
+
+    <sect1>
+      <title>Branching rules in NAT</title>
+
+      <para>
+        The NAT rule set now has additional column "Action" with just
+        two actions: "Translate" and "Branch". Action "Branch" passes
+        control to another NAT rule set. This has been implemented for
+        iptables and PF. For iptables, compiler generates command
+        using "-j target" clause in the "nat" table. For PF, it
+        generates "anchor" or "nat-anchor" (depending on the version
+        of PF).
+      </para>
+
+      <figure id="branch-in-nat-pf">
+        <title>Example of branching NAT rule, compiled for PF</title>
+        <graphic scale="50" fileref="branch_in_nat_example.png"/>
+      </figure>
+
+    </sect1>
+
+    <sect1>
+      <title>Incremental management of IP addresses, VLAN, bridge and
+      bonding interface configuration</title>
+
+
+      <para>
+        Generated activation script compares IP addresses of
+        interfaces on the firewall machine with those configured in
+        Firewall Builder objects and adds or removes them as
+        appropriate to bring two in sync. If lists of interfaces
+        match, the script does nothing. Activation script generated by
+        previous versions of Firewall Builder removed all addresses,
+        then added them back to make sure address configuration of the
+        machine matches fwbuilder objects. New version does not do
+        that, which makes policy activation a lot safer. 
+      </para>
+
+      <para>
+        The program supports new types of interfaces: VLAN, bridge,
+        bonding. This is fully implemented for Linux and partially for
+        other platforms. VLANs are added as child objects of an
+        interface, like so:
+
+        <figure id="vlan_interfaces">
+          <graphic scale="50" fileref="vlan_interfaces.png"/>
+        </figure>
+      </para>
+
+      <para>
+        The program can generate commands to configure vlans, bridges
+        and bonding interfaces on Linux. This is off by default and
+        controlled by checkboxes in the "script" tab of the firewall
+        object dialog. Generated script adds and removes vlans,
+        bridges, bridge ports, bond and bond slaves
+        incrementally. That is, the script analyzes existing vlan
+        interfaces and compares them with vlan interfaces defined in
+        the Firewall Builder GUI and then adds new ones and removes
+        those that do not exist in fwbuilder. The same algorithm is
+        used to create bridges, add or remove bridge ports and create
+        bonds and then add or remove slave interfaces.
+      </para>
+
+      <para>
+        Chapter <olink targetdoc="UsersGuide4" targetptr="interfaces"
+        xrefstyle="select: quotedtitle docname"/> explains interface
+        configuration in great details.
+      </para>
+
+    </sect1>
+
+
+
+    <sect1>
+      <title>Built-in installer is much faster when working with Cisco
+      routers and ASA (PIX) firewalls</title>
+
+      <para>
+        Built-in installer can use scp to copy generated IOS or PIX
+        configuration to the device. This means it works much much
+        faster then before. I would like to show some comparison
+        figures to demonstrate just how much faster it is, but the
+        comparison is really meaningles. Entering router or firewall
+        configuration line by line, as in the old fwbuilder, is very
+        slow, especially over high latency network connection. Copying
+        the whole script using scp happens in a few seconds.
+      </para>
+
+      <para>
+        While updating configuration of a router or a firewall,
+        fwbuilder copies generated configuration
+        using <emphasis role="system">"scp"</emphasis> command to the router and then
+        executes it using <emphasis role="system">"copy file
+        running-config"</emphasis> command. It does not
+        use <emphasis role="system">"config replace"</emphasis> command because
+        configuration created by fwbuilder is incomplete and should be
+        merged with running config rather than replace it.
+      </para>
+
+      <para>
+        For this to work, of course, scp support must be enabled on
+        the router or firewall for this to work. There should also be
+        enough room on the flash storage on the device. Not all
+        versions of IOS and PIX support scp, you are going to have to
+        check the version you are running.
+      </para>
+
+      <para>
+        Chapters <olink targetdoc="UsersGuide4" targetptr="installer_on_ios"
+                       xrefstyle="select: quotedtitle"/>
+        and
+        <olink targetdoc="UsersGuide4" targetptr="installer_on_pix"
+               xrefstyle="select: quotedtitle docname"/>
+        have more details on this feature and provide a brief guide on
+        configuring <emphasis role="system">scp</emphasis> in Cisco routers and PIX
+        firewalls.
+      </para>
+    </sect1>
+
+
+    <sect1>
+      <title>Using EEM for automatic rollback of the configuration changes with Cisco routers</title>
+
+      <para>
+        Built-in policy installer uses EEM (Embedded Event Manager) on
+        IOS 12.4 or later to schedule automatic configuration rollback
+        instead of reloading the router. EEM appears in IOS 12.4 and
+        supports background operations that can be triggered by some
+        events on the router or by the timer. In this new feature,
+        fwbuilder creates EEM applet with a countdown timer that
+        executes command <emphasis role="system">"config replace nvram:startup-config
+        force"</emphasis> when timer expires. User has the following
+        options, controlled by checkboxes in the fwbuilder installer
+        parameters dialog:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+            Schedule automatic rollback in a few minutes and install
+            updated ACL configuration. This can be used to test new
+            policy and revert to the original one after some short
+            period of time. This also helps to avoid a situation when
+            updated policy blocks access to the router because of an
+            error; rolling back to the ACL configuration that was
+            running before the update will restore access
+            automatically.
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            Schedule rollback in a few minutes, install updated ACL
+            but cancel rollback if installation of the new
+            configuration was successful. This is mostly intended to
+            prevent blocking access to the router in case of an error
+            in the new ACL configuration. If fwbuilder was able to
+            enter all lines of the new configuration all the way to
+            the end, this means new configuration does not block
+            access and installer executes command <emphasis role="system">"no event
+            manager applet fwbuilder-rollback"</emphasis> to cancel
+            scheduled rollback.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <para>
+        Since IOS before 12.4 does not have EEM, automatic rollback on
+        these older versions is implemented by scheduling router
+        reload with command <emphasis role="system">"reload in "</emphasis>. This
+        hasn't changed since Firewall Builder v3.0
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Automatic generation of "mirrored" rules for Cisco routers</title>
+
+      <para>
+        Policy rule option "Add mirrored rule" (controlled by a
+        checkbox in the rule options dialog) makes policy compiler for
+        IOS ACL automatically create a rule with mirrored source and
+        destination addresses and service fields. This can be used to
+        match "reply" packets using address and service parameters
+        matched by this rule. The action of the mirrored rule is the
+        same as that of this one. Firewall Builder recognizes the
+        following services and creates "mirrored" versions as follows:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+            UDP service: mirrored service has source and destination
+            port ranges reversed
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            TCP service: mirrored service has source and destination
+            port ranges reversed and "established" flag inverted. If
+            TCP service used in this rule does not have "established"
+            flag, the mirrored service gets it, and the other way
+            around. This is designed to simplify creating ACL rules to
+            permit "reply" TCP packets
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            ICMP service: ICMP echo request is recognized, mirrored
+            service becomes ICMP echo reply. Other ICMP types are
+            simply copied to the mirrored service
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            ICMPv6 service: like with ICMP, ICMP echo request is
+            recognized and other ICMPv6 types are just copied
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            IP service: mirrored service is a copy
+          </para>
+        </listitem>
+
+      </itemizedlist>
+
+      <para>
+        This feature helps generate router access lists to permit
+        specific services in both directions, saving you time in that
+        you do not have to remember to add rules for the reply
+        packets.
+      </para>
+
+    </sect1>
+    
+
+
+  </chapter>
+</book>
