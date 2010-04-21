@@ -5,7 +5,11 @@
   <chapter id="firewall-policies">
     <title>Firewall Policies</title>
 
-	<para>This chapter describes working with policies. <xref linkend="compile-install-detail" /> describes compiling and installing a policy.</para>
+    <para>
+      This chapter describes working with
+      policies. <xref linkend="compile-install-detail" /> describes
+      compiling and installing a policy.
+    </para>
 
     <sect1 id="policies-and-rules">
       <title>Policies and Rules</title>
