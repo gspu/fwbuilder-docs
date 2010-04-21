@@ -1147,7 +1147,8 @@
       </figure>
       </para>
 
-     <table frame='none' tabstyle='reg_table'><title>Preferences>Installer tab</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Preferences>Installer tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
@@ -1165,23 +1166,40 @@
                   they are in your PATH, then you don't have to
                   specify the complete paths to them. On Windows,
                   however, you must install putty. See
-                  <xref linkend="install-putty" /> for
-                  instructions.</entry>
+                  <xref linkend="install-windows" /> for
+                  instructions.
+                </entry>
 	      </row>
 	      <row>
 		<entry>Enable password caching</entry>
-		<entry>If checked, the program can remember firewall passwords for the duration of the Firewall Builder GUI session. Passwords are never stored permanently in any form; they are only kept in memory for the working Firewall Builder GUI instance. You need to enter each password once when you activate a generated policy. If you keep the program open and need to modify and activate policy again, the password fields in the installer dialog can be filled automatically. Cached passwords are associated with the firewall object and account name used to activate the policy. To use this feature, you must also configure a user name in the <guilabel>Installer</guilabel> tab in the <guilabel>Firewall Settings</guilabel> dialog of the firewall object. Caution: using this feature creates a risk if a working Firewall Builder GUI is left unattended on an unlocked workstation.</entry>
+		<entry>If checked, the program can remember firewall
+		passwords for the duration of the Firewall Builder GUI
+		session. Passwords are never stored permanently in any
+		form; they are only kept in memory for the working
+		Firewall Builder GUI instance. You need to enter each
+		password once when you activate a generated policy. If
+		you keep the program open and need to modify and
+		activate policy again, the password fields in the
+		installer dialog can be filled automatically. Cached
+		passwords are associated with the firewall object and
+		account name used to activate the policy. To use this
+		feature, you must also configure a user name in
+		the <guilabel>Installer</guilabel> tab in
+		the <guilabel>Firewall Settings</guilabel> dialog of
+		the firewall object. Caution: using this feature
+		creates a risk if a working Firewall Builder GUI is
+		left unattended on an unlocked workstation.</entry>
 	      </row>
 	  </tbody>
 	</tgroup>
       </table>
 
-      <para>
-      <figure id="preferences-dialog-labels">
-        <title>GUI Preferences Labels tab</title>
-        <graphic scale="50" fileref="fwbPrefLabels1.png" />
-      </figure>
-      </para>
+     <para>
+       <figure id="preferences-dialog-labels">
+         <title>GUI Preferences Labels tab</title>
+         <graphic scale="50" fileref="fwbPrefLabels1.png" />
+       </figure>
+     </para>
 
      <table frame='none' tabstyle='reg_table'>
        <title>Preferences>Labels tab</title>
@@ -1197,11 +1215,13 @@
 	    <tbody>
 	      <row>
 		<entry>Labels</entry>
-		<entry>You can assign colors to particular rows in your policies to
-            make them stand out visually. You can change the text label
-            associated with each color using this tab. While the color shows
-            up in the ruleset, the text label only appears in the label
-            list.</entry>
+		<entry>You can assign colors to particular rows in
+                  your policies to make them stand out visually. You
+                  can change the text label associated with each color
+                  using this tab. While the color shows up in the
+                  ruleset, the text label only appears in the label
+                  list.
+                </entry>
 	      </row>
 	  </tbody>
 	</tgroup>
@@ -1214,7 +1234,8 @@
       </figure>
       </para>
 
-     <table frame='none' tabstyle='reg_table'><title>Preferences>Appearance tab</title>
+     <table frame='none' tabstyle='reg_table'>
+       <title>Preferences>Appearance tab</title>
 	<tgroup cols='2' align='left'  rowsep='1'>
 	  <colspec colname='c1'  colwidth="120pt"/>
 	  <colspec colname='c2'/>
@@ -1227,8 +1248,9 @@
 	    <tbody>
 	      <row>
 		<entry>Rules, Tree, and Compiler Output Panel Fonts</entry>
-		<entry>Use these controls to set the font used for rules, the object tree, 
-		and the compiler output panel.</entry>
+		<entry>Use these controls to set the font used for
+		rules, the object tree, and the compiler output panel.
+                </entry>
 	      </row>
 	      <row>
 		<entry>Show icons in rules</entry>
