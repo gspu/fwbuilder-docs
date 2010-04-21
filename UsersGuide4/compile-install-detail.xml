@@ -358,16 +358,17 @@
       of the Firewall Builder GUI.
     </para>
 
-    <para>In the process of doing the installation, you will have to
+    <para>
+      In the process of doing the installation, you will have to
       provide the password to your firewall. If you end up doing the
       installation several times, such as while troubleshooting, you
-      will have to enter your password several times. Alternatively, you
-      can select <guilabel>Enable password caching</guilabel> in the
-      Installer tab of the Preferences dialog. Then, your password will
-      be cached for the duration of the Firewall Builder
-      session. However, the password will not be written to disk at any
-      time. <xref linkend="preferences-dialog-installer" /> has more
-      information.</para>
+      will have to enter your password several times. Alternatively,
+      you can select <guilabel>Enable password caching</guilabel> in
+      the Installer tab of the Preferences dialog. Then, your password
+      will be cached for the duration of the Firewall Builder
+      session. However, the password will not be written to disk at
+      any time. <xref linkend="preferences-dialog-installer" /> has
+      more information.</para>
 
     <para>
       The installer needs to be able to copy the generated firewall
@@ -383,9 +384,7 @@
       are on Linux, *BSD or Mac and use the standard ssh client
       available via your PATH environment variable, you do not need to
       change the default value there.
-      
     </para>
-    
 
     <para>
       Installer works differently depending on the target platform. In
@@ -393,14 +392,25 @@
       uses <emphasis>SCP</emphasis> to copy the generated
       configuration files to the firewall machine and then
       uses <emphasis>ssh</emphasis> to log in and run the script. In
-      the case of Cisco routers or ASA appliance (PIX), it logs in,
+      the case of Cisco routers or ASA appliance (PIX), what it does
+      depends on the version of IOS or PIX configured in the Firewall
+      object.  For old versions that do not support scp, it logs in,
       switches to <emphasis>enable</emphasis> and
       then <emphasis>configuration</emphasis> mode and executes
       configuration commands one by one in a manner similar
       to <emphasis>expect</emphasis> scripts. It inspects the router's
       replies looking for errors and stops if it detects one. In the
       end, it issues the command <emphasis>write mem</emphasis> to
-      store the new configuration in memory, then logs out.
+      store the new configuration in memory, then logs out. Newer
+      versions of IOS and PIX support scp and fwbuilder installer
+      takes advantage of this. In this case it copies generated script
+      to the router or firewall and then executes it
+      using <command>"copy file running-config"</command> command. It
+      does not use <command>"config replace"</command> command because
+      configuration created by fwbuilder is incomplete and should be
+      merged with running config rather than replace it.
+      <xref linkend="installer_on_ios"/> and
+      <xref linkend="installer_on_pix"/> have more details.
     </para>
     
 
