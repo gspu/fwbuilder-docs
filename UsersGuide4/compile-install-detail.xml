@@ -566,36 +566,31 @@
 
     </sect2>
 
-    <sect2 id="install-putty">
+    <sect2 id="install-windows">
       <title>Configuring Installer on Windows</title>
-
       
       <para>
         You can skip this section if you run Firewall Builder GUI on
         Linux, *BSD or Mac OS X.
       </para>
-      
 
       <para>
         Here is the link to
         <ulink url="http://www.fwbuilder.org/slideshows/using_putty/slide_1.html">
           slide show </ulink> that demonstrates the process.
       </para>
-      
 
       <para>
         Download and install putty.exe, plink.exe and pscp.exe
         somewhere on your machine (say, in C:\putty). Download URL is
         <ulink url="http://www.chiark.greenend.org.uk/~sgtatham/putty/">http://www.chiark.greenend.org.uk/~sgtatham/putty/</ulink>
       </para>
-      
 
       <para>
         Installer does not use <emphasis>putty.exe</emphasis>, but it
         will be very useful for troubleshooting and for setting up
         sessions and ssh keys.
       </para>
-      
 
       <para>
         In the <guimenuitem>Edit/Preferences</guimenuitem> dialog, in
@@ -608,7 +603,6 @@
         entry field. Do the same to configure the path
         to <emphasis>pscp.exe</emphasis>.
       </para>
-      
 
       <para>
         You may log in to the firewall using a regular user account or
@@ -618,7 +612,6 @@
         Firewall Builder.
       </para>
       
-
       <para>
         Before you try to use fwbuilder installer with plink.exe and
         pscp.exe, test it from the command line to make sure you can
@@ -633,14 +626,12 @@
         the part where it asks you to enter a password. Enter the
         password and press Enter to see if you can log in.
       </para>
-      
 
       <para>
         Here is the command (assuming you use account "fwadmin" to
         manage firewall "guardian"):
       </para>
       
-
       <programlisting>
         C:\Users\vadim&gt;c:\PuTTY\plink.exe -l fwadmin guardian
       </programlisting>
@@ -649,7 +640,6 @@
         <figure><title/>
           <graphic scale="50" fileref="plink_login.png"/></figure>
       </para>
-      
 
       <note>
         <para>
@@ -667,6 +657,49 @@
       <!-- *************************************************** -->
 
     </sect2>
+
+    <sect2 id="using_putty">
+      <title>Using putty sessions on Windows</title>
+
+      <para>
+        putty allows you to store a destination host name or
+        address, user name and bunch of other parameters in a
+        session so that they all can be called up at once. If you
+        wish to use sessions, do the following:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+            Configure putty as usual, create and test a session
+            for the firewall, test it using putty outside of
+            Firewall Builder. When you use a session, the 
+            firewall host name and user name are stored in the
+            session file. Firewall Builder allows you to enter the 
+            session name in the entry field in the firewall
+            settings dialog where you would normally enter an 
+            alternative address of the firewall. A comment next
+            to the entry field reminds you about this.  Just
+            type the session name in that field, leave the user name
+            field blank and save the settings.
+          </para>
+        </listitem>
+        
+        <listitem>
+          <para>
+            Once you start the installer, do not enter your user
+            name in the "User name" field on the first page of
+            installer wizard. You do, however, need to enter the
+            login and enable passwords. Configure the rest of
+            installer options as usual. They do not change
+            when you use putty sessions.
+          </para>
+        </listitem>
+        
+      </itemizedlist>
+
+    </sect2>
+
 
     <sect2 id="install_with_regular_user">
       <title>Configuring installer to use regular user account to
@@ -966,52 +999,6 @@ $ ssh -l root &lt;firewall_name&gt;
         <figure float="1"><title/><graphic scale="50" fileref="backup_access.png"/></figure>
       </para>
       <!-- *************************************************** -->
-
-    </sect2>
-
-    <sect2 id="using_putty">
-      <title>Using putty sessions on Windows</title>
-
-      <para>
-        putty allows you to store a destination host name or
-        address, user name and bunch of other parameters in a
-        session so that they all can be called up at once. If you
-        wish to use sessions, do the following:
-        
-      </para>
-
-      <itemizedlist>
-
-        <listitem>        <para>
-            
-            Configure putty as usual, create and test a session
-            for the firewall, test it using putty outside of
-            Firewall Builder. When you use a session, the 
-            firewall host name and user name are stored in the
-            session file. Firewall Builder allows you to enter the 
-            session name in the entry field in the firewall
-            settings dialog where you would normally enter an 
-            alternative address of the firewall. A comment next
-            to the entry field reminds you about this.  Just
-            type the session name in that field, leave the user name
-            field blank and save the settings.
-          </para>
-        </listitem>
-        
-        
-
-        <listitem>        <para>
-            
-            Once you start the installer, do not enter your user
-            name in the "User name" field on the first page of
-            installer wizard. You do, however, need to enter the
-            login and enable passwords. Configure the rest of
-            installer options as usual. They do not change
-            when you use putty sessions.
-          </para>
-        </listitem>
-        
-      </itemizedlist>
 
     </sect2>
 
