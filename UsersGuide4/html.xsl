@@ -12,7 +12,7 @@
 <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
 <xsl:param name="chunker.output.indent" select="'yes'"/>
 <xsl:param name="chunk.section.depth" select="2"/>
-<xsl:param name="chunk.first.sections" select="'yes'"/>
+<!-- <xsl:param name="chunk.first.sections" select="'yes'"/> -->
 <xsl:param name="use.id.as.filename" select="1"/>
 <xsl:param name="xref.with.number.and.title" select="0"/>
 
