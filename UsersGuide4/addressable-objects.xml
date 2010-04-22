@@ -75,73 +75,100 @@
       <sect3 id="creating_firewall_manually">
         <title>Creating a Firewall Object Manually</title>
 
-        <para>To start the firewall object creation wizard,
-        right-click the <guibutton>Firewalls</guibutton> folder in the
-        User tree and select <guimenuitem>New
-        Firewall</guimenuitem>.</para>
+        <para>
+          To start the firewall object creation wizard, right-click
+          the <guibutton>Firewalls</guibutton> folder in the User tree
+          and select <guimenuitem>New Firewall</guimenuitem>.
+        </para>
 
-	<para>The first page of this wizard is displayed.</para>
+	<para>
+          The first page of this wizard is displayed.
+        </para>
+
         <figure id="creating-firewall1-2">
           <title>First Page of the Wizard</title>
-              <graphic scale="60" fileref="creating_firewall1.png" />
+          <graphic scale="60" fileref="creating_firewall1.png" />
         </figure>
 
-        <para>Give the firewall object a name. Usually, this name will
-        be the same name as the device, but it doesn't have to be if
-        you're assigning interfaces manually. (If you will use SNMP or
-        DNS to populate the interfaces, then the name must be the same
-        as the device name.) Then specify the firewall software and
-        device OS.</para>
+        <para>
+          Give the firewall object a name. Usually, this name will
+          be the same name as the device, but it doesn't have to be if
+          you're assigning interfaces manually. (If you will use SNMP or
+          DNS to populate the interfaces, then the name must be the same
+          as the device name.) Then specify the firewall software and
+          device OS.
+        </para>
 
-	<para>Leave the <guilabel>Use pre-configured template firewall
-	objects</guilabel> checkbox unchecked.</para>
+	<para>
+          Leave the <guilabel>Use pre-configured template firewall
+	    objects</guilabel> checkbox unchecked.
+        </para>
 
 	<para>Click <guibutton>Next</guibutton>.</para>
 
         <figure id="creating-firewall_manual1">
           <title>Choose Configure Interfaces Manually</title>
-              <graphic scale="60" fileref="creating_firewall_manual1.png" />
+          <graphic scale="60" fileref="creating_firewall_manual1.png" />
         </figure>
 
-	<para>Select <guibutton>Configure interfaces
-	manually</guibutton> and
-	click <guibutton>Next</guibutton>.</para>
+	<para>
+          Select <guibutton>Configure interfaces manually</guibutton>
+	    and click <guibutton>Next</guibutton>.
+        </para>
+
+        <figure id="creating-firewall_manual1_1">
+          <title>The page where you can add Interfaces to the new Firewall Object</title>
+          <graphic scale="60" fileref="creating_firewall_manual1-1.png" />
+        </figure>
+
+
+        <para>
+          This is the page where you can add interfaces to the
+          firewall. In this page of the dialog, each interface is
+          represented by a tab in the tabbed widget.  Use the "+"
+          button in the upper left corner to add new interface. Button
+          "x" in the upper right corner deletes interface. Click the "+"
+          button to create first interface and give it the name "eth0":
+        </para>
 
         <figure id="creating-firewall_manual2">
           <title>Adding Interfaces to the new Firewall Object</title>
-              <graphic scale="60" fileref="creating_firewall_manual2.png" />
+          <graphic scale="60" fileref="creating_firewall_manual2.png" />
         </figure>
 
-        <para>Use this screen to add firewall interfaces. Populate the
-        following fields for an interface, then
-        click <guibutton>Add</guibutton> to add the interface. Then,
-        populate the fields again for the next interface. If you make
-        a mistake, click on the interface in the list, make your
-        changes, then click <guibutton>Update</guibutton>.</para>
+        <para>
+          To add an IP address to the interface, click in the table
+          cell in the column "Address" and start typing the
+          address. The cell turns into text editor widget and lets you
+          enter the address. Add netmask using table cell in the
+          column "Netmask". Drop-down list <guilabel>"Type"</guilabel>
+          lets you choose between IPv4 and IPv6 addresses. The netmask
+          field accepts both full numeric notation and bit length for
+          IPv4 netmasks. For IPv6, only bit length is allowed. Button
+          <guilabel>"Remove"</guilabel> removes the address. You can
+          add several addresses to the same interface.
+        </para>
 
-            <para><itemizedlist spacing="compact">
-              <listitem>
-                <para><guilabel>Interface type</guilabel>: Indicate
-                the type of interface. <xref linkend="host-interface"
-                /> explains the interface types in more
-                detail. Briefly, though, a <guilabel>Regular
-                interface</guilabel> has a static IP addresses,
-                a <guilabel>Dynamic address</guilabel> interface has a
-                dynamic address provided by something like DHCP,
-                an <guilabel>Unnumbered interface</guilabel> never has
-                an IP address (a PPPoE connection, for example), and
-                a <guilabel>Bridge port</guilabel> is an interface
-                that is bridged in the firewall.</para>
-		</listitem>
-              <listitem>
-                <para><guilabel>Name</guilabel>: The name of the
+        <para>
+          Here is the description of the elements available on this
+          page of the wizard:
+        </para>
+
+        <para>
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>
+                <guilabel>Name</guilabel>: The name of the
                 interface object in Firewall Builder must match
                 exactly the name of the interface of the firewall
                 machine it represents. This will be something like
-                "eth0", "eth1", "en0", "br0", and so on.</para>
-	      </listitem>
-              <listitem>
-                <para><guilabel>Label</guilabel>: On most OS's this
+                "eth0", "eth1", "en0", "br0", and so on.
+              </para>
+	    </listitem>
+
+            <listitem>
+              <para>
+                <guilabel>Label</guilabel>: On most OS's this
                 field is not used and serves the purpose of a
                 descriptive label.  The label is mandatory for Cisco
                 PIX though, where it must reflect the network
@@ -150,87 +177,210 @@
                 the suggested uses for this field is to mark
                 interfaces to reflect the network topology ('outside',
                 'inside') or interface purpose ('web frontend' or
-                'backup subnet').</para>
-	      </listitem>
-              <listitem>
-                <para><guilabel>Address</guilabel>: If the interface
-                has a static IP address, specify it here. (In Firewall
-                Builder version 3.X, this must be an IPv4 address. If
-                you need it to be an IPv6 address, create the
-                interface without an IP address, then add the IPv6
-                address after you have created the firewall
-                object.)</para>
-	      </listitem>
-              <listitem>
-                <para><guilabel>Netmask</guilabel>: Use either a
-                traditional netmask (255.255.255.0) or slash notation
-                (24, without the actual slash) to specify the
-                interface netmask.</para>
-	      </listitem>
-              <listitem>
-                <para><guilabel>MAC</guilabel>: If you like, you can
+                'backup subnet').
+              </para>
+	    </listitem>
+
+            <listitem>
+              <para>
+                <guilabel>MAC</guilabel>: If you like, you can
                 also specify the interface physical address. The MAC
                 address is not necessary, but it can be used to combat
                 spoofing. If the feature is turned on and available,
                 the firewall will only accept packets from the given
                 IP address if the MAC address also matches the one
                 specified. <xref linkend="using-mac-address" /> has
-                more information.</para>
-	      </listitem>
-	    </itemizedlist></para>
+                more information.
+              </para>
+	    </listitem>
 
-	<para>Once all the interfaces are configured,
-        click <guibutton>Finish</guibutton> to create the new firewall
-        object.</para>
+            <listitem>
+              <para>
+                <guilabel>Interface type</guilabel>: Indicates the type
+                of interface. <xref linkend="host-interface"/>
+                explains the interface types in more detail. Briefly,
+                though, a <guilabel>Regular interface</guilabel> has a
+                static IP addresses, a <guilabel>Dynamic
+                address</guilabel> interface has a dynamic address
+                provided by something like DHCP,
+                an <guilabel>Unnumbered interface</guilabel> never has
+                an IP address (a PPPoE connection, for example), and
+                a <guilabel>Bridge port</guilabel> is an interface
+                that is bridged in the firewall.
+              </para>
+	    </listitem>
+
+            <listitem>
+              <para>
+                <guilabel>Comment</guilabel>: free-form text field
+                used for the comment.
+              </para>
+	    </listitem>
+
+            <listitem>
+              <para>
+                <guilabel>Address</guilabel>: If the interface
+                has a static IP address, specify it here.
+              </para>
+	    </listitem>
+
+            <listitem>
+              <para>
+                <guilabel>Netmask</guilabel>: Use either a traditional
+                netmask (255.255.255.0) or bit length (24, without
+                slash) to specify the interface netmask. For IPv6
+                addresses only bit length notation is accepted.
+              </para>
+	    </listitem>
+	</itemizedlist></para>
+
+	<para>
+          Once all the interfaces are configured,
+          click <guibutton>Finish</guibutton> to create the new firewall
+          object.
+        </para>
 
         <note>
-          <para>You can always add, modify and delete interfaces later
-          using controls provided in the main window.</para>
+          <para>
+            You can always add, modify and delete interfaces later
+            using controls provided in the main window.
+          </para>
         </note>
+      </sect3>
+
+
+      <sect3 id="firewall-from-template">
+        <title>Creating a Firewall Object using preconfigured template</title>
+
+        <para>
+          Another method you can use to create new firewall object is
+          based on the use of preconfigured template objects that come
+          with the program. To do this, turn checkbox "Use
+          preconfigured template firewall objects" on the first page
+          of the wizard <xref linkend="creating-firewall1-2"/> then
+          click Next.
+        </para>
+
+        <figure id="new_firewall_template_1">
+          <title>List of preconfigured firewall templates</title>
+          <graphic scale="70" fileref="new_firewall_wizard_templ_1.png" />
+        </figure>
+
+        <para>
+          The program comes with several template objects. These
+          include firewalls with two or three interfaces, a couple of
+          firewall configurations intended for a server with one
+          interface, templates for OpenWRT, DD-WRT and IPCOP firewalls
+          and finally a Cisco router. Each template is configured with
+          ip addresses and basic rules. Some templates assume all
+          interfaces have static ip addresses, while other assume some
+          interfaces have dynamic addresses. These template objects
+          are intended to be a start, something you can and should
+          edit and modify to match your network configuration and
+          security policy.
+        </para>
+
+        <para>
+          Choose the template that is closest to your configuration
+          and click Next.
+        </para>
+
+        <figure id="new_firewall_template_2">
+          <title>Editing addresses of interfaces of the new firewall created from a template</title>
+          <graphic scale="70" fileref="new_firewall_wizard_templ_2.png" />
+        </figure>
+
+        <para>
+          This page of the wizard allows you to change ip addresses
+          used in the template. This was not possible in Firewall
+          Builder 3.0, this is a new feature in 4.0. You can add and
+          remove addresses using buttons <guibutton>Add
+          address</guibutton> and <guibutton>Remove</guibutton>. Since
+          configuration of the template object depends on its
+          interfaces, the dialog does not let you add or remove
+          interfaces for the object created from a template.  Each
+          interface is represented by a tab in the tabbed widget, you
+          can switch between them clicking tabs with their
+          names. <xref linkend="creating_firewall_manually"/> lists
+          all elements of this page of the dialog and explains their
+          purpose.
+        </para>
+
+        <para>
+          Each template firewall object comes preconfigured with some
+          basic rules that use firewall object, its interfaces and
+          Network objects that represent subnets attached to
+          interfaces. If you change addresses of interfaces in this
+          page of the wizard, the program finds all network objects
+          used in the template rules that match old address and
+          replaces them with new network objects that represent
+          subnets with addresses that you entered in the wizard. Now
+          you do not have to find and replace these objects manually.
+        </para>
+
+        <para>
+          Once all interfaces and addresses are entered or modified,
+          click Finish to create the firewall object.
+        </para>
+
       </sect3>
 
       <sect3 id="firewall-snmp">
         <title>Creating a Firewall Object using SNMP Discovery</title>
-	  <para>If your firewall runs an SNMP daemon, you can save
+
+	<para>
+          If your firewall runs an SNMP daemon, you can save
 	  yourself some time by using SNMP discovery to automatically
-	  create interfaces of the new firewall object.</para>
+	  create interfaces of the new firewall object.
+        </para>
 
         <figure id="new_firewall_snmp1">
           <title>SNMP 'read' community string</title>
-              <graphic scale="70" fileref="new_firewall_wizard_4.png" />
+          <graphic scale="70" fileref="new_firewall_wizard_4.png" />
         </figure>
 
-	  <para>Start by checking the <guilabel>Use SNMP to discover
-	  interfaces of the firewall</guilabel> checkbox on the second
+	<para>
+          Start by checking the <guilabel>Use SNMP to discover
+	    interfaces of the firewall</guilabel> checkbox on the second
 	  page of the wizard and enter your SNMP 'read'
 	  community. Then click <guibutton>Discover interfaces using
-	  SNMP</guibutton>.</para>
+	    SNMP</guibutton>.
+        </para>
 
         <figure id="new_firewall_snmp2">
           <title>Discovering interfaces via SNMP</title>
-              <graphic scale="70" fileref="new_firewall_wizard_5.png" />
+          <graphic scale="70" fileref="new_firewall_wizard_5.png" />
         </figure>
 
-	  <para>Firewall Builder runs a series of SNMP queries to the
-	  firewall to read the list of interfaces and their
-	  addresses. Both IPv4 and IPv6 address can be imported. For
-	  IPv6 the firewall must support IP-MIB RFC4293. Once the
-	  discovery process finishes,
-	  click <guibutton>Next</guibutton>.</para>
+	<para>
+          The program runs series of SNMP queries to the firewall to
+	  read the list of interfaces and their addresses. Both IPv4
+	  and IPv6 address can be imported. For IPv6 the firewall must
+	  support IP-MIB RFC4293. Once the discovery process finishes,
+	  click <guibutton>Next</guibutton>.
+        </para>
 
         <figure id="new_firewall_snmp3">
-          <title>Discovering interfaces via SNMP</title>
-              <graphic scale="70" fileref="new_firewall_wizard_6.png" />
+          <title>Editing interfaces discovered via SNMP</title>
+          <graphic scale="70" fileref="new_firewall_wizard_6.png" />
         </figure>
 
-	  <para>The next page of the wizard offers an opportunity to
-	  review the discovered interfaces and make adjustments if
-	  necessary. To change something, highlight an interface, edit
-	  its parameters in the dialog, then
-	  click <guibutton>Update</guibutton>. Finally, when the
-	  process is done click <guibutton>Finish</guibutton>. The
-	  program creates the new firewall object in the tree and adds
-	  all configured interfaces and their addresses.</para>
+	<para>
+          The next page of the wizard offers an opportunity to review
+	  the discovered interfaces and make adjustments if necessary.
+	  This is the same page described previously in
+	  <xref linkend="creating_firewall_manually"/>. You can add
+	  and remove interfaces and add, remove or change their ip
+	  addresses. <xref linkend="creating_firewall_manually"/>
+	  lists all elements of this page of the dialog and explains
+	  their purpose.
+        </para>
+
+        <para>
+          When configuration of all interfaces is correct, click Finish
+          to create new firewall object.
+        </para>
+
       </sect3>
 
       <sect3>
@@ -244,88 +394,120 @@
 
         <figure id="edit_firewall_base_controls">
           <title>Firewall Controls</title>
-              <graphic scale="60" fileref="edit_firewall_base_controls.png" />
+          <graphic scale="60" fileref="edit_firewall_base_controls.png" />
         </figure>
 
 	<sect4>
 	  <title>Basic Firewall Controls</title>
-	  <para>These controls let you specify the basic settings of
-	  the firewall, such as the name and firewall platform.</para>
-        <para><itemizedlist spacing="compact">
-            <listitem>
-              <para><guilabel>Name</guilabel>: Specify/change the name
-              of the firewall object.</para>
-            </listitem>
-            <listitem>
-              <para><guilabel>Platform</guilabel>: Specify/change the
-              firewall software.</para>
-            </listitem>
-            <listitem>
-              <para><guilabel>Version</guilabel>: Specify/change the
-              version number of the firewall software. In most cases,
-              you can leave this set to <guilabel>any</guilabel>. In
-              general, setting the version to "any" means the compiler
-              will only support options available in all supported
-              versions of the software. If you need a feature that is
-              only supported by a particular version, then specify
-              that version.</para>
-            </listitem>
-            <listitem>
-              <para><guilabel>Host OS</guilabel>: Specify/change the
-              host operating system of the firewall device.</para>
-            </listitem>
-            <listitem>
-              <para><guilabel>Inactive firewall</guilabel>: Check this
-              box to make the firewall object inactive. The firewall
-              name will change to a regular font (instead of bold) to
-              indicate that it is inactive, and the firewall will not
-              be available for compiling or installation. Essentially,
-              this is a way to "comment out" the firewall object
-              without deleting it.</para>
-            </listitem>
-            <listitem>
-              <para><guibutton>Host OS Settings</guibutton>: Opens the
-              Advanced Settings dialog for the indicated Host
-              OS. Click <guibutton>Help</guibutton> in the dialog for
-              assistance with dialog options. See
-              <xref linkend="host-os-settings-dialog" /> for a screen
-              shot.</para>
-            </listitem>
-            <listitem>
-              <para><guibutton>Firewall Settings</guibutton>: Opens
-              the Advanced Settings dialog for the platform/firewall
-              software. Click <guibutton>Help</guibutton> in the
-              dialog for assistance with dialog options. See
-              <xref linkend="firewall-settings-dialog" /> for a screen
-              shot..</para>
-            </listitem>
-	    </itemizedlist></para>
+
+	  <para>
+            These controls let you specify the basic settings of the
+	    firewall, such as the name and firewall platform.
+          </para>
+
+          <para>
+            <itemizedlist spacing="compact">
+              <listitem>
+                <para>
+                  <guilabel>Name</guilabel>: Specify/change the name
+                  of the firewall object.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>
+                  <guilabel>Platform</guilabel>: Specify/change the
+                  firewall software.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>
+                  <guilabel>Version</guilabel>: Specify/change the
+                  version number of the firewall software. In most
+                  cases, you can leave this set
+                  to <guilabel>any</guilabel>. In general, setting the
+                  version to "any" means the compiler will only
+                  support options available in all supported versions
+                  of the software. If you need a feature that is only
+                  supported by a particular version, then specify that
+                  version.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>
+                  <guilabel>Host OS</guilabel>: Specify/change the
+                  host operating system of the firewall device.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>
+                  <guibutton>Firewall Settings</guibutton>: Opens
+                  the Advanced Settings dialog for the platform/firewall
+                  software. Click <guibutton>Help</guibutton> in the
+                  dialog for assistance with dialog options. See
+                  <xref linkend="firewall-settings-dialog" /> for a screen
+                  shot.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>
+                  <guibutton>Host OS Settings</guibutton>: Opens the
+                  Advanced Settings dialog for the indicated Host
+                  OS. Click <guibutton>Help</guibutton> in the dialog for
+                  assistance with dialog options. See
+                  <xref linkend="host-os-settings-dialog" /> for a screen
+                  shot.
+                </para>
+              </listitem>
+
+              <listitem>
+                <para>
+                  <guilabel>Inactive firewall</guilabel>: Check this
+                  box to make the firewall object inactive. The firewall
+                  name will change to a regular font (instead of bold) to
+                  indicate that it is inactive, and the firewall will not
+                  be available for compiling or installation. Essentially,
+                  this is a way to "comment out" the firewall object
+                  without deleting it.
+                </para>
+              </listitem>
+
+	    </itemizedlist>
+          </para>
 	</sect4>
 
 	<sect4 id="host-os-settings-dialog">
 	  <title>Host OS Settings Dialog</title>
 
-        <para>For explanations of the various controls, click
-        the <guilabel>Help</guilabel> button in the dialog.</para>
-
-        <figure id="edit_firewall_howtos_options">
-          <title>Firewall Host OS Settings dialog (Linux)</title>
-              <graphic scale="70" fileref="edit_firewall_howtos_options.png" />
-        </figure>
-
+          <para>
+            For explanations of the various controls, click
+            the <guilabel>Help</guilabel> button in the dialog.
+          </para>
+          
+          <figure id="edit_firewall_howtos_options">
+            <title>Firewall Host OS Settings dialog (Linux)</title>
+            <graphic scale="70" fileref="edit_firewall_howtos_options.png" />
+          </figure>
+          
 	</sect4>
 
 
 	<sect4 id="firewall-settings-dialog">
 	  <title>Firewall Settings dialog</title>
 
-	<para>For explanations of the various controls, click
-	the <guilabel>Help</guilabel> button in the dialog.</para>
-
-        <figure id="edit_firewall_firewallsettings_compiler">
-          <title>Firewall Settings dialog (iptables)</title>
-              <graphic scale="60" fileref="edit_firewall_firewallsettings_compiler.png" />
-        </figure>
+	  <para>
+            For explanations of the various controls, click
+	    the <guilabel>Help</guilabel> button in the dialog.
+          </para>
+          
+          <figure id="edit_firewall_firewallsettings_compiler">
+            <title>Firewall Settings dialog (iptables)</title>
+            <graphic scale="60" fileref="edit_firewall_firewallsettings_compiler.png" />
+          </figure>
 
 	</sect4>
 

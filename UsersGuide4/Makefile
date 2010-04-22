@@ -34,7 +34,13 @@ SOURCES = Introduction.xml \
 		pf_cluster.xml \
 		pix_cluster.xml \
 		support_for_specific_firewall_os.xml \
-		configlets.xml
+		configlets.xml \
+		object-types.xml \
+		addressable-objects.xml \
+		service-objects.xml \
+		time-objects.xml \
+		new-library.xml \
+		find-and-replace.xml
 
 CATALOGS = catalog-Darwin.xml catalog-Linux.xml
 HTML_STYLESHEETS = html.xsl
