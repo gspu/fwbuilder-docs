@@ -1866,6 +1866,12 @@ router(config)#aaa authorization exec default local
 router(config)#username tiger privilege 15 password 0 enter_password_here
       </programlisting>
 
+      <para>
+        To generate the key and store it on specific device, use command:
+        <programlisting>
+crypto key generate rsa general-keys modulus  1024 storage  nvram:
+        </programlisting>
+      </para>
 
       <para>
         To troubleshoot when scp is not working:
