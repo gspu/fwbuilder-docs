@@ -1168,7 +1168,7 @@
       <ServiceGroup id="id2202X22057" name="TagServices" comment="" ro="False"/>
     </ServiceGroup>
     <ObjectGroup id="id2203X22057" name="Firewalls" comment="" ro="False">
-      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="1271803092" lastInstalled="1271803097" lastModified="1271803038" platform="iptables" name="linux-test-1" comment="" ro="False">
+      <Firewall id="id2228X22057" host_OS="linux24" lastCompiled="1273860998" lastInstalled="1273861015" lastModified="1273860995" platform="iptables" name="linux-test-1" comment="" ro="False">
         <NAT id="id2232X22057" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -1211,13 +1211,13 @@
           <Option name="check_shading">True</Option>
           <Option name="clamp_mss_to_mtu">False</Option>
           <Option name="classify_mark_terminating">False</Option>
-          <Option name="clear_unknown_interfaces">False</Option>
+          <Option name="clear_unknown_interfaces">True</Option>
           <Option name="cmdline"></Option>
           <Option name="compiler"></Option>
-          <Option name="configure_bonding_interfaces">False</Option>
-          <Option name="configure_bridge_interfaces">False</Option>
+          <Option name="configure_bonding_interfaces">True</Option>
+          <Option name="configure_bridge_interfaces">True</Option>
           <Option name="configure_interfaces">True</Option>
-          <Option name="configure_vlan_interfaces">False</Option>
+          <Option name="configure_vlan_interfaces">True</Option>
           <Option name="debug">False</Option>
           <Option name="drop_invalid">False</Option>
           <Option name="epilog_script"></Option>
@@ -1228,7 +1228,38 @@
           <Option name="ipv4_6_order">ipv4_first</Option>
           <Option name="limit_suffix"></Option>
           <Option name="limit_value">0</Option>
+          <Option name="linux24_accept_redirects"></Option>
+          <Option name="linux24_accept_source_route"></Option>
+          <Option name="linux24_conntrack_hashsize">0</Option>
+          <Option name="linux24_conntrack_max">0</Option>
+          <Option name="linux24_conntrack_tcp_be_liberal"></Option>
+          <Option name="linux24_icmp_echo_ignore_all"></Option>
+          <Option name="linux24_icmp_echo_ignore_broadcasts"></Option>
+          <Option name="linux24_icmp_ignore_bogus_error_responses"></Option>
+          <Option name="linux24_ip_dynaddr"></Option>
           <Option name="linux24_ip_forward">1</Option>
+          <Option name="linux24_ipv6_forward"></Option>
+          <Option name="linux24_log_martians"></Option>
+          <Option name="linux24_path_brctl">/usr/sbin/brctl</Option>
+          <Option name="linux24_path_ifenslave"></Option>
+          <Option name="linux24_path_ip"></Option>
+          <Option name="linux24_path_ip6tables"></Option>
+          <Option name="linux24_path_ip6tables_restore"></Option>
+          <Option name="linux24_path_iptables"></Option>
+          <Option name="linux24_path_iptables_restore"></Option>
+          <Option name="linux24_path_logger"></Option>
+          <Option name="linux24_path_lsmod"></Option>
+          <Option name="linux24_path_modprobe"></Option>
+          <Option name="linux24_path_vconfig"></Option>
+          <Option name="linux24_rp_filter"></Option>
+          <Option name="linux24_tcp_ecn"></Option>
+          <Option name="linux24_tcp_fack"></Option>
+          <Option name="linux24_tcp_fin_timeout">0</Option>
+          <Option name="linux24_tcp_keepalive_interval">0</Option>
+          <Option name="linux24_tcp_sack"></Option>
+          <Option name="linux24_tcp_syncookies"></Option>
+          <Option name="linux24_tcp_timestamps"></Option>
+          <Option name="linux24_tcp_window_scaling"></Option>
           <Option name="load_modules">True</Option>
           <Option name="local_nat">False</Option>
           <Option name="log_all">False</Option>
@@ -1258,7 +1289,7 @@
           <Option name="verify_interfaces">True</Option>
         </FirewallOptions>
       </Firewall>
-      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="1271803092" lastInstalled="1271803102" lastModified="1271803052" platform="iptables" name="linux-test-2" comment="" ro="False">
+      <Firewall id="id2003X22130" host_OS="linux24" lastCompiled="1273860998" lastInstalled="1273860846" lastModified="1271803052" platform="iptables" name="linux-test-2" comment="" ro="False">
         <NAT id="id2007X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <RuleSetOptions/>
         </NAT>
@@ -2968,7 +2999,7 @@
       </Firewall>
     </ObjectGroup>
     <ObjectGroup id="id2204X22057" name="Clusters" comment="" ro="False">
-      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="1271803092" lastInstalled="0" lastModified="1271803052" platform="iptables" name="linux-cluster" comment="" ro="False">
+      <Cluster id="id2336X22130" host_OS="linux24" lastCompiled="1273860998" lastInstalled="0" lastModified="1273860995" platform="iptables" name="linux-cluster" comment="" ro="False">
         <NAT id="id2340X22130" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id32717X22130" disabled="False" position="0" action="Translate" comment="">
             <OSrc neg="False">
@@ -3187,7 +3218,7 @@
           </ClusterGroupOptions>
         </StateSyncClusterGroup>
       </Cluster>
-      <Cluster id="id2449X2867" host_OS="linux24" lastCompiled="1265575152" lastInstalled="0" lastModified="1271803052" platform="iptables" name="linux-cluster-hb" comment="" ro="False">
+      <Cluster id="id2449X2867" host_OS="linux24" lastCompiled="1265575152" lastInstalled="0" lastModified="1273860995" platform="iptables" name="linux-cluster-hb" comment="" ro="False">
         <NAT id="id2453X2867" name="NAT" comment="" ro="False" ipv4_rule_set="False" ipv6_rule_set="False" top_rule_set="True">
           <NATRule id="id43994X40411" disabled="False" position="0" action="Translate" comment="">
             <OSrc neg="False">
