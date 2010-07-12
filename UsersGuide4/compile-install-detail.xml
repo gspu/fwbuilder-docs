@@ -767,9 +767,9 @@ chmod g+w fwadmin /etc/fw
           
 
           <programlisting>
-Defaults:%fwbadmin   !lecture , passwd_timeout=1 , timestamp_timeout=1
+Defaults:%fwadmin   !lecture , passwd_timeout=1 , timestamp_timeout=1
 # User alias specification
-%fwbadmin  ALL = PASSWD: /etc/fw/&lt;FWNAME&gt;.fw , /usr/bin/pkill , /sbin/shutdown
+%fwadmin  ALL = PASSWD: /etc/fw/&lt;FWNAME&gt;.fw , /usr/bin/pkill , /sbin/shutdown
           </programlisting>
           <para>
             
@@ -2027,7 +2027,7 @@ crypto key generate rsa general-keys modulus  1024 storage  nvram:
         <listitem>
           <para>
             make sure user account used to copy configuration has
-            "privilege 15": <command>"username fwbadmin password XXXXXXX privilege
+            "privilege 15": <command>"username fwadmin password XXXXXXX privilege
               15"</command>
           </para>
         </listitem>
