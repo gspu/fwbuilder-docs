@@ -585,15 +585,40 @@
       </para>
 
       <para>
-        Here is the link to
-        <ulink url="http://www.fwbuilder.org/slideshows/using_putty/slide_1.html">
-          slide show </ulink> that demonstrates the process.
+        Built-in policy installer in Firewall Builder GUI uses ssh
+        client to connect to the firewall. While ssh client is
+        standard on all Linux and BSD systems, as well as Mac OS X, it
+        does not come with Windows. In order to be able to use
+        Firewall Builder GUI to install policy on Windows, you need to
+        download ssh client PuTTY and configure fwbuilder to use
+        it. Note: PuTTY is free software.
+      </para>
+
+      <note>
+        <para>
+          Starting with version 4.0.2, Firewall Builder includes putty
+          ssh client untilities <emphasis>plink.exe</emphasis>
+          and <emphasis>pscp.exe</emphasis> in Windows package. You do
+          not need to do any additional configuration if you use
+          fwbuilder v4.0.2 on Windows and can skip this
+          section. However if you already have putty on your machine
+          or want to use different ssh client, then follow
+          instructions in this section to see how you can configure
+          fwbuilder to use it.
+        </para>
+      </note>
+
+
+      <para>
+        If you do not use PuTTY and do not have it on your machine,
+        start with navigating to the web site
+        <ulink url="http://www.chiark.greenend.org.uk/~sgtatham/putty/">
+          http://www.chiark.greenend.org.uk/~sgtatham/putty/</ulink>
       </para>
 
       <para>
         Download and install putty.exe, plink.exe and pscp.exe
-        somewhere on your machine (say, in C:\putty). Download URL is
-        <ulink url="http://www.chiark.greenend.org.uk/~sgtatham/putty/">http://www.chiark.greenend.org.uk/~sgtatham/putty/</ulink>
+        somewhere on your machine (say, in C:\PuTTY). 
       </para>
 
       <para>
@@ -604,15 +629,21 @@
 
       <para>
         In the <guimenuitem>Edit/Preferences</guimenuitem> dialog, in
-        the <guilabel>SSH</guilabel> tab, use
+        the <guilabel>Installer</guilabel> tab, use
         the <guibutton>Browse</guibutton> button to
         locate <emphasis>plink.exe</emphasis>.
         Click <guibutton>OK</guibutton> to save preferences. If you
-        installed it in <emphasis>C:\putty</emphasis>, then you should
-        end up with <emphasis>C:\putty\plink.exe</emphasis> in this
+        installed it in <emphasis>C:\PuTTY</emphasis>, then you should
+        end up with <emphasis>C:\PuTTY\plink.exe</emphasis> in this
         entry field. Do the same to configure the path
         to <emphasis>pscp.exe</emphasis>.
       </para>
+
+      <para>
+        <figure><title/>
+          <graphic scale="50" fileref="preferences-ssh-tab.png"/></figure>
+      </para>
+
 
       <para>
         You may log in to the firewall using a regular user account or
@@ -659,7 +690,7 @@
           author: <emphasis>plink.exe</emphasis>
           and <emphasis>pscp.exe</emphasis>. You can test SSH
           connectivity with <emphasis>putty.exe</emphasis>, but do not
-          enter path to it in the SSH tab of the Preferences dialog in
+          enter path to it in the Installer tab of the Preferences dialog in
           Firewall Builder. It won't work.
         </para>
       </note>
