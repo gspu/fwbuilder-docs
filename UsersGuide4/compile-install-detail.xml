@@ -597,7 +597,7 @@
       <note>
         <para>
           Starting with version 4.0.2, Firewall Builder includes putty
-          ssh client untilities <emphasis>plink.exe</emphasis>
+          ssh client utilities <emphasis>plink.exe</emphasis>
           and <emphasis>pscp.exe</emphasis> in Windows package. You do
           not need to do any additional configuration if you use
           fwbuilder v4.0.2 on Windows and can skip this
