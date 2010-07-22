@@ -767,7 +767,7 @@
             the name the same as the user
             account.
             <programlisting>
-useradd fwadmin
+adduser fwadmin
             </programlisting>
           </para>
         </listitem>
@@ -782,7 +782,7 @@ useradd fwadmin
             <programlisting>
 mkdir /etc/fw
 chgrp fwadmin /etc/fw
-chmod g+w fwadmin /etc/fw
+chmod g+w /etc/fw
             </programlisting>
           </para>
         </listitem>
