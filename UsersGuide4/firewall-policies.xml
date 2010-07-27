@@ -1286,7 +1286,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         <para>A rule that does not specify
         any service for the translation translates addresses in
         packets of all protocols. This approach can make some rules impractical
-        impractical because they will translate and bounce any packets that are
+        because they will translate and bounce any packets that are
         headed for the firewall, making it impossible to connect to the
         firewall itself using telnet or any other protocol. This is especially
         inconvenient since as we saw earlier translation happens for packets
@@ -2380,8 +2380,9 @@ static (inside,outside) tcp interface 80  access-list id37125X30286.0 tcp 0 0
               it back open when you need to look inside.</para>
 
             <para>Rule groups <emphasis>only</emphasis> affect how the rules
-              are displayed visually. They have <emphasis>no</emphasis> on how
-              the rule set is compiled or how it works on the firewall.</para>
+              are displayed visually. They have <emphasis>no affect</emphasis> 
+              on how the rule set is compiled or how it works on the firewall.
+             </para>
 
             <para>Let's look at a simple example of using rule groups.</para>
 

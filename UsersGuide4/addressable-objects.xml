@@ -2714,20 +2714,26 @@ block out  quick inet  from any  to &lt;address_table_1&gt;
 
       <para>Addresses can be added to the table later using external scripts that call pfctl like this:</para>
 
+      <figure id="pfctl-add-host">
+        <title>Using pfctl to add a host to the table</title>
       <programlisting>
 pfctl -t bad_hosts -T add 192.0.2.1
       </programlisting>
+      </figure>
 
       <para>Another interesting possibility is to automatically
       populate the table if option "overload" is used in combination
       with other rate limiting options on a rule. Taking an example
       from the man page for pf.conf, here is how it looks:</para>
 
+        <figure id="example-auto-populating-table">
+            <title>Example using the "overload" command to auto populate a table</title>
             <programlisting>
 block quick from &lt;bad_hosts&gt;
 pass in on $ext_if proto tcp to $webserver port www keep state \
                    (max-src-conn-rate 100/10, overload &lt;bad_hosts&gt; flush global)
-</programlisting>
+            </programlisting>
+        </figure>
 
       <para>The idea behind these rules is that if some host tries to
       connect to the web server too often &mdash; more often than is
@@ -2764,6 +2770,8 @@ pass in on $ext_if proto tcp to $webserver port www keep state \
       following PF configuration that matches the one given in the man
       page:</para>
 
+        <figure id="example-using-pf-tables">
+            <title>Example pf rules using table objects</title>
             <programlisting>
 # Tables: (1)
 table &lt;bad_hosts&gt; persist
@@ -2775,12 +2783,168 @@ block in   log  quick inet  from &lt;bad_hosts&gt;  to any
 # Rule  1 (global)
 # 
 pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
-   keep state  (  max-src-conn-rate 100/10, overload &lt;bad_hosts&lt; flush global ) 
+   keep state  (  max-src-conn-rate 100/10, overload &lt;bad_hosts&gt; flush global ) 
 
-</programlisting>
+            </programlisting>
+        </figure>
+
+    <sect3 id="set-address-table-object">
+      <title>Using Address Tables Objects with iptables IP sets</title>
+
+    <para>
+    Beginning with Firewall Builder version 4.1 there is support for iptables 
+    firewalls to use the netfilter <emphasis>ipset</emphasis> module.  The 
+    ipset module  provides a method for storing a list of IP addresses or IP 
+    subnets in  memory.  This allows firewall administrators to define a single 
+    iptables  rule that matches multiple IP addresses or IP subnets as the 
+    source and/or destination.  In Firewall Builder an "ipset" is associated 
+    with an Address Table object where the list of addresses and subnets are 
+    defined in a file.
+    </para>
+
+    <para>
+    Using the IP sets feature requires an iptables version of at least 1.4.1.1 
+    and requires that the target firewall have the ipset module installed. 
+    You can find more information about the netfilter ipset module 
+    <ulink url="http://ipset.netfilter.org/features.html"><citetitle>at the netfilter IP sets page</citetitle></ulink>.
+    </para>
+
+    <note><title>NOTE: Testing if your iptables firewall supports IP set</title>
+    <para>
+    To test if your firewall has the ipset module and ipset tools installed 
+    run the following command from a shell.  Note you must be root or have sudo
+    rights to run the command.
+    <programlisting>
+fwadmin@guardian:~$ ipset --version
+ipset v2.5.0 Protocol version 2.
+fwadmin@guardian:~$
+    </programlisting>
+    </para>
+    </note>
+
+    <para>
+    To enable the iptables "IP sets" functionality in Firewall Builder you must 
+    explicitly set the version of the iptables firewall that you want to use 
+    with the ipset module.  Navigate to the firewall and double-click to open 
+    the object in the editor window.  Set the iptables version number to a 
+    version that is at least 1.4.1.1.
+    </para>
+
+      <figure id="ipset-firewall-version-setting">
+        <title>Set the Firewall iptables version number</title>
+            <graphic scale="70" fileref="ipset_firewall_version.png" />
+      </figure>
+
+    <para>
+    After you have set the iptables version number, click on <guilabel>Firewall 
+    Settings</guilabel> for this firewall.  Near the bottom of the <guilabel>
+    Firewall Settings</guilabel> dialog window you there is a check box that
+    says:
+    </para>
+    <para>
+    <emphasis>
+    Use module "set" for run-time Address Table objects (module is only 
+    available in iptables v 1.4.1.1 and later
+    </emphasis>
+    </para>
+    <para>
+    Select this checkbox to enable using the iptables ipset module.
+    </para>
+
+      <figure id="ipset-firewall-setting">
+        <title>Set the Firewall Settings to use "IP set" module</title>
+            <graphic scale="50" fileref="ipset_firewall_settings.png" />
+      </figure>
+
+    <para>
+    If the checkbox and text are shown as greyed out, then go back and check
+    that you set the iptables version number for this firewall.
+    </para>
+
+    <para>
+    You can only use Address Tables that are set to <guilabel>Run Time
+    </guilabel> with the ipset module.  <guilabel>Compile Time</guilabel> 
+    Address Table objects will behave as before with the objects in the 
+    specified file being expanded when the firewall is compiled.
+    </para>
+
+    <note><title>NOTE: Mixed IP addresses and IP subnets in "IP sets"</title>
+    <para>
+    Normally the ipset module requires you to create separate "sets" for
+    IP addresses and IP subnets.  Firewall Builder through its abstraction 
+    layer enables users to create mixed IP addresses and IP subnets in the 
+    same file.  This creates what is known as a "set list" that contains two
+    "sets", one "set" that includes only IP addresses and another "set" that
+    includes only IP subnets.
+    </para>
+    </note>
+
+    <para>
+    The following example shows the Firewall Builder configuration steps for
+    setting up an Addresss Table called "bad_hosts", using that Address Table
+    in a rule, and confirming the ipset configuration.
+    </para>
+
+    <figure id="ipset-address-table-object">
+        <title>Address Table Object</title>
+            <graphic scale="50" fileref="ipset_address_table_object.png" />
+    </figure>
+
+    <figure id="ipset-address-table-file">
+        <title>Address Table File Preview</title>
+            <graphic scale="50" fileref="ipset_address_table_file.png" />
+    </figure>
+    
+    <figure id="ipset-address-table-rule">
+        <title>Rule using Address Table Object</title>
+            <graphic scale="50" fileref="ipset_address_table_rule.png" />
+    </figure>
+
+    <para>
+    You can use the ipset tools to view the configuration of your "sets" once
+    they have been created by Firewall Builder on your firewall.  For example,
+    the command <command>ipset --list</command> will list all the configured
+    "sets" on your firewall.
+    </para>
+
+    <para>
+    If you install a firewall that is using Address Tables with ipset enabled
+    you can update the list of addresses that are stored in memory for that 
+    "set" by updating the file associated with the Address Table object and then
+    running the <command>firewallscript.fw reload_ipset</command> command.  For
+    the examples shown above you would enter:
+    <programlisting>guardian.fw reload_ipset bad_hosts /etc/fw/bad_hosts
+    </programlisting>
+    where "guardian.fw" matches the name of your Firewall Builder script file 
+    and "bad_hosts" is your Addres Table object. This will dynamically update the
+    list of addresses stored in memory for the bad_hosts set while iptables is
+    running.
+    </para>
+
+    <note><title>NOTE: Naming convention for Address Table objects and "sets"</title>
+    <para>
+    When Firewall Builder creates the "set" it substitutes and underscore ("_")
+    for any spaces.  For example, the Address Table named "My Address List"
+    would have a "set" name of "My_Address_List".  Also, note that the name
+    of the Address Table object cannot start with colon (":") due to 
+    restrictions in the ipset module.
+    </para>
+    </note>
+
+    <para>
+    There are two primary benefits of using the ipset module.  First, the
+    performance for matching a single rule that is using a set to hold a 
+    large number of addresses is better than having individual rules for each
+    of these addresses.  Second, the ipset module and tools provide a way to
+    dynamically update the addresses in a list while the firewall is still
+    running.
+    </para>
+
+    </sect3>
 
     </sect2>
 
+	
     <sect2>
       <title>Special case addresses</title>
 

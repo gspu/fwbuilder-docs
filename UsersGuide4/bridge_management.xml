@@ -103,7 +103,7 @@ br0  8000.000c29f6bebe   no             eth4.102
       bridge interfaces and bridge ports. Running the same script
       multiple times does not make any unnecessary changes on the
       firewall. If actual configuration matches objects created in
-      fwbuilder GUI, script does nut perform any actions and just
+      fwbuilder GUI, script does not perform any actions and just
       exits.
     </para>
 
