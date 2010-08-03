@@ -2804,7 +2804,15 @@ pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
 
     <para>
     Using the IP sets feature requires an iptables version of at least 1.4.1.1 
-    and requires that the target firewall have the ipset module installed. 
+    and requires that the target firewall have the ipset module installed.  There
+    are instructions for installing the ipset module for some distributions described 
+    in the Appendix <xref linkend="iptables_install_ipset" />.  If you have installation
+    instructions for installing the ipset module on a distribution that is not listed 
+    in the Appendix please email <ulink url="mailto:info@fwbuilder.org">
+    info@fwbuilder.org</ulink>. 
+    </para>
+
+    <para>
     You can find more information about the netfilter ipset module 
     <ulink url="http://ipset.netfilter.org/features.html"><citetitle>at the netfilter IP sets page</citetitle></ulink>.
     </para>
