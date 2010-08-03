@@ -15,100 +15,107 @@
         <title>Installing the iptables ipset module</title>
 
         <para>
-        Instructions for installing the iptables ipset module.
+          Instructions for installing the iptables ipset module.
         </para>
+
         <sect3>
             <title>Installing ipset on Ubuntu Server 10.04 (Lucid Lynx)</title>
+
             <para>
-            Instructions for installing the iptables ipset module on Ubuntu Server 10.04.
+              Instructions for installing the iptables ipset module on Ubuntu Server 10.04.
             </para>
             
             <para>
-            First you need to get the ipset module source.  You can do this by running the
-            commands shown below.  <emphasis>Note:</emphasis> you will need to be root or
-            have sudo access to run these commands.  Depending on what is already installed on
-            your system you might see slightly different command outputs.
-            <programlisting>
-fwbuilder@guardian:~$ sudo aptitude install ipset-source
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-
-            </programlisting>
-            Depending on how many package dependencies need to be installed you will see a 
-            bunch of install messages, the final messages should look something like:
-            <programlisting>
-Setting up build-essential (11.4build1) ...
-Processing triggers for libc-bin ...
-ldconfig deferred processing now taking place
-fwbuilder@guardian:~$ 
-            </programlisting>
+              On Ubuntu, module ipset and corresponding command line
+              tools are packaged in either
+              package <emphasis>ipset</emphasis> and
+              <emphasis>ipsed-module-source</emphasis> or as part of
+              an <emphasis>xtales-addons</emphasis> bundle. The latter
+              includes many other useful iptables modules and tools
+              besides ipset. Use can use just ipset packages if you do
+              not need other modules, otherwise it probably makes
+              sense to install xtables-addons. These packages are
+              motually exclusive, that is, if you install ipset and
+              ipset module packages and then later will try to install
+              xtables-addons to get some other module, you are going
+              to have to deinstall ipset packages to avoid conflict.
+              Instructions below illustrate method
+              using <emphasis>xtables-addons</emphasis>.
             </para>
 
             <para>
-            Next you will need to build the ipset module from source.  We use the convenient module-assistant for this.
-            You will see a window pop-up that displays the status of the module being built.
-            <programlisting>
-fwbuilder@guardian:~$ sudo module-assistant build ipset
-Extracting the package tarball, /usr/src/ipset.tar.bz2, please wait...
-Done with /usr/src/ipset-modules-2.6.32-21-generic-pae_2.5.0-1
-+2.6.32-21.32_i386.deb .
-fwbuilder@guardian:~$ 
-            </programlisting>
+              First you need to get the ipset module source.  You can
+              do this by running the commands shown
+              below.  <emphasis>Note:</emphasis> you will need to be
+              root or have sudo access to run these commands.
+              Depending on what is already installed on your system
+              you might see slightly different command outputs.
             </para>
 
             <para>
-            Once this is complete you need to install the debian package that was created by module-assistant.
-            <programlisting>
-fwbuilder@guardian:~$ sudo dpkg -i \
-/usr/src/ipset-modules-2.6.32-21-generic-pae_2.5.0-1+2.6.32-21.32_i386.deb
+              Two packages xtables-addons that we need to install have
+              the following descriptions
 
-Selecting previously deselected package ipset-modules-2.6.32-21-generic-pae.
-(Reading database ... 47485 files and directories currently installed.)
-Unpacking ipset-modules-2.6.32-21-generic-pae 
-(from .../ipset-modules-2.6.32-21-generic-pae_2.5.0-1+2.6.32-21.32_i386.deb) ...
-Setting up ipset-modules-2.6.32-21-generic-pae (2.5.0-1+2.6.32-21.32) ...
+              <programlisting>
+# aptitude search xtables
+p   xtables-addons-common  - Extensions targets and matches for iptables [tools, libs]     
+p   xtables-addons-source  - Extensions targets and matches for iptables [modules sources]
+              </programlisting>
 
-fwbuilder@guardian:~$ 
-            </programlisting>
+              We need to install both using the following commands  (as root):
+
+              <programlisting>
+# aptitude install xtables-addons-common
+# aptitude install xtables-addons-source
+              </programlisting>
+
             </para>
 
             <para>
-            Now you need to install the ipset tools.
-            <programlisting>
-fwbuilder@guardian:~$ sudo aptitude install ipset
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-Reading extended state information      
-Initializing package states... Done
-The following NEW packages will be installed:
-  ipset 
-  0 packages upgraded, 1 newly installed, 0 to remove and 32 not upgraded.
-  Need to get 0B/46.4kB of archives. After unpacking 233kB will be used.
-  Writing extended state information... Done
-  Selecting previously deselected package ipset.
-  (Reading database ... 47460 files and directories currently installed.)
-  Unpacking ipset (from .../ipset_2.5.0-1_i386.deb) ...
-  Processing triggers for man-db ...
-  Setting up ipset (2.5.0-1) ...
-  Reading package lists... Done             
-  Building dependency tree       
-  Reading state information... Done
-  Reading extended state information      
-  Initializing package states... Done
-  Writing extended state information... Done
+              Next you will need to build the iptables modules
+              installed by the package xtables-addons-source from
+              source.  We use the convenient module-assistant for
+              this.  You will see a window pop-up that displays the
+              status of the module being built.
 
-fwbuilder@guardian:~$ 
-        </programlisting>
-        </para>
+              <programlisting>
+# module-assistant build xtables-addons
+              </programlisting>
 
-        <para>
-        Your ipset module installation should now be complete.  To confirm that the installation was successful
-        try running the following commands.
-        <programlisting>
+              This command builds binary package with all the modules
+              but does not automatically install it. You need to
+              install it manually. The command prints module file name
+              and path at the end of its run., like this:
+
+              <programlisting>
+root@lucid:~# module-assistant build xtables-addons
+Extracting the package tarball, /usr/src/xtables-addons.tar.bz2, please wait...
+Done with /usr/src/xtables-addons-modules-2.6.32-22-generic-pae_1.21-1+2.6.32-22.36_i386.deb .
+              </programlisting>
+              
+              Package name is "/usr/src/xtables-addons-modules-2.6.32-22-generic-pae_1.21-1+2.6.32-22.36_i386.deb",
+              we can install it using dpkg -i command:
+
+              <programlisting>
+# dpkg -i \
+  /usr/src/xtables-addons-modules-2.6.32-22-generic-pae_1.21-1+2.6.32-22.36_i386.deb
+              </programlisting>
+            </para>
+
+            <para>
+              Command line tool ipset was installed previously as part
+              of the <emphasis>xtables-addons-common</emphasis> package.
+            </para>
+
+            <para>
+              Your ipset module installation should now be complete.
+              To confirm that the installation was successful try
+              running the following commands.
+
+              <programlisting>
 fwbuilder@guardian:~$ sudo ipset --version
-ipset v2.5.0 Protocol version 2.
+ipset v4.1, protocol version 4.
+Kernel module protocol version 4.
 fwbuilder@guardian:~$ 
 fwbuilder@guardian:~$ sudo ipset -N test iphash
 fwbuilder@guardian:~$ 
@@ -124,8 +131,22 @@ Bindings:
 
 fwbuilder@guardian:~$ sudo ipset -X test
 fwbuilder@guardian:~$ sudo ipset --list
-        </programlisting>
-        </para>
+              </programlisting>
+
+              If something did not work right, command <emphasis>"ipset
+              --version"</emphasis> will print an error message. One typical
+              problem is when kernel module was not compiled and
+              installed or could not be loaded. In this case this
+              command prints something like this:
+
+              <programlisting>
+# ipset --version
+ipset v4.1, protocol version 4.
+FATAL: Could not open '/lib/modules/2.6.32-22-generic-pae/extra/xtables-addons/ipset/ip_set.ko': No such file or directory
+ipset v4.1: Couldn't verify kernel module version!
+              </programlisting>
+
+            </para>
 
 
         </sect3>
