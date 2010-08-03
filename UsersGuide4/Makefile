@@ -3,6 +3,7 @@
 SYSTEM := $(shell uname -s)
 SOURCES = Introduction.xml \
 		Troubleshooting.xml \
+		Appendix.xml \
 		UsersGuide4.xml \
 		clusters.xml \
 		interfaces.xml \

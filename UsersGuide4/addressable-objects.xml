@@ -2812,11 +2812,24 @@ pass in   quick inet proto tcp  from any  to 192.168.1.1 port 80 \
     <note><title>NOTE: Testing if your iptables firewall supports IP set</title>
     <para>
     To test if your firewall has the ipset module and ipset tools installed 
-    run the following command from a shell.  Note you must be root or have sudo
+    run the following commands from a shell.  Note you must be root or have sudo
     rights to run the command.
+    </para>
+    <para>
+    <emphasis>Test to check if ipset tools are installed</emphasis>
     <programlisting>
-fwadmin@guardian:~$ ipset --version
+fwadmin@guardian:~$ sudo ipset --version
 ipset v2.5.0 Protocol version 2.
+fwadmin@guardian:~$
+    </programlisting>
+    </para>
+
+    <para>
+    <emphasis>Test to check if ipset module is installed</emphasis>
+    <programlisting>
+fwadmin@guardian:~$ sudo ipset -N test iphash
+FATAL: Module ip_set not found.
+ipset v4.1: Couldn't verify kernel module version!
 fwadmin@guardian:~$
     </programlisting>
     </para>
