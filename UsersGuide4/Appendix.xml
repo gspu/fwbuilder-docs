@@ -12,17 +12,10 @@
       <title>iptables modules</title>
 
       <sect2 id="iptables_install_ipset">
-        <title>Installing the iptables ipset module</title>
-
-        <para>
-          Instructions for installing the iptables ipset module.
-        </para>
-
-        <sect3>
-            <title>Installing ipset on Ubuntu Server 10.04 (Lucid Lynx)</title>
+        <title>Installing the iptables ipset module using xtables-addons</title>
 
             <para>
-              Instructions for installing the iptables ipset module on Ubuntu Server 10.04.
+              Instructions for installing the iptables ipset module using xtables-addons. 
             </para>
             
             <para>
@@ -148,8 +141,78 @@ ipset v4.1: Couldn't verify kernel module version!
 
             </para>
 
+        </sect2>
 
-        </sect3>
+      <sect2 id="iptables_install_ipset2">
+        <title>Installing the iptables ipset module</title>
+
+        <para>
+        On some versions of Ubuntu, including Lucid (and others?), the ipset tools included with xtables-addons does not properly support
+        the ipset setlist set type which Firewall Builder relies on.  Here are instructions for installing only the iptables ipset module and tools.
+        </para>
+            
+            <para>
+            First you need to get the ipset module source.  You can do this by running the
+            commands shown below.  <emphasis>Note:</emphasis> you will need to be root or
+            have sudo access to run these commands.  Depending on what is already installed on
+            your system you might see slightly different command outputs.
+            <programlisting>
+fwbuilder@guardian:~$ sudo aptitude install ipset-source
+
+            </programlisting>
+            </para>
+
+            <para>
+            Next you will need to build the ipset module from source.  We use the convenient module-assistant for this.
+            You will see a window pop-up that displays the status of the module being built.
+            <programlisting>
+fwbuilder@guardian:~$ sudo module-assistant build ipset
+Extracting the package tarball, /usr/src/ipset.tar.bz2, please wait...
+Done with /usr/src/ipset-modules-2.6.32-21-generic-pae_2.5.0-1+2.6.32-21.32_i386.deb .
+
+            </programlisting>
+            </para>
+
+            <para>
+            Once this is complete you need to install the debian package that was created by module-assistant.
+            <programlisting>
+fwbuilder@guardian:~$ sudo dpkg -i \
+/usr/src/ipset-modules-2.6.32-21-generic-pae_2.5.0-1+2.6.32-21.32_i386.deb
+
+            </programlisting>
+            </para>
+
+            <para>
+            Now you need to install the ipset tools.
+            <programlisting>
+fwbuilder@guardian:~$ sudo aptitude install ipset
+
+        </programlisting>
+        </para>
+
+        <para>
+        Your ipset module installation should now be complete.  To confirm that the installation was successful
+        try running the following commands.
+        <programlisting>
+fwbuilder@guardian:~$ sudo ipset --version
+ipset v2.5.0 Protocol version 2.
+fwbuilder@guardian:~$ 
+fwbuilder@guardian:~$ sudo ipset -N test iphash
+fwbuilder@guardian:~$ 
+fwbuilder@guardian:~$ sudo ipset --list
+[sudo] password for fwbuilder: 
+Name: test
+Type: iphash
+References: 0
+Default binding: 
+Header: hashsize: 1024 probes: 8 resize: 50
+Members:
+Bindings:
+
+fwbuilder@guardian:~$ sudo ipset -X test
+fwbuilder@guardian:~$ sudo ipset --list
+        </programlisting>
+        </para>
       </sect2>
 
     </sect1>
