@@ -695,9 +695,14 @@
         </para>
       </note>
 
-      <!-- *************************************************** -->
+      <para>
+        <xref linkend="installer_troubleshooting"/> offers troubleshooting tips
+        for problems you may encounter trying to use policy installer.
+      </para>
 
     </sect2>
+
+    <!-- *************************************************** -->
 
     <sect2 id="using_putty">
       <title>Using putty sessions on Windows</title>
