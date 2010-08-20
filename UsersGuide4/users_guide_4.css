@@ -70,25 +70,27 @@
     padding-bottom: 20px;
 }
 
+.column_users_guide .toc .sect1 {
+    margin: 0px;
+}
+
 .column_users_guide .chapter {
-    margin: 20px 20px 20px 20px;
-    width: 90%;
+    margin: 20px 0px 20px 10px;
 }
 
 .column_users_guide .sect1 {
-    margin: 20px 20px 20px 20px;
-    width: 90%;
+    margin: 20px 0px 20px 10px;
 }
 
 .column_users_guide .sect2 {
-    margin: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 10px;
 }
 
 .column_users_guide .sect2 P {
 }
 
 .column_users_guide .sect3 {
-    margin: 20px 0px 20px 0px;
+    margin: 20px 0px 20px 10px;
 }
 
 .column_users_guide .navheader table {
