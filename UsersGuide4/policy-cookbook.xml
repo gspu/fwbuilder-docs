@@ -3044,7 +3044,7 @@ $PFCTL -a rate_limit -f ${FWDIR}/fw2-pf-rate_limit.conf || exit 1
 
       <!-- ================================================================ -->
 
-      <sect2>
+      <sect2 id="block_ssh_attack_using_branch">
 	<title>Using branch rule set with external script that adds
 	rules "on the fly" to prevent ssh scanning attacks</title>
 
@@ -3255,7 +3255,7 @@ $cmd
       <!-- ================================================================ -->
 
 
-      <sect2>
+      <sect2 id="block_ssh_attack_with_module_recent">
 	<title>Different method of prevention ssh scanning attacks:
 	using Custom Service object with iptables module
 	"recent"
