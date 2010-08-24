@@ -41,7 +41,36 @@ SOURCES = Introduction.xml \
 		service-objects.xml \
 		time-objects.xml \
 		new-library.xml \
-		find-and-replace.xml
+		find-and-replace.xml \
+		combined-ipv4-ipv6-rule-set.xml \
+                using-negation-in-policy-rules.xml \
+                multiple-services-on-virtual-addresses.xml \
+                ipv6-policy.xml \
+                anti-spoofing-rules-with-dynamic-addresses.xml \
+                anti-spoofing-rules.xml \
+                control-access-to-fw.xml \
+                interchangeable-objects.xml \
+                policy-cookbook.xml \
+                blocking-packets.xml \
+                using-action-reject.xml \
+                matching-source.xml \
+                block_ssh_attack_with_module_recent.xml \
+                matching-source-and-service.xml \
+                matching-service.xml \
+                using-address-range-instead-of-group.xml \
+                firewall-as-dhcp-dns-server.xml \
+                outgoing-connections.xml \
+                rules-on-loopback.xml \
+                controlling-access-to-different-ports.xml \
+                blocking-long-lists-of-addresses.xml \
+                tag-rules.xml \
+                block_ssh_attack_using_branch.xml \
+                policy-cookbook-1.xml \
+                addressable-objects.xml \
+                using-groups.xml \
+                branching-rules.xml \
+
+
 
 CATALOGS = catalog-Darwin.xml catalog-Linux.xml
 HTML_STYLESHEETS = html.xsl

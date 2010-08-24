@@ -1,0 +1,66 @@
+    <sect2 id="matching-source-and-service">
+      <title> Letting certain protocols through from specific source.</title>
+
+      <para>
+        In this example, we look at the rule that is similar to the
+        previous one, but also matches source address. This rule
+        permits access to the mail server inside from mail relay on
+        DMZ and from no other source. Generated rules for iptables and
+        pf are very similar, they just add source address
+        matching. Generated rules for PIX are different because now
+        the program can intelligently pick the right access list and
+        avoid generating redundant rules.
+      </para>
+
+
+      <figure>
+          <title>Example of a rule permitting only certain protocols
+          from limited set of sources to the server.</title>
+          <graphic scale="50" fileref="policy-1-2.png" />
+        </figure>
+
+
+      <para>
+        Here is the code generated for iptables from this rule:
+      </para>
+
+      <programlisting>
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   -d 192.168.1.100  \
+     --dport 25  -m state --state NEW  -j ACCEPT 
+      </programlisting>
+
+      <para>
+        Since source rule element was limited to the host on DMZ,
+        generated iptables rule is placed only in the FORWARD chain
+        and also matches the source using "-s" clause.
+      </para>
+
+      <para>
+        Lets look at the configuration generated for PIX from the same rule:
+      </para>
+
+      <programlisting>
+! Rule  0 (global)
+! 
+access-list dmz50_acl_in  remark 0 (global)
+access-list dmz50_acl_in permit tcp host 192.168.2.22 host 192.168.1.100 eq 25 
+
+
+access-group dmz50_acl_in in interface dmz50
+access-group inside_acl_in in interface inside
+access-group outside_acl_in in interface outside
+      </programlisting>
+
+      <para>
+        the rule was placed only in the access list attached to the
+        DMZ interface because packets with source address of the host
+        on DMZ can only cross this interface of the firewall, assuming
+        spoofed packets are blocked by special rule, which will
+        discuss below.
+      </para>
+
+
+    </sect2>
+

@@ -2932,9 +2932,9 @@ fwadmin@guardian:~$
     If you install a firewall that is using Address Tables with ipset enabled
     you can update the list of addresses that are stored in memory for that 
     "set" by updating the file associated with the Address Table object and then
-    running the <command>firewallscript.fw reload_ipset</command> command.  For
+    running the <command>firewallscript.fw reload_address_table</command> command.  For
     the examples shown above you would enter:
-    <programlisting>guardian.fw reload_ipset bad_hosts /etc/fw/bad_hosts
+    <programlisting>guardian.fw reload_address_table bad_hosts /etc/fw/bad_hosts
     </programlisting>
     where "guardian.fw" matches the name of your Firewall Builder script file 
     and "bad_hosts" is your Addres Table object. This will dynamically update the

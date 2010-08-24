@@ -1,0 +1,158 @@
+    <sect2 id="using-groups">
+      <title>Using groups</title>
+
+      <para>
+        Sometimes we need to define a lot of very similar rules for
+        multiple hosts or networks. For example, there may be a need
+        to permit the same service to 10 different hosts on the
+        network, while still blocking it to all others. The simplest
+        way to accomplish this is to add 10 rules with the same source
+        and service fields and just different destinations. Another
+        method is to add 10 objects to the Source or Destination rule
+        element of the same rule. Both methods can make firewall
+        policy quite cluttered and hardly readable.  To avoid this we
+        can use groups. Group is just a container which includes
+        references to multiple objects of the same or similar type.
+        Firewall Builder supports groups of objects and groups of
+        services. You can
+        put <emphasis>"Address"</emphasis>, <emphasis>"Host"</emphasis>, <emphasis>"Network"</emphasis>
+        and <emphasis>"Firewall"</emphasis> objects in an object
+        group, but you cannot put service objects in a such
+        group. Similarly, a service group can contain <emphasis>"IP Service"</emphasis>,
+        <emphasis>"TCP Service"</emphasis>, <emphasis>"UDP
+        Service"</emphasis> and <emphasis>"ICMP Service"</emphasis>
+        objects, but cannot contain hosts or networks. Groups can
+        contain other groups of the same type as
+        well. <xref linkend="object-group-2" /> represents object
+        group used in this example.
+      </para>
+
+
+      <para>
+        Groups not only make policy rules more readable, another great
+        advantage of object groups is that they are reusable. You can
+        now have many different rules using this same group object. If
+        you ever need to add another host or address to the group, you
+        only need to do it once and all rules will automatically pick
+        the change after recompile.
+      </para>
+
+      <figure id="object-group-2">
+          <title>Object group that consists of three host objects.</title>
+          <graphic scale="50" fileref="policy-rule-group-object.png" />
+      </figure>
+
+      <para>
+        To add objects to a group simply drag them from the tree on
+        the left into group view on the right, or use Copy/Paste
+        functions available via menus.
+      </para>
+
+      <para>
+        Once appropriate group has been created, it can be used for
+        the policy and NAT rules just like any other object.
+      </para>
+
+      <figure>
+          <title>Example of a rule using object group.</title>
+          <graphic scale="50" fileref="policy-rule-group-1.png" />
+      </figure>
+
+      <para>
+        Here is iptables commands generated for this example:
+      </para>
+
+      <programlisting>
+# Rule 0 (global)
+# 
+$IPTABLES -N Cid17843X27745.0
+$IPTABLES -A INPUT -p tcp -m tcp  --dport 22 -m state --state NEW  -j Cid17843X27745.0 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.110   -j ACCEPT 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.111   -j ACCEPT 
+$IPTABLES -A Cid17843X27745.0  -s 192.168.1.112   -j ACCEPT 
+      </programlisting>
+
+      <para>
+        Generated iptables command is placed only in
+        the <emphasis>INPUT</emphasis> chain because it controls
+        access to the firewall and not to any addresses across it.
+        The first iptables command matches chain, tcp port and state.
+        If this rule does not match the packet, there is no need to
+        waste CPU cycles checking source ip addresses. However if the
+        first rule matches, it passes control to the special
+        user-defined chain "Cid17843X27745.0" where it checks source
+        address of the packet. If compiler were to generate iptables
+        script not using this temporary chain, it would end up
+        comparing tcp port and state three times, together with each
+        possible source address. This can be rather wasteful if the
+        rule should match a lot of addresses. Separation of the
+        matches using temporary chain can improve performance a lot.
+      </para>
+
+      <para>
+        Compiler decides whether to use temporary chain not because
+        administrator used object group in source in the original rule
+        in the GUI, but because it determined that in the end it needs
+        to compare source address of the packet against several
+        addresses defined in the policy. If the group contained just
+        one address, the generated iptables script would have
+        consisted of just one iptables command without temporary
+        chain. If there was no group in "Source" of the rule but
+        instead all these host objects were placed in "source" of the
+        rule directly, generated iptables script would look exactly
+        like shown above, using temporary chain for optimization.
+      </para>
+
+
+      <para>
+        Here is the code generated for PF for the same rule:
+      </para>
+
+
+      <programlisting>
+table &lt;tbl.r0.d&gt; { 192.0.2.1 , 192.168.1.1 } 
+table &lt;tbl.r0.s&gt; { 192.168.1.110 , 192.168.1.111 , 192.168.1.112 } 
+
+# Rule  0 (global)
+# 
+pass  quick inet proto tcp  from &lt;tbl.r0.s&gt;  to &lt;tbl.r0.d&gt; port 22 keep state 
+      </programlisting>
+
+      <para>
+        Policy compiler for PF extensively uses tables to produce
+        compact code. PF tables are reused when needed.
+      </para>
+
+      <para>
+        Here is the config generated for PIX:
+      </para>
+
+      <programlisting>
+object-group network inside.id20599X27745.src.net.0
+ network-object  host 192.168.1.110 
+ network-object  host 192.168.1.111 
+ network-object  host 192.168.1.112 
+ exit
+
+! Rule  0 (global)
+! 
+access-list inside_acl_in  remark 0 (global)
+access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
+         host 192.0.2.1 eq 22 
+access-list inside_acl_in permit tcp object-group inside.id20599X27745.src.net.0
+         host 192.168.1.1 eq 22 
+! 
+      </programlisting>
+
+      <para>
+        Just like in case of iptables, it is not that a group object
+        was used in the original rule what triggered using
+        <emphasis>object-group</emphasis> PIX clause. Compiler always
+        checks the number of objects it needs to compare the packet
+        against and uses
+        <emphasis>object-groups</emphasis> statements to optimize
+        generated code as appropriate.
+      </para>
+
+    </sect2>
+
