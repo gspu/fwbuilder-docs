@@ -66,7 +66,7 @@
           Create rule #0 in the main policy to permit ssh to the
 	  firewall from internal network, then another one where the
 	  destination the firewall itself, the service is "ssh", the
-	  direction "Inbound" and action is "Chain". Open the action
+	  direction "Inbound" and action is "Branch". Open the action
 	  in the editor by double-clicking on it, then drag the object
 	  representing rule set "block_ssh" into the well in the
 	  action editor panel. The idea is to first permit ssh to the
@@ -83,7 +83,7 @@
 
 	<para>
           Here is what the iptables commands generated for rules
-	  0-1 look like. Note that although the script creates chain
+	  0-2 look like. Note that although the script creates chain
 	  "block_ssh", it does not put any rules in it.
         </para>
 

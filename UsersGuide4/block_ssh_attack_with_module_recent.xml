@@ -9,8 +9,17 @@
           Method described in the previous chapter has a problem in
           that it permanently blocks access from any client when user
           mistypes their password several times. It is better to block
-          access temporarily instead of permanently. Iptables module
+          access temporarily instead of permanently. The iptables module
           "recent" provides a way to do just that.
+        </para>
+
+        <para>
+        In this example I only use the basic features of the "recent" module
+        you can find more information about the available options for this
+        module at the netfilter How-To page 
+        <ulink
+              url="http://netfilter.org/documentation/HOWTO/netfilter-extensions-HOWTO-3.html#ss3.16">
+                    http://netfilter.org/documentation/HOWTO/netfilter-extensions-HOWTO-3.html#ss3.16</ulink>
         </para>
 
         <para>
