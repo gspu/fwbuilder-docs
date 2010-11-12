@@ -102,8 +102,10 @@ html: html/index.html  target.db
 html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	rm -rf html
 	mkdir -p html
+	mkdir -p html/gs
 	cp *.jpg html/
 	cp *.png html/
+	cp gs/*.png html/gs/
 	cp *.css html/
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl \
 			UsersGuide4.xml
