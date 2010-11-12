@@ -2,7 +2,6 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
-
   <chapter id="gettingstarted">
     <title>Getting Started</title>
 
@@ -900,7 +899,7 @@
         <emphasis>Addresses</emphasis>.
         </para>
 
-        <title>Network Objects</title>
+        <bridgehead>Network Objects</bridgehead>
 
         <para>
         To create a Network object, for example a network to represent the
@@ -924,13 +923,15 @@
         <graphic fileref="gs/new_network.png" />
       </figure> 
 
+      <note>
         <para>
-        <emphasis>NOTE:</emphasis> When editing the attributes of an object there is no Apply
+        When editing the attributes of an object there is no Apply
         or Submit button. Once you edit an attribute as soon as you move away from
         the field you were editing the change will take effect immediately.
         </para>
+      </note>
 
-        <title>Address Objects</title>
+        <bridgehead>Address Objects</bridgehead>
 
         <para>
         To create an object that represents a single IP address, similar to the
@@ -964,7 +965,7 @@
         </para>
 
       <figure id="gs_acl_create_router">
-        <title>New Address Object</title>      
+        <title>New Firewall Dialog</title>      
         <graphic fileref="gs/create_router.png" />
       </figure> 
 
@@ -997,7 +998,7 @@
         </para>
 
         <para>
-        Click the green <img src="/4.0/images/getting-started/green_plus.png" />
+        Click the green <imagedata fileref="gs/green_plus.png" /> 
         icon to add a new interface to the router.  Enter the name of the router
         exactly as it is shown on a router command line when you run “show ip
         interfaces brief” command. In our example the interfaces are
@@ -1016,7 +1017,7 @@
       </figure> 
 
         <para>
-        Click the green <img src="/4.0/images/getting-started/green_plus.png" />
+        Click the green <imagedata fileref="gs/green_plus.png" /> 
         icon to add another interface to the router.  Enter the information
         in to the wizard to match the second interface as follows:
         </para>
@@ -1039,7 +1040,7 @@
         </para>
 
       <figure id="gs_acl_firewall_object_tree">
-        <title>Interface Tabs</title>      
+        <title>Firewall Displayed in Object Tree</title>      
         <graphic fileref="gs/firewall_object_tree.png" />
       </figure> 
 
@@ -1064,7 +1065,7 @@
 
         <para>
         To add a new rule to the Policy, click on the green
-        <img src="/4.0/images/getting-started/green_plus.png" /> icon at the top
+        <imagedata fileref="gs/green_plus.png" /> icon at the top
         left of the main window. This creates a new rule with default values set
         to deny all.
         </para>
@@ -1079,31 +1080,34 @@
         </para>
 
         <itemizedlist>
-          <listitem><para><emphasis>Source</emphasis> - this can be one or more IP objects. Default value
-          is Any which is the same as the "any" parameter in a Cisco access list
-          that matches all IP addresses.</para></listitem>
-          <listitem><para><emphasis>Destination</emphasis> - this can be one or more IP objects. Default value
-          is Any which is the same as the "any" parameter in a Cisco access list
-          that matches all IP addresses.</para></listitem>
-          <listitem><para><emphasis>Service</emphasis> - this can be one or more Service object. Example services
-          include the TCP and UDP protocols like HTTP and DNS. Default value is Any
-          which matches any IP service and is the same as the "ip" parameter in
-          Cisco access lists.</para></listitem>
-          <listitem><para><emphasis>Interface</emphasis> - this can be one or more interfaces configured on the
-          firewall (router) object. Default value is All which means the rule will be
-          applied as an access list to all configured interfaces.</para></listitem>
-          <listitem><para><emphasis>Direction</emphasis> - options are Inbound, Outbound and Both. This defines
-          whether the resulting access-group will be applied to interfaces as "in" or
-          "out". Both will generate an identical rule for "in" and "out". Default
-          value is Both.</para></listitem>
-          <listitem><para><emphasis>Action</emphasis> - options are Accept and Deny. This matches the Cisco
-          access list parameters "permit" and "deny". Default value is Deny.</para></listitem>
-          <listitem><para><emphasis>Options</emphasis> - options are Logging On and Logging Off. Setting
-          Logging On matches the Cisco access list parameter "log".  Default value
-          is Logging On.</para></listitem>
+          <listitem role="cisco_getting_started"><para><emphasis>Source</emphasis> - 
+          this can be one or more IP 
+          objects. Default value is Any which is the same as the "any" parameter 
+          in a Cisco access list that matches all IP addresses.</para></listitem>
+          <listitem><para><emphasis>Destination</emphasis> - this can be one or 
+          more IP objects. Default value is Any which is the same as the "any" 
+          parameter in a Cisco access list that matches all IP addresses.</para></listitem>
+          <listitem><para><emphasis>Service</emphasis> - this can be one or more 
+          Service object. Example services include the TCP and UDP protocols like 
+          HTTP and DNS. Default value is Any which matches any IP service and is 
+          the same as the "ip" parameter in Cisco access lists.</para></listitem>
+          <listitem><para><emphasis>Interface</emphasis> - this can be one or 
+          more interfaces configured on the firewall (router) object. Default 
+          value is All which means the rule will be applied as an access list to 
+          all configured interfaces.</para></listitem>
+          <listitem><para><emphasis>Direction</emphasis> - options are Inbound, 
+          Outbound and Both. This defines whether the resulting access-group will 
+          be applied to interfaces as "in" or "out". Both will generate an identical 
+          rule for "in" and "out". Default value is Both.</para></listitem>
+          <listitem><para><emphasis>Action</emphasis> - options are Accept and Deny. 
+          This matches the Cisco access list parameters "permit" and "deny". Default 
+          value is Deny.</para></listitem>
+          <listitem><para><emphasis>Options</emphasis> - options are Logging On and 
+          Logging Off. Setting Logging On matches the Cisco access list parameter 
+          "log".  Default value is Logging On.</para></listitem>
         </itemizedlist>
 
-        <title>Setting the Source</title>
+        <bridgehead>Setting the Source</bridgehead>
 
         <para>
         To set the Source of a rule, drag-and-drop at least one IP object from the
@@ -1113,7 +1117,7 @@
         </para>
 
       <figure id="gs_acl_new_rule_source">
-        <title>Default Rule</title>      
+        <title>Setting the Source</title>      
         <graphic fileref="gs/new_rule_source.png" />
       </figure> 
 
@@ -1123,25 +1127,27 @@
         </para>
 
       <figure id="gs_acl_rule_step1">
-        <title>Default Rule</title>      
+        <title>After Source is Set</title>      
         <graphic fileref="gs/rule_step1.png" />
       </figure> 
 
+      <note>
         <para>
-        <emphasis>NOTE:</emphasis>  You can have more than one IP object in the Source and
+        You can have more than one IP object in the Source and
         Destination sections. When Firewall Builder generates the Cisco command
         line access lists it will automatically split the rule in to multiple
         lines if necessary.
         </para>
+      </note>
 
-        <title>Setting the Destination</title>
+        <bridgehead>Setting the Destination</bridgehead>
 
         <para>
         Setting the Destination is exactly the same as setting the Source, except
         you drag-and-drop IP objects in to the Destination section of the rule.
         </para>
 
-        <title>Setting the Service</title>
+        <bridgehead>Setting the Service</bridgehead>
 
         <para>
         Firewall Builder comes with hundreds of <emphasis>predefined</emphasis> objects including
@@ -1151,7 +1157,7 @@
         </para>
 
       <figure id="gs_acl_switch_library">
-        <title>Default Rule</title>      
+        <title>Switching Libraries</title>      
         <graphic fileref="gs/switch_library.png" />
       </figure> 
 
@@ -1168,17 +1174,19 @@
         </para>
             
       <figure id="gs_acl_new_rule_service">
-        <title>Default Rule</title>      
+        <title>Setting the Service</title>      
         <graphic fileref="gs/new_rule_service.png" />
       </figure> 
 
+      <note>
         <para>
-        <emphasis>IMPORTANT</emphasis> To switch back to the User library, which contains the
+        To switch back to the User library, which contains the
         objects that you created, click on the drop down menu that says Standard
         and select User from the list of libraries.
         </para>
+      </note>
 
-        <title>Setting the Interface</title>
+        <bridgehead>Setting the Interface</bridgehead>
 
         <para>
         Set the Interface for the rule by dragging-and-dropping an interface
@@ -1188,11 +1196,11 @@
         </para>
             
       <figure id="gs_acl_new_rule_interface">
-        <title>Default Rule</title>      
+        <title>Setting the Interface</title>      
         <graphic fileref="gs/new_rule_interface.png" />
       </figure> 
 
-        <title>Setting the Direction</title>
+        <bridgehead>Setting the Direction</bridgehead>
 
         <para>
         The direction of the rule is based on the traffic you want to filter.
@@ -1206,13 +1214,15 @@
         interfaces should have this rule applied.
         </para>
 
+      <note>
         <para>
-        <emphasis>NOTE:</emphasis> Setting the Direction to Both will create 2 access lists
+        Setting the Direction to Both will create 2 access lists
         per rule, one that will be applied as an access-group "in" and one that
         will be applied as an access-group "out".
         </para>
+      </note>
 
-        <title>Setting the Action</title>
+        <bridgehead>Setting the Action</bridgehead>
 
         <para>
         The action controls whether traffic matching the rule should be permitted
@@ -1221,7 +1231,7 @@
         the traffic will be dropped.
         </para>
 
-        <title>Setting the Options</title>
+        <bridgehead>Setting the Options</bridgehead>
 
         <para>
         Logging for rule matches is set in the Options section. By default logging
@@ -1229,7 +1239,7 @@
         select Logging Off.
         </para>
 
-        <title>Example of a Complete Rule</title>
+        <bridgehead>Example of a Complete Rule</bridgehead>
 
         <para>
         The following is an example of a complete rule that allows traffic from
@@ -1238,28 +1248,28 @@
         </para>
         
       <figure id="gs_acl_new_rule_complete">
-        <title>Completed New Rule</title>      
+        <title>New Rule with Fields Set</title>      
         <graphic fileref="gs/new_rule_complete.png" />
       </figure> 
 
-        <title>Addtional Tips</title>
+        <bridgehead>Additional Tips</bridgehead>
 
-        <title>Adding a Rule</title>
+        <bridgehead>Adding a Rule</bridgehead>
 
         <para>
         To add a new rule click the
-        <img src="/4.0/images/getting-started/green_plus.png" /> icon at the
+        <imagedata fileref="gs/green_plus.png" /> icon at the
         top of the Rules Editor window.  This will insert a new rule above
         the current rule. To add a new rule below the current rule right-click
         on a rule and select "Add New Rule Below".
         </para>
 
       <figure id="gs_acl_add_new_rule_below">
-        <title>Completed New Rule</title>      
+        <title>Adding Rules</title>      
         <graphic fileref="gs/add_new_rule_below.png" />
       </figure> 
             
-        <title>Copy-and-Paste</title>
+        <bridgehead>Copy-and-Paste</bridgehead>
 
         <para>
         In addition to drag-and-drop you can also copy-and-paste objects.
@@ -1268,7 +1278,7 @@
         the new rule you just created and right-click and select Paste.
         </para>
 
-        <title>Using Filters to Find Objects</title>
+        <bridgehead>Using Filters to Find Objects</bridgehead>
 
         <para>
         Filters provide a way to quickly find objects in the tree without
@@ -1284,24 +1294,26 @@
         </para>
 
       <figure id="gs_acl_pop3_filter">
-        <title>Completed New Rule</title>      
+        <title>Using Filter to Find Objects</title>      
         <graphic fileref="gs/pop3_filter.png" />
       </figure> 
             
+      <note>
         <para>
-        <emphasis>NOTE:</emphasis> After you are done with the filtered object, clear the
+        After you are done with the filtered object, clear the
         filter field by clicking the X to the right of the input box and then
         switch back to the User library by selecting it in the dropdown menu
         at the top of the object panel.
         </para>
+      </note>
 
         <para>
         For the following sections we are going to assume that the following
-        three rules defined for the router configuration shown above.
+        three rules defined for the router configuration shown in Section 4.2.1.
         </para>
 
       <figure id="gs_acl_three_rules">
-        <title>Completed New Rule</title>      
+        <title>Three Rules</title>      
         <graphic fileref="gs/three_rules.png" />
       </figure> 
          
@@ -1318,7 +1330,7 @@
 
         <para>
         To compile, click on the Compile icon which looks like a hammer
-        <img src="/4.0/images/getting-started/hammer_small.png" />.  If you
+        <imagedata fileref="gs/hammer_small.png" />. If you
         haven’t saved your configuration file yet you will be asked to do so. After
         you save your file a wizard will be displayed that lets you select which
         firewall(s) you want to compile. In this example we are going to complie
@@ -1337,7 +1349,7 @@
         </para>
             
       <figure id="gs_acl_compiler_output">
-        <title>Completed New Rule</title>      
+        <title>Example Compiler Output</title>      
         <graphic fileref="gs/compiler_output.png" />
       </figure> 
             
@@ -1350,7 +1362,7 @@
         Firewall Builder installer.
         </para>
 
-        <title>Installing</title>
+        <bridgehead>Installing</bridgehead>
 
         <para>
         Firewall Builder can install the generated configuration file for you
@@ -1367,26 +1379,28 @@
         </para>
 
       <figure id="gs_acl_set_mgmt_interface">
-        <title>Completed New Rule</title>      
+        <title>Setting the Managment Interface</title>      
         <graphic fileref="gs/set_mgmt_interface.png" />
       </figure> 
 
+      <note>
         <para>
-        <emphasis>CAUTION!</emphasis> Any time you are changing access lists on your router
+        Any time you are changing access lists on your router
         you face the risk of locking yourself out of the device.  Please be
         careful to always inspect your access lists closely and make sure that
         you will be able to access the router after the access list is installed.
         </para>
+      </note>
 
         <para>
         To install your access lists on the router, click on the install icon
-        <img src="/4.0/images/getting-started/install_icon.png" />. This will
+        <imagedata fileref="gs/install_icon.png" />. This will
         bring up a wizard where you will select the firewall to install. Click
         Next > to install the selected firewall.
         </para>
 
       <figure id="gs_acl_install_checkbox">
-        <title>Completed New Rule</title>      
+        <title>Setting Compile and Install Actions</title>      
         <graphic fileref="gs/install_checkbox.png" />
       </figure> 
 
@@ -1398,7 +1412,7 @@
         </para>
 
       <figure id="gs_acl_install_screen">
-        <title>Completed New Rule</title>      
+        <title>Install Dialog</title>      
         <graphic fileref="gs/install_screen.png" />
       </figure> 
 
@@ -1410,8 +1424,8 @@
         </para>
             
       <figure id="gs_acl_install_success">
-        <title>Completed New Rule</title>      
-        <graphic fileref="gs/install_sucess.png" />
+        <title>Successful Install</title>      
+        <graphic fileref="gs/install_success.png" />
       </figure> 
             
         <para>
@@ -1431,7 +1445,7 @@
         This requires ssh version 2 to be enabled on the router and scp server
         to be enabled. You can find complete instructions for enabling SCP
         installation in our
-        <a href="/4.0/docs/users_guide/installer_on_ios.html">Users Guide</a>.
+        <xref linkend="installer_on_ios" />.
         </para>
     </sect2>
     </sect1>
