@@ -117,8 +117,10 @@ fo:   fo/UsersGuide4.fo  target.db
 fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	rm -rf fo
 	mkdir -p fo
+	mkdir -p fo/gs
 	cp *.jpg fo/
 	cp *.png fo/
+	cp gs/*.png fo/gs/
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 		--xinclude \
 		--stringparam fop1.extensions 1  \
