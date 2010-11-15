@@ -37,6 +37,11 @@
 <body>
             <h1>Getting Started: Configuring Cisco Router ACL</h1>
 
+            <p>
+            The router we are configuring access lists on has the following
+            interface configuration.
+            </p>
+
             <center>
             <img src="example_router.png" />
             </center>
@@ -52,6 +57,8 @@
               IP address (198.51.100.1) for the <b>POP3</b> protocol.</li>
               <li>Allow inside traffic (10.0.0.0/24) to the router's inside 
               interface (FastEthernet1/0) for the <b>SSH</b> protocol.</li>
+              <li>Block all incoming traffic to the router's outside interface
+              (FastEthernet0/0).</li>
             </ul>
 
             <h2>Step 3: Configure Access Lists</h2>
@@ -76,10 +83,11 @@
 
             <p>
             The first rule in our example is to allow internal network traffic to use 
-            the HTTP, HTTPS and DNS protocols to access the Internet. Start by dragging 
-            your Network object called Internal Network that you previously created to 
-            represent the internal 10.0.0.0/24 network to the Source section of the rule 
-            in the Rules window. 
+            the HTTP and HTTPS protocols to access the Internet. In this example
+            the router is NAT'ing the internal network to the IP address on the 
+            FastEthernet interface. Since in the order of operations on Cisco routers
+            is that NAT takes place <b>before</b> the outbound access list is checked 
+            the source for the outbound rules must be the post-NAT IP address.
             </p>
 
             <center>
@@ -104,8 +112,8 @@
             
             <p>
             Next we want to define the protocols or services this rule will allow. 
-            The example calls for the HTTP, HTTPS and DNS services to be allowed 
-            out to the Internet.
+            The example calls for the HTTP and HTTPS services to be allowed out
+            to the Internet.
             </p>
             
             <p>
@@ -149,10 +157,12 @@
             <br />
 
             <p>
-            Traffic from the 10.0.0.0/24 network will be arriving on the "inside" 
-            interface FastEthernet1/0.  Set the interface in the rule by 
-            dragging-and-dropping the FastEthernet1/0 interface object from the
-            tree to the Interface section of the rule.
+            Due to the NAT configuration that is setup on the router traffic from the 
+            10.0.0.0/24 network will be NAT'ed by the router to its outside IP address 
+            (192.0.2.1).  This means the traffic that we want to match with our rule
+            will be sent out the FastEthernet0/0 interface. Set the interface in the 
+            rule by dragging-and-dropping the FastEthernet0/0 interface object from 
+            the tree to the Interface section of the rule.
             </p>
             
             <center>
@@ -160,11 +170,14 @@
             </center>
 
             <p>
-            Traffic will be arriving in the inbound direction on this interface, so
-            we right-click in the Direction section and select Inbound. Finally we 
-            need to change the Action associated with this rule from Deny to Accept. 
-            Do this by right-clicking on the Action section of the rule an selecting 
-            Accept. You should now see a rule that looks like:
+            Traffic will be going in the outbound direction on this interface, so
+            we right-click in the Direction section and select Outbound. We want this
+            traffic to be allowed, so we need to change the Action associated with this 
+            rule from Deny to Accept. Do this by right-clicking on the Action section 
+            of the rule an selecting Accept. Finally, since this is a rule that we 
+            expect to match a lot of traffic disable logging by right-clicking in the 
+            Options section and selecting Logging Off. You should now see a rule 
+            that looks like:
             </p>
 
             <center>
@@ -172,11 +185,9 @@
             </center>
 
             <p>
-            We need a matching rule to allow this traffic outbound on the "outside"
-            interface FastEthernet0/0. To add a new rule left-click on the first 
-            rule to select it and then right-click in the rule number section and 
-            select "Add New Rule Below". This creates a new rule with the default
-            policy of deny all.
+            The next rule in our example allows the internal network to access an 
+            external POP3 server. Click on the rule you just created and then 
+            right-click in the rule number section and select “Add New Rule Below”.  
             </p>
             
             <center>
@@ -184,34 +195,18 @@
             </center>
 
             <p>
-            Follow the same steps from the previous example to add Source as
-            Internal Network, set the Service to HTTP and HTTPS, set the Interface
-            to FastEthernet0/0, set the Direction to Outbound and set the Action
-            to Accept.
-            </p>
-
-            <center>
-            <img src="new_rule_2.png" />
-            </center>
-
-            <p>
-            The next rule in our example allows the internal network to access an 
-            external POP3 server. Click on the rule you just created and then 
-            right-click in the rule number section and select “Add New Rule Below”.  
-            </p>
-
-            <p>
             To access the objects that we created earlier we need to switch back to the 
             User library. Click on the drop down menu that says Standard and select User 
-            from the list. Drag-and-drop the Internal Network object from the tree on 
-            the left to the rule you just created placing it in the Source section.
+            from the list. Drag-and-drop the IP address object for the router's outside
+            inteface from the tree on the left to the rule you just created placing it 
+            in the Source section.
             </p>
 
             <p>
             <b>NOTE:</b> You can also copy-and-paste objects.  For example, you can
-            right-click on the Internal Network object in the first rule and select
-            Copy.  Navigate to the Source section of the new rule you just created
-            and right-click and select Paste.
+            right-click on the la-rtr-01:FastEthernet0/0:ip object in the first rule 
+            and select Copy. Navigate to the Source section of the new rule you just 
+            created and right-click and select Paste.
             </p>
 
             <p>
@@ -240,12 +235,13 @@
             </p>
 
             <p>
-            To set the interface the rule should be applied to drag-and-drop the "inside"
-            interface FastEthernet1/0 to the Interface section of the rule.
+            To set the interface the rule should be applied to drag-and-drop the "outside"
+            interface FastEthernet0/0 to the Interface section of the rule.
            
             <p>
             To change the Action to Accept right-click in the Action section of the
-            rule and select Accept.
+            rule and select Accept.  To disable logging for this rule, right-click on
+            the Options section and select Logging Off.
             </p>
 
             <p>
@@ -257,7 +253,7 @@
             </center>
            
             <p>
-            Now we need to add our 3rd and final rule.  This rule is designed to allow 
+            Now we need to add our 3rd rule.  This rule is designed to allow 
             SSH traffic from the internal network to the router’s inside interface. 
             </p>
 
@@ -276,10 +272,6 @@
             drop the IP address of the interface to the Destination section of
             the rule.
             </p>
-
-            <center>
-            <img src="rule_3_step2.png" />
-            </center>
 
             <p>
             To set the service to SSH switch to the Standard library by selecting 
@@ -300,18 +292,50 @@
             Since this rule only applies to inbound traffic on this interface set 
             the direction to Inbound by right-clicking in the Direction section and
             selecting Inbound. Finally, change the action for the rule by right-
-            clicking on the Action section and selecting Accept.
+            clicking on the Action section and selecting Accept. Since this rule
+            defines access to the router via SSH we will leave logging enabled for
+            this rule.
             </p>
 
             <p>
-            We are done with the rules in the example and they should look like
-            this:
+            You should now have 3 rules that look like:
             </p>
 
             <center>
             <img src="three_rules.png" />
             </center>
 
+            <p>
+            Finally, we need to add a rule to the router's outside interface that 
+            blocks all traffic trying to access the router directly on its outside
+            interface IP address.
+            </p>
 
+            <p>
+            To do this we follow the same process from the earlier examples. Since 
+            this rule should match all traffic coming from the Internet we leave the
+            Source section as Any. Set the Destination section by dragging-and-dropping
+            the IP address object for outside interface FastEthernet0/0. We want to
+            block all serices, so leave the Service section set to Any.  We want this
+            rule to match incoming traffic, so we right-click in the Direction section
+            and select Inbound.  The desired Action is to deny the traffic, so we 
+            leave that as the default.  Finally since this rule will potentially match
+            a lot of traffic we disable logging by right-clicking on the Options 
+            section and selecting Logging Off.
+            </p>
+
+            <p>
+            We are now done configuring the rules for our access lists and the
+            configuration should look like:
+            </p>
+
+            <center>
+            <img src="four_rules.png" />
+            </center>
+
+            <p>
+            In the next section we will go through the process of converting these
+            rules in to Cisco commands and installing them on the router.
+            </p>
   </body>
 </html>
