@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 12px;
+  text-decoration: underline;
+}
+-->
+</style>
+</head>
+  <body>
+
+            <h1>Configuring Cisco Router ACL With Firewall Builder</h1>
+
+            <p>
+            Firewall Builder is a firewall configuration and management GUI 
+            that supports configuring a wide range of firewalls from a 
+            single application. Firewall Builder is based on the concept
+            of an object library which means common rule elements, like 
+            IP subnets, can be defined once and used in multiple firewalls 
+            even if they are different types of firewalls.
+            </p>
+            
+            <p>
+            Supported firewalls include Linux iptables, BSD pf, Cisco ASA/PIX 
+            and Cisco router access lists. Firewall Builder is used in 
+            production by thousands of users. You can find a complete list of 
+            supported platforms and learn more about Firewall Builder at
+            our website
+            <a href="http://www.fwbuilder.com/?utm_source=web&utm_medium=howtoforge&utm_campaign=howto_cisco_router_acl">
+            http://www.fwbuilder.org</a>.
+            </p>
+
+            <p>
+            This how to is the first in a series of how tos that will
+            walk through the basic steps of using Firewall Builder to
+            configure each of the supported firewall platforms. In this 
+            how to we will configure Access Control Lists (ACL) on a 
+            Cisco router.
+            </p>
+
+            <p>
+            The diagram below shows a simple 2 interface router configuration
+            with the router acting as a gateway to the Internet for a 
+            private LAN network.
+            </p>
+
+            <center>
+            <img src="example_router.png" />
+            </center>
+
+            <p>
+            We will use Firewall Builder to implement the following basic rules
+            as access lists on the router.
+            </p>
+
+            <ul>
+              <li>Allow inside traffic (10.0.0.0/24) through the router to any 
+              Internet address for the <b>HTTP</b> and <b>HTTPS</b> protocols</li> 
+              <li>Allow inside traffic (10.0.0.0/24) through the router to a specific
+              IP address (198.51.100.1) for the <b>POP3</b> protocol.</li>
+              <li>Allow inside traffic (10.0.0.0/24) to the router's inside 
+              interface (FastEthernet1/0) for the <b>SSH</b> protocol.</li>
+            </ul>
+
+            <p>
+            Note that Cisco router access lists have an implicit deny all at the
+            end of the access list, so anything that we do not setup a rule to
+            explicitly permit will be denied.
+            </p>
+
+            <h2>Step 1: Create Network Objects</h2>
+
+            <p>
+            We are going to start by creating the objects that will be used in
+            the rules. Firewall Builder includes hundreds of predefined 
+            objects, including most standard protocols, so to implement the
+            rules above we will only need to create the objects that are 
+            specific to our network. For our rules this means we need to
+            create objects for the internal 10.0.0.0/24 network and for the
+            POP3 server with an IP address of 198.51.100.1.
+            </p>
+
+            <h3>Create a New Network</h3>
+
+            <p>
+            To create the object that will represent our internal 10.0.0.0/24 network 
+            in the left hand tree double-click the folder labeled Objects to expand 
+            it.  Right click on the folder called Networks and select &#34;New 
+            Network&#34;. This creates a new network object. In the lower portion of 
+            your screen, called the Editor Panel, you can modify the properties of 
+            this object.
+            </p>
+
+            <p>
+            Change the object name to something that matches the function, in this 
+            example we are going to call it &#34;Internal Networks&#34; to represent all 
+            internal IP addresses.  The address is set to 10.0.0.0 and the netmask 
+            is 255.255.255.0.
+            </p>
+
+            <center>
+            <img src="new_network.png" />
+            </center>
+
+            <p>
+            <b>NOTE:</b> When editing the attributes of an object there is no Apply 
+            or Submit button. Once you edit an attribute as soon as you move away from
+            the field you were editing the change will take effect immediately.
+            </p>
+
+            <h3>Create a New Address</h3>
+
+            <p>
+            Repeat this process to create an object that will represent the POP3 
+            email server that will be used in rule #2. Go to the object tree and 
+            right-click on the Addresses folder and select New Address.  In the 
+            Editor Panel change the name of the object to &#34;POP3 Server&#34; 
+            and set the IP address to 198.51.100.1.
+            </p>
+
+            <center>
+            <img src="new_address_steps.png" />
+            </center>
+
+            <h2>Step 2: Define The Router</h2>
+
+            <p>
+            Firewall Builder refers to devices that support filtering rules as 
+            firewalls. To create a firewall object to represent your router 
+            click on the &#34;Create new firewall&#34; icon on the main window of 
+            Firewall Builder. This will launch a wizard that walks you through 
+            creating your router.
+            </p>
+
+            <p>
+            Enter a name for the firewall object, in this example we will use
+            <b>la-rtr-1</b>. Change the drop down menu for software that is running 
+            on the firewall to be &#34;Cisco IOS ACL&#34;.  
+            </p>
+
+            <center>
+            <img src="create_router.png" />
+            </center>
+
+            <p>
+            Click the &#34;Next >&#34; button to continue the wizard.
+            </p>
+
+            <p>
+            When creating a firewall in Firewall Builder you have a choice of 
+            configuring interfaces manually, or you can use SNMP discovery if you 
+            have SNMP enabled on your router and you have access to a Read-Only or 
+            Read-Write community string. For this example we are going to configure 
+            the router interfaces manually.
+            </p>
+            
+            <center>
+            <img src="interface_discovery.png" />
+            </center>
+            
+            <p>
+            Click the &#34;Next >&#34; button to continue to the next step.
+            </p>
+
+            <p>
+            The firewall that you create in Firewall Builder needs to match the router 
+            that you want to deploy the access lists on.  This means that the <b>interface 
+            names</b> and <b>IP addresses</b> in the firewall object that you are 
+            creating must <b>match exactly</b> to what is configured on the router.
+            </p>
+
+            <p>
+            Click the green <img src="green_plus.png" />
+            icon to add a new interface to the router.  Enter the name of the router 
+            exactly as it is shown on a router command line when you run &#34;show ip 
+            interfaces brief&#34; command. In this example our interfaces are 
+            FastEthernet0/0 and FastEthernet1/0.
+            </p>
+
+            <p>
+            Set the interface name as FastEthernet0/0 and set the label to outside. Click 
+            on the Add address button and set the IP address to 192.0.2.1 with a netmask
+            of 255.255.255.240.
+            </p>
+
+            <center>
+            <img src="interface_address.png" />
+            </center>
+            
+            <p>
+            Click the green <img src="green_plus.png" />
+            icon to add another interface to the router.  Enter the information 
+            in to the wizard to match the second interface as follows:
+            </p>
+
+            <center>
+            <img src="interface_address2.png" />
+            </center>
+            
+            <p>
+            Click on the Finish button.
+            </p>
+
+            <p>
+            After you create the firewall object that represents the router that
+            you will be installing the access lists on it will be displayed in
+            the object tree on the left side.  The Policy object, which is where
+            the access list rules are configured, is automatically opened in 
+            the main window.
+            </p>
+
+            <center>
+            <img src="firewall_object_tree.png" />
+            </center>
+            
+            <p>
+            Before moving on we should save our data file that contains the new
+            firewall object that we just created.  Do this by going to the
+            File -> Save As menu item.  Choose a name and location to save this
+            file to.
+            </p>
+
+  </body>
+</html>
