@@ -55,9 +55,9 @@
               Internet address for the <b>HTTP</b> and <b>HTTPS</b> protocols </li>
               <li>Allow inside traffic (10.0.0.0/24) through the router to a specific
               IP address (198.51.100.1) for the <b>POP3</b> protocol.</li>
-              <li>Allow inside traffic (10.0.0.0/24) to the router's inside 
-              interface (FastEthernet1/0) for the <b>SSH</b> protocol.</li>
-              <li>Block all incoming traffic to the router's outside interface
+              <li>Allow inside traffic (10.0.0.0/24) to the router&#39;s inside 
+              interface (FastEthernet0/1) for the <b>SSH</b> protocol.</li>
+              <li>Block all incoming traffic to the router&#39;s outside interface
               (FastEthernet0/0).</li>
             </ul>
 
@@ -164,10 +164,10 @@
             </p>
 
             <p>
-            To access the objects you previously created, including the router, you need
-            to switch back to the <b>User library</b>. Do this by going to the drop down
-            menu at the top of the object tree panel and switch the selected library from
-            Standard to User.
+            <b>IMPORTANT!</b> To access the objects you previously created, including 
+            the router, you need to switch back to the <b>User library</b>. Do this by 
+            going to the drop down menu at the top of the object tree panel and switch 
+            the selected library from Standard to User.
             </p>
 
             <p>
@@ -211,7 +211,7 @@
             <p>
             To access the objects that we created earlier we need to switch back to the 
             User library. Click on the drop down menu that says Standard and select User 
-            from the list. Drag-and-drop the IP address object for the router's outside
+            from the list. Drag-and-drop the IP address object for the router&#39;s outside
             inteface from the tree on the left to the rule you just created placing it 
             in the Source section.
             </p>
@@ -283,7 +283,7 @@
             Modify this rule by dragging-and-dropping the <b>Internal Network</b> 
             object from the tree to the Source section of the newly created rule. 
             To restrict the rule to only allow traffic destined to the IP address 
-            of the router's FastEthernet1/0 interface, double-click on the
+            of the router&#39;s FastEthernet1/0 interface, double-click on the
             firewall object's FastEthernet1/0 interface to expand it.  Drag-and-
             drop the IP address of the interface to the Destination section of
             the rule.
@@ -322,7 +322,26 @@
             </center>
 
             <p>
-            Finally, we need to add a rule to the router's outside interface that 
+            Since we added a rule that will create an inbound access list on the
+            inside FastEthernet0/1 interface, we need to add rules that allow
+            the traffic for the first two rules inbound on inside interface.
+            Otherwise this traffic would be blocked coming in to the router and
+            it would never reach the outbound access list on the outside
+            interface. Follow the same steps from above, but set the interface to
+            the inside FastEthernet0/1 interface and set the Direction as
+            Inbound.
+            </p>
+
+            <p>
+            Your rules should now look like this:
+            </p>
+
+            <center>
+            <img src="five_rules.png" />
+            </center>
+
+            <p>
+            Finally, we need to add a rule to the router&#39;s outside interface that 
             blocks all traffic trying to access the router directly on its outside
             interface IP address.
             </p>
@@ -346,7 +365,7 @@
             </p>
 
             <center>
-            <img src="four_rules.png" />
+            <img src="six_rules.png" />
             </center>
 
             <p>
