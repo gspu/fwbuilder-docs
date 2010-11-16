@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title></title>
+<title>Using Firewall Builder to Configure Router Access Lists</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
 <style type="text/css">
@@ -36,32 +36,31 @@
 </head>
   <body>
 
-            <h1>Configuring Cisco Router ACL With Firewall Builder</h1>
+            <h1>Using Firewall Builder to Configure Router Access Lists</h1>
+
+            <img src="fwbuilder_logo.png" />
+            <p>
+            Author: Mike Horn &#60;mike [at] netcitadel [dot] com&#62;<br/>
+            <a href="http://www.fwbuilder.com/?utm_source=web&utm_medium=howtoforge&utm_campaign=howto_cisco_router_acl">
+            http://www.fwbuilder.org</a>
+            </p>
 
             <p>
             Firewall Builder is a firewall configuration and management GUI 
             that supports configuring a wide range of firewalls from a 
-            single application. Firewall Builder is based on the concept
-            of an object library which means common rule elements, like 
-            IP subnets, can be defined once and used in multiple firewalls 
-            even if they are different types of firewalls.
-            </p>
-            
-            <p>
-            Supported firewalls include Linux iptables, BSD pf, Cisco ASA/PIX 
-            and Cisco router access lists. Firewall Builder is used in 
-            production by thousands of users. You can find a complete list of 
-            supported platforms and learn more about Firewall Builder at
-            our website
+            single application. Supported firewalls include Linux iptables, 
+            BSD pf, Cisco ASA/PIX, Cisco router access lists and many
+            more. The complete list of supported platforms along with
+            downloadable binary packages and soure code can be found at 
             <a href="http://www.fwbuilder.com/?utm_source=web&utm_medium=howtoforge&utm_campaign=howto_cisco_router_acl">
             http://www.fwbuilder.org</a>.
             </p>
-
+            
             <p>
-            This how to is the first in a series of how tos that will
+            This tutorial is the first in a series of how tos that will
             walk through the basic steps of using Firewall Builder to
             configure each of the supported firewall platforms. In this 
-            how to we will configure Access Control Lists (ACL) on a 
+            tutorial we will configure Access Control Lists (ACL) on a 
             Cisco router.
             </p>
 
@@ -87,11 +86,13 @@
               IP address (198.51.100.1) for the <b>POP3</b> protocol.</li>
               <li>Allow inside traffic (10.0.0.0/24) to the router's inside 
               interface (FastEthernet1/0) for the <b>SSH</b> protocol.</li>
+              <li>Block all incoming traffic to the rotuer's outside interface 
+              FastEthernet0/0.</li>
             </ul>
 
             <p>
-            Note that Cisco router access lists have an implicit deny all at the
-            end of the access list, so anything that we do not setup a rule to
+            Note that Cisco router access lists have an <b>implicit deny all</b> at 
+            the end of every access list, so anything that we do not setup a rule to
             explicitly permit will be denied.
             </p>
     
@@ -136,8 +137,8 @@
 
             <p>
             Change the object name to something that matches the function, in this 
-            example we are going to call it &#34;Internal Networks&#34; to represent all 
-            internal IP addresses.  The address is set to 10.0.0.0 and the netmask 
+            example we are going to call it &#34;Internal Networks&#34; to represent 
+            the local LAN IP addresses. The address is set to 10.0.0.0 and the netmask 
             is 255.255.255.0.
             </p>
 
@@ -186,7 +187,7 @@
             </center>
 
             <p>
-            Click the &#34;Next >&#34; button to continue the wizard.
+            Click the <b>Next ></b> button to continue the wizard.
             </p>
 
             <p>
@@ -202,7 +203,7 @@
             </center>
             
             <p>
-            Click the &#34;Next >&#34; button to continue to the next step.
+            Click the <b>Next ></b> button to continue to the next step.
             </p>
 
             <p>
@@ -217,7 +218,7 @@
             icon to add a new interface to the router.  Enter the name of the router 
             exactly as it is shown on a router command line when you run &#34;show ip 
             interfaces brief&#34; command. In this example our interfaces are 
-            FastEthernet0/0 and FastEthernet1/0.
+            FastEthernet0/0 and FastEthernet0/1.
             </p>
 
             <p>
@@ -241,7 +242,7 @@
             </center>
             
             <p>
-            Click on the Finish button.
+            Click on the <b>Finish</b> button.
             </p>
 
             <p>

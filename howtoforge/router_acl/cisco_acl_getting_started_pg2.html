@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title></title>
+<title>Using Firewall Builder to Configure Router Access Lists</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
 <style type="text/css">
@@ -35,11 +35,11 @@
 </style>
 </head>
 <body>
-            <h1>Getting Started: Configuring Cisco Router ACL</h1>
+            <h2>Getting Started: Configuring Cisco Router ACL</h2>
 
             <p>
-            The router we are configuring access lists on has the following
-            interface configuration.
+            <b>Reminder</b> - In this tutorial we are configuring access lists 
+            on a router that has the following interface configuration.
             </p>
 
             <center>
@@ -47,7 +47,7 @@
             </center>
 
             <p>
-            Our goal is to implement the following three rules as access control
+            Our goal is to implement the following four rules as access control
             lists on the router.
             </p>
             <ul>
@@ -82,12 +82,21 @@
             </center>
 
             <p>
+            In Firewall Builder everything is based on the concept of <b>objects</b>.
+            To configure rules that will be converted in to access lists you simply
+            find the object you want in the tree and drag-and-drop it to the correct 
+            section of the rule.
+            </p>
+
+            <p>
             The first rule in our example is to allow internal network traffic to use 
-            the HTTP and HTTPS protocols to access the Internet. In this example
+            the HTTP and HTTPS protocols to access the Internet. In configuration  
             the router is NAT'ing the internal network to the IP address on the 
-            FastEthernet interface. Since in the order of operations on Cisco routers
+            FastEthernet interface. Since the order of operations on Cisco routers
             is that NAT takes place <b>before</b> the outbound access list is checked 
-            the source for the outbound rules must be the post-NAT IP address.
+            the Source for the outbound rules must be the post-NAT IP address which
+            is represented by the IP interface object under the outside FastEthernet0/0 
+            interface.
             </p>
 
             <center>
@@ -95,8 +104,8 @@
             </center>
 
             <p>
-            After you drop the network object into the rule the Source section will
-            change from Any to Internal Network.  
+            After you drop the interface IP object into the rule the Source section will
+            change from Any to la-rtr-1:FastEthernet0/0:ip.  
             </p>
             
             <center>
@@ -154,7 +163,12 @@
             in the Cisco command syntax.
             </p>
 
-            <br />
+            <p>
+            To access the objects you previously created, including the router, you need
+            to switch back to the <b>User library</b>. Do this by going to the drop down
+            menu at the top of the object tree panel and switch the selected library from
+            Standard to User.
+            </p>
 
             <p>
             Due to the NAT configuration that is setup on the router traffic from the 
@@ -187,7 +201,7 @@
             <p>
             The next rule in our example allows the internal network to access an 
             external POP3 server. Click on the rule you just created and then 
-            right-click in the rule number section and select “Add New Rule Below”.  
+            right-click in the rule number section and select &#34;Add New Rule Below&#34;.  
             </p>
             
             <center>
@@ -235,12 +249,14 @@
             </p>
 
             <p>
-            To set the interface the rule should be applied to drag-and-drop the "outside"
-            interface FastEthernet0/0 to the Interface section of the rule.
+            To set the interface the rule should be applied to drag-and-drop the 
+            &#34;outside&#34; interface FastEthernet0/0 to the Interface section of 
+            the rule.
+            </p>
            
             <p>
             To change the Action to Accept right-click in the Action section of the
-            rule and select Accept.  To disable logging for this rule, right-click on
+            rule and select Accept. To disable logging for this rule, right-click on
             the Options section and select Logging Off.
             </p>
 
@@ -275,10 +291,10 @@
 
             <p>
             To set the service to SSH switch to the Standard library by selecting 
-            it from the dropdown menu above the object tree and then type in “ssh” 
-            in the filter box. Drag-and-drop the <b>ssh</b> object from the tree 
-            to the Service section. Clear the filter by clicking on the X next to 
-            the filter text box.
+            it from the dropdown menu above the object tree and then type in 
+            &#34;ssh&#34; in the filter box. Drag-and-drop the <b>ssh</b> object from 
+            the tree to the Service section. Clear the filter by clicking on the X 
+            next to the filter input text box.
             </p>  
 
             <p> 
