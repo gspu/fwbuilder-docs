@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <sect2 id="linux_cluster_with_openvpn_interfaces">
+    <title>Linux cluster with OpenVPN tunnel interfaces</title>
+
+    <para>
+      In this example we are working with the same two Linux machines
+      used in the previous example <xref linkend="heartbeat_cluster" />
+      running heartbeat for failover that form a High Availability 
+      (HA) firewall pair. In addition to standard ethernet interfaces
+      the firewalls in the cluster are using an OpenVPN tunnel
+      interface, tun0, to connect to a remote location.
+    </para> 
+
+    <figure id="openvpn_cluster_configuration">
+    <title>Linux cluster with OpenVPN tunnel interfaces</title>
+    <graphic fileref="openvpn_cluster_configuration.png" />
+    </figure>
+
+  <note>
+    <para>
+    You must configure OpenVPN tunnels outside of Firewall Builder.
+    Configuration of OpenVPN tunnes is outside the scope of this 
+    cookbook, you can find more information about OpenVPN and how to
+    configure tunnels at
+    <ulink href="http://www.openvpn.net/">www.openvpn.net</ulink>.
+    </para>
+  </note>
+
+    <para>
+    In this scenario in addition to the regular Ethernet interfaces
+    failing over in the event of a failure, we also want the OpenVPN
+    tunnel interface, tun0, to failover automatically as well. This 
+    design requires that the OpenVPN tunnel configuration use the 
+    outide interface's virtual address as the tunnel source which 
+    introduces some complications during a failover event.
+    </para>
+
+    <para>
+    The first issue is that the OpenVPN tunnel on the slave firewall, 
+    linux-test-2, cannot be started while it is in slave mode. This is
+    due to the fact that the IP address it is configured to use as the 
+    tunnel source address, the virtual address, does not exist on the server 
+    (remember that master will be configured with the virtual address 
+    unless there is a failover event).
+    </para>
+
+    <para>
+    This behavior leads to the second issue, which is that the Firewall
+    Builder generated script will fail to start if the tunnel interface, 
+    tun0, is used in any of the firewall rules. Since the tun0 interface 
+    does not exist on the slave firewall the script cannot implement the 
+    rules as defined which causes it to exit with an error.
+    </para>
+
+    <para>
+    The solution to these problems is to use OpenVPN's persistent 
+    tunnel interfaces combined with some additional logic in the
+    heartbeat configuration automate the tunnel interface failover.
+    </para>
+    
+    <sect3 id="openvpn_persistent_tunnel">
+    <title>Creating Persistent Tunnels in OpenVPN</title>
+
+    <para>
+    OpenVPN provides a feature called "persistent tunnels". These are
+    tunnel interfaces that always exist even if the OpenVPN daemon is 
+    not running. The tunnel interface needs to be created early in the 
+    boot sequence, you can do this by adding the following to the 
+    file /etc/network/intefaces.
+    </para>
+
+    <programlisting>
+auto tun0
+iface tun0 inet static
+      address 192.168.123.1
+      netmask 255.255.255.252
+      pre-up openvpn --mktun --dev tun0
+    </programlisting>
+
+    <note>
+    <para>
+    Examples are based on Ubuntu Server, other distributions may have
+    different network initialization files and syntax.
+    </para>
+    </note>
+
+    <para>
+    The "openvpn --mktun --dev tun0" command creates a tunnel 
+    interface, but note that this is an interface "stub" since 
+    the full OpenVPN configuration has not been applied and thus 
+    the tunnel interface is not providing any connectivity to 
+    the remote site. Later when the OpenVPN daemon is run the 
+    rest of the VPN configuration will be applied to this interface.
+    </para>
+
+    </sect3>
+
+    <sect3 id="openvpn_failover_scripts">
+    <title>Failover scripts for OpenVPN</title>
+
+    <para>
+    Now that we have a persistent tunnel interface, the second 
+    part of this solution has two components. First, we need a
+    script to restart the OpenVPN daemon and second we need to 
+    add this script to the heartbeat configuration so that it 
+    is called if there is a failover event.
+    </para>
+
+    <para>
+    Here's an example of a wrapper script that will restart the
+    OpenVPN daemon.
+    </para>
+
+    <programlisting>
+root@linux-test-2:/etc/ha.d# cat resource.d/OpenVPN 
+#
+#!/bin/sh
+#
+# Description:  a wrapper to restart OpenVPN daemon at the takeover event
+#
+# Author: Vadim Kurland 
+# Copyright:  (C) 2010 NetCitadel LLC
+#
+# An example usage in /etc/ha.d/haresources: 
+#
+#       node1  10.0.0.170 OpenVPN::restart
+#
+
+. /etc/ha.d/resource.d//hto-mapfuncs
+
+usage() {
+      echo "usage: $0 $LEGAL_ACTIONS"
+          exit 1
+}
+
+op=$1
+
+/etc/init.d/openvpn $1
+
+exit 0
+    </programlisting>
+
+    <para>
+    To execute this wrapper script on a failover event we need
+    to add it to the haresources file as shown below.
+    </para>
+    
+    <programlisting>
+root@linux-test-1:/etc/ha.d# cat haresources 
+linux-test-1  IPaddr::10.3.14.150/24/eth0/10.3.14.255
+linux-test-1  IPaddr::10.1.1.1/24/eth1/10.1.1.255
+<emphasis role="redtext">linux-test-1  10.3.14.150 OpenVPN::restart</emphasis>
+    </programlisting>
+
+    <para>
+    With this configuration in place you can now use the tun0
+    interface like you would use any other interface in your 
+    Firewall Builder cluster Policy rules.
+    </para>   
+
+    </sect3>
+
+  </sect2>

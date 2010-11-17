@@ -83,7 +83,7 @@ all:  html pdf
 
 clean:
 	rm -rf html fo
-	rm -f $(STAGEDIR)/*
+#rm -f $(STAGEDIR)/*
 
 target: target.db
 

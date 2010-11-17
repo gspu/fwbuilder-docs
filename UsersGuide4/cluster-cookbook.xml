@@ -24,6 +24,8 @@
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_cluster.xml"/>
 
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="linux_cluster_with_openvpn_interfaces.xml"/>
+
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_vlan_cluster.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_dedicated_interface.xml"/>
@@ -33,7 +35,6 @@
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="pf_cluster.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="pix_cluster.xml"/>
-
   
 </sect1>
 
