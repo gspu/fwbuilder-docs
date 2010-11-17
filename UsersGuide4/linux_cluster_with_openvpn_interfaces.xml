@@ -129,7 +129,7 @@ root@linux-test-2:/etc/ha.d# cat resource.d/OpenVPN
 #       node1  10.0.0.170 OpenVPN::restart
 #
 
-. /etc/ha.d/resource.d//hto-mapfuncs
+. /etc/ha.d/resource.d/hto-mapfuncs
 
 usage() {
       echo "usage: $0 $LEGAL_ACTIONS"
