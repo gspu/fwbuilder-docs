@@ -80,7 +80,7 @@ user.footer.navigation	Called after the standard navigational footer
   <xsl:if test="$suppress.navigation = '0' and $suppress.header.navigation = '0'">
     <div class="navheader">
       <xsl:if test="$row1 or $row2">
-        <table width="60%" summary="Navigation header">
+        <table width="100%" summary="Navigation header">
           <xsl:if test="$row1">
             <tr>
               <th colspan="3" align="center">
