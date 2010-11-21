@@ -239,8 +239,9 @@
     </para>
 
     <para>
-    You can see this substitution by inspecting the generated files after 
-    the compile is completed.
+    You can see this substitution by inspecting the generated file for web-01  
+    after the compile is completed. Note that the destination is set 
+    to the IP address of web-01's eth0 interface.
     </para>
 
     <programlisting>
