@@ -8,9 +8,16 @@
 
   <!-- ********************************************************* -->
 
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="cluster_server_fw_synch.xml"/>
 
-  <sect2>
-    <title>How to generate firewall policy for many hosts</title>
+
+  <sect2 id="tricks_many_hosts">
+    <title>Another way to generate firewall policy for many hosts</title>
+    
+    <para>
+    This is a simplier, but less powerful and flexible, way to manage multiple hosts
+    requiring the same firewall policy.
+    </para>
 
     <para>Suppose you use Firewall Builder to generate a policy for the firewall running on a server. How can Firewall Builder help you generate a policy for it and how can you do it if you have hundreds of servers like that?</para>
 
