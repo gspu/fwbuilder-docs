@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Managing a Single Firewall Policy for Multiple Servers with Firewall Builder</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 12px;
+  text-decoration: underline;
+}
+-->
+</style>
+</head>
+<body>
+
+    <h1>Using Firewall Builder Clusters to Manage a Single Firewall Policy for Multiple Servers</h1>
+
+    <img src="fwbuilder_logo.png" />
+    <p>
+    Author: Mike Horn &#60;mike [at] netcitadel [dot] com&#62;<br/>
+    <a href="http://www.fwbuilder.com/?utm_source=web&utm_medium=howtoforge&utm_campaign=howto_cluster_server_synch">
+    http://www.fwbuilder.org</a>
+    </p>
+
+    <p>
+    Firewall Builder is a firewall configuration and management GUI
+    that supports configuring a wide range of firewalls from a
+    single application. Supported firewalls include Linux iptables,
+    BSD pf, Cisco ASA/PIX, Cisco router access lists and many
+    more. The complete list of supported platforms along with
+    downloadable binary packages and soure code can be found at
+    <a href="http://www.fwbuilder.com/?utm_source=web&utm_medium=howtoforge&utm_campaign=howto_cluster_server_synch">
+    http://www.fwbuilder.org</a>.
+    </p>
+
+    <p>
+    In this tutorial we are going to cover how to use Firewall Builder 
+    clusters to manage a single firewall policy that gets deployed on 
+    multiple servers. An example of where you could use this would be 
+    managing a shared firewall policy for a collection of web servers 
+    that are all providing the same service and should have the same 
+    rules.
+    </p> 
+
+    <p>
+    Normally the cluster feature is used to create high availability 
+    firewall pairs, but in this case we are going to use it creatively 
+    to create a master firewall policy that gets deployed on multiple 
+    servers.
+    </p>
+
+    <p>
+    For this tutorial we are going to use the web farm example shown 
+    below. The example starts with two servers running Linux with 
+    iptables should have identical firewall polices. We'll cover 
+    creating the firewalls and cluster and assigning rules to it. 
+    At the end we'll walk through adding a 3rd server to the cluster.
+    </p>
+
+    <center>
+    <img src="cluster_fw_synch_base.png" alt="web server farm diagram" />
+    </center>
+
+    <p>
+    On these servers we want to implement the following basic
+    firewall rules.
+    </p>
+
+     <ul>
+       <li>Allow system to commuicate to its own loopback  
+       interface</li>
+       <li>Allow inbound HTTP and HTTPS from anywhere to the 
+       server</li>
+       <li>Allow inbound SSH from a specific set of trusted
+       subnets</li>
+       <li>Allow outbound connectivity to port 8009 (jboss) 
+       to a group of application servers</li>
+    </ul>
+
+    <p>
+    This tutorial assumes knowledge of basic Firewall Builder concepts 
+    and common actions like creating firewall objects and rules. You can 
+    find more information about Firewall Builder commands on the 
+    Firewall Builder website
+    <a href="http://www.fwbuilder.com/?utm_source=web&utm_medium=howtoforge&utm_campaign=howto_cluster_server_synch">
+    http://www.fwbuilder.org</a>.
+    </p>
+
+    <h2>Step 1 - Create firewall objects for your 
+    servers</h2>
+
+    <p>
+    To create a cluster we first need to create the firewall objects 
+    that will be members of the cluster.  Each server is represented by
+    a firewall object in Firewall Builder. Go through the New Firewall 
+    wizard and create a firewall called web-01 with two interfaces. The 
+    first interface is the Ethernet interface "eth0" that connects the 
+    server to the Internet and the second interface is the loopback 
+    interface "lo".
+    </p>
+
+    <p>
+    After you have created the firewall object it should look like 
+    this in the object tree:
+    </p>
+
+    <center>
+    <img src="web-01_object.png" alt="web-01 firewall object" />
+    </center>
+
+    <p>
+    By default Firewall Builder sets the firewall object to route 
+    (forward) IP packets. Since this is a server firewall we should 
+    disable IP forwarding on the host.  Do this by double-clicking 
+    on the firewall object and then click on Host OS Settings in the 
+    Editor Panel at the bottom.  Change the setting for IPv4 Packet 
+    Forwarding to Off.
+    </p>
+
+    <center>
+    <img src="disable_forwarding.png" alt="steps to disable forwarding on
+     firewall object" />
+    </center>
+
+    <p>
+    To create a second firewall object for web-02 you can use the Duplicate 
+    feature in Firewall Builder.
+    </p>
+
+    <ul>
+      <li>Right-click on web-01 firewall and select Duplicate -> place 
+      in library User</li>
+      <li>Edit the name of the newly created firewall object to web-02
+      </li>
+      <li>Double-click on web-02's IP object under the eth0 interface 
+      and set the IP address to 192.0.2.12 / 24</li>
+    </ul>
+    
+    <h2>Step 2 - Create a new cluster</h2> 
+
+    <p>
+    To create a new cluster right-click on the Clusters folder in the 
+    object tree and select New Cluster.  This will launch the New 
+    Cluster wizard.  Name the cluster, for example web-servers, and 
+    select both web-01 and web-02 to be members of the cluster. Since 
+    we are not using failover it does not matter which firewall is set 
+    to Master.
+    </p>
+
+    <center>
+    <img src="new_cluster_webservers.png" alt="steps to a new cluster
+    with web-01 and web-02 as members" />
+    </center>
+
+    <p>
+    Click <b>Next ></b>
+    </p>
+
+    <p>
+    Since both servers use eth0 as the outside interface leave the 
+    interface mapping as is. If you have servers with different 
+    interface names on your server, for example if one server uses 
+    eth0 and the other server uses eth1, you can set the mapping 
+    here.
+    </p>
+
+    <center>
+    <img src="cluster_interface_mapping.png" alt="mapping the 
+    interfaces for the servers in the cluster" />
+    </center>
+
+    <p>
+    Click <b>Next ></b>
+    </p>
+
+    <p>
+    To make the cluster interface easy to identify update the label
+    associated with interfaces eth0 and lo. Since we are not running 
+    our servers as a high availability cluster with failover set the 
+    Failover protocol to None.  
+    </p>
+
+    <center>
+    <img src="cluster_server_interface_configuration.png" alt="modifying 
+    the cluster interface attributes" />
+    </center>
+
+    <p>
+    Make sure to update <b>both</b> the eth0 
+    and lo interfaces.
+    </p>
+
+    <p>
+    Click <b>Next ></b>
+    </p>
+
+    <p>
+    We want to create new rules for our cluster, so set the source of 
+    the cluster rules to be "do not use any, i will create new policy 
+    and NAT rules".
+    </p>
+
+    <center>
+    <img src="cluster_server_new_rules.png" alt="policy rules created 
+    for the cluster" />
+    </center>
+
+    <p>
+    Click <b>Finish</b>
+    </p>
+
+    <p>
+    Once you are done you should see a new cluster object in the tree 
+    that looks like this:
+    </p>
+    
+    <center>
+    <img src="cluster_server_object.png" alt="new cluster object for
+    web-servers" />
+    </center>
+
+</body>
+</html>
