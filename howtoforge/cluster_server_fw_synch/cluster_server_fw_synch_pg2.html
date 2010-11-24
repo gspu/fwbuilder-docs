@@ -39,8 +39,11 @@
 
     <p>
     After you create the cluster, the Policy object is automatically 
-    opened in the Rules Panel.  Remember we wanted both of our servers 
-    to have the following rules:
+    opened in the Rules Panel. Make sure to create the rules in 
+    the <b>cluster object</b>, called web-servers in our example, and 
+    not in one of the individual firewalls that are members of the 
+    cluster. Remember we wanted both of our servers to have the 
+    following rules:
     </p>
 
     <ul>
@@ -55,7 +58,8 @@
     </ul>
 
     <p>
-    After you configure these rules your policy should look like this:
+    After you configure these rules in the web-servers Policy 
+    object the rules should look like this:
     </p>
 
     <center>
@@ -63,19 +67,21 @@
     </center>
 
     <p>
-    Make sure to use the objects from the cluster when creating the 
-    rules. These objects will automatically get translated to the 
-    correct object for the individual cluster members.
+    <b>NOTE:</b> For objects that are related to the firewall itself, 
+    such as interfaces, make sure to use the objects from the cluster when 
+    creating the rules. The cluster objects will automatically get 
+    translated to the correct object for the individual cluster 
+    members.
     </p>
 
     <h2>Step 4 - Compile and install rules</h2> 
 
     <p>
-    The next step is to compile and install the rules to our servers. 
+    The next step is to compile and install the rules on our servers. 
     When Firewall Builder compiles the cluster it will generate a firewall 
     script for each of the cluster members including substituting the 
-    cluster objects used in the rules for the local object on the cluster 
-    member.
+    cluster objects used in the rules for the matching local object on 
+    the cluster member.
     </p>
     
     <p>
@@ -86,8 +92,8 @@
 
     <p>
     You can see this substitution by inspecting the generated file for web-01 
-    after the compile is completed. <b>Note</b> that the destination is set 
-    to the IP address of web-01's eth0 interface.
+    after the compile is completed. <b>Note</b> that the destination in the 
+    rule shown below is set to the IP address of web-01's eth0 interface.
     </p>
 
     <p class="command">
@@ -102,7 +108,7 @@ $IPTABLES -A INPUT -i eth0 -p tcp -m tcp -m multiport \ <br /> -d <b>192.0.2.11 
     <p>
     Now that you have a cluster setup to generate firewall policies for 
     each of the server firewalls it is easy to make changes that affect 
-    all your servers.  For example, to add a new rule to all members of the 
+    all your servers. For example, to add a new rule to all members of the 
     web-servers cluster to allow ICMP from the Trusted Networks object to 
     servers simply add the rule in the cluster policy and compile and install 
     it to the members.

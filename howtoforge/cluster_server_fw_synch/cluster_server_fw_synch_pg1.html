@@ -36,7 +36,7 @@
 </head>
 <body>
 
-    <h1>Using Firewall Builder Clusters to Manage a Single Firewall Policy for Multiple Servers</h1>
+    <h1>Managing a Single Firewall Policy for Multiple Servers Using Firewall Builder</h1>
 
     <img src="fwbuilder_logo.png" />
     <p>
@@ -60,15 +60,15 @@
     In this tutorial we are going to cover how to use Firewall Builder 
     clusters to manage a single firewall policy that gets deployed on 
     multiple servers. An example of where you could use this would be 
-    managing a shared firewall policy for a collection of web servers 
-    that are all providing the same service and should have the same 
-    rules.
+    managing a <b>shared firewall policy</b> for a collection of web 
+    servers that are all providing the same service and should have 
+    the same rules.
     </p> 
 
     <p>
     Normally the cluster feature is used to create high availability 
     firewall pairs, but in this case we are going to use it creatively 
-    to create a master firewall policy that gets deployed on multiple 
+    to create a "master" firewall policy that gets deployed on multiple 
     servers. This allows you to create a cluster object with a "master" 
     firewall policy and then add servers as members to this cluster 
     that will inherit the master firewall policy. 
@@ -83,7 +83,7 @@
     </p>
     
     <p> 
-    While we are using a limited number of servers for this example, 
+    While we are using a small number of servers for this example, 
     the technique we are using can scale to manage a common firewall 
     policy for hundreds or more servers.
     </p>
