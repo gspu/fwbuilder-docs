@@ -517,7 +517,7 @@
 
       </sect2>
 
-      <sect2>
+      <sect2 id="multiple_policy_rule_sets">
 	<title>Working with multiple policy rule sets</title>
 
 	  <para>

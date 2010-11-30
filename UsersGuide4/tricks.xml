@@ -10,6 +10,8 @@
 
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="cluster_server_fw_synch.xml"/>
 
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="cluster_server_fw_synch_local_rules.xml"/>
+
 
   <sect2 id="tricks_many_hosts">
     <title>Another way to generate firewall policy for many hosts</title>

@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <sect2 id="cluster_server_fw_synch_local_rules">
+    <title>Creating Local Firewall Rules for a Cluster Member</title>
+
+    <para>
+    In the previous recipe we showed how to use the Firewall Builder 
+    cluster object to create a single firewall policy that gets 
+    installed on multiple servers. When we finished the cluster 
+    was configured with three servers as shown below.
+    </para>
+    
+    <figure id="cluster_fw_synch_3_servers_local_rules">
+    <title>Cluster with 3 firewalls sharing the same firewall policy with one firewall also using local rules</title>
+    <graphic fileref="cluster_fw_synch_3_servers_local_rules.png" />
+    </figure>
+    
+    <para>
+    In this recipe we will show how to create a set of local rules 
+    on one of the cluster members. Local rules are evaluated 
+    <emphasis>in addition</emphasis> to the rules that are configured 
+    for the cluster. 
+    </para>
+
+    <para>
+    For this example we will add a local rule to the web-03 server 
+    firewall allowing remote access to the server via SSH from a trusted 
+    external vendor coming from a network defined as "Vendor X Network". 
+    </para>
+
+     <itemizedlist>
+       <listitem>Allow inbound SSH from network object "Vendor X Network" 
+       </listitem> 
+    </itemizedlist>
+
+    <para>
+    The following steps assume that we are starting with the same 
+    configuration that the previous example finished with.
+    </para>
+
+    <bridgehead>Step 1 - Create a new policy in the web-servers 
+    cluster</bridgehead>
+
+    <para>
+    Since we only want this policy applied to <emphasis>one</emphasis> of the 
+    servers in the cluster, not all of the cluster members, we need 
+    to create a separate policy object to hold the local rules.
+    </para>
+
+    <para>
+    In this example we name the new policy object 'local_rules'. The 
+    policy name can be any name you choose except that it cannot be the 
+    same name as the policy that contains the main firewall rules for 
+    the cluster which by default is 'Policy'.
+    </para>
+
+    <figure id="new_policy_cluster">
+    <title>New policy in cluster object web-servers</title>
+    <graphic fileref="new_policy_cluster.png" />
+    </figure>
+
+    <para>
+    After you are done, you should see the new policy named 
+    local_rules under the web-servers cluster object.
+    </para>
+
+    <figure id="cluster_object_new_policy">
+    <title>Cluster object web-servers with new policy local_rules</title>
+    <graphic fileref="cluster_object_new_policy.png" />
+    </figure>
+
+    <bridgehead>Step 2 - Create a new policy in the web-03 server 
+    object</bridgehead>
+
+    <para>
+    Next we need to create a policy object on the web-03 firewall <emphasis>
+    using exactly the same name</emphasis> as we used for the policy object 
+    on the web-servers cluster.
+    </para>
+
+    <figure id="new_policy_web-03">
+    <title>New policy in firewall object web-03</title>
+    <graphic fileref="new_policy_web-03.png" />
+    </figure>
+
+    <note>
+    <para>
+    You must use the same name for the policy on both the cluster object 
+    and the firewall object.
+    </para>
+    </note>
+
+    <bridgehead>Step 3 - Define the local rule in the new policy on the
+    web-03 firewall</bridgehead>
+
+    <para>
+    Remember, the rule we want to add only to web-03 server is:
+    </para>
+
+    <itemizedlist>
+       <listitem>Allow inbound SSH from network object "Vendor X Network" 
+       </listitem> 
+    </itemizedlist>
+    
+    <para>
+    When creating local rules use the interface objects of the 
+    firewall that the local rule is being configured on.  For our 
+    example we use the interface object of the web-03 firewall for
+    the destination and interface fields. After you configure the 
+    rule in the local_rules policy on web-03 the policy should look 
+    like this:
+    </para>
+
+    <figure id="web-03_new_custom_rule">
+    <title>New rule in policy local_rules on firewall object web-03</title>
+    <graphic fileref="web-03_new_custom_rule.png" />
+    </figure>
+
+    <note>
+    <para>
+    Make sure to configure this rule in the local_rules policy object 
+    on the web-03 firewall object. You can see which firewall policy 
+    you are editing at the top of the Rules panel.
+    </para>
+    </note>
+
+    <bridgehead>Step 4 - Setup a branching rule in the cluster policy to 
+    jump to the local policy</bridgehead>
+
+    <para>
+    For the rules in the policy 'local_rules' to be applied we need to 
+    setup a branching rule in the main policy called 'Policy' to jump 
+    to the local_rules policy. You can define the branch rule anywhere 
+    in the policy, in this example we are going to make the branch the 
+    first rule of the policy. This will ensure that the custom rules 
+    defined on web-03 will be run first, then the rest of the rules 
+    for the cluster will be applied.
+    </para>
+
+    <figure id="new_cluster_branch_rule">
+    <title>New branching rule in main policy on cluster object web-servers</title>
+    <graphic fileref="new_cluster_branch_rule.png" />
+    </figure>
+
+    <note>
+    <para>
+    Make sure you set the branch target to be the 'local_rules' 
+    object from the cluster object and not one of the member
+    firewalls.
+    </para>
+    </note>
+  
+    <para>
+    After you have configured the branching rule in the main policy your 
+    rules should look like this. 
+    </para>
+
+    <figure id="new_cluster_branch_rule_example">
+    <title>Cluster policy with branch rule on top</title>
+    <graphic fileref="new_cluster_branch_rule_example.png" />
+    </figure>
+
+    <note> 
+    <para> 
+    Not all firewall platforms support branching, you can find out 
+    more about branching in <xref linkend="multiple_policy_rule_sets"/>.
+    </para>
+    </note>
+
+    <bridgehead>Step 5 - Compile and install policy</bridgehead>
+   
+    <para>
+    Since changes were made to the web-servers cluster and web-03 
+    objects we need to compile and install the updated firewall 
+    rules to all cluster members.
+    </para>
+    
+    <para>
+    When the rules are compiled Firewall Builder includes the rules 
+    defined in the local_rules policy object on the firewall cluster 
+    member if they exist. If no rules are found in the member's 
+    local_rules Firewall Builder will include the rules from the 
+    cluster object's local_rules.
+    </para> 
+
+    <para>
+    To see an example of this you can inspect the generated firewall 
+    script for the web-03 server. You can see the new iptables chains 
+    for the local_rules policy in red.
+    </para>
+
+    <programlisting>
+echo "Rule local_rules 0 (eth0)"
+# 
+$IPTABLES -N <emphasis role="redtext">local_rules</emphasis>
+$IPTABLES -N <emphasis role="redtext">In_local_rules_0</emphasis>
+$IPTABLES -A <emphasis role="redtext">local_rules</emphasis>  -i eth0  -p tcp -m tcp  -s 198.51.100.0/24  \
+   -d 192.0.2.13   --dport 22  -m state --state NEW  -j <emphasis role="redtext">In_local_rules_0</emphasis>
+$IPTABLES -A <emphasis role="redtext">In_local_rules_0</emphasis>  -j LOG  --log-level info --log-prefix "RULE 0 -- ACCEPT "
+$IPTABLES -A <emphasis role="redtext">In_local_rules_0</emphasis>  -j ACCEPT
+# ================ Table 'filter', rule set Policy
+# 
+# Rule 0 (global)
+# 
+echo "Rule 0 (global)"
+# 
+$IPTABLES -A OUTPUT  -j <emphasis role="redtext">local_rules</emphasis>
+$IPTABLES -A INPUT  -j <emphasis role="redtext">local_rules</emphasis>
+$IPTABLES -A FORWARD  -j <emphasis role="redtext">local_rules</emphasis>
+    </programlisting>
+
+    <note>
+    <para>
+    The compiler will generate a warning for the web-03 firewall object 
+    since there is a policy object named local_rules on the web-03. When 
+    both the cluster object and a member object have a policy with the 
+    same name, if the member object's policy <emphasis>is not</emphasis> 
+    empty then the member's policy will be used in place of the cluster 
+    object for that policy.
+    </para>
+    </note>
+
+    <para>
+    This results in the firewall web-03 having the following rules matching 
+    applied.
+    </para>
+
+    <figure id="fw_policy_web-03">
+    <title>Firewall rules sequence for traffic destined to web-03</title>
+    <graphic fileref="fw_policy_web-03.png" />
+    </figure>
+
+    <note>
+    <para>
+    All the other members of the cluster will have an empty rule chain 
+    created for local_rules. This means incoming traffic will go through 
+    this empty chain first before being passed back to the main rules 
+    defined in Policy.
+    </para>
+    
+    <para>
+    You can also create custom rules on other members of the cluster 
+    using the same local_rules policy name.
+    </para>
+    </note>
+
+  </sect2>
