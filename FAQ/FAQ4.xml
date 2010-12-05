@@ -10,6 +10,7 @@
 
 <!ENTITY fwbuilder-url    "http://www.fwbuilder.org/">
 <!ENTITY netcitadel-url   "/4.0/netcitadel/index.html">
+<!ENTITY download-registration "/4.0/download_registration.html">
 <!ENTITY install-url      "/4.0/docs/firewall_builder_installation.html">
 <!ENTITY iptables-url     "http://www.iptables.org/">
 <!ENTITY ipfilter-url     "http://coombs.anu.edu.au/~avalon/">
@@ -187,13 +188,13 @@
                     <entry>Mac OS X</entry>
                     <entry>Leopard and Snow Leopard</entry>
                     <entry>yes</entry>
-                    <entry><ulink url="&netcitadel-url;">binary packages available here</ulink></entry>
+                    <entry><ulink url="&download-registration;">binary packages available here</ulink></entry>
                   </row>
                   <row>
                     <entry>Windows</entry>
                     <entry>2000, XP, Vista</entry>
                     <entry>yes</entry>
-                    <entry><ulink url="&netcitadel-url;">binary packages available here</ulink></entry>
+                    <entry><ulink url="&download-registration;">binary packages available here</ulink></entry>
                   </row>
                 </tbody>
               </tgroup>
