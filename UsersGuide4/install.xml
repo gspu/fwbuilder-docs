@@ -316,26 +316,26 @@ make install
           To access <emphasis>Debian/Ubuntu repository</emphasis>
           of <emphasis>stable</emphasis> packges, add
           the following line to the file
-          <emphasis>/etc/apt/sources.list</emphasis> (replace "inrepid" here
-          with "hardy" or "jaunty" depending on your
-          version):
+          <emphasis>/etc/apt/sources.list</emphasis> (replace
+          "maverick" here with "lucid" or another name depending on
+          your version):
         </para>
 
         <programlisting>
-deb http://www.fwbuilder.org/deb/stable/ intrepid contrib
+deb http://www.fwbuilder.org/deb/stable/ maverick contrib
         </programlisting>
 
         <para>
           To access <emphasis>Debian/Ubuntu repository</emphasis>
           of <emphasis>testing</emphasis> packges, add
           the following line to the file
-          <emphasis>/etc/apt/sources.list</emphasis> (replace "inrepid" here
-          with "hardy" or "jaunty" depending on your
-          version):
+          <emphasis>/etc/apt/sources.list</emphasis> (replace
+          "maverick" here with "lucid" or another name depending on
+          your version):
         </para>
 
         <programlisting>
-deb http://www.fwbuilder.org/deb/testing/ intrepid contrib
+deb http://www.fwbuilder.org/deb/testing/ maverick contrib
         </programlisting>
 
         <para>
@@ -481,7 +481,7 @@ Description="Firewall Builder Package"/&gt;
 
 
           <programlisting>
-# debsig-verify /var/cache/apt/archives/libfwbuilder_3.0.5-b961-ubuntu-hardy-1_amd64.deb 
+# debsig-verify /var/cache/apt/archives/libfwbuilder_4.1.3-b3421-ubuntu-maverick-1_amd64.deb 
 debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
           </programlisting>
 
