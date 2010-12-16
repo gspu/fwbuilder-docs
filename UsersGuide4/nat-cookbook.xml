@@ -373,23 +373,21 @@ nat (inside) 0 access-list nat0.inside
   </para>
   
 
-        <figure float="1"><title/><graphic scale="50" fileref="dnat-rule-6.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="dnat-rule-6.png"/></figure>
 
         <para>
-  
-                And here is what is generated for iptables:
-              
-  </para>
+        And here is what is generated for iptables:
+        </para>
   
 
-  <programlisting>
+<programlisting>
 
 # Rule 0 (NAT)
 # 
 $IPTABLES -t nat -A PREROUTING  -p tcp -m tcp  -s 172.16.22.0/24 \
      --dport 80 -j REDIRECT --to-ports 3128 
-
-              </programlisting>
+     
+</programlisting>
 
         <para>
   

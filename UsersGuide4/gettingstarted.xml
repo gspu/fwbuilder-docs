@@ -647,7 +647,7 @@
 
     <figure id="pict_200">
       <title>Template rule sets</title>
-      <graphic scale="50" fileref="gettingstarted_fig_27.png" />
+      <graphic scale="40" fileref="gettingstarted_fig_27.png" />
     </figure>
 
     <para>
@@ -660,7 +660,7 @@
 
     <figure id="pict_201">
       <title>Using context menu to compile single rule</title>
-      <graphic scale="50" fileref="gettingstarted_fig_27_1.png" />
+      <graphic contentwidth="700px" fileref="gettingstarted_fig_27_1.png" />
     </figure>
 
     <para>
@@ -672,11 +672,8 @@
 
     <figure id="pict_202">
       <title>Compiling single rule</title>
-      <graphic scale="50" fileref="gettingstarted_fig_27_2.png" />
+      <graphic scale="40" fileref="gettingstarted_fig_27_2.png" />
     </figure>
-
-
-
 
     <para>
       Access policy rules belong to the object "Policy", which is a
@@ -760,7 +757,7 @@
 
     <figure id="pict_220">
       <title>NAT rule set</title>
-      <graphic scale="50" fileref="gettingstarted_fig_29.png" />
+      <graphic scale="40" fileref="gettingstarted_fig_29.png" />
     </figure>
     
     <para>
@@ -788,7 +785,7 @@
 
     <figure id="pict_240">
       <title>Compile firewall dialog</title>
-      <graphic scale="50" fileref="gettingstarted_fig_30.png" />
+      <graphic scale="40" fileref="gettingstarted_fig_30.png" />
     </figure>
     
     <para>
