@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DESTINATION="webcontent@citadel02.netcitadel.com:/var/www/html/users_guide-stage"
+DESTINATION="webcontent@citadel02.netcitadel.com:/var/www/users_guide-stage"
 
 cd html && {
     rsync -avuzr --rsh=ssh --delete \

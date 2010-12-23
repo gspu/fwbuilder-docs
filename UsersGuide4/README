@@ -5,14 +5,16 @@ to compile the Guide on Ubuntu, I install the following packages. Some
 of them may be redundant or unnecessary
 
 
-i A docbook               - standard SGML representation system for technical documents             
-i A docbook-dsssl         - modular DocBook DSSSL stylesheets, for print and HTML                   
-i   docbook-utils         - Convert Docbook files to other formats (HTML, RTF, PS, man, PDF)        
-i A docbook-xml           - standard XML documentation system, for software and systems             
-i   docbook-xsl-doc-html  - stylesheets for processing DocBook XML files (HTML documentation)       
-i   docbook-xsl-doc-pdf   - stylesheets for processing DocBook XML files (PDF documentation)        
-i   xsltproc              - XSLT command line processor
-i   fop                   - XML to PDF Translator
+docbook               - standard SGML representation system for technical documents             
+docbook-dsssl         - modular DocBook DSSSL stylesheets, for print and HTML                   
+docbook-utils         - Convert Docbook files to other formats (HTML, RTF, PS, man, PDF)        
+docbook-xml           - standard XML documentation system, for software and systems             
+docbook-xsl           - - stylesheets for processing DocBook XML to various output formats
+docbook-xsl-doc-html  - stylesheets for processing DocBook XML files (HTML documentation)       
+docbook-xsl-doc-pdf   - stylesheets for processing DocBook XML files (PDF documentation)        
+xsltproc              - XSLT command line processor
+fop                   - XML to PDF Translator
+
   
 On Mac OS X install the following ports:
 
