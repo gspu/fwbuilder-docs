@@ -1,0 +1,645 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+      <sect1 id="cisco_asa_pix">
+      <title>Configuring Cisco ASA and Cisco PIX Firewalls</title>
+
+       <para>
+        This section of the Users Guide provides an overview
+        of everything you need to know to get started configuring
+        Cisco ASA and Cisco PIX firewalls using Firewall Builder. This 
+        means there is some repetition of concepts and materiels 
+        that are included in other sections of the Users Guide. Many 
+        of these topics are only briefly covered here, so we still 
+        suggest reading the other sections of the Users Guide that 
+        go in to more details.
+        </para>
+        
+        <para> 
+        The examples in this section will be based on configuring
+        a Cisco ASA 5505 with the configuration shown in the diagram 
+        below. Note that configuring Cisco PIX devices in Firewall 
+        Builder follows exactly the same steps.
+        </para>
+
+      <figure id="gs_asa_example">
+        <title>Example Cisco ASA Configuration</title>      
+        <graphic fileref="gs/example_asa.png" />
+      </figure> 
+
+        <sect2 id="gs_asa_step1">
+        <title>Creating Objects</title>
+
+        <para>
+        Firewall Builder is based on the concept of objects. There are
+        a variety of different object types that can be used to define
+        IP objects that can be used as the Source and Destination in
+        your Cisco ASA/PIX rules. Two of the most common IP objects used
+        in Cisco access lists are <emphasis>Networks</emphasis> and 
+        <emphasis>Addresses</emphasis>.
+        </para>
+
+        <bridgehead>Network Objects</bridgehead>
+
+        <para>
+        To create a Network object, for example a network to represent the
+        internal 10.0.0.0/24 network in the diagram above, go to the object
+        tree on the left side of the screen and double-click the folder
+        labeled <emphasis>Objects</emphasis> to expand it. Right click on 
+        the folder called <emphasis>Networks</emphasis> and select “New 
+        Network”. This creates a new network object. In the lower portion 
+        of your screen, called the Editor Panel, you can modify the 
+        properties of this object.
+        </para>
+
+        <para>
+        Change the object name to something that matches the function, in 
+        this example we are going to call it “Internal Network” to represent 
+        the network connected to our "inside" interface. The address is set 
+        to 10.0.0.0 and the netmask is 255.255.255.0.
+        </para>
+
+      <figure id="gs_asa_new_network">
+        <title>New Network Object</title>      
+        <graphic fileref="gs/new_network.png" />
+      </figure> 
+
+      <note>
+        <para>
+        When editing the attributes of an object there is no Apply
+        or Submit button. Once you edit an attribute as soon as you move 
+        away from the field you were editing the change will take effect 
+        immediately.
+        </para>
+      </note>
+
+        <bridgehead>Address Objects</bridgehead>
+
+        <para>
+        To create an object that represents a single IP address, similar 
+        to the host parameter in a Cisco access list, go to the object tree 
+        and right-click on the <emphasis>Addresses</emphasis> folder and 
+        select "New Address". In the Editor Panel change the name of the 
+        object to something that reflects its function, for example “POP3 
+        Server”, and set the IP address.
+        </para>
+
+      <figure id="gs_asa_new_address_steps">
+        <title>New Address Object</title>      
+        <graphic fileref="gs/new_address_steps.png" />
+      </figure> 
+            
+       </sect2>
+       <sect2 id="gs_asa_step2">
+       <title>Define The Firewall</title>
+
+        <para>
+        To create a firewall object to represent your Cisco ASA click 
+        on the “Create new firewall” icon on the main window of
+        Firewall Builder. This will launch a wizard that walks you through
+        creating your firewall object.
+        </para>
+
+        <para>
+        Enter a name for the firewall object, in this example we will use
+        <emphasis>asa-1</emphasis>. Change the drop down menu for software 
+        that is running on the firewall to be “Cisco ASA (PIX)”.
+        </para>
+
+      <figure id="gs_asa_create_asa">
+        <title>New Firewall Dialog</title>      
+        <graphic fileref="gs/create_asa.png" />
+      </figure> 
+
+        <para>
+        Click the "Next >" button to continue to the next step in the wizard.
+        </para>
+
+        <para>
+        When creating a firewall in Firewall Builder you have a choice of
+        configuring interfaces manually, or you can use SNMP discovery if you
+        have SNMP enabled on your firewall and you have know the Read-Only or
+        Read-Write community string. For this example we are going to configure
+        the firewall interfaces manually.
+        </para>
+
+      <figure id="gs_asa_interface_discovery">
+        <title>Select Interface Configuration Method</title>      
+        <graphic fileref="gs/interface_discovery.png" />
+      </figure> 
+
+        <para>
+        Click the "Next >" button to continue to the next step.
+        </para>
+
+        <para>
+        The firewall that you create in Firewall Builder needs to match the 
+        Cisco ASA or PIX firewall that you want to deploy the access lists on. 
+        This means that the <emphasis>interface names</emphasis> and 
+        <emphasis>IP addresses</emphasis> in the firewall object that you are
+        creating must <emphasis>match exactly</emphasis> to what is configured 
+        on the ASA or PIX.
+        </para>
+
+        <para>
+        Click the green <imagedata fileref="gs/green_plus.png" /> 
+        icon to add a new interface to the firewall.  Enter the name of the 
+        interface exactly as it is shown on the ASA or PIX command line when 
+        you run “show interface" command. In our example the interfaces are
+        Ethernet0/0 through Ethernet0/7, but we are only going to use interfaces 
+        Ethernet0/0 and Ethernet0/1.
+        </para>
+
+        <para>
+        Set the interface name as Ethernet0/0 and set the label to outside. 
+        Click on the Add address button and set the IP address to 192.0.2.1 
+        with a netmask of 255.255.255.240.
+        </para>
+
+      <figure id="gs_asa_interface_address">
+        <title>Set Interface IP Address</title>      
+        <graphic fileref="gs/asa_interface_address.png" />
+      </figure> 
+
+        <para>
+        Click the green <imagedata fileref="gs/green_plus.png" /> 
+        icon to add another interface to the router.  Enter the 
+        information in to the wizard to match the second interface as 
+        follows:
+        </para>
+           
+      <figure id="gs_asa_interface_address2">
+        <title>Interface Tabs</title>      
+        <graphic fileref="gs/asa_interface_address2.png" />
+      </figure> 
+
+        <para>
+        Click the "Next >" button.
+        </para>
+
+        <para>
+        Firewall Builder will automatically set the <emphasis>security 
+        level</emphasis> of the interface based on the interface label 
+        and IP address. The outside interface is set to security level 
+        0 and the inside interface is set to security level 100.
+        </para>
+
+      <figure id="gs_asa_interface_sec_level">
+        <title>Interface Security Levels</title>      
+        <graphic fileref="gs/asa_interface_sec_level.png" />
+      </figure> 
+
+        <para>
+        Click the "Finish" button to create the firewall object.
+        </para>
+
+        <para>
+        After you create the firewall object representing the ASA or PIX 
+        the firewall object will be displayed in the object tree on the 
+        left side. The Policy object, which is where the access list rules 
+        are configured, is automatically opened in the main window.
+        </para>
+
+      <figure id="gs_asa_firewall_object_tree">
+        <title>Firewall Displayed in Object Tree</title>      
+        <graphic fileref="gs/asa_firewall_object_tree.png" />
+      </figure> 
+
+        <para>
+        Firewall Builder uses the concept of <emphasis>Network Zones
+        </emphasis> to determine network topology in order to correctly 
+        create rules. Each firewall interface has a corresponding 
+        Network Zone that must be set. The Network Zone represents the 
+        set of IP networks that would be the source of traffic coming 
+        inbound to an interface.
+        </para>
+        
+        <para>
+        For example, if you use 10.0.0.0/8 for your internal network, 
+        the "inside" interface should have its Network Zone set to an 
+        object that represents 10.0.0.0/8. Network Zones can be a 
+        Network object or a group object that includes multiple Network 
+        objects. An exmple of when you would use a Group object is if 
+        your internal network used both 10.0.0.0/8 and 172.16.0.0/16. 
+        In this case you would create a Group object that included 
+        network objects for both these IP networks and use that Group 
+        object as your "inside" interface's Network Zone.
+        </para>
+
+        <para>
+        For the "outside" interface you will typically set its 
+        Network Zone to "Any" which is all IP networks that aren't 
+        associated any other interfaces. Set the Network Zone by 
+        double-clicking the interface object of the firewall and 
+        selecting the Network Zone from the dropdown list.
+        </para>
+
+      <figure id="gs_asa_setting_network_zone">
+        <title>Setting Network Zone</title>      
+        <graphic fileref="gs/asa_setting_network_zone.png" />
+      </figure> 
+
+        <para>
+        Before moving on you should save our data file that contains the new
+        firewall object that you just created.  Do this by going to the
+        File -> Save As menu item.  Choose a name and location to save the
+        file to.
+        </para>
+
+        </sect2>
+
+        <sect2 id="gs_asa_step3">
+        <title>Configuring Access Lists</title>
+
+        <para>
+        After you create a firewall object, for example <emphasis>asa-1
+        </emphasis> from our previous example, it will be opened automatically 
+        in the object tree and its Policy object is opened in the main window 
+        for editing. The Policy object is where access list rules are configured.
+        </para>
+
+        <para>
+        To add a new rule to the Policy, click on the green
+        <imagedata fileref="gs/green_plus.png" /> icon at the top
+        left of the main window. This creates a new rule with default values set
+        to deny all.
+        </para>
+
+      <figure id="gs_asa_default_rule">
+        <title>Default Rule</title>      
+        <graphic fileref="gs/default_rule.png" />
+      </figure> 
+
+        <para>
+        Every rule includes the following sections:
+        </para>
+
+        <itemizedlist>
+          <listitem role="cisco_getting_started"><para><emphasis>Source</emphasis> - 
+          this can be one or more IP 
+          objects. Default value is Any which is the same as the "any" parameter 
+          in a Cisco access list that matches all IP addresses.</para></listitem>
+          <listitem><para><emphasis>Destination</emphasis> - this can be one or 
+          more IP objects. Default value is Any which is the same as the "any" 
+          parameter in a Cisco access list that matches all IP addresses.</para></listitem>
+          <listitem><para><emphasis>Service</emphasis> - this can be one or more 
+          Service object. Example services include the TCP and UDP protocols like 
+          HTTP and DNS. Default value is Any which matches any IP service and is 
+          the same as the "ip" parameter in Cisco access lists.</para></listitem>
+          <listitem><para><emphasis>Interface</emphasis> - this can be one or 
+          more interfaces configured on the firewall (router) object. Default 
+          value is All which means the rule will be applied as an access list to 
+          all configured interfaces.</para></listitem>
+          <listitem><para><emphasis>Direction</emphasis> - options are Inbound, 
+          Outbound and Both. This defines whether the resulting access-group will 
+          be applied to interfaces as "in" or "out". Both will generate an identical 
+          rule for "in" and "out". Default value is Both.</para></listitem>
+          <listitem><para><emphasis>Action</emphasis> - options are Accept and Deny. 
+          This matches the Cisco access list parameters "permit" and "deny". Default 
+          value is Deny.</para></listitem>
+          <listitem><para><emphasis>Options</emphasis> - options are Logging On and 
+          Logging Off. Setting Logging On matches the Cisco access list parameter 
+          "log".  Default value is Logging On.</para></listitem>
+        </itemizedlist>
+
+        <bridgehead>Setting the Source</bridgehead>
+
+        <para>
+        To set the Source of a rule, drag-and-drop at least one IP object from the
+        tree to the Source field of your rule. For example, if you created a
+        Network object called Internal Network you would drag this to your rule
+        as shown below.
+        </para>
+
+      <figure id="gs_asa_new_rule_source">
+        <title>Setting the Source</title>      
+        <graphic fileref="gs/new_rule_source.png" />
+      </figure> 
+
+        <para>
+        After you drop the network object into the rule the Source fields will
+        change from Any to Internal Network.
+        </para>
+
+      <figure id="gs_asa_rule_step1">
+        <title>After Source is Set</title>      
+        <graphic fileref="gs/rule_step1.png" />
+      </figure> 
+
+      <note>
+        <para>
+        You can have more than one IP object in the Source and Destination fields. 
+        When Firewall Builder generates the Cisco command line access lists it will 
+        automatically split the rule in to multiple lines if necessary.
+        </para>
+      </note>
+
+        <bridgehead>Setting the Destination</bridgehead>
+
+        <para>
+        Setting the Destination is exactly the same as setting the Source, except
+        you drag-and-drop IP objects in to the Destination field of the rule.
+        </para>
+
+        <bridgehead>Setting the Service</bridgehead>
+
+        <para>
+        Firewall Builder comes with hundreds of <emphasis>predefined</emphasis> 
+        objects including Service objects for almost all standard protocols. 
+        To access these objects switch to the Standard library by selecting it 
+        from the drop down at the top of the Object tree window.
+        </para>
+
+      <figure id="gs_asa_switch_library">
+        <title>Switching Libraries</title>      
+        <graphic fileref="gs/switch_library.png" />
+      </figure> 
+
+        <para>
+        Services are located in the <emphasis>Services</emphasis> folder. 
+        For example, if you wanted to define a rule that permitted HTTP 
+        traffic you would navigate to the HTTP service by opening the 
+        Services folder, then opening the <emphasis>TCP</emphasis>
+        folder and scrolling down until you find the http object.
+        </para>
+
+        <para>
+        Once you find the http object, drag-and-drop from the tree on the left in
+        to the Service section of the rule in the Rules window.
+        </para>
+            
+      <figure id="gs_asa_new_rule_service">
+        <title>Setting the Service</title>      
+        <graphic fileref="gs/new_rule_service.png" />
+      </figure> 
+
+      <note>
+        <para>
+        To switch back to the User library, which contains the objects that you 
+        created, click on the drop down menu that says Standard and select User 
+        from the list of libraries.
+        </para>
+      </note>
+
+        <bridgehead>Setting the Interface</bridgehead>
+
+        <para>
+        Set the Interface for the rule by dragging-and-dropping an interface
+        object from the firewall (router) object to the Interface section of
+        the rule. This will define which interface on the router that the
+        access list will be applied to as an "access-group".
+        </para>
+            
+      <figure id="gs_asa_new_rule_interface">
+        <title>Setting the Interface</title>      
+        <graphic fileref="gs/asa_new_rule_interface.png" />
+      </figure> 
+
+        <bridgehead>Setting the Direction</bridgehead>
+
+        <para>
+        The direction of the rule is based on the traffic you want to filter.
+
+        Traffic coming in to an interface should have the rule Direction set
+        to Inbound and traffic going out of an interface should have the rule
+        Direction set to Outbound.
+        </para>
+
+        <para>
+        The Direction, Network Zone and the Interface setting in a rule will 
+        determine which interfaces should have this rule applied.
+        </para>
+
+      <note>
+        <para>
+        Inbound vs. Outbound access lists. Older PIX versions did not support 
+        outbound access lists on interfaces, so by default Firewall Builder 
+        emulates this behavior. This means if you create an outbound rule on 
+        an interface, Firewall Builder will convert that to inbound rules on
+        all <emphasis>other</emphasis> interfaces. You can change this behavior 
+        by editing the Firewall Settings for the firewall object and clicking 
+        the checkbox next to "Generate outbound ACLs".
+        </para>
+      </note>
+
+        <bridgehead>Setting the Action</bridgehead>
+
+        <para>
+        The action controls whether traffic matching the rule should be permitted
+        or denied. Remember, all Cisco access lists have an implicit deny at the
+        end of the list, so any traffic that has not matched a rule that permits
+        the traffic will be dropped.
+        </para>
+
+        <bridgehead>Setting the Options</bridgehead>
+
+        <para>
+        Logging for rule matches is set in the Options section. By default logging
+        is turned on. To turn logging off, right-click in the Options section and
+        select Logging Off.
+        </para>
+
+        <bridgehead>Example of a Complete Rule</bridgehead>
+
+        <para>
+        The following is an example of a complete rule that allows traffic from
+        an internal network to any destination address arriving inbound on the
+        "inside" interface for the HTTP and HTTPS protocols.
+        </para>
+        
+      <figure id="gs_asa_new_rule_complete">
+        <title>New Rule with Fields Set</title>      
+        <graphic fileref="gs/new_rule_complete.png" />
+      </figure> 
+
+        <bridgehead>Additional Tips</bridgehead>
+
+        <bridgehead>Adding a Rule</bridgehead>
+
+        <para>
+        To add a new rule click the
+        <imagedata fileref="gs/green_plus.png" /> icon at the
+        top of the Rules Editor window.  This will insert a new rule above
+        the current rule. To add a new rule below the current rule right-click
+        on a rule and select "Add New Rule Below".
+        </para>
+
+      <figure id="gs_asa_add_new_rule_below">
+        <title>Adding Rules</title>      
+        <graphic fileref="gs/add_new_rule_below.png" />
+      </figure> 
+            
+        <bridgehead>Copy-and-Paste</bridgehead>
+
+        <para>
+        In addition to drag-and-drop you can also copy-and-paste objects.
+        For example, you can right-click on the Internal Network object in
+        the first rule and select Copy. Navigate to the Source section of
+        the new rule you just created and right-click and select Paste.
+        </para>
+
+        <bridgehead>Using Filters to Find Objects</bridgehead>
+
+        <para>
+        Filters provide a way to quickly find objects in the tree without
+        having to open multiple folders and scroll. For example, if you wanted
+        to use the POP3 protocol in a rule you could use the filter to find it.
+        </para>
+
+        <para>
+        The POP3 protocol object is located in the Standard library, so select it
+        from the dropdown menu at the top of the Object Window. Type pop3 in to
+        the filter field. This will display all objects in the current library
+        that contain pop3.
+        </para>
+
+      <figure id="gs_asa_pop3_filter">
+        <title>Using Filter to Find Objects</title>      
+        <graphic fileref="gs/pop3_filter.png" />
+      </figure> 
+            
+      <note>
+        <para>
+        After you are done with the filtered object, clear the
+        filter field by clicking the X to the right of the input box and then
+        switch back to the User library by selecting it in the dropdown menu
+        at the top of the object panel.
+        </para>
+      </note>
+
+        <para>
+        For the following sections we are going to assume that the following
+        three rules defined for the router configuration shown in Section 4.2.1.
+        </para>
+
+      <figure id="gs_asa_three_rules">
+        <title>Three Rules</title>      
+        <graphic fileref="gs/asa_three_rules.png" />
+      </figure> 
+         
+        </sect2>
+            
+        <sect2 id="gs_asa_step4">
+        <title>Compile and Install</title>
+
+        <para>
+        In Firewall Builder the process of converting the rules from the
+        Firewall Builder GUI syntax to the target device commands is called
+        <emphasis>compiling</emphasis> the configuration.
+        </para>
+
+        <para>
+        To compile, click on the Compile icon which looks like a hammer
+        <imagedata fileref="gs/hammer_small.png" />. If you
+        haven’t saved your configuration file yet you will be asked to do so. After
+        you save your file a wizard will be displayed that lets you select which
+        firewall(s) you want to compile. In this example we are going to complie
+        the firewall called <emphasis>asa-1</emphasis> configured with the rules above.
+        </para>
+
+        <para>
+        If there aren’t any errors, you should see some messages scroll by in the
+        main window and a message at the top left stating Success.
+        </para>
+
+        <para>
+        To view the output of the compile, click on the button that says Inspect
+        Generated Files.  This will open the file that contains the commands in
+        Cisco command format.  Note that any line that starts with “!” is a comment.
+        </para>
+            
+      <figure id="gs_asa_compiler_output">
+        <title>Example Compiler Output</title>      
+        <graphic fileref="gs/asa_compiler_output.png" />
+      </figure> 
+            
+        <para>
+        The output from the compiler is automatically saved in a file in the same
+        directory as the data file that was used to create it. The generated files
+        are named with the firewall name and a .fw extension. In our example the
+        generated configuration file is called asa-1.fw. You can copy and copy and
+        paste the commands from this file to your ASA or PIX firewall or you can 
+        use the built-in Firewall Builder installer.
+        </para>
+
+        <bridgehead>Installing</bridgehead>
+
+        <para>
+        Firewall Builder can install the generated configuration file for you
+        using SSH and SCP. To use the installer we need to identify one of the router
+        interfaces as the “Management Interface”. This tells Firewall Builder
+        which IP address to connect to on the router.
+        </para>
+
+        <para>
+        Do this by double-clicking the firewall object to expand it, and then
+        double-clicking on the interface name that you want to assign as the
+        management interface. In this example this is interface Ethernet0/1
+        which is the interface connected to the internal network.
+        </para>
+
+      <figure id="gs_asa_set_mgmt_interface">
+        <title>Setting the Managment Interface</title>      
+        <graphic fileref="gs/asa_set_mgmt_interface.png" />
+      </figure> 
+
+      <note>
+        <para>
+        Any time you are changing access lists on your router
+        you face the risk of locking yourself out of the device.  Please be
+        careful to always inspect your access lists closely and make sure that
+        you will be able to access the ASA / PIX after the access list is installed.
+        </para>
+      </note>
+
+        <para>
+        To install your access lists on the firewall, click on the install icon
+        <imagedata fileref="gs/install_icon.png" />. This will
+        bring up a wizard where you will select the firewall to install. Click
+        Next > to install the selected firewall.
+        </para>
+
+      <figure id="gs_asa_install_checkbox">
+        <title>Setting Compile and Install Actions</title>      
+        <graphic fileref="gs/asa_install_checkbox.png" />
+      </figure> 
+
+        <para>
+        Firewall Builder will compile your rules converting them in to
+        Cisco access list command line format. After the compile completes
+        successfully click Next >. Enter your username, password and enable
+        password.
+        </para>
+
+      <figure id="gs_asa_install_screen">
+        <title>Install Dialog</title>      
+        <graphic fileref="gs/install_screen.png" />
+      </figure> 
+
+        <para>
+        After the access list configuration is installed you see a message
+        at the bottom of the main window and the status indicator in the
+        upper left corner of the wizard will indicate if the installation
+        was successful.
+        </para>
+            
+      <figure id="gs_asa_install_success">
+        <title>Successful Install</title>      
+        <graphic fileref="gs/asa_install_success.png" />
+      </figure> 
+            
+        <para>
+        By default Firewall Builder will use SCP to copy the generated config 
+        file to the firewall. Once the file is copied to the firewall, Firewall 
+        Builder will connect using SSH to load the transferred config file from 
+        memory using the "copy" command to merge the Firewall Builder generated 
+        command with the current running configuration.
+        </para>
+
+        <para>
+        Firewall Builder requires ssh version 2 to be enabled on the firewall.
+        </para>
+    </sect2>
+    </sect1>
+ 

@@ -860,5 +860,6 @@
     </sect1>
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gettingstarted_cisco_acl.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gettingstarted_cisco_asa_pix.xml"/>
  
   </chapter>
