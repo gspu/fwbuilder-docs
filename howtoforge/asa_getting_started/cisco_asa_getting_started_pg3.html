@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Using Firewall Builder to Configure Cisco ASA & PIX</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<style type="text/css">
+<!--
+.command {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.system {
+    color: black;
+        font-family: Courier New, Courier, mono;
+        font-size: 12px;
+        font-style: italic;
+}
+
+.highlight {
+    color: #FF0000;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 12px;
+  text-decoration: underline;
+}
+-->
+</style>
+</head>
+<body>
+            <h2>Getting Started: Configuring Cisco ASA & PIX</h2>
+
+            <p>
+            <b>Reminder</b> - In this tutorial we are configuring a Cisco
+            ASA 5505 firewall that has the following interface configuration.
+            </p>
+
+            <center>
+            <img src="example_asa.png" />
+            </center>
+
+            <h2>Step 4: Configure NAT Rules</h2>
+
+            <p>
+            Now that we have configured the Access Lists, the next step is to 
+            configure the NAT rules. Here are the NAT rules that we need to 
+            create:
+            </p>
+
+            <ul>
+              <li>
+              Source NAT all inside traffic (10.0.0.0/24) through the firewall
+              destined to any Internet address changing the source IP to the IP
+              address of the outside interface (Ethernet0/0).
+              </li>
+              <li>
+              Destination NAT traffic from external IP address (198.51.100.25),
+              the external SMTP relay server, coming to the outside interface with
+              TCP destination port of 25 (SMTP) and forward that to an internal
+              Email Server (10.0.0.25).
+              </li>
+            </ul>
+
+            <p>
+            To open the NAT rules for editing, double-click on the &#34;NAT&#34; 
+            object located under the asa-1 firewall object in the tree. To add a 
+            new rule to the Policy, click on the green <img src="green_plus.png" /> 
+            icon at the top left of the main window.
+            </p>
+
+            <center>
+            <img src="asa_nat_rule.png" />
+            </center>
+
+            <p>
+            To create the first NAT rule, drag-and-drop the Internal Network object 
+            from the tree to the Original Src column of the NAT rule. Next, 
+            drag-and-drop the firewall object's outside interface (Ethernet0/0) to
+            the Translated Src column of the rule.
+            <p> 
+
+            <p>
+            That's it. You should now have a NAT rule that looks like:
+            </p>
+
+            <center>
+            <img src="asa_nat_rule_one.png" />
+            </center>
+
+            <p>
+            Right-click on the NAT rule you just created and select Add New Rule 
+            Below. The next NAT rule should translate traffic coming from the 
+            external SMTP Relay server to the internal Email Server. Follow the 
+            steps below to create the NAT rule.
+            </p>
+
+            <ul>
+              <li>
+              Drag-and-drop the SMTP Relay object from the object tree to the 
+              Original Src column of the new NAT rule.
+              </li>
+              <li>
+              Drag-and-drop the Ethernet0/0 interface object from the asa-1 
+              firewall object to the Original Src of the rule.
+              </li>
+              <li>
+              Switch to the Standard library and filter for the smtmp object. 
+              Drag-and-drop it to the Service column of the rule.
+              </li>
+              <li>
+              Clear the filter and switch back to the User library and drag-and-
+              drop the Email Server object from the object tree to the Translated 
+              Dst column of the rule.
+              </li>
+            </ul>
+
+            <p>
+            You should now have two NAT rules that look like:
+            </p>
+
+            <center>
+            <img src="asa_nat_two_rules.png" />
+            </center>
+
+            <p>
+            In the next section we will go through the process of compiling and 
+            installing the Access List and NAT rules on the firewall. 
+            </p>
+  </body>
+</html>
