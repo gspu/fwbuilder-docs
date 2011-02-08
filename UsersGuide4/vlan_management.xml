@@ -22,7 +22,7 @@
 
       <listitem>
         <para>Script uses <emphasis>vconfig</emphasis> tool which
-          should be present on the friewall. The script checks if
+          should be present on the firewall. The script checks if
           it is available and aborts if it can not find it.
         </para>
       </listitem>
