@@ -1,0 +1,28 @@
+  <sect1 id="ipcop">
+    <title>IPCOP</title>
+
+    <para>
+      Firewall Builder v4.0 comes with experimental integration with
+      <emphasis>IPCOP</emphasis> firewalls. To turn it on, choose
+      platform <emphasis>"iptables"</emphasis> and host
+      OS <emphasis>"IPCOP firewall appliance"</emphasis>. Generated
+      script is supposed to be installed on the firewall as
+      <command>/etc/rc.d/rc.firewall.local</command> and restarted by the command
+      <command>"/etc/rc.d/rc.firewall restart"</command>. Built-in
+      policy installer in Firewall Builder GUI installs it using this
+      name and runs restart command to activate it. Firewall Builder
+      does not manage interfaces of IPCOP firewall to avoid conflicts
+      with IPCOP itself. Use fwbuilder only to generate iptables
+      rules. The program comes with some template objects for IPCOP
+      firewalls, you can use them when you create new Firewall object
+      if you choose to create it from a template.
+    </para>
+
+    <para>
+      Iptables script for IPCOP is built using configlets in
+      <emphasis>/usr/share/fwbuilder-4.0.0/configlets/ipcop</emphasis>.
+      Commands used by the built-in policy installer come from
+      configlets in the same directory.
+    </para>
+  </sect1>
+

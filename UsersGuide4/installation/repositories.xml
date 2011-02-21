@@ -1,0 +1,293 @@
+    <sect1 id="repositories">
+      <title>Rpm and deb repositories for stable and testing packages</title>
+
+      <para>
+        In addition to the packages that ship with Linux
+        distributions, we maintain repositories of rpm and deb
+        packages of Firewall Builder, including both stable releases
+        and testing builds.
+      </para>
+
+
+
+      <sect2>
+        <title>Debian/Ubuntu packages repository</title>
+
+        <para></para>
+
+        <para>
+          To access <emphasis>Debian/Ubuntu repository</emphasis>
+          of <emphasis>stable</emphasis> packges, add
+          the following line to the file
+          <emphasis>/etc/apt/sources.list</emphasis> (replace
+          "maverick" here with "lucid" or another name depending on
+          your version):
+        </para>
+
+        <programlisting>
+deb http://www.fwbuilder.org/deb/stable/ maverick contrib
+        </programlisting>
+
+        <para>
+          To access <emphasis>Debian/Ubuntu repository</emphasis>
+          of <emphasis>testing</emphasis> packges, add
+          the following line to the file
+          <emphasis>/etc/apt/sources.list</emphasis> (replace
+          "maverick" here with "lucid" or another name depending on
+          your version):
+        </para>
+
+        <programlisting>
+deb http://www.fwbuilder.org/deb/testing/ maverick contrib
+        </programlisting>
+
+        <para>
+          If you wish to follow only stable releases, add
+          only the line with "/deb/stable" url.
+        </para>
+
+        <para>
+          Packages in all repositories are signed with GPG key
+          with ID EAEE08FE "Firewall Builder Project (Package
+          Signing Key) &lt;pkgadmin@fwbuilder.org&gt;".
+          Download <ulink url="http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc">public
+            key</ulink> and add it to your key chain to be able to
+          verify integrity of the packages in repositories. To
+          add the key on Debian/Ubuntu, use the following commands:
+        </para>
+
+        <programlisting>
+wget http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc
+apt-key add PACKAGE-GPG-KEY-fwbuilder.asc
+        </programlisting>
+
+        <sect3>
+          <title>Configuring debsig-verify to verify package signatures</title>
+
+          <para>
+            This part is optional, although it is highly
+            recommended in order to ensure authenticity of the
+            installed fwbuilder packages. However, if you do not
+            configure debsig-verify, package signatures will not
+            be verified but apt tools will try to install them
+            anyway.
+          </para>
+
+
+          <para>
+            Unfortunately it is not enough to just add the key
+            to apt-get, you also need to install
+            package <emphasis>debsig-verify</emphasis> and configure it.
+            Consult one of the HOWTO guides on the Internet that
+            describe how to set up debsig-verify tools to verify
+            signed packages; one such guide can be found here:
+            <ulink url="http://purplefloyd.wordpress.com/2009/02/05/signing-deb-packages/">
+              Signing .deb packages</ulink> . See section #4 "Setup
+            the machine(s) that will be downloading and
+            verifying the package" in it.
+          </para>
+
+          <para>
+            Here is a brief write-up of the debsig-verify
+            installation and configuration process.
+          </para>
+
+          <para>
+            First, you need to install <emphasis>debsig-verify</emphasis> and <emphasis>gpg</emphasis>:
+            <programlisting>
+aptitude install debsig-verify gpg
+            </programlisting>
+          </para>
+
+          <para>
+            Import our key and check its fingerprint:
+          </para>
+
+          <programlisting>
+gpg --import PACKAGE-GPG-KEY-fwbuilder.asc
+gpg --fingerprint
+          </programlisting>
+
+          <para>
+            <emphasis>gpg --fingerprint</emphasis> prints something like this:
+          </para>
+
+          <programlisting>
+------------------------
+pub   1024D/EAEE08FE 2009-05-17
+Key fingerprint = 5397 6AA1 5E71 2F74 947B  4496 EF2E DD98 EAEE 08FE
+uid                  Firewall Builder Project (Package Signing Key) &lt;pkgadmin@fwbuilder.org&gt;
+sub   2048g/FE31D386 2009-05-17
+          </programlisting>
+
+          <para>
+            Key ID is <emphasis>EAEE08FE</emphasis>, its fingerprint
+            is last 4 groups if hex digits in the "Key fingerprint"
+            line: <emphasis>EF2EDD98EAEE08FE</emphasis> (remove white
+            spaces).
+          </para>
+
+          <para>
+            Next step is to import the key into debsig keyring:
+          </para>
+
+          <programlisting>
+mkdir /usr/share/debsig/keyrings/EF2EDD98EAEE08FE
+gpg --no-default-keyring \
+    --keyring /usr/share/debsig/keyrings/EF2EDD98EAEE08FE/debsig.gpg \
+    --import PACKAGE-GPG-KEY-fwbuilder.asc 
+          </programlisting>
+
+          <para>
+            Now we need to create debsig-verify policy file:
+          </para>
+
+          <programlisting>
+mkdir /etc/debsig/policies/EF2EDD98EAEE08FE/
+vi /etc/debsig/policies/EF2EDD98EAEE08FE/fwbuilder-testing.pol
+          </programlisting>
+
+          <para>
+            The policy file is in XML and looks like this:
+          </para>
+
+          <programlisting>
+&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Policy SYSTEM "http://www.debian.org/debsig/1.0/policy.dtd"&gt;
+&lt;Policy xmlns="http://www.debian.org/debsig/1.0/"&gt;
+
+&lt;Origin Name="Firewall Builder" id="EF2EDD98EAEE08FE"
+Description="Firewall Builder Package"/&gt;
+
+&lt;Selection&gt;
+&lt;Required Type="origin" File="debsig.gpg" id="EF2EDD98EAEE08FE"/&gt;
+&lt;/Selection&gt;
+
+&lt;Verification MinOptional="0"&gt;
+&lt;Required Type="origin" File="debsig.gpg" id="EF2EDD98EAEE08FE"/&gt;
+&lt;/Verification&gt;
+
+&lt;/Policy&gt;
+          </programlisting>
+
+          <para>
+            Note how key fingerprint is used as an id in all XML
+            elements.
+          </para>
+
+          <para>
+            apt-get, aptitude and other apt tools save
+            downloaded packages in the
+            directory <emphasis>/var/cache/apt/archives/</emphasis>. You can
+            use debsig-verify to verify saved copy:
+          </para>
+
+
+          <programlisting>
+# debsig-verify /var/cache/apt/archives/libfwbuilder_4.1.3-b3421-ubuntu-maverick-1_amd64.deb 
+debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
+          </programlisting>
+
+          <para>
+            Now apt-get and other apt tools will call
+            debsig-verify to verify packages they are about to
+            install or upgrade.
+          </para>
+
+        </sect3>
+
+        <sect3>
+          <title>Troubleshooting .deb repository access</title>
+
+          <para>
+            After this, you should be able to install and update
+            fwbuilder packages using synaptic or aptitude.
+          </para>
+
+          <para>
+            Note that apt caches package information, so when we
+            release new packages, they will not match cached
+            data when you try to install them. Run <emphasis>apt-get
+              update</emphasis> before you install or upgrade
+            packages to refresh cached data. If you don't,
+            you'll get <emphasis>"Size mismatch"</emphasis> error which is not very
+            descriptive. Note that if you do this from the command
+            line using apt-get, you'll notice that it suggests
+            running apt-get upate, but unfortunately update manager
+            cuts off this part of the error message. Just run
+            <emphasis>apt-get update</emphasis> or <emphasis>aptitude
+              update</emphasis> from the command line before doing
+            update.
+          </para>
+
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>RPM packages repository</title>
+
+        <para></para>
+
+        <para>
+          To access <emphasis>repository of RPM packages</emphasis>, create
+          file
+          <emphasis>/etc/yum.repos.d/fwbuilder.repo</emphasis> with the
+          following contents:
+        </para>
+
+        <programlisting>
+[fwbuilder]
+name=Firewall Builder
+failovermethod=priority
+baseurl=http://www.fwbuilder.org/rpm/stable/fedora-$releasever-$basearch
+enabled=1
+
+[fwbuilder-testing]
+name=Firewall Builder Test Builds
+failovermethod=priority
+baseurl=http://www.fwbuilder.org/rpm/testing/fedora-$releasever-$basearch
+enabled=0
+        </programlisting>
+
+        <para>
+          Packages in all repositories are signed with GPG key
+          with ID EAEE08FE "Firewall Builder Project (Package
+          Signing Key) &lt;pkgadmin@fwbuilder.org&gt;".
+          Download <ulink url="http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc">public
+            key</ulink> and add it to your key chain to be able to
+          verify integrity of the packages in repositories. To
+          add the key on Fedora, use the following commands:
+        </para>
+
+        <programlisting>
+wget http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc
+rpm --import PACKAGE-GPG-KEY-fwbuilder.asc
+        </programlisting>
+
+
+        <para>
+          To install stable package of fwbuilder with
+          dependencies, use command
+        </para>
+
+        <programlisting>
+yum install fwbuilder
+        </programlisting>
+
+        <para>
+          This should find and install both fwbuilder and
+          libfwbuilder packages and dependencies.
+        </para>
+
+        <para>
+          To install latest package from the testing
+          repository (latest nightly build), use command
+        </para>
+
+        <programlisting>
+yum --enablerepo=fwbuilder-testing install fwbuilder
+        </programlisting>
+
+      </sect2>
+
+    </sect1>

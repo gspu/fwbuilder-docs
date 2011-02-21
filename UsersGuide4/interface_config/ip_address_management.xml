@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="ip_address_mgmt">
+  <title>IP address management</title>
+
+  <para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Generated script includes shell code to manage IP addresses
+          of interfaces if checkbox "Configure interfaces" is
+          turned on in the "Script" tab of the firewall object
+          "advanced" settings dialog. By default, it is turned off.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>Script uses <emphasis>ip</emphasis> tool on linux which
+          should be present on the friewall. The script checks if it
+          is available and aborts if it can not find it. Script uses
+          <emphasis>ifconfig</emphasis> to manage addresses on BSD
+          machines.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          Script checks if IP address configured in the GUI exists on
+          the firewall and adds it if necessary.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          If the script finds an address on the firewall that is not
+          configured in the fwbuilder GUI, it deletes it.
+        </para>
+      </listitem>
+    </itemizedlist>
+  </para>
+
+
+  <sect2 id="ip_address_mgmt_linux">
+    <title>IP address management on Linux</title>
+
+    <para>
+      Generated script includes shell code to manage ip
+      addresses if checkbox "Configure interfaces" is
+      turned on in the "Script" tab of the firewall object
+      "advanced" settings dialog. By default, it is turned
+      off.
+    </para>
+
+    <para>
+      Script uses <emphasis>ip</emphasis> tool which should be
+      present on the friewall. The script checks if it is available
+      and aborts if it can not find it. The path to this tool can be
+      changed in the "Host OS" settings dialog of the firewall
+      object. Script then checks if ip address of each interface
+      configured in the GUI exists on the firewall and adds it if
+      necessary. If the script finds ip address on the firewall that
+      is not configured in the fwbuilder GUI, it removes it.
+    </para>
+
+    <para>
+      If checkbox "Clear ip addresses and bring down
+      interfaces not configured in fwbuilder" is turned on in
+      the "Script" tab of firewall settings dialog, the script
+      deletes all ip address of all interfaces that are not
+      configured in fwbuilder GUI and brings interfaces that
+      are missing in fwbuilder but are found on the firewall
+      down. The goal is to ensure that firewall rules operate
+      in the environment that matches assumptions under which
+      they were generated. If the program generated rules
+      assuming some address does not belong to the firewall,
+      but in reality it does, packets may show up in the wrong
+      chain that will lead to the wrong behavior of the
+      firewall. This feature is off by default.
+    </para>
+
+    <para>
+      Generated script recognizes command line parameters "start",
+      "stop", "reload", "inetrfaces" and "test_inetrfaces". When the
+      script runs with parameter "inetrfaces" it performs only
+      inetrface configuration as described above. Command line
+      parameter "start" makes it do that and then load iptables
+      rules. Parameter "test_inetrfaces" makes the script perform
+      all the checks of IP addresses and print commands that it
+      would use to add and remove addresses but not actually execute
+      them.
+    </para>
+
+    <para>
+      Generated script can manage both IPv4 and IPv6 addresses.
+    </para>
+
+    <para>
+      To illustrate how IP address management works, consider
+      example
+      <xref linkend="ip_addr_managemen_1"/>. Interface <emphasis>eth0</emphasis>
+      has two IPv4 and two IPv6 addresses:
+    </para>
+
+    <para>
+      <figure id="ip_addr_managemen_1">
+        <title>Example configuration with several IPv4 and IPv6 addresses</title>
+        <graphic scale="70" fileref="interface_config/images/ip-addr-management-1.png"/>
+      </figure>
+    </para>
+
+    <para>
+      Initial configuration of the addresses on the machine looks like this:
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# ip addr
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+    valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:aa brd ff:ff:ff:ff:ff:ff
+    inet 10.3.14.108/24 brd 10.3.14.255 scope global eth0
+    inet6 fe80::20c:29ff:fe1e:dcaa/64 scope link 
+    valid_lft forever preferred_lft forever
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:0c:29:1e:dc:b4 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.1.1/24 brd 10.1.1.255 scope global eth1
+    inet6 fe80::20c:29ff:fe1e:dcb4/64 scope link 
+    valid_lft forever preferred_lft forever
+    </programlisting>
+
+    <para>
+      IPv4 address 10.3.14.108 and IPv6 address
+      fe80::20c:29ff:fe1e:dcaa/64 configured in fwbuilder are
+      already present on the machine, but the other IPv4 and IPv6
+      addresses are not. First, lets see what happens when the
+      script generated by fwbuilder runs with command line parameter
+      "test_interfaces":
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-1-s.fw test_interfaces
+# Adding ip address: eth0 192.0.2.1/24
+ip addr add 192.0.2.1/24 dev eth0
+ifconfig eth0 up
+# Adding ip address: eth0 2001:db8:1f0e:162::2/32
+ip addr add 2001:db8:1f0e:162::2/32 dev eth0
+ifconfig eth0 up
+    </programlisting>
+
+    <para>
+      The script detected existing addresses and did nothing about
+      them but printed commands it would execute to add missing
+      addresses. We can now run the script with parameter
+      "interfaces" to actually reconfigure the machine, then run it
+      again to demonstrate that after addresses were added, the
+      script is not going to make any unnecessary changes:
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-1-s.fw interfaces
+# Adding ip address: eth0 192.0.2.1/24
+# Adding ip address: eth0 2001:db8:1f0e:162::2/32
+root@linux-test-1:~# 
+root@linux-test-1:~# /etc/fw/linux-test-1-s.fw test_interfaces
+root@linux-test-1:~# 
+    </programlisting>
+
+    <para>
+      IP address management works both ways: if administrator
+      deletes an address in the fwbuilder GUI, the script will
+      remove it on the machine. To illustrate this, I am going to
+      remove the second IPv4 and IPv6 addresses from the same
+      interface <emphasis>eth0</emphasis> object and then recompile
+      the script and run it again on the machine:
+    </para>
+
+    <para>
+      <figure id="ip_addr_managemen_2">
+        <title>Configuration after additional IPv4 and IPv6
+          addresses have been removed</title>
+        <graphic scale="70" fileref="interface_config/images/ip-addr-management-2.png"/>
+      </figure>
+    </para>
+
+    <programlisting>
+root@linux-test-1:~# /etc/fw/linux-test-1-s.fw test_interfaces
+# Removing ip address: eth0 192.0.2.1/24
+ip addr del 192.0.2.1/24 dev eth0
+ifconfig eth0 up
+# Removing ip address: eth0 2001:db8:1f0e:162::2/32
+ip addr del 2001:db8:1f0e:162::2/32 dev eth0
+ifconfig eth0 up
+    </programlisting>
+
+    <para>
+      As you can see, the script would delete these addresses on the
+      machine to bring its actual configuration in sync with
+      configuration defined in fwbuilder.
+    </para>
+
+    <note>
+      <para>
+        The script does not delete "scope link" and "scope host"
+        addresses from inetrfaces.
+      </para>
+
+      <para>
+        When you change IP address of an interface in fwbuilder
+        object and then run generated script on the firewall, the
+        script first adds new address and then removes the old
+        address from the interface.
+      </para>
+    </note>
+
+    <para>
+      This flexible incremental management of IP addresses helps
+      simplify basic configuration of the firewall OS. One can use
+      standard OS script and configuration files to configure the
+      machine with just one IP address of one interface, used for
+      management, and let the script generated by fwbuilder manage
+      all other IP addresses of all interfaces.  With this,
+      fwbuilder becomes configuration GUI for the whole network
+      setup of the firewall machine.
+    </para>
+
+  </sect2>
+
+
+
+  <sect2 id="ip_address_mgmt_bsd">
+    <title>IP address management on BSD</title>
+
+    <para>
+      Generated script includes shell code to manage ip
+      addresses if checkbox "Configure interfaces" is
+      turned on in the "Script" tab of the firewall object
+      "advanced" settings dialog. By default, it is turned
+      off.
+    </para>
+
+    <para>
+      Script uses <emphasis>ifconfig</emphasis> utility to add and
+      remove IP addresses. The path to ifconfig can be changed in the
+      "Host OS" settings dialog of the firewall object. Script checks if
+      ip address of each interface configured in the GUI exists on the
+      firewall and adds it if necessary. If the script finds ip address
+      on the firewall that is not configured in the fwbuilder GUI, it
+      removes it.  The goal is to ensure that firewall rules operate in
+      the environment that matches assumptions under which they were
+      generated.
+    </para>
+
+    <para>
+      Generated script can manage both IPv4 and IPv6 addresses.
+    </para>
+
+    <para>
+      To illustrate how IP address management works, consider example
+      <xref linkend="ip_addr_managemen_bsd_1"/>. All interfaces have
+      both IPv4 and IPv6 addresses:
+    </para>
+
+    <para>
+      <figure id="ip_addr_managemen_bsd_1">
+        <title>Example configuration with several IPv4 and IPv6 addresses</title>
+        <graphic scale="70" fileref="interface_config/images/ip-addr-management-bsd-1.png"/>
+      </figure>
+    </para>
+
+    <para>
+      Initial configuration of the addresses on the machine looks like this:
+    </para>
+
+    <programlisting>
+# ifconfig -a
+lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; mtu 33208
+        groups: lo
+        inet 127.0.0.1 netmask 0xff000000
+        inet6 ::1 prefixlen 128
+        inet6 fe80::1%lo0 prefixlen 64 scopeid 0x4
+pcn0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 00:0c:29:83:4d:25
+        groups: egress
+        media: Ethernet autoselect (autoselect)
+        inet 10.3.14.50 netmask 0xffffff00 broadcast 10.3.14.255
+        inet6 fe80::20c:29ff:fe83:4d25%pcn0 prefixlen 64 scopeid 0x1
+em0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 00:0c:29:83:4d:2f
+        media: Ethernet autoselect (1000baseT full-duplex,master)
+        status: active
+        inet 10.1.1.50 netmask 0xffffff00 broadcast 10.1.1.255
+        inet6 fe80::20c:29ff:fe83:4d2f%em0 prefixlen 64 scopeid 0x2
+enc0: flags=0&lt;&gt; mtu 1536
+pflog0: flags=141&lt;UP,RUNNING,PROMISC&gt; mtu 33208
+        groups: pflog
+    </programlisting>
+
+    <para>
+      Interface pcn0 already has IPv4 and IPv6 addresses that match
+      those configured in fwbuilder, but interface em0 only has one
+      IPv4 address and only link-local IPv6 address and does not have
+      other addresses configured in fwbuilder. Lets see what happens
+      when the script generated by fwbuilder runs on the machine:
+    </para>
+
+    <programlisting>
+# /etc/fw/openbsd-test-1-s.fw                                                                                                              
+Activating firewall script generated Tue Feb 23 16:39:30 2010 by vadim
+net.inet.ip.forwarding: 0 -&gt; 1
+# Adding ip address: em0 192.0.2.12 netmask 0xffffff00
+# Adding ip address: em0 2001:db8:1f0e:162::20 prefixlen 32
+#
+    </programlisting>
+
+    <para>
+      The script detected existing addresses and did nothing about them,
+      it also added missing addresses. Here is what we get:
+    </para>
+
+    <programlisting>
+# ifconfig -A                  
+lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; mtu 33208
+        groups: lo
+        inet 127.0.0.1 netmask 0xff000000
+        inet6 ::1 prefixlen 128
+        inet6 fe80::1%lo0 prefixlen 64 scopeid 0x4
+pcn0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 00:0c:29:83:4d:25
+        groups: egress
+        media: Ethernet autoselect (autoselect)
+        inet 10.3.14.50 netmask 0xffffff00 broadcast 10.3.14.255
+        inet6 fe80::20c:29ff:fe83:4d25%pcn0 prefixlen 64 scopeid 0x1
+em0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 00:0c:29:83:4d:2f
+        media: Ethernet autoselect (1000baseT full-duplex,master)
+        status: active
+        inet 10.1.1.50 netmask 0xffffff00 broadcast 10.1.1.255
+        inet6 fe80::20c:29ff:fe83:4d2f%em0 prefixlen 64 scopeid 0x2
+        <emphasis role="redtext">inet 192.0.2.12 netmask 0xffffff00 broadcast 192.0.2.255</emphasis>
+        <emphasis role="redtext">inet6 2001:db8:1f0e:162::20 prefixlen 32</emphasis>
+enc0: flags=0&lt;&gt; mtu 1536
+pflog0: flags=141&lt;UP,RUNNING,PROMISC&gt; mtu 33208
+        groups: pflog
+    </programlisting>
+
+    <para>
+      I am going to run the script again to demonstrate that after
+      addresses were added, it is not going to make any unnecessary
+      changes:
+    </para>
+
+    <programlisting>
+# /etc/fw/openbsd-test-1-s.fw  
+Activating firewall script generated Tue Feb 23 16:39:30 2010 by vadim
+net.inet.ip.forwarding: 1 -&gt; 1
+# 
+    </programlisting>
+
+    <para>
+      IP address management works both ways: if administrator
+      deletes an address in the fwbuilder GUI, the script will
+      remove it on the machine. To illustrate this, I am going to
+      remove the second IPv4 and IPv6 addresses from the same
+      interface <emphasis>em0</emphasis> object and then recompile
+      the script and run it again on the machine:
+    </para>
+
+    <para>
+      <figure id="ip_addr_managemen_bsd_2">
+        <title>Configuration after additional IPv4 and IPv6
+          addresses have been removed</title>
+        <graphic scale="70" fileref="interface_config/images/ip-addr-management-bsd-2.png"/>
+      </figure>
+    </para>
+
+    <programlisting>
+# /etc/fw/openbsd-test-1-s.fw  
+Activating firewall script generated Tue Feb 23 16:46:26 2010 by vadim
+net.inet.ip.forwarding: 1 -> 1
+# Removing ip address: em0 192.0.2.12 netmask 0xffffff00
+# Removing ip address: em0 2001:db8:1f0e:162::20 prefixlen 32
+#
+    </programlisting>
+
+    <para>
+      As you can see, the script deleted these addresses on the
+      machine to brought its actual configuration in sync with
+      configuration defined in fwbuilder.
+    </para>
+
+    <note>
+      <para>
+        The script does not delete "scope link" and "scope host"
+        addresses from inetrfaces.
+      </para>
+
+      <para>
+        When you change IP address of an interface in fwbuilder
+        object and then run generated script on the firewall, the
+        script first adds new address and then removes the old
+        address from the interface.
+      </para>
+    </note>
+
+    <para>
+      This flexible incremental management of IP addresses helps
+      simplify basic configuration of the firewall OS. One can use
+      standard OS script and configuration files to configure the
+      machine with just one IP address of one interface, used for
+      management, and let the script generated by fwbuilder manage
+      all other IP addresses of all interfaces.  With this,
+      fwbuilder becomes configuration GUI for the whole network
+      setup of the firewall machine.
+    </para>
+
+  </sect2>
+
+
+</sect1>
+
+

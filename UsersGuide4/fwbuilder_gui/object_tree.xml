@@ -1,0 +1,359 @@
+    <sect1 id="object_tree">
+    <title>Object Tree</title>
+
+      <para>
+    <figure id="tree-structure">
+      <title>Object Tree Structure</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-4.png" />
+    </figure>
+      </para>
+
+      <para>The object tree stores all objects in a predefined
+      hierarchy.  Types that correspond to network objects (hosts,
+      address ranges, networks and groups of these) are located in
+      the <guilabel>Objects</guilabel> branch, types that correspond
+      to services are in the <guilabel>Services</guilabel> branch,
+      time intervals are in the <guilabel>Time</guilabel> branch, and
+      all firewalls are in the
+      <guilabel>Firewalls</guilabel> branch. Newly created objects are
+      automatically placed in the appropriate position in the
+      tree. Each branch of the tree is automatically sorted by the
+      object name.</para>
+
+      <para>The program has three default libraries: User, Standard,
+      and Deleted Objects. (Deleted Objects must be turned on
+      in <guimenuitem>File>Preferences>Objects>Show deleted
+      objects</guimenuitem>. <guilabel>User</guilabel> holds objects
+      that you define, including objects for your firewall, hosts, and
+      networks. <guilabel>Standard</guilabel> holds a collection of
+      standard objects that come with the program,
+      and <guilabel>Deleted Objects</guilabel> acts like a trash can
+      or recycle bin for user objects you delete. In addition, you can
+      create tailored libraries by selecting <guimenuitem>New
+      Library</guimenuitem> from the <guimenu>New Object</guimenu>
+      menu and populating it by copy-and-pasting objects from one of
+      the other views (or creating them there from
+      scratch). <xref linkend="new-library" /> has instructions for
+      creating and distributing user-defined libraries.</para>
+
+      <para>Functionally, there is no difference between having an
+      object in the Standard tree, the User tree, or a user defined
+      tree; it is just a convenient way to sort objects in the
+      tree. You can think of each as a kind of the "view". It only
+      affects representation of the data in the GUI; objects are all
+      equal in all other senses and you can use an object from any
+      library in your policy. You need not (and cannot) insert objects
+      into the Standard tree.</para>
+
+      <para>The object that is currently selected in the tree is
+      highlighted in color and is shown in the dialog area on the
+      right.</para>
+
+      <para>
+      <figure id="main-standard-objects">
+        <title>Standard Objects</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/pict_095.png" />
+      </figure>
+      </para>
+
+      <para>Firewall Builder understands and uses the object and
+      service types described in the table below. See
+      <xref linkend="working-with-objects" /> and
+      <xref linkend="working-with-services" /> for more detailed
+      information.</para>
+
+     <table frame='none' tabstyle='reg_table'>
+       <title>Object Types</title>
+        <tgroup cols='2' align='left' rowsep='1'>
+          <colspec colname='c1'  colwidth="120pt"/>
+          <colspec colname='c2'/>
+            <thead>
+              <row>
+                <entry>Object Type</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>Library</entry>
+                <entry>Firewall Builder comes with the Standard, User,
+                and Deleted Objects libraries. In addition, you can
+                create your own.</entry>
+              </row>
+              <row>
+                <entry>Cluster</entry>
+                <entry>Represents a high-availability pair of firewall devices. The firewall objects themselves must be created as fire
+wall objects, then added to the cluster. The cluster's platform and OS settings must match those of the component firewalls.</entry>
+              </row>
+              <row>
+                <entry>Firewall</entry>
+                <entry>Represents a physical firewall device, its
+                interfaces and addresses, and the policy rulesets
+                associated with the device. Use Firewall Builder to
+                model your actual device's firewall software, OS,
+                interfaces and addresses. Then, use Firewall Builder
+                to construct the policy rulesets to assign to the
+                device.</entry>
+              </row>
+              <row>
+                <entry>Host</entry>
+                <entry>A computer on your network. Hosts can have interfaces associated with them.</entry>
+              </row>
+              <row>
+                <entry>Interface</entry>
+                <entry>A physical interface on a firewall or
+                host. Interfaces can have IP and physical (MAC)
+                addresses associated with them. An IP address can be
+                created from the <guimenu>New Object</guimenu> for the
+                selected interface, but physical addresses can only be
+                created by right-clicking on an interface
+                object.</entry>
+              </row>
+              <row>
+                <entry>Network</entry>
+                <entry>An IPv4 subnet</entry>
+              </row>
+              <row>
+                <entry>Network IPv6</entry>
+                <entry>An IPv6 subnet</entry>
+              </row>
+              <row>
+                <entry>Address</entry>
+                <entry>An IPv4 address</entry>
+              </row>
+              <row>
+                <entry>Address IPv6</entry>
+                <entry>An IPv6 address</entry>
+              </row>
+              <row>
+                <entry>DNS Name</entry>
+                <entry>A DNS Name object represents a DNS "A" or
+                "AAAA" record and can resolve it into an IP address at
+                compile or run time.</entry>
+              </row>
+              <row>
+                <entry>Address Table</entry>
+                <entry>Objects of this type can be configured with the
+                name of an external file that is expected to contain a
+                list of IP addresses (a mix of IPv4 and IPv6 is
+                supported). Addresses can be loaded during policy
+                compile or during the execution of a generated
+                firewall script.</entry>
+              </row>
+              <row>
+                <entry>Address Range</entry>
+                <entry>A range of IPv4 or IPv6 IP addresses. This
+                range does not have to be a specific subnet, but it
+                does have to be contiguous.</entry>
+              </row>
+              <row>
+                <entry>Group</entry>
+                <entry>A collection of addressable objects (objects
+                that have or contain IP addresses) such as network,
+                interface, and hosts objects. Useful for creating a
+                less cluttered-looking firewall policy and for making
+                sure you have the same objects in every related
+                rule.</entry>
+              </row>
+              <row>
+                <entry>Custom Service</entry>
+                <entry>Can be used to inject arbitrary code into the generated firewall script.</entry>
+              </row>
+              <row>
+                <entry>ESTABLISHED and ESTABLISHED ipv6 Services</entry>
+                <entry>These services match all packets that are part of network connections established through the firewall, or conne
+ctions 'related' to those established through the firewall. Term 'established' refers to the state tracking mechanism which exists insi
+de iptables and other stateful firewalls and does not mean any particular combination of packet header options.</entry>
+              </row>
+              <row>
+                <entry>IP Service</entry>
+                <entry>An IP service such as GRE, ESP, or VRRP. IP
+                Service objects cover IP services that
+                are <emphasis>not</emphasis> ICMP, ICMP6, TCP, or UDP
+                services.</entry>
+              </row>
+              <row>
+                <entry>ICMP Service</entry>
+                <entry>An ICMP service such as a ping request or reply</entry>
+              </row>
+              <row>
+                <entry>ICMP6 Service</entry>
+                <entry>An ICMP6 service such as "ipv6 packet too big", "ipv6 ping request", or "ipv6 ping reply"</entry>
+              </row>
+              <row>
+                <entry>TCP Service</entry>
+                <entry>TCP services such as HTTP, SMTP, or FTP</entry>
+              </row>
+              <row>
+                <entry>UDP Service</entry>
+                <entry>A UDP service such as DNS or NTP</entry>
+              </row>
+              <row>
+                <entry>TagService</entry>
+                <entry>A service object that lets you examine the tag
+                in an IP header. You can then construct your rule to
+                take appropriate action on a match.</entry>
+              </row>
+              <row>
+                <entry>User Service</entry>
+                <entry>A User Service object matches the owner of the
+                process on the firewall that send the packet. It
+                translates to the "owner" match in iptables and "user"
+                parameter for PF.</entry>
+              </row>
+              <row>
+                <entry>Service Group</entry>
+                <entry>A collection of services. For example, Firewall
+                Builder comes with the Useful_ICMP service group that
+                contains the "time exceeded", "time exceeded in
+                transit", "ping reply", and "all ICMP unreachable"
+                ICMP services. It also comes with a "DNS" service
+                group that contains both the UDP and TCP version of
+                DNS. Useful for creating a less cluttered-looking
+                firewall policy and for making sure you have the same
+                objects in every related rule.</entry>
+              </row>
+              <row>
+                <entry>Time Interval</entry>
+                <entry>A time period such as "weekends" or a range of
+                dates, or a range of times on certain days of the
+                week. Can be used as part of rule matching in Access
+                Policy rulesets to provide or deny access to something
+                based on time. Note that these time intervals are
+                relative to the time on the firewall device
+                itself.</entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+
+      <sect2>
+        <title>Floating the Object Tree</title>
+      <para>By default, the object tree panel and editor panels are anchored to the display area. However, you can cause each to float 
+by clicking the little button next to the close button in the respective panel. This image shows the object tree panel floating free.</para>
+
+      <para>
+    <figure id="floating-object-tree">
+      <title>Object Tree Floating</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/floating-object-tree1.png" />
+    </figure>
+      </para>
+
+    <para>A floating object tree stays associated with its parent object file. However, there is only one object editor panel. It is as
+sociated with whichever object file is active.</para>
+
+    <para>To re-attached a floating panel, click the icon next to the close button again.</para>
+     </sect2>
+
+     <sect2>
+        <title>Filtering the Object Tree</title>
+        <para>There are a lot of objects in the tree, nested in their respective categories. You can filter the tree to have only certa
+in objects and categories appear based on a string. For example, typing "eth" in the <guilabel>Filter</guilabel> field causes all the o
+bjects with "eth" in the object name to appear.</para>
+
+      <para>Here we have the object tree with all categories collapsed and the <guilabel>Filter</guilabel> field unpopulated.</para>
+
+    <para>
+    <figure id="filter-before">
+      <title>Empty Filter Field</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/filter-before.png" />
+    </figure>
+      </para>
+
+     <para>Next we start to type into the <guilabel>Filter</guilabel> field. In this example, we start to type the word "address" to ge
+t all the address-related objects. As you can see from the screen shot below, the filter begins to work immediately. We have only typed
+ "ad" and yet the tree is already filtered by those characters, showing the <guilabel>Address Range</guilabel>, <guilabel>Address Table
+</guilabel>, and <guilabel>Addresses</guilabel> categories and their contents.</para>
+
+    <para>
+    <figure id="filter-after">
+      <title>Populated Filter Field</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/filter-after.png" />
+    </figure>
+      </para>
+
+      <para>Objects are always displayed with their parent objects, so you can always see where your objects "live" in the tree.</para>
+
+      <para>When you enter a string into the <guilabel>Filter</guilabel> field, that string is added to the field's history, which is a
+ccessible by clicking the down arrow next to the field. Here we see our recent history of filters.</para>
+
+    <para>
+    <figure id="filter-history">
+      <title>Filter Field History</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/filter-history.png" />
+    </figure>
+      </para>
+
+    <para>You can clear the history by clicking the <guibutton>X</guibutton> button next to the field.</para>
+
+     </sect2>
+
+     <sect2 id="object-attributes">
+       <title>Object Attributes in the Tree</title>
+        <para>If you check the <guilabel>Show object attributes in the tree</guilabel> checkbox in the <guilabel>Preferences>Object</guilabel> tab, then the object tree displays a second column of information, like shown here.</para>
+
+
+    <para>
+    <figure id="object-attributes-in-tree">
+      <title>Object Attributes Column</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/object-attributes-in-tree.png" />
+    </figure>
+      </para>
+
+    <para>The information shown depends on the type of object.</para>
+
+    <para>If you check the checkbox, but don't see the second column, open the panel wider until you see the column separator, then dra
+g it until the columns are in the right position. Column sizing is saved with the object file, so the next time you open it, the column
+s will be the sizes you left them.</para>
+
+     </sect2>
+
+    <sect2 id="creating-objects">
+      <title>Creating Objects</title>
+
+      <para>New objects can be created using the
+      <guimenu>New Object</guimenu> menu, accessed by clicking this icon above the object tree:</para>
+      <para>
+      <figure id="new-object-icon.png">
+        <title>Create Objects button</title>
+            <graphic scale="100" fileref="fwbuilder_gui/images/new-object-icon.png" />
+      </figure>
+      </para>
+        <para>Certain objects can also
+      be created via a pop-up menu that can be opened by right-clicking on a parent object in the tree.</para>
+      <para>
+      <figure id="menu-new-object">
+        <title>Creating Objects Using The Object Menu</title>
+            <graphic scale="50" fileref="fwbuilder_gui/images/menu-new-object.png" />
+      </figure>
+      </para>
+
+      <para>You can create all objects except physical address objects
+      through the New Object menu. (Physical address objects can only
+      be created by right-clicking on an existing Interface object.)
+      You can also create objects by right-clicking on a folder in a
+      tree (though not in the read-only Standard tree). If you
+      right-click a folder, you can only create objects appropriate to
+      that folder. For example, the interface object can only be
+      placed under a host or firewall object, so the
+      option <guimenuitem>Add Interface</guimenuitem> is available
+      only if you right-click on a host or firewall.</para>
+
+      <para>
+      <figure id="menu-right-click-new-object">
+        <title>Creating Objects by Right-Clicking</title>
+            <graphic scale="50" fileref="fwbuilder_gui/images/menu-right-click-new-object.png" />
+      </figure>
+      </para>
+
+      <para>Another way to create objects is to use
+      the <guimenuitem>Duplicate</guimenuitem> option when you right
+      click on an object. This allows you to create a copy of the
+      object. For example, you may want to create a firewall policy
+      for one platform, duplicate it, then just change the target
+      platform on the copy. However, copies are not linked in any
+      way. A change to the original has no affect on the copy, and
+      vice versa.</para>
+        </sect2>
+    </sect1>
+

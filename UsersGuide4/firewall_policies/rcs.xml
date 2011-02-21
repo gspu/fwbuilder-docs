@@ -1,0 +1,307 @@
+   <sect1 id="rcs">
+      <title>Using Built-in Revision Control in Firewall Builder</title>
+
+        <note><para>Linux and *BSD users must install RCS before using
+        revision control in Firewall Builder.</para></note>
+
+        <para>    Firewall Builder GUI has built-in revision control
+                  system that can be used to keep track of changes in
+                  the objects and policy rules. If data file has been
+                  added to the revision control system, every time it
+                  is saved, the system asks the user to enter a
+                  comment that describes changes done in the file in
+                  this session and stores it along with the data. The
+                  program also assigns new revision number to the data
+                  file using standard software versioning system with
+                  major and minor version numbers separated by a
+                  dot. When you open this data file next time, the
+                  program presents a list of revisions alongside with
+                  dates and comments, letting you choose which revision
+                  you want to use. You can open the latest revision and
+                  continue working with the file from the point where
+                  you left off last time, or open one of the older
+                  revisions to inspect how the configuration looked
+                  like in the past and possibly create a branch in the
+                  revision control system. Here we take a closer look
+                  at the built-in revision control system.</para>
+
+ <para>
+  
+                  We start with a regular data file which we open in
+                  the Firewall Builder GUI as usual. Note that the
+                  name of the file appears in the title bar of the main
+                  window, here it is <emphasis>test2.fwb</emphasis>:
+                
+  </para>
+  
+
+ <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_1.png"/></figure>
+
+  <para>
+  
+                You can always see additional information about the
+                file using main menu <emphasis>File/Properties</emphasis>.  There
+                is not much the program can report about this file
+                that we do not know already. It shows full path where
+                it is located on the file system and the date and time
+                of last modification, but otherwise since it has not
+                been added to the revision control system, there is no
+                additional information it can report.
+              
+  </para>
+  
+
+  <figure><title/>
+    <graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_3.png"/>
+  </figure>
+
+  <para>
+    
+    To start tracking revisions of this data file, use
+    menu <guimenuitem>File/Add File to RCS</guimenuitem>, the program
+    creates all necessary files and reports result in a
+    pop-up dialog. If for some reason adding file to the
+    revision control has failed, the program reports error
+    in the same pop-up dialog.
+    
+
+    <xref linkend="rcs-troubleshooting" /> has a list of
+    typical problems that may occur at this point.
+    
+  </para>
+
+  <table frame='none' tabstyle='reg_table'>
+    <title></title>
+    <tgroup cols='2' align='left'  rowsep='0'>
+      <tbody>
+        <row>
+          <entry>
+            <inlinegraphic scale="50" fileref="firewall_policies/images/rcs_screenshot_4.png"/>
+          </entry>
+
+          <entry>
+            <inlinegraphic scale="50" fileref="firewall_policies/images/rcs_screenshot_5.png"/>
+          </entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </table>
+
+  <para>
+    
+    A few things have changed in the GUI after the file
+    has been added to the revision control system. First,
+    in addition to the file name, the title bar now also
+    shows its revision. The initial revision number after
+    checkin is <emphasis>1.1</emphasis>.
+              
+  </para>
+  
+
+  <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_6.png"/></figure>
+
+  <para>
+  
+                The File/Properties dialog shows that the file is now
+                being tracked by the revision control system and that its
+                current revision is <emphasis>1.1</emphasis>. There is only one
+                revision in the history and the comment
+                is "Initial revision", which is added
+                automatically by the program.
+              
+  </para>
+  
+
+  <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_7.png"/></figure>
+
+  <para>
+  
+                Let's see how the revision control system keeps track
+                of the changes in the data file. To demonstrate this,
+                we are going to make a change in one of the objects,
+                save the object file and check it in (this creates new
+                revision). Then we'll close the object file. Then,
+                we'll open both revisions to see the differences.
+              
+  </para>
+  
+
+  <para>
+  
+                Here is the rule set of the new firewall. It is very simple and consists of just 5 rules:
+              
+  </para>
+  
+
+  <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_8.png"/></figure>
+
+  <para>
+  
+                Now we add one more rule (to permit <emphasis>HTTP</emphasis> to the firewall).
+                This is rule #3, it is colored yellow:
+              
+  </para>
+  
+
+  <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_9.png"/></figure>
+
+  <para>
+  
+                Now we save this file using <guimenuitem>File/Save</guimenuitem> and
+                exit the program. Before we can do that, however, the
+                program tries to check the file in to the RCS and
+                presents a dialog where we can add a comment to
+                document the change we made. We enter the comment and
+                click <guibutton>Check file in</guibutton> to complete the
+                operation. The file is now checked in and the program
+                exits.
+              
+  </para>
+  
+
+  <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_10.png"/></figure>
+
+  <para>
+  
+                Now we restart the program and open the same
+                file using <guimenuitem>File/Open</guimenuitem>. Since the file is now
+                in revision control, the program presents the dialog with the list
+                of its revisions. Each revision has a comment
+                associated with it, shown at the bottom of the
+                dialog. Note also that each revision also shows the
+                user name of the user who checked it in, which is very
+                useful in a multi-user environment.
+              
+  </para>
+
+      <table frame='none' tabstyle='reg_table'>
+        <title></title>
+        <tgroup cols='2' align='left'  rowsep='0'>
+          <tbody>
+      <row>
+        <entry>
+          <inlinegraphic scale="50" fileref="firewall_policies/images/rcs_screenshot_11.png"/>
+        </entry>
+
+        <entry>
+            <inlinegraphic scale="50" fileref="firewall_policies/images/rcs_screenshot_12.png"/>
+        </entry>
+      </row>
+      </tbody>
+      </tgroup>
+    </table>
+
+      <para>
+        If we choose revision <emphasis>1.2</emphasis> (the latest)
+        and click <guibutton>Open</guibutton>, we see the rule that
+        permits HTTP to the firewall:
+      </para>
+      
+      
+      <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_13.png"/></figure>
+      
+      <para>
+        If we choose revision <emphasis>1.1</emphasis> and open the file, we
+        get this policy (note revision
+        number in the main window title bar, it
+        is <emphasis>1.1</emphasis>):
+      </para>
+      
+
+      <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_14.png"/></figure>
+
+      <para>
+                The rule to permit HTTP to the firewall is not there
+                because we opened the earlier revision of the data
+                file. Essentially, we rolled back the change we made
+                in rev <emphasis>1.2</emphasis>. If we only opened the
+                earlier file to take a quick look, we can now just
+                close the file, then open the latest version to
+                continue working. However, if we wanted, we could
+                compile and install the old revision. Note that this
+                can break things if some protocols were added to the
+                firewall rules later, but this can be useful if you
+                need to test things as they were few days ago.
+              
+  </para>
+  
+
+  <para>
+                However, if we want to roll back the change and
+                continue without it, all we need to do is make the
+                change in this revision (1.1) and then save and check
+                it in. This will create a branch in RCS and we will be
+                able to continue working with it later. The previous
+                change, checked in as rev 1.2 will always be there,
+                and we will always be able to revert to it if we
+                want. The program does not merge branches, merging
+                changes in XML files is a complex task and is not
+                implemented at this time.
+              
+  </para>
+  
+
+  <para>
+  
+                To illustrate creation of a branch, we are making a
+                change to the revision 1.1 of the data file as shown
+                on the next screenshot:
+              
+  </para>
+  
+
+  <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_15.png"/></figure>
+
+  <para>
+  
+                We then save and check this file in with an appropriate
+                comment. To check it in we use
+                <guimenuitem>File/Commit</guimenuitem>. We then close the file
+                using <guimenuitem>File/Close</guimenuitem> and reopen it again
+                using <guimenuitem>File/Open</guimenuitem>. This accomplishes the same
+                operation as in the example above in this document,
+                except we do not close the program. When we try to open
+                it, the program shows the branch and new
+                revision <emphasis>1.1.1.1</emphasis> that we just created. Note
+                that the time of the revision <emphasis>1.1.1.1</emphasis> is
+                later than the time of revision <emphasis>1.2</emphasis>:
+              
+  </para>
+  
+
+  <figure><title/><graphic scale="60" fileref="firewall_policies/images/rcs_screenshot_16.png"/></figure>
+
+  <para>
+  
+                Now if we open rev <emphasis>1.1.1.1</emphasis>, continue
+                working with and check new changes in, the program
+                will create revision <emphasis>1.1.1.2</emphasis> and so on.
+              
+  </para>
+  
+
+  <para>
+  
+                This section demonstrates how the built-in revision
+                control system in Firewall Builder GUI can be used to
+                document changes in the file. It can also be used to
+                roll back changes to a previous revision both
+                temporary or permanently. Using RCS helps establish
+                accountability if several administrators can make
+                changes to the policy of firewalls because RCS keeps
+                track of the user name of the user who checked changes
+                in. RCS in Firewall Builder works on all supported OS,
+                that is Linux, FreeBSD, OpenBSD, Windows and Mac OS
+                X. On Linux, *BSD and Mac OS X it relies on
+                system-wide installed <emphasis>rcs</emphasis>
+                package, while on Windows rcs tools are installed as
+                part of the Firewall Builder package. In general, it's
+                useful to always use revision control even in simple
+                cases when only one administrator uses the tool. The
+                ability to document changes and roll back if necessary
+                greatly improve the process of security policy
+                management.
+              
+  </para>
+
+    </sect1>

@@ -1,0 +1,99 @@
+    <sect1 id="multiple-data-files">
+      <title>Working with multiple data files</title>
+
+      <para>This section shows an example of working with two data
+      files at the same time.</para>
+
+  <para>
+    We start with a data file. Note the file name, "policy_rules.fwb", is
+    shown in the main window title bar.
+  </para>
+
+      <para>
+  <figure>
+    <title>Data file</title>
+    <graphic width="50%" fileref="fwbuilder_gui/images/multifile_slide_1.png"/>
+  </figure>
+      </para>
+
+  <para>
+    Use <guimenuitem>File/Open</guimenuitem> to open another data
+    file.
+  </para>
+
+      <para>
+  <figure>
+    <title>Data file</title>
+    <graphic width="50%" fileref="fwbuilder_gui/images/multifile_slide_2.png"/>
+  </figure>
+      </para>
+
+  <para>
+    Here we see file "clusters.fwb" opened in the GUI. Its name is now shown
+    in the title bar of the window.
+  </para>
+
+      <para>
+  <figure>
+    <title>clusters.fwb</title>
+    <graphic width="50%" fileref="fwbuilder_gui/images/multifile_slide_3.png"/>
+  </figure>
+      </para>
+
+  <para>
+    The <guimenu>Window</guimenu> menu supports the usual windows
+    operations: you can maximize and minimize them, as well as cascade
+    or tile them and switch from one to another.
+  </para>
+
+      <para>
+  <figure>
+    <title>Window menu</title>
+    <graphic width="50%" fileref="fwbuilder_gui/images/multifile_slide_4.png"/>
+  </figure>
+      </para>
+
+  <para>
+    Here we have both windows shown. The size of the main windows was
+    rather small to keep the size of the screen shots down, so two
+    windows do not fit well. However even with such a cramped layout
+    we can move objects from one to another using copy/paste operations. In this example we are going to copy-and-paste the 
+    firewall object "fw" from the top window to the bottom one. We
+    are going to paste it into the folder "Firewalls" in the tree.
+  </para>
+
+      <para>
+  <figure>
+    <title>Copy/pasting between windows</title>
+    <graphic width="50%" fileref="fwbuilder_gui/images/multifile_slide_5.png"/>
+  </figure>
+      </para>
+
+  <para>
+    Here we maximized the window showing data file "clusters.fwb"; note that
+    firewall object "fw" is part of the tree.
+  </para>
+
+      <para>
+  <figure>
+    <title>Top window now has the object</title>
+    <graphic width="50%" fileref="fwbuilder_gui/images/multifile_slide_6.png"/>
+  </figure>
+      </para>
+
+  <para>
+    In addition, firewall "fw" used a host object called "dmz-server" in the data
+    file "policy_rules.fwb". Copying the firewall object "fw" also copied
+    all other objects it depended on. This image shows that host
+    "dmz-server" is now part of the data file "clusters.fwb".
+  </para>
+
+      <para>
+  <figure>
+    <title>dmz-server</title>
+    <graphic width="50%" fileref="fwbuilder_gui/images/multifile_slide_7.png"/>
+  </figure>
+      </para>
+  
+  </sect1>
+

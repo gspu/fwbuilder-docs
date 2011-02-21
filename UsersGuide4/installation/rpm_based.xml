@@ -1,0 +1,55 @@
+    <sect1 id="rpm_installation">
+      <title>RPM-based distributions (Red Hat, Fedora, OpenSUSE and others)</title>
+      <para>Using pre-built binary RPMs</para>
+
+      <para>You need to download and install two RPMs:</para>
+
+      <itemizedlist>
+        <listitem><para>Example: <filename>libfwbuilder-4.0.0-1.i386.rpm</filename>
+        </para></listitem>
+        <listitem><para>Example: <filename>fwbuilder-4.0.0-1.i386.rpm</filename>
+        </para></listitem>
+      </itemizedlist>
+
+      <para>To satisfy dependencies, you need the following packages installed on your system:</para>
+
+      <itemizedlist>
+        <listitem><para>libxml2 v2.4.10 or newer
+        </para></listitem>
+        <listitem><para>libxslt v1.0.7 o newer
+        </para></listitem>
+        <listitem><para>ucd-snmp or net-snmp
+        </para></listitem>
+        <listitem><para>QT 4.3.x, 4.4.x, 4.5.x, 4.6.x. Fwbuilder uses
+            features available in QT 4.3 or later, it will not work
+            with 4.2
+        </para></listitem>
+      </itemizedlist>
+        <para>Pre-built binary RPMs for RedHat Enterprise Linux 5 (RHEL 5) and CentOS 5.x</para>
+
+        <para>These distributions do not come with QT4 and third-party
+        binary RPMs of QT v4.3.x and 4.4.x are hard to come by. We
+        distribute binary RPMs of Firewall Builder 4.0 statically
+        linked with QT 4.4.1 for these distributions. These RPMs are
+        posted in the downloads area on the SourceForge project
+        site. These RPMs have the same standard
+        names: <filename>libfwbuilder-4.0.0-1.i386.el5.rpm</filename>
+        and <filename>fwbuilder-4.0.0-1.i386.el5.rpm</filename>, they
+        just have no dependency on QT RPMs.</para>
+
+        <para>If fwbuilder statically linked with QT crashes on start
+        on your CentOS system, check if you have the following font
+        packages installed: bitmap-fonts or
+        bitstream-vera-fonts. Either one should make fwbuilder work
+        (but we are told bitstream-vera fonts look better). See bug
+        report <ulink url="http://sourceforge.net/tracker/?func=detail%26aid=2595205%26group_id=5314%26atid=1070394"><citetitle>#259520
+5</citetitle></ulink>
+        on SourceForge for more details.</para>
+
+      <para>To install Firewall Builder, go to your download directory
+      and run the following command (replace the filenames with the
+      names of the files you actually downloaded:</para>
+
+      <programlisting>rpm -i libfwbuilder-4.0.0-1.i386.rpm fwbuilder-4.0.0-1.i386.rpm</programlisting>
+    </sect1>
+

@@ -1,0 +1,128 @@
+    <sect2 id="tag-rules">
+      <title>Tagging packets</title>
+
+      <para>
+        Tagging packets can be very useful facility that allows you to
+        match a packet at one point in the rule set but act on it
+        later on. This can be combined with rule branching for even
+        more flexibility. Packet tagging is only supported in Firewall
+        Builder for the firewall platforms that can do it, these are
+        iptables and pf. Tagging sometimes can also be used to
+        interact with packet processing not intended to enforce
+        security policy, such as traffic shaping or QoS. Packet tags
+        assigned by iptables can later be used for traffic shaping
+        with Linux utility "tc".
+      </para> 
+
+      <para>
+        In Firewall Builder tagging of packets is done using special
+        service object type. First, you create an object of this type
+        and configure tag number or a string. Once this is done, you
+        can use this object to match tagged packets by just dropping
+        the object to the "Service" column of a policy rule. To assign
+        tag to a packet you choose action "Mark" (iptables) or "Tag"
+        (PF) and drop the same Tag service object to a well in the
+        action options dialog. Lets use an example given in the "A
+        Practical Guide to Linux Traffic Control"
+        (http://blog.edseek.com/~jasonb/articles/traffic_shaping/index.html)
+        to illustrate this. They show how packets can be tagged using
+        iptables target "MARK" so that they can be placed in the right
+        queue for traffic shaping later on. The iptables rule we will
+        create looks like this:
+      </para>
+
+      <programlisting>
+iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
+      </programlisting>
+
+
+      <para>
+        Note how the rule should be placed in the table "mangle",
+        chain "POSTROUTING". This is how target MARK works,
+        administrator just has to know that if they write iptables
+        rules by hand.
+      </para>
+
+      <para>
+        We start with a Tag Service object configured with tag "1":
+      </para>
+
+      <figure id="tag-service-1">
+        <title>Simple tag service</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/tag-service-1.png" />
+      </figure>
+
+      <para>
+        We also need tcp service object to match source port 80:
+      </para>
+
+      <figure id="tcp-sport-80">
+        <title>TCP service to match source port 80</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/tcp-service-sport-80.png" />
+      </figure>
+
+      <para>
+        And now the rule:
+      </para>
+
+      <figure id="iptables-tag-rule-1">
+        <title>Rule matching Tag Service</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/iptables-tag-rule-1.png" />
+      </figure>
+
+      <para>
+        In order to replicate the rule from the Guide, I leave Source
+        and Destination "any", put outside interface of the firewall
+        in "Interface" column, set direction to "Outbound", set action
+        to "Tag" and make it stateless. The following screenshots
+        demonstrate how this is done:
+      </para>
+
+      <figure id="iptables-tag-rule-1-a">
+        <title>Configuring Tag action</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/iptables-tag-rule-1-a.png" />
+      </figure>
+
+      <figure id="iptables-tag-rule-1-b">
+        <title>Configuring rule options to make the rule stateless</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/iptables-tag-rule-1-b.png" />
+      </figure>
+
+
+      <para>
+        This configuration makes fwbuilder generate iptables command
+        that is exactly the same as the one given in "A Practical
+        Guide to Linux Traffic Control".
+      </para>
+
+      <para>
+        The rule reproduced from the Guide is stateless and matches
+        and tags every reply HTTP packet crossing the firewall. This
+        is not very efficient in case the firewall has to forward
+        heavy HTTP traffic because it has to work on every single
+        packet. To make things more efficient, iptables can mark whole
+        sessions which means individual packets can be marked
+        automatically as long as they belong to the session that was
+        marked once. To use this feature with Firewall Builder, turn
+        on checkbox "Mark connections created by packets that match
+        this rule" in the dialog
+        <xref linkend="iptables-tag-rule-1-a"/> where you configure
+        options for the rule action and where the well into which you
+        had to drop Tag Service object is located. This checkbox
+        modifies generated iptables script by adding a call to
+        CONNMARK iptables target that marks whole connection and also
+        by adding the following rule on top of the script:
+      </para>
+
+      <programlisting>
+# ================ Table 'mangle', automatic rules
+$IPTABLES -t mangle -A PREROUTING -j CONNMARK --restore-mark
+      </programlisting>
+
+      <para>
+        This rule automatically restores mark on the packets that
+        belong to the marked session.
+      </para>
+
+    </sect2>
+

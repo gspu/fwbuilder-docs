@@ -2,74 +2,23 @@
 
 SYSTEM := $(shell uname -s)
 SOURCES = Introduction.xml \
-		Troubleshooting.xml \
-		Appendix.xml \
+		troubleshooting/Troubleshooting.xml \
+		appendix/Appendix.xml \
 		UsersGuide4.xml \
-		clusters.xml \
-		interfaces.xml \
-		ip_address_management.xml \
-		vlan_management.xml \
-		bridge_management.xml \
-		bonding_interface_management.xml \
-		compile-install-detail.xml \
-		cookbook.xml \
+		cluster_config/clusters.xml \
+		interface_config/interfaces.xml \
+		compile_install/compile-install-detail.xml \
+		cookbook/cookbook.xml \
 		definitions.xml \
-		firewall-policies.xml \
-		gettingstarted.xml \
-		install.xml \
-		network-discovery.xml \
-		remote-management.xml \
-		using-gui.xml \
-		working-with-objects.xml \
-		change-ip-address-in-template.xml \
-		policy-cookbook.xml \
-		nat-cookbook.xml \
-		cluster-cookbook.xml \
-		tricks.xml \
-		vrrpd_cluster.xml \
-		web_server_cluster.xml \
-		heartbeat_cluster.xml \
-		heartbeat_vlan_cluster.xml \
-		heartbeat_dedicated_interface.xml \
-		state_sync_conntrackd.xml \
-		pf_cluster.xml \
-		pix_cluster.xml \
-		support_for_specific_firewall_os.xml \
-		configlets.xml \
-		object-types.xml \
-		addressable-objects.xml \
-		service-objects.xml \
-		time-objects.xml \
-		new-library.xml \
-		find-and-replace.xml \
-		combined-ipv4-ipv6-rule-set.xml \
-                using-negation-in-policy-rules.xml \
-                multiple-services-on-virtual-addresses.xml \
-                ipv6-policy.xml \
-                anti-spoofing-rules-with-dynamic-addresses.xml \
-                anti-spoofing-rules.xml \
-                control-access-to-fw.xml \
-                interchangeable-objects.xml \
-                policy-cookbook.xml \
-                blocking-packets.xml \
-                using-action-reject.xml \
-                matching-source.xml \
-                block_ssh_attack_with_module_recent.xml \
-                matching-source-and-service.xml \
-                matching-service.xml \
-                using-address-range-instead-of-group.xml \
-                firewall-as-dhcp-dns-server.xml \
-                outgoing-connections.xml \
-                rules-on-loopback.xml \
-                controlling-access-to-different-ports.xml \
-                blocking-long-lists-of-addresses.xml \
-                tag-rules.xml \
-                block_ssh_attack_using_branch.xml \
-                policy-cookbook-1.xml \
-                addressable-objects.xml \
-                using-groups.xml \
-                branching-rules.xml \
-
+		firewall_policies/firewall-policies.xml \
+		getting_started/gettingstarted.xml \
+		installation/install.xml \
+		network_discovery/network-discovery.xml \
+		remote_management/remote-management.xml \
+		fwbuilder_gui/using-gui.xml \
+		objects/working-with-objects.xml \
+		firewall_os/support_for_specific_firewall_os.xml \
+		configlets/configlets.xml \
 
 
 CATALOGS = catalog-Darwin.xml catalog-Linux.xml
@@ -102,10 +51,38 @@ html: html/index.html  target.db
 html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	rm -rf html
 	mkdir -p html
-	mkdir -p html/gs
-	cp *.jpg html/
+	mkdir -p html/getting_started/images
+	mkdir -p html/fwbuilder_gui/images
+	mkdir -p html/objects/images
+	mkdir -p html/network_discovery/images
+	mkdir -p html/firewall_policies/images
+	mkdir -p html/cluster_config/images
+	mkdir -p html/interface_config/images
+	mkdir -p html/compile_install/images
+	mkdir -p html/configlets/images
+	mkdir -p html/cookbook/change_template/images
+	mkdir -p html/cookbook/policy_rules/images
+	mkdir -p html/cookbook/nat_rules/images
+	mkdir -p html/cookbook/cluster/images
+	mkdir -p html/cookbook/useful_tricks/images
+	mkdir -p html/troubleshooting/images
 	cp *.png html/
-	cp gs/*.png html/gs/
+	cp getting_started/images/*.png html/getting_started/images
+	cp fwbuilder_gui/images/*.png html/fwbuilder_gui/images
+	cp objects/images/*.png html/objects/images
+	cp objects/images/*.jpg html/objects/images
+	cp network_discovery/images/*.png html/network_discovery/images
+	cp firewall_policies/images/*.png html/firewall_policies/images
+	cp cluster_config/images/*.png html/cluster_config/images
+	cp interface_config/images/*.png html/interface_config/images
+	cp compile_install/images/*.png html/compile_install/images
+	cp configlets/images/*.png html/configlets/images
+	cp cookbook/change_template/images/*.png html/cookbook/change_template/images
+	cp cookbook/policy_rules/images/*.png html/cookbook/policy_rules/images
+	cp cookbook/nat_rules/images/*.png html/cookbook/nat_rules/images
+	cp cookbook/cluster/images/*.png html/cookbook/cluster/images
+	cp cookbook/useful_tricks/images/*.png html/cookbook/useful_tricks/images
+	cp troubleshooting/images/*.png html/troubleshooting/images
 	cp *.css html/
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl \
 			UsersGuide4.xml
@@ -117,10 +94,39 @@ fo:   fo/UsersGuide4.fo  target.db
 fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	rm -rf fo
 	mkdir -p fo
-	mkdir -p fo/gs
+	mkdir -p fo/getting_started/images
+	mkdir -p fo/fwbuilder_gui/images
+	mkdir -p fo/objects/images
+	mkdir -p fo/network_discovery/images
+	mkdir -p fo/firewall_policies/images
+	mkdir -p fo/cluster_config/images
+	mkdir -p fo/interface_config/images
+	mkdir -p fo/compile_install/images
+	mkdir -p fo/configlets/images
+	mkdir -p fo/cookbook/change_template/images
+	mkdir -p fo/cookbook/policy_rules/images
+	mkdir -p fo/cookbook/nat_rules/images
+	mkdir -p fo/cookbook/cluster/images
+	mkdir -p fo/cookbook/useful_tricks/images
+	mkdir -p fo/troubleshooting/images
 	cp *.jpg fo/
 	cp *.png fo/
-	cp gs/*.png fo/gs/
+	cp getting_started/images/*.png fo/getting_started/images
+	cp fwbuilder_gui/images/*.png fo/fwbuilder_gui/images
+	cp objects/images/*.png fo/objects/images
+	cp objects/images/*.jpg fo/objects/images
+	cp network_discovery/images/*.png fo/network_discovery/images
+	cp firewall_policies/images/*.png fo/firewall_policies/images
+	cp cluster_config/images/*.png fo/cluster_config/images
+	cp interface_config/images/*.png fo/interface_config/images
+	cp compile_install/images/*.png fo/compile_install/images
+	cp configlets/images/*.png fo/configlets/images
+	cp cookbook/change_template/images/*.png fo/cookbook/change_template/images
+	cp cookbook/policy_rules/images/*.png fo/cookbook/policy_rules/images
+	cp cookbook/nat_rules/images/*.png fo/cookbook/nat_rules/images
+	cp cookbook/cluster/images/*.png fo/cookbook/cluster/images
+	cp cookbook/useful_tricks/images/*.png fo/cookbook/useful_tricks/images
+	cp troubleshooting/images/*.png fo/troubleshooting/images
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 		--xinclude \
 		--stringparam fop1.extensions 1  \

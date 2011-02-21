@@ -1,0 +1,34 @@
+    <sect1 id="ubuntu">
+      <title>Ubuntu Installation</title>
+      <para>Using pre-built binary packages</para>
+      
+      <para>You need to download and install two packages: 
+
+      <itemizedlist>
+        <listitem><para>Example: <filename>libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</filename>
+        </para></listitem>
+        <listitem><para>Example: <filename>fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</filename>
+        </para></listitem>
+      </itemizedlist></para>
+
+      <para>To satisfy dependencies, you need the following packages installed on your system:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>QT 4.3.x, 4.4.x, 4.5.x, 4.6.x. Fwbuilder uses features
+            available in QT 4.3 or later, it will not work with 4.2
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <para>You can get QT via your favorite package manager.</para>
+
+      <para>To install Firewall Builder, go to your download directory
+      and run the following command (replace the filenames with the
+      names of the files you actually downloaded:</para>
+
+      <programlisting>dpkg -i libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb \
+          fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</programlisting>
+
+    </sect1>
+

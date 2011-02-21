@@ -1,0 +1,9 @@
+    <sect1 id="macosx_install">
+      <title>Mac OS X Installation</title>
+
+      <para>Mac OS X package is distributed in the form of a disk
+      image ( .dmg file). Doubleclick on the image to mount it, then
+      drag Firewall Builder application to your Applications folder
+      (or any other place).</para>
+    </sect1>
+

@@ -1,0 +1,310 @@
+    <sect1 id="problems_after_policy_activation">
+      <title>Issues after new policy activation</title>
+
+      <sect2>
+        <title>Cannot access only some web sites</title>
+
+        <para><emphasis>Can access most web sites through the firewall just fine,
+        except for a few.</emphasis></para>
+
+        <para>The browser would state "waiting for www.somesite.com" for a
+        while and then time out when you connect to one of these sites.</para>
+
+        <para>This might be caused by a MTU problem if you are on a DSL
+        connection using PPPoE. Here are couple of useful pages that describe
+        the problem in details:</para>
+
+        <para><itemizedlist spacing="compact">
+            <listitem>
+              <para>http://www.dslreports.com/tweaks/MTU</para>
+            </listitem>
+
+            <listitem>
+              <para>http://www.internetweekly.org/llarrow/mtumss.html</para>
+            </listitem>
+          </itemizedlist></para>
+
+        <para>If your firewall runs iptables you can use option "Clamp MSS to
+        MTU" in the firewall settings dialog to work around it.</para>
+
+        <para>For the PF firewalls similar option is called "Enforce maximum
+        MSS" and is located in the "Scrub rule options" tab of firewall
+        settings dialog. It allows for setting MSS value of TCP sessions
+        opened through the firewall; try values between 1460 or 1464 (1464 is
+        the maximum MSS value that can be used on PPPoE connections without
+        fragmentation).</para>
+
+        <para>There is no way to change MSS value on the ipf, ipfw and pix
+        firewalls. If your firewall is one of these, you may need to change
+        MTU on your workstation. See links above for recommendations on how to
+        do it.</para>
+      </sect2>
+
+      <sect2>
+        <title>Firewall becomes very slow with new policy</title>
+
+        <para>You compiled and started firewall policy script and then
+        noticed that seemingly every operation on the firewall takes a
+        lot longer than before. For example, it takes forever to log
+        into it using telnet or ssh, different services take a few
+        minutes to start or won't start at all.</para>
+
+        <para>Most likely the firewall needs to be able to do DNS
+        lookups but can't. Look in /etc/resolv.conf for the address of
+        the name server it is using and make sure you have a rule in
+        the policy to permit connections to it. Use firewall object in
+        "Source", the name server object in "Destination" and a
+        standard service object group "DNS" in the Service
+        field.</para>
+
+        <para>If your firewall runs caching name server and file
+        /etc/resolv.conf lists "127.0.0.1" as a name server address,
+        then you need to permit firewall to talk to itself. Here is
+        how such /etc/resolv.conf file looks like:</para>
+
+<programlisting>
+    domain your_domain.com
+    nameserver 127.0.0.1 
+</programlisting>
+
+        <para>You need to add a rule with the firewall object in both
+        Source and Destination fields and the service object group
+        "DNS" in the Service field to the loopback interface. This
+        rule permits the firewall machine to communicate with the name
+        server running on it, but you need another rule to permit the
+        name server to send DNS queries and receive answers. This rule
+        should have the firewall object in Source, Destination should
+        be set to "any" and the same standard service object group
+        "DNS" should be used in the Service element. Now not only
+        firewall can query the name server process running on it, but
+        the process in turn can send queries to other name servers on
+        the Internet and receive answers.</para>
+
+        <para>Here is the rule that should be added to the loopback
+        interface:</para>
+
+      <figure float="1" id="dns1">
+        <title>DNS on loopback</title>
+            <graphic scale="70" fileref="troubleshooting/images/dns1.png" />
+      </figure>
+
+        <para>Here is the rule that permits the name server process to
+        communicate with name servers on the Internet:</para>
+
+      <figure float="1" id="dns2">
+        <title>DNS on to name servers</title>
+            <graphic scale="70" fileref="troubleshooting/images/dns2.png" />
+      </figure>
+
+        <para> Depending on your policy design, you may want to permit
+        all services rather than just DNS on the loopback interface
+        because there are many other processes that need to be able to
+        communicate with the same host, such as X11, RPC and
+        others. The dedicated firewall machine should not run anything
+        unnecessary, so there you may experiment with limiting the
+        number of services in the rule on loopback the interface. On
+        the other hand, if you use fwbuilder to protect a server that
+        runs many different services, permitting any service on the
+        loopback may be a simpler solution.</para>
+
+        <para>The next rule permits processes running on the firewall
+        to communicate with other processes running on the same
+        machine on all protocols:
+        </para>
+        
+        <figure id="dns3">
+          <title>Any to any on firewall</title>
+          <graphic scale="70" fileref="troubleshooting/images/dns3.png" />
+        </figure>
+
+      <para>
+        
+      </para>
+
+      </sect2>
+
+      <sect2>
+        <title>X won't start on a server protected by the firewall</title>
+
+        <para>You've built a firewall script to protect a server, but after you ran the script, X (KDE, Gnome) won't start anymore.</para>
+
+        <para>The reason for this is the same as in the DNS problem -- you need a rule to permit processes to communicate with other
+ processes running on the same machine. This can easily be achieved with the following rule added to the loopback interface:</para>
+
+      <figure id="dns3-1">
+        <title>Any to any on firewall</title>
+            <graphic scale="70" fileref="troubleshooting/images/dns3.png" />
+      </figure>
+
+      </sect2>
+
+      <sect2>
+        <title>Cannot access Internet from behind firewall</title>
+
+        <para><emphasis>I compiled and activated firewall policy, but workstations
+        behind the firewall still cannot access the Internet.</emphasis></para>
+
+        <para>Here are few troubleshooting steps:</para>
+
+        <para><itemizedlist spacing="compact">
+            <listitem>
+              <para>Make sure you compiled, then installed and activated
+              firewall policy. Were there any errors during compile and
+              activation?</para>
+            </listitem>
+
+            <listitem>
+              <para>check if ip forwarding is turned on (pull down menu in the
+              "Network" tab of the firewall object dialog).</para>
+            </listitem>
+
+            <listitem>
+              <para>try to ping hosts on the Internet by their IP address, not
+              their name. This helps isolate DNS problems. If you can ping by
+              address but can't ping by name, then you need to add policy
+              rules to permit DNS queries.</para>
+            </listitem>
+
+            <listitem>
+              <para>Look in firewall's log for records indicating that it
+              drops packets. Error in the policy design can cause it to block
+              connections that you really want to go through.</para>
+            </listitem>
+
+            <listitem>
+              <para>Use option "Log everything" to make all rules generate log
+              entries, this sometimes helps pinpoint a rule that drops
+              packets.</para>
+            </listitem>
+          </itemizedlist></para>
+
+        <para>Things to check in the policy:</para>
+
+        <para><itemizedlist spacing="compact">
+            <listitem>
+              <para>Check if you have a NAT rule if your protected network is
+              using "private" IP addresses.</para>
+            </listitem>
+
+            <listitem>
+              <para>If the NAT rule is there, then you may need to add a
+              policy rule to actually permit connections from the protect
+              network.</para>
+            </listitem>
+
+            <listitem>
+              <para>In case when NAT is not used, check if the routing is
+              configured properly. If your firewall separates subnets A and B,
+              and you are trying to connect from the host on subnet A to the
+              host on subnet B, then both hosts should have routing to the
+              opposite network. Host on the net A needs a route for the net B,
+              pointing at the firewall. Similarly, host on the net B needs a
+              route for the net A, also pointing at the firewall. If one (or
+              both) host has a default route pointing at the firewall, then it
+              won't need a special route for another network.</para>
+            </listitem>
+          </itemizedlist></para>
+      </sect2>
+
+      <sect2>
+        <title>Installing updated firewall policy seems to make no difference</title>
+
+        <para><emphasis>I compiled and activated firewall policy, but
+            my tests seem to show no difference. If I add a rule to
+            block some protocol, it remains permitted for some
+            reason.</emphasis></para>
+
+        <para>Here are few troubleshooting steps:</para>
+
+        <para>
+          First of all, make sure you compile the right firewall
+          object and install on the right firewall machine, the same
+          one you use for testing. It is all too easy to mix them up
+          if you have several firewalls. Another case when this
+          happens often is when you work on the firewall replacement
+          and have both old and new firewall machines running
+          simultaneously. You may be pushing updated policy to the new
+          machine, while traffic is still routed through the old one.
+        </para>
+
+        <para>
+          If you test by adding a rule to deny some protocol and then
+          trying to connect with this protocol, but it remains
+          permitted, check that you do not have any rules that permit
+          it above the one you've added for testing. You can use
+          "Find" function (<xref linkend="find-replace"/>) in Firewall
+          Builder GUI to find all uses of any service object.  Keep in
+          mind that there could be two objects with different names
+          but the same port and protocol configuration. You can search
+          for objects by their name, tcp/udp port number, ip address
+          etc.
+        </para>
+
+        <para>
+          If you use ssh access to test rules by adding a rule that
+          denies ssh access to the firewall, keep in mind that
+          automatic rule may override it. The automatic rule is added
+          using checkbox "Always permit ssh access from the management
+          workstation" in the firewall settings dialog. See
+          <xref linkend="backup_ssh_access_rule"/>.
+        </para>
+
+        <para>
+          Pay attention to the output that appears in the progress
+          window of the policy installer when you install and activate
+          updated policy. Iptables script generated by fwbuilder
+          always prints the following information when it is activated
+          (here is an example):
+
+          <programlisting>
+Activating firewall script generated Mon Aug 09 17:22:11 2010 by vadim
+Running prolog script
+Verifying interfaces: eth0 eth1 lo
+Rule 0 (NAT)
+Rule 0 (eth0)
+Rule 1 (lo)
+Rule 2 (global)
+Rule 3 (global)
+Rule 4 (global)
+Rule 5 (global)
+Rule 6 (global)
+Rule 7 (global)
+Rule 8 (global)
+Rule 9 (global)
+Running epilog script
+          </programlisting>
+        </para>
+
+        <para>
+          Do you see the "Activating firewall script ... " line in the
+          progress output of the installer? If not, you might be
+          running different script on the firewall. Compare the date
+          and time reported by the script, could it be too old ?
+        </para>
+
+        <note> 
+          <para>
+            Output shown above appears in the progress output of the
+            installer when you run it with both "Quiet" and "Verbose"
+            options turned off. Running it with "quiet" turned on
+            suppresses these lines and running it in verbose mode
+            produces a lot more output.
+          </para>
+        </note>
+
+        <para>
+          Another reason updated policy may not be activated is if you
+          tried an external activation script previously but perhaps
+          forgot about it. In this case the installer will be running
+          this script instead of newly generated firewall script. You
+          can configure alternative command that installer should
+          execute on the firewall in the "Installer" tab of the
+          firewall settings dialog. If this option is set to some
+          script on the firewall machine and this script does not in
+          turn call script generated by fwbuilder, you might be
+          reloading the same firewall policy every time you
+          install. This is just another thing to check.
+        </para>
+      </sect2>
+    </sect1>
+

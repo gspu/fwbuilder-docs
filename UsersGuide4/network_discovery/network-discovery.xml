@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <chapter id="discovery">
+    <title>Network Discovery: A Quick Way to Create Objects</title>
+
+    <para>One of the distinguishing features that Firewall Builder provides is
+    support for automated object creation. This helps populate the objects
+    tree for large networks with lots of hosts and subnets. What might take hours to do manually, the
+    Discovery Druid wizard can help you do in minutes.</para>
+
+    <para>To start the Discovery Druid, select 
+    <guimenuitem>Tools</guimenuitem>/<guimenuitem>Discovery
+    Druid</guimenuitem>.</para>
+
+    <para>The Discovery Druid supports three main methods for automated object
+    creation:</para>
+
+    <para><itemizedlist spacing="compact">
+        <listitem>
+          <para>Reading file /etc/hosts</para>
+        </listitem>
+
+        <listitem>
+          <para>Network discovery using SNMP queries</para>
+        </listitem>
+
+        <listitem>
+          <para>Import the configuration of a firewall or router</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>You choose the method on the first page of the Druid ( <xref
+    linkend="discovery-page1" />. )</para>
+
+    <figure id="discovery-page1">
+      <title>Calling The Object Discovery Druid</title>
+          <graphic scale="70" fileref="network_discovery/images/discovery-druid1.png" />
+    </figure>
+
+    <para>Just check the radio-button next to the method you want to use and
+    click <guibutton>'Next</guibutton>.</para>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="import_hosts.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="snmp_discovery.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="policy_importer.xml"/>
+
+  </chapter>

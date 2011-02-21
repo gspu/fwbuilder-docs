@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="remote-management">
+  <title>Manage your firewall remotely</title>
+
+  <para>
+    This chapter explains how to set up a firewall on a small
+    dedicated machine and use a separate workstations to manage it.
+  </para>
+  
+  <para>
+    The best way to utilize the flexibility of Firewall Builder and to
+    minimize the risk to your network is to run Firewall Builder on a
+    dedicated management workstation. This workstation will have the
+    near-full installation of Linux or FreeBSD, complete with X11 and
+    Gnome or KDE. Alternatively, it can be a Mac or Windows PC.
+  </para>
+
+  <para>
+    The reason we do not recommend running X11 and GUI environment on
+    the firewall is actually rather simple. It is well known that
+    complex programs are more prone to errors than simple and short
+    ones. X11 and GUI environments are
+    <emphasis>very</emphasis> complex programs, rivaling or exceeding
+    the Linux kernel in size. Granted, you may be safe if you run
+    these on the firewall provided you install all the latest patches
+    and keep your software up-to-date. This, however, means a lot of
+    effort and time spent on maintaining software that is not
+    essential to the operation of the firewall and is being used only
+    once in a while. You may add protection using firewall rules to
+    block all access to the firewall itself from outside (a very good
+    idea regardless whether you run X11 on it), but then you need to
+    carefully watch your policy to make sure you don't drop these
+    rules accidentally. The rules may get more complex if you ever
+    need to manage your firewall remotely, making verification
+    difficult. All this adds up to the risk factor, so it is just a
+    lot simpler to not have X11 and GUI on the firewall at all.
+  </para>
+
+  <para>
+    In other words, run X11 and GUI environment on the firewall
+    machine only when you have a definite reason to do so, and keep an
+    open eye on it.
+  </para>
+
+  <para>
+    We will look at configuring the dedicated firewall machine and
+    then at configuring the management workstation.
+  </para>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="firewall_setup.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="diskless_firewall_config.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mgmt_workstation.xml"/>
+
+</chapter>

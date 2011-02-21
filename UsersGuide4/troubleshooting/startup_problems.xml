@@ -1,0 +1,95 @@
+    <sect1 id="startup_problems">
+      <title>Program Startup Issues</title>
+
+      <sect2>
+        <title>"fwbuilder: cannot connect to X server localhost:0.0"</title>
+
+        <para><emphasis>fwbuilder binary does not start. Error "fwbuilder: cannot
+        connect to X server localhost:0.0" or similar</emphasis></para>
+
+        <para>Firewall Builder GUI is an X application, that is, it needs X
+        server to display it on the screen. The program determines how to
+        connect to the X server using environment variable DISPLAY; you
+        probably do not have this environment variable if you get an error
+        like that. The simplest way to avoid this problem is to start
+        fwbuilder from the shell window in Gnome or KDE environment.</para>
+
+        <para>It may also be that the environment variable DISPLAY is set, but
+        the program fwbuilder cannot connect to the X server. In this
+        situation you won't be able to run any application using X, check if
+        that's the case by trying to start "xclock". This may be happening
+        because of many different reasons, such as X server is not running, X
+        authentication failure, or DISPLAY variable reassigned its value by
+        the shell login script or many others. This problem falls outside the
+        scope of this document, please search on the Internet for the answer.
+        Here are few URLs to make troubleshooting easier:</para>
+
+        <para><itemizedlist spacing="compact">
+            <listitem>
+              <para>http://www.openssh.org/faq.html</para>
+            </listitem>
+
+            <listitem>
+              <para>http://en.tldp.org/HOWTO/XDMCP-HOWTO/ssh.html</para>
+            </listitem>
+
+            <listitem>
+              <para>http://en.tldp.org/LDP/intro-linux/html/sect_10_03.html</para>
+            </listitem>
+          </itemizedlist></para>
+      </sect2>
+
+      <sect2>
+        <title>"fwbuilder: error while
+        loading shared libraries: libfwbuilder.so.0: cannot load shared
+        object file: no such file or directory."</title>
+
+        <para><emphasis>fwbuilder binary does not start. Error "fwbuilder: error while
+        loading shared libraries: libfwbuilder.so.0: cannot load shared
+        object file: no such file or directory."</emphasis></para>
+
+        <para>Then the GUI binary (fwbuilder) cannot find API library
+        libfwbuilder. If you are using our binary packages, then make sure you
+        download and install package called libfwbuilder. If you compiled from
+        sources, then perhaps you installed libfwbuilder with default prefix
+        /usr/local/, therefore library went to /usr/local/lib. Dynamic linker
+        ldd cannot find it there.</para>
+
+        <para>You have the following options:</para>
+
+        <para><itemizedlist spacing="compact">
+            <listitem>
+              <para>create environment variable LD_LIBRARY_PATH with value
+              /usr/local/lib and run fwbuilder from this environment.</para>
+            </listitem>
+
+            <listitem>
+              <para>add /usr/local/lib to the file /etc/ld.so.conf and run
+              ldconfig so it will rescan dynamic libraries and add them to its
+              cache.</para>
+            </listitem>
+
+            <listitem>
+              <para>recompile libfwbuilder and fwbuilder with prefix /usr/,
+              this will install libfwbuilder.so.0 in /usr/lib. ldd will find
+              it there without any changes to environment variables or
+              /etc/ld.so.conf file. To change prefix you need to run
+              autogen.sh with command line parameter "--prefix=/usr". Do this
+              both for libfwbuilder and fwbuilder.</para>
+            </listitem>
+          </itemizedlist></para>
+      </sect2>
+
+      <sect2>
+        <title>"fwbuilder: error while loading shared libraries: /usr/local/lib/libfwbuilder.so.8: cannot restore segment prot after re
+loc: Permission denied"</title>
+
+        <para><emphasis>fwbuilder binary does not start. Error "fwbuilder: error while loading shared libraries: /usr/local/lib/libfwbu
+ilder.so.8: cannot restore segment prot after reloc: Permission denied"</emphasis></para>
+
+          <para>The problem is caused by SELinux security settings, to work around it try the following command:</para>
+
+          <para><command>chcon -t texrel_shlib_t /usr/lib/libfwbuilder.so*</command></para>
+        </sect2>         
+    </sect1>
+

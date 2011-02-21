@@ -1,0 +1,171 @@
+    <sect1 id="compile_from_source">
+      <title>Compiling from Source</title>
+
+      <para>Firewall Builder can be compiled and works on the
+      following OS and distributions: Debian Linux (including Ubuntu), Mandrake Linux, RedHat Linux,
+        SuSE Linux, Gentoo Linux, FreeBSD, OpenBSD, Mac OS X, Solaris.
+      </para>
+
+      <para>To compile from source, first download dependencies for your platform:</para>
+
+      <para>For RedHat-based systems:</para>
+
+      <itemizedlist spacing="compact">
+        <listitem>
+          <para>automake</para>
+        </listitem>
+
+        <listitem>
+          <para>autoconf</para>
+        </listitem>
+
+        <listitem>
+          <para>libtool</para>
+        </listitem>
+
+        <listitem>
+          <para>libxml2-devel</para>
+        </listitem>
+
+        <listitem>
+          <para>libxslt-devel</para>
+        </listitem>
+
+        <listitem>
+          <para>net-snmp-devel</para>
+        </listitem>
+
+        <listitem>
+          <para>qt</para>
+        </listitem>
+
+        <listitem>
+          <para>qt-devel</para>
+        </listitem>
+
+        <listitem>
+          <para>qt-x11</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>You may need to install packages elfutils-libelf and
+      elfutils-libelf-devel (libelf on SuSE), otherwise libfwbuilder
+      won't pick up net-snmp library even if it is installed.</para>
+
+      <para>For Debian-based systems:</para>
+
+      <itemizedlist spacing="compact">
+        <listitem>
+          <para>automake</para>
+        </listitem>
+
+        <listitem>
+          <para>autoconf</para>
+        </listitem>
+
+        <listitem>
+          <para>libtool</para>
+        </listitem>
+
+        <listitem>
+          <para>libxml2-dev</para>
+        </listitem>
+
+        <listitem>
+          <para>libxslt-dev</para>
+        </listitem>
+
+        <listitem>
+          <para>libsnmp-dev</para>
+        </listitem>
+
+        <listitem>
+          <para>libqt4-core</para>
+        </listitem>
+
+        <listitem>
+          <para>libqt4-dev</para>
+        </listitem>
+
+        <listitem>
+          <para>libqt4-gui</para>
+        </listitem>
+
+        <listitem>
+          <para>qt4-dev-tools</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Next, download source archives from SourceForge
+      (libfwbuilder-4.0.0.tar.gz and fwbuilder-4.0.0.tar.gz, for
+      example) and unpack them somewhere. Then build as
+      follows:
+      </para>
+
+<programlisting>
+cd libfwbuilder-&lt;version_number&gt;
+./autogen.sh
+make
+make install
+
+cd /fwbuilder-&lt;version_number&gt;
+./autogen.sh
+make
+make install
+</programlisting> 
+
+    <note><title>Compilation may require other packages for RedHat and SuSE</title>
+
+    <para>If you get errors that refer to missing autoconf macros
+      while running autogen.sh for fwbuilder, check if your system has
+      RPM gettext-devel. You may need to add other "development" RPMs
+      besides these, but these two are often forgotten.</para>
+    </note>
+
+    <para>The configure scripts for both libfwbuilder and fwbuilder
+      tries to find your QT4 installation in several more-or-less
+      standard places. However, if you installed QT in a directory
+      where the script can't find it, you can provide the path to it
+      using the <parameter>--with-qtdir</parameter> option to script
+      autogen.sh. This looks as follows:
+    </para>
+
+    <programlisting>
+cd libfwbuilder-&lt;version_number&gt;
+./autogen.sh --with-qtdir=/opt/qt4
+make
+make install
+      
+cd /fwbuilder-&lt;version_number&gt;
+./autogen.sh --with-qtdir=/opt/qt4
+make
+make install
+    </programlisting>           
+
+    <para>
+      By default script configure assumes prefix="/usr/local" and
+      installs libfwbuilder libraries in /usr/local/lib and binaries
+      in /usr/local/bin. Make sure /usr/local/lib is added to your
+      LD_LIBRARY_PATH environment variable or to the /etc/ld.so.conf
+      configuration file, otherwise the program won't find dynamic
+      libraries there. Likewise, /usr/local/bin needs to be in your
+      PATH.
+    </para>
+
+    <para>
+      You can install libraries and binaries in a different place by
+      specifying new prefix as follows:
+    </para>
+
+    <programlisting>
+./autogen.sh --prefix="/opt"
+    </programlisting>
+
+    <para>
+      This will install libraries
+      in <filename class='directory'>/opt/lib</filename> and the
+      program in <filename class='directory'>/opt/bin</filename>.
+    </para> 
+
+    </sect1>
+

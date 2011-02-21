@@ -1,0 +1,4 @@
+    <sect1 id="firewall_policy_compile_and_install">
+        <title>Compiling and Installing Your Policy</title>
+        <para>See <xref linkend="compile-install-detail" /> for full details on compiling and installing your firewall policy.</para>
+    </sect1>

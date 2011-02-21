@@ -1,0 +1,40 @@
+  <sect1 id="diskless_firewall_configuration">
+
+    <title>Using Diskless Firewall Configuration</title>
+    
+    <para>
+      Several projects came up with a decent distributions intended
+      for a small diskless router/firewall. We have experience
+      with <ulink url="http://www.zelow.no/floppyfw/"><citetitle>floppyfw</citetitle></ulink>
+      and <ulink url="http://www.devil-linux.org"><citetitle>Devil
+      Linux</citetitle></ulink>, consequently Firewall Builder has
+      policy install scripts for these. The advantage of using either
+      one of these is that you won't have to install OS and software
+      on the firewall machine; you just pop in a floppy or a CD-ROM
+      and boot from it. This is as close as it comes to the firewall
+      appliance, yet you get a modern Linux kernel and iptables with
+      both. The whole OS is stored on the write-protected media and
+      can be easily replaced or upgraded simply by changing the
+      disk. Floppy FW comes on a single floppy. (These guys managed to
+      pack a kernel, a busybox application and bunch of other programs
+      on a single compressed ram disk.) You don't get ssh with
+      floppyfw though. The firewall configuration is located in a text
+      file that can be edited off-line and then written to the
+      floppy. Firewall Builder's install script also writes the
+      firewall policy to this floppy when you call main menu
+      item <guimenuitem>Rules/Install</guimenuitem>. Once
+      configuration is written to the floppy, you insert it in the
+      firewall and reboot. That's it.
+    </para>
+
+    <para>
+      Devil Linux comes on a CD-ROM and obviously has lot more stuff
+      on it. They also keep configuration on a floppy disk. Firewall
+      Builder's install script writes firewall policy to this floppy,
+      which you then need to insert in the firewall. See detailed
+      documentation on
+      using <ulink url="http://www.devil-linux.org/home/index.php"><citetitle>Devil
+      Linux</citetitle></ulink> on their web site.
+    </para>
+  </sect1>
+

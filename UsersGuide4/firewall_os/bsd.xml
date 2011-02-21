@@ -1,0 +1,40 @@
+  <sect1 id="bsd">
+    <title>OpenBSD and FreeBSD</title>
+
+    <para>
+      Firewall platforms "pf", "ipfilter" and "ipfw" can be used with
+      these OS.
+    </para>
+
+    <para>
+      For <emphasis>PF</emphasis>, Firewall Builder generates .conf
+      configuration file and .fw policy activation script. Both files
+      have the name the same as the name of the firewall object by
+      default, but you can change this in the "Compiler" tab of the
+      firewall settings dialog.
+    </para>
+
+    <para>
+      For <emphasis>ipfilter</emphasis> Firewall Builder generates
+      three files: the firewall-ipf.conf file with filter rules,
+      firewall-nat.conf file with NAT rules and firewall.fw with
+      policy activation script.
+    </para>
+
+    <para>
+      For <emphasis>ipfw</emphasis> a single script firewall.fw is
+      generated, this script does all the prepararory work and then
+      loads ipfw rules.
+    </para>
+
+    <para>
+      By default, generated scripts are installed in the /etc/fw/
+      directory on the firewall and the work of making sure they are
+      executed on system start-up is left for the administrator. See
+      <xref linkend="load_policy_on_reboot"/> for some recommended
+      ways to do this.
+    </para>
+
+
+  </sect1>
+

@@ -1,0 +1,45 @@
+    <sect1 id="policies-and-rules">
+      <title>Policies and Rules</title>
+
+      <para>Each firewall object has several sets of rules associated
+      with it: Access Policy (just "Policy" in the GUI), Network
+      Address Translation (NAT), and Routing rules. Rules in the
+      access policy control access to and from the firewall machine
+      and the machines behind it.  NAT rules describe address and port
+      transformations that the firewall should make to packets flowing
+      through it. Routing rules establish static routes in the
+      firewall.</para>
+
+      <para>Firewall software varies widely in the way it can process
+      packets.  For example, some firewalls perform address and port
+      transformations first and then apply policy rules, while some
+      others do it the other way around. There are many other
+      variations and features specific to particular
+      implementations. In Firewall Builder though, you work with an
+      abstract firewall that looks and behaves the same regardless of
+      the target firewall platform. You can build and install firewall
+      polices for one platform, then switch the target and use the
+      exact same policies to generate rules for an entirely different
+      platform. (This assumes both platforms support the features you
+      need.)</para>
+
+      <para>Firewall Builder compensates for differences in
+      implementation between firewall platforms.  For example, Cisco
+      PIX applies its Access List rules to the packet before it
+      performs address and port transformations according to the NAT
+      rules. As a result, a policy rule that controls access to a
+      server behind the firewall doing NAT should be written using the
+      firewall object instead of the server object. The meaning of
+      such a rule is not obvious at a glance since you have to keep in
+      mind all the NAT rules as well as remember that this policy rule
+      controls access not to the firewall machine, but rather to the
+      server behind it. Firewall Builder compensates for variations
+      like this by using smart algorithms to transform rules defined
+      in the GUI into rules that achieve the desired effect in the
+      target firewall platform. Using Firewall Builder, you can write
+      your rules as if NAT translation will happen before the access
+      rules are applied.</para>
+
+
+    </sect1>
+

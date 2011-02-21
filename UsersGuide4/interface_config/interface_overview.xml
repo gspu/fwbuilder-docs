@@ -1,0 +1,146 @@
+    <sect1 id="interfaces_config_general">
+      <title>General principles</title>
+
+      <para>
+        Firewall Builder 4.0 introduces support incremental management
+        of the configuration of interfaces. It can add and remove ip
+        addresses, create and destroy vlan interfaces, add and remove
+        bridge ports and bonding interface members. Incremental
+        management means generated script can add or remove interfaces
+        or addresses only when needed, without having to blow
+        configuration completely first and then re-add it back. For
+        example, in case of IP addresses of interfaces, the script
+        checks if address configured in fwbuilder GUI really exists on
+        the interface it should belong to. If it is not there, the
+        script adds it, but if it exists, the script does
+        nothing. Running the script again therefore does not disturb the
+        configuration at all. It is not going to remove addresses and
+        then add them back. The same happens with VLAN interfaces,
+        bridge ports and bonding interfaces.
+      </para>
+
+      <tip>
+        <para>
+          If someone reconfigures interfaces, vlans or ip addresses on
+          the machine, just run fwbuilder-generated script again and it
+          will restore configuration to the state defined in GUI without
+          taking everything down first and then reconfiguring from
+          scratch. The script is going to run only those commands that
+          are necessary to undo the changes made by hand.
+        </para>
+      </tip>
+
+      <para>
+        Not all of these features available on all supported OS.
+        <xref linkend="interface_mgmt_support"/> shows this:
+      </para>
+
+      <table frame='none'  tabstyle='reg_table' id='interface_mgmt_support'>
+        <title></title>
+        <tgroup cols='5' align='left'  rowsep='1'>
+          <colspec colnum="1" colname="col1" colwidth="200pt"/>
+          <colspec colnum="2" colname="col2" colwidth="60pt"/>
+          <colspec colnum="3" colname="col3" colwidth="60pt"/>
+          <colspec colnum="4" colname="col4" colwidth="60pt"/>
+          <colspec colnum="5" colname="col5" colwidth="60pt"/>
+
+          <thead>
+            <row>
+              <entry>Feature</entry>
+              <entry>Linux</entry>
+              <entry>OpenBSD FreeBSD</entry>
+              <entry>Cisco IOS</entry>
+              <entry>Cisco ASA (PIX)</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>IP address management</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+            </row>
+
+            <row>
+              <entry>Incremental IP address management</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry>no</entry>
+              <entry>no</entry>
+            </row>
+
+            <row>
+              <entry>VLAN interfaces</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry>no</entry>
+              <entry>no</entry>
+            </row>
+
+            <row>
+              <entry>Incremental management of VLAN interfaces</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry>no</entry>
+              <entry>no</entry>
+            </row>
+
+            <row>
+              <entry>Bridge ports</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry>no</entry>
+              <entry>no</entry>
+              <entry>no</entry>
+            </row>
+
+            <row>
+              <entry>Incremental management of bridge ports</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry>no</entry>
+              <entry>no</entry>
+              <entry>no</entry>
+            </row>
+
+            <row>
+              <entry>Bonding interfaces</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry>no</entry>
+              <entry>no</entry>
+              <entry>no</entry>
+            </row>
+
+            <row>
+              <entry>Incremental management of bonding interfaces</entry>
+              <entry>partial</entry>
+              <entry>no</entry>
+              <entry>no</entry>
+              <entry>no</entry>
+            </row>
+
+            <row>
+              <entry>Cluster configuration: <emphasis>carp</emphasis>
+                and <emphasis>pfsync</emphasis>
+                on <emphasis>OpenBSD</emphasis>, interface configuration
+                for failover on <emphasis>PIX</emphasis>, interface
+                configuration for clustering protocols
+                on <emphasis>Linux</emphasis></entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry>no</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+            </row>
+
+
+          </tbody>
+        </tgroup>
+      </table>
+
+      <para>
+        The most complete implementation is available on Linux where
+        generated script can incrementally manage ip addresses, vlan
+        interfaces, bridge ports and partially bonding interfaces.
+      </para>
+
+    </sect1>

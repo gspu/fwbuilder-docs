@@ -1,0 +1,143 @@
+    <sect1 id="main_window">
+      <title>The Main Window</title>
+
+      <para>This image shows the Firewall Builder GUI with a single object file open. The panels in the GUI have been shrunk down to ma
+ke the image fit on the page. On a computer screen, you'd be able to see much more.</para>
+
+      <para>
+      <figure id="main-win1">
+        <title>The main window</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-wUndo.png" />
+      </figure>
+      </para>
+
+      <para>The sections of the main window are as follows:</para>
+
+      <table frame='none' tabstyle='reg_table'>
+        <title>Main Window</title>
+        <tgroup cols='2' align='left' rowsep='1'>
+          <colspec colname='c1'  colwidth="120pt"/>
+          <colspec colname='c2'/>
+            <thead>
+              <row>
+                <entry>Window area</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>Menus and tool bar</entry>
+                <entry>Firewall Builder comes
+                with menus and a tool bar at the top of the
+                window. 
+      <para>
+        <figure id="main-win-menus">
+          <title>Menu and Tool Bars</title>
+          <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-3.png" />
+        </figure>
+      </para>
+                </entry>
+              </row>
+              <row>
+                <entry>Object Tree</entry>
+                <entry><para>Displayed on the
+                left side of the window, holds firewall, host,
+                interface, service, and other "objects" that you will
+                use when creating your firewall. You can close the tree if you want more room for your policy by clicking the X button 
+(re-open it using the <guimenu>View</guimenu> menu, or you can make it "float" as 
+                its own window by clicking the float button next to the close button.</para>
+                <para><xref linkend="object_tree" /> describes the objects in the tree, shows a picture of the object tree "floating", 
+and shows how to filter the object tree.</para>
+      <para>
+        <figure id="object-tree-small">
+          <title>Object Tree</title>
+          <graphic scale="50" fileref="fwbuilder_gui/images/object-tree-small.png" />
+        </figure>
+      </para>
+                </entry>
+              </row>
+              <row>
+                <entry>Policy Ruleset Workspace</entry>
+                <entry>Displayed to the right of the object tree, this area holds the ruleset you're currently working on. This space i
+s blank when you first load an object file. It only appears when you double-click a policy, NAT, or routing ruleset link in a firewall 
+object. (So, you have to create a firewall object before you can work on a policy.)
+      <para>See <xref linkend="firewall-object" /> for instructions on creating a firewall object. See <xref linkend="firewall-policies
+" /> for instructions on working with policies.</para>
+        <para>The two buttons on the top of the ruleset let you compile (the hammer) or compile-and-install (arrow and wall) the curren
+t firewall policy. <xref linkend="compile-install-detail" /> describes both compiling and compiling-and-installing a firewall policy.</para>
+      <para>
+        <figure id="policy-small">
+          <title>Policy Area</title>
+          <graphic scale="50" fileref="fwbuilder_gui/images/policy-small.png" />
+        </figure>
+      </para>
+                </entry>
+              </row>
+              <row>
+                <entry>Object Editor Dialog</entry>
+                <entry><para>The dialog area, across the bottom of the main window, 
+                is where you make changes to object
+                parameters, do finds-and-replaces, and see the output from single-rule compiles. 
+                The dialog area, which is not visible at
+                first, appears when you double-click an object.</para>
+                <para>The dialog, which you can close by clicking the X, has three tabs and three uses: editing an object's parameters,
+ doing a find or find-and-replace on an object, and displaying the output of a single-rule compile run.</para>
+                <para>In the object editor dialog, you can make changes to an object's parameters. Changes made in to a field in the di
+alog are saved whenever you click out of the field, or press the Tab or Enter key. (This does not change the data in the .fwb file unti
+l you save the file itself.) If you wish to cancel a change, select Edit > Undo.See <xref linkend="working-with-objects" />for informat
+ion on objects and their parameters.</para>
+      <para>
+        <figure id="object-editor-small">
+          <title>Object Editor, partial view</title>
+          <graphic scale="50" fileref="fwbuilder_gui/images/object-editor-small.png" />
+        </figure>
+      </para>
+        <para> You can search for objects and rulesets across your object files, plus do replacements of objects. See <xref linkend="fi
+nd-replace" /> for an explanation of the 
+                find-and-replace tab.</para>
+      <para>
+        <figure id="find-small">
+          <title>Find-and-Replace Object dialog, partial view</title>
+          <graphic scale="50" fileref="fwbuilder_gui/images/find-small.png" />
+        </figure>
+      </para>
+        <para>You can compile individual rules and see how the rule gets converted into firewall instructions. See <xref linkend="polic
+y-and-nat-rules-for-the-cluster" /> for 
+                details on compiling a single rule and viewing the results in the Output tab.</para>
+      <para>
+        <figure id="output-small">
+          <title>Output view, partial view</title>
+          <graphic scale="50" fileref="fwbuilder_gui/images/output-small.png" />
+        </figure>
+      </para>
+                </entry>
+              </row>
+              <row>
+                <entry>Undo Stack</entry>
+                <entry><para>Displayed on the
+                right side of the window, the Undo Stack is not displayed by default. To activate it, select <guimenuitem>View > Undo S
+tack</guimenuitem>.</para>
+                <para>As you make changes to your object file, those changes show up in the <guilabel>Undo Stack</guilabel> window. You
+ can "undo" an action by clicking the action above it (in other words, prior to it) in the window. Clicking any action in the window ro
+lls back all changes after that action. However, the "future" changes stay in the Undo Stack until you make another edit. At that point
+, all changes after the current point in the stack are removed.</para>
+                <para>Like the object tree, the Undo Stack can "float" as its own window.</para>
+      <para>See <xref linkend="using-undo" /> for a more detailed explanation of the Undo Stack window.</para>
+      <para>
+        <figure id="undo-stack">
+          <title>Undo Stack</title>
+          <graphic scale="50" fileref="fwbuilder_gui/images/undo-stack.png" />
+        </figure>
+      </para>
+                </entry>
+              </row>
+
+          </tbody>
+        </tgroup>
+      </table>
+
+      <para>You can open more than one object file window at a
+      time, and you can copy objects between them. See <xref linkend="multiple-data-files" /> for an
+      example of working with multiple data files.</para>
+      </sect1>
+

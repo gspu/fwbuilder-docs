@@ -1,0 +1,246 @@
+    <sect2 id="blockiing-long-lists-of-addresses">
+      <title>Using Address Table object to block access from large lists of ip addresses</title>
+
+      <para>
+        This section demonstrates how address blocks registered to
+        whole countries can be blocked by the iptables or pf
+        firewall. Firewall Builder makes generating configuration for
+        this simple. This recipe follows the idea outlined in the
+        HOWTO found on HowtoForge
+        at <ulink url="http://www.howtoforge.com/blocking-ip-addresses-of-any-country-with-iptables">http://www.howtoforge.com/blocking-ip-addresses-of-any-country-with-iptables</ulink>
+        and in this
+        blog: <ulink url="http://blogama.org/node/62">http://blogama.org/node/62</ulink>. The
+        original HOWTO only applies to iptables but this recipe
+        demonstrates how the same objects in fwbuilder can be used to
+        generate both iptables and PF configurations.
+      </para>
+
+      <para>
+        The blocking method described in the original HOWTO and in
+        this recipe becomes possible because of the service provided
+        by http://blogama.org where they make files with lists of ip
+        addresses registered to different countries available for
+        download using URLs such as
+      </para>
+
+      <programlisting>
+http://blogama.org/country_query.php?country=CCODE1,CCODE2,...
+      </programlisting>
+
+      <para>
+        Here <emphasis>CCODE1</emphasis>, <emphasis>CCODE2</emphasis>
+        and so on are ISO 3166 country codes.
+      </para>
+
+      <para>
+        We start with creating Address Table object (See
+        <xref linkend="address-table-object"/>) with name "blocklist":
+      </para>
+
+      <figure id="blocking_ips_020">
+        <title>Address Table object using file "/tmp/iptables-blocklist.txt"
+        </title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/blocking_ips_020.png" />
+      </figure>
+
+
+      <para>
+        Since the object is configured as "run-time", fwbuilder policy
+        compiler generates configuration in a such way that addresses
+        will be read at the time when policy is activated on the
+        firewall machine. This can be achieved in different ways, for
+        example for iptables compiler generates shell script fragment
+        that reads addresses, or if the firewall supports iptables
+        module "ipset", generated script will use it
+        (<xref linkend="set-address-table-object"/>). For PF, generated
+        configuration uses table which is loaded at run time using
+        "file" option. You do not have to recompile policy if you use
+        "Run time" Address Table object every time the list of ip
+        addresses is updated. If generated script uses ipset module
+        with iptables or tables with PF, you only need to run command
+        on the firewall to reload addresses in the tables maintained
+        by ipset or PF in memory. If generated firewall uses shell
+        script that reads the file, as is the case with iptables
+        firewall that does not have module ipset, then the same script
+        needs to be re-run to pick up changes.
+      </para>
+
+      <para>
+        Now we can use this object in the policy rules. To follow
+        original HOWTO closely, I am added rules to control packets
+        coming from the addresses in the list to the firewall, as well
+        as packets going from the firewall to addresses in the
+        list. My goal in this recipe was to reproduce rules found in
+        the original HOWTO as close as possible.
+      </para>
+
+      <figure id="blocking_ips_030">
+        <title>Policy rules using Address Table object
+        </title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/blocking_ips_030.png" />
+      </figure>
+
+      <para>
+        In the rule #1 Address Table object is in source, firewall
+        object is in destination, direction is "inbound" and action is
+        "deny". This rule matches and drops packets coming from the
+        addresses in the list to the firewall. The second rule
+        reverses source and destination and makes direction "outbound"
+        to match packets sent by the firewall to addresses in the
+        list.
+      </para>
+
+      <para>
+        Here is how generated commands look like for the iptables
+        firewall without module "ipset":
+      </para>
+
+      <programlisting>
+# Rule 1 (global)
+# 
+echo "Rule 1 (global)"
+# 
+grep -Ev '^#|^;|^\s*$' /tmp/iptables-blocklist.txt | while read L ; do
+  set $L; at_blocklist=$1; $IPTABLES -A INPUT  -i +  -s $at_blocklist  -j DROP 
+done
+# 
+# Rule 2 (global)
+# 
+echo "Rule 2 (global)"
+# 
+grep -Ev '^#|^;|^\s*$' /tmp/iptables-blocklist.txt | while read L ; do
+  set $L; at_blocklist=$1; $IPTABLES -A OUTPUT  -o +  -d $at_blocklist  -j DROP 
+done
+      </programlisting>
+
+      <para>
+        A few comments. The script generated by fwbuilder assumes
+        comments in the file that holds ip addresses can start with
+        characters '#', ';' or '*'. It also expects the file to hold
+        one address per line and anything after the address on any
+        line is assumed to be a comment too. This format is slightly
+        expanded compared to the format of files produced by
+        blogama.org which makes script commands slightly more
+        complex. It is also possible that generated script can be
+        somewhat optimized.
+      </para>
+
+      <para>
+        If the firewall supports module ipset (See
+        <xref linkend="set-address-table-object"/> for more details
+        about that), generated iptables commands look like this:
+      </para>
+
+      <programlisting>
+# Rule 0 (global)
+# 
+echo "Rule 0 (global)"
+# 
+$IPTABLES -A INPUT -m set  --set blocklist src  -j DROP
+# 
+# Rule 1 (global)
+# 
+echo "Rule 1 (global)"
+# 
+$IPTABLES -A OUTPUT -m set  --set blocklist dst  -j DROP
+# 
+      </programlisting>
+
+
+
+      <sect3>
+        <title>How to generate configuration for PF firewall using the
+        same fwbuilder objects</title>
+
+        <para>
+          Here is how exactly the same set of objects can be used to
+          generate configuration for PF firewall doing the same
+          thing. First, we need to change firewall platform and host
+          OS in the firewall object:
+        </para>
+
+        <figure id="blocking_ips_040">
+          <title>Switching firewall to platform PF
+          </title>
+          <graphic scale="50" fileref="cookbook/policy_rules/images/blocking_ips_040.png" />
+        </figure>
+
+        <para>
+          Now save the file and recompile configuration. Here is the
+          result for PF (only relevant fragments of the generated .conf
+          file are shown):
+        </para>
+
+        <programlisting>
+table &lt;blocklist&gt; persist file "/tmp/iptables-blocklist.txt"
+table &lt;tbl.r9999.d&gt; { 192.0.2.1 , 172.16.22.1 , 192.168.2.1 } 
+# 
+# Rule  1 (global)
+# 
+# 
+block in   quick inet  from &lt;blocklist&gt;  to &lt;tbl.r9999.d&gt;  label "RULE 1 -- DROP "  
+# 
+# Rule  2 (global)
+# 
+# 
+block out  quick inet  from &lt;tbl.r9999.d&gt;  to &lt;blocklist&gt;  label "RULE 2 -- DROP "  
+# 
+        </programlisting>
+
+        <para>
+          Compiler created table <emphasis>&lt;blocklist&gt;</emphasis> and
+          associated it with the
+          file <emphasis>"/tmp/iptables-blocklist.txt"</emphasis>.  (Pardon
+          the name of the file, it carried over from the iptables
+          example). The table &lt;tbl.r9999.d&gt; was created because
+          compiler needed to put several ip addresses that belong to the
+          firewall in this configuration in a single rule. In the end,
+          this PF configuration performs the same operation as iptables
+          configuration shown above.
+        </para>
+
+        <para>
+          Finally, to make this work and do something useful, we
+          need to download addresses of the coutries we want to
+          block and put them in the
+          file <emphasis>"/tmp/iptables-blocklist.txt"</emphasis>. As
+          the author of the original HOWTO suggests
+          in <ulink url="http://blogama.org/node/62">http://blogama.org/node/62</ulink>
+          this can be done with wget. A simple script like this
+          does the job:
+        </para>
+
+        <programlisting>
+COUNTRIES="AK,AR"
+wget -c --output-document=/tmp/iptables-blocklist.txt \
+    http://blogama.org/country_query.php?country=$COUNTRIES
+        </programlisting>
+
+        <para>
+          This command should probably be put in a script which should
+          run from cron once a month or so. The same script should
+          also reload ip addresses in PF table or ipset list after it
+          updates the address table file to make sure firewall picks
+          up the change. To reload ip addresses from the file on the
+          iptables with ipset module, run the script with command line
+          option "reload_address_table":
+
+          <programlisting>
+/etc/fw/firewall.sh reload_address_table blocklist /etc/fw/blocklist_file.txt
+          </programlisting>
+
+          To reload ip addresses on the PF firewall, use command
+
+          <programlisting>
+pfctl -t blockist
+          </programlisting>
+
+          If the firewall you use runs iptables and does not support
+          module ipset, you just need to re-run firewall script to update
+          the rules with new ip addresses.
+        </para>
+
+      </sect3>
+
+    </sect2>
+

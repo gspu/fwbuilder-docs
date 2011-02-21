@@ -1,0 +1,36 @@
+  <sect1 id="sveasoft">
+    <title>Sveasoft</title>
+
+    <para>
+      Another firmware for the firewall apliances such as Linksys,
+      DLink and others supported by Firewall Builder
+      is <ulink url="http://sveasoft.com/">Sveasoft</ulink>.
+    </para>
+
+    <para>
+      The difference here is both in the generated script format and
+      in commands that built-in policy installer executes on the
+      firewall. The reason for these differences is that Sveasoft
+      stores firewall configuration in NVRAM which has limited
+      capacity.
+    </para>
+
+    <para>
+      Script generated for the Sveasoft firmware is more compact and
+      is missing certain sections. For example, since the kernel has
+      all modules compiled in, the script is not trying to load
+      modules. The script also activates the policy when called
+      without command line parameters. Script structure is defined in
+      the
+      configlet <emphasis>/usr/share/fwbuilder-4.0.0/configlets/sveasoft/script_skeleton</emphasis>.
+      You can modify it following instructions in
+      <xref linkend="configlets"/>.
+    </para>
+
+    <para>
+      Activation process on Sveasfot is more complex because installer
+      can compress firewall script before storing it in NVRAM. Installation
+      commands are in the configlet <emphasis>/usr/share/fwbuilder-4.0.0/configlets/sveasoft/installer_commands_root</emphasis>.
+    </para>
+  </sect1>
+

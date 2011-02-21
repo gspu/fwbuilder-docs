@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="compile-install-detail">
+  <title>Compiling and Installing a Policy</title>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile_install_options.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile_single_rule.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile_firewall_policy.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile_cluster.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="install_details.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="install_cisco_ios.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="install_cisco_pix.xml"/>
+
+</chapter>
+

@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <sect2 id="cluster_server_fw_synch">
+    <title>Using clusters to manage firewall policies on multiple servers</title>
+
+    <para>
+    In this recipe we are going to cover how to use Firewall Builder 
+    clusters to manage a single firewall policy that gets deployed on 
+    multiple servers. An example of where you could use this would be 
+    managing a shared firewall policy for a collection of web servers 
+    that are all providing the same service and should have the same 
+    rules.
+    </para> 
+
+    <para>
+    Normally the cluster feature is used to create high availability 
+    firewall pairs, but in this case we are going to use it creatively 
+    to create a master firewall policy that gets deployed on multiple 
+    servers.
+    </para>
+
+    <para>
+    For this recipe we are going to use the web farm example shown 
+    below. The example starts with two servers running Linux with 
+    iptables should have identical firewall polices. We'll cover 
+    creating the firewalls and cluster and assigning rules to it. 
+    At the end we'll walk through adding a 3rd server to the cluster.
+    </para>
+
+    <figure id="cluster_server_configuration">
+    <title>Server Configuration</title>
+    <graphic fileref="cookbook/useful_tricks/images/cluster_fw_synch_base.png" />
+    </figure>
+
+    <para>
+    On these servers we want to implement the following basic
+    firewall rules.
+    </para>
+
+     <itemizedlist>
+       <listitem>Allow system to commuicate to its own loopback  
+       interface</listitem>
+       <listitem>Allow inbound HTTP and HTTPS from anywhere to the 
+       server</listitem>
+       <listitem>Allow inbound SSH from a specific set of trusted
+       subnets</listitem>
+       <listitem>Allow outbound connectivity to port 8009 (jboss) 
+       to a group of application servers</listitem>
+    </itemizedlist>
+
+    <bridgehead>Step 1 - Create firewall objects for your 
+    servers</bridgehead>
+
+    <para>
+    To create a cluster we first need to create the firewall objects 
+    that will be members of the cluster.  Each server is represented by
+    a firewall object in Firewall Builder. Go through the New Firewall 
+    wizard and create a firewall called web-01 with two interfaces. The 
+    first interface is the Ethernet interface "eth0" that connects the 
+    server to the Internet and the second interface is the loopback 
+    interface "lo".
+    </para>
+
+    <para>
+    After you have created the firewall object it should look like 
+    this in the object tree:
+    </para>
+
+    <figure id="web-01_object">
+    <title>web-01 firewall object</title>
+    <graphic fileref="cookbook/useful_tricks/images/web-01_object.png" />
+    </figure>
+
+    <para>
+    By default Firewall Builder sets the firewall object to route 
+    (forward) IP packets. Since this is a server firewall we should 
+    disable IP forwarding on the host.  Do this by double-clicking 
+    on the firewall object and then click on Host OS Settings in the 
+    Editor Panel at the bottom.  Change the setting for IPv4 Packet 
+    Forwarding to Off.
+    </para>
+
+    <figure id="disable_forwarding">
+    <title>Disable IP forwarding</title>
+    <graphic fileref="cookbook/useful_tricks/images/disable_forwarding.png" />
+    </figure>
+
+    <para>
+    To create a second firewall object for web-02 you can use the Duplicate 
+    feature in Firewall Builder.
+    </para>
+
+    <itemizedlist>
+      <listitem>Right-click on web-01 firewall and select Duplicate -> place 
+      in library User</listitem>
+      <listitem>Edit the name of the newly created firewall object to web-02
+      </listitem>
+      <listitem>Double-click on web-02's IP object under the eth0 interface 
+      and set the IP address to 192.0.2.12 / 24</listitem>
+    </itemizedlist>
+    
+    <bridgehead>Step 2 - Create a new cluster</bridgehead> 
+
+    <para>
+    To create a new cluster right-click on the Clusters folder in the 
+    object tree and select New Cluster.  This will launch the New 
+    Cluster wizard.  Name the cluster, for example web-servers, and 
+    select both web-01 and web-02 to be members of the cluster. Since 
+    we are not using failover it does not matter which firewall is set 
+    to Master.
+    </para>
+
+    <figure id="new_cluster_webservers">
+    <title>Create new cluster</title>
+    <graphic fileref="cookbook/useful_tricks/images/new_cluster_webservers.png" />
+    </figure>
+
+    <para>
+    Click <emphasis>Next ></emphasis>
+    </para>
+
+    <para>
+    Since both servers use eth0 as the outside interface leave the 
+    interface mapping as is. If you have servers with different 
+    interface names on your server, for example if one server uses 
+    eth0 and the other server uses eth1, you can set the mapping 
+    here.
+    </para>
+
+    <figure id="cluster_interface_mapping">
+    <title>Cluster interface mapping</title>
+    <graphic fileref="cookbook/useful_tricks/images/cluster_interface_mapping.png" />
+    </figure>
+
+    <para>
+    Click <emphasis>Next ></emphasis>
+    </para>
+
+    <para>
+    To make the cluster interface easy to identify update the label
+    associated with interfaces eth0 and lo. Since we are not running 
+    our servers as a high availability cluster with failover set the 
+    Failover protocol to None.  
+    </para>
+
+    <figure id="cluster_server_interface_configuration">
+    <title>Set cluster interface configuration</title>
+    <graphic fileref="cookbook/useful_tricks/images/cluster_server_interface_configuration.png" />
+    </figure>
+
+    <note>
+    <para>
+    Make sure to update <emphasis>both</emphasis> the eth0 
+    and lo interfaces.
+    </para>
+    </note>
+
+    <para>
+    Click <emphasis>Next ></emphasis>
+    </para>
+
+    <para>
+    We want to create new rules for our cluster, so set the source of 
+    the cluster rules to be "do not use any, i will create new policy 
+    and NAT rules".
+    </para>
+
+    <figure id="cluster_server_new_rules">
+    <title>Set the source of the cluster rules</title>
+    <graphic fileref="cookbook/useful_tricks/images/cluster_server_new_rules.png" />
+    </figure>
+
+    <para>
+    Click <emphasis>Finish</emphasis>
+    </para>
+
+    <para>
+    Once you are done you should see a new cluster object in the tree 
+    that looks like this:
+    </para>
+    
+    <figure id="cluster_server_object">
+    <title>New cluster object web-servers</title>
+    <graphic fileref="cookbook/useful_tricks/images/cluster_server_object.png" />
+    </figure>
+
+    <bridgehead>Step 3 - Define cluster policy rules</bridgehead> 
+
+    <para>
+    After you create the cluster, the Policy object is automatically 
+    opened in the Rules Panel.  Remember we wanted both of our servers 
+    to have the following rules:
+    </para>
+
+    <itemizedlist>
+       <listitem>Allow system to commuicate to its own loopback  
+       interface</listitem>
+       <listitem>Allow inbound HTTP and HTTPS from anywhere to the 
+       server</listitem>
+       <listitem>Allow inbound SSH from a specific set of trusted
+       subnets</listitem>
+       <listitem>Allow outbound connectivity to port 8009 (jboss) 
+       to a group of application servers</listitem>
+    </itemizedlist>
+
+    <para>
+    After you configure these rules your policy should look like this:
+    </para>
+
+    <figure id="cluster_server_rules">
+    <title>Set the source of the cluster rules</title>
+    <graphic fileref="cookbook/useful_tricks/images/cluster_server_rules.png" />
+    </figure>
+
+    <note>
+    <para>
+    Make sure to use the objects from the cluster when creating the 
+    rules. These objects will automatically get translated to the 
+    correct object for the individual cluster members.
+    </para>
+    </note>
+
+    <bridgehead>Step 4 - Compile and install rules</bridgehead> 
+
+    <para>
+    The next step is to compile and install the rules to our servers. 
+    When Firewall Builder compiles the cluster it will generate a firewall 
+    script for each of the cluster members including substituting the 
+    cluster objects used in the rules for the local object on the cluster 
+    member.
+    </para>
+    
+    <para>
+    For example, the IP address for the eth0 cluster object is automatically 
+    translated to the correct address for web-01 (192.0.2.11) and web-02 
+    (192.0.2.12).
+    </para>
+
+    <para>
+    You can see this substitution by inspecting the generated file for web-01  
+    after the compile is completed. Note that the destination is set 
+    to the IP address of web-01's eth0 interface.
+    </para>
+
+    <programlisting>
+echo "Rule 0 (eth0)"
+#
+$IPTABLES -A INPUT -i eth0 -p tcp -m tcp -m multiport -d <emphasis role="redtext">192.0.2.11 </emphasis> --dports 80,443 
+\  -m state --state NEW -j ACCEPT
+    </programlisting>
+
+    <bridgehead>Modifying rules</bridgehead> 
+
+    <para>
+    Now that you have a cluster setup to generate firewall policies for 
+    each of the server firewalls it is easy to make changes that affect 
+    all your servers.  For example, to add a new rule to all members of the 
+    web-servers cluster to allow ICMP from the Trusted Networks object to 
+    servers simply add the rule in the cluster policy and compile and install 
+    it to the members.
+    </para>
+
+    <bridgehead>Adding a new server to the cluster</bridgehead> 
+
+    <para>
+    To add a new server to the cluster you first need to create the firewall 
+    object to represent the server.  You can do this manually, or you can 
+    follow the same duplication process we used to create the web-02 
+    firewall object. 
+    </para>
+
+    <itemizedlist>
+      <listitem>Right-click on web-02 firewall and select Duplicate -> place 
+      in library User</listitem>
+      <listitem>Edit the name of the newly created firewall object to web-03
+      </listitem>
+      <listitem>Click on the Host OS Settings and disable IPv4 Packet 
+      forwarding
+      </listitem>
+      <listitem>Double-click on web-03's IP object under the eth0 interface 
+      and set the IP address to 192.0.2.23 / 24</listitem>
+    </itemizedlist>
+
+    <para>
+    The next step is to add the new web-03 firewall object to the cluster.
+    </para>
+
+    <figure id="add_server_to_cluster">
+    <title>Add the new web-03 server to the web-servers cluster</title>
+    <graphic fileref="cookbook/useful_tricks/images/add_server_to_cluster.png" />
+    </figure>
+
+    <para>
+    Repeat this process for the "lo" loopback interface. Remember the steps 
+    are:
+    </para>
+
+    <itemizedlist>
+      <listitem>Double-click on the interface named web-servers:eth0:members
+      </listitem>
+      <listitem>Click on the Manage Members button at the bottom of the 
+      Editor Panel</listitem>
+      <listitem>Click to select the "lo" interface under the web-03 object 
+      </listitem>
+      <listitem>Click the right arrow > button to add the interface to the 
+      cluster member list</listitem>
+      <listitem>Click Ok</listitem>
+    </itemizedlist>
+
+    <bridgehead>Installing firewall policy on new server in cluster</bridgehead> 
+
+    <para>
+    To deploy the firewall policy on web-03 you need to compile and install 
+    the cluster policy. Since the cluster policy hasn't changed we don't need 
+    to re-install the policy on web-01 or web-02 so we unselect them from the 
+    install list.
+    </para>
+
+    <figure id="web-03_compile_install">
+    <title>Compile the cluster policy and install on web-03</title>
+    <graphic fileref="cookbook/useful_tricks/images/web-03_compile_install.png" />
+    </figure>
+
+    <para>
+    You can add and remove servers to the cluster as needed. Here's our 
+    configuration now that we have three servers in the cluster all 
+    running the same firewall rules.
+    </para>
+
+    <figure id="cluster_fw_synch_3_servers">
+    <title>Cluster with 3 firewalls sharing the same firewall policy</title>
+    <graphic fileref="cookbook/useful_tricks/images/cluster_fw_synch_3_servers.png" />
+    </figure>
+
+  </sect2>

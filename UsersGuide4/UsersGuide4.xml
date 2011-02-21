@@ -21,7 +21,7 @@
     <releaseinfo>$Id$</releaseinfo>
 
     <copyright>
-      <year>2003,2010</year>
+      <year>2003,2011</year>
 
       <holder>NetCitadel, LLC</holder>
     </copyright>
@@ -42,36 +42,36 @@
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Introduction.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="install.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="installation/install.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="definitions.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gettingstarted.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="getting_started/gettingstarted.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="using-gui.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="fwbuilder_gui/using-gui.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="working-with-objects.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="objects/working-with-objects.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="network-discovery.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="network_discovery/network-discovery.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="firewall-policies.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="firewall_policies/firewall-policies.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="clusters.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="cluster_config/clusters.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="interfaces.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="interface_config/interfaces.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile-install-detail.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile_install/compile-install-detail.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="remote-management.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="remote_management/remote-management.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="support_for_specific_firewall_os.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="firewall_os/support_for_specific_firewall_os.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="configlets.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="configlets/configlets.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="cookbook.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="cookbook/cookbook.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Troubleshooting.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="troubleshooting/Troubleshooting.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Appendix.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendix/Appendix.xml"/>
   
 </book>
