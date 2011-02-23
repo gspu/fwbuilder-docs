@@ -36,8 +36,9 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	mkdir -p html/images
 	cp images/*.png html/images
 	cp *.css html/
-	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl \
-			Getting-Started-ASA-PIX.xml
+	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
+      --stringparam target.database.document "olinkdb.xml" \
+      --xinclude html.xsl Getting-Started-ASA-PIX.xml
 	chmod +x html/*.html
 
 

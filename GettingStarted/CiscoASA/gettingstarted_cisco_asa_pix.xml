@@ -2,10 +2,15 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
-<chapter id="test-chap">
+<chapter id="gs-cisco-asa-pix">
 
       <sect1 id="cisco_asa_pix">
       <title>Configuring Cisco ASA and Cisco PIX Firewalls</title>
+
+      <para>
+      Test of cross linking between documents <olink targetdoc="UsersGuide4" 
+      targetptr="interfaces"></olink>
+      </para>
 
        <para>
         This section of the Users Guide provides an overview

@@ -55,6 +55,10 @@
         name="fo-docbook.xsl"
         uri="fo/docbook.xsl" />
 
+    <uri
+       name="targetdatabase.dtd"
+       uri="common/targetdatabase.dtd" />
+
   </group>
 
 
