@@ -25,7 +25,7 @@
 
       <figure id="gs_asa_example">
         <title>Example Cisco ASA Configuration</title>      
-        <graphic fileref="getting_started/images/example_asa.png" />
+        <graphic scale="50" fileref="getting_started/images/example_asa.png" />
       </figure> 
 
         <sect2 id="gs_asa_step1">
@@ -62,7 +62,7 @@
 
       <figure id="gs_asa_new_network">
         <title>New Network Object</title>      
-        <graphic fileref="getting_started/images/new_network.png" />
+        <graphic scale="50" fileref="getting_started/images/new_network.png" />
       </figure> 
 
       <note>
@@ -87,7 +87,7 @@
 
       <figure id="gs_asa_new_address_steps">
         <title>New Address Object</title>      
-        <graphic fileref="getting_started/images/new_address_steps.png" />
+        <graphic scale="50" fileref="getting_started/images/new_address_steps.png" />
       </figure> 
             
        </sect2>
@@ -109,7 +109,7 @@
 
       <figure id="gs_asa_create_asa">
         <title>New Firewall Dialog</title>      
-        <graphic fileref="getting_started/images/create_asa.png" />
+        <graphic scale="50" fileref="getting_started/images/create_asa.png" />
       </figure> 
 
         <para>
@@ -126,7 +126,7 @@
 
       <figure id="gs_asa_interface_discovery">
         <title>Select Interface Configuration Method</title>      
-        <graphic fileref="getting_started/images/interface_discovery.png" />
+        <graphic scale="50" fileref="getting_started/images/interface_discovery.png" />
       </figure> 
 
         <para>
@@ -159,7 +159,7 @@
 
       <figure id="gs_asa_interface_address">
         <title>Set Interface IP Address</title>      
-        <graphic fileref="getting_started/images/asa_interface_address.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_interface_address.png" />
       </figure> 
 
         <para>
@@ -171,7 +171,7 @@
            
       <figure id="gs_asa_interface_address2">
         <title>Interface Tabs</title>      
-        <graphic fileref="getting_started/images/asa_interface_address2.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_interface_address2.png" />
       </figure> 
 
         <para>
@@ -187,7 +187,7 @@
 
       <figure id="gs_asa_interface_sec_level">
         <title>Interface Security Levels</title>      
-        <graphic fileref="getting_started/images/asa_interface_sec_level.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_interface_sec_level.png" />
       </figure> 
 
         <para>
@@ -203,7 +203,7 @@
 
       <figure id="gs_asa_firewall_object_tree">
         <title>Firewall Displayed in Object Tree</title>      
-        <graphic fileref="getting_started/images/asa_firewall_object_tree.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_firewall_object_tree.png" />
       </figure> 
 
         <para>
@@ -237,7 +237,7 @@
 
       <figure id="gs_asa_setting_network_zone">
         <title>Setting Network Zone</title>      
-        <graphic fileref="getting_started/images/asa_setting_network_zone.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_setting_network_zone.png" />
       </figure> 
 
         <para>
@@ -268,7 +268,7 @@
 
       <figure id="gs_asa_default_rule">
         <title>Default Rule</title>      
-        <graphic fileref="getting_started/images/default_rule.png" />
+        <graphic scale="50" fileref="getting_started/images/default_rule.png" />
       </figure> 
 
         <para>
@@ -314,7 +314,7 @@
 
       <figure id="gs_asa_new_rule_source">
         <title>Setting the Source</title>      
-        <graphic fileref="getting_started/images/new_rule_source.png" />
+        <graphic scale="50" fileref="getting_started/images/new_rule_source.png" />
       </figure> 
 
         <para>
@@ -324,7 +324,7 @@
 
       <figure id="gs_asa_rule_step1">
         <title>After Source is Set</title>      
-        <graphic fileref="getting_started/images/rule_step1.png" />
+        <graphic scale="50" fileref="getting_started/images/rule_step1.png" />
       </figure> 
 
       <note>
@@ -353,7 +353,7 @@
 
       <figure id="gs_asa_switch_library">
         <title>Switching Libraries</title>      
-        <graphic fileref="getting_started/images/switch_library.png" />
+        <graphic scale="50" fileref="getting_started/images/switch_library.png" />
       </figure> 
 
         <para>
@@ -371,7 +371,7 @@
             
       <figure id="gs_asa_new_rule_service">
         <title>Setting the Service</title>      
-        <graphic fileref="getting_started/images/new_rule_service.png" />
+        <graphic scale="50" fileref="getting_started/images/new_rule_service.png" />
       </figure> 
 
       <note>
@@ -393,7 +393,7 @@
             
       <figure id="gs_asa_new_rule_interface">
         <title>Setting the Interface</title>      
-        <graphic fileref="getting_started/images/asa_new_rule_interface.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_new_rule_interface.png" />
       </figure> 
 
         <bridgehead>Setting the Direction</bridgehead>
@@ -450,7 +450,7 @@
         
       <figure id="gs_asa_new_rule_complete">
         <title>New Rule with Fields Set</title>      
-        <graphic fileref="getting_started/images/new_rule_complete.png" />
+        <graphic scale="50" fileref="getting_started/images/new_rule_complete.png" />
       </figure> 
 
         <bridgehead>Additional Tips</bridgehead>
@@ -467,7 +467,7 @@
 
       <figure id="gs_asa_add_new_rule_below">
         <title>Adding Rules</title>      
-        <graphic fileref="getting_started/images/add_new_rule_below.png" />
+        <graphic scale="50" fileref="getting_started/images/add_new_rule_below.png" />
       </figure> 
             
         <bridgehead>Copy-and-Paste</bridgehead>
@@ -496,7 +496,7 @@
 
       <figure id="gs_asa_pop3_filter">
         <title>Using Filter to Find Objects</title>      
-        <graphic fileref="getting_started/images/pop3_filter.png" />
+        <graphic scale="50" fileref="getting_started/images/pop3_filter.png" />
       </figure> 
             
       <note>
@@ -515,7 +515,7 @@
 
       <figure id="gs_asa_three_rules">
         <title>Three Rules</title>      
-        <graphic fileref="getting_started/images/asa_three_rules.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_three_rules.png" />
       </figure> 
          
         </sect2>
@@ -551,7 +551,7 @@
             
       <figure id="gs_asa_compiler_output">
         <title>Example Compiler Output</title>      
-        <graphic fileref="getting_started/images/asa_compiler_output.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_compiler_output.png" />
       </figure> 
             
         <para>
@@ -581,7 +581,7 @@
 
       <figure id="gs_asa_set_mgmt_interface">
         <title>Setting the Managment Interface</title>      
-        <graphic fileref="getting_started/images/asa_set_mgmt_interface.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_set_mgmt_interface.png" />
       </figure> 
 
       <note>
@@ -602,7 +602,7 @@
 
       <figure id="gs_asa_install_checkbox">
         <title>Setting Compile and Install Actions</title>      
-        <graphic fileref="getting_started/images/asa_install_checkbox.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_install_checkbox.png" />
       </figure> 
 
         <para>
@@ -614,7 +614,7 @@
 
       <figure id="gs_asa_install_screen">
         <title>Install Dialog</title>      
-        <graphic fileref="getting_started/images/install_screen.png" />
+        <graphic scale="50" fileref="getting_started/images/install_screen.png" />
       </figure> 
 
         <para>
@@ -626,7 +626,7 @@
             
       <figure id="gs_asa_install_success">
         <title>Successful Install</title>      
-        <graphic fileref="getting_started/images/asa_install_success.png" />
+        <graphic scale="50" fileref="getting_started/images/asa_install_success.png" />
       </figure> 
             
         <para>
