@@ -109,7 +109,6 @@ fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	mkdir -p fo/cookbook/cluster/images
 	mkdir -p fo/cookbook/useful_tricks/images
 	mkdir -p fo/troubleshooting/images
-	cp *.jpg fo/
 	cp *.png fo/
 	cp getting_started/images/*.png fo/getting_started/images
 	cp fwbuilder_gui/images/*.png fo/fwbuilder_gui/images
