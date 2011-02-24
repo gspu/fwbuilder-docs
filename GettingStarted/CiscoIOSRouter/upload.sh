@@ -10,6 +10,7 @@ cd html && {
         --exclude '*.py' \
         --exclude '*.psd' \
         --exclude '\#*\#' \
-        --exclude .DS_Store . $DESTINATION
+        --exclude .DS_Store \
+        $* . $DESTINATION
 }
 
