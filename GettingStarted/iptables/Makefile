@@ -1,12 +1,14 @@
 # $Id: Makefile,v 1.8 2003-04-06 02:24:17 vadim Exp $
 
 SYSTEM := $(shell uname -s)
-SOURCES = Getting-Started-ASA-PIX.xml \
-
+SOURCES = gettingstarted_overview.xml \
 
 CATALOGS = catalog-Darwin.xml catalog-Linux.xml
 HTML_STYLESHEETS = html.xsl
 FO_STYLESHEETS = fo.xsl
+SOURCE_FILE = gettingstarted_overview.xml
+FO_FILE = gettingstarted_overview.fo
+PDF_FILE = gettingstarted_overview.pdf
 
 
 .PHONY: all html fo pdf stage target
@@ -24,7 +26,7 @@ target.db:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 			--stringparam  collect.xref.targets  "only" \
 			--xinclude html.xsl \
-			Getting-Started-ASA-PIX.xml
+      $(SOURCE_FILE)
 
 stage: html
 	./upload-glitch.sh
@@ -35,30 +37,27 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	rm -rf html
 	mkdir -p html/images
 	cp images/*.png html/images
-	cp ../shared/images/*.png html/images
 	cp *.css html/
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
       --stringparam target.database.document "olinkdb.xml" \
-      --xinclude html.xsl Getting-Started-ASA-PIX.xml
+      --xinclude html.xsl $(SOURCE_FILE) 
 	chmod +x html/*.html
 
 
 fo:   fo/Getting-Started-ASA-PIX.fo  target.db
 
-fo/Getting-Started-ASA-PIX.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
+fo/$(FO_FILE): $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	rm -rf fo
 	mkdir -p fo/images
 	cp images/*.png fo/images
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 		--xinclude \
 		--stringparam fop1.extensions 1  \
-		--output fo/Getting-Started-ASA-PIX.fo \
-		fo.xsl Getting-Started-ASA-PIX.xml
+		--output fo/$(FO_FILE) \
+		fo.xsl $(SOURCE_FILE) 
 
-#	docbook2pdf -o pdf UsersGuide4.xml
+pdf: $(PDF_FILE) 
 
-pdf: Getting-Started-ASA-PIX.pdf
-
-Getting-Started-ASA-PIX.pdf: fo/Getting-Started-ASA-PIX.fo
-	FOP_OPTS="-Xmx256m" fop fo/Getting-Started-ASA-PIX.fo Getting-Started-ASA-PIX.pdf
+$(PDF_FILE): fo/$(FO_FILE)
+	FOP_OPTS="-Xmx256m" fop fo/$(FO_FILE) $(PDF_FILE) 
 

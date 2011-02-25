@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="gui_layout">
+  <title>Firewall Builder GUI Layout</title>
+
+  <para>
+    The Firewall Builder application is comprised of three primary panels 
+    shown in the screenshot below.  
+  </para>
+
+  <figure id="gui_layout_diag">
+    <title>Firewall Builder GIU Layout</title>
+      <graphic scale="50" fileref="images/fwbuilder_gui_layout.png" />
+  </figure>
+
+    <itemizedlist>
+      <listitem><emphasis>Object Panel</emphasis>. Objects in the active Library are displayed
+        in an object tree in the Object Panel. Empty folders are defined 
+        for all possible object types that a user can create in the User library.
+      </listitem>
+      <listitem><emphasis>Rules Panel</emphasis>. When a Policy object is opened for editing
+        it is displayed in the Rules Panel.  Clicking on the '+' button
+        at the top of the panel creates a new rule.</listitem>
+      <listitem><emphasis>Editor Panel</emphasis>. Double-clicking on objects opens them for
+        editing in the Editor Panel.  Changes to object attribute fields 
+        take effect immediately.</listitem>
+    </itemizedlist>
+
+  <para>
+  Panels open dynamically based on what activity the user is performing. 
+  For example, double-clicking an object to edit it will open the Editor
+  Panel if it is not already open.
+  </para>
+</sect1>
