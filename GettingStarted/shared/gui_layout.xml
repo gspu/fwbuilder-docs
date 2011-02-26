@@ -6,8 +6,9 @@
   <title>Firewall Builder GUI Layout</title>
 
   <para>
-    The Firewall Builder application is comprised of three primary panels 
-    shown in the screenshot below.  
+  Before we get started configuring our example firewall, let's take 
+  a minute to orient ourselves with the Firewall Builder application. The 
+  GUI is comprised of three primary panels shown in the screenshot below.  
   </para>
 
   <figure id="gui_layout_diag">
@@ -16,21 +17,26 @@
   </figure>
 
     <itemizedlist>
-      <listitem><emphasis>Object Panel</emphasis>. Objects in the active Library are displayed
-        in an object tree in the Object Panel. Empty folders are defined 
-        for all possible object types that a user can create in the User library.
+      <listitem><emphasis>Object Panel</emphasis>. Objects in the active 
+      Library are displayed in an object tree in the Object Panel. Empty 
+      folders are defined for all possible object types that a user can 
+      create in the User library.
       </listitem>
-      <listitem><emphasis>Rules Panel</emphasis>. When a Policy object is opened for editing
-        it is displayed in the Rules Panel.  Clicking on the '+' button
-        at the top of the panel creates a new rule.</listitem>
-      <listitem><emphasis>Editor Panel</emphasis>. Double-clicking on objects opens them for
-        editing in the Editor Panel.  Changes to object attribute fields 
-        take effect immediately.</listitem>
+      <listitem><emphasis>Rules Panel</emphasis>. When a Policy object is 
+      opened for editing it is displayed in the Rules Panel. Clicking on 
+      the '+' button at the top of the panel creates a new rule.
+      </listitem>
+      <listitem><emphasis>Editor Panel</emphasis>. Double-clicking on 
+      objects opens them for editing in the Editor Panel. Changes to object 
+      attribute fields take effect immediately.
+      </listitem>
     </itemizedlist>
 
   <para>
   Panels open dynamically based on what activity the user is performing. 
   For example, double-clicking an object to edit it will open the Editor
-  Panel if it is not already open.
+  Panel if it is not already open. Now we are ready to get started 
+  configuring our firewall example.
   </para>
+
 </sect1>

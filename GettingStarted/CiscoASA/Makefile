@@ -49,6 +49,7 @@ fo/Getting-Started-ASA-PIX.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	rm -rf fo
 	mkdir -p fo/images
 	cp images/*.png fo/images
+	cp ../shared/images/*.png fo/images
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 		--xinclude \
 		--stringparam fop1.extensions 1  \

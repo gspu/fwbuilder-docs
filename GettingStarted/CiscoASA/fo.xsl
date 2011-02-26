@@ -23,6 +23,7 @@ file to .pdf
 <xsl:param name="use.id.as.filename" select="1"/>
 <xsl:param name="xref.with.number.and.title" select="0"/>
 <xsl:param name="keep.relative.image.uris" select="1"/>
+<xsl:param name="toc.section.depth" select="0"/>
 
 
 <!-- what level gets TOC and what goes there -->

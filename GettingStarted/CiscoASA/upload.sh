@@ -9,6 +9,7 @@ cd html && {
         --exclude .svn \
         --exclude '*.py' \
         --exclude '*.psd' \
+        --exclude '*.graffle' \
         --exclude '\#*\#' \
         --exclude .DS_Store \
         $* . $DESTINATION
