@@ -56,7 +56,7 @@
 
 (define %stylesheet%
   ;; Name of the stylesheet to use
-  "users_guide_3.css"
+  "users_guide_4.css"
 )
 
 <!--
@@ -157,7 +157,7 @@ http://sources.redhat.com/ml/docbook-apps/2000-q4/msg00336.html
 (define ($html-body-start$)
   (make sequence
     (make formatting-instruction data: "&#60!--")
-    (literal "#include virtual=\"/users_guide_page_header.html\"")
+    (literal "#include virtual=\"/getting_started_page_header.html\"")
     (make formatting-instruction data: "-->")))
 
 (define ($html-body-end$)

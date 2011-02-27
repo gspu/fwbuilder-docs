@@ -39,8 +39,10 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	cp *.css html/
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
       --stringparam target.database.document "olinkdb.xml" \
+      --stringparam chapter.autolabel 0 \
       --xinclude html.xsl Getting-Started-ASA-PIX.xml
 	chmod +x html/*.html
+	cp html/gs-cisco-asa-pix.html html/index.html
 
 
 fo:   fo/Getting-Started-ASA-PIX.fo  target.db
