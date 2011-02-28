@@ -57,6 +57,9 @@ Version: 1.73.2.dfsg.1-5
     <uri
         name="fo-docbook.xsl"
         uri="docbook/stylesheet/nwalsh/fo/docbook.xsl" />
+    <uri
+       name="targetdatabase.dtd"
+       uri="docbook/stylesheet/docbook-xsl/common/targetdatabase.dtd" />
 
   </group>
 
