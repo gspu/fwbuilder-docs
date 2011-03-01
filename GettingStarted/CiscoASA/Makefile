@@ -32,8 +32,6 @@ stage: html
 html: html/index.html  target.db
 
 html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
-	@echo "Warning: you are only building html, use 'make all' to build both html & PDF" 
-	@sleep 5
 	rm -rf html
 	mkdir -p html/images
 	cp images/*.png html/images
@@ -50,8 +48,6 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 fo:   fo/Getting-Started-ASA-PIX.fo  target.db
 
 fo/Getting-Started-ASA-PIX.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
-	@echo "Warning: you are only building PDF, use 'make all' to build both html & PDF" 
-	@sleep 5
 	rm -rf fo
 	mkdir -p fo/images
 	cp images/*.png fo/images
