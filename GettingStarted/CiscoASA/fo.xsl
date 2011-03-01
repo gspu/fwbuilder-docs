@@ -28,7 +28,7 @@ file to .pdf
 
 <!-- what level gets TOC and what goes there -->
 <xsl:param name="generate.toc">
-book toc
+''
 </xsl:param>
 
 <!-- figure floats do not work in the print output -->

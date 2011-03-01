@@ -32,6 +32,8 @@ stage: html
 html: html/index.html  target.db
 
 html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
+	@echo "Warning: you are only building html, use 'make all' to build both html & PDF" 
+	@sleep 5
 	rm -rf html
 	mkdir -p html/images
 	cp images/*.png html/images
@@ -48,6 +50,8 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 fo:   fo/Getting-Started-ASA-PIX.fo  target.db
 
 fo/Getting-Started-ASA-PIX.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
+	@echo "Warning: you are only building PDF, use 'make all' to build both html & PDF" 
+	@sleep 5
 	rm -rf fo
 	mkdir -p fo/images
 	cp images/*.png fo/images
@@ -55,6 +59,7 @@ fo/Getting-Started-ASA-PIX.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 		--xinclude \
 		--stringparam fop1.extensions 1  \
+    --stringparam chapter.autolabel 0 \
 		--output fo/Getting-Started-ASA-PIX.fo \
 		fo.xsl Getting-Started-ASA-PIX.xml
 
@@ -64,4 +69,7 @@ pdf: Getting-Started-ASA-PIX.pdf
 
 Getting-Started-ASA-PIX.pdf: fo/Getting-Started-ASA-PIX.fo
 	FOP_OPTS="-Xmx256m" fop fo/Getting-Started-ASA-PIX.fo Getting-Started-ASA-PIX.pdf
+
+all: html fo pdf
+	cp Getting-Started-ASA-PIX.pdf html/
 
