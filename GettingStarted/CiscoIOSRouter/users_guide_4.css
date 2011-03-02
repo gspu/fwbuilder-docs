@@ -168,7 +168,13 @@
 .column_users_guide .reg_table table {
     font-size: 1em;
     font-style: normal; 
+    text-align: center;
     table-layout: auto;
+}
+
+.column_users_guide .reg_table table TD.redbold {
+    color: red;
+    font-weight: bold;
 }
 
 /*

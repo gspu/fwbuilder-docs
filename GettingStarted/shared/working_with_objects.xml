@@ -1,12 +1,12 @@
-    <sect1 id="asa_working_with_objects">
+    <sect1 id="working_with_objects">
     <title>Working With Objects</title>
 
     <para>
     Firewall Builder is based on the concept of objects. There are
     a variety of different object types that can be used to define
     IP objects that can be used as the Source and Destination in
-    your Cisco ASA/PIX rules. Two of the most common IP objects used
-    in Cisco access lists are <emphasis>Networks</emphasis> and 
+    your firewall rules. Two of the most common IP objects used
+    in firewall rules are <emphasis>Networks</emphasis> and 
     <emphasis>Addresses</emphasis>.
     </para>
 
@@ -30,7 +30,7 @@
     to 10.10.10.0 and the netmask is 255.255.255.0.
     </para>
 
-  <figure id="asa_new_network">
+  <figure id="new_network">
     <title>New Network Object</title>      
     <graphic scale="50" fileref="images/new_network.png" />
   </figure> 
@@ -55,7 +55,7 @@
     Server”, and set the IP address.
     </para>
 
-  <figure id="asa_new_address_steps">
+  <figure id="new_address_steps">
     <title>New Address Object</title>      
     <graphic scale="50" fileref="images/new_address_steps.png" />
   </figure> 

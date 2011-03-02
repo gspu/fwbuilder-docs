@@ -7,6 +7,9 @@ SOURCES = Getting-Started-IOS-Router.xml \
 CATALOGS = catalog-Darwin.xml catalog-Linux.xml
 HTML_STYLESHEETS = html.xsl
 FO_STYLESHEETS = fo.xsl
+XML_FILE = Getting-Started-IOS-Router.xml
+FO_FILE = Getting-Started-IOS-Router.fo
+PDF_FILE = Getting-Started-IOS-Router.pdf
 
 
 .PHONY: all html fo pdf stage target
@@ -24,7 +27,7 @@ target.db:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 			--stringparam  collect.xref.targets  "only" \
 			--xinclude html.xsl \
-			Getting-Started-IOS-Router.xml
+      $(XML_FILE)
 
 stage: html
 	./upload-glitch.sh
@@ -35,26 +38,35 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	rm -rf html
 	mkdir -p html/images
 	cp images/*.png html/images
+	cp ../shared/images/*.png html/images
 	cp *.css html/
-	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl \
-			Getting-Started-IOS-Router.xml
+	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
+      --stringparam target.database.document "olinkdb.xml" \
+      --stringparam chapter.autolabel 0 \
+      --xinclude html.xsl $(XML_FILE) 
 	chmod +x html/*.html
+	cp html/gs-cisco-ios.html html/index.html
 
 
-fo:   fo/Getting-Started-IOS-Router.fo  target.db
+fo:   fo/$(FO_FILE) target.db
 
-fo/Getting-Started-IOS-Router.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
+fo/$(FO_FILE): $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	rm -rf fo
 	mkdir -p fo/images
 	cp images/*.png fo/images
+	cp ../shared/images/*.png fo/images
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 		--xinclude \
 		--stringparam fop1.extensions 1  \
-		--output fo/Getting-Started-IOS-Router.fo \
-		fo.xsl Getting-Started-IOS-Router.xml
+    --stringparam chapter.autolabel 0 \
+		--output fo/$(FO_FILE) \
+		fo.xsl $(PDF_FILE) 
 
-pdf: Getting-Started-IOS-Router.pdf
+pdf: $(PDF_FILE) 
 
-Getting-Started-IOS-Router.pdf: fo/Getting-Started-IOS-Router.fo
-	FOP_OPTS="-Xmx256m" fop fo/Getting-Started-IOS-Router.fo Getting-Started-IOS-Router.pdf
+$(PDF_FILE) : fo/$(FO_FILE)
+	FOP_OPTS="-Xmx256m" fop fo/$(FO_FILE) $(PDF_FILE) 
+
+all: html fo pdf
+	cp $(PDF_FILE) html/
 

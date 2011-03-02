@@ -1,0 +1,175 @@
+<sect2 id="how_fwbuilder_creates_acl_rules">
+  <title>How Firewall Builder Creates Access Lists</title>
+
+  <para>
+  One of the powerful features of Firewall Builder is that you can 
+  define a single rule in firewall Policy that results in multiple 
+  access-lists being created in the generated configuration file. 
+  A common example of this is when you define a rule that has the 
+  Interfaces column set to "All". When Firewall Builder generates 
+  the IOS command file for this rule it will create an access-list 
+  per interface and direction pair.
+  </para>
+ 
+  <para> 
+  Let's look at an example based on the firewall object called router-1 
+  that we just created. Remember the router configuration is:
+  </para>
+  
+<figure id="ios_firewall_example">
+  <title>Example IOS Router Firewall</title>      
+  <graphic scale="50" fileref="images/ios_firewall_example.png" />
+</figure> 
+
+  <para>
+  When firewall rules are defined with a Direction of "Both" Firewall 
+  Builder will check to see if the Source or Destination of the 
+  rule matches a network of one of the router interfaces. If the 
+  network matches an interface's connected network Firewall Builder 
+  will intelligently determine which interfaces should have the rule 
+  applied inbound or outbound.
+  </para> 
+ 
+  <para> 
+  For example, if a rule's Source matches the network of interface 
+  FastEthernet0/0, and the Direction is set to "Both", Firewall 
+  Builder will create both inbound and outbound access list entries 
+  for the FastEthernet0/0 interface and only create outbount access 
+  list entries for the rest of the interfaces on the router. This is 
+  because traffic with a source address of the network connected to 
+  the FastEthernet0/0 interface should only arrive inbound on the 
+  FastEthernet0/0 interface.
+  </para>
+
+  <para>
+  The table below shows some examples of different Source, Destination 
+  and Directions for rules and the resulting access list entries that 
+  Firewall Builder will create. A "X" indicates an access list entry 
+  would be created and a "-" indicates no access list entry would be 
+  created on that interface.
+  </para>
+
+     <table id="policy-rule-example" tabstyle='reg_table'>
+      <title>Examples of Access Lists that get created based on networks</title>
+
+      <tgroup cols="7">
+        <thead>
+          <row>
+            <entry>Rule Source</entry>
+
+            <entry>Rule Destination</entry>
+
+            <entry>Rule Direction</entry>
+
+            <entry>Interface F0/0 Inbound ACL</entry>
+
+            <entry>Interface F0/0 Outbound ACL</entry>
+
+            <entry>Interface F0/1 Inbound ACL</entry>
+
+            <entry>Interface F0/1 Outbound ACL</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>10.10.10.0/24</entry>
+
+            <entry>Any</entry>
+
+            <entry>Inbound</entry>
+
+            <entry>X</entry>
+
+            <entry>-</entry>
+
+            <entry>X</entry>
+
+            <entry>-</entry>
+          </row>
+
+          <row>
+            <entry>10.10.10.0/24</entry>
+
+            <entry>Any</entry>
+
+            <entry>Outbound</entry>
+
+            <entry>-</entry>
+
+            <entry>X</entry>
+
+            <entry>-</entry>
+
+            <entry>X</entry>
+          </row>
+
+          <row>
+            <entry>10.10.10.0/24</entry>
+
+            <entry>Any</entry>
+
+            <entry>Both</entry>
+
+            <entry>X</entry>
+
+            <entry>X</entry>
+
+            <entry role="redbold">-</entry>
+
+            <entry>X</entry>
+          </row>
+
+          <row>
+            <entry>10.20.20.0/24</entry>
+
+            <entry>Any</entry>
+
+            <entry>Both</entry>
+
+            <entry role="redbold">-</entry>
+
+            <entry>X</entry>
+
+            <entry>X</entry>
+
+            <entry>X</entry>
+          </row>
+
+          <row>
+            <entry>10.30.20.0/24</entry>
+
+            <entry>Any</entry>
+
+            <entry>Both</entry>
+
+            <entry>X</entry>
+
+            <entry>X</entry>
+
+            <entry>X</entry>
+
+            <entry>X</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table> 
+
+  <para>
+  Note that if the Source network does <emphasis>not</emphasis> match 
+  one of the router's connected interfaces then rules with Direction set 
+  to "Both" are applied inbound and outbound to all interfaces on the 
+  router. The last entry in the table shows an example of this.
+  </para>
+
+  <note>
+  <para>
+  If you prefer to configure your rules so that each rule has a single 
+  Interface and Direction defined then you can use Rule Groups to help 
+  organize your rules. You can find an example of this in a 
+  <ulink url="http://www.fwbuilder.org/4.0/docs/quick_tips/acl_groups.html">Quick Tip</ulink>
+  on the website.
+  </para>
+  </note>
+
+</sect2>
