@@ -11,11 +11,11 @@
 
   <para>
   Enter a name for the firewall object, in this example we will use
-  <emphasis>la-rtr-1</emphasis>. Change the drop down menu for software 
+  <emphasis>router-1</emphasis>. Change the drop down menu for software 
   that is running on the firewall to be “Cisco IOS ACL”.
   </para>
 
-  <figure id="gs_acl_create_router">
+  <figure id="ios_create_router">
   <title>New Firewall Dialog</title>      
   <graphic scale="50" fileref="images/create_router.png" />
   </figure> 
@@ -57,9 +57,9 @@
   </para>
 
   <para>
-  Set the interface name as FastEthernet0/0 and set the label to outside. Click
-  on the Add address button and set the IP address to 192.0.2.1 with a netmask
-  of 255.255.255.240.
+  Set the interface name as FastEthernet0/0 and set the label to "production" to match 
+  the network example for this guide. Click on the Add address button and set the IP 
+  address to 10.10.10.1 with a netmask of 255.255.255.0.
   </para>
 
   <figure id="gs_acl_interface_address">
