@@ -54,6 +54,19 @@
       "log".  Default value is Logging On.</para></listitem>
     </itemizedlist>
 
+    <bridgehead>Configuring a Rule</bridgehead>
+
+    <para>
+    In the examples below the fields in the rule will be set to the values that 
+    match the first rule from our example scenario (scenario rules shown in 
+    figure below). This rule controls SSH access to the firewall itself.
+    </para>  
+     
+  <figure id="asa_scenario_rules">
+    <title>Scenario Rules</title>      
+    <graphic scale="50" fileref="images/asa_scenario_rules.png" />
+  </figure> 
+
     <bridgehead>Setting the Source</bridgehead>
 
     <para>
@@ -94,6 +107,16 @@
     our first example rule we want the Destination to be the "inside" interface 
     of the firewall object. Drag-and-drop the Ethernet0/1 object from the object 
     tree to the Destination column.
+    </para>
+
+  <figure id="asa_rule_destination">
+    <title>Setting the Destination</title>      
+    <graphic scale="50" fileref="images/asa_new_rule_destination.png" />
+  </figure> 
+
+    <para>
+    After you drop the interface object into the rule the Destination field will
+    change from Any to "inside" which is the label of the Ethernet0/1 interface.
     </para>
 
   <figure id="asa_rule_step2">
@@ -215,7 +238,9 @@
     <graphic scale="50" fileref="images/rule_step5.png" />
   </figure> 
 
-    <bridgehead>Additional Tips</bridgehead>
+     
+    <sect2 id="asa_additional_tips">
+    <title>Additional Tips For Working with Rules</title>
 
     <bridgehead>Adding a Rule</bridgehead>
 
@@ -270,15 +295,19 @@
     </para>
   </note>
 
+  </sect2>
+
+    <bridgehead>Example of Completed Rules</bridgehead>
+
     <para>
-    For our example we needed to create two firewall rules which are 
-    shown in the diagram below.
+    For our example we needed to create two firewall rules. The completed 
+    firewalll rules are shown in the diagram below.
     </para>
 
   <figure id="asa_two_rules">
     <title>Two Rules</title>      
     <graphic scale="50" fileref="images/asa_two_rules.png" />
   </figure> 
-     
+
 </sect1>
 

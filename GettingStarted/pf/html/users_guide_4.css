@@ -1,0 +1,267 @@
+@import url("/4.0/css/default.css");
+
+.column_users_guide .ARTICLE {
+}
+
+.column_users_guide .BOOK {
+    margin: 20px 20px 20px 20px;
+}
+
+.column_users_guide .HEADER {
+}
+
+.column_users_guide .AUTHOR {
+}
+
+.column_users_guide .AFFILIATION {
+}
+
+.column_users_guide .ADDRESS {
+}
+
+.column_users_guide .TITLEPAGE {
+}
+
+.column_users_guide .TITLE {
+    font-style: normal; 
+    font-weight: bolder; 
+    color: #CC9933;
+}
+
+.column_users_guide .TITLE A {
+    font-size: 2.0em;
+    font-style: normal; 
+    font-weight: bolder; 
+}
+
+.column_users_guide .figure .title {
+    font-size: 1em;
+    color: black;
+}
+
+.column_users_guide .figure-float {
+    margin-right: 20px;
+}
+
+.column_users_guide .note h3 {
+    font-size: 1em;
+    font-style: normal; 
+    color: black;
+}
+
+.column_users_guide .note table {
+    font-size: 1em;
+    font-style: normal; 
+}
+
+.column_users_guide .ABSTRACT {
+}
+
+.column_users_guide .REVHISTORY TABLE {
+}
+
+.column_users_guide .REVHISTORY TABLE {
+}
+
+.column_users_guide .toc A {
+}
+
+.column_users_guide .toc {
+    padding-bottom: 20px;
+}
+
+.column_users_guide .toc .sect1 {
+    margin: 0px;
+}
+
+.column_users_guide .chapter {
+    margin: 20px 0px 20px 10px;
+}
+
+.column_users_guide .sect1 {
+    margin: 20px 0px 20px 10px;
+}
+
+.column_users_guide .sect2 {
+    margin: 20px 0px 20px 10px;
+}
+
+.column_users_guide .sect2 P {
+}
+
+.column_users_guide .sect3 {
+    margin: 20px 0px 20px 10px;
+}
+
+.column_users_guide .navheader table {
+    color: blue;  
+    font-size:   1em;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+
+/*
+.column_users_guide .NAVHEADER TABLE {
+    color: blue;  
+    font-size:   10pt;
+    font-weight: bold;
+}
+
+.column_users_guide .NAVHEADER TABLE TH {
+    font-size:   14pt;
+}
+*/
+
+.column_users_guide .navheader hr {
+    display: block;
+}
+
+.column_users_guide .navfooter table {
+    color: blue;  
+    font-size:   1em;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+/*
+.column_users_guide .NAVFOOTER TABLE{
+    color: blue;  
+    font-size:   10pt;
+    font-weight: bold;
+}
+*/
+
+.column_users_guide .navfooter hr {
+    display: block;
+}
+
+.column_users_guide .FILENAME {
+    font-family: Courier New, Courier, mono;
+    font-size: 10pt; 
+    font-weight: bold;
+    color: #003399
+}
+
+.column_users_guide .programlisting {
+/*    font-family: Courier New, Courier, mono; */
+/*    font-size: 10pt;  */
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px dashed #2f6fab;
+    background-color: #f9f9f9;
+}
+
+/*
+.column_users_guide .screen {     
+    font-family: Courier New, Courier, mono;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+    font-style: italic;
+}
+*/
+
+.column_users_guide .reg_table table {
+    font-size: 1em;
+    font-style: normal; 
+    text-align: center;
+    table-layout: auto;
+}
+
+.column_users_guide .reg_table table TD.redbold {
+    color: red;
+    font-weight: bold;
+}
+
+/*
+.column_users_guide .reg_table table COL {
+    width: 50%;
+}
+*/
+
+.column_users_guide .reg_table table TD {
+    padding-right: 10px;
+    border-bottom: 1px solid #C0C0C0;  
+}
+
+.column_users_guide .reg_table table th.tblcol_50pc {
+    width: 50%;
+}
+
+.column_users_guide .reg_table table th.tblcol_60pc {
+    width: 60%;
+}
+
+.column_users_guide .reg_table table th.tblcol_10pc {
+    width: 10%;
+}
+
+.column_users_guide .reg_table table TH {
+    padding-right: 10px;
+    border-bottom: 1px solid black;  
+}
+
+.column_users_guide .two_columns_layout_table table {
+    font-size: 1em;
+    border: 0px;
+}
+
+.column_users_guide .two_columns_layout_table table TD {
+    padding-right: 20px;
+}
+
+
+
+
+<!-- ################################ -->
+
+
+.column_users_guide H1 {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+}
+
+.column_users_guide H1 A {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black; 
+}
+
+.column_users_guide H2 A {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black; 
+}
+
+.column_users_guide H3 A {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black; 
+}
+
+.column_users_guide H4 A {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black; 
+}
+
+.column_users_guide DD {
+    margin-left: 40px;
+}
+
+.NAV_PREV {
+    float: left;
+}
+
+.NAV_NEXT {
+    float: right;
+}
+
+.redtext {
+    color: red;
+}
+
+.greentext {
+    color: darkgreen;
+}
+

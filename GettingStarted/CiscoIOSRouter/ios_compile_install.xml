@@ -13,7 +13,7 @@
   haven’t saved your configuration file yet you will be asked to do so. After
   you save your file a wizard will be displayed that lets you select which
   firewall(s) you want to compile. In this example we are going to complie
-  the firewall called <emphasis>la-rtr-1</emphasis> configured with the rules above.
+  the firewall called <emphasis>router-1</emphasis> configured with the rules above.
   </para>
 
   <para>
@@ -27,7 +27,7 @@
   Cisco command format.  Note that any line that starts with “!” is a comment.
   </para>
       
-<figure id="gs_acl_compiler_output">
+<figure id="acl_compiler_output">
   <title>Example Compiler Output</title>      
   <graphic scale="50" fileref="images/compiler_output.png" />
 </figure> 
@@ -36,7 +36,7 @@
   The output from the compiler is automatically saved in a file in the same
   directory as the data file that was used to create it. The generated files
   are named with the firewall name and a .fw extension. In our example the
-  generated configuration file is called la-rtr-1.fw. You can copy and copy and
+  generated configuration file is called router-1.fw. You can copy and copy and
   paste the commands from this file to your router or you can use the built-in
   Firewall Builder installer.
   </para>
@@ -57,7 +57,7 @@
   which is the interface connected to the internal network.
   </para>
 
-<figure id="gs_acl_set_mgmt_interface">
+<figure id="acl_set_mgmt_interface">
   <title>Setting the Managment Interface</title>      
   <graphic scale="50" fileref="images/set_mgmt_interface.png" />
 </figure> 
@@ -78,7 +78,7 @@
   Next > to install the selected firewall.
   </para>
 
-<figure id="gs_acl_install_checkbox">
+<figure id="acl_install_checkbox">
   <title>Setting Compile and Install Actions</title>      
   <graphic scale="50" fileref="images/install_checkbox.png" />
 </figure> 
@@ -90,7 +90,7 @@
   password.
   </para>
 
-<figure id="gs_acl_install_screen">
+<figure id="acl_install_screen">
   <title>Install Dialog</title>      
   <graphic scale="50" fileref="images/install_screen.png" />
 </figure> 
@@ -102,7 +102,7 @@
   was successful.
   </para>
       
-<figure id="gs_acl_install_success">
+<figure id="acl_install_success">
   <title>Successful Install</title>      
   <graphic scale="50" fileref="images/install_success.png" />
 </figure> 
@@ -124,7 +124,8 @@
   This requires ssh version 2 to be enabled on the router and scp server
   to be enabled. You can find complete instructions for enabling SCP
   installation in our
-  <olink targetdoc="UsersGuide4" targetptr="installer_on_ios"></olink>
+  <ulink url="http://www.fwbuilder.org/4.0/docs/users_guide/index.html">Users Guide</ulink>
+  .
   </para>
 </sect1>
 

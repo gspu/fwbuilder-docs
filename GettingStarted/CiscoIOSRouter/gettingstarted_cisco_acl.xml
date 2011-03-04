@@ -17,7 +17,7 @@
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../shared/gui_layout.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ios_scenario.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ios_new_firewall.xml"/>
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../shared/working_with_objects.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ios_working_with_objects.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ios_configure_rules.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ios_compile_install.xml"/>
 

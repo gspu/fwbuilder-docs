@@ -60,7 +60,7 @@ fo/$(FO_FILE): $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 		--stringparam fop1.extensions 1  \
     --stringparam chapter.autolabel 0 \
 		--output fo/$(FO_FILE) \
-		fo.xsl $(PDF_FILE) 
+		fo.xsl $(XML_FILE) 
 
 pdf: $(PDF_FILE) 
 

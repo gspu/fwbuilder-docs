@@ -2,7 +2,7 @@
   <title>Configuring Access Lists</title>
 
   <para>
-  After you create a firewall object, for example <emphasis>la-rtr-1</emphasis> from our
+  After you create a firewall object, for example <emphasis>router-1</emphasis> from our
   previous example, it will be opened automatically in the object tree and
   its Policy object is opened in the main window for editing. The Policy
   object is where access list rules are configured.

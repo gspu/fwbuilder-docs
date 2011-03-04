@@ -48,11 +48,11 @@ user.footer.navigation	Called after the standard navigational footer
 -->
 
 <xsl:template name="user.header.navigation">
-  <xsl:comment>#include virtual="/4.0/users_guide_page_header.html"</xsl:comment>
+  <xsl:comment>#include virtual="/4.0/ios_getting_started_page_header.html"</xsl:comment>
 </xsl:template>
 
 <xsl:template name="user.footer.navigation">
-  <xsl:comment>#include virtual="/4.0/users_guide_page_footer.html"</xsl:comment>
+  <xsl:comment>#include virtual="/4.0/getting_started_page_footer.html"</xsl:comment>
 </xsl:template>
 
 <!--
