@@ -46,8 +46,6 @@
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="definitions.xml"/>
 
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="getting_started/gettingstarted.xml"/>
-
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="fwbuilder_gui/using-gui.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="objects/working-with-objects.xml"/>

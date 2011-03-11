@@ -2,17 +2,122 @@
     <title>OpenBSD and FreeBSD</title>
 
     <para>
-      Firewall platforms "pf", "ipfilter" and "ipfw" can be used with
-      these OS.
+      Firewall Builder supports configuring "pf", "ipfilter" and "ipfw" 
+      rules for OpenBSD and FreeBSD systems. 
+    </para>
+
+    <sect2 id="bsd-pf">
+    <title>PF</title>
+
+    <para>
+    To create a new "pf" firewall select the PF platform option on 
+    the first page of the New Firewall Wizard. You must also choose 
+    whether the firewall will be running on OpenBSD (default) or 
+    FreeBSD.
+    </para>
+
+    <figure id="new-pf-fw">
+      <title>New Firewall Wizard - PF Firewall</title>
+      <graphic scale="50" fileref="firewall_os/images/new-pf-fw.png" />
+    </figure>
+
+    <sect3 id="bsd-pf-freebsd">
+    <title>FreeBSD</title>
+
+    <para>
+    Starting in Firewall Builder V4.2 there are two supported modes 
+    for generating "pf" firewall configurations on FreeBSD systems.
+    </para>
+
+    <orderedlist>
+      <listitem>Standard Mode - in this case Firewall Builder generates 
+      both a pf.conf style configuration file and a .fw activation script.
+      </listitem>
+      <listitem>rc.conf Mode - in this case Firewall Builder generates 
+      both a pf.conf style configuration file and a rc.conf.local style 
+      configuration file.
+      </listitem>
+    </orderedlist>
+
+    <note>
+    <para>
+    By default file names use the name of the firewall object as the 
+    base of the filename.  For example, a firewall named "guardian" would 
+    generate files called guardian.conf (pf.conf style commands) and 
+    guardian.fw (bash shell activation script OR rc.conf.local style 
+    settings).
     </para>
 
     <para>
-      For <emphasis>PF</emphasis>, Firewall Builder generates .conf
-      configuration file and .fw policy activation script. Both files
-      have the name the same as the name of the firewall object by
-      default, but you can change this in the "Compiler" tab of the
-      firewall settings dialog.
+    Users can override the default file names by changing the settings 
+    in the Firewall Settings on the Compiler tab.
     </para>
+    </note>
+
+    <figure id="file-names">
+      <title>Firewall Settings - Changing File Names</title>
+      <graphic scale="50" fileref="firewall_os/images/file-names.png" />
+    </figure>
+
+    <bridgehead>Standard Mode</bridgehead>
+
+    <para>
+    In this mode Firewall Builder generates a firewall.conf file that 
+    uses the same style as pf.conf. By default Firewall Builder will 
+    install this file in /etc. You can update the installation location 
+    by clicking on the Installer tab in the Firewall Settings. The first 
+    entry is directory location on the firewall.
+    </para>
+
+    <para>
+    Firewall Builder will also generate a firewall.fw file when it is 
+    configured in Standard mode. This is a bash shell script file that 
+    will set interface IP addresses, create static routes, etc. if these 
+    options have been selected in Firewall Settings.
+    </para>
+
+    <para>
+    This is the default mode and you don't need to change any settings 
+    to use Firewall Builder in this mode with your PF firewall running 
+    on FreeBSD.
+    </para>
+
+    <bridgehead>rc.conf Mode</bridgehead>
+
+    <para>
+    To switch from Standard Mode to rc.conf mode open the Firewall 
+    Settings window. Click on the tab labeled Script. If your Host OS 
+    is set to FreeBSD you will see two radial buttons at the top of 
+    the window to set the initialization mode. Select the radial 
+    next to the "file in rc.conf format".
+    </para>
+     
+    <figure id="rc-conf-mode">
+      <title>Firewall Settings - Changing Mode</title>
+      <graphic scale="50" fileref="firewall_os/images/rc-conf-mode.png" />
+    </figure>
+
+    <para>
+    In this mode the firewall.conf file that gets generated is the 
+    same as the firewall.conf file that gets generated in the Standard 
+    Mode.
+    </para>
+
+    <para>
+    Instead of a bash shell script in this mode the initialization file, 
+    firewall.fw, will be in rc.conf settings format as shown below.
+    </para>
+
+    <figure id="rc-conf-output">
+      <title>Example generated firewall.fw in rc.conf format</title>
+      <graphic scale="50" fileref="firewall_os/images/rc-conf-output.png" />
+    </figure>
+
+    </sect3>
+
+    </sect2>
+
+    <sect2 id="bsd-ipfilter">
 
     <para>
       For <emphasis>ipfilter</emphasis> Firewall Builder generates
@@ -21,11 +126,17 @@
       policy activation script.
     </para>
 
+    </sect2>
+
+    <sect2 id="bsd-ipfw">
+
     <para>
       For <emphasis>ipfw</emphasis> a single script firewall.fw is
       generated, this script does all the prepararory work and then
       loads ipfw rules.
     </para>
+
+    </sect2>
 
     <para>
       By default, generated scripts are installed in the /etc/fw/
@@ -34,7 +145,6 @@
       <xref linkend="load_policy_on_reboot"/> for some recommended
       ways to do this.
     </para>
-
 
   </sect1>
 

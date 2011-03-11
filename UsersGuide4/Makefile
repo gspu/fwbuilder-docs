@@ -59,6 +59,7 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	mkdir -p html/cluster_config/images
 	mkdir -p html/interface_config/images
 	mkdir -p html/compile_install/images
+	mkdir -p html/firewall_os/images
 	mkdir -p html/configlets/images
 	mkdir -p html/cookbook/change_template/images
 	mkdir -p html/cookbook/policy_rules/images
@@ -76,6 +77,7 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	cp cluster_config/images/*.png html/cluster_config/images
 	cp interface_config/images/*.png html/interface_config/images
 	cp compile_install/images/*.png html/compile_install/images
+	cp firewall_os/images/*.png html/firewall_os/images
 	cp configlets/images/*.png html/configlets/images
 	cp cookbook/change_template/images/*.png html/cookbook/change_template/images
 	cp cookbook/policy_rules/images/*.png html/cookbook/policy_rules/images
