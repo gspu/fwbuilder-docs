@@ -1,34 +1,44 @@
     <sect1 id="routing">
       <title>Routing Ruleset</title>
 
-      <para>Though not strictly a firewall function, Firewall Builder
-      also lets you configure the routing tables of iptables, PIX and
-      Cisco IOS firewalls. Routing rules are ignored for other
-      firewalls.</para>
+      <para>
+        Though not strictly a firewall function, Firewall Builder
+        also lets you configure the routing tables of Linux, BSD,  
+        Cisco ASA/PIX and Cisco IOS firewalls. Routing rules are ignored 
+        for other firewalls.
+      </para>
 
-      <para>Construct these rules the same way you construct access
-      policy or NAT rules, by dragging the appropriate objects into
-      the rules. When you run the compiled script on the target
-      firewall, the routing rule set rules create static routes in the
-      firewall.</para>
+      <para>
+        Construct these rules the same way you construct access
+        policy or NAT rules, by dragging the appropriate objects into
+        the rules. When you run the compiled script on the target
+        firewall, the routing rule set rules create static routes in the
+        firewall.
+      </para>
 
-      <note><para>When executing a firewall script, all existing
-      routing rules previously set by user space processes are
-      deleted. To see which rules will be deleted, you can use the
-      command <command>ip route show</command>. All lines not
-      including "proto kernel" will be deleted upon reload of the
-      firewall script.</para></note>
+      <note>
+      <para>
+        When executing a firewall script, all existing
+        routing rules previously set by user space processes are
+        deleted. To see which rules will be deleted, you can use the
+        command <command>ip route show</command>. All lines not
+        including "proto kernel" will be deleted upon reload of the
+        firewall script.
+      </para>
+      </note>
 
-      <para>If you want to use ECMP (Equal Cost Multi Path) routing
-      rules with your iptables-based firewall, make sure your kernel
-      is compiled with the CONFIG_IP_ROUTE_MULTIPATH option. See
-      <xref linkend="ecmp" /> for instructions on creating multiple
-      paths to a destination.</para>
+      <para>
+        If you want to use ECMP (Equal Cost Multi Path) routing
+        rules with your iptables-based firewall, make sure your kernel
+        is compiled with the CONFIG_IP_ROUTE_MULTIPATH option. See
+        <xref linkend="ecmp" /> for instructions on creating multiple
+        paths to a destination.
+      </para>
 
-          <figure id="routing-rule1">
-            <title>A Routing Rule</title>
-                <graphic scale="70" fileref="firewall_policies/images/routing-rule1.png" />
-          </figure>
+        <figure id="routing-rule1">
+          <title>A Routing Rule</title>
+              <graphic scale="70" fileref="firewall_policies/images/routing-rule1.png" />
+        </figure>
 
 <itemizedlist spacing="compact">
             <listitem>
@@ -48,15 +58,21 @@
             <listitem>
               <para>Interface</para>
 
-              <para>Specify an outbound interface for packets. This interface must be a child interface of the firewall.</para>
+              <para>
+                Specify an outbound interface for packets. This interface must be 
+                a child interface of the firewall. This option is not available for 
+                BSD firewalls.
+              </para>
             </listitem>
 
             <listitem>
               <para>Metric</para>
 
-              <para>The metric of the route. The default metric for
-              PIX is 1, so a "0" in a rule is automatically changed to
-              1 at compilation.</para>
+              <para>
+                The metric of the route. The default metric for PIX is 1, so a "0" 
+                in a rule is automatically changed to 1 at compilation. This option 
+                is not available for BSD firewalls.
+              </para>
             </listitem>
 
             <listitem>
@@ -67,43 +83,59 @@
           </itemizedlist>
 
         <note>
-          <para>RedHat seems to reset routing rules explicitly upon
+          <para>
+          RedHat seems to reset routing rules explicitly upon
           system startup. Therefore, it's hard to distinguish
-          interface rules from rules set up by the user. On RedHat
+          interface routes from routes set up by the user. On RedHat
           systems you need to include the interface basic routing
-          rules into your Firewall Builder routing setup. IF YOU DO
-          NOT FOLLOW THIS HINT, YOUR MACHINE WILL FREEZE ANY NETWORK
-          TRAFFIC UPON START OF THE FIREWALL SCRIPT.  This means, for
-          example, if eth0 has network 192.168.3.0/24 attached to it,
-          you need to add a route with
+          rules into your Firewall Builder routing setup.
+          </para>
+          
+          <para>
+          IF YOU DO NOT FOLLOW THIS HINT, YOUR MACHINE WILL FREEZE 
+          ANY NETWORK TRAFFIC UPON START OF THE FIREWALL SCRIPT. This 
+          means, for example, if eth0 has network 192.168.3.0/24 
+          attached to it, you need to add a route with 
           Destination=Network(192.168.3.0/24), Gateway empty and
-          Interface=eth0.  This problem was encountered on RedHat 8.0,
-          but other versions and distributions might be affected
-          too. (Debian sarge and SuSE Linux work fine without
-          interface routing rules being included in Firewall Builder
-          routing rules.)
+          Interface=eth0. 
+          </para>
+          
+          <para> 
+          This problem was encountered on RedHat 8.0, but other versions 
+          and distributions might be affected too. (Debian sarge and SuSE 
+          Linux work fine without interface routing rules being included 
+          in Firewall Builder routing rules.)
           </para>
         </note>
 
       <sect2>
         <title>Handling of the Default Route</title>
 
-          <para>"Default route" is special in that it is critical for
-          your ability to access the firewall machine when it is
-          managed remotely. To make sure you do not cut off access
-          accidentally by not adding default to the routing rules in
-          Firewall Builder, Firewall Builder treats the default route
-          in a special way. If the default route is configured in the
-          routing rule set in Firewall Builder, then the default route
-          found in the routing table is deleted and replaced with the
-          one configured in Firewall Builder. However, if there is no
-          default route in the routing rule set in Firewall Builder
-          configuration, then the original default route found in the
-          routing table is not deleted. Additionally, the script
-          checks if the installation of routing entries was successful
-          and rolls changes back in case of errors. This ensures that
-          the firewall machine will not be left with no default route
-          and therefore no way to access it remotely.</para>
+          <para>
+            "Default route" is special in that it is critical for
+            your ability to access the firewall machine when it is
+            managed remotely. To make sure you do not cut off access
+            accidentally by not adding default to the routing rules in
+            Firewall Builder, Firewall Builder treats the default route
+            in a special way.
+          </para>
+
+          <para>
+            If the default route is configured in the routing rule set 
+            in Firewall Builder, then the default route found in the 
+            routing table is deleted and replaced with the one configured 
+            in Firewall Builder. However, if there is no
+            default route in the routing rule set in Firewall Builder
+            configuration, then the original default route found in the
+            routing table is not deleted.
+          </para>
+         
+          <para> 
+            Additionally, the script checks if the installation of routing 
+            entries was successful and rolls changes back in case of errors. 
+            This ensures that the firewall machine will not be left with no 
+            default route and therefore no way to access it remotely.
+          </para>
 
       </sect2>
 

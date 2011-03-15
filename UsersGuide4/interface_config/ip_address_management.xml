@@ -236,6 +236,22 @@ ifconfig eth0 up
     <title>IP address management on BSD</title>
 
     <para>
+      Firewall Builder usually generates a firewall script file to 
+      configure system parameters such as network interfaces, IP 
+      addresses, static routes. Starting with Firewall Builder V4.2 
+      FreeBSD firewalls can be configured to generate system 
+      settings in rc.conf format. <xref linkend="bsd-pf-freebsd"/> 
+      explains how to configure Firewall Builder for FreeBSD 
+      firewalls using rc.conf format.
+    </para>
+
+    <para>
+      All configuration information shown below assumes the standard 
+      behavior where Firewall Builder generates a firewall script to 
+      manage system settings.
+    </para>
+
+    <para>
       Generated script includes shell code to manage ip
       addresses if checkbox "Configure interfaces" is
       turned on in the "Script" tab of the firewall object
