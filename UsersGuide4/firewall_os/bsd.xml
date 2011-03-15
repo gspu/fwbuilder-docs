@@ -115,9 +115,27 @@
 
     </sect3>
 
+    <sect3 id="bsd-pf-openbsd">
+    <title>OpenBSD</title>
+
+    <para>
+    Firewall Builder only supports Standard Mode, which is where a bash 
+    script file is generated to configure system parameters like interface 
+    IP addresses, for OpenBSD systems. The rc.conf option format is 
+    disabled for OpenBSD systems as shown below.
+    </para>
+
+    <figure id="openbsd-init-options">
+      <title>rc.conf format option disabled for OpenBSD</title>
+      <graphic scale="50" fileref="firewall_os/images/openbsd-init-options.png" />
+    </figure>
+
+    </sect3>
+
     </sect2>
 
     <sect2 id="bsd-ipfilter">
+    <title>ipfilter</title>
 
     <para>
       For <emphasis>ipfilter</emphasis> Firewall Builder generates
@@ -129,6 +147,7 @@
     </sect2>
 
     <sect2 id="bsd-ipfw">
+    <title>ipfw</title>
 
     <para>
       For <emphasis>ipfw</emphasis> a single script firewall.fw is

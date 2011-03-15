@@ -8,8 +8,11 @@
         bridge ports and bonding interface members. Incremental
         management means generated script can add or remove interfaces
         or addresses only when needed, without having to blow
-        configuration completely first and then re-add it back. For
-        example, in case of IP addresses of interfaces, the script
+        configuration away completely first and then re-add it back.
+      </para>
+      
+      <para>
+        For example, in case of IP addresses of interfaces, the script
         checks if address configured in fwbuilder GUI really exists on
         the interface it should belong to. If it is not there, the
         script adds it, but if it exists, the script does
@@ -90,7 +93,7 @@
             <row>
               <entry>Bridge ports</entry>
               <entry><emphasis role="greentext">yes</emphasis></entry>
-              <entry>no</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
               <entry>no</entry>
               <entry>no</entry>
             </row>
@@ -98,7 +101,7 @@
             <row>
               <entry>Incremental management of bridge ports</entry>
               <entry><emphasis role="greentext">yes</emphasis></entry>
-              <entry>no</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
               <entry>no</entry>
               <entry>no</entry>
             </row>
