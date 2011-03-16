@@ -1,0 +1,33 @@
+<sect1 id="how_it_works_iptables">
+  <title>How Firewall Builder works with Linux iptables firewalls</title>
+
+  <para>
+  Conceptually Firewall Builder works the same way no matter what type of 
+  firewall is being configured. Firewall Builder is based on the idea of 
+  using objects to represent rule elements, such as IP networks Host 
+  addresses, and then using these objects to define firewalll rules.
+  </para>
+
+  <para>
+  For Linux iptables firewalls after the firewall rules have been created 
+  Firewall Builder will generate a shell script file that includes all the 
+  iptables commands required to implement the user defined security policy. 
+  This script file can also include information required to configure 
+  interfaces, static routes and other configuration options.
+  </para>
+
+  <para>
+  Once the firewall script file has been created Firewall Builder can use 
+  the secure SSH and SCP protocols to transfer the script file to the 
+  Linux firewall server and to activate it, or user's can copy the
+  the script file themselves to the server and run it to activate the 
+  firewall rules.
+  </para>
+
+  <figure id="iptables_workflow">
+    <title>Basic Workflow for Configuring Linux iptables with Firewall Builder</title>
+    <graphic scale="50" fileref="images/iptables_workflow.png" />
+  </figure>
+
+</sect1>
+

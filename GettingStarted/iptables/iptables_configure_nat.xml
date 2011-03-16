@@ -1,0 +1,52 @@
+<sect1 id="iptables_configure_nat">
+    <title>Configuring NAT Rules</title>
+
+    <para>
+    Now that the basic firewall rules have been configured we need 
+    to define our NAT policy. Open the NAT object for editing by 
+    double-clicking on it in the object tree as shown in the diagram 
+    below.
+    </para>
+
+  <figure id="edit_nat_object">
+    <title>Open the NAT Object for Editing</title>      
+    <graphic scale="50" fileref="images/iptables_edit_nat_object.png" />
+  </figure> 
+
+    <para>
+    For our example we need to create a single NAT rule that will 
+    translate the source IP address of any traffic coming from 
+    the inside 10.10.10.0/24 network going to the Internet. The 
+    source IP should be translated to the IP address of the "outside" 
+    interface of the firewall.
+    </para>
+    
+    <para>
+    To edit NAT rules we will use the same concepts that were used 
+    to edit the firewall Policy rules. Start by clicking the green 
+    '+' sign <imagedata fileref="images/green_plus.png" /> at the top 
+    of the Rules panel to add a new NAT rule.
+    </para>
+
+    <para>
+    Drag-and-drop the "Internal Network" object you created earlier 
+    to the Original Src column of the NAT rule. This identifies the 
+    traffic that will have its source IP address translated. Now, 
+    drag-and-drop the "outside" interface from the linux-1 firewall 
+    object to the Translated Src column of the rule. This field 
+    identifies the IP address that the traffic will be translated 
+    to. After you are done the NAT rule should like the diagram below.
+    </para>
+
+  <figure id="modify_nat_rule">
+    <title>Completed NAT Rule</title>      
+    <graphic scale="50" fileref="images/iptables_nat_rule.png" />
+  </figure> 
+
+    <para>
+    That's it, now we are ready to generate the configuration file 
+    and use the built-in installer to deploy it to the firewall.
+    </para>
+     
+</sect1>
+
