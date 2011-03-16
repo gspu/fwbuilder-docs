@@ -123,6 +123,14 @@
             </row>
 
             <row>
+              <entry>MTU Configuration</entry>
+              <entry>no</entry>
+              <entry><emphasis role="greentext">yes</emphasis></entry>
+              <entry>no</entry>
+              <entry>no</entry>
+            </row>
+
+            <row>
               <entry>Cluster configuration: <emphasis>carp</emphasis>
                 and <emphasis>pfsync</emphasis>
                 on <emphasis>OpenBSD</emphasis>, interface configuration

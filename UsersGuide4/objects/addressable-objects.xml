@@ -2496,15 +2496,23 @@ exit
           </listitem>
 
           <listitem>
-            <para>Browse button:</para>
+            <para>Choose File button:</para>
 
-            <para>Used to populate the file name and path if the file is on the local machine.</para>
+            <para>
+              Used to populate the file name and path if the file 
+              is on the local machine. You can also type in a path 
+              to a filename that you want to create.
+            </para>
           </listitem>
 
           <listitem>
-            <para>Preview button:</para>
+            <para>Edit File button:</para>
 
-            <para>Once the File name field is populated, use this button to view the file.</para>
+            <para>
+              Once the File name field is populated, use this button 
+              to view and update the file. If the file does not already 
+              exist Firewall Builder will generate a warning message.
+            </para>
           </listitem>
 
           <listitem>
@@ -2514,31 +2522,39 @@ exit
           </listitem>
         </itemizedlist>
 
-	<para>The <guilabel>Compile Time</guilabel> and <guilabel>Run
-	Time</guilabel> radio buttons define when the addresses will
-	be read from the file: when the firewall script is generated
-	by Firewall Builder or when the firewall runs the script. If
-	object is configured as <guilabel>Compile Time</guilabel>, the
-	Firewall Builder policy compiler opens the file during
-	compilation and replaces the <guilabel>Address
-	Table</guilabel> object in policy rules with the set of
-	addresses from the file. This means the file with addresses
-	must be accessible on the machine where the Firewall Builder
-	GUI and policy compilers run. If the object is configured
-	as <guilabel>Run Time</guilabel>, policy compiler does not try
-	to find and open the file but instead generates a firewall
-	script that will do this when it is activated. This means the
-	file with addresses must be located where it is accessible by
-	the firewall, and the object must be configured with the full
-	path to it on the firewall.</para>
+	<para>
+    The <guilabel>Compile Time</guilabel> and <guilabel>Run
+    Time</guilabel> radio buttons define when the addresses will
+    be read from the file: when the firewall script is generated
+    by Firewall Builder or when the firewall runs the script.
+  </para>
+  
+  <para>
+    If object is configured as <guilabel>Compile Time</guilabel>, the
+    Firewall Builder policy compiler opens the file during
+    compilation and replaces the <guilabel>Address
+    Table</guilabel> object in policy rules with the set of
+    addresses from the file. This means the file with addresses
+    must be accessible on the machine where the Firewall Builder
+    GUI and policy compilers run. 
+  </para>
+  
+  <para> 
+    If the object is configure as <guilabel>Run Time</guilabel>, 
+    policy compiler does not try to find and open the file but 
+    instead generates a firewall script that will do this when it 
+    is activated. This means the file with addresses must be located 
+    where it is accessible by	the firewall, and the object must be 
+    configured with the full path to it on the firewall.
+  </para>
 
 	<para>Here is an example of the file contents (this is what
-	you see if you click "Preview" button in the object
+	you see if you click "Edit File" button in the object
 	dialog):</para>
 
       <figure id="address-table-textfile">
         <title>Address Table text file</title>
-            <graphic scale="70" fileref="objects/images/address_table_4.png" />
+            <graphic scale="70" fileref="objects/images/edit_address_table.png" />
       </figure>
 
       <para>Note that comments in the file can start with '#' or ';',
@@ -2908,7 +2924,7 @@ fwadmin@guardian:~$
     </figure>
 
     <figure id="ipset-address-table-file">
-        <title>Address Table File Preview</title>
+        <title>Editing Address Table File</title>
             <graphic scale="50" fileref="objects/images/ipset_address_table_file.png" />
     </figure>
     

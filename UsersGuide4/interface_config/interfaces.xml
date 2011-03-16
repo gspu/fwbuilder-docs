@@ -8,6 +8,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="interface_overview.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ip_address_management.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="interface_names.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="interface_advanced_settings.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="vlan_management.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bridge_management.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bonding_interface_management.xml"/>

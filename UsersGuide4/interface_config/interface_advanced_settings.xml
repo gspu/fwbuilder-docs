@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="interface_advanced_settings">
+  <title>Advanced Interface Settings</title>
+
+  <sect2 id="interface_mtu">
+  <title>Setting Interface MTU</title>
+
+  <para>
+    Starting with Firewall Builder V4.2 it is possible to configure an 
+    interface's MTU (Maximum Transmission Unit). Currently this feature is 
+    only available on BSD (OpenBSD and FreeBSD) firewalls.
+  </para>
+
+  <para>
+    To configure an interface's MTU value, double-click on the interface 
+    to open it for editing in the Editor Panel. Click on the Advanced 
+    Interface Settings button. This will open the configuration window 
+    shown in <xref linkend="bsd_interface_mtu"/>.
+  </para>
+
+    <para>
+      <figure id="bsd_interface_mtu">
+        <title>Modifying Interface MTU on BSD firewall</title>
+        <graphic scale="70" fileref="interface_config/images/bsd_interface_mtu.png"/>
+      </figure>
+    </para>
+
+  <para>
+    Click the checkbox called Set MTU and adjust the MTU to the desired 
+    value. Click OK.
+  </para>
+
+  <para>
+    For example, configuring this on interface <emphasis>eth0</emphasis> will 
+    will result in the following command being included in the generated 
+    firewall script.
+  </para>
+  
+  <programlisting>
+ifconfig eth0 mtu 2500 
+  </programlisting>
+
+  </sect2>
+
+</sect1>
+
