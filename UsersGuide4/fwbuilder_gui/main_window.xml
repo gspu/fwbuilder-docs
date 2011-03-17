@@ -61,8 +61,8 @@ and shows how to filter the object tree.</para>
                 <entry>Displayed to the right of the object tree, this area holds the ruleset you're currently working on. This space i
 s blank when you first load an object file. It only appears when you double-click a policy, NAT, or routing ruleset link in a firewall 
 object. (So, you have to create a firewall object before you can work on a policy.)
-      <para>See <xref linkend="firewall-object" /> for instructions on creating a firewall object. See <xref linkend="firewall-policies
-" /> for instructions on working with policies.</para>
+      <para>See <xref linkend="firewall-object" /> for instructions on creating a firewall object. See <xref linkend="firewall-policies"
+ /> for instructions on working with policies.</para>
         <para>The two buttons on the top of the ruleset let you compile (the hammer) or compile-and-install (arrow and wall) the curren
 t firewall policy. <xref linkend="compile-install-detail" /> describes both compiling and compiling-and-installing a firewall policy.</para>
       <para>
@@ -92,8 +92,8 @@ ion on objects and their parameters.</para>
           <graphic scale="50" fileref="fwbuilder_gui/images/object-editor-small.png" />
         </figure>
       </para>
-        <para> You can search for objects and rulesets across your object files, plus do replacements of objects. See <xref linkend="fi
-nd-replace" /> for an explanation of the 
+        <para> You can search for objects and rulesets across your object files, plus do replacements of objects. See 
+        <xref linkend="find-replace" /> for an explanation of the 
                 find-and-replace tab.</para>
       <para>
         <figure id="find-small">
@@ -101,8 +101,8 @@ nd-replace" /> for an explanation of the
           <graphic scale="50" fileref="fwbuilder_gui/images/find-small.png" />
         </figure>
       </para>
-        <para>You can compile individual rules and see how the rule gets converted into firewall instructions. See <xref linkend="polic
-y-and-nat-rules-for-the-cluster" /> for 
+        <para>You can compile individual rules and see how the rule gets converted into firewall instructions. See 
+        <xref linkend="policy-and-nat-rules-for-the-cluster" /> for 
                 details on compiling a single rule and viewing the results in the Output tab.</para>
       <para>
         <figure id="output-small">

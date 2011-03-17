@@ -8,8 +8,8 @@
 
    <para>
      First, we'll generate a basic firewall policy using the "fw
-     template 1" template. (See the Getting Started section,
-     <xref linkend="gettingstarted" />, for details.)
+     template 1" template. (See the Firewall Object section,
+     <xref linkend="firewall-object" />, for details.)
    </para>
 
    <para>
