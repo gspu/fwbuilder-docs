@@ -12,9 +12,9 @@
     setup. This section demonstrates how these addresses can be
     changed.</para>
 
-  <para>We start with firewall object created in
-    <xref linkend="gettingstarted" />. This object has been created
-    from a three-interface template and the IP address used for the
+  <para>
+    We start with a firewall object created in with a 
+    three-interface template and the IP address used for the
     internal network is 192.168.1.0/255.255.255.0. Suppose we need
     to change it to 172.16.22.0/255.255.255.0. We need to change the
     IP address of the internal interface of the firewall, as well as

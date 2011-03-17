@@ -49,8 +49,8 @@
             <para>From a template: Firewall Builder comes with
               several pre-defined templates. You can use these to
               create a firewall that is close to your configuration,
-              then modify it to fit your needs. This method is shown
-              in <xref linkend="gettingstarted" />.</para>
+              then modify it to fit your needs. 
+            </para>
 	  </listitem>
           <listitem>
             <para>Manually: You can provide interface IP address,

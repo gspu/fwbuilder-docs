@@ -32,7 +32,7 @@
       </para>
 
       <para>
-        <xref linkend="gettingstarted" /> explains how a firewall
+        <xref linkend="firewall-object" /> explains how a firewall
         object and its interfaces can be
         created. <xref linkend="host-interface" /> has more details on
         the firewall's interfaces, their types and other
