@@ -1,313 +1,270 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <sect1 id="asa_configure_rules">
-    <title>Configuring Policy Rules (Access Lists)</title>
-
-    <para>
+  <title>Configuring Policy Rules (Access Lists)</title>
+  <para>
     After you have created a firewall object and network objects you can start 
-    to configure the firewall's rules.  When you create a firewall object, 
+    to configure the firewall&apos;s rules.  When you create a firewall object, 
     for example <emphasis>asa-1</emphasis> from our previous example, it 
-    will be opened automatically in the object tree and its Policy object 
+    is opened automatically in the object tree and its Policy object 
     is opened in the main window for editing. The Policy object is where 
     access list rules are configured.
     </para>
-
-    <para>
+  <para>
     To add a new rule to the Policy, click on the green
-    <imagedata fileref="images/green_plus.png" /> icon at the top
+    <imagedata fileref="images/green_plus.png"/> icon at the top
     left of the main window. This creates a new rule with default values set
     to deny all.
     </para>
-
   <figure id="asa_default_rule">
-    <title>Default Rule</title>      
-    <graphic scale="50" fileref="images/default_rule.png" />
-  </figure> 
-
-    <para>
+    <title>Default Rule</title>
+    <graphic scale="50" fileref="images/default_rule.png"/>
+  </figure>
+  <para>
     Every rule includes the following sections:
     </para>
-
-    <itemizedlist>
-      <listitem role="cisco_getting_started"><para><emphasis>Source</emphasis> - 
+  <itemizedlist>
+    <listitem role="cisco_getting_started">
+      <para><emphasis>Source</emphasis> - 
       this can be one or more IP 
-      objects. Default value is Any which is the same as the "any" parameter 
-      in a Cisco access list that matches all IP addresses.</para></listitem>
-      <listitem><para><emphasis>Destination</emphasis> - this can be one or 
-      more IP objects. Default value is Any which is the same as the "any" 
-      parameter in a Cisco access list that matches all IP addresses.</para></listitem>
-      <listitem><para><emphasis>Service</emphasis> - this can be one or more 
-      Service object. Example services include the TCP and UDP protocols like 
-      HTTP and DNS. Default value is Any which matches any IP service and is 
-      the same as the "ip" parameter in Cisco access lists.</para></listitem>
-      <listitem><para><emphasis>Interface</emphasis> - this can be one or 
-      more interfaces configured on the firewall (router) object. Default 
+      objects. The default value is Any which is the same as the &quot;any&quot; parameter 
+      in a Cisco access list that matches all IP addresses.</para>
+    </listitem>
+    <listitem>
+      <para><emphasis>Destination</emphasis> - this can be one or 
+      more IP objects. The default value is Any which is the same as the &quot;any&quot; 
+      parameter in a Cisco access list that matches all IP addresses.</para>
+    </listitem>
+    <listitem>
+      <para><emphasis>Service</emphasis> - this can be one or more 
+      Service objects. Example services include  TCP and UDP protocols like 
+      HTTP and DNS. The default value is Any which matches any IP service and is 
+      the same as the &quot;ip&quot; parameter in Cisco access lists.</para>
+    </listitem>
+    <listitem>
+      <para><emphasis>Interface</emphasis> - this can be one or 
+      more interfaces configured on the firewall (router) object. The default 
       value is All which means the rule will be applied as an access list to 
-      all configured interfaces.</para></listitem>
-      <listitem><para><emphasis>Direction</emphasis> - options are Inbound, 
-      Outbound and Both. This defines whether the resulting access-group will 
-      be applied to interfaces as "in" or "out". Both will generate an identical 
-      rule for "in" and "out". Default value is Both.</para></listitem>
-      <listitem><para><emphasis>Action</emphasis> - options are Accept and Deny. 
-      This matches the Cisco access list parameters "permit" and "deny". Default 
-      value is Deny.</para></listitem>
-      <listitem><para><emphasis>Options</emphasis> - options are Logging On and 
+      all configured interfaces.</para>
+    </listitem>
+    <listitem>
+      <para><emphasis>Direction</emphasis> - options are Inbound, 
+      Outbound, and Both. This defines whether the resulting access-group will 
+      be applied to interfaces as &quot;in&quot; or &quot;out&quot;. Both will generate an identical 
+      rule for &quot;in&quot; and &quot;out&quot;. The default value is Both.</para>
+    </listitem>
+    <listitem>
+      <para><emphasis>Action</emphasis> - options are Accept and Deny. 
+      This matches the Cisco access list parameters &quot;permit&quot; and &quot;deny&quot;. The default 
+      value is Deny.</para>
+    </listitem>
+    <listitem>
+      <para><emphasis>Options</emphasis> - options are Logging On and 
       Logging Off. Setting Logging On matches the Cisco access list parameter 
-      "log".  Default value is Logging On.</para></listitem>
-    </itemizedlist>
-
-    <bridgehead>Configuring a Rule</bridgehead>
-
-    <para>
-    In the examples below the fields in the rule will be set to the values that 
+      &quot;log&quot;.  The default value is Logging On.</para>
+    </listitem>
+  </itemizedlist>
+  <bridgehead>Configuring a Rule</bridgehead>
+  <para>
+    In the example below, the fields in the rule will be set to the values that 
     match the first rule from our example scenario (scenario rules shown in 
-    figure below). This rule controls SSH access to the firewall itself.
-    </para>  
-     
+    figure below). This first rule controls SSH access to the firewall itself.
+    </para>
   <figure id="asa_scenario_rules">
-    <title>Scenario Rules</title>      
-    <graphic scale="50" fileref="images/asa_scenario_rules.png" />
-  </figure> 
-
-    <bridgehead>Setting the Source</bridgehead>
-
-    <para>
+    <title>Scenario Rules</title>
+    <graphic scale="50" fileref="images/asa_scenario_rules.png"/>
+  </figure>
+  <bridgehead>Setting the Source</bridgehead>
+  <para>
     To set the Source of a rule, drag-and-drop at least one IP object from the
     tree to the Source field of your rule. For example, drag the Network  
     object called Internal Network that you created earlier to the Source column 
     of the rule as shown below.
     </para>
-
   <figure id="asa_new_rule_source">
-    <title>Setting the Source</title>      
-    <graphic scale="50" fileref="images/new_rule_source.png" />
-  </figure> 
-
-    <para>
-    After you drop the network object into the rule the Source fields will
+    <title>Setting the Source</title>
+    <graphic scale="50" fileref="images/new_rule_source.png"/>
+  </figure>
+  <para>
+    After you drop the network object into the rule the Source field will
     change from Any to Internal Network.
     </para>
-
   <figure id="asa_rule_step1">
-    <title>After Source is Set</title>      
-    <graphic scale="50" fileref="images/rule_step1.png" />
-  </figure> 
-
+    <title>After Source is Set</title>
+    <graphic scale="50" fileref="images/rule_step1.png"/>
+  </figure>
   <note>
     <para>
     You can have more than one IP object in the Source and Destination fields. 
     When Firewall Builder generates the Cisco command line access lists it will 
-    automatically split the rule in to multiple lines if necessary.
+    automatically split the rule into multiple lines if necessary.
     </para>
   </note>
-
-    <bridgehead>Setting the Destination</bridgehead>
-
-    <para>
+  <bridgehead>Setting the Destination</bridgehead>
+  <para>
     Setting the Destination is exactly the same as setting the Source, except
     you drag-and-drop IP objects in to the Destination field of the rule. For 
-    our first example rule we want the Destination to be the "inside" interface 
+    our first example rule we want the Destination to be the &quot;inside&quot; interface 
     of the firewall object. Drag-and-drop the Ethernet0/1 object from the object 
     tree to the Destination column.
     </para>
-
   <figure id="asa_rule_destination">
-    <title>Setting the Destination</title>      
-    <graphic scale="50" fileref="images/asa_new_rule_destination.png" />
-  </figure> 
-
-    <para>
+    <title>Setting the Destination</title>
+    <graphic scale="50" fileref="images/asa_new_rule_destination.png"/>
+  </figure>
+  <para>
     After you drop the interface object into the rule the Destination field will
-    change from Any to "inside" which is the label of the Ethernet0/1 interface.
+    change from Any to &quot;inside&quot;, the label of the Ethernet0/1 interface.
     </para>
-
   <figure id="asa_rule_step2">
-    <title>After Destination is Set</title>      
-    <graphic scale="50" fileref="images/rule_step2.png" />
-  </figure> 
-
-    <bridgehead>Setting the Service</bridgehead>
-
-    <para>
+    <title>After Destination is Set</title>
+    <graphic scale="50" fileref="images/rule_step2.png"/>
+  </figure>
+  <bridgehead>Setting the Service</bridgehead>
+  <para>
     Firewall Builder comes with hundreds of <emphasis>predefined</emphasis> 
     objects including Service objects for almost all standard protocols. 
     To access these objects switch to the Standard library by selecting it 
     from the drop down at the top of the Object tree window.
     </para>
-
   <figure id="asa_switch_library">
-    <title>Switching Libraries</title>      
-    <graphic scale="50" fileref="images/switch_library.png" />
-  </figure> 
-
-    <para>
+    <title>Switching Libraries</title>
+    <graphic scale="50" fileref="images/switch_library.png"/>
+  </figure>
+  <para>
     Services are located in the <emphasis>Services</emphasis> folder. 
     In this rule we want to set the service to SSH, so you would navigate 
     to the SSH service by opening the Services folder, then opening the 
     <emphasis>TCP</emphasis> folder and scrolling down until you find the 
-    "ssh" object.
+    &quot;ssh&quot; object.
     </para>
-
-    <para>
+  <para>
     Once you find the ssh object, drag-and-drop from the tree on the left in
     to the Service section of the rule in the Rules window.
     </para>
-        
   <figure id="asa_new_rule_service">
-    <title>Setting the Service</title>      
-    <graphic scale="50" fileref="images/rule_step3.png" />
-  </figure> 
-
+    <title>Setting the Service</title>
+    <graphic scale="50" fileref="images/rule_step3.png"/>
+  </figure>
   <note>
     <para>
-    To switch back to the User library, which contains the objects that you 
+    To switch back to the User library, which contains  objects  you have 
     created, click on the drop down menu that says Standard and select User 
     from the list of libraries.
     </para>
   </note>
-
-    <bridgehead>Setting the Interface</bridgehead>
-
-    <para>
+  <bridgehead>Setting the Interface</bridgehead>
+  <para>
     If desired, set the Interface for the rule by dragging-and-dropping 
     an interface object from the firewall (router) object to the Interface 
     section of the rule. This will explicitly define which interface on the 
-    router that the access list will be applied to as an "access-group".
+    router that the access list will be applied to as an &quot;access-group&quot;.
     </para>
-        
   <figure id="asa_new_rule_interface">
-    <title>Setting the Interface</title>      
-    <graphic scale="50" fileref="images/rule_step4.png" />
-  </figure> 
-
-    <bridgehead>Setting the Direction</bridgehead>
-
-    <para>
+    <title>Setting the Interface</title>
+    <graphic scale="50" fileref="images/rule_step4.png"/>
+  </figure>
+  <bridgehead>Setting the Direction</bridgehead>
+  <para>
     The direction of the rule is based on the traffic you want to filter.
 
     Traffic coming in to an interface should have the rule Direction set
     to Inbound and traffic going out of an interface should have the rule
     Direction set to Outbound. In our example the direction of the rule 
     will be Inbound since it is controlling access to the firewall itself 
-    on the "inside" interface.
-    </para>
-
-    <para>
-    The Direction, Network Zone and the Interface setting in a rule will 
+    on the &quot;inside&quot; interface.
+     Right-click and set the direction to Inbound.</para>
+  <para>
+    The Direction, Network Zone and the Interface settings in a rule will 
     determine which interfaces should have this rule applied.
     </para>
-
   <note>
     <para>
-    Inbound vs. Outbound access lists. Older PIX versions did not support 
+    A word about Inbound vs. Outbound access lists: Older PIX versions did not support 
     outbound access lists on interfaces, so by default Firewall Builder 
     emulates this behavior. This means if you create an outbound rule on 
     an interface, Firewall Builder will convert that to inbound rules on
     all <emphasis>other</emphasis> interfaces. You can change this behavior 
     by editing the Firewall Settings for the firewall object and clicking 
-    the checkbox next to "Generate outbound ACLs".
+    the checkbox next to &quot;Generate outbound ACLs&quot;.
     </para>
   </note>
-
-    <bridgehead>Setting the Action</bridgehead>
-
-    <para>
+  <bridgehead>Setting the Action</bridgehead>
+  <para>
     The action controls whether traffic matching the rule should be permitted
     or denied. Remember, all Cisco access lists have an implicit deny at the
     end of the list, so any traffic that has not matched a rule that permits
-    the traffic will be dropped. Right-click and set the action to "Accept" 
+    the traffic will be dropped. Right-click and set the action to &quot;Accept&quot; 
     to allow the SSH traffic from the local network to the firewall.
     </para>
-
-    <bridgehead>Setting the Options</bridgehead>
-
-    <para>
+  <bridgehead>Setting the Options</bridgehead>
+  <para>
     Logging for rule matches is set in the Options section. By default logging
     is turned on. To turn logging off, right-click in the Options section and
     select Logging Off.
     </para>
-
-    <bridgehead>Example of a Complete Rule</bridgehead>
-
-    <para>
+  <bridgehead>Example of a Complete Rule</bridgehead>
+  <para>
     The following is the first rule from our example which allows traffic from
-    the internal network to the firewall's inside interface that has a traffic 
+    the internal network to the firewall&apos;s inside interface that has a traffic 
     type of SSH. 
     </para>
-    
   <figure id="asa_new_rule_complete">
-    <title>New Rule with Fields Set</title>      
-    <graphic scale="50" fileref="images/rule_step5.png" />
-  </figure> 
-
-     
-    <sect2 id="asa_additional_tips">
+    <title>New Rule with Fields Set</title>
+    <graphic scale="50" fileref="images/rule_step5.png"/>
+  </figure>
+  <sect2 id="asa_additional_tips">
     <title>Additional Tips For Working with Rules</title>
-
     <bridgehead>Adding a Rule</bridgehead>
-
     <para>
     To add a new rule click the
-    <imagedata fileref="images/green_plus.png" /> icon at the
-    top of the Rules Editor window.  This will insert a new rule above
+    <imagedata fileref="images/green_plus.png"/> icon at the
+    top of the Rules Editor window.  This  inserts a new rule above
     the current rule. To add a new rule below the current rule right-click
-    on a rule and select "Add New Rule Below".
+    on a rule and select &quot;Add New Rule Below&quot;.
     </para>
-
-  <figure id="asa_add_new_rule_below">
-    <title>Adding Rules</title>      
-    <graphic scale="50" fileref="images/add_new_rule_below.png" />
-  </figure> 
-        
+    <figure id="asa_add_new_rule_below">
+      <title>Adding Rules</title>
+      <graphic scale="50" fileref="images/add_new_rule_below.png"/>
+    </figure>
     <bridgehead>Copy-and-Paste</bridgehead>
-
     <para>
     In addition to drag-and-drop you can also copy-and-paste objects.
     For example, you can right-click on the Internal Network object in
     the first rule and select Copy. Navigate to the Source section of
     the new rule you just created and right-click and select Paste.
     </para>
-
     <bridgehead>Using Filters to Find Objects</bridgehead>
-
     <para>
     Filters provide a way to quickly find objects in the tree without
     having to open multiple folders and scroll. For example, if you wanted
     to use the POP3 protocol in a rule you could use the filter to find it.
     </para>
-
     <para>
     The POP3 protocol object is located in the Standard library, so select it
     from the dropdown menu at the top of the Object Window. Type pop3 in to
     the filter field. This will display all objects in the current library
     that contain pop3.
     </para>
-
-  <figure id="asa_pop3_filter">
-    <title>Using Filter to Find Objects</title>      
-    <graphic scale="50" fileref="images/pop3_filter.png" />
-  </figure> 
-        
-  <note>
-    <para>
+    <figure id="asa_pop3_filter">
+      <title>Using Filter to Find Objects</title>
+      <graphic scale="50" fileref="images/pop3_filter.png"/>
+    </figure>
+    <note>
+      <para>
     After you are done with the filtered object, clear the
     filter field by clicking the X to the right of the input box and then
     switch back to the User library by selecting it in the dropdown menu
     at the top of the object panel.
     </para>
-  </note>
-
+    </note>
   </sect2>
-
-    <bridgehead>Example of Completed Rules</bridgehead>
-
-    <para>
+  <bridgehead>Example of Completed Rules</bridgehead>
+  <para>
     For our example we needed to create two firewall rules. The completed 
     firewalll rules are shown in the diagram below.
     </para>
-
   <figure id="asa_two_rules">
-    <title>Two Rules</title>      
-    <graphic scale="50" fileref="images/asa_two_rules.png" />
-  </figure> 
-
+    <title>Two Rules</title>
+    <graphic scale="50" fileref="images/asa_two_rules.png"/>
+  </figure>
 </sect1>
-

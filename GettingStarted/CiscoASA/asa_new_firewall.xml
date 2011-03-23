@@ -1,198 +1,162 @@
-   <sect1 id="asa_new_firewall">
-   <title>Creating a Cisco ASA or PIX Firewall</title>
-
-    <para>
-    To create a firewall object to represent your Cisco ASA click 
-    on the “Create new firewall” icon on the main window of
-    Firewall Builder or right-click on the Firewalls system folder 
-    in the object tree and select "New Firewall". Either of these 
+<?xml version='1.0' encoding='UTF-8'?>
+<sect1 id="asa_new_firewall">
+  <title>Creating a Cisco ASA or PIX Firewall</title>
+  <para>
+    To create a firewall object to represent your Cisco ASA device, click 
+    on the “Create new firewall” icon in the main window of
+    Firewall Builder, or right-click on the Firewalls system folder 
+    in the object tree and select &quot;New Firewall&quot;. Either of these 
     methods will launch a wizard that walks you through creating 
     your firewall object.
     </para>
-
-    <para>
-    Enter a name for the firewall object, in this example we will use
-    <emphasis>asa-1</emphasis>. Change the drop down menu for software 
-    that is running on the firewall to be “Cisco ASA (PIX)”.
+  <para>
+    Enter a name for the firewall object.  In this example we will use
+    <emphasis>asa-1</emphasis>. Change the drop down menu for the
+    firewall software to read “Cisco ASA (PIX)”.
     </para>
-
   <figure id="asa_create_asa">
-    <title>New Firewall Dialog</title>      
-    <graphic scale="50" fileref="images/create_asa.png" />
-  </figure> 
-
-    <para>
-    Click the "Next >" button to continue to the next step in the wizard.
+    <title>New Firewall Dialog</title>
+    <graphic scale="50" fileref="images/create_asa.png"/>
+  </figure>
+  <para>
+    Click the &quot;Next &gt;&quot; button to continue to the next step
+    in the wizard.
     </para>
-
-    <para>
-    When creating a firewall in Firewall Builder you have a choice of
-    configuring interfaces manually, or you can use SNMP discovery if you
-    have SNMP enabled on your firewall and you have know the Read-Only or
+  <para>
+    When creating a firewall object in Firewall Builder you have a choice of
+    configuring interfaces manually, or using SNMP discovery to gather configuration details from a running firewall.  SNMP discovery requires  you
+    to have SNMP enabled on your firewall and to know either the Read-Only or
     Read-Write community string. For this example we are going to configure
     the firewall interfaces manually.
     </para>
-
   <figure id="asa_interface_discovery">
-    <title>Select Interface Configuration Method</title>      
-    <graphic scale="50" fileref="images/interface_discovery.png" />
-  </figure> 
-
-    <para>
-    Click the "Next >" button to continue to the next step.
+    <title>Select Interface Configuration Method</title>
+    <graphic scale="50" fileref="images/interface_discovery.png"/>
+  </figure>
+  <para>
+    Click the &quot;Next &gt;&quot; button to continue to the next step.
     </para>
-
-    <para>
-    The firewall that you create in Firewall Builder needs to match the 
-    Cisco ASA or PIX firewall that you want to deploy the access lists on. 
+  <para>
+    The firewall  object you create in Firewall Builder needs to match the 
+    Cisco ASA or PIX firewall that you want to deploy  security policies on. 
     This means that the <emphasis>interface names</emphasis> and 
-    <emphasis>IP addresses</emphasis> in the firewall object that you are
-    creating must <emphasis>match exactly</emphasis> to what is configured 
+    <emphasis>IP addresses</emphasis> in the firewall object you 
+    create must <emphasis>exactly match </emphasis>what is configured 
     on the ASA or PIX.
     </para>
-
-    <para>
-    Click the green <imagedata fileref="images/green_plus.png" /> 
-    icon to add a new interface to the firewall.  Enter the name of the 
+  <para>
+    Click the green <imagedata fileref="images/green_plus.png"/> 
+    icon to add a new interface to the firewall object.  Enter the name of the 
     interface exactly as it is shown on the ASA or PIX command line when 
-    you run “show interface" command. In our example the interfaces are
-    Ethernet0/0 through Ethernet0/7, but we are only going to use interfaces 
-    Ethernet0/0 and Ethernet0/1.
+    you run the &quot;show interface&quot; command. In this example interfaces Ethernet0/0 through Ethernet0/7 are available, but we are only going 
+    to use interfaces Ethernet0/0 and Ethernet0/1.
     </para>
-
-    <para>
-    Set the interface name as Ethernet0/0 and set the label to outside. 
+  <para>
+    Set the interface name to Ethernet0/0 and set the label to outside. 
     Click on the Add address button and set the IP address to 192.0.2.1 
     with a netmask of 255.255.255.240.
     </para>
-
   <figure id="asa_interface_address">
-    <title>Set Interface IP Address</title>      
-    <graphic scale="50" fileref="images/asa_interface_address.png" />
-  </figure> 
-
-    <para>
-    Click the green <imagedata fileref="images/green_plus.png" /> 
-    icon to add another interface to the router.  Enter the 
+    <title>Set Interface IP Address</title>
+    <graphic scale="50" fileref="images/asa_interface_address.png"/>
+  </figure>
+  <para>
+    Click the green <imagedata fileref="images/green_plus.png"/> 
+    icon to add another interface to the firewall object.  Enter the 
     information in to the wizard to match the second interface as 
     follows:
     </para>
-       
   <figure id="asa_interface_address2">
-    <title>Interface Tabs</title>      
-    <graphic scale="50" fileref="images/asa_interface_address2.png" />
-  </figure> 
-
-    <para>
-    Click the "Next >" button.
+    <title>Interface Tabs</title>
+    <graphic scale="50" fileref="images/asa_interface_address2.png"/>
+  </figure>
+  <para>
+    Click the &quot;Next &gt;&quot; button.
     </para>
-
-    <para>
-    Firewall Builder will automatically set the <emphasis>security 
-    level</emphasis> of the interface based on the interface label 
+  <para>
+    Firewall Builder will automatically set the <emphasis>security level</emphasis> of the interface based on the interface label 
     and IP address. The outside interface is set to security level 
     0 and the inside interface is set to security level 100.
     </para>
-
   <figure id="asa_interface_sec_level">
-    <title>Interface Security Levels</title>      
-    <graphic scale="50" fileref="images/asa_interface_sec_level.png" />
-  </figure> 
-
-    <para>
-    Click the "Finish" button to create the firewall object.
+    <title>Interface Security Levels</title>
+    <graphic scale="50" fileref="images/asa_interface_sec_level.png"/>
+  </figure>
+  <para>
+    Click the &quot;Finish&quot; button to create the firewall object.
     </para>
-
-    <para>
-    After you create the firewall object representing the ASA or PIX 
-    the firewall object will be displayed in the object tree on the 
-    left side. The Policy object, which is where the access list rules 
+  <para>
+    After you create the firewall object representing the ASA or PIX, it is displayed in the object panel on the 
+    left side. The Policy object, where the access list rules 
     are configured, is automatically opened in the main window.
     </para>
-
   <figure id="asa_firewall_object_tree">
-    <title>Firewall Displayed in Object Tree</title>      
-    <graphic scale="50" fileref="images/asa_firewall_object_tree.png" />
-  </figure> 
-
+    <title>Firewall Displayed in Object Tree</title>
+    <graphic scale="50" fileref="images/asa_firewall_object_tree.png"/>
+  </figure>
   <sect2 id="asa_network_zones">
-  <title>Network Zones</title>
-
+    <title>Network Zones</title>
     <para>
-    Firewall Builder uses the concept of <emphasis>Network Zones
-    </emphasis> to determine network topology in order to correctly 
-    create rules. Each firewall interface has a corresponding 
+    Firewall Builder uses a <emphasis>Network Zone </emphasis>concept
+    to determine network topology and correctly 
+    create rules. Each firewall object interface has a corresponding 
     Network Zone that must be set. The Network Zone represents the 
-    set of IP networks that would be the source of traffic coming 
+    set of source IP networks sending traffic  
     inbound to an interface.
     </para>
-
-  <figure id="asa_network_zone_example">
-    <title>Network Zones Define Topology</title>      
-    <graphic scale="50" fileref="images/network_zone_example.png" />
-  </figure> 
-
-    <note> 
-    <para>
-    <imagedata scale="50" fileref="images/warning.png" /> Warning! If you do 
+    <figure id="asa_network_zone_example">
+      <title>Network Zones Define Topology</title>
+      <graphic scale="50" fileref="images/network_zone_example.png"/>
+    </figure>
+    <note>
+      <para>
+    <imagedata fileref="images/warning.png" scale="50"/> Warning! If you do 
     not set the Network Zone, Firewall Builder will generate an error 
-    when you try to compile the firewall to generate the configuration 
+    when you try to compile the firewall object to generate the configuration 
     file.
     </para>
     </note>
-
-    <bridgehead>Outside Interface</bridgehead> 
-    
+    <bridgehead>Outside Interface</bridgehead>
     <para>
-    For the "outside" interface you will typically set its 
-    Network Zone to "Any" which is all IP networks that aren't 
-    associated any other interfaces. Set the Network Zone by 
-    double-clicking the interface object of the firewall and 
-    selecting the Network Zone from the dropdown list.
+    For the &quot;outside&quot; interface, Ethernet0/0 in this example, you will typically set the 
+    Network Zone to &quot;Any&quot;. &quot;Any&quot;  is defined to be all IP networks 
+    that aren&apos;t associated with any other interfaces. To set the Network 
+    Zone double-click the Ethernet0/0 interface object of the firewall object and 
+    select the Network Zone &quot;Any&quot; from the dropdown list.
     </para>
-
-  <figure id="asa_setting_network_zone_outside">
-    <title>Setting Network Zone For The "outside" Interface</title>      
-    <graphic scale="50" fileref="images/asa_setting_network_zone.png" />
-  </figure> 
-
-    <bridgehead>Inside Interface</bridgehead> 
-
+    <figure id="asa_setting_network_zone_outside">
+      <title>Setting Network Zone For The &quot;outside&quot; Interface</title>
+      <graphic scale="50" fileref="images/asa_setting_network_zone.png"/>
+    </figure>
+    <bridgehead>Inside Interface</bridgehead>
     <para>
-    For the "inside" and any other interfaces on the firewall you 
-    will need to select a Network Zone based on the your network 
-    topology. In our firewall example the "inside" interface is 
+    For the &quot;inside&quot; interface, and all other interfaces on the firewall object, you 
+     need to select a Network Zone based on the your network 
+    topology. In our firewall example object the &quot;inside&quot; interface is 
     attached to the 10.10.10.0/24 network. Firewall Builder comes 
     with a predefined object called net-10.0.0.0 which represents 
-    the 10.0.0.0 network. We will use this network for the "inside" 
+    the 10.0.0.0 network. We will use this network for the &quot;inside&quot; 
     interface Network Zone.
     </para>
-
-  <figure id="asa_setting_network_zone_inside">
-    <title>Setting Network Zone For The "inside" Interface</title>      
-    <graphic scale="50" fileref="images/asa_setting_network_zone_inside.png" />
-  </figure> 
-
+    <figure id="asa_setting_network_zone_inside">
+      <title>Setting Network Zone For The &quot;inside&quot; Interface</title>
+      <graphic scale="50" fileref="images/asa_setting_network_zone_inside.png"/>
+    </figure>
     <note>
-    <para>
-    Network Zones can be an individual Network object or a group 
-    object that includes multiple Network objects. An exmple of 
-    when you would set the Network Zone to a Group object is if 
-    your internal network used both the 10.0.0.0/8 and 172.16.0.0/16 
-    networks. In this case you would create a Group object that 
-    included network objects for both these IP networks and use 
-    that Group object as your "inside" interface's Network Zone.
+      <para>
+    A Network Zone can be an individual Network object or a Group 
+    object that includes multiple Network objects. For example, you must set the Network Zone to a Group object  if 
+    your internal network uses the  10.0.0.0/8 <emphasis role="bold">and</emphasis> 172.16.0.0/16 
+    networks. In this case you  create a Group object,  
+    include network objects for both of these IP networks, and use 
+    this Group object as your &quot;inside&quot; interface&apos;s Network Zone.
     </para>
     </note>
-
   </sect2>
-
-    <para>
-    Before moving on you should save our data file that contains the new
-    firewall object that you just created.  Do this by going to the
-    File -> Save As menu item.  Choose a name and location to save the
-    file.
+  <para>
+    Before moving on you should save the data file  containing the new
+    firewall object just created.  Do this by going to the
+    &quot;File -&gt; Save As&quot; menu item.  Choose a name and location 
+    to save the file.
     </para>
-
 </sect1>
-
