@@ -6,8 +6,8 @@ ke the image fit on the page. On a computer screen, you'd be able to see much mo
 
       <para>
       <figure id="main-win1">
-        <title>The main window</title>
-        <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-wUndo.png" />
+        <title>The main window</title>        <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-wUndo.png" />
+
       </figure>
       </para>
 
