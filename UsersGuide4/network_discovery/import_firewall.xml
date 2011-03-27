@@ -1,64 +1,182 @@
-    <sect1 id="policy-importer">
-      <title>Using Built-in Policy Importer in Firewall Builder</title>
+    <sect1 id="import_firewall">
+      <title>Importing Existing Firewall Configurations into Firewall Builder</title>
 
           <para>
-  
-                  There are two ways to activate the feature: Main
-                  menu <guimenuitem>File/Import Policy</guimenuitem> or
-                  <guimenuitem>Tools/Discovery Druid</guimenuitem> and then
-                  choose option <guilabel>Import configuration of a
-                  firewall or a router</guilabel>.  Only the import of
-                  iptables and Cisco IOS access lists is possible in
-                  the current version.
-                
+            Existing firewall configurations can be imported into 
+            Firewall Builder using the Import Firewall wizard. Import 
+            is supported for the following platforms.
           </para>
-  
+
+          <itemizedlist>
+            <listitem>iptables</listitem>
+            <listitem>Cisco IOS router access-lists</listitem>
+            <listitem>Cisco ASA / Cisco PIX (requires Firewall Builder V4.2 or greater)</listitem>
+          </itemizedlist>
+            
+      <sect2 id="import_firewall_overview">
+      <title>Importing Existing Firewall Configurations</title>
+
+      <para>
+        To start the Import Firewall wizard select the File -> 
+        Import Firewall menu item. This will launch the wizard 
+        as shown in <xref linkend="import_firewall_dialog-1"/>.
+      </para>
+
+      <figure id="import_firewall_dialog-1">
+        <title>Main Import Firewall Wizard</title>
+        <graphic scale="50" fileref="network_discovery/images/import_firewall_dialog-1.png"/>
+      </figure>
+              
+      <para>
+        To start the import process use the Browse function to select 
+        the file that contains the firewall configuration that you want 
+        to import.
+      </para>
+
+      <note>
+      <bridgehead>iptables</bridgehead>
+        <para>
+          The configuration file format must be in the iptables-save 
+          format. For example, run the "iptables-save > myfirewall.conf" command 
+          on the firewall you want to import, transfer that file to the system 
+          running the Firewall Builder application and select this file in the 
+          import wizard.
+        </para>
+
+      <bridgehead>Cisco IOS router access-lists</bridgehead>
+        <para>
+          Cisco IOS router access-lists must be in the format displayed when 
+          the "show run" command is executed. Copy the output from the "show 
+          run" command to a file an the system that Firewall Builder is running 
+          on.
+        </para>
+
+      <bridgehead>Cisco ASA / Cisco PIX</bridgehead>
+        <para>
+          Cisco ASA and Cisco PIX configurations must be in the format displayed 
+          when the "show run" command is executed. Copy the output from the "show 
+          run" command to a file an the system that Firewall Builder is running 
+          on.
+        </para>
+      </note>
+
+      <para>
+        After you have selected the configuration file to import click on the 
+        Continue button. 
+      </para>
+          
+      <para>
+        Firewall Builder will automatically detect the type of configuration 
+        file that is being imported and will display a preview of the file 
+        in the window.
+      </para>
+
+      <figure id="import_firewall_dialog-2">
+        <title>Import Firewall Wizard - Configuration Preview</title>
+        <graphic scale="50" fileref="network_discovery/images/import_firewall_dialog-2.png"/>
+      </figure>
+
+      <para>
+        Click the Continue button. On the next page, shown in 
+        <xref linkend="import_firewall_dialog-3"/>, enter a name for the firewall 
+        object that will be created.
+      </para>
+
+      <figure id="import_firewall_dialog-3">
+        <title>Import Firewall Wizard - Set Firewall Name</title>
+        <graphic scale="50" fileref="network_discovery/images/import_firewall_dialog-3.png"/>
+      </figure>
+
+      <note>
+      <para>
+        By default the option to "Find and use existing objects" is enabled. 
+        When this option is enabled Firewall Builder will attempt to match elements 
+        in in the firewall's configuration file with objects that are already 
+        configured in the Firewall Builder object tree. This includes both Standard 
+        Library objects and objects the user has created.
+      </para>
+
+      <para>
+        For example, if an imported firewall configuration file has an object 
+        or rule that uses TCP port 22, SSH, Firewall Builder will match that to 
+        the pre-existing Standard ssh object instead of creating a new TCP service 
+        object.
+      </para>
+      </note>
+
+      <para>
+        After entering the firewall object name click Commit. Firewall Builder 
+        will show a log of the import process and will include any warning messages 
+        in blue colored text and any error messages in red colored text. 
+      </para>
+        
+      <figure id="import_firewall_dialog-4">
+        <title>Import Firewall Wizard - Import Process Log</title>
+        <graphic scale="50" fileref="network_discovery/images/import_firewall_dialog-4.png"/>
+      </figure>
+        
+       <para> 
+        Depending on the platform this will either be the final step of the 
+        wizard or the user will be guided through platform specific 
+        configuration activities.
+      </para>
+              
+      </sect2>
 
       <sect2>
-        <title>Importing existing iptables configuration</title>
+        <title>iptables Import Example</title>
+
+        <para>
+          For this example we are going to import a very basic iptables 
+          configuration from a firewall that matches the diagram in 
+          <xref linkend="iptables_import_diagram"/>.
+        </para>
+
+        <figure id="iptables_import_diagram">
+          <title>Firewall Example</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_diagram.png"/>
+        </figure>
+
           <para>
-  
-                  Firewall Builder imports iptables configs in
-                  the format of iptables-save. Script <command>iptables-save</command> is part
-                  of the standard iptables install and should be
-                  present on all Linux distribution. Usually this
-                  script is installed in <emphasis>/sbin/</emphasis> . When you run
-                  this script, it dumps the current iptables configuration
-                  to stdout. It reads iptables rules directly form the
-                  kernel rather than from some file, so what it dumps
-                  is what is really working right now. To import this
-                  into Firewall Builder, run the script to save the configuration
-                  to a file:
-                
+            Firewall Builder imports iptables configs in the format of 
+            iptables-save. Script <command>iptables-save</command> is part
+            of the standard iptables install and should be
+            present on all Linux distribution. Usually this
+            script is installed in <emphasis>/sbin/</emphasis>. 
+          </para>
+            
+          <para>
+            When you run this script, it dumps the current iptables 
+            configuration to stdout. It reads iptables rules directly form 
+            the kernel rather than from some file, so what it dumps is what 
+            is really working right now. To import this into Firewall Builder, 
+            run the script to save the configuration to a file:
           </para>
   
   <programlisting>
-iptables-save &gt; iptables_config.conf
-                </programlisting>
+iptables-save &gt; linux-1.conf
+  </programlisting>
 
           <para>
-  
-                  Then launch Firewall Builder, activate the <guimenuitem>Import
-                  Policy</guimenuitem> function and click <guibutton>Browse</guibutton> to find <filename>iptables_config.conf</filename>. You also
-                  need to choose <guimenuitem>iptables</guimenuitem> in the <guilabel>Platform</guilabel> pull-down
-                  menu.
-                
+            After copying <filename>linux-1.conf</filename> to the system where 
+            Firewall Builder is running, launch the wizard by selecting the 
+            File -> Import Firewall menu item.
           </para>
-  
 
           <para>
-  
-                  If you do not choose "iptables" in 
-                  <guilabel>Platform</guilabel>, the program will try to
-                  interpret the file using a different parser and will
-                  fail. The program does not make any assumptions
-                  about the file name or extension and cannot predict
-                 the source platform of the configuration.
-                
+            Click <guibutton>Browse</guibutton> to find <filename>linux-1.conf</filename>. 
           </para>
-  
 
-        <figure><title/><graphic scale="50" fileref="network_discovery/images/importer_1.png"/></figure>
+        <figure id="iptables-import-example-1">
+          <title>Select File with iptables-save Configuration</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables-import-example-1.png"/>
+        </figure>
+
+        <para>
+          Click <guibutton>Continue</guibutton> to move to the next window which 
+          shows a preview of the configuration file that will be imported and the 
+          type of firewall that Firewall Builder has detected it to be.
+        </para>
 
         <sect3>
         <title>Importing an iptables configuration created in FireStarter</title>

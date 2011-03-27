@@ -44,6 +44,6 @@
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="import_hosts.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="snmp_discovery.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="policy_importer.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="import_firewall.xml"/>
 
   </chapter>
