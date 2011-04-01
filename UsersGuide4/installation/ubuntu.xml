@@ -15,17 +15,17 @@
 
       <itemizedlist>
         <listitem>
-          <para>QT 4.3.x, 4.4.x, 4.5.x, 4.6.x. Fwbuilder uses features
-            available in QT 4.3 or later, it will not work with 4.2
+          <para>QT 4.3.x, 4.4.x, 4.5.x, 4.6.x. Firewall Builder uses
+            features available in QT 4.3 and later; the system does not support version 4.2 and earlier.
           </para>
         </listitem>
       </itemizedlist>
 
-      <para>You can get QT via your favorite package manager.</para>
+      <para>You can obtain QT using your favorite package manager.</para>
 
       <para>To install Firewall Builder, go to your download directory
-      and run the following command (replace the filenames with the
-      names of the files you actually downloaded:</para>
+      and execute the following command (replacing the filenames with the
+      names of the files you actually downloaded):</para>
 
       <programlisting>dpkg -i libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb \
           fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</programlisting>

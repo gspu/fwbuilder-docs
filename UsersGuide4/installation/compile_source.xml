@@ -3,102 +3,102 @@
 
       <para>Firewall Builder can be compiled and works on the
       following OS and distributions: Debian Linux (including Ubuntu), Mandrake Linux, RedHat Linux,
-        SuSE Linux, Gentoo Linux, FreeBSD, OpenBSD, Mac OS X, Solaris.
+        SuSE Linux, Gentoo Linux, FreeBSD, OpenBSD, Mac OS X, and Solaris.
       </para>
 
-      <para>To compile from source, first download dependencies for your platform:</para>
+      <para>To compile from source, first download the dependencies for your platform:</para>
 
       <para>For RedHat-based systems:</para>
 
       <itemizedlist spacing="compact">
         <listitem>
-          <para>automake</para>
+          <para><filename>automake</filename></para>
         </listitem>
 
         <listitem>
-          <para>autoconf</para>
+          <para><filename>autoconf<</filename>/para>
         </listitem>
 
         <listitem>
-          <para>libtool</para>
+          <para><filename>libtool</filename></para>
         </listitem>
 
         <listitem>
-          <para>libxml2-devel</para>
+          <para><filename>libxml2-devel</filename></para>
         </listitem>
 
         <listitem>
-          <para>libxslt-devel</para>
+          <para><filename>libxslt-devel</filename></para>
         </listitem>
 
         <listitem>
-          <para>net-snmp-devel</para>
+          <para><filename>net-snmp-devel</filename></para>
         </listitem>
 
         <listitem>
-          <para>qt</para>
+          <para><filename>qt</filename></para>
         </listitem>
 
         <listitem>
-          <para>qt-devel</para>
+          <para><filename>qt-devel</filename></para>
         </listitem>
 
         <listitem>
-          <para>qt-x11</para>
+          <para><filename>qt-x11</filename></para>
         </listitem>
       </itemizedlist>
 
-      <para>You may need to install packages elfutils-libelf and
-      elfutils-libelf-devel (libelf on SuSE), otherwise libfwbuilder
-      won't pick up net-snmp library even if it is installed.</para>
+      <para>You may need to install the packages <filename>elfutils-libelf</filename> and
+        <filename>elfutils-libelf-devel</filename> (<filename>libelf</filename> on SuSE), otherwise <filename>libfwbuilder</filename>
+        does not pick up the <filename>net-snmp</filename> library even if it is installed.</para>
 
       <para>For Debian-based systems:</para>
 
       <itemizedlist spacing="compact">
         <listitem>
-          <para>automake</para>
+          <para><filename>automake</filename></para>
         </listitem>
 
         <listitem>
-          <para>autoconf</para>
+          <para><filename>autoconf</filename></para>
         </listitem>
 
         <listitem>
-          <para>libtool</para>
+          <para><filename>libtool</filename></para>
         </listitem>
 
         <listitem>
-          <para>libxml2-dev</para>
+          <para><filename>libxml2-dev</filename></para>
         </listitem>
 
         <listitem>
-          <para>libxslt-dev</para>
+          <para><filename>libxslt-dev</filename></para>
         </listitem>
 
         <listitem>
-          <para>libsnmp-dev</para>
+          <para><filename>libsnmp-dev</filename></para>
         </listitem>
 
         <listitem>
-          <para>libqt4-core</para>
+          <para><filename>libqt4-core</filename></para>
         </listitem>
 
         <listitem>
-          <para>libqt4-dev</para>
+          <para><filename>libqt4-dev</filename></para>
         </listitem>
 
         <listitem>
-          <para>libqt4-gui</para>
+          <para><filename>libqt4-gui</filename></para>
         </listitem>
 
         <listitem>
-          <para>qt4-dev-tools</para>
+          <para><filename>qt4-dev-tools</filename></para>
         </listitem>
       </itemizedlist>
 
-      <para>Next, download source archives from SourceForge
-      (libfwbuilder-4.0.0.tar.gz and fwbuilder-4.0.0.tar.gz, for
-      example) and unpack them somewhere. Then build as
+      <para>Next, download the source archives from SourceForge
+      (<filename>libfwbuilder-4.0.0.tar.gz</filename> and <filename>fwbuilder-4.0.0.tar.gz</filename>, for
+        example) and unpack them to a location. Then build as
       follows:
       </para>
 
@@ -116,18 +116,18 @@ make install
 
     <note><title>Compilation may require other packages for RedHat and SuSE</title>
 
-    <para>If you get errors that refer to missing autoconf macros
-      while running autogen.sh for fwbuilder, check if your system has
-      RPM gettext-devel. You may need to add other "development" RPMs
+    <para>If you observe errors that refer to missing <filename>autoconf</filename> macros
+      while running <filename>autogen.sh</filename> for <filename>fwbuilder</filename>, check to ensure your system includes
+      RPM <filename>gettext-devel</filename>. You may need to add other "development" RPMs
       besides these, but these two are often forgotten.</para>
     </note>
 
-    <para>The configure scripts for both libfwbuilder and fwbuilder
-      tries to find your QT4 installation in several more-or-less
+    <para>The configure scripts for both <filename>libfwbuilder</filename> and <filename>fwbuilder</filename>
+      tries to find your QT4 installation in several 
       standard places. However, if you installed QT in a directory
-      where the script can't find it, you can provide the path to it
+      where the script is unable to find it, you can provide the path to it
       using the <parameter>--with-qtdir</parameter> option to script
-      autogen.sh. This looks as follows:
+      <filename>autogen.sh</filename>, as in the following example:
     </para>
 
     <programlisting>
@@ -143,18 +143,18 @@ make install
     </programlisting>           
 
     <para>
-      By default script configure assumes prefix="/usr/local" and
-      installs libfwbuilder libraries in /usr/local/lib and binaries
-      in /usr/local/bin. Make sure /usr/local/lib is added to your
+      By default, script configure assumes <filename>prefix="/usr/local"</filename> and
+      installs <filename>libfwbuilder</filename> libraries in <filename>/usr/local/lib</filename> and binaries
+      in <filename>/usr/local/bin</filename>. Make sure <filename>/usr/local/lib</filename> is added to your
       LD_LIBRARY_PATH environment variable or to the /etc/ld.so.conf
-      configuration file, otherwise the program won't find dynamic
-      libraries there. Likewise, /usr/local/bin needs to be in your
+      configuration file; otherwise the program will be unable to find dynamic
+      libraries there. Likewise, <filename>/usr/local/bin</filename> must  be included in your
       PATH.
     </para>
 
     <para>
       You can install libraries and binaries in a different place by
-      specifying new prefix as follows:
+      specifying new prefix, as follows:
     </para>
 
     <programlisting>
@@ -162,7 +162,7 @@ make install
     </programlisting>
 
     <para>
-      This will install libraries
+      This  installs libraries
       in <filename class='directory'>/opt/lib</filename> and the
       program in <filename class='directory'>/opt/bin</filename>.
     </para> 

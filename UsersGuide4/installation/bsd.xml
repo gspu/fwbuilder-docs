@@ -4,9 +4,9 @@
       <para>Firewall Builder consists of two
       ports: <filename>/usr/ports/security/libfwbuilder</filename>
       and <filename>/usr/ports/security/fwbuilder</filename>. Once
-      both ports are updated (it usually takes couple of weeks to
-      update ports after the package is released), just install the
-      port as usual using portinstall or issuing "make install"
-      in <filename>/usr/ports/security/fwbuilder</filename>.</para>
+      both ports are updated (which typically takes two to three weeks after the package is released),
+      simply install the
+      port as usual using <filename>portinstall</filename> or issuing the "make install" command
+      in <filename>/usr/ports/security/fwbuilder</filename>.</para> 
     </sect1>
 

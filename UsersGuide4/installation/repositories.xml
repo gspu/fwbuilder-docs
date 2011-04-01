@@ -1,9 +1,9 @@
     <sect1 id="repositories">
-      <title>Rpm and deb repositories for stable and testing packages</title>
+      <title>RPM and Deb Repositories for Stable and Testing Packages</title>
 
       <para>
         In addition to the packages that ship with Linux
-        distributions, we maintain repositories of rpm and deb
+        distributions, we maintain repositories of RPM and Deb
         packages of Firewall Builder, including both stable releases
         and testing builds.
       </para>
@@ -11,16 +11,14 @@
 
 
       <sect2>
-        <title>Debian/Ubuntu packages repository</title>
-
-        <para></para>
+        <title>Debian/Ubuntu Packages Repository</title>
 
         <para>
-          To access <emphasis>Debian/Ubuntu repository</emphasis>
+          To access the <emphasis>Debian/Ubuntu repository</emphasis>
           of <emphasis>stable</emphasis> packges, add
           the following line to the file
-          <emphasis>/etc/apt/sources.list</emphasis> (replace
-          "maverick" here with "lucid" or another name depending on
+          <filename>/etc/apt/sources.list</filename> (replace
+          "maverick" in the example with "lucid" or another name, depending on
           your version):
         </para>
 
@@ -33,7 +31,7 @@ deb http://www.fwbuilder.org/deb/stable/ maverick contrib
           of <emphasis>testing</emphasis> packges, add
           the following line to the file
           <emphasis>/etc/apt/sources.list</emphasis> (replace
-          "maverick" here with "lucid" or another name depending on
+          "maverick" in the example with "lucid" or another name, depending on
           your version):
         </para>
 
@@ -52,7 +50,7 @@ deb http://www.fwbuilder.org/deb/testing/ maverick contrib
           Signing Key) &lt;pkgadmin@fwbuilder.org&gt;".
           Download <ulink url="http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc">public
             key</ulink> and add it to your key chain to be able to
-          verify integrity of the packages in repositories. To
+          verify the integrity of the packages in repositories. To
           add the key on Debian/Ubuntu, use the following commands:
         </para>
 
@@ -62,38 +60,38 @@ apt-key add PACKAGE-GPG-KEY-fwbuilder.asc
         </programlisting>
 
         <sect3>
-          <title>Configuring debsig-verify to verify package signatures</title>
+          <title>Configuring debsig-verify to Verify Package Signatures</title>
 
           <para>
-            This part is optional, although it is highly
+            This step is optional, but it is highly
             recommended in order to ensure authenticity of the
-            installed fwbuilder packages. However, if you do not
-            configure debsig-verify, package signatures will not
-            be verified but apt tools will try to install them
+            installed Firewall Builder packages. If you do not
+            configure <filename>debsig-verify<filename>, package signatures are not
+            verified; however, apt tools attempts to install them
             anyway.
           </para>
 
 
           <para>
-            Unfortunately it is not enough to just add the key
+            Unfortunately, it is not enough to just add the key
             to apt-get, you also need to install
             package <emphasis>debsig-verify</emphasis> and configure it.
             Consult one of the HOWTO guides on the Internet that
             describe how to set up debsig-verify tools to verify
             signed packages; one such guide can be found here:
             <ulink url="http://purplefloyd.wordpress.com/2009/02/05/signing-deb-packages/">
-              Signing .deb packages</ulink> . See section #4 "Setup
+              Signing .deb packages</ulink>. See section #4 "Setup
             the machine(s) that will be downloading and
             verifying the package" in it.
           </para>
 
           <para>
-            Here is a brief write-up of the debsig-verify
+            The following briefly describes the debsig-verify
             installation and configuration process.
           </para>
 
           <para>
-            First, you need to install <emphasis>debsig-verify</emphasis> and <emphasis>gpg</emphasis>:
+            First, you must install <emphasis>debsig-verify</emphasis> and <emphasis>gpg</emphasis>:
             <programlisting>
 aptitude install debsig-verify gpg
             </programlisting>
@@ -139,7 +137,7 @@ gpg --no-default-keyring \
           </programlisting>
 
           <para>
-            Now we need to create debsig-verify policy file:
+            Next, create the debsig-verify policy file:
           </para>
 
           <programlisting>
@@ -171,7 +169,7 @@ Description="Firewall Builder Package"/&gt;
           </programlisting>
 
           <para>
-            Note how key fingerprint is used as an id in all XML
+            Note how key fingerprint is used as an ID in all XML
             elements.
           </para>
 
@@ -189,7 +187,7 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
           </programlisting>
 
           <para>
-            Now apt-get and other apt tools will call
+            At this point in the process, apt-get and other apt tools call
             debsig-verify to verify packages they are about to
             install or upgrade.
           </para>
@@ -197,7 +195,7 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
         </sect3>
 
         <sect3>
-          <title>Troubleshooting .deb repository access</title>
+          <title>Troubleshooting .deb Repository Access</title>
 
           <para>
             After this, you should be able to install and update
@@ -206,17 +204,17 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
 
           <para>
             Note that apt caches package information, so when we
-            release new packages, they will not match cached
+            release new packages, they do not match cached
             data when you try to install them. Run <emphasis>apt-get
               update</emphasis> before you install or upgrade
-            packages to refresh cached data. If you don't,
-            you'll get <emphasis>"Size mismatch"</emphasis> error which is not very
+            packages to refresh cached data. If you do not,
+            a <emphasis>"Size mismatch"</emphasis> error occurs. This error is not very
             descriptive. Note that if you do this from the command
             line using apt-get, you'll notice that it suggests
-            running apt-get upate, but unfortunately update manager
-            cuts off this part of the error message. Just run
+            running apt-get update, but unfortunately, the update manager
+            truncates this part of the error message. If this occurs, run
             <emphasis>apt-get update</emphasis> or <emphasis>aptitude
-              update</emphasis> from the command line before doing
+              update</emphasis> from the command line before performing the 
             update.
           </para>
 
@@ -224,13 +222,13 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
       </sect2>
 
       <sect2>
-        <title>RPM packages repository</title>
+        <title>RPM Packages Repository</title>
 
         <para></para>
 
         <para>
-          To access <emphasis>repository of RPM packages</emphasis>, create
-          file
+          To access the <emphasis>repository of RPM packages</emphasis>, create
+          the file
           <emphasis>/etc/yum.repos.d/fwbuilder.repo</emphasis> with the
           following contents:
         </para>
@@ -281,7 +279,7 @@ yum install fwbuilder
 
         <para>
           To install latest package from the testing
-          repository (latest nightly build), use command
+          repository (latest nightly build), use the command
         </para>
 
         <programlisting>
