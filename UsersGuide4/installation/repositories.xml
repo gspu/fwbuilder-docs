@@ -66,7 +66,7 @@ apt-key add PACKAGE-GPG-KEY-fwbuilder.asc
             This step is optional, but it is highly
             recommended in order to ensure authenticity of the
             installed Firewall Builder packages. If you do not
-            configure <filename>debsig-verify<filename>, package signatures are not
+            configure <filename>debsig-verify</filename>, package signatures are not
             verified; however, apt tools attempts to install them
             anyway.
           </para>
