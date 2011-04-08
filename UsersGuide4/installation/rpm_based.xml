@@ -36,14 +36,12 @@
         and <filename>fwbuilder-4.0.0-1.i386.el5.rpm</filename>), but they
          have no dependency on QT RPMs.</para>
 
-      <para>If a Firewall Builder distribution statically linked with QT crashes on start
-        on your CentOS system, check to make sure you have the following font
-        packages installed: <filename>bitmap-fonts</filename> or
-        <filename>bitstream-vera-fonts</filename>. Either one resolve the issue and allow Firewall Builder work.
-        (The <filename>bitstream-vera</filename> fonts are often preferred.) For more information on this issue, refer to bug
-        report <ulink url="http://sourceforge.net/tracker/?func=detail%26aid=2595205%26group_id=5314%26atid=1070394"><citetitle>#259520
-5</citetitle></ulink>
-        on SourceForge for more details.</para>
+      <para>If a Firewall Builder V3.0 distribution statically linked with QT crashes on start
+        on your CentOS system, please upgrade to the latest version of Firewall Builder. If you 
+        need to run Firewall Builder V3.0 please make sure you have the following font packages 
+        installed: <filename>bitmap-fonts</filename> or <filename>bitstream-vera-fonts</filename>. 
+        Either one resolve the issue and will enable Firewall Builder to work.
+      </para>
 
       <para>To install Firewall Builder, navigate to your download directory
       and execute the following command (replacing the filenames with the
