@@ -148,22 +148,32 @@ chkconfig --level 2345 iptables on
           whenever connection is established or new address
           lease is obtained. For example, DHCP daemon
           distributed with all major Linux distributions calls
-          script <emphasis>/etc/dhclient-exit-hooks</emphasis> when new DHCP
-          lease is obtained. To restart the firewall, just
-          create file <emphasis>/etc/dhclient-exit-hooks</emphasis> and call
-          your firewall script from it:
+          a script named <filename>dhclient-exit-hooks</filename> 
+          when a new DHCP  lease is obtained. To restart the 
+          Firewall Builder generated firewall script after a 
+          new DHCP lease is obtained add the following to 
+          the <filename>dhcclient-exit-hooks</filename>.
         </para>
-        
 
         <programlisting>
 #!/bin/sh
 /etc/firewall/firewall.fw
         </programlisting>
-        
+       
+        <note>
+        <para>
+        The location of the <filename>dhcclient-exit-hooks</filename> 
+        can vary, but it is usually found in either <filename>/etc</filename> 
+        or <filename>/etc/dhcp3</filename> depending on your system. You 
+        may have to create the file if it does not exist already. Check 
+        for the proper file location by running the <emphasis>man 
+        dhclient-script</emphasis> command.
+        </para>
+         
         <para>
           See man page dhclient-script(8) for a detailed explanation.
         </para>
-        
+        </note>
 
         <note>
           <para>
@@ -176,22 +186,20 @@ chkconfig --level 2345 iptables on
             and edit "DHCLIENT_SCRIPT_EXE".
           </para>
         </note>
-        
 
         <para>
-          PPP daemon calls script <emphasis>/etc/ppp/ip-up</emphasis> when
+          PPP daemon calls script <filename>/etc/ppp/ip-up</filename> when
           connection is established and IP address
           obtained. This script can be used to restart the
           firewall as well. Just like
-          with <emphasis>/etc/dhclient-exit-hooks</emphasis>, just add a
-          call to <emphasis>/etc/firewall/firewall.fw</emphasis> at the
-          bottom of <emphasis>/etc/ppp/ip-up</emphasis>
+          with <filename>dhclient-exit-hooks</filename>, just add a
+          call to <filename>/etc/firewall/firewall.fw</filename> at the
+          bottom of <filename>/etc/ppp/ip-up</filename>
         </para>
-        
 
         <note>
           <para>
-            <emphasis>"/etc/firewall/firewall.fw"</emphasis> should be
+            <filename>"/etc/firewall/firewall.fw"</filename> should be
             replaced everywhere with the real name of the firewall
             script. Firewall Builder stores firewall commands in
             the file with the name the same as the name of the
