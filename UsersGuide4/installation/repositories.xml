@@ -67,18 +67,18 @@ apt-key add PACKAGE-GPG-KEY-fwbuilder.asc
             recommended in order to ensure authenticity of the
             installed Firewall Builder packages. If you do not
             configure <filename>debsig-verify</filename>, package signatures are not
-            verified; however, apt tools attempts to install them
+            verified; however, <filename>apt</filename> tools attempts to install them
             anyway.
           </para>
 
 
           <para>
             Unfortunately, it is not enough to just add the key
-            to apt-get, you also need to install
-            package <emphasis>debsig-verify</emphasis> and configure it.
-            Consult one of the HOWTO guides on the Internet that
-            describe how to set up debsig-verify tools to verify
-            signed packages; one such guide can be found here:
+            to <filename>apt-get</filename>, you must also install the 
+<emphasis>debsig-verify</emphasis> package and configure it.
+            Consult one of the HOWTO guides on the Internet describing
+             how to set up <filename>debsig-verify</filename> tools to verify
+            signed packages. One such guide can be found here:
             <ulink url="http://purplefloyd.wordpress.com/2009/02/05/signing-deb-packages/">
               Signing .deb packages</ulink>. See section #4 "Setup
             the machine(s) that will be downloading and
@@ -86,7 +86,7 @@ apt-key add PACKAGE-GPG-KEY-fwbuilder.asc
           </para>
 
           <para>
-            The following briefly describes the debsig-verify
+            The following briefly describes the <filename>debsig-verify</filename>
             installation and configuration process.
           </para>
 
@@ -119,14 +119,14 @@ sub   2048g/FE31D386 2009-05-17
           </programlisting>
 
           <para>
-            Key ID is <emphasis>EAEE08FE</emphasis>, its fingerprint
-            is last 4 groups if hex digits in the "Key fingerprint"
+            The key ID is <emphasis>EAEE08FE</emphasis>. Its fingerprint
+            is the last four groups of hexadecimal digits in the "Key fingerprint"
             line: <emphasis>EF2EDD98EAEE08FE</emphasis> (remove white
             spaces).
           </para>
 
           <para>
-            Next step is to import the key into debsig keyring:
+            The next step is to import the key into the <filename>debsig</filename> keyring, as follows:
           </para>
 
           <programlisting>
@@ -137,7 +137,7 @@ gpg --no-default-keyring \
           </programlisting>
 
           <para>
-            Next, create the debsig-verify policy file:
+            Next, create the <filename>debsig-verify</filename> policy file:
           </para>
 
           <programlisting>
@@ -146,7 +146,7 @@ vi /etc/debsig/policies/EF2EDD98EAEE08FE/fwbuilder-testing.pol
           </programlisting>
 
           <para>
-            The policy file is in XML and looks like this:
+            The policy file is in XML and looks similar to the following:
           </para>
 
           <programlisting>
@@ -169,15 +169,15 @@ Description="Firewall Builder Package"/&gt;
           </programlisting>
 
           <para>
-            Note how key fingerprint is used as an ID in all XML
+            Note how the key fingerprint is used as an ID in all XML
             elements.
           </para>
 
           <para>
-            apt-get, aptitude and other apt tools save
+            <filename>apt-get</filename>, <filename>aptitude</filename>, and other <filename>apt</filename> tools save
             downloaded packages in the
-            directory <emphasis>/var/cache/apt/archives/</emphasis>. You can
-            use debsig-verify to verify saved copy:
+            directory <filename>/var/cache/apt/archives/</filename>. You can
+            use <filename>debsig-verify</filename> to verify the saved copy, as follows:
           </para>
 
 
@@ -187,8 +187,8 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
           </programlisting>
 
           <para>
-            At this point in the process, apt-get and other apt tools call
-            debsig-verify to verify packages they are about to
+            At this point in the process, <filename>apt-get</filename> and other <filename>apt</filename> tools call
+            <filename>debsig-verify</filename> to verify packages they are about to
             install or upgrade.
           </para>
 
@@ -199,22 +199,22 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
 
           <para>
             After this, you should be able to install and update
-            fwbuilder packages using synaptic or aptitude.
+            Firewall Builder packages using synaptic or aptitude.
           </para>
 
           <para>
-            Note that apt caches package information, so when we
-            release new packages, they do not match cached
-            data when you try to install them. Run <emphasis>apt-get
-              update</emphasis> before you install or upgrade
+            Note that <filename>apt</filename> caches package information. Consequently, newly 
+            released packages may not match cached
+            data when you try to install them. Run <filename>apt-get</filename>
+            update before you install or upgrade
             packages to refresh cached data. If you do not,
-            a <emphasis>"Size mismatch"</emphasis> error occurs. This error is not very
-            descriptive. Note that if you do this from the command
-            line using apt-get, you'll notice that it suggests
-            running apt-get update, but unfortunately, the update manager
+            a <filename>"Size mismatch"</filename> error occurs. Unfortunately, this error is not very
+            descriptive. Note that if you perform this procedure from the command
+            line using <filename>apt-get</filename>, the system suggests
+            running <filename>apt-get update</filename>; however, unfortunately, the update manager
             truncates this part of the error message. If this occurs, run
-            <emphasis>apt-get update</emphasis> or <emphasis>aptitude
-              update</emphasis> from the command line before performing the 
+            <filename>apt-get update</filename> or <filename>aptitude
+              update</filename> from the command line before performing the 
             update.
           </para>
 
@@ -229,7 +229,7 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
         <para>
           To access the <emphasis>repository of RPM packages</emphasis>, create
           the file
-          <emphasis>/etc/yum.repos.d/fwbuilder.repo</emphasis> with the
+          <filename>/etc/yum.repos.d/fwbuilder.repo</filename> with the
           following contents:
         </para>
 
@@ -251,9 +251,9 @@ enabled=0
           Packages in all repositories are signed with GPG key
           with ID EAEE08FE "Firewall Builder Project (Package
           Signing Key) &lt;pkgadmin@fwbuilder.org&gt;".
-          Download <ulink url="http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc">public
+          Download the <ulink url="http://www.fwbuilder.org/PACKAGE-GPG-KEY-fwbuilder.asc">public
             key</ulink> and add it to your key chain to be able to
-          verify integrity of the packages in repositories. To
+          verify the integrity of the packages in repositories. To
           add the key on Fedora, use the following commands:
         </para>
 
@@ -264,8 +264,8 @@ rpm --import PACKAGE-GPG-KEY-fwbuilder.asc
 
 
         <para>
-          To install stable package of fwbuilder with
-          dependencies, use command
+          To install a stable package of Firewall Builder with
+          dependencies, use the following command:a
         </para>
 
         <programlisting>
@@ -273,13 +273,13 @@ yum install fwbuilder
         </programlisting>
 
         <para>
-          This should find and install both fwbuilder and
-          libfwbuilder packages and dependencies.
+          This command should find and install both <filename>fwbuilder</filename> and
+          <filename>libfwbuilder</filename> packages and dependencies.
         </para>
 
         <para>
-          To install latest package from the testing
-          repository (latest nightly build), use the command
+          To install the latest package from the testing
+          repository (that is, the latest nightly build), use the following command:
         </para>
 
         <programlisting>

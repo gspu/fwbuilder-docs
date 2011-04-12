@@ -3,7 +3,7 @@
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
 <chapter id="working-with-objects">
-  <title>Working With Objects</title>
+  <title>Working with Objects</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="object-types.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="addressable-objects.xml"/>

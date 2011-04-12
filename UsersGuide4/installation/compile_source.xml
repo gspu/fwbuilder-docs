@@ -146,7 +146,7 @@ make install
       By default, script configure assumes <filename>prefix="/usr/local"</filename> and
       installs <filename>libfwbuilder</filename> libraries in <filename>/usr/local/lib</filename> and binaries
       in <filename>/usr/local/bin</filename>. Make sure <filename>/usr/local/lib</filename> is added to your
-      LD_LIBRARY_PATH environment variable or to the /etc/ld.so.conf
+      <filename>LD_LIBRARY_PATH</filename> environment variable or to the <filename>/etc/ld.so.conf</filename>
       configuration file; otherwise the program will be unable to find dynamic
       libraries there. Likewise, <filename>/usr/local/bin</filename> must  be included in your
       PATH.
@@ -154,7 +154,7 @@ make install
 
     <para>
       You can install libraries and binaries in a different place by
-      specifying new prefix, as follows:
+      specifying a new prefix, as follows:
     </para>
 
     <programlisting>
@@ -162,7 +162,7 @@ make install
     </programlisting>
 
     <para>
-      This  installs libraries
+      This command installs libraries
       in <filename class='directory'>/opt/lib</filename> and the
       program in <filename class='directory'>/opt/bin</filename>.
     </para> 

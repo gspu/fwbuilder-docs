@@ -18,14 +18,14 @@
       <listitem>
 	<para>The term <emphasis>firewall</emphasis> can refer to a
 	device that implements firewall software, or it can refer to
-	the software and policy running on the device, or it can refer
-	to just the firewall access policy.</para>
+	the complete set of software and policies running on the device, or it can refer
+	to just a firewall access policy.</para>
 
 	<para>In this document, the term <emphasis>firewall</emphasis>
-	refers the firewall object in in Firewall Builder. The
-	firewall object contains a logical representation of the
-	firewall devices interfaces, and the access policy ruleset,
-	NAT ruleset, and Routing ruleset that will be placed on the
+	refers the firewall object in Firewall Builder. A
+	firewall <emphasis>object</emphasis> contains a logical representation of a
+	firewall device's interfaces, its access policy ruleset, its
+	NAT ruleset, and the routing ruleset to be placed on the
 	firewall device.</para>
 	</listitem>
       </varlistentry>
@@ -36,11 +36,11 @@
       <listitem>
 	<para>The term <emphasis>policy</emphasis> can refer to the
 	entire set of "business logic" that is implemented in the
-	firewall, or it can refer to the access policy portion of
+	firewall or it can refer to the access policy portion of
 	firewall only.</para>
 
 	<para>In this document, the term <emphasis>policy</emphasis>
-	refers to the access policy ruleset</para>
+	refers to the access policy ruleset.</para>
 	</listitem>
       </varlistentry>
     </variablelist>

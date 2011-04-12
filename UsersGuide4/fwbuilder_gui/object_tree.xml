@@ -9,41 +9,47 @@
       </para>
 
       <para>The object tree stores all objects in a predefined
-      hierarchy.  Types that correspond to network objects (hosts,
-      address ranges, networks and groups of these) are located in
-      the <guilabel>Objects</guilabel> branch, types that correspond
-      to services are in the <guilabel>Services</guilabel> branch,
-      time intervals are in the <guilabel>Time</guilabel> branch, and
-      all firewalls are in the
-      <guilabel>Firewalls</guilabel> branch. Newly created objects are
+      hierarchy:</para>
+      <ol>
+        <li>Types that correspond to network objects (hosts,
+          address ranges, networks, and groups of these) are located in
+          the <guilabel>Objects</guilabel> branch.</li>
+        <li>Types that correspond to services are located in the <guilabel>Services</guilabel> branch.</li>
+        <li>Time intervals are located in the <guilabel>Time</guilabel> branch.</li>
+        <li>All firewalls are located in the <guilabel>Firewalls</guilabel> branch. </li>
+      </ol>
+       <para>Newly created objects are
       automatically placed in the appropriate position in the
       tree. Each branch of the tree is automatically sorted by the
       object name.</para>
 
-      <para>The program has three default libraries: User, Standard,
-      and Deleted Objects. (Deleted Objects must be turned on
-      in <guimenuitem>File>Preferences>Objects>Show deleted
-      objects</guimenuitem>. <guilabel>User</guilabel> holds objects
+      <para>The program has three default libraries: <guilabel>User</guilabel>, <guilabel>Standard</guilabel>,
+        and <guilabel>Deleted Objects</guilabel>. </para>
+      <ol>
+        <li>The <guilabel>User</guilabel> library holds objects
       that you define, including objects for your firewall, hosts, and
-      networks. <guilabel>Standard</guilabel> holds a collection of
-      standard objects that come with the program,
-      and <guilabel>Deleted Objects</guilabel> acts like a trash can
-      or recycle bin for user objects you delete. In addition, you can
-      create tailored libraries by selecting <guimenuitem>New
-      Library</guimenuitem> from the <guimenu>New Object</guimenu>
-      menu and populating it by copy-and-pasting objects from one of
-      the other views (or creating them there from
-      scratch). <xref linkend="new-library" /> has instructions for
-      creating and distributing user-defined libraries.</para>
+      networks.</li>
+        <li>The <guilabel>Standard</guilabel> library holds a collection of
+          predefined standard objects that come with Firewall Builder. Note that you need not 
+          (and cannot) insert objects into the Standard tree.</li> 
+      <li>The <guilabel>Deleted Objects</guilabel> library acts like a trash can
+      or recycle bin for user objects you delete. Note that the Deleted Objects library must be enabled
+      using the <guimenuitem>File > Preferences > Objects > Show deleted
+      objects</guimenuitem> menu option.</li> </ol>
+      <para>In addition, you can
+        create custom libraries by selecting <guimenuitem>New
+          Library</guimenuitem> from the <guimenu>New Object</guimenu>
+        menu. You can populate the new library by copying and pasting objects other views or by creating them from
+        scratch within the new library.  <xref linkend="new-library" /> provides instructions for
+          creating and distributing user-defined libraries.</para>
 
       <para>Functionally, there is no difference between having an
-      object in the Standard tree, the User tree, or a user defined
+      object in the Standard tree, the User tree, or a user-defined
       tree; it is just a convenient way to sort objects in the
-      tree. You can think of each as a kind of the "view". It only
-      affects representation of the data in the GUI; objects are all
+      tree. You can think of each as a kind of the "view". The choice of tree affect only
+      the display of the data in the GUI; objects are all
       equal in all other senses and you can use an object from any
-      library in your policy. You need not (and cannot) insert objects
-      into the Standard tree.</para>
+      library in your policy. </para>
 
       <para>The object that is currently selected in the tree is
       highlighted in color and is shown in the dialog area on the
@@ -76,18 +82,19 @@
             <tbody>
               <row>
                 <entry>Library</entry>
-                <entry>Firewall Builder comes with the Standard, User,
+                <entry>A library of objects. Firewall Builder comes with the User, Standard,
                 and Deleted Objects libraries. In addition, you can
                 create your own.</entry>
               </row>
               <row>
                 <entry>Cluster</entry>
-                <entry>Represents a high-availability pair of firewall devices. The firewall objects themselves must be created as fire
-wall objects, then added to the cluster. The cluster's platform and OS settings must match those of the component firewalls.</entry>
+                <entry>A high-availability pair of firewall devices. The firewall objects themselves 
+                  must be created as firewall objects, then added to the cluster. The cluster's platform and OS 
+                  settings must match those of the component firewalls.</entry>
               </row>
               <row>
                 <entry>Firewall</entry>
-                <entry>Represents a physical firewall device, its
+                <entry>A physical firewall device, its
                 interfaces and addresses, and the policy rulesets
                 associated with the device. Use Firewall Builder to
                 model your actual device's firewall software, OS,
@@ -127,66 +134,64 @@ wall objects, then added to the cluster. The cluster's platform and OS settings 
               </row>
               <row>
                 <entry>DNS Name</entry>
-                <entry>A DNS Name object represents a DNS "A" or
-                "AAAA" record and can resolve it into an IP address at
+                <entry>A DNS "A" or
+                "AAAA" record. This name is resolved into an IP address at
                 compile or run time.</entry>
               </row>
               <row>
                 <entry>Address Table</entry>
-                <entry>Objects of this type can be configured with the
+                <entry>An IP address. Objects of this type can be configured with the
                 name of an external file that is expected to contain a
-                list of IP addresses (a mix of IPv4 and IPv6 is
-                supported). Addresses can be loaded during policy
+                list of IP addresses. Mixing IPv4 and IPv6 addresses is
+                supported. Addresses can be loaded during policy
                 compile or during the execution of a generated
                 firewall script.</entry>
               </row>
               <row>
                 <entry>Address Range</entry>
                 <entry>A range of IPv4 or IPv6 IP addresses. This
-                range does not have to be a specific subnet, but it
-                does have to be contiguous.</entry>
+                range does not have to be a specific subnet, but address must be contiguous.</entry>
               </row>
               <row>
                 <entry>Group</entry>
                 <entry>A collection of addressable objects (objects
                 that have or contain IP addresses) such as network,
-                interface, and hosts objects. Useful for creating a
+                interface, and hosts objects. A group is useful for creating a
                 less cluttered-looking firewall policy and for making
                 sure you have the same objects in every related
                 rule.</entry>
               </row>
               <row>
                 <entry>Custom Service</entry>
-                <entry>Can be used to inject arbitrary code into the generated firewall script.</entry>
+                <entry>An object that can be used to inject arbitrary code into the generated firewall script.</entry>
               </row>
               <row>
-                <entry>ESTABLISHED and ESTABLISHED ipv6 Services</entry>
-                <entry>These services match all packets that are part of network connections established through the firewall, or conne
-ctions 'related' to those established through the firewall. Term 'established' refers to the state tracking mechanism which exists insi
-de iptables and other stateful firewalls and does not mean any particular combination of packet header options.</entry>
+                <entry>ESTABLISHED and ESTABLISHED IPv6 Services</entry>
+                <entry>An object matching all packets that are part of network connections established through the firewall, 
+                  or connections 'related' to those established through the firewall. (The term "established" here refers to the state 
+                  tracking mechanism used by iptables and other stateful firewalls; it does not imply any particular combination 
+                  of packet header options.)</entry>
               </row>
               <row>
                 <entry>IP Service</entry>
-                <entry>An IP service such as GRE, ESP, or VRRP. IP
-                Service objects cover IP services that
-                are <emphasis>not</emphasis> ICMP, ICMP6, TCP, or UDP
-                services.</entry>
+                <entry>An IP service such as GRE, ESP, or VRRP. This category is meant to include IP services 
+                  that do not fall into ICMP, ICMP6, TCP, or UDP service categories.</entry>
               </row>
               <row>
                 <entry>ICMP Service</entry>
-                <entry>An ICMP service such as a ping request or reply</entry>
+                <entry>An ICMP service such as a ping request or reply.</entry>
               </row>
               <row>
                 <entry>ICMP6 Service</entry>
-                <entry>An ICMP6 service such as "ipv6 packet too big", "ipv6 ping request", or "ipv6 ping reply"</entry>
+                <entry>An ICMP6 service such as "ipv6 packet too big", "ipv6 ping request", or "ipv6 ping reply".</entry>
               </row>
               <row>
                 <entry>TCP Service</entry>
-                <entry>TCP services such as HTTP, SMTP, or FTP</entry>
+                <entry>A TCP service such as HTTP, SMTP, or FTP.</entry>
               </row>
               <row>
                 <entry>UDP Service</entry>
-                <entry>A UDP service such as DNS or NTP</entry>
+                <entry>A UDP service such as DNS or NTP.</entry>
               </row>
               <row>
                 <entry>TagService</entry>
@@ -196,20 +201,19 @@ de iptables and other stateful firewalls and does not mean any particular combin
               </row>
               <row>
                 <entry>User Service</entry>
-                <entry>A User Service object matches the owner of the
-                process on the firewall that send the packet. It
-                translates to the "owner" match in iptables and "user"
+                <entry>A service object that matches the owner of the
+                process on the firewall that sends the packet. This object correlates
+                 to the "owner" match in iptables and the "user"
                 parameter for PF.</entry>
               </row>
               <row>
                 <entry>Service Group</entry>
                 <entry>A collection of services. For example, Firewall
-                Builder comes with the Useful_ICMP service group that
-                contains the "time exceeded", "time exceeded in
+                Builder comes with the Useful_ICMP service group containing the "time exceeded", "time exceeded in
                 transit", "ping reply", and "all ICMP unreachable"
                 ICMP services. It also comes with a "DNS" service
-                group that contains both the UDP and TCP version of
-                DNS. Useful for creating a less cluttered-looking
+                group containing both the UDP and TCP version of
+                DNS. Grouping services is useful for creating a less cluttered-looking
                 firewall policy and for making sure you have the same
                 objects in every related rule.</entry>
               </row>
@@ -228,9 +232,9 @@ de iptables and other stateful firewalls and does not mean any particular combin
       </table>
 
       <sect2>
-        <title>Floating the Object Tree</title>
-      <para>By default, the object tree panel and editor panels are anchored to the display area. However, you can cause each to float 
-by clicking the little button next to the close button in the respective panel. This image shows the object tree panel floating free.</para>
+        <title>Floating the Object Tree Panel</title>
+      <para>By default, the object tree panel and editor panels are anchored to the display area. However, you can make a panel float 
+by clicking the little button next to the close button in the respective panel, as shown below.</para>
 
       <para>
     <figure id="floating-object-tree">
@@ -239,19 +243,19 @@ by clicking the little button next to the close button in the respective panel. 
     </figure>
       </para>
 
-    <para>A floating object tree stays associated with its parent object file. However, there is only one object editor panel. It is as
-sociated with whichever object file is active.</para>
+    <para>A floating object tree stays associated with its parent object file. However, there is only one object editor panel. The object editor
+      panel is associated with whichever object file is active.</para>
 
-    <para>To re-attached a floating panel, click the icon next to the close button again.</para>
+    <para>To re-attach a floating panel, click the icon next to the Close button.</para>
      </sect2>
 
      <sect2>
         <title>Filtering the Object Tree</title>
-        <para>There are a lot of objects in the tree, nested in their respective categories. You can filter the tree to have only certa
-in objects and categories appear based on a string. For example, typing "eth" in the <guilabel>Filter</guilabel> field causes all the o
+        <para>The object tree can hold a great many objects, nested in their respective categories. You can filter the tree to show
+          only certain objects and categories appear based on a string. For example, typing "eth" in the <guilabel>Filter</guilabel> field causes all the o
 bjects with "eth" in the object name to appear.</para>
 
-      <para>Here we have the object tree with all categories collapsed and the <guilabel>Filter</guilabel> field unpopulated.</para>
+      <para>This example shows how string-based filtering works. Before filtering, the object tree has all categories collapsed and the <guilabel>Filter</guilabel> field unpopulated.</para>
 
     <para>
     <figure id="filter-before">
@@ -260,9 +264,9 @@ bjects with "eth" in the object name to appear.</para>
     </figure>
       </para>
 
-     <para>Next we start to type into the <guilabel>Filter</guilabel> field. In this example, we start to type the word "address" to ge
-t all the address-related objects. As you can see from the screen shot below, the filter begins to work immediately. We have only typed
- "ad" and yet the tree is already filtered by those characters, showing the <guilabel>Address Range</guilabel>, <guilabel>Address Table
+     <para>In the example, the word "address" is typed into <guilabel>Filter</guilabel> field, with the goal of retrieving 
+       all address-related objects. As the screen shot below shows, filtering takes effect immediately. In the example, only "ad" has been
+       typed but the tree is already filtered by those characters, showing the <guilabel>Address Range</guilabel>, <guilabel>Address Table
 </guilabel>, and <guilabel>Addresses</guilabel> categories and their contents.</para>
 
     <para>
@@ -274,8 +278,8 @@ t all the address-related objects. As you can see from the screen shot below, th
 
       <para>Objects are always displayed with their parent objects, so you can always see where your objects "live" in the tree.</para>
 
-      <para>When you enter a string into the <guilabel>Filter</guilabel> field, that string is added to the field's history, which is a
-ccessible by clicking the down arrow next to the field. Here we see our recent history of filters.</para>
+      <para>When you enter a string into the <guilabel>Filter</guilabel> field, that string is added to the field's history, which is 
+        accessible by clicking the Down arrow next to the field. The following figure shows our recent history of filters.</para>
 
     <para>
     <figure id="filter-history">
@@ -290,7 +294,7 @@ ccessible by clicking the down arrow next to the field. Here we see our recent h
 
      <sect2 id="object-attributes">
        <title>Object Attributes in the Tree</title>
-        <para>If you check the <guilabel>Show object attributes in the tree</guilabel> checkbox in the <guilabel>Preferences>Object</guilabel> tab, then the object tree displays a second column of information, like shown here.</para>
+        <para>If you check the <guilabel>Show object attributes in the tree</guilabel> checkbox in the <guilabel>Preferences > Object</guilabel> tab,  the object tree displays a second column of information, as shown below.</para>
 
 
     <para>
@@ -302,9 +306,9 @@ ccessible by clicking the down arrow next to the field. Here we see our recent h
 
     <para>The information shown depends on the type of object.</para>
 
-    <para>If you check the checkbox, but don't see the second column, open the panel wider until you see the column separator, then dra
-g it until the columns are in the right position. Column sizing is saved with the object file, so the next time you open it, the column
-s will be the sizes you left them.</para>
+    <para>If you check the checkbox but don't see the second column, make the panel wider until you see the column separator, then 
+      drag the column separator until the columns are in the correct position. Column sizing is saved with the object file, so the next time you open the object, 
+      the column display preservers your changes.</para>
 
      </sect2>
 
@@ -320,7 +324,7 @@ s will be the sizes you left them.</para>
       </figure>
       </para>
         <para>Certain objects can also
-      be created via a pop-up menu that can be opened by right-clicking on a parent object in the tree.</para>
+      be created using a pop-up menu. Acccess this menu by right-clicking a parent object in the tree.</para>
       <para>
       <figure id="menu-new-object">
         <title>Creating Objects Using The Object Menu</title>
@@ -329,15 +333,15 @@ s will be the sizes you left them.</para>
       </para>
 
       <para>You can create all objects except physical address objects
-      through the New Object menu. (Physical address objects can only
-      be created by right-clicking on an existing Interface object.)
-      You can also create objects by right-clicking on a folder in a
+      through the <guimenu>New Object</guimenu> menu. (Physical address objects can only
+      be created by right-clicking an existing interface object.)
+      You can also create objects by right-clicking  a folder in a
       tree (though not in the read-only Standard tree). If you
       right-click a folder, you can only create objects appropriate to
-      that folder. For example, the interface object can only be
+      that folder. For example, an interface object can only be
       placed under a host or firewall object, so the
-      option <guimenuitem>Add Interface</guimenuitem> is available
-      only if you right-click on a host or firewall.</para>
+      <guimenuitem>Add Interface</guimenuitem> option is available
+      only if you right-click a host or firewall.</para>
 
       <para>
       <figure id="menu-right-click-new-object">
@@ -347,11 +351,11 @@ s will be the sizes you left them.</para>
       </para>
 
       <para>Another way to create objects is to use
-      the <guimenuitem>Duplicate</guimenuitem> option when you right
-      click on an object. This allows you to create a copy of the
+      the <guimenuitem>Duplicate</guimenuitem> option when you right-click 
+        an object. This allows you to create a copy of the
       object. For example, you may want to create a firewall policy
       for one platform, duplicate it, then just change the target
-      platform on the copy. However, copies are not linked in any
+      platform on the copy. Note that copies are not linked in any
       way. A change to the original has no affect on the copy, and
       vice versa.</para>
         </sect2>

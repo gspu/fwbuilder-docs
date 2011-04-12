@@ -3,9 +3,9 @@
 
      <para>This section describes the commands available in the GUI menus and tool bar.</para>
         <sect2 id="file-menu">
-        <title>File menu</title>
-      <para>The <guimenu>File</guimenu> menu provides the same file
-      management options found in most GUIs, plus it lets you import
+        <title>File Menu</title>
+      <para>The <guimenu>File</guimenu> menu provides standard file
+      management options, and in addition allows you to import
       and export libraries and manage your object files with the
       revision control system.</para>
 
@@ -36,7 +36,7 @@
               </row>
               <row>
                 <entry>Open Recent</entry>
-                <entry>Contains a sub-menu listing recently opened object files.</entry>
+                <entry>Contains a submenu listing recently opened object files.</entry>
               </row>
               <row>
                 <entry>Save</entry>
@@ -90,7 +90,7 @@ iled explanation.</entry>
                 <entry>Export Library</entry>
                 <entry>Brings up a dialog that lets you select which
                 Object Library you wish to export to a ".fwl"
-                file. Once exported, you can import it into another
+                file. Once a library is exported, you can import it into another
                 instantiation of Firewall Builder. This is
                 particularly useful in Enterprise settings that have
                 multiple Firewall Builder workstations and
@@ -109,18 +109,18 @@ iled explanation.</entry>
       </table>
         </sect2>
         <sect2 id="edit-menu">
-        <title>Edit menu</title>
-      <para>The <guimenu>Edit</guimenu> options are self-explanatory
-      if you're familiar with GUI-based tools. <guimenuitem>Preferences</guimenuitem> 
+        <title>Edit Menu</title>
+      <para>The <guimenu>Edit</guimenu> options are standard
+      for GUI-based tools. <guimenuitem>Preferences</guimenuitem> 
       for Firewall Builder are described in <xref linkend="preferences" />.</para>
 
         </sect2>
         <sect2 id="view-menu">
-        <title>View menu</title>
+        <title>View Menu</title>
       <para>The <guimenu>View</guimenu> menu lets you turn on or off various display panes.</para>
 
       <table frame='none' tabstyle='reg_table'>
-        <title>View menu</title>
+        <title>View Menu</title>
         <tgroup cols='2' align='left' rowsep='1'>
           <colspec colname='c1'  colwidth="120pt"/>
           <colspec colname='c2'/>
@@ -137,7 +137,7 @@ iled explanation.</entry>
               </row>
               <row>
                 <entry>Editor Panel</entry>
-                <entry>Displays the object editor. You can also display this panel by double-clicking on an object.</entry>
+                <entry>Displays the object editor. You can also display this panel by double-clicking an object.</entry>
               </row>
               <row>
                 <entry>Undo Stack</entry>
@@ -149,14 +149,14 @@ e next change, all changes after the current one are removed from the undo histo
       </table>
         </sect2>
         <sect2 id="object-menu">
-        <title>Object menu</title>
+        <title>Object Menu</title>
       <para>The <guimenu>Object</guimenu> menu lets you create a new
       object, find occurrences of an object (including doing
-      replaces), lock an object to prevent accidentally changes, and
+      replaces), lock an object to prevent accidental changes, and
       unlock an object when you need to edit it.</para>
 
       <table frame='none' tabstyle='reg_table'>
-        <title>Object menu</title>
+        <title>Object Menu</title>
         <tgroup cols='2' align='left' rowsep='1'>
           <colspec colname='c1'  colwidth="120pt"/>
           <colspec colname='c2'/>
@@ -177,7 +177,7 @@ e next change, all changes after the current one are removed from the undo histo
               <row>
                 <entry>Find Object</entry>
                 <entry>Opens the <guilabel>Find object</guilabel>
-                dialog, which also provides search-and-replace
+                dialog, which also provides search and replace
                 functions. <xref linkend="find-replace" /> explains
                 how to use this dialog.</entry>
               </row>
@@ -189,11 +189,11 @@ e next change, all changes after the current one are removed from the undo histo
                 example, the eth0 interface of test server is
                 locked. Locking the eth0 interface object also renders
                 read-only the address objects associated with the
-                interface. (test server, because it is "above" eth0 in
+                interface. (Note that the test server object, located "above" eth0 in
                 the hierarchy, is still editable.)
       <para>
       <figure id="locked-icon">
-        <title>locked object</title>
+        <title>Locked Object</title>
         <graphic scale="70" fileref="fwbuilder_gui/images/locked.png" />
       </figure>
       </para>
@@ -207,7 +207,7 @@ e next change, all changes after the current one are removed from the undo histo
                 locks.
       <para>
       <figure id="unlocked-icon">
-        <title>unlocked object</title>
+        <title>Unlocked Object</title>
         <graphic scale="70" fileref="fwbuilder_gui/images/unlocked.png" />
       </figure>
       </para>
@@ -218,21 +218,21 @@ e next change, all changes after the current one are removed from the undo histo
       </table>
         </sect2>
         <sect2 id="rules-menu">
-        <title>Rules menu</title>
+        <title>Rules Menu</title>
       <para>The <guimenu>Rules</guimenu> menu lets you add, delete, and
-      rearrange rules and rule groups in a policy. In addition, it lets you 
-      compile an individual rule or an entire policy, and it lets you  
-      install an entire policy. The menu is context sensitive, so not all 
+        rearrange rules and rule groups in a policy. In addition, the <guimenu>Rules</guimenu> menu lets you 
+      compile an individual rule or an entire policy or  
+      install an entire policy. The menu is context-sensitive, so not all 
       options are visible at all times. See <xref linkend="editing-policy-and-nat" /> 
       for details.</para>
         </sect2>
         <sect2 id="tools-menu">
-        <title>Tools menu</title>
+        <title>Tools Menu</title>
      <para>The <guimenu>Tools</guimenu> menu provides access to useful
      tools.</para>
 
      <table frame='none' tabstyle='reg_table'>
-       <title>Tools menu</title>
+       <title>Tools Menu</title>
         <tgroup cols='2' align='left' rowsep='1'>
           <colspec colname='c1'  colwidth="120pt"/>
           <colspec colname='c2'/>
@@ -244,18 +244,18 @@ e next change, all changes after the current one are removed from the undo histo
             </thead>
             <tbody>
               <row>
-                <entry>Find Conflicting Objects In Two Files</entry>
+                <entry>Find Conflicting Objects in Two Files</entry>
                 <entry>Launches a tool that lets you specify two
                 object files (.fwb) or two library files (.fwl). The
                 tool then looks for objects that have the same ID, but
-                different characteristics. Such a conflict would cause
+                different characteristics. This kind of conflict would cause
                 a problem if you wanted to merge the files.</entry>
               </row>
               <row>
                 <entry>Discovery Druid</entry>
                 <entry>Launches a wizard that lets you populate many
-                objects automatically via an SNMP crawl, via an
-                existing "hosts" file, or via the import of an
+                objects automatically using an SNMP crawl, an
+                existing "hosts" file, or the import of an
                 existing firewall policy. 
                 <xref linkend="network-discovery" /> explains the
                 tool.</entry>
@@ -265,19 +265,19 @@ e next change, all changes after the current one are removed from the undo histo
       </table>
         </sect2>
         <sect2 id="window-menu">
-        <title>Window menu</title>
+        <title>Window Menu</title>
       <para>The <guimenu>Window</guimenu> menu provides controls for
-      selecting and rearranging object file windows. It works
+      selecting and rearranging object file windows. This feature works
       similarly to Window menus in most GUIs.</para>
         </sect2>
         <sect2 id="help-menu">
-        <title>Help menu</title>
-      <para>The <guimenu>Help</guimenu> provides access to help
+        <title>Help Menu</title>
+      <para>The <guimenu>Help</guimenu> menu provides access to help
       resources, information about the current version of Firewall
       Builder, and a dialog with debugging information.</para>
         </sect2>
         <sect2 id="object-context-menu">
-        <title>Object Context menu</title>
+        <title>Object Context Menu</title>
       <para>The <guimenu>Context Menu</guimenu> for a particular object provides a short-cut to menu commands for that object. Right-cl
 ick an object's label to bring up a
       menu of the following functions:</para>
@@ -297,7 +297,7 @@ ick an object's label to bring up a
               <row>
                 <entry>Edit</entry>
                 <entry>Opens the Editor dialog for that object. (You can
-                get the same result by double-clicking the
+                achieve the same result by double-clicking the
                 object.)</entry>
               </row>
               <row>
@@ -328,7 +328,7 @@ ick an object's label to bring up a
               <row>
                 <entry>Delete</entry>
                 <entry>Deletes an object without making a copy on the
-            clipboard. If the Deleted Objects tree has been turned on, the object shows up there.</entry>
+            clipboard. If the Deleted Objects tree has been enabled, the object shows up there.</entry>
               </row>
               <row>
                 <entry>Find</entry>
@@ -350,16 +350,16 @@ ick an object's label to bring up a
               <row>
                 <entry>Used Where</entry>
                 <entry>Scans the whole tree, including all groups and policies
-            of all firewalls, looking for references to the object. In
-            the end the program shows a pop-up dialog with icons corresponding
-            to groups and firewalls that use the object. Double-clicking
+            of all firewalls, looking for references to the object. When finished,
+            the program shows a pop-up dialog with icons corresponding
+            to groups and firewalls using the object. Double-clicking
             an icon opens the corresponding object in the main
             window.</entry>
               </row>
               <row>
                 <entry>Lock and Unlock</entry>
                 <entry>Lock makes an object read-only, which prevents
-                accidental modification. Unlock puts the object back
+                accidental modification. Unlock places the object back
                 into read/write mode.</entry>
               </row>
           </tbody>
@@ -367,11 +367,10 @@ ick an object's label to bring up a
       </table>
 
       <para>The pop-up menu can also have items to add interface and
-      address objects, depending on what type of object was clicked
-      on.</para>
+      address objects, depending on the type of object that was clicked.</para>
 
       <para>In addition, the right-click context menu on policy rules has a selection for <guimenuitem>Compile Rule</guimenuitem>. Sele
-cting this compiles the rule and shows you the output in the <guilabel>Output</guilabel> tab of the Editor dialog. See 
+cting this option compiles the rule and displays the output in the <guilabel>Output</guilabel> tab of the Editor dialog. See 
                 <xref linkend="policy-and-nat-rules-for-the-cluster" /> for 
                 details on compiling a single rule and viewing the results in the Output tab.</para>
         </sect2>

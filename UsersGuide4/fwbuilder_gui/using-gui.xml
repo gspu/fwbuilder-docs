@@ -5,9 +5,9 @@
   <chapter id="using-gui">
     <title>Firewall Builder GUI</title>
 
-    <para>The Firewall Builder GUI is your workspace for creating and compiling your firewall policy. In it, you will create objects (logical representations of your servers, network services, subnetworks, and other aspects of your network), then use those objects in your policy.</para>
+    <para>The Firewall Builder GUI is your workspace for creating and compiling a firewall policy. In the workspace, you create <emphasis>objects</emphasis>, which are logical representations of your servers, network services, subnetworks, and other aspects of your network. You then use these objects in your policy.</para>
 
-<para>You'll then use Firewall Builder to compile your policy for your target firewall platform, and, if you like, to deploy the policy to the actual firewall.</para>
+<para>You use cFirewall Builder to compile your policy for your target firewall platform, and, if you like, to deploy the policy fto the actual firewall.</para>
 
 <para>This chapter provides a high-level overview of the Firewall Builder GUI and how it works. Later chapters describe using the GUI to accomplish specific tasks.</para>
 

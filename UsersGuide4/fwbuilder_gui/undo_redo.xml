@@ -1,42 +1,44 @@
         <sect1 id="undoredo">
           <title>Undo and Redo</title>
-            <para>Firewall Builder supports Undo and Redo from the GUI and from the keyboard. In the GUI, both are in the <guimenu>Edit
+            <para>Firewall Builder supports undo and redo functions from the GUI and from the keyboard. In the GUI, both functions are located in the <guimenu>Edit
 </guimenu> menu. The keyboard commands are Ctrl-Z for Undo, and Ctrl-Y for Redo.</para>
 
-            <para>The Undo stack is essentially infinite, so you can press Ctrl-Z repeatedly to roll back numerous changes.</para>
-
-            <para>In addition, you can view the Undo stack itself by selecting <guimenuitem>Edit > Undo Stack</guimenuitem>. From there
- you can roll back several changes with a single mouse click.</para>
+           
 
         <sect2 id="using-undo">
           <title>Undo Stack</title>
 
           <para>The undo stack shows you a list of your changes, and lets you roll back changes you don't want. You can roll back just 
-one change, all changes after a certain point, or all changes.</para>
-          <para>A change enters the stack as soon as you "commit" it. In other words, as soon as you drag an object into a new position
-, that change appears in the stack. For field edits, the change appears as soon as you move the GUI focus out of a field by pressing En
-ter or Tab, or by clicking outside the field.</para>
-          <para>Rolling back a change does not immediately remove that change from the stack. You can "redo" a change by clicking on it
-. Changes after the current change stay in the stack until you do a new edit. At that point, the new change appears as current, and all
- the undone changes after that point are removed.</para>
+          one change, all changes after a certain point, or all changes.</para>
+          <para>Press Ctrl-Z to undo an action. The undo stack is essentially unlimited, so you can press Ctrl-Z 
+            repeatedly to roll back a series of changes. You can also 
+            you can view the Undo stack directly by selecting <guimenuitem>Edit > Undo Stack</guimenuitem>. From that view, 
+            you can roll back several changes with a single mouse click.</para>
+          <para>Note that a change enters the undo stack as soon as you "commit" the change. 
+            For dragging and dropping, a change is committed as soon as you drag an object into a new position, at which time that change appears in the undo stack. 
+            For field edits, the change appears as soon as you move the GUI focus out of a field by pressing 
+            Enter or Tab, or by clicking outside the field.</para>
+          <para>Rolling back a change does not immediately remove that change from the stack. You can "redo" a change by 
+            clicking it. Changes after the current change stay in the stack until you perform a new edit. At that point, 
+            the new change appears as current, and all the undone changes after that point are removed from the stack.</para>
 
-          <para>This screenshot shows a portion of an object tree, an access policy, and the <guilabel>Undo Stack</guilabel>. The stack
- has been "floated," so it can be moved as its own window. (Click the button next to the close button in the panel to float.)</para>
+          <para>The following figure shows a portion of an object tree, an access policy, and the undo stack. The stack
+ has been "floated," so it can be moved as its own window. (To make an object float, click the button next to the close button.)</para>
 
-          <para>As you can see from the stack, we have just added a new, blank rule to the policy.</para>
+          <para>In the example stack, a new, blank rule has just been added to the policy.</para>
 
       <para>
       <figure id="undo-stack1">
-        <title>Policy and Undo Stack</title>
+        <title>Policy and the Undo Stack</title>
             <graphic scale="50" fileref="fwbuilder_gui/images/undo-stack1.png" />
       </figure>
       </para>
 
-          <para>We will now add the "inside range" IP object to the Source of the new rule, and the "outside range 2" IP object to the 
-Destination of the rule. However, we have made a mistake: Instead of adding "outside range 2" to the Destination, we accidentally added
+          <para>The "inside range" IP object is now added to the Source of the new rule, and the "outside range 2" IP object is added to the 
+Destination of the rule. However, in this example, we have made a mistake: Instead of adding "outside range 2" to the Destination, we accidentally added
  the "outside range" object to the Source field.</para>
 
-          <para>You can see the object in the policy and the undo history in this screenshot.</para>
+          <para>You can see the object in the policy and the undo history in the following screenshot.</para>
 
       <para>
       <figure id="undo-stack2">
@@ -45,8 +47,8 @@ Destination of the rule. However, we have made a mistake: Instead of adding "out
       </figure>
       </para>
           
-          <para>To fix this, we do two things. First, we click on "insert inside range" in the <guilabel>Undo Stack</guilabel>. This ro
-lls back the stack to before we inserted "outside range 2."</para>
+          <para>To fix the error, we do two things. First, we click on "insert inside range" in the <guilabel>Undo Stack</guilabel>. 
+            This rolls back the stack to before the point at which we inserted "outside range 2."</para>
 
       <para>
       <figure id="undo-stack3">
@@ -55,7 +57,7 @@ lls back the stack to before we inserted "outside range 2."</para>
       </figure>
       </para>
 
-        <para>Now we drag "outside range 2" into the Destination field. You can see that the "insert outside range" entry has been remo
+        <para>Next, we drag "outside range 2" into the Destination field. You can see that the "insert outside range" entry has been remo
 ved from the stack, and the "insert outside range 2" edit now appears as the most recent change.</para>
 
       <para>
