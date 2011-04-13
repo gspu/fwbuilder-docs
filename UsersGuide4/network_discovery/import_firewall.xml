@@ -47,7 +47,7 @@
         <para>
           Cisco IOS router access-lists must be in the format displayed when 
           the "show run" command is executed. Copy the output from the "show 
-          run" command to a file an the system that Firewall Builder is running 
+          run" command to a file on the system that Firewall Builder is running 
           on.
         </para>
 
@@ -168,7 +168,7 @@ iptables-save &gt; linux-1.conf
           </para>
 
         <figure id="iptables-import-example-1">
-          <title>Select File with iptables-save Configuration</title>
+          <title>Select File with iptables-save data</title>
           <graphic scale="50" fileref="network_discovery/images/iptables-import-example-1.png"/>
         </figure>
 

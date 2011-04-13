@@ -10,14 +10,15 @@
 
       <para>The object tree stores all objects in a predefined
       hierarchy:</para>
-      <ol>
-        <li>Types that correspond to network objects (hosts,
+      <itemizedlist>
+        <listitem>
+          Types that correspond to network objects (hosts,
           address ranges, networks, and groups of these) are located in
-          the <guilabel>Objects</guilabel> branch.</li>
-        <li>Types that correspond to services are located in the <guilabel>Services</guilabel> branch.</li>
-        <li>Time intervals are located in the <guilabel>Time</guilabel> branch.</li>
-        <li>All firewalls are located in the <guilabel>Firewalls</guilabel> branch. </li>
-      </ol>
+          the <guilabel>Objects</guilabel> branch.</listitem>
+        <listitem>Types that correspond to services are located in the <guilabel>Services</guilabel> branch.</listitem>
+        <listitem>Time intervals are located in the <guilabel>Time</guilabel> branch.</listitem>
+        <listitem>All firewalls are located in the <guilabel>Firewalls</guilabel> branch. </listitem>
+      </itemizedlist>
        <para>Newly created objects are
       automatically placed in the appropriate position in the
       tree. Each branch of the tree is automatically sorted by the
@@ -25,17 +26,18 @@
 
       <para>The program has three default libraries: <guilabel>User</guilabel>, <guilabel>Standard</guilabel>,
         and <guilabel>Deleted Objects</guilabel>. </para>
-      <ol>
-        <li>The <guilabel>User</guilabel> library holds objects
+      <itemizedlist>
+        <listitem>The <guilabel>User</guilabel> library holds objects
       that you define, including objects for your firewall, hosts, and
-      networks.</li>
-        <li>The <guilabel>Standard</guilabel> library holds a collection of
+      networks.</listitem>
+        <listitem>The <guilabel>Standard</guilabel> library holds a collection of
           predefined standard objects that come with Firewall Builder. Note that you need not 
-          (and cannot) insert objects into the Standard tree.</li> 
-      <li>The <guilabel>Deleted Objects</guilabel> library acts like a trash can
+          (and cannot) insert objects into the Standard tree.</listitem> 
+      <listitem>The <guilabel>Deleted Objects</guilabel> library acts like a trash can
       or recycle bin for user objects you delete. Note that the Deleted Objects library must be enabled
       using the <guimenuitem>File > Preferences > Objects > Show deleted
-      objects</guimenuitem> menu option.</li> </ol>
+      objects</guimenuitem> menu option.</listitem> 
+      </itemizedlist>
       <para>In addition, you can
         create custom libraries by selecting <guimenuitem>New
           Library</guimenuitem> from the <guimenu>New Object</guimenu>
