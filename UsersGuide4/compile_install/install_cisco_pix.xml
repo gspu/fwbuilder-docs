@@ -7,8 +7,11 @@
       command <command>"copy file running-config"</command> to
       activate it.  This method is much faster than running
       configuration line by line.  The firewall should be configured
-      with ssh v2 and scp server. This method can be combined with
-      rollback. To use this method, turn on checkbox in the
+      with ssh v2 and scp server. 
+    </para>
+      
+    <para>
+      To use this method, turn on checkbox in the
       tab <emphasis>"Installer"</emphasis> of
       the <emphasis>"advanced settings"</emphasis> dialog of the PIX
       firewall.  Since this option is configured separately for each
