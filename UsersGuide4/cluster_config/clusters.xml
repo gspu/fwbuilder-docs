@@ -47,6 +47,12 @@
             <entry>PIX failover protocol</entry>
           </row>
 
+          <row>
+            <entry>Cisco IOS Router</entry>
+            <entry>None</entry>
+            <entry>None</entry>
+          </row>
+
         </tbody>
       </tgroup>
     </table>
@@ -61,6 +67,15 @@
       substitute correct addresses when it generates iptables script
       or PF or PIX configuration.
     </para>
+
+    <note>
+    <para>
+      Cisco IOS router firewall objects can be used in a cluster, but 
+      Firewall Builder does not support a failover protocol for IOS router 
+      clusters, so no rules are automatically created for this type of 
+      cluster.
+    </para>
+    </note> 
 
     <para>
       Detailed description of the Cluster object is provided in
