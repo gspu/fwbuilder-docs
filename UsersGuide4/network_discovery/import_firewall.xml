@@ -120,6 +120,17 @@
         wizard or the user will be guided through platform specific 
         configuration activities.
       </para>
+      
+      <bridgehead>Cisco ASA/PIX/FWSM</bridgehead>
+
+      <note>
+      <para>
+        Firewall Builder will not properly import objects whose names start 
+        with a number instead of a letter.  For example, an object group with 
+        the name "10-net" will not be imported, but the object group with the 
+        name "net-10" will be imported.
+      </para>
+      </note> 
               
       </sect2>
 
