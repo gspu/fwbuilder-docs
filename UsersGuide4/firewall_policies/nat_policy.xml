@@ -38,7 +38,7 @@
 
         <figure id="nat-policy">
           <title>Network Address Translation Rules</title>
-          <graphic scale="50" fileref="firewall_policies/images/nat_policy.png" />
+          <graphic scale="50" fileref="firewall_policies/images/nat_policy1a.png" />
         </figure>
 
         <para>Just like the firewall policy, the Network Address Translation
@@ -87,6 +87,36 @@
               <para>If the original source, destination, and service
               all matched, this object is the new service (port
               number) of the packet.</para>
+            </listitem>
+
+            <listitem>
+              <para>Interface In</para>
+
+              <para>
+                The inbound interface for the NAT rule. On iptables systems 
+                this will result in the "-i" parameter being set. Default is 
+                Auto which means Firewall Builder will attempt to determine 
+                the appropriate interface(s) the rule should include.
+              </para>
+              
+              <para>
+                This option was added in Firewall Builder V4.2.
+              </para>
+            </listitem>
+
+            <listitem>
+              <para>Interface Out</para>
+
+              <para>
+                The outbound interface for the NAT rule. On iptables systems 
+                this will result in the "-o" parameter being set. Default is 
+                Auto which means Firewall Builder will attempt to determine 
+                the appropriate interface(s) the rule should include.
+              </para>
+
+              <para>
+                This option was added in Firewall Builder V4.2.
+              </para>
             </listitem>
 
             <listitem>
@@ -269,7 +299,7 @@
   
         <figure>
           <title/>
-          <graphic scale="50" fileref="firewall_policies/images/snat-rule-1.png"/>
+          <graphic scale="50" fileref="firewall_policies/images/snat-rule-1a.png"/>
         </figure>
 
         <para>
@@ -431,7 +461,7 @@ nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; (en0)
 
         <figure>
           <title/>
-          <graphic scale="50" fileref="firewall_policies/images/snat-rule-3.png"/>
+          <graphic scale="50" fileref="firewall_policies/images/snat-rule-3a.png"/>
         </figure>
 
         <para>
@@ -497,7 +527,7 @@ $IPTABLES -t nat -A POSTROUTING -o eth+ -p tcp -m tcp  -s 172.16.22.0/24 \
   
         <figure>
           <title/>
-          <graphic scale="50" fileref="firewall_policies/images/snat-rule-4.png"/>
+          <graphic scale="50" fileref="firewall_policies/images/snat-rule-4a.png"/>
         </figure>
 
         <para>
@@ -567,7 +597,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; \
   
         <figure>
           <title/>
-          <graphic scale="50" fileref="firewall_policies/images/snat-rule-5.png"/>
+          <graphic scale="50" fileref="firewall_policies/images/snat-rule-5a.png"/>
         </figure>
 
         <para>
@@ -663,7 +693,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
 
         <figure id="basic-nat-10">
             <title>Translation limited to packets of HTTP protocol</title>
-                <graphic scale="60" fileref="firewall_policies/images/basic-nat-10.png" />
+                <graphic scale="60" fileref="firewall_policies/images/basic-nat-10a.png" />
           </figure>
 
         <para>Rule #0 in <xref linkend="basic-nat-10" /> has limited scope
@@ -683,7 +713,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         <figure id="basic-nat-11">
             <title>Destination Address Translation Rule Using Interface of the
             Firewall</title>
-                <graphic scale="60" fileref="firewall_policies/images/basic-nat-11.png" />
+                <graphic scale="60" fileref="firewall_policies/images/basic-nat-11a.png" />
           </figure>
 
         <figure id="dst-nat">
@@ -733,7 +763,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
 
         <figure>
           <title/>
-          <graphic scale="50" fileref="firewall_policies/images/dnat-rule-1.png"/>
+          <graphic scale="50" fileref="firewall_policies/images/dnat-rule-1a.png"/>
         </figure>
 
         <para>
@@ -742,7 +772,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
   
         <figure>
           <title/>
-          <graphic scale="50" fileref="firewall_policies/images/dnat-rule-2.png"/>
+          <graphic scale="50" fileref="firewall_policies/images/dnat-rule-2a.png"/>
         </figure>
 
         <para>
@@ -772,7 +802,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
 
         <figure>
           <title/>
-          <graphic scale="50" fileref="firewall_policies/images/dnat-rule-3.png"/>
+          <graphic scale="50" fileref="firewall_policies/images/dnat-rule-3a.png"/>
         </figure>
 
         <para>
@@ -991,7 +1021,7 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
 
         <figure>
           <title/>
-          <graphic scale="50" fileref="firewall_policies/images/dnat-rule-5.png"/>
+          <graphic scale="50" fileref="firewall_policies/images/dnat-rule-5a.png"/>
         </figure>
 
         <para>
@@ -1125,7 +1155,7 @@ static (inside,outside) interface  access-list id29402X30286.0 tcp 0 0
         </para>
         
 
-        <figure><title/><graphic scale="50" fileref="firewall_policies/images/dnat-rule-7.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="firewall_policies/images/dnat-rule-7a.png"/></figure>
 
         <para>
           

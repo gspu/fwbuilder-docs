@@ -2,10 +2,8 @@
     <title>Installing generated configuration onto Cisco routers</title>
 
     <para>
-      Firewall Builder 4.0 introduces two improvements in the
-      built-in policy installer for Cisco routers: ability to
-      install generated configuration using scp and support for
-      Embedded Event Manager for automated rollback.
+      Firewall Builder 4.0 introduces the ability to install 
+      generated configuration using scp. 
     </para>
 
     <sect2>
@@ -17,14 +15,16 @@
         using ssh and then command <command>"copy file
           running-config"</command> to activate it. This method is much
         faster than running configuration line by line. The router
-        should be configured with ssh v2 and scp server. This method
-        can be combined with rollback (by reload or EEM). To use this
-        method, turn on checkbox in the tab
-        <emphasis>"Installer"</emphasis> of the <emphasis>"advanced
-          settings"</emphasis> dialog of the router object. Since this
-        option is configured separately for each firewall object, you
-        can have a mix of installation methods if some routers do not
-        support <command>scp</command>.
+        should be configured with ssh v2 and scp server.
+      </para>
+
+      <para>
+        To enable scp transfer open the Firewall Settings for the 
+        firewall, select the Installer tab, and enable the checkbox 
+        for "Copy generated configuration file to the router using 
+        scp". Since this option is configured separately for each 
+        firewall object, you can have a mix of installation methods 
+        if some routers do not support <command>scp</command>.
       </para>
 
       <para>
@@ -159,63 +159,5 @@ crypto key generate rsa general-keys modulus  1024 storage  nvram:
       </note>
 
     </sect2>
-
-    <sect2>
-      <title>Rollback using EEM</title>
-
-      <para>
-        Built-in policy installer uses EEM (Embedded Event Manager) on
-        IOS 12.4 or later to schedule automatic configuration rollback
-        instead of reloading the router. EEM appears in IOS 12.4 and
-        supports background operations that can be triggered by some
-        events on the router or by timers. In this new feature,
-        fwbuilder creates EEM applet with a countdown timer that
-        executes command <command>"config replace nvram:startup-config
-          force"</command> when timer expires. User has the following
-        options:
-      </para>
-
-      <itemizedlist>
-        <listitem>
-          <para>
-            Schedule automatic rollback in a few minutes and install
-            updated ACL configuration. This can be used to test new
-            policy and revert to the original one after some short
-            period of time. This also helps to avoid a situation when
-            updated policy blocks access to the router because of an
-            error; rolling back to the ACL configuration that was
-            running before the update will restore access
-            automatically.
-          </para>
-        </listitem>
-
-        <listitem>
-          <para>
-            Schedule rollback in a few minutes, install updated ACL
-            but cancel rollback if installation of the new
-            configuration was successful. This is mostly intended to
-            prevent blocking access to the router in case of an error
-            in the new ACL configuration. If fwbuilder was able to
-            enter all lines of the new configuration all the way to
-            the end, this means new configuration does not block
-            access and installer executes command <command>"no event
-              manager applet fwbuilder-rollback"</command> to cancel
-            scheduled rollback.
-          </para>
-        </listitem>
-
-        <listitem>
-          <para>
-            Since IOS before 12.4 does not have EEM, automatic
-            rollback on these older versions is implemented by
-            scheduling router reload with command <command>"reload in
-              "</command>. This hasn't changed since Firewall Builder
-            v3.0
-          </para>
-        </listitem>
-      </itemizedlist>
-
-    </sect2>
-
   </sect1>
 

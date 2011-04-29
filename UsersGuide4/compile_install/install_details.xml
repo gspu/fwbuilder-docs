@@ -128,16 +128,14 @@ e last compile), then click
 
       <figure id="compile-install-firewall-6">
         <title>Firewall SSH and install parameters</title>
-        <graphic scale="50" fileref="compile_install/images/compile-install-firewall-6.png" />
+        <graphic scale="50" fileref="compile_install/images/compile-install-firewall-6a.png" />
       </figure>
 
-      <para>Enter the root username and password for the device, and
+      <para>
+        Enter the root username and password for the device, and
         specify the IP address of the management interface of the
-        device. The first time you test your firewall, it's best to
-        leave the <guilabel>Test run</guilabel> checkbox checked. If
-        something goes wrong, you have only to reboot your device to
-        get back the old configuration. If, however, you want your
-        policy to be permanent on the device, uncheck this box.</para>
+        device.
+      </para>
 
       <para>Then click <guibutton>OK</guibutton>.</para>
 
@@ -475,30 +473,6 @@ Defaults:%fwadmin   !lecture , passwd_timeout=1 , timestamp_timeout=1
 ssh fwadmin@firewall sudo -S /etc/fw/&lt;FWNAME&gt;.fw
           </programlisting>
           
-
-          
-
-          <para>
-            
-            Installer needs to be able to run <emphasis>pkill
-              shutdown</emphasis> to kill <emphasis>shutdown</emphasis> command
-            that may be running if you tried to install
-            policy in <emphasis>testing mode</emphasis> before. In
-            testing mode the installer copies the firewall
-            script to temporary directory <emphasis>/tmp</emphasis>,
-            then runs command <emphasis>shutdown -r
-              timeout</emphasis> to schedule reboot in a few
-            minutes, and finally runs the firewall script. To
-            cancel the scheduled reboot you need to install the
-            policy again with test mode checkbox turned
-            off. In this case the installer will copy the
-            firewall script to its permanent place and
-            use <emphasis>pkill</emphasis> to kill the running shutdown
-            command, canceling reboot.
-            
-          </para>
-          
-          
         </listitem>
         
 
@@ -534,7 +508,7 @@ $ ssh -l fwadmin &lt;FWNAME&gt;
             is <emphasis>"fwadmin"</emphasis>):
           </para>
           <para>
-            <figure float="1"><title/><graphic scale="50" fileref="compile_install/images/installer_tab_1.png"/></figure>
+            <figure><title/><graphic scale="50" fileref="compile_install/images/installer_tab_1.png"/></figure>
           </para>
           
 
@@ -1015,7 +989,7 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
       
 
       <para>
-        <figure float="1"><title/><graphic scale="50" fileref="compile_install/images/installer_iptables.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="compile_install/images/installer_iptables_1a.png"/></figure>
       </para>
       
 
@@ -1097,55 +1071,6 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
           </para>
         </listitem>
         
-
-        
-
-        <listitem>        <para>
-            <emphasis>Test run</emphasis>: if this checkbox is on,
-            policy installer will copy firewall
-            configuration files to a temporary directory on
-            the firewall and will run them from there. The
-            intent is to test generated configuration
-            without making it permanent. If firewall machine
-            reboots, it will activate the previous firewall
-            policy. Installer uses subdirectory <emphasis>"tmp"</emphasis>
-            inside the installation directory on the firewall
-            machine that is configured in the "installer"
-            tab of the firewall object dialog. If the 
-            installation directory configured there
-            is <emphasis>/etc/fw</emphasis> (as in the screenshot earlier
-            in this HOWTO), then installer will put files in
-            the directory <emphasis>/etc/fw/tmp</emphasis> when the test
-            install option is in effect. <emphasis>You need to
-              create this directory on the firewall before
-              using this installation mode</emphasis>.
-          </para>
-        </listitem>
-        
-        
-        
-
-        <listitem>        <para>
-            
-            <emphasis>Schedule reboot in... </emphasis>: If this option is
-            on, installer schedules firewall reboot after
-            given time in minutes. This can be used as a
-            measure of last resort to protect against loss
-            of communication with the firewall, which may
-            happen if there is an error in the new firewall
-            policy which makes it block ssh access from the
-            management machine. Installer uses
-            command <emphasis>shutdown -r +10min</emphasis> to schedule
-            reboot in 10 min. If installation has been
-            successful and everything works right, you need
-            to repeat installation with options "test
-            install" and "Schedule reboot" turned off to
-            cancel reboot and install new policy
-            permanently.
-          </para>
-        </listitem>
-        
-
       </itemizedlist>
 
       <para>
@@ -1170,13 +1095,13 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
         
         
 
-        <figure float="1"><title/><graphic scale="50" fileref="compile_install/images/new_ssh_host_key_dlg.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="compile_install/images/new_ssh_host_key_dlg.png"/></figure>
       </para>
       
 
       <para>
         
-        Here is says that it does not know host key of the
+        Here it says that it does not know host key of the
         firewall "crash". This is nothing more than a copy of the
         warning message presented by the ssh client. You should
         verify the host key manually and if it matches,
@@ -1273,70 +1198,8 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
 
       <para>
         
-        <figure float="1"><title/><graphic scale="50" fileref="compile_install/images/install_dialog_cisco.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="compile_install/images/install_dialog_cisco_1a.png"/></figure>
       </para>
-      
-
-      <para>
-        
-        Most of the options and parameters in this dialog are the
-        same as those for Linux firewalls (see above). The following
-        parameters work differently for Cisco devices:
-        
-      </para>
-      
-
-      <para>
-        
-        
-      </para>
-      
-
-      <itemizedlist>
-
-        <listitem>        <para>
-            <emphasis>Test run</emphasis>: if this checkbox is on, policy
-            installer will copy new access lists configuration
-            to the router or ASA appliance but will not
-            issue <emphasis>write mem</emphasis> command in the end.
-          </para>
-        </listitem>
-        
-        
-        
-
-        <listitem>        <para>
-            
-            <emphasis>Schedule reboot in... </emphasis>: If this option is
-            on, installer issues command <emphasis>reload in NNN</emphasis>
-            after the new configuration has been loaded. This
-            schedules reboot in NNN minutes. In combination
-            with "test run" option, this can serve as a
-            roll-back mechanism in case of complete loss of
-            contact with the router or firewall because of an
-            error in the policy. Since "test run" does not
-            perform <emphasis>"write mem"</emphasis> in the end, the
-            original access list stays in the startup
-            configuration of the router and will be loaded
-            after reboot.
-          </para>
-        </listitem>
-        
-
-        
-
-        <listitem>        <para>
-            
-            <emphasis>Cancel reboot if policy activation was
-              successful</emphasis>: If this option is on, installer
-            issues command <emphasis>reload cancel</emphasis> in the end of
-            the policy activation process to cancel previously
-            scheduled reboot.
-          </para>
-        </listitem>
-        
-
-      </itemizedlist>
 
       <para>
         
@@ -1359,7 +1222,7 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
 
       <para>
 
-        <figure float="1"><title/><graphic scale="50" fileref="compile_install/images/install_cisco_progress.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="compile_install/images/install_cisco_progress.png"/></figure>
       </para>
       
 
@@ -1372,10 +1235,7 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
       
 
       <para>
-        
-        
-
-        <figure float="1"><title/><graphic scale="50" fileref="compile_install/images/install_cisco_progress_end.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="compile_install/images/install_cisco_progress_end.png"/></figure>
       </para>
       
 
@@ -1389,15 +1249,12 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
         to log out.
         
       </para>
-      <!-- **************************************************** -->
-
     </sect2>
 
     <sect2 id="batch_install">
       <title>Batch install</title>
 
       <para>
-        
         Firewall Builder can help you manage the configuration of
         multiple firewalls if they all use the same user name
         and password for authentication. To update the policy on
@@ -1406,13 +1263,20 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
         clicking "Install" button in the toolbar or using main
         menu <emphasis>"Rules/Install"</emphasis>, the program opens the
         first page of the built-in installer where it lists
-        all firewall objects. The checkbox <emphasis>"Perform batch
-          install"</emphasis> turns batch mode install on.
-        
+        all firewall objects. 
       </para>
       
+      <figure><title/><graphic scale="50" fileref="compile_install/images/installer_batch_list_page1a.png"/></figure>
 
-      <figure float="1"><title/><graphic scale="50" fileref="compile_install/images/installer_batch_list_page.png"/></figure>
+      <para>
+        Select the firewalls you want to compile and install using 
+        batch install. Click the Next button and the firewalls will 
+        be compiled. At the bottom of the compiler dialog there is 
+        a checkbox for enabling batch installation. By default this 
+        option is disabled.
+      </para>
+
+      <figure><title/><graphic scale="50" fileref="compile_install/images/batch_install_option.png"/></figure>
 
       <para>
         
@@ -1422,7 +1286,7 @@ C:\Users\vadim&gt;c:\PuTTY\pscp.exe -sftp test.txt root@firewall:
       </para>
       
 
-      <figure float="1"><title/><graphic scale="50" fileref="compile_install/images/installer_batch_1.png"/></figure>
+      <figure><title/><graphic scale="50" fileref="compile_install/images/installer_batch_1a.png"/></figure>
 
       <para>
         

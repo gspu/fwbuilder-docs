@@ -405,6 +405,14 @@
               take no other action in that rule. This action has no
               parameters.
             </para>
+
+            <para>
+              On iptables systems using just the Continue action will result 
+              in a rule being generated that has no "-j" target defined. If 
+              the action is set to Continue and Logging is on the generated 
+              rule will have the "-j LOG" target set.
+            </para>
+
           </listitem>
         </itemizedlist>
 

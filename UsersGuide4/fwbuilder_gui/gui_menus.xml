@@ -79,7 +79,7 @@
               </row>
               <row>
                 <entry>Import Policy</entry>
-                <entry>Allows you to import an existing policy into Firewall Builder. See <xref linkend="policy-importer" /> for a deta
+                <entry>Allows you to import an existing policy into Firewall Builder. See <xref linkend="import_firewall" /> for a deta
 iled explanation.</entry>
               </row>
               <row>
