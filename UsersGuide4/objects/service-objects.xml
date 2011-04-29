@@ -5,12 +5,10 @@
   <sect1 id="working-with-services">
     <title>Service Objects</title>
 
-      <para>In Firewall Builder, service objects represent IP, ICMP,
-      TCP, and UDP services such as "host unreachable" in ICMP, HTTP
-      in TCP, GRE in IP, and DNS in UDP. Firewall Builder provides
-      service objects for hundred of well-known and frequently used
-      services in ICMP (IP protocol number 1), TCP (IP protocol number
-      6), and UDP (IP protocol number 17). </para>
+      <para>In Firewall Builder, service objects represent IP, ICMP, TCP, and UDP services such as
+    "host unreachable" in ICMP, HTTP in TCP, GRE in IP, and DNS in UDP. Firewall Builder provides
+    service objects for hundreds of well-known and frequently-used services in ICMP (IP protocol
+    number 1), TCP (IP protocol number 6), and UDP (IP protocol number 17). </para>
 
     <sect2>
       <title>IP Service</title>
@@ -27,19 +25,17 @@
         <figure><title/><graphic scale="50" fileref="objects/images/ip_service_1.png"/></figure>
       
       <note>
-	<para>Protocol numbers are assigned by IANA; one can look up the number for a
-      particular protocol at the following URL:
-      http://www.iana.org/assignments/protocol-numbers/</para>
+	<para>Protocol numbers are assigned by IANA; you can look up the number for a particular protocol
+        at the following URL: http://www.iana.org/assignments/protocol-numbers/</para>
       </note>
 
-      <para>Besides the protocol number, the header of the IP packet also has
-      a field called "options" which is a variable-length list of optional
-      information for the packet. Not all firewalls can examine options, and
-      those that can usually have certain limitations as to what options they
-      can match against. Firewall Builder tries to provide controls for many
-      popular options supported by the most sophisticated firewalls. Not all
-      options supported by Firewall Builder are supported by all target
-      firewall platforms (<xref linkend="support-for-ip-options" />).</para>
+      <para>Besides the protocol number, the header of the IP packet also has a field called
+      "Options" which is a variable-length list of optional information for the packet. Not all
+      firewalls can examine options, and those that can usually have certain limitations as to what
+      options they can match against. Firewall Builder tries to provide controls for many popular
+      options supported by the most sophisticated firewalls. Not all options supported by Firewall
+      Builder are supported by all target firewall platforms (<xref linkend="support-for-ip-options"
+      />).</para>
 
       <table id="support-for-ip-options" tabstyle='reg_table'>
         <title>Support for IP options and fragmentation on various firewall
@@ -155,19 +151,15 @@
               <entry><filename>Source route options: LSRR,
               SSRR</filename></entry>
 
-              <entry>Normally IP routing is dynamic with each router
-              making decisions about which next hop router to send the
-              packet to. However, another option exists where the
-              sender can choose the route. In the case of the Loose
-              Source Route, the sender (host) can specify a list of
-              routers the packet must traverse, but it may also pass
-              through other routers between any two addresses in the
-              list. The Strict Source Route works very much the same
-              way, except the packet must traverse only through the
-              specified addresses. Source routing can potentially be
-              used to reach hosts behind the firewall even if these
-              hosts use private IP addresses, which normally are not
-              reachable over the Internet. </entry>
+              <entry>Normally IP routing is dynamic, with each router making decisions about which
+              next hop router to send the packet to. However, another option exists where the sender
+              can choose the route. In the case of the Loose Source Route, the sender (host) can
+              specify a list of routers the packet must traverse, but it may also pass through other
+              routers between any two addresses in the list. The Strict Source Route works very much
+              the same way, except the packet must traverse only through the specified addresses.
+              Source routing can potentially be used to reach hosts behind the firewall even if
+              these hosts use private IP addresses, which normally are not reachable over the
+              Internet. </entry>
             </row>
 
             <row>
@@ -218,8 +210,8 @@
         </tgroup>
       </informaltable>
 
-      <para>Standard IP Service objects that come with Firewall Builder appear
-      in the <guilabel>Standard</guilabel> tree, in the <guimenuitem>Services/IP</guimenuitem>
+      <para>Standard IP service objects that come with Firewall Builder appear in the
+        <guilabel>Standard</guilabel> tree, in the <guimenuitem>Services/IP</guimenuitem>
       branch.</para>
 
       <para>You can create your own IP Service objects in the <guilabel>User</guilabel> library.</para>
@@ -232,13 +224,11 @@
 
       </figure>
 
-      <para>Service objects in the <guilabel>Standard</guilabel> are
-      not editable. However, you can copy-and-paste a copy of a
-      service object into the <guilabel>User</guilabel> tree and edit
-      it there, or you can right-click the <guilabel>IP</guilabel>
-      folder in the <guilabel>User</guilabel> tree and
-      select <guimenuitem>New IP Service</guimenuitem> to create a
-      service object from scratch.</para>
+      <para>Service objects in the <guilabel>Standard</guilabel> are not editable. However, you can
+      copy and paste a copy of a service object into the <guilabel>User</guilabel> tree and edit it
+      there, or you can right-click the <guilabel>IP</guilabel> folder in the
+        <guilabel>User</guilabel> tree and select <guimenuitem>New IP Service</guimenuitem> to
+      create a service object from scratch.</para>
 
       <para>In either case, the controls are the same.</para>
 
@@ -260,17 +250,15 @@
           <listitem>
             <para>DiffServ</para>
 
-            <para>You can specify DSCP or TOS using the radio
-            buttons. In either case, specify a code (or class) in the
-            field. If you do not specify a code or class, Firewall
-            Builder ignores the DiffServ type (DSCP or TOS).</para>
+            <para>You can specify DSCP or TOS using the radio buttons. In either case, specify a
+            code (or class) in the field. If you do not specify a code or class, Firewall Builder
+            ignores the DiffServ type (DSCP or TOS).</para>
           </listitem>
 
           <listitem>
             <para>Options:</para>
 
-            <para>These flags represent 'Options' flags in the IP
-            header:</para>
+            <para>These flags represent "Options" flags in the IP header:</para>
 
             <para><simplelist>
                 <member>lsrr (loose source route)</member>
@@ -367,14 +355,10 @@ $IPTABLES -A FORWARD  -o + -p all  -m tos --tos 0x10  -m state --state NEW  \
 
               </programlisting>
 
-          <para>
-  
-                The compiler for iptables uses module <emphasis>ipv4options</emphasis>
-                to match <emphasis>lsrr</emphasis>, command line option <emphasis>-f</emphasis> to
-                match all fragments, module <emphasis>tos</emphasis> to match TOS
-                and module <emphasis>dscp</emphasis> to match dscp class.
-              
-          </para>
+          <para> The compiler for iptables uses the <emphasis>ipv4options</emphasis> module to match
+          <emphasis>lsrr</emphasis>, the <emphasis>-f</emphasis> command line option to match all
+        fragments, the <emphasis>tos</emphasis> module to match TOS and the
+          <emphasis>dscp</emphasis> module to match DSCP class. </para>
   
 
           <para>
@@ -402,24 +386,14 @@ $IP6TABLES -A FORWARD  -o +  -m tos --tos 0x10  -m state --state NEW  -j ACCEPT
               </programlisting>
 
           <para>
-  
-                <emphasis>ip6tables</emphasis> does not have the command line
-                flag <emphasis>-f</emphasis>, instead it uses module <emphasis>frag</emphasis> to
-                match fragments. Firewall Builder currently does not support
-                ip6tables module <emphasis>ipv6header</emphasis>, and source routing
-                options do not exist in IPv6, so object "lsrr" cannot
-                be used in rules.
-              
-          </para>
+        <emphasis>ip6tables</emphasis> does not have the <emphasis>-f</emphasis> command line flag;
+        instead, it uses the <emphasis>frag</emphasis> module to match fragments. Firewall Builder
+        currently does not support the ip6tables <emphasis>ipv6header</emphasis> module, and source
+        routing options do not exist in IPv6, so object "lsrr" cannot be used in rules. </para>
   
 
-          <para>
-  
-                PF cannot match DSCP bits and source routing options
-                but can match TOS. Trying the same IP Service object "tos 0x10"
-                in policy rules for PF:
-              
-          </para>
+          <para> PF cannot match DSCP bits and source routing options, but it can match TOS. Trying
+        the same IP Service object "tos 0x10" in policy rules for PF: </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/ip_service_rule_2.png"/></figure>
@@ -435,14 +409,9 @@ pass out  quick inet  from any  to (eth0)  tos 0x10 keep state
 
               </programlisting>
 
-          <para>
-  
-                Cisco IOS access lists cannot match source route
-                options but can match fragments and TOS and DSCP bits.
-                Here is what we get if we try to compile the same
-                rules using the same IP Service objects for Cisco IOS:
-              
-          </para>
+          <para> Cisco IOS access lists cannot match source route options but can match fragments
+        and TOS and DSCP bits. Here is what we get if we try to compile the same rules using the
+        same IP service objects for Cisco IOS: </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/ip_service_rule_3.png"/></figure>
@@ -474,43 +443,23 @@ exit
     <sect2 id="icmp-service">
       <title>ICMP and ICMP6 Service Objects</title>
 
-        <para>
-  
-                The ICMP Service object is a generalized
-                representation of the ICMP protocol. ICMP packets
-                are often used to communicate error messages that
-                are acted upon by either the IP layer or higher
-                layer protocols (TCP or UDP). ICMP can also be used
-                as a simple query protocol.
-              
-  </para>
+        <para> The ICMP service object is a generalized representation of the ICMP protocol. ICMP
+      packets are often used to communicate error messages that are acted upon by either the IP
+      layer or higher-layer protocols (TCP or UDP). ICMP can also be used as a simple query
+      protocol. </para>
   
 
-        <para>
-  
-                Firewall Builder has service objects for both IPv4
-                and IPv6. ICMP Service objects for IPv6 are called
-                ICMP6 Service. The standard ICMP Service objects
-                that come with Firewall Builder appear in
-                the <emphasis>Standard Objects</emphasis> library, in
-                the <emphasis>Services/ICMP</emphasis> branch. User-defined ICMP
-                and ICMP6 service objects will appear in the
-                library <emphasis>User</emphasis> in the same <emphasis>Services/ICMP</emphasis>
-                branch.
-              
-  </para>
+        <para> Firewall Builder has service objects for both IPv4 and IPv6. ICMP service objects for
+      IPv6 are called ICMP6 service. The standard ICMP service objects that come with Firewall
+      Builder appear in the <emphasis>Standard Objects</emphasis> library, in the
+        <emphasis>Services/ICMP</emphasis> branch. User-defined ICMP and ICMP6 service objects
+      appear in the library <emphasis>User</emphasis> in the same <emphasis>Services/ICMP</emphasis>
+      branch. </para>
   
 
-        <para>
-  
-                Service objects in the Standard are not
-                editable. However, you can copy-and-paste a copy of a
-                service object into the User tree and edit it there,
-                or you can right-click the ICMP folder in the User
-                tree and select New ICMP Service to create a service
-                object from scratch.
-              
-  </para>
+        <para> Standard service objects are not editable. However, you can copy and paste a copy of
+      a service object into the User tree and edit it there, or you can right-click the ICMP folder
+      in the User tree and select New ICMP Service to create a service object from scratch. </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/icmp_service_tree.png"/></figure>
@@ -540,17 +489,11 @@ exit
   </para>
   
 
-        <para>
-  
-                Any combination of the <emphasis>type</emphasis> and <emphasis>code</emphasis>
-                values is allowed in the ICMP or ICMP6 Object. For
-                example the following two screen shots illustrate
-                definitions of ICMP and ICMP6 objects for the
-                request packet of well known ping protocol. The type
-                codes are different for IPv4 and IPv6 variants,
-                although the code is equal to 0 in both:
-              
-  </para>
+        <para> Any combination of the <emphasis>type</emphasis> and <emphasis>code</emphasis> values
+      is allowed in the ICMP or ICMP6 object. For example, the following two screen shots illustrate
+      definitions of ICMP and ICMP6 objects for the request packet of the well-known ping protocol.
+      The type codes are different for IPv4 and IPv6 variants, although the code is equal to 0 in
+      both: </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/icmp_service_1.png"/></figure>
@@ -569,12 +512,7 @@ exit
 
         <figure><title/><graphic scale="50" fileref="objects/images/icmp_service_2.png"/></figure>
 
-        <para>
-  
-                Both IPv4 and IPv6 ICMP Service dialogs provide the
-                following controls:
-              
-  </para>
+        <para> Both IPv4 and IPv6 ICMP service dialogs provide the following controls: </para>
   
 
   <itemizedlist>
@@ -640,15 +578,9 @@ exit
 
         <figure><title/><graphic scale="50" fileref="objects/images/icmp_service_rule_1.png"/></figure>
 
-        <para>
-  
-                If the rule set this rule belongs to is configured as
-                combined IPv4 and IPv6, then policy compiler will pick
-                ICMP service that matches address family on each
-                separate pass, one for IPv4 and then for IPv6. Here is
-                what we get for iptables:
-              
-	</para>
+        <para> If the rule set this rule belongs to is configured as combined IPv4 and IPv6, then
+        policy compiler will pick the ICMP service that matches address family on each separate
+        pass, one for IPv4 and then for IPv6. Here is what we get for iptables: </para>
   
 
   <programlisting>
@@ -695,22 +627,13 @@ pass in   quick inet6 proto icmp6  from any  to any
 
   
 
-          <para>
-  
-                  The TCP Service object is a generalization of the
-                  TCP protocol, which provides a connection-oriented
-                  reliable byte stream service. Many well-known,
-                  frequently used application protocols use TCP
-                  protocol: FTP (File Transfer Protocol), SMTP (Simple
-                  Mail Transfer Protocol), HTTP (Hyper Text Transfer
-                  Protocol), and so on. The TCP header contains
-                  special fields indicating source and destination port
-                  numbers that are used to identify the sending and
-                  receiving application. These two values, along with
-                  the source and destination IP addresses in the IP
-                  header, uniquely identify each connection.
-                
-          </para>
+          <para> The TCP service object is a generalization of the TCP protocol, which provides a
+      connection-oriented reliable byte-stream service. Many well-known, frequently-used application
+      protocols use the TCP protocol: FTP (File Transfer Protocol), SMTP (Simple Mail Transfer
+      Protocol), HTTP (Hyper Text Transfer Protocol), and so on. The TCP header contains special
+      fields indicating source and destination port numbers that are used to identify the sending
+      and receiving application. These two values, along with the source and destination IP
+      addresses in the IP header, uniquely identify each connection. </para>
   
 
           <para>
@@ -755,28 +678,16 @@ pass in   quick inet6 proto icmp6  from any  to any
 
         <figure><title/><graphic scale="50" fileref="objects/images/tcp_service_1.png"/></figure>
 
-          <para>
-  
-                In Firewall Builder, the TCP Service object is a
-                generalization of TCP protocol. The TCP header of a
-                packet carries only one fixed value for the source port
-                and one fixed value for the destination port. The TCP
-                Service object allows a range of values to be used for
-                the source and destination ports. This allows a single
-                TCP Service object to describe either a family of
-                protocols using consecutive port numbers, or a
-                protocol that may use variable port numbers or simply
-                many protocols that use port numbers from a certain
-                range. For example, on Unix systems, TCP sessions
-                opened by a privileged process always have their
-                source port number assigned from a range below 1024,
-                while unprivileged processes use source port numbers
-                from a range starting from 1024 and above. The TCP
-                Service object with a source port range defined as
-                shown in the following screenshot describes all
-                privileged TCP sessions.
-              
-          </para>
+          <para> In Firewall Builder, the TCP service object is a generalization of TCP protocol.
+      The TCP header of a packet carries only one fixed value for the source port and one fixed
+      value for the destination port. The TCP Service object allows a range of values to be used for
+      the source and destination ports. This allows a single TCP Service object to describe either a
+      family of protocols using consecutive port numbers, or a protocol that may use variable port
+      numbers or simply many protocols that use port numbers from a certain range. For example, on
+      Unix systems, TCP sessions opened by a privileged process always have their source port number
+      assigned from a range below 1024, while unprivileged processes use source port numbers from a
+      range starting from 1024 and above. The TCP Service object with a source port range defined as
+      shown in the following screenshot describes all privileged TCP sessions. </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/tcp_service_2.png"/></figure>
@@ -807,20 +718,12 @@ pass in   quick inet6 proto icmp6  from any  to any
           </para>
   
 
-          <para>
-  
-                The TCP header also contains a collection of one-bit
-                fields, or flags, that carry a variety of control
-                information. For example, the SYN and ACK flags are
-                used for connection establishment and the FIN flag is
-                used for connection termination. Certain combinations
-                of flags are not allowed during the normal protocol
-                operation and may cause unpredicted reactions in some
-                systems; because of this, the firewall administrator
-                may want to block TCP packets with unwanted
-                combination of flags.
-              
-          </para>
+          <para> The TCP header also contains a collection of one-bit fields, or flags, that carry a
+      variety of control information. For example, the SYN and ACK flags are used for connection
+      establishment and the FIN flag is used for connection termination. Certain combinations of
+      flags are not allowed during the normal protocol operation and may cause unpredicted reactions
+      in some systems; because of this, the firewall administrator may want to block TCP packets
+      with an unwanted combination of flags. </para>
   
 
           <para>
@@ -928,20 +831,12 @@ pass in   quick inet6 proto icmp6  from any  to any
 
         <figure><title/><graphic scale="50" fileref="objects/images/tcp_service_3.png"/></figure>
 
-          <para>
-  
-                A Combination of flags and a mask can be used in a rule
-                that looks for some flags to be set or unset and
-                ignores other ones regardless of their state. For
-                example, we can create a rule that detects a so called
-                "null scan" which is done using TCP packets with all
-                flags cleared. For this rule we create a TCP Service
-                object "tcp null scan" where all flag masks are set but
-                all TCP flags are cleared. This means we examine all
-                flags but only match them if they are all cleared. This
-                object is represented in the following screenshot:
-              
-          </para>
+          <para> A combination of flags and a mask can be used in a rule that looks for some flags
+      to be set or unset and ignores other ones, regardless of their state. For example, we can
+      create a rule that detects a so-called "null scan" which is done using TCP packets with all
+      flags cleared. For this rule, we create a TCP service object "tcp null scan" where all flag
+      masks are set but all TCP flags are cleared. This means we examine all flags but only match
+      them if they are all cleared. This object is represented in the following screenshot: </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/tcp_service_4.png"/></figure>
@@ -1017,20 +912,12 @@ TCP Service dialog provides the following controls:
     <sect4>
         <title>Single destination TCP port</title>
 
-          <para>
-  
-                Let's start with an example of using simple TCP service
-                that describes HTTP protocol. Both the beginning and
-                the end of the source port range in this service
-                object are set to "0" which means the program will
-                leave these out when it generates target firewall
-                configuration.  The destination port range is defined
-                as "80-80" which means the object describes just
-                single destination tcp port "80". All flag checkboxes
-                are unchecked which means no flag-matching
-                configuration will be generated.
-              
-          </para>
+          <para> Let's start with an example using simple TCP service that describes the HTTP
+          protocol. Both the beginning and the end of the source port range in this service object
+          are set to "0," which means the program will leave these out when it generates target
+          firewall configuration. The destination port range is defined as "80-80" which means the
+          object describes just single destination tcp port "80". All flag checkboxes are unchecked,
+          which means no flag-matching configuration will be generated. </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/tcp_service_5.png"/></figure>
@@ -1073,16 +960,10 @@ $IP6TABLES -A FORWARD -p tcp -m tcp  -d 2001:470:1f0e:162::2 \
      --dport 80  -m state --state NEW  -j ACCEPT 
               </programlisting>
 
-          <para>
-  
-                And for PF we get the following. Note that PF version
-                was set to "any" or "3.x", this is why "keep state"
-                was added. "Keep state" is default for PF 4.x and if
-                version was configured as "4.x" in this firewall
-                object, policy compiler would have dropped "keep
-                state" from generated configuration.
-              
-          </para>
+          <para> And for PF we get the following. Note that PF version was set to "any" or "3.x",
+          this is why "keep state" was added. "Keep state" is default for PF 4.x and if version was
+          configured as "4.x" in this firewall object, policy compiler would have dropped "keep
+          state" from the generated configuration. </para>
   
 
   <programlisting>
@@ -1101,13 +982,8 @@ pass out  quick inet6 proto tcp  from any  to 2001:470:1f0e:162::2 port 80 keep 
     <sect4>
         <title>Source port range</title>
 
-          <para>
-  
-                In the next example we look at the TCP service object
-                that defines specific source port range to match
-                source ports greater than or equal to 1024:
-              
-          </para>
+          <para> In the next example, we look at the TCP service object that defines a specific
+          source port range to match source ports greater than or equal to 1024: </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/tcp_service_6.png"/></figure>
@@ -1189,26 +1065,16 @@ exit
     <sect4>
         <title>Established</title>
 
-          <para>
-  
-                Some of the supported firewalls understand special
-                flag "established" intended to match reply packets of
-                the TCP session. Stateless systems, such as Cisco IOS
-                extended access lists, match combination of tcp flags
-                where flag "ACK" is set but flag "SYN" is cleared when
-                this keyword is used in the acl rule. Stateful
-                firewalls such as iptables or PF offer much better way
-                to track and match reply packets because they can
-                follow the states a tcp session goes through when it
-                is opened, data transferred and finally session is
-                closed. Firewall Builder provides an option of using
-                flag "established" but supports it only for those
-                firewall platforms where there is no better
-                alternative. Attempt to use TCP service object with
-                this flag set in rules for the firewall that supports
-                stateful inspection causes an error.
-              
-          </para>
+          <para> Some of the supported firewalls understand special flag "established" intended to
+          match reply packets of the TCP session. Stateless systems, such as Cisco IOS extended
+          access lists, match combination of tcp flags where flag "ACK" is set but flag "SYN" is
+          cleared when this keyword is used in the acl rule. Stateful firewalls such as iptables or
+          PF offer much better way to track and match reply packets because they can follow the
+          states a tcp session goes through when it is opened, data transferred and finally session
+          is closed. Firewall Builder provides an option of using flag "established" but supports it
+          only for those firewall platforms where there is no better alternative. An attempt to use
+          a TCP service object with this flag set in rules for a firewall that supports stateful
+          inspection causes an error. </para>
   
 
           <para>
@@ -1277,59 +1143,32 @@ Error (pf): TCPService object with option "established" is not supported
     <sect2 id="udp-service">
       <title>UDP Service</title>
 
-          <para>
-  
-                The UDP Service object is a generalization of the UDP
-                protocol, which is a connectionless transport layer
-                protocol. Many well-known applications use UDP as
-                their transport, such as DNS (Domain Name System),
-                DHCP (Dynamic Host Configuration Protocol), NTP
-                (Network Time Protocol), and SNMP (Simple Network
-                Management Protocol)..
-              
-          </para>
+          <para> The UDP service object is a generalization of the UDP protocol, which is a
+      connectionless transport layer protocol. Many well-known applications use UDP as their
+      transport, such as DNS (Domain Name System), DHCP (Dynamic Host Configuration Protocol), NTP
+      (Network Time Protocol), and SNMP (Simple Network Management Protocol). </para>
   
 
-          <para>
-  
-                As in TCP, UDP uses port numbers to distinguish
-                applications from one another. The UDP packet header
-                carries two port numbers: the source port and the
-                destination port. The UDP Service object in Firewall
-                Builder allows for a definition of ranges for both the
-                source and the destination ports. The meaning of
-                values assigned to the start and end of the range is
-                the same as in the TCP Service object: ranges are
-                inclusive, that is, both start and end ports of the
-                range are included. Using "0" for both the start and
-                end of the range means "any port". These rules work
-                for both the source and destination ranges. The
-                following screenshot shows the "dns" UDP Service
-                object that represents the Domain Name System protocol
-                which uses destination port 53.
-              
-          </para>
+          <para> As in TCP, UDP uses port numbers to distinguish applications from one another. The
+      UDP packet header carries two port numbers: the source port and the destination port. The UDP
+      service object in Firewall Builder allows for a definition of ranges for both the source and
+      the destination ports. The meaning of values assigned to the start and end of the range is the
+      same as in the TCP service object: ranges are inclusive, that is, both start and end ports of
+      the range are included. Using "0" for both the start and end of the range means "any port".
+      These rules work for both the source and destination ranges. The following screenshot shows
+      the "dns" UDP Service object that represents the Domain Name System protocol, which uses
+      destination port 53. </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/udp_service_1.png"/></figure>
 
-          <para>
-  
-                Service objects in the Standard are not
-                editable. However, you can copy-and-paste a copy of a
-                service object into the User tree and edit it there,
-                or you can right-click the ICMP folder in the User
-                tree and select New ICMP Service to create a service
-                object from scratch.
-              
-          </para>
+          <para>Objects in the Standard set of service objects are not editable. However, you can
+      copy and paste a copy of a service object into the User tree and edit it there, or you can
+      right-click the ICMP folder in the User tree and select New ICMP Service to create a service
+      object from scratch. </para>
   
 
-          <para>
-  
-                The UDP Service dialog provides the following controls: 
-              
-          </para>
+          <para> The UDP Service dialog provides the following controls: </para>
   
 
           <para>
@@ -1376,12 +1215,12 @@ Error (pf): TCPService object with option "established" is not supported
                 </itemizedlist>
 
      <sect3>
-        <title>Using UDP Service in rules</title>
+        <title>Using UDP Service in Rules</title>
 
   
 
        <sect4>
-        <title>Single destination UDP port</title>
+        <title>Single Destination UDP port</title>
 
           <para>
   
@@ -1421,11 +1260,7 @@ $IPTABLES -A FORWARD  -i + -p udp -m udp  --dport 53  -m state --state NEW  -j A
           </para>
   
 
-          <para>
-  
-                Here is generated PF 4.x configuration:
-              
-          </para>
+          <para> Here is the generated PF 4.x configuration: </para>
   
 
   <programlisting>
@@ -1445,11 +1280,7 @@ pass in   quick inet proto udp  from any  to any port 53
           </para>
   
 
-          <para>
-  
-                Generated Cisco access list statement is quite trivial:
-              
-          </para>
+          <para> The generated Cisco access list statement is quite trivial: </para>
   
 
   <programlisting>
@@ -1466,7 +1297,7 @@ exit
        </sect4>
 
        <sect4>
-        <title>Source port range</title>
+        <title>Source Port Range</title>
 
           <para>
   
@@ -1510,11 +1341,7 @@ pass in   quick inet proto udp  from any port &gt;= 1024  to any
 
               </programlisting>
 
-          <para>
-  
-                Cisco access list statement:
-              
-          </para>
+          <para>The Cisco access list statement: </para>
   
 
   <programlisting>
@@ -1534,9 +1361,8 @@ exit
     <sect2 id="user-service">
       <title>User Service</title>
 
-	<para>User Service object matches the owner of the process on
-	the firewall that send the packet. It translates to the
-	"owner" match in iptables and "user" parameter for PF.</para>
+	<para>User service object matches the owner of the process on the firewall that send the packet. It
+      translates to the "owner" match in iptables and "user" parameter for PF.</para>
 
       <figure id="user-service-dialog">
           <title>User Service Dialog</title>
@@ -1563,11 +1389,10 @@ exit
           </listitem>
         </itemizedlist>
 
-	<para> User Service object has only one parameter besides the
-	name and comment: it is user id that the firewall should use
-	to match packets.</para>
+	<para>The user service object has only one parameter besides the name and comment: it is the user
+      ID that the firewall should use to match packets.</para>
 
-	<para>The User Service object is only supported for iptables and PF.</para>
+	<para>The user service object is only supported for iptables and PF.</para>
 
 	<para>Let's look at how the simple rule shown in <xref linkend="user-service-rule" /> compiles for iptables and PF.</para>
  
@@ -1585,7 +1410,7 @@ exit
 	must be the firewall.</para>
 
        <figure id="user-service-iptables">
-        <title>User Service, iptables compile output</title>
+        <title>User Service, iptables Compile Output</title>
             <programlisting>
 # Rule 0 (global)
 # 
@@ -1593,13 +1418,11 @@ $IPTABLES -A OUTPUT -m owner --uid-owner 500  -j DROP
 	</programlisting>
       </figure>
 
-      <para> The User Service translated into
-      the <emphasis>owner</emphasis> match for iptables. See the
-      iptables man page for a more detailed explanation of this
-      match.</para>
+      <para> The user service translated into the <emphasis>owner</emphasis> match for iptables. See
+      the iptables man page for a more detailed explanation of this match.</para>
 
        <figure id="user-service-pf">
-        <title>User Service, PF compile output</title>
+        <title>User Service, PF Compile Output</title>
             <programlisting>
 # Tables: (1)
 table  { en0 , 192.168.1.1 }
@@ -1616,57 +1439,35 @@ block out  quick inet  from   to any user 500
       matches source addresses and also the user ID of the owner using
       the "user" clause.</para>
 
-      <para>User Service is actually one of the simplest service
-      object types in Firewall Builder, but it provides the facility
-      for a basic per-user control on Linux and BSD machines. This
-      service object can be used in rules with actions that reroute
-      packets ("Route" action) or in the NAT rules, for example to
-      redirect web access via proxy.</para>
+      <para>The user service object is actually one of the simplest service object types in Firewall
+      Builder, but it provides the facility for a basic per-user control on Linux and BSD machines.
+      This service object can be used in rules with actions that reroute packets ("Route" action) or
+      in the NAT rules; for example, to redirect web access via proxy.</para>
 
     </sect2>
 
     <sect2 id="custom-service">
       <title>Custom Service</title>
 
-        <para>
-  
-                  The Custom Service object can be used to inject
-                  arbitrary code into the generated firewall
-                  script. Any combination of options allowed in the
-                  target firewall command line language that does not
-                  fit into a strict model of standard service object
-                  types can be expressed using the Custom Service
-                  object. For example, iptables comes with a
-                  collection of modules that adds an ability to match
-                  complex combinations of packet parameters or header
-                  fields that are not supported by a standard
-                  code. One of the modules adds the ability to match
-                  any string in the packet's payload which can be
-                  quite useful to quickly build firewall rule to block
-                  some new protocol that uses non-specific combination
-                  of ports and other parameters. This ability is
-                  sometimes used to write rules to block network
-                  trojans or viruses with known signatures.
-                
-        </para>
+        <para> The custom service object can be used to inject arbitrary code into the generated
+      firewall script. Any combination of options allowed in the target firewall command line
+      language that does not fit into a strict model of standard service object types can be
+      expressed using the custom service object. For example, iptables comes with a collection of
+      modules that adds an ability to match complex combinations of packet parameters or header
+      fields that are not supported by a standard code. One of the modules adds the ability to match
+      any string in the packet's payload which can be quite useful to quickly build firewall rule to
+      block some new protocol that uses non-specific combination of ports and other parameters. This
+      ability is sometimes used to write rules to block network trojans or viruses with known
+      signatures. </para>
   
 
-        <para>
-  
-                  The following screenshot represents a Custom Service
-                  object that uses the capabilities of
-                  the <emphasis>string</emphasis> module. Command line options
-                  specific for this module are in the "Code String"
-                  field.
-                
-        </para>
+        <para> The following screenshot represents a custom service object that uses the
+      capabilities of the <emphasis>string</emphasis> module. Command-line options specific for this
+      module are in the "Code String" field. </para>
   
 
-        <note><para>
-                  Note: The code specified in the Custom Service is
-                  used literally; no validation is done either by
-                  Firewall Builder GUI or the policy compilers.
-                      </para></note>
+        <note><para> Note: The code specified in the custom service object is used literally; no validation is
+        done either by the Firewall Builder GUI or the policy compilers. </para></note>
   
 
         <figure><title/><graphic scale="60" fileref="objects/images/custom_service_1.png"/></figure>
@@ -1698,26 +1499,17 @@ block out  quick inet  from   to any user 500
 
                   
 
-  <listitem><para>
-  Code String: This is a line of code in the
-                  target firewall language. (This is the heart of the
-                  Custom Service object.)
-                        </para>
+  <listitem><para> Code String: This is a line of code in the target firewall language. (This is the heart of
+          the custom service object.) </para>
   </listitem>
   
 
                   
 
-  <listitem><para>
-  Protocol Name: Use this if you want to restrict
-                    the Custom Service Object to a particular
-                    protocol: TCP, UDP, or ICMP. Default is "any". For
-                    example, if this field is set to "tcp", then
-                    policy compiler for iptables generates command
-                    with parameter "-p tcp" and then inserts code
-                    defined in the "Code String" field of the custom
-                    service object.
-                        </para>
+  <listitem><para> Protocol Name: Use this option if you want to restrict the custom service object to a
+          particular protocol: TCP, UDP, or ICMP. Default is "any". For example, if this field is
+          set to "tcp", then policy compiler for iptables generates command with parameter "-p tcp"
+          and then inserts code defined in the "Code String" field of the custom service object. </para>
   </listitem>
   
 
@@ -1744,24 +1536,14 @@ block out  quick inet  from   to any user 500
   <sect3>
         <title>Using Custom Service Object in Rules</title>
 
-        <para>
-  
-                  The following example uses iptables module
-                  "recent". Quoting from the iptables manual, this module
-                  "allows you to dynamically create a list of IP
-                  addresses and then match against that list in a few
-                  different ways". We can use this module to throttle
-                  brute-force ssh scanning attacks where an attacker
-                  repeatedly connects to the ssh daemon trying to
-                  guess login name and password. The full explanation
-                  of how to use Custom Service object in combination
-                  with <emphasis>swatch</emphasis> script on Linux to stop these
-                  attacks can be found in the Firewall Builder
-                  Cookbook (<xref linkend="cookbook" />). Here we focus only on the Custom Service
-                  object and iptables rules that can be obtained with
-                  it.
-                
-        </para>
+        <para> The following example uses iptables module "recent". Quoting from the iptables
+        manual, this module "allows you to dynamically create a list of IP addresses and then match
+        against that list in a few different ways". We can use this module to throttle brute-force
+        ssh scanning attacks where an attacker repeatedly connects to the ssh daemon trying to guess
+        login name and password. The full explanation of how to use the custom service object in
+        combination with <emphasis>swatch</emphasis> script on Linux to stop these attacks can be
+        found in the Firewall Builder Cookbook (<xref linkend="cookbook"/>). Here we focus only on
+        the Custom Service object and iptables rules that can be obtained with it. </para>
   
 
         <figure><title/><graphic scale="60" fileref="objects/images/custom_service_2.png"/></figure>
@@ -1776,35 +1558,20 @@ block out  quick inet  from   to any user 500
         </para>
   
 
-        <para>
-  
-                  The second Custom Service object also matches port
-                  22 and checks if the address is already on the list
-                  and was seen during the past 1 minute twice:
-                
-        </para>
+        <para> The second custom service object also matches port 22 and checks if the address is
+        already on the list and was seen during the past one minute twice: </para>
   
 
         <figure><title/><graphic scale="60" fileref="objects/images/custom_service_3.png"/></figure>
 
-        <para>
-  
-                  Note that our goal is to match protocol ssh (tcp
-                  port 22) and at the same time activate iptables
-                  module "recent" and add some parameters for it.
-                  Both are done by means of a service object in
-                  fwbuilder, however placing two service objects in
-                  the "Service" field of a rule joins them by OR. That
-                  is, if we were to put TCP service object "ssh" and
-                  Custom Service object that defines parameter for
-                  module "recent" in the "Service" field of the same
-                  rule, we would end up with two iptables commands,
-                  one matching tcp port 22 and another trying to use
-                  module "recent". Since we need to match both in the
-                  same rule, we have to add "--dport 22" to the code
-                  defined in the Custom Service object.
-                
-        </para>
+        <para> Note that our goal is to match protocol SSH (tcp port 22) and at the same time
+        activate iptables module "recent" and add some parameters for it. Both are done by means of
+        a service object in Firewall Builder; however placing two service objects in the "Service"
+        field of a rule joins them by a logical OR operation. That is, if we were to put TCP service
+        object "ssh" and custom service object that defines parameter for module "recent" in the
+        "Service" field of the same rule, we would end up with two iptables commands, one matching
+        tcp port 22 and another trying to use module "recent". Since we need to match both in the
+        same rule, we have to add "--dport 22" to the code defined in the custom service object. </para>
   
 
         <para>
@@ -1863,35 +1630,20 @@ $IPTABLES -A INPUT  -i + -p tcp -m tcp  --dport 22 -m recent --set \
         </para>
   
 
-        <para>
-  
-                  Custom Service allows you to inject arbitrary
-                  strings into the generated firewall configuration in
-                  the place where normally port matching
-                  occurs. Another feature in Firewall Builder that
-                  also allows for insertion of a code in the generated
-                  code is Custom Action. The combination of Custom Service
-                  with Custom Action provides for a very flexible
-                  system where you can compose pretty much any
-                  required configuration line if it is not otherwise
-                  supported by the standard means. Suppose instead of
-                  just dropping ssh scan connections coming to our
-                  system we want to slow them down, thus tying up the 
-                  attacker's resources. Iptables has a target just for
-                  that called TARPIT. Unfortunately this target
-                  is specific for iptables and is absent on other
-                  firewalls supported by fwbuilder and it did not make
-                  sense to introduce a standard action for it. However,
-                  Custom Action is the mechanism we can use to
-                  generate iptables command with this target. Here is
-                  the rule, the action in it was set to "Custom
-                  Action". Double-clicking on the action in the rule
-                  opens a dialog with its parameters (if any). Custom
-                  Action has one parameter, it is a freestyle string
-                  where you enter the code you want to appear in the 
-                  generated command:
-                
-        </para>
+        <para>The custom service object allows you to inject arbitrary strings into the generated
+        firewall configuration in the place where  port matching normally occurs. Another feature in
+        Firewall Builder that also allows for insertion of a code in the generated code is the
+        custom action feature. The combination of custom service with custom action provides for a
+        very flexible system where you can compose pretty much any required configuration line if it
+        is not otherwise supported by the standard means. Suppose instead of just dropping SSH scan
+        connections coming to our system, we want to slow them down, thus tying up the attacker's
+        resources. Iptables has a target just for that called TARPIT. This target is specific for
+        iptables and does not exist on the other firewalls supported by Firewall Builder and there
+        is no standard action for it. You can use the custom action mechanism to generate an
+        iptables command with this target. In the rule, the action in it is set to "Custom Action".
+        Double-clicking  the action in the rule opens a dialog with its parameters (if any). The
+        custom action object has one parameter: a free-form string where you enter the code you want
+        to appear in the generated command: </para>
   
 
         <figure><title/><graphic scale="50" fileref="objects/images/custom_service_rule_2.png"/></figure>

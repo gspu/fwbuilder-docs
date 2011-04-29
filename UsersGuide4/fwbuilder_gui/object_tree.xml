@@ -95,11 +95,11 @@
               <row>
                 <entry>Firewall</entry>
                 <entry>A physical firewall device, its
-                interfaces and addresses, and the policy rulesets
+                interfaces and addresses, and the policy rule sets
                 associated with the device. Use Firewall Builder to
                 model your actual device's firewall software, OS,
                 interfaces and addresses. Then, use Firewall Builder
-                to construct the policy rulesets to assign to the
+                to construct the policy rule sets to assign to the
                 device.</entry>
               </row>
               <row>
@@ -222,7 +222,7 @@
                 <entry>A time period such as "weekends" or a range of
                 dates, or a range of times on certain days of the
                 week. Can be used as part of rule matching in Access
-                Policy rulesets to provide or deny access to something
+                Policy rule sets to provide or deny access to something
                 based on time. Note that these time intervals are
                 relative to the time on the firewall device
                 itself.</entry>

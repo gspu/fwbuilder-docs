@@ -58,13 +58,13 @@ and shows how to filter the object tree.</para>
                 </entry>
               </row>
               <row>
-                <entry>The Policy Ruleset Workspace</entry>
-                <entry>Displayed to the right of the object tree, this area holds the ruleset you are currently working on. This space i
-s blank when you first load an object file. It only appears when you double-click a policy, NAT, or routing ruleset link in a firewall 
+                <entry>The Policy Rule Set Workspace</entry>
+                <entry>Displayed to the right of the object tree, this area holds the rule set you are currently working on. This space i
+s blank when you first load an object file. It only appears when you double-click a policy, NAT, or routing rule set link in a firewall 
 object. (This means that you have to create a firewall object before you can work on a policy.)
       <para>See <xref linkend="firewall-object" /> for instructions on creating a firewall object. See <xref linkend="firewall-policies"
  /> for instructions on working with policies.</para>
-        <para>The two buttons on the top of the ruleset let you compile (the hammer) or compile-and-install (arrow and wall) the curren
+        <para>The two buttons on the top of the rule set let you compile (the hammer) or compile-and-install (arrow and wall) the curren
 t firewall policy. <xref linkend="compile-install-detail" /> describes how to compile a firewall policy as well
           as how to compile and install one.</para>
       <para>
@@ -95,7 +95,7 @@ t firewall policy. <xref linkend="compile-install-detail" /> describes how to co
           <graphic scale="50" fileref="fwbuilder_gui/images/object-editor-small.png" />
         </figure>
       </para>
-        <para> You can search for objects and rulesets across your object files, plus do replacements of objects. See 
+        <para> You can search for objects and rule sets across your object files, plus do replacements of objects. See 
         <xref linkend="find-replace" /> for an explanation of the 
                 Find-and-Replace tab.</para>
       <para>

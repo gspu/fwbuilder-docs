@@ -3,7 +3,7 @@
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
   <sect1 id="object-types">
-    <title>Types of objects</title>
+    <title>Types of Objects</title>
 
     <para>
       Firewall Builder supports a variety of object types, both

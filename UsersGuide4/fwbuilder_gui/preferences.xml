@@ -12,7 +12,7 @@
       </para>
 
       <table frame='none' tabstyle='reg_table'>
-        <title>Preferences>General tab</title>
+        <title>Preferences>General Tab</title>
         <tgroup cols='2' align='left'  rowsep='1'>
           <colspec colname='c1'  colwidth="120pt"/>
           <colspec colname='c2'/>
@@ -97,7 +97,7 @@ k for updates unless  specifically enabled by clicking the <guibutton>Check Now<
               <row>
                 <entry>Show object attributes in the tree</entry>
                 <entry>Creates a second column in the object tree. The second column
-                contains information about the object, such as how many objects a folder contains, whether a ruleset is the top ruleset
+                contains information about the object, such as how many objects a folder contains, whether a rule set is the top rule set
 , IP addresses, and so on. See <xref linkend="object-attributes" /> for a description.</entry>
               </row>
               <row>
@@ -250,7 +250,7 @@ DNS Record</guilabel> field will be grayed out in all DNS Name objects.)</entry>
                   your policies to make them stand out visually. You
                   can also change the text label associated with each color
                   using this tab. While the color shows up in the
-                  ruleset, the text label only appears in the label
+                  rule set, the text label only appears in the label
                   list.
                 </entry>
               </row>

@@ -9,7 +9,7 @@
       <para>Imagine you have an access policy that looks something like this:</para>
 
       <figure id="find-replace1">
-          <title>Policy before the Find/Replace</title>
+          <title>Policy Before the Find/Replace</title>
               <graphic scale="70" fileref="objects/images/find-replace1.png" />
         </figure>
 
@@ -17,17 +17,16 @@
       addresses in 192.168.2.0/24 to be in the 192.168.3.0/24 subnet
       and that you need to modify the firewall rules to match.</para>
 
-      <para>One way to handle this is to manually browse through every
-      rule in your firewall, removing the .2.0 addresses where you
-      find them and replacing them with the equivalent .3.0
-      addresses. Or, you could do a Find and Replace.</para>
+      <para>One way to handle this is to manually browse through every rule in your firewall,
+    removing the .2.0 addresses where you find them and replacing them with the equivalent .3.0
+    addresses. Or, you could do a Find and Replace operation.</para>
 
       <para>Select <guimenuitem>Find Object</guimenuitem> from
       the <guimenu>Object</guimenu> menu to open the Find and Replace
       dialog, shown here:</para>
 
             <figure id="find-replace2">
-          <title>Find/Replace dialog</title>
+          <title>Find/Replace Dialog</title>
               <graphic scale="50" fileref="objects/images/find-replace2.png" />
         </figure>
 
@@ -42,14 +41,14 @@
               firewall</guimenuitem>, as shown here:</para>
 
             <figure id="find-replace3">
-          <title>Objects to find and replace</title>
+          <title>Objects to Find and Replace</title>
               <graphic scale="50" fileref="objects/images/find-replace3.png" />
         </figure>
 
       <para>Click <guibutton>Replace All</guibutton> to replace all instances.</para>
 
             <figure id="find-replace4">
-          <title>Policy with objects replaced</title>
+          <title>Policy with Objects Replaced</title>
               <graphic scale="60" fileref="objects/images/find-replace4.png" />
         </figure>
 
@@ -59,12 +58,10 @@
         <listitem>
             <para>Object parameter pull-down menu</para>
 
-            <para>Allows you to specify how you search for
-            objects. You can search by Name (usable on all objects),
-            Address (usable on all addressable objects), TCP/UDP port
-            (usable on TCP and UDP objects), Protocol Number (usable
-            on IP service objects) and ICMP type (usable on ICMP
-            service objects).</para>
+            <para>Allows you to specify how you search for objects. You can search by name (usable
+        on all objects), address (usable on all addressable objects), TCP/UDP port (usable on TCP
+        and UDP objects), Protocol Number (usable on IP service objects) and ICMP type (usable on
+        ICMP service objects).</para>
           </listitem>
 
           <listitem>

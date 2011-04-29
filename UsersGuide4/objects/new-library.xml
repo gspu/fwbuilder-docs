@@ -5,54 +5,47 @@
    <sect1 id="new-library">
     <title>Creating and Using a User-Defined Library of Objects</title>
 
-      <para>The User library that comes with Firewall Builder is all
-      you need if you're the only one administering firewalls in your
-      enterprise. But, if you have several administrators, each with a
-      different workstation, then you may want to create a user
-      library that you can distribute. That way, user-defined objects
-      only have to be created once, by one person.</para>
+      <para>The User library that comes with Firewall Builder is all you need if you are the only
+        person administering firewalls in your enterprise. If you have several administrators,
+        however, each with a different workstation, then you may want to create a user library that
+        you can distribute. That way, user-defined objects can be created once, by one
+        person.</para>
 
-      <para>Let's create and distribute a simple user-defined
-      library. Start by selection <guimenuitem>New Object/New
-      Library</guimenuitem> from the <guimenu>Object</guimenu>
-      menu.</para>
+      <para>Let's create and distribute a simple user-defined library. Start by selecting the
+            <guimenuitem>New Object/New Library</guimenuitem> option from the
+            <guimenu>Object</guimenu> menu.</para>
 
-      <para>The library pull-down menu switches to <guilabel>New
-      Library</guilabel>, which is empty by default, except for the
-      standard folders.</para>
+      <para>The library pull-down menu switches to <guilabel>New Library</guilabel>. This library is
+        empty by default except for the standard folders.</para>
 
       <figure id="user-defined-library1">
-          <title>A new, empty user-defined library</title>
+          <title>A New, Rmpty User-Defined Library</title>
               <graphic scale="70" fileref="objects/images/user-defined-library1.png" />
         </figure>
 
-      <para>Click on the New Library icon to bring up the library dialog.</para>
+      <para>Click the New Library icon to bring up the library dialog.</para>
 
       <figure id="user-defined-library2">
-          <title>Library dialog</title>
+          <title>Library Dialog</title>
               <graphic scale="70" fileref="objects/images/user-defined-library2.png" />
         </figure>
 
-      <para>The Library dialog has three controls: Name, Color, and
-      Comments. Enter a new name for the library in the Name
-      field. (Here we are calling it ACME Library.) If you want, you
-      can also specify a color for the library. This helps you notice
-      when you're in that particular library. In this case, we have
-      set the color to a shade of blue.</para>
+      <para>The Library dialog has three controls: Name, Color, and Comments. Enter a new name for
+        the library in the Name field. (Here we are calling it ACME Library.) If you want, you can
+        also specify a color for the library. This helps you easily distinguish one library from
+        another when you are working. In this case, we have set the color to a shade of blue.</para>
 
       <figure id="user-defined-library3">
-          <title>ACME library with blue background</title>
+          <title>ACME Library with Blue Background</title>
               <graphic scale="70" fileref="objects/images/user-defined-library3.png" />
         </figure>
 
-      <para>Use the normal object creation procedures to create
-      objects in the library. Here we have created a Web server object
-      with a interface that has a dynamically assigned IP
-      address. We've also created a network object for the
-      192.168.3.0/24 subnet.</para>
+      <para>Use the normal object creation procedures to create objects in the library. Here we have
+        created a web server object with a interface that has a dynamically assigned IP address.
+        We've also created a network object for the 192.168.3.0/24 subnet.</para>
 
       <figure id="user-defined-library4">
-          <title>Library with user-created objects</title>
+          <title>Library with User-Created Objects</title>
               <graphic scale="70" fileref="objects/images/user-defined-library4.png" />
         </figure>
 
@@ -63,7 +56,7 @@
       following dialog appears:</para>
 
       <figure id="user-defined-library5">
-          <title>Export your library</title>
+          <title>Export Your Library</title>
               <graphic scale="70" fileref="objects/images/user-defined-library5.png" />
         </figure>
 
@@ -78,11 +71,11 @@
       a <emphasis>.fwl</emphasis> file extension.</para>
 
       <figure id="user-defined-library6">
-          <title>Save dialog box</title>
+          <title>Save Dialog Box</title>
               <graphic scale="60" fileref="objects/images/user-defined-library6.png" />
         </figure>
 
-      <para>You can now move or email the library to someone else.</para>
+      <para>You can now move or e-mail the library to someone else.</para>
 
       <para>To load a library, copy the file to the directory where
       you have Firewall Builder store your object files. Then,

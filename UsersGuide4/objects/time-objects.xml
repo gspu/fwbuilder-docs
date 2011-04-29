@@ -7,14 +7,12 @@
   <sect1 id="time-interval-objects">
     <title>Time Interval Objects</title>
 
-      <para>Time Interval objects allow you to create a rule that only
-      matches during certain periods of time, such as on weekend days,
-      during work hours, or other periods. Time intervals operate
-      based on the time as known <emphasis>by the firewall
-      device</emphasis>.</para>
+      <para>Time interval objects allow you to create a rule that only matches during certain
+    periods of time, such as on weekend days, during work hours, or other periods. Time intervals
+    operate based on the time as known <emphasis>by the firewall device</emphasis>.</para>
 
       <figure id="time-interval2">
-          <title>Time Interval dialog</title>
+          <title>Time Interval Dialog</title>
               <graphic scale="60" fileref="objects/images/time-interval2.png" />
         </figure>
 
@@ -101,16 +99,14 @@
           </listitem>
         </itemizedlist>
 
-	<para>In <xref linkend="time-interval2" />, the object would
-	be valid from the beginning of Dec. 19, 2009 and end the
-	beginning of Jan. 4, 2010. This would hypothetically
-	correspond to a "winter break" at some institution when access
-	to some networks would be restricted.</para>
+	<para>In <xref linkend="time-interval2"/>, the object would be valid from the beginning of Dec. 19,
+    2009 and end the beginning of Jan. 4, 2010. This might correspond, for example, to a "winter
+    break" at some institution when access to some networks could be restricted.</para>
 
 	<para>Another possibility is to limit recreational activities to non-work hours.</para>
 
       <figure id="time-interval1">
-          <title>Time Interval rule example</title>
+          <title>Time Interval Rule Example</title>
               <graphic scale="50" fileref="objects/images/time-interval1.png" />
         </figure>
 
