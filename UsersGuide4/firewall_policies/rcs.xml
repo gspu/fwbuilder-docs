@@ -6,7 +6,7 @@
 
         <para>    Firewall Builder GUI has built-in revision control
                   system that can be used to keep track of changes in
-                  the objects and policy rules. If data file has been
+                  the objects and policy rules. If a data file has been
                   added to the revision control system, every time it
                   is saved, the system asks the user to enter a
                   comment that describes changes done in the file in
@@ -128,7 +128,7 @@
 
   <para>
   
-                Here is the rule set of the new firewall. It is very simple and consists of just 5 rules:
+                Here is the rule set of the new firewall. It is very simple and consists of just five rules:
               
   </para>
   
@@ -138,7 +138,7 @@
   <para>
   
                 Now we add one more rule (to permit <emphasis>HTTP</emphasis> to the firewall).
-                This is rule #3, it is colored yellow:
+                This is rule #3; it is colored yellow:
               
   </para>
   
@@ -299,7 +299,7 @@
                 useful to always use revision control even in simple
                 cases when only one administrator uses the tool. The
                 ability to document changes and roll back if necessary
-                greatly improve the process of security policy
+                greatly improves the process of security policy
                 management.
               
   </para>

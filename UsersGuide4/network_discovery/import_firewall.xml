@@ -18,7 +18,7 @@
 
       <para>
         To start the Import Firewall wizard select the File -> 
-        Import Firewall menu item. This will launch the wizard 
+        Import Firewall menu item. This launches the wizard 
         as shown in <xref linkend="import_firewall_dialog-1"/>.
       </para>
 
@@ -28,7 +28,7 @@
       </figure>
               
       <para>
-        To start the import process use the Browse function to select 
+        To start the import process, use the Browse function to select 
         the file that contains the firewall configuration that you want 
         to import.
       </para>
@@ -89,7 +89,7 @@
 
       <note>
       <para>
-        By default the option to "Find and use existing objects" is enabled. 
+        By default, the option to "Find and use existing objects" is enabled. 
         When this option is enabled Firewall Builder will attempt to match elements 
         in in the firewall's configuration file with objects that are already 
         configured in the Firewall Builder object tree. This includes both Standard 
@@ -105,7 +105,7 @@
       </note>
 
       <para>
-        After entering the firewall object name click Commit. Firewall Builder 
+        After entering the firewall object name, click Commit. Firewall Builder 
         will show a log of the import process and will include any warning messages 
         in blue colored text and any error messages in red colored text. 
       </para>
@@ -116,7 +116,7 @@
       </figure>
         
        <para> 
-        Depending on the platform this will either be the final step of the 
+        Depending on the platform, this will either be the final step of the 
         wizard or the user will be guided through platform specific 
         configuration activities.
       </para>
@@ -209,7 +209,7 @@ COMMIT
           </para>
 
           <para>
-            Launch the import wizard by selecting the File -> Import Firewall menu 
+            Launch the Import wizard by selecting the File -> Import Firewall menu 
             item.
           </para>
 
@@ -240,7 +240,7 @@ COMMIT
         </para>
 
         <para>
-          By default Firewall Builder attempts to detect if there are items, like IP 
+          By default, Firewall Builder attempts to detect if there are items, like IP 
           addresses, used in the rules that match existing items in the object tree. 
           If there is a match the existing item is used, if there is no match a new 
           object is created. This feature can be disabled by unchecking the box next 
@@ -250,23 +250,23 @@ COMMIT
         </para>
 
         <figure id="iptables-import-name-1">
-          <title>Enter the name of the firewall</title>
+          <title>Entering the Name of the Firewall</title>
           <graphic scale="50" fileref="network_discovery/images/iptables_import_name_fw.png"/>
         </figure>
 
         <para>
-          After the import is complete Firewall Builder displays a log showing 
+          After the import is complete, Firewall Builder displays a log showing 
           all the actions that were taken during the import. Warning messages are 
           displayed in blue font and Error messages are displayed in red.
         </para>
 
         <figure id="iptables-import-log-1">
-          <title>Import log with status and warning/error messages</title>
+          <title>Import Log with Status and Warning/Error Messages</title>
           <graphic scale="50" fileref="network_discovery/images/iptables_import_log.png"/>
         </figure>
 
         <para>
-          The program tries to interpret the configuration file rule-by rule 
+          The program tries to interpret the configuration file rule by rule 
           and recreates the equivalent rule in Firewall Builder. The progress 
           window displays warning and error messages, if any, as well as some 
           diagnostics that shows network and service objects created in the 
@@ -287,19 +287,19 @@ COMMIT
         </para>
         
         <para>
-          After the import is completed the newly created firewall object will be 
+          After the import is completed, the newly created firewall object will be 
           displayed in the object tree. If you expand the Objects system folder, as 
           shown in <xref linkend="iptables-import-object-tree-1" />, you can also see 
           the Address and Network objects that were created during the import process.
         </para>
         
         <figure id="iptables-import-object-tree-1">
-          <title>Imported firewall and created objects in object tree</title>
+          <title>Imported Firewall and Created Objects in Object Tree</title>
           <graphic scale="50" fileref="network_discovery/images/iptables_import_object_tree.png"/>
         </figure>
 
         <sect3 id="iptables-import-post-processing">
-        <title>Common iptables post-import actions</title>
+        <title>Common iptables Post-Import Actions</title>
 
         <para>
           After the firewall object is created in the object tree there are typically 
@@ -326,24 +326,24 @@ COMMIT
         </para>
         
         <para>
-          To update the eth0 interface double click it to open it for editing. 
+          To update the eth0 interface, double-click it to open it for editing. 
           <xref linkend="iptables-import-update-interface-1"/> shows how to set a label 
           for the interface and to identify that it should have a static IP address.
         </para>
 
         <figure id="iptables-import-update-interface-1">
-          <title>Editing parameters for eth0</title>
+          <title>Editing Parameters for eth0</title>
           <graphic scale="50" fileref="network_discovery/images/iptables_import_edit_interface_params.png"/>
         </figure>
 
         <para>
-          Right-click on the interface and select New Address to add an IP address 
+          Right-click the interface and select New Address to add an IP address 
           to the interface as shown in <xref linkend="iptables-import-update-interface-2"/>. 
           Set the IP address and netmask to match your environment.
         </para>
 
         <figure id="iptables-import-update-interface-2">
-          <title>Setting IP address for eth0</title>
+          <title>Setting IP Address for eth0</title>
           <graphic scale="50" fileref="network_discovery/images/iptables_import_edit_interface_params-2.png"/>
         </figure>
 
@@ -351,7 +351,7 @@ COMMIT
         <para>
           You may also need to add additional interfaces to the firewall object depending 
           on what Firewall Builder was able to detect from the iptables rules. To add a 
-          new interface right-click on the firewall object, in our example linux-1, and 
+          new interface right-click the firewall object (in our example linux-1) and 
           select New Interface. Add the interface name and label and set the type. The 
           default type is Static IP address.
         </para>
@@ -360,7 +360,7 @@ COMMIT
         <bridgehead>Rules</bridgehead>
 
         <para>
-          During the import of the linux-1.conf file Firewall Builder displayed a 
+          During the import of the linux-1.conf file. Firewall Builder displayed a 
           warning message that there were rules defined to allow RELATED and ESTABLISHED 
           traffic to the firewall. Instead of having to explicitly have a rule for 
           this, Firewall Builder has a configuration option controlling this behavior.
@@ -375,18 +375,18 @@ COMMIT
         </para>
 
         <figure id="iptables-import-settings">
-          <title>Firewall Settings option for controlling RELATED and ESTABLISHED traffic</title>
+          <title>Firewall Settings Option for Controlling RELATED and ESTABLISHED Traffic</title>
           <graphic scale="50" fileref="network_discovery/images/iptables_import_options.png"/>
         </figure>
 
         <para>
-          Since the default is to allow RELATED and ESTABLISHED traffic the imported 
-          rules 0 and 2 are not necessary. To remove these rules right-click on the rule 
+          Since the default is to allow RELATED and ESTABLISHED traffic, the imported 
+          rules 0 and 2 are not necessary. To remove these rules right-click the rule 
           number and select Remove Rule. 
         </para>
 
         <figure id="iptables-import-remove-rules">
-          <title>Remove unnecessary rules for RELATED and ESTABLISHED</title>
+          <title>Removing Unnecessary Rules for RELATED and ESTABLISHED</title>
           <graphic scale="50" fileref="network_discovery/images/iptables_import_remove_rule.png"/>
         </figure>
 
@@ -401,20 +401,20 @@ COMMIT
         <bridgehead>NAT rules</bridgehead>
 
         <para>
-          To view the imported NAT rules, double-click on the NAT object under the linux-1 
-          object in the tree. In this example there is a single source NAT rule that translates 
+          To view the imported NAT rules, double-click the NAT object under the linux-1 
+          object in the tree. In this example, there is a single source NAT rule that translates 
           inside addresses to the eth0 (outside) interface of the firewall.
         </para>
 
         <figure id="iptables-import-nat-rules">
-          <title>NAT rules</title>
+          <title>NAT Rules</title>
           <graphic scale="50" fileref="network_discovery/images/iptables_import_nat_rules.png"/>
         </figure>
 
-        <bridgehead>User defined chains</bridgehead>
+        <bridgehead>User-Defined Chains</bridgehead>
         
         <para>
-          If your iptables configuration includes user defined chains Firewall Builder will 
+          If your iptables configuration includes user-defined chains, Firewall Builder will 
           create a new Policy object for each user chain and will use the Branch feature to 
           jump from the main Policy to the user chain Policy. In our example linux-1.conf 
           configuration there is a user chain called LOGDROP that has 2 rules. The first 
@@ -422,7 +422,7 @@ COMMIT
         </para>
 
         <para>
-          To view the rules in the LOGDROP policy double-click on the LOGDROP Policy object 
+          To view the rules in the LOGDROP policy, double-click the LOGDROP policy object 
           located under the linux-1 firewall object. This will open the rules in the Rules 
           Editor as shown in <xref linkend="iptables-import-logdrop-rules"/>.
         </para>

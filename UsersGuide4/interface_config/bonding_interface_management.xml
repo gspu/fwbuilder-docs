@@ -4,18 +4,18 @@
 
 
 <sect1 id="bonding_intf_management">
-  <title>Bonding interfaces</title>
+  <title>Bonding Interfaces</title>
 
   <para>
     Support for bonding interfaces is currently available only for
-    Linux firewalls. Generated iptables script can incrementally
+    Linux firewalls. A generated iptables script can incrementally
     update bonding interfaces:
 
     <itemizedlist>
       <listitem>
         <para>
-          Generated script includes shell code to manage bonding
-          interfaces if checkbox "Configure bonding interfaces" is
+          The generated script includes shell code to manage bonding
+          interfaces if the checkbox "Configure bonding interfaces" is
           turned on in the "Script" tab of the firewall object
           "advanced" settings dialog. By default, it is turned off.
         </para>
@@ -23,44 +23,44 @@
 
 
       <listitem>
-        <para>Script uses <emphasis>ifenslave</emphasis> tool which
-          should be present on the friewall. The script checks if it
-          is available and aborts if it can not find it.
+        <para>The script uses <emphasis>ifenslave</emphasis> tool which
+          should be present on the firewall. The script checks if it
+          is available and aborts if it cannot find it.
         </para>
       </listitem>
 
       <listitem>
         <para>
-	  Script creates new bonding interfaces with parameters
-	  configured in the GUI if module 'bonding' is not
-	  loaded. This is what happens if fwbuilder script runs
+	  The script creates new bonding interfaces with parameters
+	  configured in the GUI if the module 'bonding' is not
+	  loaded. This is what happens if the Firewall Builder script runs
 	  after reboot.
         </para>
 
         <para>
 	  if there are no bonding interfaces in fwbuilder
-	  configuration, the script removes bonding module to kill
-	  any bonding interfaces that might exist on the machine
+	  configuration, the script removes the bonding module to kill
+	  any bonding interfaces that might exist on the machine.
         </para>
 
         <para>
-	  if you add second bonding interface in fwbuilder, the
+          If you add a second bonding interface in Firewall Builder, the
 	  script checks if it exists on the machine. It will not
 	  create it because to do so, it would have to remove the
-	  module which kills other bonding interfaces. If this
+	  module, which kills other bonding interfaces. If this
 	  second bonding interface exists, it will be configured
-	  with slaves and addresses. If it does not exist, script
-	  aborts. In this case you need to either 1) reload module
-	  manually or 2) add max_bonds=2 to /etc/modules.conf and
-	  reboot or 3) unload module and run fwbuilder script
+	  with slaves and addresses. If it does not exist, the script
+	  aborts. In this case you need to either (1) reload the module
+	  manually or (2) add max_bonds=2 to /etc/modules.conf and
+	  reboot or (3) unload the module and run the Firewall Builder script
 	  again (if module is not loaded, the script loads it with
 	  correct max_bonds parameter)
         </para>
 
         <para>
-	  if a bonding interface exists on the machine but not in
-	  fwbuilder configuration, the script removes all slaves
-	  from it and brings it down. It can not delete it because
+	  If a bonding interface exists on the machine but not in
+	  Firewall Builder configuration, the script removes all slaves
+	  from it and brings it down. It cannot delete it because
 	  to do so it would need to remove the module, which kills
 	  other bonding interfaces.
         </para>
@@ -77,74 +77,74 @@
       "-obond1" that is supposed to be the way to obtain more
       than one bonding interface and also the way to specify
       different parameters for different interfaces causes
-      kernel panic in my tests. Tested with bonding module
+      kernel panic in my tests. (Tested with bonding module
       v3.5.0 and kernel 2.6.29.4-167.fc11.i686.PAE on Fedora
-      Core 11. The only working way to get two bonding
+      Core 11.) The only working way to get two bonding
       interfaces I could find is to load the module with
       parameter max_bonds=2, but this means all bonding
       interfaces work with the same protocol parameters. If bond
       interfaces are configured with different parameters in
-      fwbuilder, compiler uses the first and issues warning for
+      fwbuilder, the compiler uses the first and issues a warning for
       others.
     </para>
   </note>
 
 
   <para>
-    To conffigure bonding interface, we start with interface object
+    To configure bonding interface, we start with an interface object
     with name <emphasis>"bond0"</emphasis>. Create this interface as
     usual, open it in the editor by double clicking it in the tree,
-    rename it and then and click "Advanced Interface Settings" button.
-    Set the type to "Bonding" in the drop-down list and set other
+    rename it, and then and click "Advanced Interface Settings" button.
+    Set the type to "Bonding" in the drop-down list and set the other
     parameters:
   </para>
 
   <para>
     <figure id="bonding_interfaces_1">
-      <title>Bonding interface settings</title>
+      <title>Bonding Interface Settings</title>
       <graphic scale="70" fileref="interface_config/images/bonding_interfaces_1.png"/>
     </figure>
   </para>
 
   <para>
-    To add regular ethernet interfaces as slaves to a bonding
+    To add regular Ethernet interfaces as slaves to a bonding
     inetrface, copy and paste (or create) them so they become child
-    objects of a bonding interface. Bonding interface needs an IP
+    objects of a bonding interface. A bonding interface needs an IP
     address as any other regular interface. Final configuration looks
     like shown in <xref linkend="bonding_interfaces_2"/>:
   </para>
 
   <para>
     <figure id="bonding_interfaces_2">
-      <title>Bonding interface bond0 with two slaves</title>
+      <title>Bonding Interface bond0 with Two Slaves</title>
       <graphic scale="70" fileref="interface_config/images/bonding_interfaces_2.png"/>
     </figure>
   </para>
 
   <para>
-    If you only want to be able to use bonding interface in rules,
-    then this is really it. You can go ahead and add rules and place
+    If you only want to be able to use the bonding interface in rules,
+    then this is sufficient configuration. You can go ahead and add rules and place
     object "bond0" in "Source", "Destination" or "Interface" column of
-    policy rules. If you want fwbuilder to generate script that
+    policy rules. If you want Firewall Builder to generate a script that
     creates and configures this interface, then you need to enable
-    support for this by turning checkbox "Configure bonding
+    support for this by turning the checkbox "Configure bonding
     interfaces" on in the "Script" tab of the firewall object settings
     dialog:
   </para>
 
   <para>
     <figure id="bonding_interfaces_3">
-      <title>configuration of bonding interfaces should be enabled in firewall settings dialog</title>
+      <title>Configuration of Bonding Interfaces Should Be Enabled in Firewall Settings Dialog</title>
       <graphic scale="70" fileref="interface_config/images/bonding_interfaces_3.png"/>
     </figure>
   </para>
 
   <para>
-    Now compile the firewall object, copy generated script to the
-    firewall machine and run it there. If script is started with
-    command line parameter "interfaces", it only configures interfaces
-    and ip addresses but does not load iptables rules. Here is how it
-    looks like:
+    Now compile the firewall object, copy the generated script to the
+    firewall machine and run it there. If the script is started using the 
+    command-line parameter "interfaces", it only configures interfaces
+    and IP addresses but does not load iptables rules. Here is how it
+    looks:
   </para>
 
   <programlisting>
@@ -221,9 +221,9 @@ Aggregator ID: 2
 
 
   <para>
-    Running the script second time does nothing because interface
+    Running the script a second time does nothing because interface
     bond0 already exists and its configuration matches the one defined
-    in fwbuilder:
+    in Firewall Builder:
   </para>
 
   <programlisting>
@@ -233,13 +233,13 @@ root@linux-test-1:~#
 
   <note>
     <para>
-      Unfortunately generated script can not manage bonding interface
-      parameters. If you change bonding policy in the GUI, recompile
-      and run the script on the firewall, nothin will happen. You need
-      to either manually unload module or reboot the machine. However
-      if you add or remove ethernet interfaces under the bonding
+      Unfortunately, the generated script cannot manage bonding interface
+      parameters. If you change a bonding policy in the GUI, recompile it,
+      and run the script on the firewall, nothing will happen. You need
+      to either manually unload the module or reboot the machine. However,
+      if you add or remove Ethernet interfaces under the bonding
       interface, the script will update its configuration accordingly
-      without the need to unload module or reboot the machine.
+      without the need to unload the module or reboot the machine.
     </para>
   </note>
 

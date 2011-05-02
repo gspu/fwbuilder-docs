@@ -2,11 +2,11 @@
       <title>Network Address Translation Rules</title>
 
       <note>
-        <para>As with Access Policy rule sets, you can create multiple
-          NAT rule sets. However, in Firewall Builder v3.X, you could
-          not branch between the rule sets. Only the rule set marked
-          as "top" was used in v3.x. Firewall Builder 4.0 fixes this,
-          now you can build branches in the NAT rule set.
+        <para>As with access policy rule sets, you can create multiple
+          NAT rule sets. However, in older versions of Firewall Builder, it was not
+          possible to branch between rule sets; only the rule set marked
+          as "top" was used in v3.x. Beginning with Release 4.0, Firewall Builder supports
+          building branches in NAT rule sets.
         </para>
       </note>
 
@@ -17,22 +17,22 @@
           Address translation is useful when you need to provide
           Internet access to machines on the internal network using
           private address space (10.0.0.0/8, 172.16.0.0/12, and
-          192.168.0.0/16 as defined in RFC1918). Private addresses are
+          192.168.0.0/16, as defined in RFC 1918). Private addresses are
           not routable on the Internet, which means clients out on the
           Internet cannot connect to servers with private
           addresses. Conversely, machines on the network using one of
           these addresses cannot connect to servers on the Internet
           directly. In order to allow internal machines to establish
-          connections with external machines, we need the firewall to
-          convert the private addresses to public addresses and vice
-          versa. In other words, we need the firewall to perform
+          connections with external machines, the firewall must
+          convert the private addresses to public addresses, and vice
+          versa. In other words, the firewall must perform
           Network Address Translation (NAT). In Firewall Builder, NAT
-          rules are added in the NAT ruleset, located under the
+          rules are added in the NAT rule set, located under the
           firewall object in the tree:
         </para>
 
         <figure id="nat-rule-set-in-fw">
-          <title>NAT rule set</title>
+          <title>NAT Rule Set</title>
           <graphic scale="50" fileref="firewall_policies/images/fwobj-rulesets-nat.png" />
         </figure>
 
@@ -41,9 +41,8 @@
           <graphic scale="50" fileref="firewall_policies/images/nat_policy1a.png" />
         </figure>
 
-        <para>Just like the firewall policy, the Network Address Translation
-        (NAT) rules are inspected by the firewall in the order they appear in
-        the NAT policy. Each NAT rule consists of the following rule
+        <para>As in firewall policies, NAT rules are inspected by the firewall in the order they appear in
+        the policy. Each NAT rule consists of the following rule
         elements:</para>
 
         <itemizedlist spacing="compact">
@@ -94,13 +93,13 @@
 
               <para>
                 The inbound interface for the NAT rule. On iptables systems 
-                this will result in the "-i" parameter being set. Default is 
-                Auto which means Firewall Builder will attempt to determine 
+                this will result in the "-i" parameter being set. The default is 
+                Auto, which means Firewall Builder will attempt to determine 
                 the appropriate interface(s) the rule should include.
               </para>
               
               <para>
-                This option was added in Firewall Builder V4.2.
+                This option is available in Firewall Builder Release 4.2 and later.
               </para>
             </listitem>
 
@@ -109,13 +108,13 @@
 
               <para>
                 The outbound interface for the NAT rule. On iptables systems 
-                this will result in the "-o" parameter being set. Default is 
-                Auto which means Firewall Builder will attempt to determine 
+                this will result in the "-o" parameter being set. The default is 
+                Auto, which means Firewall Builder will attempt to determine 
                 the appropriate interface(s) the rule should include.
               </para>
 
               <para>
-                This option was added in Firewall Builder V4.2.
+                This option is available in Firewall Builder Release 4.2 and later.
               </para>
             </listitem>
 
@@ -183,7 +182,7 @@
 
               <para>If any packet was originally destined for the
               "outside" interface on the firewall, the destination IP
-              address should be re-written to be the IP address of the
+              address should be rewritten to be the IP address of the
               "server on dmz" host IP (in this case,
               192.168.2.10).</para>
             </listitem>
@@ -191,7 +190,7 @@
 
         <para>Some firewall platforms support negation in NAT
         rules. If it is supported, this feature can be activated by
-        right-clicking on the rule element in the NAT
+        right-clicking the rule element in the NAT
         rule. <xref linkend="rule-elements" /> shows what firewall
         platforms support negation in NAT.</para>
 
@@ -209,16 +208,16 @@
         replacing the private IP address with the address of its external
         interface.</para>
 
-        <para>In Firewall Builder this type of NAT rule is composed as
+        <para>In Firewall Builder, this type of NAT rule is composed as
         shown in Rule 1 in <xref linkend="nat-policy" />.</para>
 
-        <para>In this rule objects representing internal networks are
+        <para>In this rule, objects representing internal networks are
         placed in
         <guilabel>Original Src</guilabel> and the firewall's outside
         interface object is placed in <guilabel>Translated
         Src</guilabel>, indicating that we want the source address of
         the packets to be translated. As before, we do not need to
-        worry about reply packets because the underlying firewall
+        worry about reply packets, because the underlying firewall
         software keeps track of translations done for all the
         connections opened through the firewall and rewrites addresses
         in all reply packets automatically.</para>
@@ -264,8 +263,8 @@
 
         <para>
           Source address translation is useful when you need to let
-          machines using private address space (e.g., as defined in
-          RFC1918) access the Internet. The firewall manipulates the
+          machines using private address space (for example, as defined in
+          RFC 1918) access the Internet. The firewall manipulates the
           source address of IP packets to make them appear to come
           from one of the public addresses assigned to the firewall
           instead of coming from the actual, private address on the
@@ -349,7 +348,7 @@ nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.1
 
         <para>
           Finally, for PIX, Firewall Builder knows to use global pool
-          in combination with "nat" command and automatically
+          in combination with the "nat" command and automatically
           determines which interfaces to
           associate <emphasis>global</emphasis>
           and <emphasis>nat</emphasis> commands with:
@@ -405,7 +404,7 @@ nat (inside) 1 access-list id43442X30286.0 tcp 0 0
   
 
         <para>
-          Iptables uses target MASQUERADE when the source NAT is
+          iptables uses target MASQUERADE when the source NAT is
           requested with a dynamic interface. Firewall Builder
           generates the following command:
         </para>
@@ -452,10 +451,10 @@ nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; (en0)
           Firewall Builder can generate configurations for the NAT
           rules that manipulate not only addresses, but also ports and
           port ranges. Consider this hypothetical example where we
-          want to squeeze source port range from the whole
-          unprivileged range 1024 - 65535 to rather limited range
+          want to squeeze a source port range from the whole
+          unprivileged range 1024 - 65535 to the rather limited range
           10000 - 20000 on all connections from internal network to
-          the server on DMZ:
+          the server on the DMZ:
         </para>
   
 
@@ -476,7 +475,7 @@ nat on en0 proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; (en0)
         </figure>
 
         <para>
-          For iptables fwbuilder generates the following command for
+          For iptables, Firewall Builder generates the following command for
           this rule:
         </para>
   
@@ -494,11 +493,11 @@ $IPTABLES -t nat -A POSTROUTING -o eth+ -p tcp -m tcp  -s 172.16.22.0/24 \
           This rule matches source port range "1024-65535" and
           original destination address 192.168.2.10 and only
           translates source ports to the range 10000-20000. Firewall
-          Builder generated SNAT rule because the object in the
+          Builder generated a SNAT rule because the object in the
           Translated Source requested a change in the source port
           range. If this object had zeros in the source port range but
           defined some non-zero destination port range, the program
-          would have generated DNAT rule to translate destination
+          would have generated a DNAT rule to translate destination
           ports.
         </para>
   
@@ -511,7 +510,7 @@ $IPTABLES -t nat -A POSTROUTING -o eth+ -p tcp -m tcp  -s 172.16.22.0/24 \
         <para>
           Many firewall platforms can use NAT to perform simple load
           balancing of outgoing sessions across a pool of IP
-          addresses. To set this up in fwbuilder, we start with an
+          addresses. To set this up in Firewall Builder, we start with an
           address range object:
         </para>
   
@@ -581,7 +580,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; \
         </programlisting>
 
         <para>
-          It is possible to use network object of smaller size
+          It is possible to use a network object of smaller size
           in <guilabel>Translated Source</guilabel> which is
           equivalent to using a small address range:
         </para>
@@ -624,7 +623,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27
           PF supports different modes of load balancing for rules like
           this. To add configuration parameters that control this,
           open the NAT rule options dialog by double-clicking in the
-          column "Options" of the NAT rule:
+          "Options" column of the NAT rule:
         </para>
   
         <figure>
@@ -633,7 +632,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27
         </figure>
 
         <para>
-          When option "source-hash" is checked, the generated command becomes
+          When the "source-hash" option is checked, the generated command becomes
         </para>
   
 
@@ -668,12 +667,12 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         original destination, instead of the interface, then all
         external interfaces would be mapped to the DMZ
         server. <xref linkend="dst-nat" /> (A) illustrates this. The
-        red, green and blue packets come to the firewall from
+        red, green, and blue packets come to the firewall from
         different subnets and all have destination addresses that
         match address of the corresponding interface. If it were not
         for our NAT rule, packets like that would have been accepted
-        by the firewall and sent to a process expecting them. However
-        NAT rule comes to play and changes destination address of all
+        by the firewall and sent to a process expecting them. However,
+        the NAT rule comes to play and changes destination address of all
         three packets to 10.3.14.100 (the address of server). Packets
         with this address do not match any address belonging to the
         firewall and therefore get sent out of the firewall according
@@ -685,14 +684,14 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         because they will translate and bounce any packets that are
         headed for the firewall, making it impossible to connect to the
         firewall itself using telnet or any other protocol. This is especially
-        inconvenient since as we saw earlier translation happens for packets
+        inconvenient since, as we saw earlier, translation happens for packets
         coming from all directions; this means that you won't be able to
         connect to the firewall even from inside of your network. To alleviate
         this problem we just add an appropriate service object to the rule as
         shown in <xref linkend="basic-nat-10" />:</para>
 
         <figure id="basic-nat-10">
-            <title>Translation limited to packets of HTTP protocol</title>
+            <title>Translation Limited to Packets of HTTP Protocol</title>
                 <graphic scale="60" fileref="firewall_policies/images/basic-nat-10a.png" />
           </figure>
 
@@ -711,8 +710,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         match the rule (see <xref linkend="dst-nat" /> (B) ).</para>
 
         <figure id="basic-nat-11">
-            <title>Destination Address Translation Rule Using Interface of the
-            Firewall</title>
+            <title>Destination Address Translation Rule Using Firewall Interface</title>
                 <graphic scale="60" fileref="firewall_policies/images/basic-nat-11a.png" />
           </figure>
 
@@ -724,7 +722,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
           </figure>
                                         
         <sect3>
-          <title>Examples of Destination Address Translation Rules in  Firewall Builder</title>
+          <title>Examples of Destination Address Translation Rules in Firewall Builder</title>
 
         <para>
           This section demonstrates examples of NAT rules that
@@ -732,15 +730,15 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         </para>
 
         <sect4>
-        <title>Configuring NAT for the server using an IP address that
-              belongs to the firewall</title>
+        <title>Configuring NAT for the Server using an IP address 
+              Belonging to the Firewall</title>
 
         <para>
-          In case when we have no public IP addresses to spare, we can
-          still use NAT to permit access to the server. In this case
+          In cases where we have no public IP addresses to spare, we can
+          still use NAT to permit access to the server. In this case,
           we will use address that belongs to the firewall's external
           interface. Here is a screenshot showing the firewall object,
-          its interfaces and an address object that belongs to the
+          its interfaces, and an address object that belongs to the
           external interface:
         </para>
 
@@ -757,7 +755,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
   
 
         <para>
-          Using interface object:
+          Using an interface object:
         </para>
   
 
@@ -776,17 +774,17 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         </figure>
 
         <para>
-          External interface <emphasis>eth0</emphasis> of the firewall
-          has just one IP address, therefore these two variants of the
+          The external interface <emphasis>eth0</emphasis> of the firewall
+          has just one IP address; therefore, these two variants of the
           NAT rule are equivalent.
         </para>
   
 
         <para>
           If the firewall has multiple public IP addresses, then you
-          can add them as additional Address objects to the external
+          can add them as additional address objects to the external
           interface object and then use them in the NAT rules. All
-          Address objects attached to an interface are equivalent from
+          address objects attached to an interface are equivalent from
           a NAT rule standpoint.
         </para>
   
@@ -808,7 +806,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         <para>
           You always need a combination of the NAT rule and a
           policy rule to do both address translation and then
-          permit translated packet.
+          permit the translated packet.
         </para>
   
         <para>
@@ -853,7 +851,7 @@ pass in quick inet proto tcp  from any  to 172.16.22.100 port { 21, 25 }
 
         <para>
           These are rather standard destination translation
-          rules. Let's look what Firewall Builder generates for the
+          rules. Let's see what Firewall Builder generates for the
           same rules in the GUI when target firewall platform is set
           to "PIX":
         </para>
@@ -932,23 +930,22 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
           the firewall platform in the firewall object dialog and make
           sure network zones and security levels were configured
           properly. We did not have to configure two interfaces for
-          each NAT rule for PIX: Firewall Builder figured out which
-          interfaces it should use for the "static" command
-          automatically.
+          each NAT rule for PIX: Firewall Builder automatically determined which
+          interfaces it should use for the "static" command.
         </para>
   
 
         </sect4>
 
         <sect4>
-        <title>Configuring NAT for the server using dedicated public IP
-              address</title>
+        <title>Configuring NAT for the Server Using a Dedicated Public IP
+              Address</title>
 
         <para>
           Suppose for some reason you do not want to add an address
           that should be used for NAT to an interface of the
-          firewall. You can use any Address object in the "Original
-          Destination" even if this Address object is not attached to
+          firewall. You can use any address object in the "Original
+          Destination" even if this address object is not attached to
           the interface of the firewall. The problem with this is that
           the firewall must "own" public address used for NAT in order
           for it to answer ARP requests for this address from the
@@ -956,7 +953,7 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
           and does not answer ARP requests, the router will not know
           where to send packets with this address in destination. To
           help you solve this problem, Firewall Builder can
-          automatically add virtual address to the firewall's
+          automatically add a virtual address to the firewall's
           interface when you use an address in a NAT rule. This is
           controlled by a checkbox <guilabel>Add virtual addresses for
           NAT</guilabel> in the "Script" tab of the firewall's
@@ -965,8 +962,8 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
           belong to any interface of the firewall, the program adds a
           code fragment to the generated script to create virtual
           address of the interface of the firewall to make sure NAT
-          rule will work. If this is not desired, you can turn this
-          automation off by un-checking this option.
+          rule will work. If this is not the desired behavior, you can turn this
+          automation off by unchecking this option.
         </para>
   
 
@@ -985,8 +982,8 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
         </sect4>
 
         <sect4>
-        <title>NAT rules using an address of dynamic external
-                interface</title>
+        <title>NAT Rules Using an Address of Dynamic External
+                Interface</title>
 
   
 
@@ -1025,10 +1022,10 @@ static (inside,outside) tcp interface 25  access-list id13242X30286.1 tcp 0 0
         </figure>
 
         <para>
-          Firewall Builder uses method specific to the target firewall
+          Firewall Builder uses the method specific to the target firewall
           platform that allows it to use an interface a with dynamic
-          address in policy and NAT rules. For example, iptables
-          script generated by fwbuilder runs commands that retrieve
+          address in policy and NAT rules. For example, the iptables
+          script generated by Firewall Builder runs commands that retrieve
           the actual address of the interface and assign it to the
           shell variable. This variable is then used in iptables
           commands to build policy and NAT rules. OpenBSD PF permits
@@ -1076,19 +1073,19 @@ test -n "$i_eth0" &amp;&amp; $IPTABLES -t nat -A PREROUTING   -d $i_eth0 \
           example to <emphasis>i_eth0</emphasis>. The script checks if
           this variable has a non-empty value and uses it in
           <emphasis>-d</emphasis> clause of iptables command to match
-          destination address of incoming packet. Generated script
+          destination address of incoming packet. The generated script
           checks the value of this variable because, if some interface
           does not have any address at the moment when script is
-          executed, it should not try to run incorrect iptables
-          command or, worse, install iptables rule matching
-          "any". Either way machine would end up with firewall
+          executed, it should not try to run an incorrect iptables
+          command or, worse, install an iptables rule matching
+          "any". Either way, the machine would end up with firewall
           configuration that would have a meaning different from what
           was intended.
         </para>
   
 
         <para>
-          In PF we can use clause <emphasis>(en0)</emphasis> to make the
+          In PF we can use the <emphasis>(en0)</emphasis> clause to make the
           firewall match address of an interface without having
           to retrieve the address manually:
         </para>
@@ -1103,7 +1100,7 @@ rdr on en0 proto {tcp udp icmp} from any to (en0) -&gt; 172.16.22.100
         </programlisting>
 
         <para>
-          Generated PIX configuration uses <emphasis>interface</emphasis>
+          The generated PIX configuration uses <emphasis>interface</emphasis>
           clause to match address of the interface:
         </para>
   
@@ -1125,20 +1122,20 @@ static (inside,outside) interface  access-list id29402X30286.0 tcp 0 0
         
 
         <para>
-          Rules shown in examples above only translated the
+          The rules shown in the examples above translated only the
           destination address of packets. Sometimes the
           server uses different ports as well, and the firewall should
           convert from the standard port numbers to the ones used by the host. For example, the web server
           might be running on port 8080, but we may want clients
           to access it using standard port 80. Here is how to do
-          it.
+          this.
           
         </para>
         
 
         <para>
           
-          First, we create TCP Service object that defines
+          First, we create a TCP service object that defines
           destination port 8080:
           
         </para>

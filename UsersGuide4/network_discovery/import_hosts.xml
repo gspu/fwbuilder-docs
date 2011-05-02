@@ -18,15 +18,15 @@
       a table of new networks (<xref linkend="discovery-hosts-1" />).</para>
 
       <figure id="discovery-hosts-1">
-        <title>Choose the file for import</title>
+        <title>Choosing the File for Import</title>
         <graphic scale="70" fileref="network_discovery/images/discovery-druid-hosts1.png" />
       </figure>
 
       <para>
         Once you have chosen the file, click Next to let the program
-        read and parse it. The file should be in "/etc/hosts" format,
+        read and parse it. The file should be in "/etc/hosts" format;
         that is it should have an address and host name on each line,
-        separated by any number of while spaces. Here is an example:
+        separated by any number of white spaces. Here is an example:
       </para>
 
       <programlisting>
@@ -37,40 +37,40 @@
       </programlisting>
 
       <figure id="discovery-hosts-2">
-        <title>Parsing a file in hosts format</title>
+        <title>Parsing a File in Hosts Format</title>
         <graphic scale="70" fileref="network_discovery/images/discovery-druid-hosts2.png" />
       </figure>
 
       <para>
-        Once the program finishes import, you can click Next to move
+        Once the program finishes importing, you can click Next to move
         on to the next page where you can choose which of the
         addresses you want to use:
       </para>
 
       <figure id="discovery-hosts-3">
-        <title>Choosing which addresses should be used</title>
+        <title>Choosing the Addresses To Be Used</title>
         <graphic scale="70" fileref="network_discovery/images/discovery-druid-hosts3.png" />
       </figure>
 
       <para>
         You can select any number of addresses in the left panel and
         use buttons "--&gt;" and "&lt;--" to add or remove them to the
-        panel on the right. Buttons "Select All" and "Unselect All"
+        panel on the right. The "Select All" and "Unselect All" buttons
         help to work with large lists of addresses.
       </para>
 
       <figure id="discovery-hosts-4">
-        <title>Choosing which addresses should be used</title>
+        <title>Choosing the Addresses To Be Used</title>
         <graphic scale="70" fileref="network_discovery/images/discovery-druid-hosts4.png" />
       </figure>
 
       <para>
-        Choose object library where new address objects should be
+        Choose the object library where new address objects should be
         created on the next page:
       </para>
 
       <figure id="discovery-hosts-5">
-        <title>Choosing object library</title>
+        <title>Choosing the Object Library</title>
         <graphic scale="70" fileref="network_discovery/images/discovery-druid-hosts5.png" />
       </figure>
 
@@ -80,7 +80,7 @@
       </para>
 
       <figure id="discovery-hosts-6">
-        <title>New address objects are shown in the tree</title>
+        <title>New Address Objects in the Tree</title>
         <graphic scale="70" fileref="network_discovery/images/discovery-druid-hosts6.png" />
       </figure>
 

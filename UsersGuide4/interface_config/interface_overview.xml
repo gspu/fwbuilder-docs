@@ -2,39 +2,39 @@
       <title>General principles</title>
 
       <para>
-        Firewall Builder 4.0 introduces support incremental management
-        of the configuration of interfaces. It can add and remove ip
-        addresses, create and destroy vlan interfaces, add and remove
+        Firewall Builder 4.0 introduced support incremental management
+        of the configuration of interfaces. It can add and remove IP
+        addresses, create and destroy VLAN interfaces, and add and remove
         bridge ports and bonding interface members. Incremental
-        management means generated script can add or remove interfaces
-        or addresses only when needed, without having to blow
-        configuration away completely first and then re-add it back.
+        management means generated scripts can add or remove interfaces
+        or addresses only when needed, without having to completely
+        remove configuration and then re-add it back.
       </para>
       
       <para>
         For example, in case of IP addresses of interfaces, the script
-        checks if address configured in fwbuilder GUI really exists on
+        checks if the address configured in the Firewall Builder GUI really exists on
         the interface it should belong to. If it is not there, the
         script adds it, but if it exists, the script does
         nothing. Running the script again therefore does not disturb the
         configuration at all. It is not going to remove addresses and
         then add them back. The same happens with VLAN interfaces,
-        bridge ports and bonding interfaces.
+        bridge ports, and bonding interfaces.
       </para>
 
       <tip>
         <para>
-          If someone reconfigures interfaces, vlans or ip addresses on
-          the machine, just run fwbuilder-generated script again and it
-          will restore configuration to the state defined in GUI without
-          taking everything down first and then reconfiguring from
-          scratch. The script is going to run only those commands that
+          If someone reconfigures interfaces, VLANs, or IP addresses on
+          the machine, just run the Firewall Builder-generated script again and it
+          will restore configuration to the state defined in the GUI without
+          removing everything down first and reconfiguring from
+          scratch. The script runs only those commands that
           are necessary to undo the changes made by hand.
         </para>
       </tip>
 
       <para>
-        Not all of these features available on all supported OS.
+        Not all of these features are available on every supported OS.
         <xref linkend="interface_mgmt_support"/> shows this:
       </para>
 
@@ -150,8 +150,8 @@
 
       <para>
         The most complete implementation is available on Linux where
-        generated script can incrementally manage ip addresses, vlan
-        interfaces, bridge ports and partially bonding interfaces.
+        generated script can incrementally manage IP addresses, VLAN
+        interfaces, bridge ports, and partially bonding interfaces.
       </para>
 
     </sect1>

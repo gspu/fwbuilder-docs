@@ -21,7 +21,7 @@
         When executing a firewall script, all existing
         routing rules previously set by user space processes are
         deleted. To see which rules will be deleted, you can use the
-        command <command>ip route show</command>. All lines not
+        <command>ip route show</command> command. All lines not
         including "proto kernel" will be deleted upon reload of the
         firewall script.
       </para>
@@ -87,7 +87,7 @@
           RedHat seems to reset routing rules explicitly upon
           system startup. Therefore, it's hard to distinguish
           interface routes from routes set up by the user. On RedHat
-          systems you need to include the interface basic routing
+          systems, you need to include the interface basic routing
           rules into your Firewall Builder routing setup.
           </para>
           
@@ -96,7 +96,7 @@
           ANY NETWORK TRAFFIC UPON START OF THE FIREWALL SCRIPT. This 
           means, for example, if eth0 has network 192.168.3.0/24 
           attached to it, you need to add a route with 
-          Destination=Network(192.168.3.0/24), Gateway empty and
+          Destination=Network(192.168.3.0/24), Gateway empty, and
           Interface=eth0. 
           </para>
           
@@ -144,9 +144,9 @@
 
           <para>Firewall Builder supports ECMP routes in Linux-based
           firewalls using iptables. To create an ECMP rule simply
-          specify several rules with different paths, i.e. different
+          specify several rules with different paths (i.e., different
           combinations of Gateway and Interface, for the same
-          Destination and with the same metric.</para>
+          Destination and with the same metric).</para>
 
           <para>In this example, there are three different paths to HostA.</para>
 

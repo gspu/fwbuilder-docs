@@ -6,16 +6,16 @@
     <title>Cluster configuration</title>
 
     <para>
-      Firewall Builder 4.0 introduces support for firewall
+      Firewall Builder 4.0 introduced support for firewall
       clusters. Firewall Builder helps you create configuration for
-      iptables, PF or PIX rules and in some cases cluster
+      iptables, PF, or PIX rules and in some cases cluster
       configuration as well. The following state synchronization and
       failover protocols are supported at this time:
     </para>
 
 
     <table frame='none'  tabstyle='reg_table'>
-      <title>Supported state synchronization and failover software</title>
+      <title>Supported State Synchronization and Failover Software</title>
       <tgroup cols='3' align='left'  rowsep='1'>
         <colspec colnum="1" colname="col1" colwidth="1*"/>
         <colspec colnum="2" colname="col2" colwidth="1*"/>

@@ -6,7 +6,7 @@
   <title>Interface Names</title>
 
   <para>
-    By default Firewall Builder attempts to determine an interfaces 
+    By default, Firewall Builder attempts to determine an interfaces 
     function based on the name of the interface. For example, on Linux 
     if an interface is named <emphasis>eth2.102</emphasis> based on 
     the interface name Firewall Builder will determine that the interface 
@@ -25,7 +25,7 @@
 
     <para>
       <figure id="interface_name_error">
-        <title>Error message when incorrect VLAN interface is created</title>
+        <title>Error Message When Incorrect VLAN Interface Is Created</title>
         <graphic scale="70" fileref="interface_config/images/interface_name_error.png"/>
       </figure>
     </para>
@@ -41,7 +41,7 @@
 
   <para>
     You can view and edit the interface type and VLAN ID by clicking 
-    on the "Advanced Interface Settings ..." button in the editor 
+    the "Advanced Interface Settings ..." button in the editor 
     panel of the interface. An example of the advanced settings for 
     eth2.102, when created as a child interface of eth2, is shown in 
     diagram <xref linkend="auto_vlan_interface_config"/>.
@@ -49,7 +49,7 @@
 
     <para>
       <figure id="auto_vlan_interface_config">
-        <title>Advanced settings for eth2.102 interface</title>
+        <title>Advanced Settings for eth2.102 Interface</title>
         <graphic scale="70" fileref="interface_config/images/auto_vlan_interface_config.png"/>
       </figure>
     </para>
@@ -58,23 +58,23 @@
     Sometimes you may want to override the default behavior where 
     Firewall Builder expects interface names to follow a specific 
     naming convention. To disable this feature, open the Firewall 
-    Builder preferences window, click on the Objects tab and click 
-    on the Interface sub-tab in the lower window. Uncheck the 
+    Builder preferences window, click the Objects tab and click 
+    the Interface sub-tab in the lower window. Uncheck the 
     checkbox labeled "Verify interface names and autoconfigure their 
     parameters using known name patterns".
   </para>
 
     <para>
       <figure id="disable_name_checks">
-        <title>Disable automatic name checking</title>
+        <title>Disabling Automatic Name Checking</title>
         <graphic scale="70" fileref="interface_config/images/disable_name_checks.png"/>
       </figure>
     </para>
 
   <para>
-    In this mode Firewall Builder will not auto populate any fields, 
+    In this mode, Firewall Builder will not auto-populate any fields, 
     even if the interface name matches an expected pattern like 
-    <emphasis>eth2.102</emphasis>.  All interface parameters, such as 
+    <emphasis>eth2.102</emphasis>. All interface parameters, such as 
     interface type and VLAN ID, must be configured manually.
   </para>
 

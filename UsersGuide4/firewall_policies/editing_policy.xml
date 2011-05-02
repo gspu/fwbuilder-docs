@@ -1,18 +1,18 @@
       <sect1 id="editing-policy-and-nat">
-        <title>Editing Firewall Rulesets</title>
+        <title>Editing Firewall Rule Sets</title>
 
         <sect2>
-          <title>Adding and removing rules</title>
+          <title>Adding and Removing Rules</title>
 
           <figure id="editing-policy1">
-            <title>Modifying Policy rules</title>
+            <title>Modifying Policy Rules</title>
             <graphic scale="60" fileref="firewall_policies/images/editing_policy1.png" />
           </figure>
 
           <para>
-            Rules can be added, removed or moved around in the
-            policy using commands in a popup menu. The menu appears if
-            you right-click rule element "Number" (the very first rule
+            Rules can be added, removed, or moved around in the
+            policy using commands in a pop-up menu. The menu appears if
+            you right-click the rule element "Number" (the very first rule
             element, counting from the left).
             <xref linkend="editing-policy1" /> illustrates this
             menu.
@@ -21,7 +21,7 @@
           <para>
             This menu allows you to add new rules above or below the
             currently selected rule in the policy, remove rules, move
-            the current rule up or down, plus the usual
+            the current rule up or down, plus the standard
             <guimenuitem>Copy</guimenuitem>/<guimenuitem>Paste</guimenuitem>
             operations done on policy rules.
           </para>
@@ -57,8 +57,8 @@
               <listitem>
                 <para>Add to the group</para>
 
-                <para>The selection only appears if you right-click on
-                a rule directly above or below an existing group. If
+                <para>The selection only appears if you right-click 
+                  a rule directly above or below an existing group. If
                 selected, the current rule is added to the indicated
                 group. <xref linkend="using-rule-groups" /> has more
                 information on rule groups.</para>
@@ -67,7 +67,7 @@
               <listitem>
                 <para>Remove from the group</para>
 
-                <para>The selection only appears if you right-click on
+                <para>The selection only appears if you right-click
                 a rule that is currently in a group. This selection
                 removes the rule from the group. If you remove a rule
                 from the middle of a group, the group splits into two
@@ -118,7 +118,7 @@
                   Moves current rule up by one position. Keyboard
                   shortcut is "Ctrl-PgUp" on Linux and Windows or
                   "Cmd-PgUp" on Macintosh. If you select several
-                  consequtive rules and use this menu item, all
+                  consecutive rules and use this menu item, all
                   selected rules move together.
                 </para>
               </listitem>
@@ -193,8 +193,8 @@
         </sect2>
 
         <sect2>
-          <title>Adding, removing and modifying objects in the policy and NAT
-          rules</title>
+          <title>Adding, Removing, and Modifying Objects in Policy and NAT
+          Rules</title>
 
           <para>To add objects to the policy or NAT rule you can either drag
           them from the tree and drop them into the corresponding rule
@@ -204,8 +204,8 @@
           and from another policy rule; in both cases use the pop-up menu or
           main menu <guimenu>Edit</guimenu>.</para>
 
-          <para>Clicking the right mouse button when the cursor is over rule
-          elements "Source","Destination" or "Service" brings a
+          <para>Clicking the right mouse button when the cursor is over the rule
+          elements "Source","Destination" or "Service" opens a
           context-sensitive pop-up menu ( <xref linkend="editing-policy2" />
           ). The same pop-up menu appears when you do that over the "Original
           Source", "Original Destination", "Original Service", "Translated
@@ -213,7 +213,7 @@
           elements in the NAT rule.</para>
 
           <figure id="editing-policy2">
-            <title>Modifying Object in the Policy Rule</title>
+            <title>Modifying Objects in a Policy Rule</title>
             <graphic scale="60" fileref="firewall_policies/images/editing_policy2.png" />
           </figure>
 
@@ -355,10 +355,10 @@
         </sect2>
 
         <sect2 id="rule-options">
-          <title>Changing rule options and logging</title>
+          <title>Changing Rule Options and Logging</title>
 
           <para>clicking the right mouse button when the cursor is over the
-          rule element <guilabel>"Options"</guilabel> brings up a context-sensitive pop-up menu (
+          rule element <guilabel>"Options"</guilabel> opens a context-sensitive pop-up menu (
           <xref linkend="editing-policy5" />. )</para>
 
           <figure id="editing-policy5">
@@ -400,7 +400,7 @@
           </itemizedlist>
 
           <figure id="rule-options1">
-            <title>iptables Options dialog</title>
+            <title>iptables Options Dialog</title>
             <graphic scale="70" fileref="firewall_policies/images/rule-options1.png" />
           </figure>
         </sect2>
@@ -409,7 +409,7 @@
           <title>Using Rule Groups</title>
           
           <sect3>
-            <title>Creating rule groups</title>
+            <title>Creating Rule Groups</title>
 
             <para>If you have a rule set with quite a few rules, it can be
               useful to lump some of them together into rule groups. A rule
@@ -431,7 +431,7 @@
               for eth2-destined packets.</para>
 
             <figure id="rule-group1">
-              <title>Rules without grouping</title>
+              <title>Rules without Grouping</title>
               <graphic scale="70" fileref="firewall_policies/images/rule-group1.png" />  
             </figure>
 
@@ -442,11 +442,11 @@
             <para>To create the group, right-click in the rule number
               cell of the first "eth1" rule and
               select <guimenuitem>New group</guimenuitem>. (You don't
-              have to click on the first rule. Any rule in the group
+              have to click the first rule. Any rule in the group
               will do.)</para>
 
             <figure id="rule-group2">
-              <title>Create the group</title>
+              <title>Creating a Group</title>
               <graphic scale="70" fileref="firewall_policies/images/rule-group2.png" />  
             </figure>
             
@@ -456,7 +456,7 @@
               name can be more useful.</para>
 
             <figure id="rule-group3">
-              <title>Name the group</title>
+              <title>Naming a Group</title>
               <graphic scale="70" fileref="firewall_policies/images/rule-group3.png" />  
             </figure>
 
@@ -466,16 +466,16 @@
               the rule set.</para>
 
             <figure id="rule-group4">
-              <title>Group with one entry</title>
+              <title>Group with One Entry</title>
               <graphic scale="70" fileref="firewall_policies/images/rule-group4.png" />  
             </figure>
 
-            <para>To add more rules, right-click on a rule adjacent to the
+            <para>To add more rules, right-click a rule adjacent to the
               rule in the group, then select <guimenuitem>Add to the group
                 eth1</guimenuitem>.</para>
 
             <figure id="rule-group5">
-              <title>Add a rule to the group</title>
+              <title>Adding a Rule to a Group</title>
               <graphic scale="70" fileref="firewall_policies/images/rule-group5.png" />  
             </figure>
 
@@ -484,7 +484,7 @@
               consequtive rules and add them to the group at once.</para>
 
             <figure id="rule-group6">
-              <title>A group of rules</title>
+              <title>A Group of Rules</title>
               <graphic scale="70" fileref="firewall_policies/images/rule-group6.png" />  
             </figure>
 
@@ -494,7 +494,7 @@
             </para>
 
             <figure id="rule-group7">
-              <title>Collapsed group</title>
+              <title>Collapsed Group</title>
               <graphic scale="70" fileref="firewall_policies/images/rule-group7.png" />  
             </figure>
 
@@ -503,7 +503,7 @@
           </sect3>
 
       <sect3>
-        <title>Modifying rule groups</title>
+        <title>Modifying Rule Groups</title>
 
           <para>
             You can modify a rule group after you have created
@@ -512,7 +512,7 @@
 
           <itemizedlist spacing="compact">
             <listitem>
-              <para>Rename a group</para>
+              <para>Renaming a Group</para>
 
               <para>
                 To rename a group, right-click the group name (or
@@ -538,7 +538,7 @@
 
               <para>
                 To remove a rule from the group while leaving it in
-                the rule set, right-clickin the number of the rule
+                the rule set, right-click in the number of the rule
                 (left-most column) and select <guimenuitem>Remove from
                 the group</guimenuitem>. You can only remove the first
                 or the last rule in the group. Rules in the middle of
@@ -577,7 +577,7 @@
       OpenBSD PF does not support negation natively, but the policy compiler
       provides a workaround and tries to emulate
       this feature for PF. Another example is policy rules with "Outbound"
-      direction. Cisco PIX supports only inbound Access Lists, so the policy
+      direction. Cisco PIX supports only inbound access lists, so the policy
       compiler emulates outbound Access Lists while generating configuration
       for PIX. <xref linkend="policy-rule-elements" /> represents a list of
       fields in the rules and which firewall platforms support them.
@@ -587,7 +587,7 @@
 
       <para>
         <table id="policy-rule-elements" tabstyle='reg_table'>
-          <title>Rule features available on different platforms</title>
+          <title>Rule Features Available on Different Platforms</title>
 
           <tgroup cols="11">
             <thead>

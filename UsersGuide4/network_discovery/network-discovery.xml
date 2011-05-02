@@ -19,15 +19,15 @@
 
     <para><itemizedlist spacing="compact">
         <listitem>
-          <para>Reading file /etc/hosts</para>
+          <para>Reading the /etc/hosts file </para>
         </listitem>
 
         <listitem>
-          <para>Network discovery using SNMP queries</para>
+          <para>Performing network discovery using SNMP queries</para>
         </listitem>
 
         <listitem>
-          <para>Import the configuration of a firewall or router</para>
+          <para>Importing the configuration of a firewall or router</para>
         </listitem>
       </itemizedlist></para>
 
@@ -35,12 +35,12 @@
     linkend="discovery-page1" />. )</para>
 
     <figure id="discovery-page1">
-      <title>Calling The Object Discovery Druid</title>
+      <title>Calling the Object Discovery Druid</title>
           <graphic scale="70" fileref="network_discovery/images/discovery-druid1.png" />
     </figure>
 
-    <para>Just check the radio-button next to the method you want to use and
-    click <guibutton>'Next</guibutton>.</para>
+    <para>Just check the radio button next to the method you want to use and click
+      <guibutton>Next</guibutton>.</para>
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="import_hosts.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="snmp_discovery.xml"/>
