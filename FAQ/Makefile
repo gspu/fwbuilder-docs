@@ -16,8 +16,7 @@ HTML_STYLESHEETS = html.xsl
 all:  html
 
 clean:
-	rm -rf html
-	rm -f $(STAGEDIR)/*
+	rm -rf ./html
 
 html: FAQ4.html 
 
