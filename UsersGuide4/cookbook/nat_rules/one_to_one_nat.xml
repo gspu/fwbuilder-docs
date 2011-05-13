@@ -2,13 +2,13 @@
         <title>"1-1" NAT</title>
   
         <para>
-          Examples above were "hiding" multiple internal addresses
-          behind just one external address. We a had whole network
+          The examples above were "hiding" multiple internal addresses
+          behind just one external address. We had a whole network
           (potentially 254 hosts) use the same external address to
           access the Internet. Sometimes it is necessary to do
           translation where each internal host has a dedicated
           corresponding address on the outside.  This is often called
-          "1-1" NAT. Here is how this is done in fwbuilder when a
+          "1-1" NAT. Here is how this is done in Firewall Builder when a
           whole network of the same dimension is available on the
           outside:
         </para>
@@ -48,7 +48,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/24
         </programlisting>
 
         <para>
-          For PIX, fwbuilder generates a "global" address pool the
+          For PIX, Firewall Builder generates a "global" address pool the
           size of the 192.0.2.0/24 network:
         </para>
 

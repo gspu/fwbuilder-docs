@@ -4,42 +4,42 @@
 	<para>
           We start with a firewall object that has some basic IPv4
           policy. First, we need to add IPv6 addresses to its
-          interfaces. Open context menu associated with interface
-          object in the tree and click on the item "Add IPv6
+          interfaces. Right-click to open the context menu associated with the interface
+          object in the tree and click the item "Add IPv6
           address".
         </para>
 
       <figure id="ipv6_slide_1">
-          <title>Add IPv6 addresses to an interface</title>
+          <title>Adding IPv6 Addresses to an Interface</title>
           <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_1.png" />
         </figure>
 
       <para>
-        Enter the address and netmask length (Use your own address!)
+        Enter the address and netmask length, using the address required by your topology.
       </para>
 
         <figure id="ipv6_slide_2">
-          <title>Enter address and netmask</title>
+          <title>Entering Address and Netmask</title>
           <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_2.png" />
         </figure>
 
         <para>
-          Add IPv6 to internal interface
+          Adding IPv6 to an Internal Interface
         </para>
 
         <figure id="ipv6_slide_3">
-          <title>Internal Interface</title>
+          <title>The Internal Interface</title>
           <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_3.png" />
         </figure>
 
 	<para>
-          We also need to create network object to represent our local
+          We also need to create a network object to represent our local
           IPv6 network. Click <guimenuitem>New Network
           IPv6</guimenuitem> in the new object menu.
         </para>
 
         <figure id="ipv6_slide_7">
-          <title>Create IPv6 network object</title>
+          <title>Creating the IPv6 Network Object</title>
           <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_7.png" />
         </figure>
 
@@ -49,13 +49,13 @@
         </para>
 
         <figure id="ipv6_slide_8">
-          <title>IPv6 network object name and address</title>
+          <title>The IPv6 Network Object Name and Address</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_8.png" />
         </figure>
 
         <para>
-          Inspect the regular Policy object. To see its parameters,
-          double-click on it in the tree to open it in the
+          Inspect the regular policy object. To see its parameters,
+          double-click it in the tree to open it in the
           editor (see screenshot below). This object has
           a <guilabel>Name</guilabel>, <guilabel>IPv4/IPv6
           setting</guilabel> and a <guilabel>Top ruleset</guilabel>
@@ -66,7 +66,7 @@
         </para>
         
         <figure id="ipv6_slide_4">
-          <title>Policy parameters</title>
+          <title>Policy Parameters</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_4.png" />
         </figure>
 
@@ -78,7 +78,7 @@
         </para>
 
         <figure id="ipv6_slide_4_1">
-          <title>IPv4/IPv6 rule set configuration</title>
+          <title>IPv4/IPv6 Rule Set Configuration</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_4_1.png" />
         </figure>
 
@@ -87,7 +87,7 @@
             <para>
               <emphasis>"IPv4 only rule set"</emphasis> - Only
               addressable objects with IPv4 addresses will be used in
-              the rules. If an object with ipv6 address appears in
+              the rules. If an object with an IPv6 address appears in
               rules, it is ignored. IPv6-only services such as ICMPv6
               are also ignored. TCP and UDP services are used since
               they apply for both IPv4 and IPv6 rules.
@@ -96,9 +96,8 @@
 
           <listitem>
             <para>
-              <emphasis>"IPv6 only rule set"</emphasis> - The
-              opposite, only objects with ipv6 addresses are used and
-              those with ipv4 addresses are ignored. IPv6-only
+              <emphasis>"IPv6 only rule set"</emphasis> Only objects with IPv6 addresses are used and
+              those with Ipv4 addresses are ignored. IPv6-only
               services such as ICMPv6 are used but IPv4-only services
               such as ICMP are ignored. TCP and UDP services are used
               since they apply for both IPv4 and IPv6 rules.
@@ -108,15 +107,15 @@
           <listitem>
             <para>
               <emphasis>"Mixed IPv4 and IPv6 only rule set"</emphasis>
-              - compiler makes two passes over the same rules, first
-              to produce IPV4 configuration and then to produce IPV6
+              The compiler makes two passes over the same rules, first
+              to produce IPv4 configuration and then to produce IPv6
               configuration. On each pass it uses only address objects
               with addresses matching address family of the pass. This
               is the best configuration for transitional
               configurations when IPv6 rules are gradually added to
               existing IPv4 configuration. Note that if you add IPv6
               address to an interface of a firewall or a host object
-              used in the rules, compiler will use IPv4 addresses of
+              used in the rules, the compiler will use IPv4 addresses of
               the interface on IPv4 pass and new IPv6 address of the
               same interface on the IPv6 pass. This principle also
               applies to the mixed groups of addresses and services.
@@ -151,11 +150,11 @@
 
           <listitem>
             <para>
-              Cisco IOS access lists: if <guilabel>top rule
+              Cisco IOS access lists: if the <guilabel>top rule
               set</guilabel> checkbox is turned off, the rules go into
               access list with the name prefixed with the name of the
               rule set; this access list will not be assigned to
-              interfaces via "ip access-group" command. Rulesets with
+              interfaces via "ip access-group" command. Rule sets with
               checkbox "top rule set" checked generate ACLs with names
               consisting of the shortened name of interface and
               direction abbreviation ("in" or "out"). Only these lists
@@ -165,38 +164,38 @@
         </itemizedlist>
 
 	<para>
-          To add new policy, right-click on the firewall object in the
-          tree to open the context menu and use menu
+          To add new policy, right-click the firewall object in the
+          tree to open the context menu and use the menu
           item <guimenuitem>Add Policy Rule Set</guimenuitem>.
         </para>
 
         <figure id="ipv6_slide_5">
-          <title>Add policy rule set</title>
+          <title>Adding a Policy Rule Set</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_5.png" />
         </figure>
 
 	<para>
-          Assign a unique name to the new policy object, make it IPv6
+          Assign a unique name to the new policy object, make it IPv6,
           and check the <guilabel>top ruleset</guilabel> checkbox,
           then click <guibutton>Apply</guibutton>.
         </para>
 
         <figure id="ipv6_slide_6">
-          <title>Set rule set parameters</title>
+          <title>Setring Rule Set Parameters</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_6.png" />
         </figure>
 
 	<para>
-          Now click on the new policy object in the tree
+          Now click the new policy object in the tree
           ("Policy_ipv6") and add some rules as usual. Here we have
           added a rule to permit all on loopback, a rule to permit
-          incoming HTTP and ICMP6 to the firewall and a rule to permit
+          incoming HTTP and ICMPv6 to the firewall and a rule to permit
           outgoing sessions from the internal network (object "local
           ipv6 net") and the firewall itself.
         </para>
 
         <figure id="ipv6_slide_9">
-          <title>Add policy rules</title>
+          <title>Adding Policy Rules</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_9.png" />
         </figure>
 
@@ -248,7 +247,7 @@ $ fwb_ipt -v -f policy_rules.fwb fw
 
 	<para>
           Here is a fragment of the generated script. The script uses
-          the ip6tables routine to load rules into the kernel. Option
+          the ip6tables routine to load rules into the kernel. The option
           "Assume firewall is part of any" was turned off in this
           firewall object so the rule #1 generated only iptables
           commands in the INPUT chain.
@@ -289,20 +288,20 @@ $IP6TABLES -A Policy_ipv6_3  -j DROP
         </programlisting>
 
 	<para>
-          Lets try to compile policy rule set configured as mixed
+          Let's try to compile the policy rule set configured as mixed
           IPv4+IPv6. To illustrate, I am using two simple rules.
         </para>
 
         <figure id="ipv6_slide_6_1">
-          <title>Mixed IPv4/IPv6 rule set parameters</title>
+          <title>Mixed IPv4/IPv6 Rule Set Parameters</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_6_1.png" />
         </figure>
 
         <para>
-          Rule #0 permits everything on loopback. Loopback interface
+          Rule #0 permits everything on the loopback. The loopback interface
           of the firewall has two addresses: 127.0.0.1/8 and
-          ::1/128. Rule #1 permits http and any ICMPv6 to the
-          firewall. Here is generated iptables script for these two
+          ::1/128. Rule #1 permits HTTP and any ICMPv6 to the
+          firewall. Here is the generated iptables script for these two
           rules:
         </para>
 
@@ -343,8 +342,8 @@ $IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT
           generated from the same rule set "Policy_mix". The IPv4 part
           has only IPv4 addresses and services. The rule that permits
           ICMPv6 to the firewall is missing in this part of the script
-          because ICMPv6 does not match address family. The rule that
-          permits HTTP to the firewall is there though.  The second
+          because ICMPv6 does not match the address family. The rule that
+          permits HTTP to the firewall is there, though.  The second
           (IPv6) part of the script both permits HTTP and ICMPv6 to
           the firewall.
         </para>
@@ -356,7 +355,7 @@ $IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT
         </para>
 
         <para>
-          If loopback interface of the firewall did not have an
+          If the loopback interface of the firewall did not have an
           address ::1/128, then the IPv6 part of the generated script
           would not have rules permitting anything on loopback (those
           with "-i lo" and "-o lo"). This may not be very obvious and
@@ -367,7 +366,7 @@ $IP6TABLES -A INPUT -p ipv6-icmp  -m state --state NEW  -j ACCEPT
         </para>
 
         <para>
-          Finally, lets look at the generated PF configuration for the
+          Finally, let's look at the generated PF configuration for the
           same rules in the same mixed policy rule set:
         </para>
 

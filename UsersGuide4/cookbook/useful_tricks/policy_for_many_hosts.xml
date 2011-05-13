@@ -1,5 +1,5 @@
   <sect2 id="tricks_many_hosts">
-    <title>Another way to generate firewall policy for many hosts</title>
+    <title>Another Way to Generate a Firewall Policy for Many Hosts</title>
     
     <para>
     This is a simplier, but less powerful and flexible, way to manage multiple hosts

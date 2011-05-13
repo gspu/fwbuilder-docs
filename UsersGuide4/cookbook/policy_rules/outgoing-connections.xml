@@ -1,13 +1,13 @@
       <sect2 id="outging-connections">
-	<title>Controlling outgoing connections from the firewall</title>
+	<title>Controlling Outgoing Connections from the Firewall</title>
 
 	  <para>This example shows the rule that permits only certain
 	  types of outgoing connections. To permit outgoing web access
 	  but nothing else, we put the firewall object in Source and
-	  corresponding service object in Service:</para>
+	  the corresponding service object in Service:</para>
 
         <figure id="policy-19">
-          <title>HTTP only</title>
+          <title>HTTP-Only</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/policy-19.png" />
         </figure>
 
@@ -29,7 +29,7 @@
               <graphic scale="50" fileref="cookbook/policy_rules/images/policy-20.png" />
         </figure>
 
-	  <para> Service object DNS, which includes both the UDP and
+	  <para> The DNS service object, which includes both the UDP and
 	  TCP versions, can be found in
 	  the <guilabel>"Standard"</guilabel> tree
 	  under <guimenuitem>Services/Groups</guimenuitem>.</para>
@@ -40,7 +40,7 @@
 	  services permitted by rule #0:</para>
 
         <figure id="policy-21">
-          <title>HTTP,DNS and ping</title>
+          <title>HTTP, DNS, and Ping</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/policy-21.png" />
         </figure>
 

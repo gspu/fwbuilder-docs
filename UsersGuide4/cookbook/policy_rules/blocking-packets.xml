@@ -19,16 +19,16 @@
       generate correct code for underlying firewall software platform.</para>
 
       <figure id="f-policy-2">
-        <title>IP Service object which represents fragmented
-          packets.</title>
+        <title>IP Service Object Representing Fragmented
+          Packets</title>
         <graphic scale="50" fileref="cookbook/policy_rules/images/policy-2.png" />
       </figure>
 
-      <para>Object "ip_fragments", which is included in the section "Services/IP" of
-      the Standard objects tree, is set to block 'short' fragments only.</para>
+      <para>The "ip_fragments" object, which is included in the section "Services/IP" of
+      the Standard objects tree, is set to block "short" fragments only.</para>
 
       <para>Another potentially harmful type of packets is so called
-      "Christmas tree" packet. This one is just a TCP packet with impossible
+      "Christmas tree" packet. This one is just a TCP packet with an impossible
       combination of TCP flags or even all TCP flags turned on at once (for
       example SYN, ACK, FIN, RST, PSH). This combination is never used in real
       communications, so if a packet like that appears at the boundary of your
@@ -38,7 +38,7 @@
 
       <para>Some platforms provide a mechanism to turn on and off stateful
       inspection on individual rules. Turning it off on those rules which do
-      not require it may improve performance of the firewall. Obviously we do
+      not require it may improve performance of the firewall. Obviously, we do
       not need stateful inspection while analysing fragmented packets as we do
       not really want any session to be established, so we can safely use this
       option on this rule. One example of firewall platform which supports
@@ -49,7 +49,7 @@
       dialog for iptables:</para>
 
       <figure id="f-policy-3">
-        <title>Rule options dialog for iptables firewall</title>
+        <title>Rule Options Dialog for iptables Firewall</title>
         <graphic scale="50" fileref="cookbook/policy_rules/images/iptables-options-logging.png" />
       </figure>
       
@@ -57,8 +57,8 @@
       short fragments and TCP "Christmas scan" packets. The icon in the Options column indicates that logging is turned on.</para>
 
       <figure>
-        <title>Rule blocking short fragmented packets and TCP "Christmas scan"
-          packets</title>
+        <title>A Rule Blocking Short Fragmented Packets and TCP "Christmas Scan"
+          Packets</title>
         <graphic scale="50" fileref="cookbook/policy_rules/images/policy-4.png" />
       </figure>
 

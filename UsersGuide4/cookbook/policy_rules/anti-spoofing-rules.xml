@@ -4,7 +4,7 @@
 
       <para>
         Generally speaking, IP spoofing is a technique of generating
-        IP packets with source address that belongs to someone
+        IP packets with a source address that belongs to someone
         else. Spoofing creates a danger when hosts on the LAN permit
         access to their resources and services to trusted hosts by
         checking the source IP of the packets.  Using spoofing, an
@@ -35,13 +35,13 @@
         <xref linkend="firewall-object" /> explains how a firewall
         object and its interfaces can be
         created. <xref linkend="host-interface" /> has more details on
-        the firewall's interfaces, their types and other
+        the firewall's interfaces, their types, and other
         properties. <xref linkend="direction" /> explains the concept
         of direction.
       </para>
 
       <figure id="anti-spoof-rule-1">
-        <title>Basic anti-spoofing rule</title>
+        <title>A Basic Anti-Spoofing Rule</title>
         <graphic scale="50" fileref="cookbook/policy_rules/images/policy-antispoof-rule-1.png" />
       </figure>
 
@@ -66,17 +66,17 @@ $IPTABLES -A In_RULE_0  -j DROP
       </programlisting>
 
       <para>
-        Iptables commands were placed in INPUT and FORWARD chains to
+        The iptables commands were placed in INPUT and FORWARD chains to
         match both packets that are headed for the firewall and
         through the firewall to hosts behind it. Rules match source
-        address of the packets and then log and drop them. Fwbuilder
+        address of the packets and then log and drop them. Firewall Builder
         generated iptables commands to match all addresses of the
         firewall (192.168.1.1, 192.0.2.1) and network behind it
         (192.168.1.0/24). 
       </para>
 
       <para>
-        Lets see what gets generated for the same rule for PF:
+        Let's see what gets generated for the same rule for PF:
       </para>
 
       <programlisting>
@@ -92,7 +92,7 @@ block in   log  quick on en0 inet  from 192.168.1.0/24  to any
       </programlisting>
       
       <para>
-        Here compiler uses tables to make generated PF code more
+        Here, the compiler uses tables to make generated PF code more
         compact. Table <emphasis>tbl.r0.s</emphasis> can be used in
         other rules wherever we need to operate with all addresses of
         the firewall.

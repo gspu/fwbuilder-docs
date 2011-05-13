@@ -9,7 +9,7 @@
     a Host object for each computer, then create a group and put all these 
     Host objects in it. We can use this group in the Source or Destination 
     of the policy rule to achieve our goal. If we ever need to add a new 
-    machine to the control list, we create a new Host object and add it to 
+    machine to the control list, we create a new host object and add it to 
     the group; if we need to remove the machine from the list, we just 
     remove it from the group. But what should happen if after the last 
     machine has been removed the group becomes empty? If the empty group is 
@@ -30,15 +30,15 @@
     the empty group is the only object in the rule element though. In this case, 
     removing the group from the rule element makes it empty, which is equivalent 
     to Any. All of the sudden, instead of controlling access to or from a group 
-    of hosts, the rule expands its action to any host! To avoid this unexpected 
-    side effect, compiler drops a rule if rule element becomes empty after the 
+    of hosts, the rule expands its action to any host. To avoid this unexpected 
+    side-effect, compiler drops a rule if rule element becomes empty after the 
     last empty group has been removed. Again, it works this way only if the 
     checkbox "Ignore empty groups" is on.
     </para>
 
     <para>
     For example, this feature can be used to set up a rule to control Internet 
-    access from a bunch of a student computers. Suppose some students may be 
+    access from a number of student computers. Suppose some students may be 
     denied access once in a while, in which case their machine is removed from 
     the group. If at some point of time all machines were removed from the group, 
     the compiler would simply ignore this rule instead of inadvertently creating 

@@ -3,7 +3,7 @@
 
    <para>
      In this section, we'll show how modifying a configlet lets you
-     tailor your generated config file.
+     tailor your generated configuration file.
    </para>
 
    <para>
@@ -23,7 +23,7 @@
    </para>
 
    <figure id="edit_firewall_firewallsettings_compiler_configlet_example">
-     <title>Firewall Settings dialog (iptables)</title>
+     <title>Firewall Settings Dialog (iptables)</title>
      <graphic scale="60" fileref="configlets/images/configlets-screenshot-1.png" />
    </figure>
 
@@ -46,9 +46,9 @@ $IPTABLES -A OUTPUT  -p tcp -m tcp  -d 192.168.1.100/255.255.255.255 \
    </programlisting>
 
    <para>
-     Well and good, but suppose we want to limit ssh access from the
+     Now suppose we want to limit SSH access from the
      management workstation so that it can only connect to the
-     management interface of the firewall?
+     management interface of the firewall.
    </para>
 
    <para>
@@ -90,13 +90,13 @@ $IPTABLES -A OUTPUT  -p tcp -m tcp  -d 192.168.1.100/255.255.255.255 \
    </programlisting>
 
    <para>
-     Variable "{{$management_interface}}" is not used by the original
-     configlet but it is documented in the comment at the top of the
+     The variable "{{$management_interface}}" is not used by the original
+     configlet, but it is documented in the comment at the top of the
      configlet file.
    </para>
    
    <para>
-     Now we can save the configlet and re-compile the firewall. Then,
+     Now we can save the configlet and recompile the firewall. Then,
      we look at the generated .fw file again.
    </para>
 

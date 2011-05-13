@@ -3,7 +3,7 @@
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
   <sect2 id="vrrpd_cluster">
-    <title>Linux cluster using VRRPd</title>
+    <title>Linux Cluster Using VRRPd</title>
 
 
     <para>
@@ -19,13 +19,13 @@
       10.3.14.0/255.255.255.0 and subnet "behind" the firewalls is
       10.1.1.0/255.255.255.0. In fact, this network was located
       behind a router and another firewall that provided connection
-      to the Inetrnet. In real configurations subnet that is
+      to the Inetrnet. In real configurations, the subnet that is
       10.3.14.0 here will probably use publicly routable IP
       addresses.
     </para>
 
     <figure id="cookbook_linux_vrrpd_cluster_1">
-      <title>HA configuration using two Linux machines running vrrpd</title>
+      <title>HA Configuration Using two Linux machines running vrrpd</title>
       <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-1.png"/>
     </figure>
 

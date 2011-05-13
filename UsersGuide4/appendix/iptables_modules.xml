@@ -2,32 +2,32 @@
       <title>iptables modules</title>
 
       <sect2 id="iptables_install_ipset">
-        <title>Installing the iptables ipset module using xtables-addons</title>
+        <title>Installing the iptables ipset Module Using xtables-addons</title>
 
             <para>
               Instructions for installing the iptables ipset module using xtables-addons. 
             </para>
             
             <para>
-              On Ubuntu, module ipset and corresponding command line
+              On Ubuntu, the module ipset and corresponding command-line
               tools are packaged in either
               package <emphasis>ipset</emphasis> and
               <emphasis>ipsed-module-source</emphasis> or as part of
               an <emphasis>xtales-addons</emphasis> bundle. The latter
               includes many other useful iptables modules and tools
-              besides ipset. Use can use just ipset packages if you do
-              not need other modules, otherwise it probably makes
+              besides ipset. You can use just ipset packages if you do
+              not need other modules; otherwise, it probably makes
               sense to install xtables-addons. These packages are
               motually exclusive, that is, if you install ipset and
               ipset module packages and then later will try to install
               xtables-addons to get some other module, you are going
               to have to deinstall ipset packages to avoid conflict.
-              Instructions below illustrate method
+              The instructions below illustrate method
               using <emphasis>xtables-addons</emphasis>.
             </para>
 
             <para>
-              First you need to get the ipset module source.  You can
+              First, you need to obtain the ipset module source.  You can
               do this by running the commands shown
               below.  <emphasis>Note:</emphasis> you will need to be
               root or have sudo access to run these commands.
@@ -55,7 +55,7 @@ p   xtables-addons-source  - Extensions targets and matches for iptables [module
             </para>
 
             <para>
-              Next you will need to build the iptables modules
+              Next, you will need to build the iptables modules
               installed by the package xtables-addons-source from
               source.  We use the convenient module-assistant for
               this.  You will see a window pop-up that displays the
@@ -116,10 +116,10 @@ fwbuilder@guardian:~$ sudo ipset -X test
 fwbuilder@guardian:~$ sudo ipset --list
               </programlisting>
 
-              If something did not work right, command <emphasis>"ipset
+              If something did not work right, the command <emphasis>"ipset
               --version"</emphasis> will print an error message. One typical
               problem is when kernel module was not compiled and
-              installed or could not be loaded. In this case this
+              installed or could not be loaded. In this case, this
               command prints something like this:
 
               <programlisting>
@@ -144,7 +144,7 @@ le and tools.
         </para>
             
             <para>
-            First you need to get the ipset module source.  You can do this by running the
+            First, you need to get the ipset module source.  You can do this by running the
             commands shown below.  <emphasis>Note:</emphasis> you will need to be root or
             have sudo access to run these commands.  Depending on what is already installed on
             your system you might see slightly different command outputs.
@@ -155,7 +155,7 @@ fwbuilder@guardian:~$ sudo aptitude install ipset-source
             </para>
 
             <para>
-            Next you will need to build the ipset module from source.  We use the convenient module-assistant for this.
+            Next, you will need to build the ipset module from source.  We use the convenient module-assistant for this.
             You will see a window pop-up that displays the status of the module being built.
             <programlisting>
 fwbuilder@guardian:~$ sudo module-assistant build ipset
@@ -183,7 +183,7 @@ fwbuilder@guardian:~$ sudo aptitude install ipset
         </para>
 
         <para>
-        Your ipset module installation should now be complete.  To confirm that the installation was successful
+        Your ipset module installation should now be complete. To confirm that the installation was successful
         try running the following commands.
         <programlisting>
 fwbuilder@guardian:~$ sudo ipset --version

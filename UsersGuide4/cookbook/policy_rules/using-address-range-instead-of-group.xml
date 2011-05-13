@@ -1,10 +1,10 @@
     <sect2 id="using-address-range-instead-of-group">
 
-      <title>Using Address Range instead of a group</title>
+      <title>Using an Address Range Instead of a Group</title>
 
 
       <para>
-        In the example above, three hosts used for the
+        In the example above, the three hosts used for the
         group <emphasis>"management hosts"</emphasis> have consecutive
         addresses 192.168.1.110, 192.168.1.111,
         192.168.1.112. Although this example may be artificial, it
@@ -17,11 +17,11 @@
 
       <para>
         Since addresses of the management hosts are consecutive, we
-        can use Address Range object to describe them:
+        can use an address range object to describe them:
       </para>
 
       <figure id="address-range-obj-1">
-        <title>Policy for server</title>
+        <title>Policy for the Server</title>
         <graphic scale="50" fileref="policy-rule-address-range-object.png" />
       </figure>
 
@@ -31,13 +31,13 @@
       </para>
 
       <figure id="policy-rule-with-address-range-obj">
-        <title>Policy for server</title>
+        <title>Policy for the Server</title>
         <graphic scale="50" fileref="policy-rule-with-address-range.png" />
       </figure>
 
       <para>
-        The main difference in generated code for the rule using
-        Address Range compared to the rule using collection of
+        The main difference in the generated code for the rule using
+        a address range compared to the rule using collection of
         individual addresses is that compiler is allowed to optimize
         it. It tries to squeeze the address range to the minimal set
         of address and network objects. Here is how it looks like for
@@ -53,13 +53,13 @@ $IPTABLES -A INPUT  -s 192.168.1.112   -m state --state NEW  -j ACCEPT
 
       <para>
         Again, the difference may not be very great when we have only
-        three ip addresses, but in case of a range that spans hundred
+        three IP addresses, but in the case of a range that spans hundred
         addresses the performance gain and reduction in the size of
         generated script are significant.
       </para>
 
       <para>
-        Generated PF and PIX configurations look similar.
+        The generated PF and PIX configurations look similar.
       </para>
 
     </sect2>

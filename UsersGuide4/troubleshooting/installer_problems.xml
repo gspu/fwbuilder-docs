@@ -10,13 +10,13 @@
           This only happens when Firewall Builder GUI runs on
           Windows and uses pscp.exe and plink.exe to transfer
           generated firewall script and activate it on the firewall
-          machine. Utilities pscp.exe and plink.exe are part of the
+          machine. The utilities pscp.exe and plink.exe are part of the
           PuTTY package by Simon
           Tatham <ulink url="http://www.chiark.greenend.org.uk/~sgtatham/putty/">http://www.chiark.greenend.org.uk/~sgtatham/putty/</ulink>.
         </para>
 
         <para>
-          Fwbuilder GUI launches plink.exe utility to log in to the
+          The Firewall Builder GUI launches the plink.exe utility to log in to the
           firewall machine and activate firewall script there. It
           composes plink.exe command line using ip address of the
           firewall and adds command line option "-ssh" to force
@@ -26,8 +26,8 @@
           putty.exe set default protocol to "Serial" as shown in
           the screenshot below, plink.exe seems to ignore command
           line option "-ssh" and fails with an error 'Looking up
-          host "" Connecting to 0.0.0.0 port 22'. Just set default
-          protocol to "ssh" using putty configuration dialog.
+          host "" Connecting to 0.0.0.0 port 22'. Just set the default
+          protocol to "ssh" using the putty configuration dialog.
         </para>
 
         <figure>

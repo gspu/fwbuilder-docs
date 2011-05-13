@@ -1,6 +1,6 @@
       <sect2 id="multiple-services-on-virtual-addresses">
-	<title>Running multiple services on the same machine on
-	different virtual addresses and different ports</title>
+	<title>Running Multiple Services on the Same Machine on
+	Different Virtual Addresses and Different Ports</title>
 
 	  <para> Here is an example of how Firewall Builder can be
 	  used to build a firewall protecting a server. Suppose we run
@@ -8,7 +8,7 @@
 	  virtual IP addresses to be able to supply different
 	  certificates for each one.</para>
 
-	  <para>In addition, we run webmin on the same machine that we
+	  <para>In addition, we run the webmin service on the same machine that we
 	  use to manage it. We need to permit access on protocol HTTPS
 	  to virtual addresses web servers are using from anywhere,
 	  and limited access to the webmin port on a specific
@@ -17,31 +17,31 @@
 	  <para>Here is the firewall object:</para>
 
         <figure id="ex2-server-1">
-          <title>Firewall object with multiple services</title>
+          <title>Firewall Object with Multiple Services</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ex2-server-1.png" />
         </figure>
 
 	<para>Here are the policy rules:</para>
 
         <figure id="ex2-server-2">
-          <title>Policy rules</title>
+          <title>Policy Rules</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ex2-server-2.png" />
         </figure>
 
-	  <para> Access to webmin service is only permitted from the
+	  <para> Access to the webmin service is only permitted from the
 	  local network, while access to the secure web servers
 	  running on virtual addresses fxp0-ip1, fxp0-ip2 and fxp0-ip3
 	  is permitted from anywhere.</para>
 
 	  <para>The following screenshot illustrates how the TCP
-	  Service object webmin is created.</para>
+	  service object webmin is created.</para>
 
         <figure id="ex2-server-3">
           <title>webmin object</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/ex2-server-3.png" />
         </figure>
 
-	<para>Webmin uses port 10000, so we put this port number in
+	<para>The webmin service uses port 10000, so we put this port number in
 	both the beginning and end of the destination port range. We
 	do not need to do any inspection of the TCP flags and leave
 	all of them unchecked in this object.</para>

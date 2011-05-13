@@ -2,7 +2,7 @@
       <title>Build Issues</title>
 
       <sect2>
-        <title>autogen.sh complains "libfwbuilder not installed"</title>
+        <title>autogen.sh Complains "libfwbuilder not installed"</title>
 
         <para><emphasis>When compiling from source, autogen.sh complains "libfwbuilder
         not installed"</emphasis></para>
@@ -18,7 +18,7 @@
       <sect2>
         <title>"Failed dependencies: ..." when installing RPM</title>
 
-        <para><emphasis>Trying to install fwbuilder RPM but I get a bunch of errors
+        <para><emphasis>Trying to install Firewall Builder RPM but I get a bunch of errors
         "Failed dependencies: ...". What do I need to do ?</emphasis></para>
 
         <para>You need to install prerequisite libraries. See the list of RPMs

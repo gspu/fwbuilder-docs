@@ -4,11 +4,11 @@
         <para>
   
                 Another useful class of destination translation rule
-                is the one that does redirection. Rule like this makes
+                is the one that does redirection. A rule like this makes
                 the firewall send matching packets to itself, usually
                 on a different port. This rule can be used to set up a
                 transparent proxy. To set up a redirection rule in
-                Firewall Builder, place firewall object or one of its
+                Firewall Builder, place the firewall object or one of its
                 interfaces in <guilabel>Translated Destination</guilabel>. Here is an
                 example:
               

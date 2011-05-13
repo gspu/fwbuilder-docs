@@ -1,5 +1,5 @@
       <sect2 id="firewall-as-dhcp-dns-server">
-	<title>Using firewall as DHCP and DNS server for the local net</title>
+	<title>Using a Firewall as the DHCP and DNS Server for the Local Net</title>
 
 	<para>It is often convenient to use a firewall as a DHCP and
 	DNS server for the local net, especially in small
@@ -28,11 +28,11 @@
 
 	<para>We could make these rules more narrow if we used the
 	internal interface of the firewall in place of the firewall
-	object. Assuming interface eth0 is connected to internal net,
+	object. Assuming interface eth0 is connected to the internal net,
 	the rules would look like this:</para>
 
         <figure id="policy-11">
-          <title>Rules with DHCP using Firewall interface</title>
+          <title>Rules with DHCP Using a Firewall Interface</title>
               <graphic scale="50" fileref="cookbook/policy_rules/images/policy-11.png" />
         </figure>
 
@@ -47,9 +47,9 @@
               <graphic scale="50" fileref="cookbook/policy_rules/images/policy-12.png" />
         </figure>
 
-	<para>The Service object group object DNS can be found in the
+	<para>The service object group object DNS can be found in the
 	"Standard" objects tree, under Services/Groups. This group
-	consist of both the UDP object domain and TCP object
+	consists of both the UDP object domain and TCP object
 	domain. Both objects define destination port 53 and ignore
 	source port. Since we do not specify the source port, these
 	objects match both queries sent by the domain name server
@@ -57,7 +57,7 @@
 	the local net (source port is >1024). We need to use objects
 	representing both UDP and TCP protocols because DNS falls back
 	to TCP if the answer for the query is too big and won't fit in
-	the standard UDP datagram. DNS zone transfers also use TCP
+	the standard UDP datagram. DNS zone transfers also use the TCP
 	protocol.</para>
       </sect2>
 

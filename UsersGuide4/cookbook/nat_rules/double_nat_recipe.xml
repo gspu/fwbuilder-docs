@@ -3,7 +3,7 @@
   
         <para>
         There are situations where both the source and destination 
-        IP addresses of a packet need to be NAT'ed. The diagram 
+        IP addresses of a packet need to be NATted. The diagram 
         below shows just such a scenario where an internal server 
         needs to be accessed remotely from the outside using the 
         Remote Desktop Protocol (RDP).
@@ -90,7 +90,7 @@
         </note>
        
         <para> 
-        Here is the Firewall Builder generated compiler output for 
+        Here is the Firewall Builder-generated compiler output for 
         configuring this rule on an iptables firewall:
         </para>
 

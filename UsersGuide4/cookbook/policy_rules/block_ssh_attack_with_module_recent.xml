@@ -1,12 +1,12 @@
       <sect2 id="block_ssh_attack_with_module_recent">
-	<title>Different method of prevention ssh scanning attacks:
-	using Custom Service object with iptables module
+	<title>A Different Method for Preventing SSH Scanning Attacks: Using
+	a Custom Service Object with the iptables Module
 	"recent"
         </title>
 
 
         <para>
-          Method described in the previous chapter has a problem in
+          The method described in the previous section has a problem in
           that it permanently blocks access from any client when user
           mistypes their password several times. It is better to block
           access temporarily instead of permanently. The iptables module
@@ -14,21 +14,21 @@
         </para>
 
         <para>
-        In this example I only use the basic features of the "recent" module
+        In this example, I only use the basic features of the "recent" module
         you can find more information about the available options for this
-        module at the netfilter How-To page 
+        module at the netfilter How-To page. 
         <ulink
               url="http://netfilter.org/documentation/HOWTO/netfilter-extensions-HOWTO-3.html#ss3.16">
                     http://netfilter.org/documentation/HOWTO/netfilter-extensions-HOWTO-3.html#ss3.16</ulink>
         </para>
 
         <para>
-          To use this module, I create the following Custom Service
+          To use this module, I create the following custom service
           object (see <xref linkend="custom-service"/>):
         </para>
 
         <figure id="block-ssh-scan-using-module-recent-1">
-          <title>Custom Service object used to define parameters for the iptables module "recent"</title>
+          <title>Custom Service Object Used to Define Parameters for the iptables Module "recent"</title>
           <graphic scale="50" fileref="cookbook/policy_rules/images/custom_service_object_module_recent_1.png" />
         </figure>
 
@@ -39,7 +39,7 @@
         </para>
 
         <figure id="block-ssh-scan-using-module-recent-2">
-          <title>Policy rules using Custom Service object "recent 10 min"</title>
+          <title>Policy Rules Using the Custom Service Object "recent 10 min"</title>
           <graphic scale="50" fileref="cookbook/policy_rules/images/blocking_ssh_attacks_using_module_recent_1.png"/>
         </figure>
 
@@ -66,12 +66,12 @@ $IPTABLES -A INPUT -p tcp -m tcp  --dport 22  -m state --state NEW  -j ACCEPT
         </programlisting>
 
         <para>
-          Rule 0 blocks any packets that match module recent, that is,
+          Rule 0 blocks any packets that match module "recent," that is,
           that have source address that is on the module's list and
-          were seen within last 10 minutes. Rule #1 simply permits ssh
+          were seen within last 10 minutes. Rule #1 simply permits SSH
           to the firewall. If everything goes well, no addresses
           should be on the module recent list, which means rule #0
-          does not match any packets and ssh access to the firewall is
+          does not match any packets and SSH access to the firewall is
           permitted by rule #1. However if any address is placed on
           the list of the module recent, rule #0 will block access to
           the firewall from that address for 10 min.
@@ -104,8 +104,8 @@ exec "/root/swatch/block_ssh_scanner.sh $2"
         </programlisting>
 
         <para>
-          When swatch finds log entry that signals potential ssh scan
-          attack, it calls script /root/swatch/block_ssh_scanner.sh:
+          When swatch finds log entry that signals a potential SSH scan
+          attack, it calls the script /root/swatch/block_ssh_scanner.sh:
         </para>
 
         <programlisting>
@@ -132,7 +132,7 @@ done
 
         <para>
           This script finds addresses that tried wrong password or
-          non-existent user accounts 3 or more times and adds them to
+          non-existent user accounts three or more times and adds them to
           the list "DEFAULT" of the module recent. If such address
           tries to connect to the firewall one more time, it will be
           blocked by the rule #0 in the policy. However if they try 10

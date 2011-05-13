@@ -4,39 +4,39 @@
       <para>Suppose we want to block connections to certain ports on the
       server behind the firewall, but want to do it in a "polite" manner that
       lets the sender host know right away that the connection attempt
-      was blocked so our server would look like nothing is listening on that
+      was blocked so it appears that our server is not listening on that
       port at all. One of the practical applications of this setup would be
       blocking Ident connections to a mail relay or a mail server. Sendmail
-      and many other MTA's (Mail Transport Agents) attempt to connect to Ident
-      port (TCP port 113) on the mail relay every time they accept email from
-      that relay. Many believe Ident protocol is practically useless and does
+      and many other MTAs (Mail Transport Agents) attempt to connect to Ident
+      port (TCP port 113) on the mail relay every time they accept e-mail from
+      that relay. Many believe that the Ident protocol is practically useless and does
       not really serve as a protection against SPAM or for any other useful
-      purpose. Unfortunately silent blocking of ident connections on the
+      purpose. Unfortunately, silent blocking of Ident connections on the
       firewall using a rule with action <emphasis>"Deny"</emphasis> adds a
-      delay in the email delivery. This happens because when sender host tries
-      to establish Ident connection to the recipient, it sends TCP SYN packet
+      delay in the e-mail delivery. This happens because when the sender host tries
+      to establish the Ident connection to the recipient, it sends the TCP SYN packet
       to it (the first packet in three-way TCP handshake) and then waits for
       TCP ACK packet in response. However, it never sees it because
       recipient's firewall blocked its first TCP SYN packet. In situations
       like this, the sender host assumes the reply packet got lost and tries to
-      send TCP SYN packet again. It repeats this for a few seconds (usually 30
-      sec) before it gives up. This adds 30 sec delay to email delivery. Our
+      send the TCP SYN packet again. It repeats this for a few seconds (usually 30
+      sec) before it gives up. This adds a 30-second delay to e-mail delivery. Our
       intent is to show how one can construct a policy rule to block Ident
       without causing this delay.</para>
 
-      <para>The simplest way to block any protocol is to use "Deny"
-      action in the policy rule. Since "Deny" causes firewall to
-      silently drop the packet, sender never knows what happened to it
+      <para>The simplest way to block any protocol is to use a "Deny"
+      action in the policy rule. Since "Deny" causes the firewall to
+      silently drop the packet, the sender never knows what happened to it
       and keeps waiting for response. To avoid this delay we will set
-      rule Action to "Reject".  Normally "Reject" makes firewall to
+      rule Action to "Reject".  Normally "Reject" makes the firewall to
       send ICMP "unreachable" message back to sender, thus indicating
       that access to requested port is denied by the firewall. This
-      may be insufficient in some cases because the host trying to
+      may be insufficient in some cases, because the host trying to
       connect to our Ident port won't understand this type of ICMP
-      message and will keep trying. In fact, most OS do not recognize
-      ICMP "administratively prohibited" message and do keep
-      trying. To make host on the other side stop its attempts right
-      away we need to send TCP RST packet back instead of ICMP
+      message and will keep trying. In fact, most OSs do not recognize
+      an ICMP "administratively prohibited" message and do keep
+      trying. To make the host on the other side stop its attempts right
+      away, we need to send an TCP RST packet back instead of an ICMP
       message. This can be done by setting the appropriate parameter
       for the "Reject" action. To set an Action parameter, change the
       Action to "Reject," then double-click the Reject icon to get the
@@ -46,18 +46,18 @@
       need to keep track of it.</para>
 
       <figure>
-        <title>Using action "Reject" with rule option</title>
+        <title>Using a "Reject" Action with the Rule Option</title>
         <graphic scale="50" fileref="cookbook/policy_rules/images/policy-6.png" />
       </figure>
 
       <figure id="f-policy-7">
-        <title>Adding rule option to make send TCP RST packet</title>
+        <title>Adding a Rule Option to Send an TCP RST Packet</title>
         <graphic scale="50" fileref="cookbook/policy_rules/images/action-parameters-reject.png" />
       </figure>
 
       <para>
         Supported firewall platforms use different syntax for rules
-        that should drop packets and send icmp or tcp rst back. Here
+        that should drop packets and send an ICMP or TCP RST packet back. Here
         is what Firewall Builder generates for the rule shown above
         for iptables:
       </para>
@@ -80,7 +80,7 @@ block return-rst  quick inet proto tcp  from any  to 192.168.1.100 port 113
       </programlisting>
 
       <para>
-        There is no equivalent configuration option for PIX
+        There is no equivalent configuration option for PIX.
       </para>
 
 

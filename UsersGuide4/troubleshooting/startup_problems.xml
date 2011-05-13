@@ -4,10 +4,10 @@
       <sect2>
         <title>"fwbuilder: cannot connect to X server localhost:0.0"</title>
 
-        <para><emphasis>fwbuilder binary does not start. Error "fwbuilder: cannot
+        <para><emphasis>The Firewall Builder binary does not start. Error "fwbuilder: cannot
         connect to X server localhost:0.0" or similar</emphasis></para>
 
-        <para>Firewall Builder GUI is an X application, that is, it needs X
+        <para>The Firewall Builder GUI is an X application, that is, it needs X
         server to display it on the screen. The program determines how to
         connect to the X server using environment variable DISPLAY; you
         probably do not have this environment variable if you get an error

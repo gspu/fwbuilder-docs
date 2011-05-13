@@ -3,7 +3,7 @@
 
     <para>
       Another firmware for the firewall apliances such as Linksys,
-      DLink and others supported by Firewall Builder
+      DLink, and others supported by Firewall Builder
       is <ulink url="http://sveasoft.com/">Sveasoft</ulink>.
     </para>
 
@@ -11,7 +11,7 @@
       The difference here is both in the generated script format and
       in commands that built-in policy installer executes on the
       firewall. The reason for these differences is that Sveasoft
-      stores firewall configuration in NVRAM which has limited
+      stores firewall configuration in NVRAM, which has limited
       capacity.
     </para>
 

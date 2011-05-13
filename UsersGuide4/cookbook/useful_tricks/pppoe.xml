@@ -36,7 +36,7 @@
       <listitem>
         <para>
         If your Internet connection uses dynamic IP address, mark ppp0 as 
-        "dynamic" and do not add an address object to it. Create script 
+        "dynamic" and do not add an address object to it. Create a script 
         /etc/ppp/ip-up to restart the firewall every time IP address of 
         ppp0 changes.
         </para>

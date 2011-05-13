@@ -34,16 +34,11 @@
     "/usr/share/fwbuilder/configlets/linux24".
   </para>
 
-  <para>
-    Configlets provide the commands the built-in policy installer
-    needs to install the policy on the firewall. Two configlets are
-    used for Unix-based firewalls (Linux, OpenWRT, Sveasoft, IPCOP and
-    its variants, OpenBSD, FreeBSD, MacOSX, Solaris):
-    "installer_commands_reg_user" and "installer_commands_root". You
-    can change the behavior of the installer without having to touch
-    C++ code, just create a copy of the configlet file in
-    $HOME/fwbuilder/configlets and modify it.
-  </para>
+  <para> Configlets provide the commands the built-in policy installer needs to install the policy
+    on the firewall. Two configlets are used for Unix-based firewalls (Linux, OpenWRT, Sveasoft,
+    IPCOP and its variants, OpenBSD, FreeBSD, MacOSX, Solaris): "installer_commands_reg_user" and
+    "installer_commands_root". You can change the behavior of the installer without having to touch
+    C++ code: just create a copy of the configlet file in $HOME/fwbuilder/configlets and modify it. </para>
  
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="configlet_example.xml"/>
     

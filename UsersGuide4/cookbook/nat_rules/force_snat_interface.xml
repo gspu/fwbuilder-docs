@@ -1,9 +1,9 @@
         <sect2 id="force_source_nat_interface">
-          <title>Using Address of "wrong" Interface for Source Address
+          <title>Using the Address of "wrong" Interface for Source Address
           Translation</title>
 
           <para>
-            Normally, generated iptables SNAT rule includes a "-o
+            Normally, a generated iptables SNAT rule includes a "-o
             &lt;interface&gt;" clause to make it more specific and
             only translate packets that really leave the
             network. Firewall Builder guesses which interface to put
@@ -85,7 +85,7 @@
           such as 192.168.1.0. It is more useful to keep that
           segment private and allocate all routable addresses
           to the DMZ instead of trying to subnet the routable
-          subnet. The problem now is that a Source Address
+          subnet. The problem now is that a source address
           translation rule should use address that belongs to
           the DMZ interface <emphasis>eth2</emphasis> but "-o" parameter
           should use interface <emphasis>eth0</emphasis> or should be
@@ -95,13 +95,13 @@
         
 
         <para>
-          To do this is Firewall Builder, create an Address
+          To do this in Firewall Builder, create an address
           object with an IP address equivalent to the one you
           want to use for source NAT. Since in this example we
           want to use address 192.0.2.1 which belongs to the
           firewall, we call this new address object "like
           fw-1-1:eth2:ip". This is just a regular IPv4 address
-          object, there is nothing special about it:
+          object; there is nothing special about it:
         </para>
         
 
@@ -121,7 +121,7 @@
         </figure>
 
         <para>
-          Here is what fwbuilder generates for iptables for
+          Here is what Firewall Builder generates for iptables for
           this rule:
         </para>
         

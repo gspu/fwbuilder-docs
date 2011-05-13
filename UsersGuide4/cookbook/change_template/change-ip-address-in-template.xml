@@ -4,12 +4,12 @@
 
 <sect1 id="change-ip-address-in-template">
 
-  <title>How to change IP addresses in the firewall configuration
-    created from a template</title>
+  <title>Changing IP addresses in Firewall Configuration
+    Created from a Template</title>
 
   <para>When a firewall object is created from a template, its IP
-    addresses possibly do not match addresses used in your
-    setup. This section demonstrates how these addresses can be
+    addresses might not match the addresses used in your
+    network. This section demonstrates how these addresses can be
     changed.</para>
 
   <para>
@@ -25,7 +25,7 @@
     editor.</para>
 
   <figure id="replace-network-template1">
-    <title>New firewall</title>
+    <title>New Firewall</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_1.png" />
   </figure>
 
@@ -34,35 +34,35 @@
     address of the interface of the firewall.</para>
 
   <figure id="replace-network-template2">
-    <title>Edit the network address</title>
+    <title>Edit the Network Address</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_10.png" />
   </figure>
 
   <para>Now we need to change the IP address used in the rules. To
-    do this, we create a new Network object with the correct address
-    and replace object net-192.168.1.0 in all rules with this new
+    do this, we create a new network object with the correct address
+    and replace the object net-192.168.1.0 in all rules with this new
     network object.</para>
 
-  <para>Use <guimenu>New Object</guimenu> menu to create Network object.</para>
+  <para>Use <guimenu>New Object</guimenu> menu to create the network object.</para>
 
   <figure id="replace-network-template3">
-    <title>Create new network object</title>
+    <title>Creating a New Network Object</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_20.png" />
   </figure>
 
-  <para>A new Network object is created with default name "New
+  <para>A new network object is created with default name "New
     Network" and IP address 0.0.0.0. </para>
 
   <figure id="replace-network-template4">
-    <title>New object</title>
+    <title>New Object</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_30.png" />
   </figure>
 
-  <para>Edit object name and address, then
+  <para>Edit the object name and address, then
     click <guibutton>Apply</guibutton>.</para>
 
   <figure id="replace-network-template5">
-    <title>Edit name and address</title>
+    <title>Edit Name and Address</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_40.png" />
   </figure>
 
@@ -70,7 +70,7 @@
     the search and replace dialog.</para>
 
   <figure id="replace-network-template6">
-    <title>Activate Find dialog</title>
+    <title>Activate Find Dialog</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_50.png" />
   </figure>
 
@@ -79,36 +79,36 @@
     object field in the search and replace dialog. </para>
 
   <figure id="replace-network-template7">
-    <title>Drag original object to the Find field</title>
+    <title>Drag the Original Object to the Find Field</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_60.png" />
   </figure>
 
-  <para>Locate the new Network object you just created and drag
+  <para>Locate the new network object you just created and drag
     and drop it to the right object field in the search and replace
     dialog.</para>
 
   <figure id="replace-network-template8">
-    <title>Drag new object to the Replace field</title>
+    <title>Drag the New Object to the Replace Field</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_70.png" />
   </figure>
 
   <para>Change the scope to <guimenuitem>Policy of all
       firewalls</guimenuitem> and click <guibutton>Replace
       all</guibutton>. If you have many firewalls in the tree and you
-    only want to replace in this one, use scope <guimenuitem>policy
+    only want to replace in this one, use the scope <guimenuitem>policy
       of the opened firewall</guimenuitem> instead. A pop-up dialog
     appears telling you how many replacements have been done.</para>
 
   <figure id="replace-network-template9">
-    <title>Drag new object to the Replace field</title>
+    <title>Drag the New Object to the Replace Field</title>
     <graphic scale="50" fileref="cookbook/change_template/images/pict_80.png" />
   </figure>
 
-  <para>Note how the search and replace function replaced object
+  <para>Note how the search and replace function replaced the object
     "net-192.168.1.0" with "internal net" in the NAT rules as
     well.</para>
 
-  <para>If the IP address used for DMZ network in this template
+  <para>If the IP address used for the DMZ network in this template
     does not match your configuration, you can change it using the
     same procedure.
   </para>

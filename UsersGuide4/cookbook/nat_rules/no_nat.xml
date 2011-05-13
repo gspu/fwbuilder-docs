@@ -1,5 +1,5 @@
         <sect2 id="no_nat_rules">
-        <title>"No NAT" rules</title>
+        <title>"No NAT" Rules</title>
 
         <para>
   
@@ -10,7 +10,7 @@
                 you need to use NAT to provide access to servers in
                 DMZ from outside, but no NAT is needed for access to
                 the same servers from internal network. Here is how it
-                looks like:
+                looks:
               
         </para>
   
@@ -64,7 +64,7 @@
         </table>
 
         <para>
-          Internal interface <emphasis>eth1</emphasis> also has IPv6 address
+          The internal interface <emphasis>eth1</emphasis> also has IPv6 address
           but it is not used in this example.
         </para>
   
@@ -113,7 +113,7 @@ no rdr proto {tcp udp icmp} from 172.16.22.0/24 to 192.168.2.0/24
 
         <para>
   
-                For PIX Firewall Builder generates "nat 0" rule:
+                For PIX, Firewall Builder generates "nat 0" rule:
               
   </para>
   

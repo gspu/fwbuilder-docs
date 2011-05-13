@@ -2,9 +2,9 @@
     <title>DD-WRT</title>
 
     <para>
-      To use fwbuilder
+      To use Firewall Builder
       with <ulink url="http://www.dd-wrt.com/">DD-WRT</ulink>,
-      configure firewall object with host OS <emphasis>"DD-WRT
+      configure the firewall object with host OS <emphasis>"DD-WRT
       (nvram)"</emphasis> or <emphasis>"DD-WRT (jffs)"</emphasis>.
       These two settings define the activation method used by the
       built-in policy installer, it can either store generated script
@@ -16,7 +16,7 @@
 
       <para>
         In this mode generated script is shorter and does not support
-        command line
+        command-line
         arguments <command>"start"</command>, <command>"stop"</command>, <command>"status"</command>. The
         script does not try to load iptables modules on the firewall
         but configures inetrface addresses, vlans, bridge ports and
@@ -53,13 +53,13 @@
       </para>
 
       <para>
-        When firewall is configured with host OS <emphasis>"DD-WRT
+        When the firewall is configured with host OS <emphasis>"DD-WRT
         (jffs)"</emphasis>, built-in policy installer copies generated
         script to the
         file <emphasis>"/jffs/firewall/firewall.fs"</emphasis> on the
         firewall and configures nvram
         variable <emphasis>"rc_firewall"</emphasis> to call this
-        script. In the older versions of fwbuilder you had to
+        script. In the older versions of Firewall Builder you had to
         configure the program manually to do these steps
         per <ulink url="http://www.dd-wrt.com/wiki/index.php/Firewall_Builder">in
         DD-WRT wiki</ulink>. Firewall Builder 4.0 implements this
@@ -67,7 +67,7 @@
       </para>
 
       <para>
-        Generated script is assembled from parts defined in configlets
+        The generated script is assembled from parts defined in configlets
         located
         in directory <emphasis>/usr/share/fwbuilder-4.0.0/configlets/dd-wrt-jffs/</emphasis>.
         You can modify it following instructions in
@@ -77,7 +77,7 @@
       <note>
         <para>
           Recent builds of DD-WRT (tested with v24 and v24SP1) seem to
-          disable JFFS for some reason. If you plan to use jffs method
+          disable JFFS for some reason. If you plan to use the jffs method
           of installing firewall script, check if the version you run
           supports it.
         </para>
