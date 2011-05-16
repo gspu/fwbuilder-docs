@@ -65,6 +65,7 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	mkdir -p html/cookbook/policy_rules/images
 	mkdir -p html/cookbook/nat_rules/images
 	mkdir -p html/cookbook/cluster/images
+	mkdir -p html/cookbook/traffic_shaping/images
 	mkdir -p html/cookbook/useful_tricks/images
 	mkdir -p html/troubleshooting/images
 	cp *.png html/
@@ -82,6 +83,7 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	cp cookbook/change_template/images/*.png html/cookbook/change_template/images
 	cp cookbook/policy_rules/images/*.png html/cookbook/policy_rules/images
 	cp cookbook/nat_rules/images/*.png html/cookbook/nat_rules/images
+	cp cookbook/traffic_shaping/images/*.png html/cookbook/traffic_shaping/images
 	cp cookbook/cluster/images/*.png html/cookbook/cluster/images
 	cp cookbook/useful_tricks/images/*.png html/cookbook/useful_tricks/images
 	cp troubleshooting/images/*.png html/troubleshooting/images
@@ -109,6 +111,7 @@ fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	mkdir -p fo/cookbook/policy_rules/images
 	mkdir -p fo/cookbook/nat_rules/images
 	mkdir -p fo/cookbook/cluster/images
+	mkdir -p fo/cookbook/traffic_shaping/images
 	mkdir -p fo/cookbook/useful_tricks/images
 	mkdir -p fo/troubleshooting/images
 	cp *.png fo/
@@ -125,6 +128,7 @@ fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	cp cookbook/change_template/images/*.png fo/cookbook/change_template/images
 	cp cookbook/policy_rules/images/*.png fo/cookbook/policy_rules/images
 	cp cookbook/nat_rules/images/*.png fo/cookbook/nat_rules/images
+	cp cookbook/traffic_shaping/images/*.png fo/cookbook/traffic_shaping/images
 	cp cookbook/cluster/images/*.png fo/cookbook/cluster/images
 	cp cookbook/useful_tricks/images/*.png fo/cookbook/useful_tricks/images
 	cp troubleshooting/images/*.png fo/troubleshooting/images
