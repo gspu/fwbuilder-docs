@@ -13,6 +13,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="policy_rules/policy-cookbook.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="nat_rules/nat-cookbook.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="cluster/cluster-cookbook.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="traffic_shaping/traffic-shaping-cookbook.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="useful_tricks/tricks.xml"/>
 
   </chapter>
