@@ -7,10 +7,10 @@
 
 
     <para>
-      In this example we work with two Linux machines running vrrpd
-      for failover that form High Availability (HA) firewall pair,
+      In this example, we work with two Linux machines running VRRPd
+      for failover that form a High Availability (HA) firewall pair,
       and another machine behind them that will use this pair as a
-      firewall. The set up is shown in figure
+      firewall. The set-up is shown in figure
       <xref linkend="cookbook_linux_vrrpd_cluster_1"/>. Machines <emphasis>linux-test-1</emphasis>
       and <emphasis>linux-test-2</emphasis> are the firewalls and
       <emphasis>linux-test-3</emphasis> is a workstation behind
@@ -25,15 +25,15 @@
     </para>
 
     <figure id="cookbook_linux_vrrpd_cluster_1">
-      <title>HA Configuration Using two Linux machines running vrrpd</title>
+      <title>HA Configuration Using Two Linux Machines Running VRRPd</title>
       <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-1.png"/>
     </figure>
 
     <note>
       <para>
         IPv6 addresses are not used in this recipe. Some interface
-        objects in the screenshots have ipv6 addresses because firewall
-        objects were "discovered" using snmp which finds ipv6
+        objects in the screenshots have IPv6 addresses because firewall
+        objects were "discovered" using SNMP, which finds IPv6
         addresses. You can disregard these addresses while working
         with examples in this chapter.
       </para>
@@ -46,17 +46,17 @@
         machines linux-test-1 and linux-test-2 run vrrpd daemon
         (<ulink url="http://off.net/~jme/vrrpd/"><citetitle>VRRPD home
             page</citetitle></ulink>) to create virtual IP address on both
-        subnets. VRRPd adds virtual IP address to the same interface
+        subnets. VRRPd adds a virtual IP address to the same interface
         eth0 or eth1. One of the daemons becomes master and takes
-        owbership of the virtual address by adding it to the
-        interface. It sends UDP datagram to the multicast address
+        ownership of the virtual address by adding it to the
+        interface. It sends a UDP datagram to the multicast address
         224.0.0.18 every second or so to declare that it is up and
         running and owns the address. If the machine it is running on
         shuts down for any reason, this stream of packets from the
-        master stops and after pre-determined timeout the second
-        machine becomes master and assumes the virtual IP address.
+        master stops and after a predetermined timeout, the second
+        machine becomes the master and assumes the virtual IP address.
         VRRP daemon also replaces MAC address of the interface with a
-        virtual MAC address so that whenvirtual IP address is
+        virtual MAC address so that when the virtual IP address is
         transferred from one machine to another, all hosts on the
         corresponding subnet do not have to update their ARP tables
         because the MAC address stays the same.
@@ -64,7 +64,7 @@
 
       <para>
         VRRPd is very easy to configure. It does not have any
-        configuration file, all configuration is provided by
+        configuration file; all configuration is provided by
         parameters on the command line. Here is the command line
         for the machine linux-test-1:
       </para>
@@ -75,7 +75,7 @@ vrrpd -D -i eth1 -v 2 -a none -p 110 10.1.1.254
       </programlisting>
 
       <para>
-        The same for the machine linux-test-2:
+        Here is the same for the machine linux-test-2:
       </para>
 
       <programlisting>
@@ -85,15 +85,15 @@ vrrpd -D -i eth1 -v 2 -a none -p 120 10.1.1.254
 
 
       <para>
-        Parameter "-D" makes vrrpd become a daemon, "-i" tells it
-        which interface it should work with, "-v" defines VRID
+        The parameter "-D" makes VRRPd become a daemon, "-i" tells it
+        which interface it should work with, "-v" defines the VRID
         (Virtual Router Identifier), "-a" is used to set up
-        authentication (we use none for this simple test), "-p"
+        authentication (we used none for this simple test), "-p"
         configures priority and the last parameter is the virtual
-        address this instance of vrrpd should manage. VRID used on our
+        address this instance of VRRPd should manage. The VRID used on our
         two subnets should be different. Here I make the priority of
         one machine higher than the other to ensure it becomes master
-        when it comes online. This is it, once all instances of vrrpd
+        when it comes online. This is it: once all instances of VRRPd
         start on both machines, they configure IP addresses as
         follows (addresses added by vrrpd are highlighted in red):
       </para>
@@ -123,61 +123,61 @@ root@linux-test-2:~# ip -4  addr ls
 
       <note>
         <para>
-          Addresses added by vrrpd have netmask /32, while normal
-          netmask in this setup for all interfaces is /24.
+          Addresses added by VRRPd have a netmask of /32, while the normal
+          netmask in this set-up for all interfaces is /24.
         </para>
       </note>
 
 
       <para>
         At this point, we can test our configuration by pinging
-        virtual addresses on both sides. Then kill vrrpd on
+        virtual addresses on both sides. Then kill VRRPd on
         linux-test-2 and observe virtual addresses being added on the
-        other machine. Test ping should register few seconds of
+        other machine. The test ping should register a few seconds of
         downtime and then just keep going.
       </para>
 
     </sect3>
 
     <sect3>
-      <title>Firewall and Cluster objects for the HA firewall
-        configuration with VRRPd</title>
+      <title>Firewall and Cluster Objects for the HA Firewall
+        Configuration with VRRPd</title>
 
       <para>
         Now we can create objects in Firewall Builder to represent
         this cluster. We start with two firewall objects configured
-        with ip addresses but no policy or NAT rules. Interfaces,
+        with IP addresses but no policy or NAT rules. Interfaces and 
         their addresses and netmasks are shown on
         <xref linkend="cookbook_linux_vrrpd_cluster_2"/>:
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_2">
-        <title>Interfaces and addresses of the cluster members</title>
+        <title>Interfaces and Addresses of the Cluster Members</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-2.png"/>
       </figure>
 
       <para>
-        Now we can create cluster. Use the usual "New object" menu and
-        choose object type "Cluster":
+        Now we can create the cluster. Use the usual "New object" menu and
+        choose the object type "Cluster":
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_3">
-        <title>Creating new cluster object</title>
+        <title>Creating a New Cluster Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-3.png"/>
       </figure>
 
       <para>
-        This starts wizard that helps you create new cluster
+        This starts the wizard that helps you create new cluster
         object. First, choose which firewall objects will be used for
         the cluster. Our test file is small and has only two firewall
-        objects so the choice is obvious. In more complext
-        configurations you may have many firewall objects, not all of
+        objects so the choice is obvious. In more complex
+        configurations, you may have many firewall objects, not all of
         which need to be used in cluster
         configurations. <xref linkend="cookbook_linux_vrrpd_cluster_4"/>
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_4">
-        <title>First page of the new cluster wizard</title>
+        <title>First Page of the New Cluster Wizard</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-4.png"/>
       </figure>
 
@@ -194,50 +194,50 @@ root@linux-test-2:~# ip -4  addr ls
         On the next page
         <xref linkend="cookbook_linux_vrrpd_cluster_5"/> of the
         wizard we configure the mapping between cluster interfaces
-        and interfaces of the member firewalls. In this simple setup
+        and interfaces of the member firewalls. In this simple set-up
         the mapping is direct: interface "eth0" of the cluster
         represents interfaces "eth0" of both members and the same
         goes for "eth1" and loopback. Things may be more complicated
-        if failover protocol used for the cluster creates its own
+        if the failover protocol used for the cluster creates its own
         interfaces, such as CARP on OpenBSD. In that case the name
         of the interface that is configured at the top of the wizard
         page would be "carp0" and we would map it to interfaces of
         the members, say "en0" on both, using controls at the bottom
-        of the wizard page. However in the case of VRRP, heartbeat
+        of the wizard page. However in the case of VRRP,the heartbeat
         and keepalived on Linux the name of the cluster interface
-        must match the name of the member interfaces, that is, in
+        must match the name of the member interfaces; that is, in
         our case we create cluster interfaces "eth0" and "eth1". The
-        wizard does this automatically, it finds interfaces with the
+        wizard does this automatically: it finds interfaces with the
         same name in both members and suggests cluster interfaces
         with the same name, mapped to those interfaces of the member
         firewalls. Feel free to edit if this guess was incorrect for
-        your setup. The "+" and "x" buttons in the top corners of
+        your set-up. The "+" and "x" buttons in the top corners of
         the page allow you to add and remove cluster interfaces. See
         <xref linkend="linux_cluster_overview"/> for more information on the
-        cluster inetrfaces in Firewall Builder.
+        cluster interfaces in Firewall Builder.
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_5">
-        <title>Configuring cluster interfaces</title>
+        <title>Configuring Cluster Interfaces</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-5.png"/>
       </figure>
 
 
       <para>
-        Next page <xref linkend="cookbook_linux_vrrpd_cluster_6"/> of the
+        The next page <xref linkend="cookbook_linux_vrrpd_cluster_6"/> of the
         wizard is used to set up virtual IP addresses and failover
         protocols for the cluster interfaces. Most protocols require
-        IP address which you can add by clicking "Add address" button.
-        The only exception at this time is Cisco PIX where HA pair
+        an IP address, which you can add by clicking the "Add address" button.
+        The only exception at this time is Cisco PIX, where the HA pair
         uses IP addresses of the master instead of using special
-        virtual addresses. In that case the part of the wizard page
+        virtual addresses. In that case, the part of the wizard page
         where you configure IP addresses will be disabled.
       </para>
 
       <para>
-        Choose failover protocol using drop-down list. Among other
+        Choose the failover protocol using the drop-down list. Among other
         "real" protocols list includes item "None". Use this item if
-        you do not want fwbuilder to add automatic policy rules to the
+        you do not want Firewall Builder to add automatic policy rules to the
         generated configuration and plan to do this yourself. Also use
         this "protocol" to configure cluster loopback interface. In
         any case cluster interfaces must be configured with
@@ -246,7 +246,7 @@ root@linux-test-2:~# ip -4  addr ls
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_6">
-        <title>Configuring virtual IP addresses of cluster interfaces</title>
+        <title>Configuring Virtual IP Addresses of Cluster Interfaces</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-6.png"/>
       </figure>
 
@@ -254,9 +254,9 @@ root@linux-test-2:~# ip -4  addr ls
         <para>
           The address and netmask pair of the cluster interface must
           be configured exactly the same as done by the cluster
-          software. In the case of vrrpd, the netmask is /32 (see
+          software. In the case of VRRPd, the netmask is /32 (see
           the output of "ip addr show" command above where it is
-          visible that the address added by vrrpd comes with netmask
+          visible that the address added by VRRPd comes with netmask
           /32). We use the same netmask in the address configuration
           in cluster interfaces eth0 and eth1. See
           <xref linkend="cookbook_managing_cluster_addresses"/> for the
@@ -265,27 +265,27 @@ root@linux-test-2:~# ip -4  addr ls
       </note>
 
       <para>
-        Final page of the
+        The final page of the
         wizard <xref linkend="cookbook_linux_vrrpd_cluster_7"/> allows you to
-        choose to copy Policy and NAT rules from one of the members to
-        the new cluster object.  This can be useful if you used to
-        manage a cluster with fwbuilder by maitaining two firewall
+        choose to copy policy and NAT rules from one of the members to
+        the new cluster object. This can be useful if you used to
+        manage a cluster with Firewall Builder by maitaining two firewall
         objects manually or with the aid of external scripts. If you
-        decide to use this option, fwbuilder GUI copies policy and NAT
+        decide to use this option, the Firewall Builder GUI copies policy and NAT
         rules from the member you choose to the new cluster object,
         then creates backup copies of both member firewall objects
         with the name with suffix "-bak" and deletes all Policy and
         NAT rules in the rule sets of the member firewall objects it
         uses for the cluster. This way, you can always return to your
-        old setup using these backup objects and at the same time, new
+        old set-up using these backup objects and at the same time, new
         cluster configuration has all the rules in the cluster object.
       </para>
 
       <note>
         <para>
-          This is important because if member firewall object has Policy
+          This is important because if a member firewall object has a policy
           or NAT rule set with the same name as the one in the cluster,
-          then fwbuilder will use rules from the rule set of the member,
+          then Firewall Builder will use rules from the rule set of the member,
           thus overriding all the rules in the cluster's rule set with
           the same name. This allows you to create complex
           configurations where majority of the rules are defined and
@@ -296,55 +296,55 @@ root@linux-test-2:~# ip -4  addr ls
       </note>
 
       <figure id="cookbook_linux_vrrpd_cluster_7">
-        <title>Final page of the new cluster wizard</title>
+        <title>Final Page of the New Cluster Wizard</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-7.png"/>
       </figure>
 
       <para>
-        Screenshot <xref linkend="cookbook_linux_vrrpd_cluster_8"/>
-        demonstrates newly created cluster object.
+        The following screenshot <xref linkend="cookbook_linux_vrrpd_cluster_8"/>
+        demonstrates the newly created cluster object.
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_8">
-        <title>Cluster object</title>
+        <title>Cluster Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-8.png"/>
       </figure>
 
 
       <para>
-        Each cluster interface has additional child object (located
+        Each cluster interface has an additional child object (located
         underneath it in the tree) with the
         name <emphasis>linux-test-1:eth0:members</emphasis> and
         <emphasis>linux-test-1:eth1:members</emphasis>. These objects
-        are failover groups, this is where the failover protocol and
+        are failover groups; this is where the failover protocol and
         mapping between the cluster and member interfaces is
         configured. Screenshot <xref linkend="cookbook_linux_vrrpd_cluster_9"/>
         highlights failover group that belongs to interface eth0:
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_9">
-        <title>Cluster Failover Group in the object tree</title>
+        <title>Cluster Failover Group in the Object Tree</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-9.png"/>
       </figure>
 
       <para>
-        Failover group is configured with the name, protocol and
+        The failover group is configured with the name, protocol, and
         interfaces of the member firewalls that correspond to the
-        cluster interface this failover group belongs to. Failover group
+        cluster interface this failover group belongs to. The failover group
         object selected on <xref linkend="cookbook_linux_vrrpd_cluster_9"/>
         looks like this:
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_10">
-        <title>Cluster Failover Group object</title>
+        <title>Cluster Failover Group Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-10.png"/>
       </figure>
 
 
       <para>
-        Failover group for the interface eth1 should look the same,
+        The failover group for the interface eth1 should look the same,
         except for using interfaces eth1 of the member firewalls. Use
-        button <emphasis>Manage Members</emphasis> to open a dialog
+        the button <emphasis>Manage Members</emphasis> to open a dialog
         that lets you add and remove member firewall interfaces in the
         failover group.
       </para>
@@ -354,51 +354,51 @@ root@linux-test-2:~# ip -4  addr ls
         Another new type of object that appears in the clusters is
         State Synchronization group
         <xref linkend="cookbook_linux_vrrpd_cluster_11"/>. This group object
-        defines state synchronization protocol used for the cluster
+        defines the state synchronization protocol to be used for the cluster
         and interfaces of the member firewalls where this protocol
         runs. In the case of Linux firewalls
-        only <emphasis>conntrack</emphasis> protocol is available.
+        only the <emphasis>conntrack</emphasis> protocol is available.
       </para>
 
       <note>
         <para>
           The purpose of this new object is to provide configuration
-          parameters to let fwbuilder generate policy rules to
+          parameters to let Firewall Builder generate policy rules to
           permit packets of this protocol. In some other cases, such
           as with PF on OpenBSD where state synchronization is done
-          via <emphasis>pfsync</emphasis> interface, fwbuilder can
+          via <emphasis>pfsync</emphasis> interface, Firewall Builder can
           generate actual configuration for the protocol
-          itself. However at this time fwbuilder does not generate
-          configuration or command line for the conntrackd daemon.
+          itself. However at this time Firewall Builder does not generate
+          configuration or a command line for the conntrackd daemon.
         </para>
       </note>
 
       <figure id="cookbook_linux_vrrpd_cluster_11">
-        <title>State Synchronization Group in the object tree</title>
+        <title>State Synchronization Group in the Object Tree</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-11.png"/>
       </figure>
 
       <para>
-        Just like Failover Group, State Synchronization Group object is
-        configured with the name, protocol and member interfaces:
+        Just like as for failover groups, a state synchronization group object is
+        configured with the name, protocol, and member interfaces:
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_12">
-        <title>State Synchronization Group object</title>
+        <title>State Synchronization Group Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-12.png"/>
       </figure>
 
       <para>
         If you do not use <emphasis>conntrackd</emphasis> in your
-        cluster setup and do not need iptables rules to permit its
+        cluster set-up and do not need iptables rules to permit its
         packets in the generated script, then just do not configure
-        State Synchronization group object with inetrfaces of the
-        member firewalls. Such empty State Synchronization group
+        state synchronization group object with interfaces of the
+        member firewalls. Such an empty state synchronization group
         object will look like this when opened in the editor:
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_12-1">
-        <title>Empty State Synchronization Group object</title>
+        <title>Empty State Synchronization Group Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-cluster-empty-state-sync-group.png"/>
       </figure>
 
@@ -411,55 +411,55 @@ root@linux-test-2:~# ip -4  addr ls
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_13">
-        <title>State Synchronization protocol parameters</title>
+        <title>State Synchronization Protocol Parameters</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-13.png"/>
       </figure>
 
       <para>
         Firewall Builder uses this information to generate policy
-        rules to permit conntrack packets.  See examples of the output
+        rules to permit conntrack packets. See examples of the output
         generated by the policy compiler below.
       </para>
 
     </sect3>
 
     <sect3 id="policy-and-nat-rules-for-the-cluster">
-      <title>Policy and NAT rules for the cluster</title>
+      <title>Policy and NAT Rules for the Cluster</title>
 
       <para>
-        Now we can move on to building cluster policy and NAT
-        rules. In the examples below I am using a new feature in
+        Now we can move on to building a cluster policy and NAT
+        rules. In the examples below, I am using a feature introduced in
         Firewall Builder 4.0 that lets you quickly compile single rule
         and see the result in the bottom panel of the GUI
-        immediately. To do this, click right mouse button anywhere in
+        immediately. To do this, right-click anywhere in
         the rule to open context menu and use item "Compile" or
-        highlight the rule and hit keyboard key
-        "X". <xref linkend="cookbook_linux_vrrpd_cluster_14"/>
+        highlight the rule and press the "X" key.
+       <xref linkend="cookbook_linux_vrrpd_cluster_14"/>
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_14">
-        <title>Compiling single rule</title>
+        <title>Compiling a Single Rule</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-14.png"/>
       </figure>
 
       <para>
-        <xref linkend="cookbook_linux_vrrpd_cluster_15"/> demonstrates minimal
+        <xref linkend="cookbook_linux_vrrpd_cluster_15"/> shows a minimal
         policy rule set for the cluster that demonstrates general
-        principles used by fwbuilder to generate configurations for
+        principles used by Firewall Builder to generate configurations for
         the member firewalls.
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_15">
-        <title>Simple policy for the cluster, also showing generated
-          iptables commands for the anti-spoofing rule</title>
+        <title>Simple Policy for the Cluster, Also Showing the Generated
+          iptables Commands for the Anti-Spoofing Rule</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-15.png"/>
       </figure>
 
 
       <para>
-        Lets inspect policy rules shown in
+        Let's inspect the policy rules shown in
         <xref linkend="cookbook_linux_vrrpd_cluster_15"/>. All rules are built
-        with global option "Assume firewall is part of any" turned off
+        with the global option "Assume firewall is part of any" turned off
         in both linux-test-1 and linux-test-2 firewalls.
       </para>
 
@@ -473,9 +473,9 @@ root@linux-test-2:~# ip -4  addr ls
             the member firewall object. The interface object in
             "Interface" element of this rule is the one that belongs to
             the cluster rather than its members. All other aspects of
-            the rule are the same. Fwbuilder generates iptables commands
-            for this rule using ip addresses of the cluster (10.3.14.150
-            and 10.1.1.254 in our example) and addresses of the member
+            the rule are the same. Firewall Builder generates iptables commands
+            for this rule using the IP addresses of the cluster (10.3.14.150
+            and 10.1.1.254 in our example) and the addresses of the member
             firewall it compiles for, in this case 10.3.14.108 and
             10.1.1.1 for linux-test-1 and 10.3.14.109 and 10.1.1.2 for
             linux-test-2. This is clearly visible in the generated
@@ -489,7 +489,7 @@ root@linux-test-2:~# ip -4  addr ls
         </listitem>
 
         <listitem>
-          <para>Rules 1 and 2: since vrrpd uses multicast to
+          <para>Rules 1 and 2: since VRRPd uses multicast to
             communicate between daemons running on the member firewalls,
             it needs IGMP as well. Rules 1 and 2 permit packets sent to
             the standard multicast address registered for IGMP in both
@@ -499,8 +499,8 @@ root@linux-test-2:~# ip -4  addr ls
             and also match IP service object "IGMP", also available in
             the Standard objects library.  Since this service object
             matches protocol number 2 and IP option
-            "router-alert". Unfortunately only the very latest Linux
-            distributions ship iptables module ipv4options that is
+            "router-alert". Unfortunately, only the very latest Linux
+            distributions ship the iptables module ipv4options 
             needed to match IP options so I did not put the service
             object in the rule. Here is how generated iptables script
             look like when "Service" field on the rules 1 and 2 is
@@ -547,12 +547,12 @@ $IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW 
 
         <listitem>
           <para>
-            The rest of the rules are fairly usual and serve to
+            The rest of the rules are fairly straightforward and serve to
             illustrate that building a policy for the cluster is no
             different than building the policy for a regular
             standalone firewall. Rules 3 and 4 permit access from the
             firewall to internal network and the other way
-            around. Generated iptables commands use INPUT and OUTPUT
+            around. The generated iptables commands use INPUT and OUTPUT
             chains and look like this:
           </para>
           
@@ -578,7 +578,7 @@ $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
         <listitem>
           <para>
             Rule 5 permits outbound access from the internal net to the
-            Internet and uses chain FORWARD. Generated iptables code for
+            Internet and uses chain FORWARD. The generated iptables code for
             this rule is no different from that produced for a regular
             standalone firewall.
           </para>
@@ -589,7 +589,7 @@ $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
       <para>
         Note that we don't need to add explicit rule to permit VRRP
         and conntrackd packets to the policy. This is because
-        fwbuilder adds these rules automatically. Here is how they
+        Firewall Builder adds these rules automatically. Here is how they
         look like in the generated iptables script for
         the <emphasis>linux-test-1</emphasis> firewall:
       </para>
@@ -618,17 +618,17 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
 
       <para>
         Rules for conntrack are associated with ineterface eth1
-        because the State Synchronization group is configured with
+        because the state synchronization group is configured with
         interfaces eth1 of the member firewalls (<xref linkend="cookbook_linux_vrrpd_cluster_12"/>).
       </para>
 
       <para>
-        Now lets look at the NAT rule built for this cluster
+        Now let's look at the NAT rule built for this cluster
         <xref linkend="cookbook_linux_vrrpd_cluster_16"/>
       </para>
 
       <figure id="cookbook_linux_vrrpd_cluster_16">
-        <title>NAT rule for the cluster</title>
+        <title>NAT Rule for the Cluster</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-16.png"/>
       </figure>
 
@@ -636,7 +636,7 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
       <para>
         Interface <emphasis>eth0</emphasis> used in the "Translated
         Source" element of this rule is the one that belongs to the
-        cluster, not member firewalls. Generated iptables commands use
+        cluster, not member firewalls. The generated iptables commands use
         cluster interface that belongs to this interface for the
         translation. Otherwise this is very common SNAT rule.
       </para>
@@ -644,20 +644,20 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
     </sect3>
 
     <sect3 id="cookbook_managing_cluster_addresses">
-      <title>Managing IP addresses of the interfaces in cluster
-        setup</title>
+      <title>Managing the IP Addresses of the Interfaces in the Cluster
+        Set-Up</title>
 
       <para>
         At the beginning of this chapter I mentioned that it is
-        important to create ip address of the cluster interface with
+        important to create the IP address of the cluster interface with
         the same netmask it has on the real firewall machine. When
-        virtual ip address is managed by vrrpd, the netmask is /32
+        virtual IP address is managed by VRRPd, the netmask is /32
         (See <xref linkend="cookbook_linux_vrrpd_cluster_6"/>). Here is what
         happens.
       </para>
 
       <para>
-        As before in the previous versions of fwbuilder, generated
+        The generated
         script can manage IP addresses of interfaces of the
         firewall. This is optional and is controlled by checkboxes in
         the "Script" tab of the firewall object "advanced settings"
@@ -671,8 +671,8 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
 
 
       <para>
-        When checkbox "Configure interfaces of the firewall machine"
-        is turned on, fwbuilder adds the following lines to the
+        When the checkbox "Configure interfaces of the firewall machine"
+        is turned on, Firewall Builder adds the following lines to the
         generated script:
       </para>
 
@@ -690,7 +690,7 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
         Here calls to
         the <emphasis>update_addresses_of_interface</emphasis> shell
         function try to bring ip addresses of the firewall
-        interfaces in sync with their configuration in fwbuilder. IP
+        interfaces in sync with their configuration in Firewall Builder. IP
         addresses that are configured in fwbuilder but are not
         present on the firewall will be added and those found on the
         firewall but are not configured in fwbuilder will be
@@ -712,14 +712,14 @@ update_addresses_of_interface "eth1 fe80::2c:29ff:fe1e:dcb4/64 10.1.1.1/24" "10.
 
       <para>
         When the script adds and removes ip addresses of the firewall
-        interfaces, it should skip those managed by vrrpd. VRRPd (and
+        interfaces, it should skip those managed by VRRPd. VRRPd (and
         probably other HA software as well) does not seem to monitor
         the state of the virtual addresses it adds to interfaces,
         assuming that it is the only agent that does so. If fwbuilder
-        script were to remove virtual addresses while vrrpd is still
+        script were to remove virtual addresses while VRRPd is still
         working, the cluster operation would break until vrrpd would
         add them back, which only happens when it restarts or failover
-        occurrs. So the fwbuilder script has to know to avoid these
+        occurrs. So the Firewall Builder script has to know to avoid these
         addresses and not remove them. The second argument in the call
         to the shell
         function <emphasis>update_addresses_of_interface</emphasis>

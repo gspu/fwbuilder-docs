@@ -1,28 +1,36 @@
     <sect2 id="tag-rules">
-      <title>Tagging packets</title>
+      <title>Tagging Packets</title>
 
       <para>
-        Tagging packets can be a very useful strategy that allows you to
+        Tagging packets (or packet marking) can be a very useful option that allows you to
         match a packet at one point in the rule set but act on it
-        later on. This can be combined with rule-branching for even
-        more flexibility. Packet tagging is only supported in Firewall
-        Builder for the firewall platforms that can do it; these are
-        iptables and pf. Tagging sometimes can also be used to
+        later on. This option can be combined with rule actions
+        or rule branching for even
+        more flexibility. Tagging can also be used to
         interact with packet processing not intended to enforce
-        security policy, such as traffic shaping or QoS. Packet tags
-        assigned by iptables can later be used for traffic shaping
-        with the Linux utility "tc".
+        security policies, such as traffic shaping or QoS. Packet tags
+        assigned by <productname>iptables</productname> can later be used for traffic shaping
+        with the Linux utility "tc". 
       </para> 
-
+      
       <para>
-        In Firewall Builder, tagging of packets is done using a special
-        service object type. First, you create an object of this type
-        and configure a tag number or a string. Once this is done, you
-        can use this object to match tagged packets by just dropping
-        the object to the "Service" column of a policy rule. To assign
-        tag to a packet you choose action "Mark" (iptables) or "Tag"
-        (PF) and drop the same tag service object to a well in the
-        action options dialog. Let's use an example given in the "A
+        Not every target platform supports
+        packet tagging; see <xref linkend="options"/> for details
+        on platform support for tagging. 
+      </para>
+      
+      <para>
+        In Firewall Builder, packet tagging is accomplished using a special
+        service object type called <guilabel>TagService</guilabel>. 
+        First, you create a TagService object, 
+        specifying a tag number or a string. To
+        use this object to match tagged packets, just drop
+        the object into the 
+        <guilabel>Service</guilabel> rule element in a policy rule. To mark
+        a packet with the tag, select the Tag option from the 
+        <guilabel>Options</guilabel> context menu and
+        drop the TagService object into the well in the
+        <guilabel>Options</guilabel> dialog. Let's use an example given in the "A
         Practical Guide to Linux Traffic Control"
         (http://blog.edseek.com/~jasonb/articles/traffic_shaping/index.html)
         to illustrate this. They show how packets can be tagged using
@@ -48,7 +56,7 @@ iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
       </para>
 
       <figure id="tag-service-1">
-        <title>Simple Tag Service</title>
+        <title>Simple TagService Object</title>
         <graphic scale="50" fileref="cookbook/policy_rules/images/tag-service-1.png" />
       </figure>
 

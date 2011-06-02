@@ -10,80 +10,70 @@
           </figure>
 
           <para>
-            Rules can be added, removed, or moved around in the
-            policy using commands in a pop-up menu. The menu appears if
-            you right-click the rule element "Number" (the very first rule
-            element, counting from the left).
-            <xref linkend="editing-policy1" /> illustrates this
-            menu.
+            Rules can be added, removed, or moved around in the rule set using 
+            the <guimenu>Rules</guimenu> menu or the
+            context menu shown in <xref linkend="editing-policy1" />. 
+            To open the context menu, right-click 
+            the rule number in the (the first column of the rule). 
           </para>
 
           <para>
-            This menu allows you to add new rules above or below the
+            Using these functions, you can add new rules above or below the
             currently selected rule in the policy, remove rules, move
-            the current rule up or down, plus the standard
-            <guimenuitem>Copy</guimenuitem>/<guimenuitem>Paste</guimenuitem>
-            operations done on policy rules.
+            the current rule up or down, or use standard copy and paste 
+            operations on policy rules. Functions are appied to all selected
+            rules.
           </para>
 
-          <para>
-            Functions of this pop-up menu are also duplicated in the
-            <guimenu>Rules</guimenu> menu.
-          </para>
-
-          <para>
-            Items in this menu act on selected rules even when
-            several rules are selected.
-          </para>
-
-          <para>This menu provides items for the following functions:</para>
+          <para>The following rule-related functions are available in the 
+            <guimenu>Rules</guimenu> menu and the associated right-click context menu:</para>
 
           <para>
             <itemizedlist spacing="compact">
               <listitem>
                 <para>New Group</para>
 
-                <para>Contiguous rules can be grouped together for
+                <para>Groups contiguous rules together for
                 easier handling. A group of rules can be collapsed in
-                the GUI so that only the group name appears. This can
-                make it easier to deal with rulesets with many
-                rules. The <guimenu>New Group</guimenu> command opens
-                a dialog that lets you create and name a new
-                group. The current rule is automatically added to the
-                group. <xref linkend="using-rule-groups" /> has more
-                information on rule groups.</para>
+                the display so that only the group name appears. This can
+                make it easier to work with rule sets that have many
+                rules. The <guimenuitem>New Group</guimenuitem> command opens
+                a dialog that lets you create and name the new
+                group. The currently selected rule is automatically added to the
+                group. <xref linkend="using-rule-groups" /> provides 
+                information on working with rule groups.</para>
               </listitem>
 
               <listitem>
                 <para>Add to the group</para>
 
-                <para>The selection only appears if you right-click 
+                <para>This context menu selection appears only if you right-click 
                   a rule directly above or below an existing group. If
                 selected, the current rule is added to the indicated
-                group. <xref linkend="using-rule-groups" /> has more
-                information on rule groups.</para>
+                group. <xref linkend="using-rule-groups" /> provides 
+                  information on working with rule groups.</para>
               </listitem>
 
               <listitem>
                 <para>Remove from the group</para>
 
-                <para>The selection only appears if you right-click
+                <para>The context menu selection appears only if you right-click
                 a rule that is currently in a group. This selection
                 removes the rule from the group. If you remove a rule
                 from the middle of a group, the group splits into two
-                groups, one above and one below the current rule. Both
+                groups, one above and one below the selected rule. Both
                 groups have the same name as the original
-                group. <xref linkend="using-rule-groups" /> has more
-                information on rule groups.</para>
+                group. <xref linkend="using-rule-groups" /> provides 
+                  information on working with rule groups.</para>
               </listitem>
               
               <listitem>
                 <para>Change Color</para>
 
                 <para>
-                  This menu item allows you to change the color of the
-                  rule background. This is a good way to group rules
-                  visually by function.
+                  This menu item allows you to assign a color to the
+                  rule background. Assigning colors is a good way to group rules
+                  visually according to function.
                 </para>
               </listitem>
 
@@ -91,7 +81,7 @@
                 <para>Insert Rule</para>
 
                 <para>
-                  Inserts new rule above current one.
+                  Inserts new rule above the current one.
                 </para>
               </listitem>
 
@@ -99,7 +89,7 @@
                 <para>Add Rule Below</para>
 
                 <para>
-                  Appends new rule below the current one.
+                  Inserts a new rule below the current one.
                 </para>
               </listitem>
 
@@ -107,7 +97,7 @@
                 <para>Remove Rule</para>
 
                 <para>
-                  Removes rule from the rule set.
+                  Removes the selected rule from the rule set.
                 </para>
               </listitem>
 
@@ -115,7 +105,7 @@
                 <para>Move Rule Up</para>
 
                 <para>
-                  Moves current rule up by one position. Keyboard
+                  Moves the selected rule up by one position. The keyboard
                   shortcut is "Ctrl-PgUp" on Linux and Windows or
                   "Cmd-PgUp" on Macintosh. If you select several
                   consecutive rules and use this menu item, all
@@ -130,7 +120,7 @@
                   Moves current rule down by one position. Keyboard
                   shortcut is "Ctrl-PgDown" on Linux and Windows or
                   "Cmd-PgDown" on Macintosh. If you select several
-                  consequtive rules and use this menu item, all
+                  consecutive rules and use this menu item, all
                   selected rules move together.
                 </para>
               </listitem>
@@ -139,7 +129,7 @@
                 <para>Copy Rule</para>
 
                 <para>
-                  Copies current rule to the clipboard.
+                  Copies the current rule to the clipboard.
                 </para>
               </listitem>
 
@@ -156,7 +146,7 @@
                 <para>Paste Rule Above</para>
 
                 <para>
-                  Inserts rule from the clipboard above the current
+                  Inserts the rule from the clipboard above the current
                   one.
                 </para>
               </listitem>
@@ -165,7 +155,7 @@
                 <para>Paste Rule Below</para>
 
                 <para>
-                  Inserts rule from the clipboard below the current
+                  Inserts the rule from the clipboard below the current
                   one.
                 </para>
               </listitem>
@@ -174,7 +164,7 @@
                 <para>Disable Rule</para>
 
                 <para>
-                  Marks rule as disabled, this makes policy compiler
+                  Marks the rule as disabled; this makes the policy compiler
                   ignore it.
                 </para>
               </listitem>
@@ -182,7 +172,7 @@
               <listitem>
                 <para>Compile rule</para>
 
-                <para>This menu item compiles selected rule and shows
+                <para>This menu item compiles the selected rule and shows
                 the result in the editor panel at the bottom of the
                 main window.</para>
               </listitem>
@@ -193,24 +183,23 @@
         </sect2>
 
         <sect2>
-          <title>Adding, Removing, and Modifying Objects in Policy and NAT
+          <title>Adding, Removing, and Modifying Objects in Policies and NAT
           Rules</title>
 
-          <para>To add objects to the policy or NAT rule you can either drag
-          them from the tree and drop them into the corresponding rule
-          element, or use the
-          <guimenuitem>Copy</guimenuitem>/<guimenuitem>Paste</guimenuitem>
-          operation. Objects can be copied into clipboard both from the tree
-          and from another policy rule; in both cases use the pop-up menu or
-          main menu <guimenu>Edit</guimenu>.</para>
+          <para>To add objects to a policy or NAT rule, you can either drag
+          the objects from the obect tree and drop them into the corresponding rule
+          element, or use a copy and paste operation.
+          Objects can be copied into clipboard from the object tree
+          or from another policy rule; in either case, use the right-click context menu or
+          the main menu <guimenu>Edit</guimenu> option.</para>
 
-          <para>Clicking the right mouse button when the cursor is over the rule
+          <para>Right-clicking when the cursor is over the rule
           elements "Source","Destination" or "Service" opens a
           context-sensitive pop-up menu ( <xref linkend="editing-policy2" />
-          ). The same pop-up menu appears when you do that over the "Original
+          ). The same context menu appears when you hover the mouse over the "Original
           Source", "Original Destination", "Original Service", "Translated
           Source", "Translated Destination" and "Translated Service" rule
-          elements in the NAT rule.</para>
+          elements in a NAT rule.</para>
 
           <figure id="editing-policy2">
             <title>Modifying Objects in a Policy Rule</title>
@@ -296,113 +285,93 @@
         </sect2>
 
         <sect2>
-          <title>Changing rule action</title>
+          <title>Changing the Rule Action</title>
 
-          <para>Clicking the right mouse button when the cursor is over the
-          rule element <guilabel>Action</guilabel> opens a context-sensitive pop-up menu ( <xref
-          linkend="editing-policy3" /> ).</para>
+          <para>To change a rule action, right-click in the <guilabel>Action</guilabel> field 
+            and select the new action from the context menu ( <xref
+              linkend="editing-policy3" /> ). Depending on the action selected,
+            the <guilabel>Action</guilabel> dialog may open for you to specify parameter settings. 
+          </para>
 
           <figure id="editing-policy3">
-            <title>Modifying the Action of the Policy Rule</title>
+            <title>Modifying the Action of a Policy Rule</title>
             <graphic scale="50" fileref="firewall_policies/images/editing_policy3.png" />  
           </figure>
 
-          <para>The options for this menu are described in
+          <para>Rule actions are described in detail in
           <xref linkend="action" />.</para>
 
         </sect2>
 
         <sect2 id="changing_direction">
-          <title>Changing rule direction</title>
+          <title>Changing Rule Direction</title>
 
-          <para>Clicking the right mouse button when the cursor is
-          over the rule element <guilabel>Direction</guilabel> opens a
-          context-sensitive pop-up menu (
-          <xref linkend="editing-policy4" /> ).</para>
+          <para>To change the traffic direction for a rule, right-click 
+            in the <guilabel>Direction</guilabel> field and select the new direction
+            from the context menu (<xref linkend="editing-policy4" />).
+           </para>
 
           <figure id="editing-policy4">
-            <title>Modifying the Direction of the Policy Rule</title>
+            <title>Modifying the Direction of a Policy Rule</title>
             <graphic scale="50" fileref="firewall_policies/images/editing_policy4.png" />
           </figure>
-
-          <para>This menu provides items for the following functions:</para>
-
-          <itemizedlist spacing="compact">
-            <listitem>
-              <para>Inbound:</para>
-
-              <para>The rule matches packets entering the firewall</para>
-            </listitem>
-
-            <listitem>
-              <para>Outbound:</para>
-
-              <para>The rule matches packets exiting the firewall</para>
-            </listitem>
-
-            <listitem>
-              <para>Both:</para>
-
-              <para>The rule matches both entering and exiting packets</para>
-            </listitem>
-          </itemizedlist>
-
-          <para>
-            <xref linkend="direction"/> discusses direction parameter
-            in more details.
-          </para>
+          
+          <para>Traffic directions are described in detail in
+            <xref linkend="direction" />.</para>
 
         </sect2>
 
         <sect2 id="rule-options">
-          <title>Changing Rule Options and Logging</title>
+          <title>Setting Rule Options and Logging</title>
 
-          <para>clicking the right mouse button when the cursor is over the
-          rule element <guilabel>"Options"</guilabel> opens a context-sensitive pop-up menu (
-          <xref linkend="editing-policy5" />. )</para>
-
+          <para>To change the options and log settings associated with a rule, 
+            right-click in the <guilabel>Options</guilabel> field and select
+            a menu tiem from the context menu.             
+            Enable or disable logging by right-clicking the <guilabel>Options</guilabel> field and 
+            selecting <guilabel>Logging On</guilabel> or <guilabel>Logging Off</guilabel>,
+            respectively, from the context menu. Set rule options or change log settings
+            by opening the 
+            <guilabel>Options</guilabel> dialog. You can do this by double-clicking 
+            within the Options field of the rule 
+            or by right-clicking the <guilabel>Options</guilabel> field and 
+            selecting <guilabel>Rule Options</guilabel> from the context menu.         </para>
+          
           <figure id="editing-policy5">
-            <title>Logging and Options in a Policy Rule</title>
+            <title>Rule Options for Policies</title>
                 <graphic scale="70" fileref="firewall_policies/images/editing_policy5.png" />
           </figure>
 
-          <para>This menu provides items for the following functions:</para>
-
-          <itemizedlist spacing="compact">
-            <listitem>
-              <para>Modify Options:</para>
-
-              <para>
-                This menu item brings up a dialogue that allows you to
-                modify certain options specific to the target firewall
-                platform, as in <xref linkend="rule-options1"/>.
-                These settings are associated with the current rule
-                only. For more information on the options available,
-                click <guibutton>Help</guibutton> in the Option
-                dialogue.</para>
-            </listitem>
-
-            <listitem>
-              <para>Turn logging ON:</para>
-
-              <para>Turns logging on for all packets matching this rule. If
-              the target firewall platform does not support selective logging
-              of packets, this menu item is disabled.</para>
-            </listitem>
-
-            <listitem>
-              <para>Turn logging OFF:</para>
-
-              <para>Turn logging off for packets matching this rule. If the
-              target firewall platform does not support selective logging of
-              packets, this menu item is disabled.</para>
-            </listitem>
-          </itemizedlist>
-
-          <figure id="rule-options1">
-            <title>iptables Options Dialog</title>
-            <graphic scale="70" fileref="firewall_policies/images/rule-options1.png" />
-          </figure>
+          <para>Rule options and log settings are described in detail in
+            <xref linkend="options"" />.
+          </para>
+          
+        </sect2>
+        
+        <sect2 id="multiple_operations_per_rule">
+          <title>Configuring Multiple Rule Operations</title>
+          
+          <para>Suppose you have a scenario where you want the firewall to 
+            perform a number of operations on packets of a certain type. 
+            For this traffic type, you want the firewall to mark (tag) the packet, 
+            then classify it, and then accept the packet. Instead of 
+            defining multiple single-action rules to accomplish this
+            behavior, Firewall Builder allows
+            you to combine a set of policy options with a policy action within 
+            a single rule, so that the firewall performs all the specified operations
+            when the single policy is matched. The ability to specify 
+            multiple operations for a single policy
+            helps keep the number of required policies to a minimum, 
+            and keeps your rule set simpler and more readable.
+          </para>
+          
+          <para>Some target firewall platforms, such as <productname>PF</productname>, natively support multi-action
+            rules. Other firewall platforms, such as <productname>iptables</productname>, do not explicitly support
+            configuring multiple operations per rule. For these
+            platforms, Firewall Builder automatically transforms the configured policy
+            into however many rules are required by the target platform.
+          </para>
+          
+          
         </sect2>
 
         <sect2 id="using-rule-groups">

@@ -2,13 +2,23 @@
       <title>Policies and Rules</title>
 
       <para>Each firewall object has several sets of rules associated
-      with it: access policy rules (referred to as "Policy" in the GUI), Network
-      Address Translation (NAT) rules, and routing rules. Rules in the
-      access policy control access to and from the firewall machine
-      and the machines behind it. NAT rules describe address and port
-      transformations that the firewall should make to packets flowing
-      through it. Routing rules establish static routes in the
-      firewall.</para>
+      with it: access policy rules, Network
+      Address Translation (NAT) rules, and routing rules. </para>
+      
+      <itemizedlist>
+    
+        <listitem>Access policy rules filter traffic, controlling access to and from the firewall machine
+          and the machines behind it. An access policy rule set is sometimes just called a "policy."
+        </listitem>
+        <listitem>NAT rules describe address and port
+          transformations that the firewall should make to packets flowing
+          through it. 
+        </listitem>        
+        <listitem>Routing rules establish static routes in the
+          firewall.
+        </listitem>
+      
+      </itemizedlist>
 
       <para>Firewall software varies widely in the way it can process
       packets. For example, some firewalls perform address and port

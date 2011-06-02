@@ -3,11 +3,11 @@
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
   <sect2 id="heartbeat_cluster">
-    <title>Linux cluster using heartbeat</title>
+    <title>Linux Cluster Using a Heartbeat</title>
 
     <para>
-      In this example we work with two Linux machines running
-      heartbeat for failover that form High Availability (HA)
+      In this example, we work with two Linux machines running
+      heartbeat for failover that form a High Availability (HA)
       firewall pair, and another machine behind them that will use
       this pair as a firewall. The set up is shown in figure
       <xref linkend="cookbook_linux_hb_cluster_1"/>. Machines <emphasis>linux-test-1</emphasis>
@@ -24,31 +24,31 @@
     </para>
 
     <figure id="cookbook_linux_hb_cluster_1">
-      <title>HA configuration using two Linux machines running heartbeat</title>
+      <title>HA Configuration Using Two Linux Machines Running a Heartbeat</title>
       <graphic scale="50" fileref="cookbook/cluster/images/linux-heartbeat-cluster-1.png"/>
     </figure>
 
     <note>
       <para>
         IPv6 addresses are not used in this recipe. Some interface
-        objects in the screenshots have ipv6 addresses because firewall
-        objects were "discovered" using snmp which finds ipv6
+        objects in the screenshots have IPv6 addresses because firewall
+        objects were "discovered" using SNMP which finds IPv6
         addresses. You can disregard these addresses while working
         with examples in this chapter.
       </para>
     </note>
 
     <sect3>
-      <title>Setting up heartbeat</title>
+      <title>Setting Up the Heartbeat</title>
 
       <para>As shown in
         <xref linkend="cookbook_linux_hb_cluster_1"/>, machines
         linux-test-1 and linux-test-2 run heartbeat daemon
         (<ulink url="http://www.linux-ha.org/"><citetitle>Linux-HA
             home page</citetitle></ulink>) to create virtual IP address
-        on both subnets. Heartbeat adds virtual IP address to the
+        on both subnets. The heartbeat adds virtual IP address to the
         same interface eth0 or eth1. One of the daemons becomes
-        master and takes owbership of the virtual address by adding
+        master and takes ownership of the virtual address by adding
         it to the interface with the label "eth0:0" or "eth1:0".
       </para>
 
@@ -56,19 +56,19 @@
         <para>
           <xref linkend="linux_cluster_overview"/> explains that this "eth0:0"
           is not an interface and should not be used as the name of
-          the interface object in fwbuilder configuration. See
-          <xref linkend="linux_cluster_overview"/> for more detailed explanation.
+          the interface object in Firewall Builder configuration. See
+          <xref linkend="linux_cluster_overview"/> for a more detailed explanation.
         </para>
       </note>
 
       <para>
-        Heartbeat sends UDP datagram to the multicast address
+        The heartbeat sends a UDP datagram to the multicast address
         225.0.0.1 every second or so to declare that it is up and
         running and owns the address. If the machine it is running
         on shuts down for any reason, this stream of packets from
-        the master stops and after pre-determined timeout the second
+        the master stops and after a predetermined timeout, the second
         machine becomes master and assumes the virtual IP
-        address. Heartbeat atually is more complex than that, it can
+        address. The heartbeat actually is more complex than that: it can
         be configured to monitor certain resources on the machine
         and give up the address if some conditions are met. In that
         case, two daemons negotiate transfer of the address from one
@@ -81,10 +81,10 @@
       </para>
 
       <para>
-        Unlike VRRPd, heartbeat does not replace MAC address of the
-        active machine with a virtual one, it uses gratutious ARP to
-        announce changing MAC address. This does not change anything
-        in the fwbuilder configuration for the cluster.
+        Unlike VRRPd, heartbeat does not replace the MAC address of the
+        active machine with a virtual one: it uses gratutious ARP to
+        announce the changing of the MAC address. This does not change anything
+        in the Firewall Builder configuration for the cluster.
       </para>
 
       <para>
@@ -136,14 +136,14 @@ auth 3
       </figure>
 
       <para>
-        This tells heartbeat to run two sessions, on interfaces eth0
+        This tells the heartbeat to run two sessions, on interfaces eth0
         and eth1, using multicast with default group address
         225.0.0.1 and udp port 694. There are two nodes,
         "linux-test-1" and
         "linux-test-2". File <emphasis>haresources</emphasis>
         defines virtual IP addresses on both subnets and file
-        authkeys sets up md5 authentication with a simple shared
-        key. Nice aspect of the heartbeat configuration is that all
+        authkeys sets up MD5 authentication with a simple shared
+        key. A nice aspect of the heartbeat configuration is that all
         three files are identical on both machines in the cluster.
         File <emphasis>authkeys</emphasis> should have permissions
         "0600", other files can have permissions "0644":
@@ -157,16 +157,16 @@ root@linux-test-1:/etc/ha.d# ls -la authkeys  haresources ha.cf
       </programlisting>
 
       <para>
-        Now we can start heartbeat on both machines
+        Now we can start the heartbeat on both machines
         using <emphasis>"/etc/init.d/heartbeat start"</emphasis>
         command (on Ubuntu). If everything is done correctly,
-        heartbeat daemons should come up and after a while one of
+        the heartbeat daemons should come up and after a while one of
         them becomes active. Which one is determined by the node
         name that is the first word in each line of
         the <emphasis>haresources</emphasis> file. Daemons log their
         progress, as well as warnings and errors in the
-        /var/log/messages file. When active daemon takes over virtual
-        ip address, it is added to the interface and look like this
+        /var/log/messages file. When the active daemon takes over the virtual
+        IP address, it is added to the interface and look like this
         (virtual addresses are highlited in red):
       </para>
 
@@ -193,24 +193,24 @@ root@linux-test-2:~# ip -4 addr ls
     </sect3>
 
     <sect3>
-      <title>Firewall and Cluster objects for the HA firewall
-        configuration with heartbeat</title>
+      <title>Firewall and Cluster Objects for the HA Firewall
+        Configuration with Heartbeat</title>
 
       <para>
         Now we can create objects in Firewall Builder to represent
         this cluster. We start with two firewall objects configured
-        with ip addresses but no policy or NAT rules. Interfaces,
+        with ip addresses but no policy or NAT rules. Interfaces and 
         their addresses and netmasks are shown on
         <xref linkend="cookbook_linux_hb_cluster_2"/>:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_2">
-        <title>Interfaces and addresses of the cluster members</title>
+        <title>Interfaces and Addresses of the Cluster Members</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-2.png"/>
       </figure>
 
       <para>
-        Now create new cluster. First, select firewalls
+        Now create the new cluster. First, select firewalls
         "linux-test-1" and "linux-test-2" in the tree, then click
         right mouse button to open context menu and use item "New
         cluster from selected firewalls" as shown on
@@ -218,24 +218,24 @@ root@linux-test-2:~# ip -4 addr ls
       </para>
 
       <figure id="cookbook_linux_hb_cluster_3">
-        <title>Creating new cluster object from selected member
-          firewalls</title>
+        <title>Creating a New Cluster Object from Selected Member
+          Firewalls</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-3.png"/>
       </figure>
 
       <para>
-        This method opens up wizard that creates new cluster object
+        This method opens up the wizard that creates a new cluster object
         with the list of the firewalls that shows two firewalls that
         were selected in the tree:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_4">
-        <title>Creating new cluster object</title>
+        <title>Creating a New Cluster Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-4.png"/>
       </figure>
 
       <para>
-        After you click "Next", you aarrive on the next page where
+        After you click "Next", you arrive on the next page where
         you establish correspondence between cluster interfaces and
         interfaces of the member firewalls. The program finds
         interfaces of the members with the same name that can be
@@ -248,23 +248,23 @@ root@linux-test-2:~# ip -4 addr ls
       </para>
 
       <figure id="cookbook_linux_hb_cluster_5">
-        <title>Arranging cluster interfaces</title>
+        <title>Arranging Cluster Interfaces</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-5.png"/>
       </figure>
 
       <para>
-        This example is straightforward because there is direct
-        correspondence between them. In more complex cases member
+        This example is straightforward because there is a direct
+        correspondence between them. In more complex cases, member
         firewalls may have different number of interfaces, only some
         of which should be used for the cluster configuration. Or
         failover protocol used for the cluster may create its own
-        interfaces, such as CARP on OpenBSD. In that case the name
+        interfaces, such as CARP on OpenBSD. In that case, the name
         of the interface that is configured at the top of the wizard
         page would be "carp0" and we would map it to interfaces of
         the members, say "en0" on both, using controls at the bottom
-        of the wizard page. However heartbeat does not create new
+        of the wizard page. However, the heartbeat does not create the new
         interface so the cluster interface objects must have the
-        same name as corresponding member interfaces, in our
+        same name as corresponding member interfaces; in our
         case <emphasis>"eth0"</emphasis>, <emphasis>"eth1"</emphasis>
         and
         <emphasis>"lo"</emphasis>. You can create new cluster
@@ -281,21 +281,21 @@ root@linux-test-2:~# ip -4 addr ls
       </para>
 
       <figure id="cookbook_linux_hb_cluster_6">
-        <title>Configuring IP addresses of the cluster interfaces</title>
+        <title>Configuring the IP Addresses of the Cluster Interfaces</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-6.png"/>
       </figure>
 
       <para>
-        Most protocols require IP address which you can add by
+        Most protocols require an IP address, which you can add by
         clicking "Add address" button.  The only exception at this
-        time is Cisco PIX where HA pair uses IP addresses of the
+        time is Cisco PIX, where HA pair uses IP addresses of the
         master instead of using special virtual addresses. In that
         case the part of the wizard page where you configure IP
         addresses will be disabled.
       </para>
 
       <para>
-        Choose failover protocol using drop-down list. Among other
+        Choose the failover protocol using drop-down list. Among other
         "real" protocols list includes item "None". Use this item if
         you do not want fwbuilder to add automatic policy rules to the
         generated configuration and plan to do this yourself. Also use
@@ -309,7 +309,7 @@ root@linux-test-2:~# ip -4 addr ls
         <para>
           The address and netmask pair of the cluster interface must
           be configured exactly the same as done by the cluster
-          software. In the case of heartbeat, the netmask is /24.
+          software. In the case of the heartbeat, the netmask is /24.
           See the output of "ip addr show" command above where it is
           visible that the address added by heartbeat comes with
           netmask /24. The netmask is defined in
@@ -325,14 +325,14 @@ root@linux-test-2:~# ip -4 addr ls
       <para>
         Final page of the
         wizard <xref linkend="cookbook_linux_hb_cluster_7"/> allows you to
-        choose to copy Policy and NAT rules from one of the members to
+        choose to copy policy and NAT rules from one of the members to
         the new cluster object.  This can be useful if you used to
         manage a cluster with fwbuilder by maitaining two firewall
         objects manually or with the aid of external scripts. If you
-        decide to use this option, fwbuilder GUI copies policy and NAT
+        decide to use this option, the Firewall Builder GUI copies policy and NAT
         rules from the member you choose to the new cluster object,
         then creates backup copies of both member firewall objects
-        with the name with suffix "-bak" and deletes all Policy and
+        with the name with suffix "-bak" and deletes all policy and
         NAT rules in the rule sets of the member firewall objects it
         uses for the cluster. This way, you can always return to your
         old setup using these backup objects and at the same time, new
@@ -341,9 +341,9 @@ root@linux-test-2:~# ip -4 addr ls
 
       <note>
         <para>
-          This is important because if member firewall object has Policy
+          This is important because if a member firewall object has a policy
           or NAT rule set with the same name as the one in the cluster,
-          then fwbuilder will use rules from the rule set of the member,
+          then Firewall Builder will use rules from the rule set of the member,
           thus overriding all the rules in the cluster's rule set with
           the same name. This allows you to create complex
           configurations where majority of the rules are defined and
@@ -354,38 +354,38 @@ root@linux-test-2:~# ip -4 addr ls
       </note>
 
       <figure id="cookbook_linux_hb_cluster_7">
-        <title>Final page of the new cluster wizard</title>
+        <title>Final Page of the New Cluster Wizard</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-7.png"/>
       </figure>
 
       <para>
-        Screenshot <xref linkend="cookbook_linux_hb_cluster_8"/>
-        demonstrates newly created cluster object.
+        The following screenshot <xref linkend="cookbook_linux_hb_cluster_8"/>
+        demonstrates a newly created cluster object.
       </para>
 
       <figure id="cookbook_linux_hb_cluster_8">
-        <title>Cluster object</title>
+        <title>Cluster Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-8.png"/>
       </figure>
 
       <para>
-        Each cluster interface has additional child object (located
+        Each cluster interface has an additional child object (located
         underneath it in the tree) with the
         name <emphasis>linux-test-1:eth0:members</emphasis> and
         <emphasis>linux-test-1:eth1:members</emphasis>. These objects
         are failover groups, this is where the failover protocol and
         mapping between the cluster and member interfaces is
-        configured. Screenshot <xref linkend="cookbook_linux_hb_cluster_9"/>
+        configured. The screenshot <xref linkend="cookbook_linux_hb_cluster_9"/>
         highlights failover group that belongs to interface eth0:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_9">
-        <title>Cluster Failover Group in the object tree</title>
+        <title>Cluster Failover Group in the Object Tree</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-9.png"/>
       </figure>
 
       <para>
-        Failover group is configured with the name, protocol and
+        The failover group is configured with the name, protocol, and
         interfaces of the member firewalls that correspond to the
         cluster interface this failover group belongs to. Failover group
         object selected on <xref linkend="cookbook_linux_hb_cluster_9"/>
@@ -393,13 +393,13 @@ root@linux-test-2:~# ip -4 addr ls
       </para>
 
       <figure id="cookbook_linux_hb_cluster_10">
-        <title>Cluster Failover Group object</title>
+        <title>Cluster Failover Group Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-10.png"/>
       </figure>
 
 
       <para>
-        Failover group for the interface <emphasis>eth1</emphasis>
+        The ailover group for the interface <emphasis>eth1</emphasis>
         should look the same, except for using
         interfaces <emphasis>eth1</emphasis> of the member
         firewalls. Use button <emphasis>Manage Members</emphasis> to
@@ -410,7 +410,7 @@ root@linux-test-2:~# ip -4 addr ls
 
       <para>
         Another new type of object that appears in the clusters is
-        State Synchronization group
+        the state synchronization group
         <xref linkend="cookbook_linux_hb_cluster_11"/>. This group object
         defines state synchronization protocol used for the cluster
         and interfaces of the member firewalls where this protocol
@@ -421,54 +421,54 @@ root@linux-test-2:~# ip -4 addr ls
       <note>
         <para>
           The purpose of this new object is to provide all necessary
-          configuration parameters to let fwbuilder generate policy
+          configuration parameters to let Firewall Builder generate policy
           rules to permit packets of this protocol. In some other cases,
           such as with PF on OpenBSD where state synchronization is done
-          via <emphasis>pfsync</emphasis> interface, fwbuilder can
+          via <emphasis>pfsync</emphasis> interface, Firewall Builder can
           generate actual configuration for the protocol itself. However
-          at this time fwbuilder does not generate configuration or
+          at this time Firewall Builder does not generate configuration or
           command line for the conntrackd daemon.
         </para>
       </note>
 
       <figure id="cookbook_linux_hb_cluster_11">
-        <title>State Synchronization Group in the object tree</title>
+        <title>State Synchronization Group in the Object Tree</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-11.png"/>
       </figure>
 
       <para>
-        Just like Failover Group, State Synchronization Group object is
-        configured with the name, protocol and member interfaces:
+        Just as for failover group objects, a state synchronization group object is
+        configured with the name, protocol, and member interfaces:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_12">
-        <title>State Synchronization Group object</title>
+        <title>State Synchronization Group Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-12.png"/>
       </figure>
 
       <para>
         If you do not use <emphasis>conntrackd</emphasis> in your
-        cluster setup and do not need iptables rules to permit its
+        cluster set-up and do not need iptables rules to permit its
         packets in the generated script, then just do not configure
-        State Synchronization group object with inetrfaces of the
-        member firewalls. Such empty State Synchronization group
+        state synchronization group object with interfaces of the
+        member firewalls. Such empty state synchronization group
         object will look like this when opened in the editor:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_12-1">
-        <title>Empty State Synchronization Group object</title>
+        <title>Empty State Synchronization Group Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-cluster-empty-state-sync-group.png"/>
       </figure>
 
       <para>
         You can edit parameters of the state synchronization protocol,
-        such as IP address of the multicast group it uses and port
-        number if you click <emphasis>Edit protocol
+        such as the IP address of the multicast group it uses and port
+        number if you click the <emphasis>Edit protocol
           parameters</emphasis> button:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_13">
-        <title>State Synchronization protocol parameters</title>
+        <title>State Synchronization Protocol Parameters</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-13.png"/>
       </figure>
 
@@ -507,7 +507,7 @@ root@linux-test-2:~# ip -4 addr ls
 
 
     <sect3>
-      <title>Policy rules for the cluster</title>
+      <title>Policy Rules for the Cluster</title>
 
       <note>
         <para>
@@ -518,7 +518,7 @@ root@linux-test-2:~# ip -4 addr ls
           the previous one (<xref linkend="vrrpd_cluster"/>) use the
           same firewall objects as member firewalls but generate
           configurations for clusters based on different failover
-          protocols.  The same member firewall object may be used with
+          protocols. The same member firewall object may be used with
           several cluster objects to test different configurations or
           for migration.
         </para>
@@ -526,38 +526,37 @@ root@linux-test-2:~# ip -4 addr ls
 
       <para>
         Now we can move on to building cluster policy and NAT
-        rules. In the examples below I am using a new feature in
-        Firewall Builder 4.0 that lets you quickly compile single rule
+        rules. In the examples below I am using a Firewall Builder feature that lets you quickly compile a single rule
         and see the result in the bottom panel of the GUI
-        immediately. To do this, click right mouse button anywhere in
-        the rule to open context menu and use item "Compile" or
+        immediately. To do this, right-click anywhere in
+        the rule to open context menu and use the item "Compile" or
         highlight the rule and hit keyboard key
         "X". <xref linkend="cookbook_linux_hb_cluster_14"/>
       </para>
 
       <figure id="cookbook_linux_hb_cluster_14">
-        <title>Compiling single rule</title>
+        <title>Compiling a Single Rule</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-14.png"/>
       </figure>
 
       <para>
-        <xref linkend="cookbook_linux_hb_cluster_15"/> demonstrates minimal
+        <xref linkend="cookbook_linux_hb_cluster_15"/> shows a minimal
         policy rule set for the cluster that demonstrates general
-        principles used by fwbuilder to generate configurations for
+        principles used by Firewall Builder to generate configurations for
         the member firewalls.
       </para>
 
       <figure id="cookbook_linux_hb_cluster_15">
-        <title>Simple policy for the cluster, also showing generated
-          iptables commands for the anti-spoofing rule</title>
+        <title>Simple Policy for the Cluster, Also Showing Generated
+          iptables Commands for the Anti-Spoofing Rule</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-15.png"/>
       </figure>
 
 
       <para>
-        Lets inspect policy rules shown in
+        Let's inspect the policy rules shown in
         <xref linkend="cookbook_linux_hb_cluster_15"/>. All rules are built
-        with global option "Assume firewall is part of any" turned off
+        with the global option "Assume firewall is part of any" turned off
         in both linux-test-1 and linux-test-2 firewalls.
       </para>
 
@@ -571,7 +570,7 @@ root@linux-test-2:~# ip -4 addr ls
             the member firewall object. The interface object in
             "Interface" element of this rule is the one that belongs to
             the cluster rather than its members. All other aspects of
-            the rule are the same. Fwbuilder generates iptables commands
+            the rule are the same. Firewall Builder generates iptables commands
             for this rule using ip addresses of the cluster (10.3.14.150
             and 10.1.1.254 in our example) and addresses of the member
             firewall it compiles for, in this case 10.3.14.108 and
@@ -601,9 +600,9 @@ root@linux-test-2:~# ip -4 addr ls
           the Standard objects library.  Since this service object
           matches protocol number 2 and IP option
           "router-alert". Unfortunately only the very latest Linux
-          distributions ship iptables module ipv4options that is
+          distributions ship the iptables module ipv4options that is
           needed to match IP options so I did not put the service
-          object in the rule. Here is how generated iptables script
+          object in the rule. Here is how the generated iptables script
           look like when "Service" field on the rules 1 and 2 is "any"
           </para>
 
@@ -652,7 +651,7 @@ $IPTABLES -A OUTPUT -p 2 -d 224.0.0.22 -m ipv4options --ra -m state --state NEW 
             different than building the policy for a regular
             standalone firewall. Rules 3 and 4 permit access from the
             firewall to internal network and the other way
-            around. Generated iptables commands use INPUT and OUTPUT
+            around. The generated iptables commands use INPUT and OUTPUT
             chains and look like this:
           </para>
           
@@ -678,7 +677,7 @@ $IPTABLES -A INPUT -s 10.1.1.0/24 -m state --state NEW -j ACCEPT
         <listitem>
           <para>
             Rule 5 permits outbound access from the internal net to the
-            Internet and uses chain FORWARD. Generated iptables code for
+            Internet and uses chain FORWARD. The generated iptables code for
             this rule is no different from that produced for a regular
             standalone firewall.
           </para>
@@ -723,8 +722,8 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -d 225.0.0.50 --dport 3780 -j ACCEPT
       </programlisting>
 
       <para>
-        Rules for conntrack are associated with ineterface eth1
-        because the State Synchronization group is configured with
+        The rules for conntrack are associated with ineterface eth1
+        because the state synchronization group is configured with
         interfaces eth1 of the member firewalls (<xref linkend="cookbook_linux_hb_cluster_12"/>).
       </para>
     </sect3>
@@ -769,19 +768,19 @@ ucast eth1 10.1.1.2
       </para>
 
       <figure id="cookbook_linux_hb_cluster_unicast_heartbeat">
-        <title>Using heartbeat in unicast mode</title>
+        <title>Using Heartbeat in Unicast Mode</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-unicast-heartbeat.png"/>
       </figure>
 
       <para>
-        To switch to unicast for conntrackd, open State
-        Synchronization group object in the editor and
-        click <emphasis>"Edit protocol parameters"</emphasis>
-        button, then turn on "Use unicast address" checkbox:
+        To switch to unicast for conntrackd, open the state
+        synchronization group object in the editor and
+        click the <emphasis>"Edit protocol parameters"</emphasis>
+        button, then check the "Use unicast address" checkbox:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_unicast_conntrack">
-        <title>Using heartbeat in unicast mode</title>
+        <title>Using Heartbeat in Unicast Mode</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-unicast-conntrack.png"/>
       </figure>
 
@@ -794,7 +793,7 @@ ucast eth1 10.1.1.2
       </note>
 
       <para>
-        Switching to unicast makes fwbuilder generate iptables
+        Switching to unicast makes Firewall Builder generate iptables
         commands that match IP address of the peer firewall for the
         corresponding interface pair. Here is the script generated for
         the machine <emphasis>linux-test-1</emphasis>:
@@ -820,37 +819,37 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -s 10.1.1.2 --dport 3780 -j ACCEPT
     </sect3>
 
     <sect3>
-      <title>NAT rules for the cluster</title>
+      <title>NAT Rules for the Cluster</title>
 
       <para>
-        Now lets look at the NAT rule built for this cluster
+        Now let's look at the NAT rule built for this cluster
         <xref linkend="cookbook_linux_hb_cluster_16"/>
       </para>
 
       <figure id="cookbook_linux_hb_cluster_16">
-        <title>NAT rule for the cluster</title>
+        <title>NAT Rule for the Cluster</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-16.png"/>
       </figure>
 
 
       <para>
-        Interface <emphasis>eth0</emphasis> used in the "Translated
+        The interface <emphasis>eth0</emphasis> used in the "Translated
         Source" element of this rule is the one that belongs to the
-        cluster, not member firewalls. Generated iptables commands use
-        cluster interface that belongs to this interface for the
-        translation. Otherwise this is very common SNAT rule.
+        cluster, not member firewalls. The generated iptables commands use
+        the cluster interface that belongs to this interface for the
+        translation. Otherwise, this is a very straightforward SNAT rule.
       </para>
 
     </sect3>
 
 
     <sect3>
-      <title>Managing IP addresses of the interfaces in heartbeat cluster setup</title>
+      <title>Managing IP Addresses of the Interfaces in a Heartbeat Cluster Setup</title>
 
       <para>
         In order to ensure the environment in which generated iptables
         rules will work really matches assumptions under which these
-        rules were generated, fwbuilder can manage IP addresses of the
+        rules were generated, Firewall Builder can manage the IP addresses of the
         interfaces of the firewall machine. This feature is optional
         and is controlled by the checkbox "Configure interfaces of the
         firewall machine" in the "Script" tab of the firewall object
@@ -858,29 +857,29 @@ $IPTABLES -A INPUT -i eth1 -p udp -m udp -s 10.1.1.2 --dport 3780 -j ACCEPT
         <xref linkend="cookbook_linux_hb_cluster_17"/>:
 
         <figure id="cookbook_linux_hb_cluster_17">
-          <title>Options in the "Script" tab of the firewall object dialog</title>
+          <title>Options in the "Script" Tab of the Firewall Object Dialog</title>
           <graphic scale="50" fileref="cookbook/cluster/images/linux-vrrpd-cluster-17.png"/>
         </figure>
         
         The reason for this is that if the program generates rules
         assuming certain addresses belong to the firewall, but in fact
         they do not, packets will go into chains different from those
-        used in the generated iptables commands and behavior of the
+        used in the generated iptables commands and the behavior of the
         firewall will be wrong.
       </para>
 
       <para>
-        The code that manages addresses of interfaces should be able
+        The code that manages the addresses of interfaces should be able
         to find and ignore addresses added by the failover daemons
-        such as VRRPd, heartbeat or keepalived. The program does this
-        by looking at the ip addresses of the cluster interfaces. It
-        is important therefore to configure these addresses exactly as
+        such as VRRPd, heartbeat, or keepalived. The program does this
+        by looking at the IP addresses of the cluster interfaces. It
+        is important, therefore, to configure these addresses exactly as
         they are done by the failover daemons, including both the
-        address and netmask. Heartbeat configuration used in the
-        recipe <xref linkend="heartbeat_mcast_config_1"/> configure
+        address and netmask. The heartbeat configuration used in the
+        recipe <xref linkend="heartbeat_mcast_config_1"/> configures
         virtual IP address with netmask /24. The addresses of the
-        cluster interfaces must be configured just like that,
-        otherwise generated script will kill them when it activates
+        cluster interfaces must be configured in exactly the same way;
+        otherwise, the generated script will kill them when it activates
         firewall policy. This is shown in <xref linkend="cookbook_linux_hb_cluster_6"/>
       </para>
 

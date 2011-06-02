@@ -3,25 +3,25 @@
                  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
   <sect2 id="heartbeat_vlan_cluster">
-    <title>Linux cluster using heartbeat and VLAN interfaces</title>
+    <title>Linux Cluster Using Heartbeat and VLAN Interfaces</title>
 
     
 
     <para>
-      In this recipe we are looking at the Linux cluster configuration
+      In this recipe, we are looking at the Linux cluster configuration
       using heartbeat and VLANs shown in
       <xref linkend="cookbook_linux_hb_cluster_vlan"/>. Interface <emphasis>eth1</emphasis>
       of both firewalls is configured to run two
       VLANs, <emphasis>101</emphasis> and <emphasis>102</emphasis>,
       connected to the protected subnet and DMZ
-      respectively. Heartbeat runs on all three
+      respectively. The heartbeat runs on all three
       connections: <emphasis>eth0</emphasis>,
       <emphasis>eth1.101</emphasis> and <emphasis>eth1.102</emphasis>.
-      This recipe demosntrates use of VLAN interfaces in fwbuilder.
+      This recipe demosntrates use of VLAN interfaces in Firewall Builder.
 
 
       <figure id="cookbook_linux_hb_cluster_vlan">
-        <title>Linux cluster using heartbeat and VLANs</title>
+        <title>Linux Cluster Using Heartbeat and VLANs</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-heartbeat-cluster-vlan.png"/>
       </figure>
     </para>
@@ -29,20 +29,20 @@
     <note>
       <para>
         IPv6 addresses are not used in this recipe. Some interface
-        objects in the screenshots have ipv6 addresses because firewall
-        objects were "discovered" using snmp which finds ipv6
+        objects in the screenshots have IPv6 addresses, because firewall
+        objects were "discovered" using SNMP, which finds IPv6
         addresses. You can disregard these addresses while working
         with examples in this chapter.
       </para>
     </note>
 
     <sect3>
-      <title>Configuring member firewall objects</title>
+      <title>Configuring Member Firewall Objects</title>
 
       <para>
         As in the previous examples, we start with member firewall
         objcts. The difference between this and previous examples is
-        that now we need to configure VLAN interfaces. Lets start with a
+        that now we need to configure VLAN interfaces. Let's start with 
         firewall objects with interfaces <emphasis>eth0</emphasis>
         and <emphasis>eth1</emphasis>. In fact, these objects are copies
         of the <emphasis>linux-test-1</emphasis>
@@ -50,20 +50,19 @@
         <xref linkend="heartbeat_cluster"/>. New objects have names
         <emphasis>linux-test-3</emphasis>
         and <emphasis>linux-test-4</emphasis>. I am going to add VLAN
-        interfaces and rearrange IP address objects to match network diagram
+        interfaces and rearrange IP address objects to match the network diagram
         <xref linkend="cookbook_linux_hb_cluster_vlan"/>
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_1">
-        <title>Member firewall objects without VLAN interfaces</title>
+        <title>Member Firewall Objects without VLAN Interfaces</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-1.png"/>
       </figure>
 
       <para>
         First, we need to add VLAN subinterface to eth1. To do this,
-        select eth1 in the tree and click right mouse button to open
-        context menu. Click "New interface" item to add interface
-        object:
+        select eth1 in the tree, right-click, and select "New interface" from the context menu 
+        to add the interface object:
       </para>
 
       <table frame='none' tabstyle='two_columns_layout_table'>
@@ -76,7 +75,7 @@
               <entry>
                 <para>
                   <figure id="cookbook_linux_hb_cluster_vlan_2">
-                    <title>Using context menu to add subinterface</title>
+                    <title>Using the Context Menu to Add a Subinterface</title>
                     <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-2.png"/>
                   </figure>
                 </para>
@@ -84,7 +83,7 @@
               <entry>
                 <para>
                   <figure id="cookbook_linux_hb_cluster_vlan_3">
-                    <title>Subinterface has been created with default name</title>
+                    <title>Subinterface Created with a Default Name</title>
                     <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-3.png"/>
                   </figure>
                 </para>
@@ -95,13 +94,13 @@
       </table>
 
       <para>
-        New interface object is created with default name
-        "Interface". Double click it to open it in the editor and rename
+        The new interface object is created with the default name
+        "Interface". Double-click it to open it in the editor and rename
         it to <emphasis>eth1.101</emphasis>:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_3_1">
-        <title>VLAN subinterface in the editor</title>
+        <title>VLAN Subinterface in the Editor</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-3-1.png"/>
       </figure>
 
@@ -112,39 +111,39 @@
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_4">
-        <title>VLAN configuration of the subinterface</title>
+        <title>VLAN Configuration of the Subinterface</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-4.png"/>
       </figure>
 
       <para>
         Note that interface type has been set to VLAN
         automatically. This is because Firewall Builder analyses the
-        name of the subinterface and automatically chooses correct type
-        in the "Advanced" settings dialog. If interface name matches
-        standard vlan interface name for the chosen host OS, then it
-        will automatically become VLAN subinterface and the program will
-        extract VLAN ID from its name. For example, supported vlan
+        name of the subinterface and automatically chooses the correct type
+        in the "Advanced" settings dialog. If the interface name matches
+        a standard VLAN interface name for the chosen host OS, then it
+         automatically is recognized as a VLAN subinterface and the program 
+        extracts VLAN ID from its name. For example, supported VLAN
         interface names on Linux are "eth1.101", "eth1.0101", "vlan101",
-        "vlan0101". On other OS naming conventions are often different.
+        "vlan0101". On other OSs, naming conventions are often different.
       </para>
 
       <para>
-        Create subinterface <emphasis>eth1.102</emphasis> using the same
-        method.
+        Create Subinterface <emphasis>eth1.102</emphasis> Using the Same
+        Method.
       </para>
 
       <para>
         Now you can move IP address objects from the
         interface <emphasis>eth1</emphasis> to
-        subinterface <emphasis>eth1.101</emphasis>. Use context menu
+        subinterface <emphasis>eth1.101</emphasis>. Use the context menu
         items <emphasis>Cut</emphasis> and <emphasis>Paste</emphasis> to
-        do this. While doing this, I also got rid of IPv6 addresses that
+        do this. While doing this, I also removed the IPv6 addresses that
         are not used in this example. You should arrive at the following
         configuration:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_5">
-        <title>IP addresses reassigned to the subinterface</title>
+        <title>IP Addresses Reassigned to the Subinterface</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-5.png"/>
       </figure>
 
@@ -155,14 +154,14 @@
       </para>
 
       <para>
-        Finally, we have firewall
+        Finally, we have the firewall
         object <emphasis>linux-test-3</emphasis> configured according to
         the network diagram
         <xref linkend="cookbook_linux_hb_cluster_vlan"/>:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_7">
-        <title>Adding IP addresses to VLAN subinterface</title>
+        <title>Adding IP Addresses to VLAN Subinterface</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-7.png"/>
       </figure>
 
@@ -171,13 +170,13 @@
         though. Interface <emphasis>eth1</emphasis> is now a parent of
         two VLAN subinterfaces <emphasis>eth1.101</emphasis>
         and <emphasis>eth1.102</emphasis>.  In this
-        configuration <emphasis>eth1</emphasis> does not have an IP
+        configuration, <emphasis>eth1</emphasis> does not have an IP
         address of its own. To reflect this, open it in the editor and
         check "Unnumbered" interface button as shown below:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_7_1">
-        <title>Interface eth1 is unnumbered</title>
+        <title>Interface eth1 Is Unnumbered</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-7-1.png"/>
       </figure>
 
@@ -197,41 +196,41 @@
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_8">
-        <title>VLAN subinterface and addresses of both member firewalls</title>
+        <title>VLAN Subinterface and Addresses of Both Member Firewalls</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-8.png"/>
       </figure>
 
     </sect3>
 
     <sect3>
-      <title>Building cluster object</title>
+      <title>Building a Cluster Object</title>
 
       <para>
         Now that both member firewall objects are ready, we can create
-        an object for the cluster. Use "New Object" menu, item
-        "Cluster" to launch the wizard. On the first page of the
+        an object for the cluster. Use the "New Object" menu, and select the  
+        "Cluster" option to launch the wizard. On the first page of the
         wizard, choose <emphasis>linux-test-3</emphasis>
         and <emphasis>linux-test-4</emphasis> firewalls and enter the
         name for the cluster object:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_9">
-        <title>Creating cluster object</title>
+        <title>Creating the Cluster Object</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-9.png"/>
       </figure>
 
       <para>
-        On the next page of the wizard you can build cluster
+        On the next page of the wizard, you can build cluster
         interfaces. The program finds interfaces of the member
         firewalls with the same name and preconfigures cluster
-        interface objects. On this page of the wizard you can add or
-        delete cluster interface and establuish correspondence between
-        them and interfaces of the member firewalls. Screenshot
+        interface objects. On this page of the wizard, you can add or
+        delete cluster interfaces and establuish correspondence between
+        them and interfaces of the member firewalls. The screenshot
         <xref linkend="cookbook_linux_hb_cluster_vlan_10"/> shows this page:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_10">
-        <title>Interfaces of the cluster</title>
+        <title>Interfaces of the Cluster</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-10.png"/>
       </figure>
 
@@ -254,12 +253,12 @@
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_11">
-        <title>IP addresses of the cluster interfacess</title>
+        <title>IP Addresses of the Cluster Interfacess</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-11.png"/>
       </figure>
 
       <para>
-        Next page of the wizard offers an opportunity to use policy
+        The next page of the wizard offers an opportunity to use policy
         and nat rules of one of the member firewalls for the
         cluster. However since our member firewalls have no rules, we
         do not need to use this feature and can just finish creating
@@ -268,36 +267,36 @@
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_12">
-        <title>Cluster object configuration</title>
+        <title>Cluster Object Configuration</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-12.png"/>
       </figure>
 
     </sect3>
 
     <sect3>
-      <title>Managing VLAN interfaces and their IP addresses</title>
+      <title>Managing VLAN Interfaces and Their IP Addresses</title>
 
       <para>
-        Firewall Builder can generate shell script to configure VLAN
+        Firewall Builder can generate a shell script to configure VLAN
         interfaces for both member firewalls. The script is in fact a
         shell function inside the common firewall configuration script
-        that it creates for each firewall. To activate this feature,
+        Firewall Builder creates for each firewall. To activate this feature,
         open each member firewall object in the editor by double
         clicking it in the tree and click "Firewall Settings" button,
         then navigate to the "Script" tab of the dialog. Screenshot
         <xref linkend="cookbook_linux_hb_cluster_vlan_13"/> shows this 
-        tab. Turn checkbox  "Configure VLAN interfaces" on:
+        tab. Turn checkbox "Configure VLAN interfaces" on:
       </para>
 
       <figure id="cookbook_linux_hb_cluster_vlan_13">
-        <title>Turn VLAN configuration on</title>
+        <title>Turn VLAN Configuration On</title>
         <graphic scale="50" fileref="cookbook/cluster/images/linux-hb-cluster-vlan-13.png"/>
       </figure>
 
       <para>
         If you compile the policy for the cluster (or a standalone
-        firewall) whth "Configure VLAN interfaces" checkbox turned on,
-        generated script gets the following fragment that is executed
+        firewall) with the "Configure VLAN interfaces" checkbox turned on,
+        the generated script includes the following fragment that is executed
         before iptables rules are loaded:
 
         <programlisting>
@@ -319,9 +318,9 @@ configure_interfaces() {
         the <emphasis>update_vlans_of_interface</emphasis> shell
         function, checks if vlan interfaces eth1.101 and eth1.102
         already exist and adds them if they are not there. It
-        uses <emphasis>vconfig</emphasis> utility to do this. If vlan
+        uses <emphasis>vconfig</emphasis> utility to do this. If VLAN
         interfaces with these names already exist, the function does
-        nothing. This allows for incremental management of the vlan
+        nothing. This allows for incremental management of the VLAN
         interfaces, that is, when the script runs again, it does not
         try to add interfaces that already exist. It does not remove
         and add them back, either.
@@ -329,17 +328,17 @@ configure_interfaces() {
 
       <tip>
         <para>
-          Several naming conventions exist for vlan interfaces
+          Several naming conventions exist for VLAN interfaces
           on Linux and the script recognizes all of them.  You call
-          vlan interface <emphasis>"eth1.101"</emphasis>,
+          the VLAN interface <emphasis>"eth1.101"</emphasis>,
           <emphasis>"eth1.0101"</emphasis>, <emphasis>"vlan101"</emphasis>
           or <emphasis>"vlan0101"</emphasis>.
         </para>
       </tip>
 
       <para>
-        To test this feature, you can run generated script with
-        command line parameter "test_interfaces". This makes the
+        To test this feature, you can run the generated script with
+        the command-line parameter "test_interfaces". This makes the
         script analyse interfaces and print commands that it would
         normally execute to configure them, but it does not actually
         execute these commands but only prints them. To illustrate
@@ -393,7 +392,7 @@ ifconfig eth1.102 up
 
       <para>
         Commands that manage VLAN interfaces are highlighted in
-        red. The script adds vlan interfaces eth1.101 and eth1.102 to
+        red. The script adds VLAN interfaces eth1.101 and eth1.102 to
         eth1 and brings them up, then removes IP address 10.1.1.2 from
         eth1 and adds addresses 10.1.1.2 to eth1.101 and 10.1.2.2 to
         eth1.102.
@@ -403,7 +402,7 @@ ifconfig eth1.102 up
         To set interfaces up and load iptables rules, just run the
         script with command line parameter "start". If you only want
         to try to configure interfaces but not load iptables rules
-        just yet, run the script with command line parameter
+        just yet, run the script with command-line parameter
         "inetrfaces". Here is what happens:
       </para>
 
@@ -421,7 +420,7 @@ Added VLAN with VID == 102 to IF -:eth1:-
       </programlisting>
 
       <para>
-        We can now verify that the script added vlan inetrfaces and
+        We can now verify that the script added VLAN inetrfaces and
         configured IP addresses:
       </para>
 
@@ -471,7 +470,7 @@ root@linux-test-2:~#
     </sect3>
 
     <sect3>
-      <title>Heartbeat configuration</title>
+      <title>Heartbeat Configuration</title>
 
       <para>
         Heartbeat configuration in this setup is rather
@@ -480,7 +479,7 @@ root@linux-test-2:~#
       </para>
 
       <figure id="heartbeat_mcast_config_2">
-        <title>Heartbeat configuration files</title>
+        <title>Heartbeat Configuration Files</title>
         <programlisting>
 # cat ha.cf:
 
@@ -509,7 +508,7 @@ auth 3
       <para>
         The difference between heartbeat configuration in
         <xref linkend="heartbeat_cluster"/> and this is that we now
-        run it over three interfaces, using vlan
+        run it over three interfaces, using VLAN
         interfaces <emphasis>eth1.101</emphasis>
         and <emphasis>eth1.102</emphasis> instead
         of <emphasis>eth1</emphasis>. Otherwise it works exacly the
@@ -519,7 +518,7 @@ auth 3
       </para>
 
       <para>
-        Policy and NAT rules configuration in this setup is also the
+        Policy and NAT rule configuration in this setup is also the
         same as in <xref linkend="heartbeat_cluster"/> and we won't
         repeat it here.
       </para>

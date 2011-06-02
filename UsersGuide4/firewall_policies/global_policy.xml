@@ -1,34 +1,51 @@
-    <sect1 id="global-policy">
-      <title>Firewall Access Policy Rulesets</title>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="global-policy">
+      <title>Firewall Access Policy Rule Sets</title>
 
       <figure id="global-policy1">
-        <title>Access Policy</title>
+        <title>Access Policies</title>
         <graphic scale="50" fileref="firewall_policies/images/policy_example_1.png" />
       </figure>
 
-      <para>The main firewall access policy consists of a set of
-      rules. Packets are analysed by comparing their parameters with
-      rules in the policy, one after the other, from top to bottom.
-      The first rule that matches the packet has
-      its <guilabel>Action</guilabel> applied to the packet.</para>
+ 
+  <para>
+    Access policy rules provide access control because they
+    define which packets are permitted and which are
+    denied. A firewall access policy consists of a set of 
+    rules. Each packet is analysed and its elements compared against 
+    elements in the rules of the policy sequentially, from top to bottom. 
+    The first rule that matches the packet has its configured action applied, and 
+    any processing specified in the rule's configured options is performed. 
+  </para>
 
-      <para>Each rule includes a standard set of parameters,
-      or <emphasis>Rule Elements</emphasis>, that are used for
-      comparison with the packet. Rule elements include "Source",
-      "Destination", "Service", "Interface", "Direction", and
-      "Time". For example, if a packet entering the firewall has a
-      source address that matches the object in
-      the <guilabel>Source</guilabel> field of the rule, its
-      destination address matches the object
-      in <guilabel>Destination</guilabel>, its protocol and port
-      numbers match the object in <guilabel>Service</guilabel>, the
-      interface it passes through matches
-      the <guilabel>Interface</guilabel> field, its direction matches
-      that specified in <guilabel>Direction</guilabel>, and its time
-      matches <guilabel>Time</guilabel>, then the firewall will take
-      action, specified in the <guilabel>Action</guilabel> field of
-      the matching rule. Of course, a field with "Any" or "All" in it
-      will match all packets for that field.</para>
+ <para>
+        Each rule has a standard set of rule elements against which 
+        packet characteristics are compared. These rule elements, 
+        displayed as fields in the rule, include the 
+        packet's source address (<guilabel>Source</guilabel>),
+        its destination address (<guilabel>Destination</guilabel>), 
+        its protocol and port numbers (<guilabel>Service</guilabel>),
+        the interface it is passing through (<guilabel>Interface</guilabel>), 
+        its direction of travel (<guilabel>Direction</guilabel>), 
+        and the time of its arrival (<guilabel>Time</guilabel>). 
+        For example, if a packet entering the firewall has a 
+        source address that matches the object in 
+        the <guilabel>Source</guilabel> field of the rule, its 
+        destination address matches the object 
+        in the <guilabel>Destination</guilabel> field, its protocol and port 
+        numbers match the object in the <guilabel>Service</guilabel> field, the 
+        interface it passes through matches the interface object in 
+        the <guilabel>Interface</guilabel> field, its direction matches 
+        that specified in the <guilabel>Direction</guilabel> field, and the
+        time of its arrival matches that specified in the 
+        <guilabel>Time</guilabel> field, then the firewall takes the actions
+        specified in the <guilabel>Action</guilabel> field and applies the 
+        options specified in the <guilabel>Options</guilabel> field. 
+        A field where a value of "Any" or "All" is specified 
+        is considered to match all packets for that rule element.
+      </para>
 
       <para>
         For example, in <xref linkend="global-policy1" />, rule #0 is
@@ -37,57 +54,98 @@
         the firewall itself or internal network it protects. This rule
         utilizes interface and direction matching in addition to the
         source address. Rule #2 says that connection from the internal
-        network (object <emphasis>net-192.168.1.0</emphasis>) to the
-        firewall itself (object <emphasis>firewall</emphasis>)
-        using <emphasis>ssh</emphasis> is allowed
-        (action <emphasis>Accept</emphasis>). The "Catch all" rule #6
+        network (network object <command>net-192.168.1.0</command>) to the
+        firewall itself (object <command>firewall</command>)
+        using <command>ssh</command> is allowed
+        (action <command>Accept</command>). The "Catch all" rule #6
         denies all packets that have not been matched by any rule
-        above it. The access policy in <xref linkend="global-policy1"
-        /> is built to allow only specific services and deny
+        above it. The access policy in 
+        <xref linkend="global-policy1" /> 
+        is constructed to allow only specific services and deny
         everything else, which is a good practice.
       </para>
 
-      <para>Access policy rules represent access control because they
-      define which packets are permitted and which are
-      denied. Access policy rules operate on the packet's source and
-      destination addresses and protocol parameters. These rules work
-      regardless of the interface and direction of the packet, unless
-      a particular interface or direction, or set of interfaces, is
-      assigned to the rule.</para>
+  <para>By default, a rule matches on specified
+    <guilabel>Source</guilabel>, <guilabel>Destination</guilabel>, 
+    and <guilabel>Service</guilabel> rule elements, matching all interfaces
+    and traffic directions. If you want to restrict the effect of the rule 
+    to particular interfaces or traffic directions, you must specify the restriction
+    in the rule.
+  </para>
 
       <sect2>
         <title>Source and Destination</title>
 
         <para>
           The <guilabel>Source</guilabel>
-          and <guilabel>Destination</guilabel> fields allow you to
-          match a packet to a rule based on source and destination IP
+          and <guilabel>Destination</guilabel> rule elements allow you to
+          match a packet to a rule based on the packet's source and destination IP
           address.
         </para>
 
         <para>
-          Either field may be set to "any", which means that the
-          packet will match on that field regardless. Or, you can set
-          a field to a particular IPv4 address (address object), IPv6
-          address (address IPv6 object), the IP address or addresses
-          associated with all interfaces of a host (host object), a
-          range of IP addresses (address range object), all the
-          addresses in a particular subnet (network object), an
-          address configured as DNS "A" record for a given host name
-          (DNS name object), or a group of any of the above. You can
-          place more than one object in either field,
-          too. <xref linkend="addressable-objects" /> has more
-          detailed information on these address objects.
+          Configure these rule elements by dragging some combination of 
+          addressable objects into the field from the object tree.
         </para>
+        <itemizedlist>
+          <listitem> 
+            <para>
+              Specify a specific IPv4 address by dragging and dropping an IPv4 address object.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Specify a specific IPv6 address by dragging and dropping an IPv6 address object.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Specify all the IP addresses on a host by 
+              dragging and dropping a host object.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Specify a range of IP addresses by dragging 
+              and dropping an address range object.
+            </para>
+          </listitem>    
+          <listitem>
+            <para>
+              Specify a particular subnet by dragging and 
+              dropping a network object.
+            </para>
+          </listitem>    
+          <listitem>
+            <para>
+              Specify an address configured as DNS "A" record 
+              for a given host name by dragging and dropping DNS name object.
+            </para>
+          </listitem>  
+          <listitem>
+            <para>
+              Specify a set of different object types by simply 
+              dragging and dropping multiple addressable objects into the field.
+            </para>
+          </listitem>    
+          <listitem>
+            <para>
+              Define a group object composed of different address 
+              objects and drag and drop the group object into the field.
+            </para>
+          </listitem>    
+
+        </itemizedlist>
+     
+        <para><xref linkend="addressable-objects" /> describes how to work with address objects.</para>
 
         <para>
-          In addition, you can "negate" an object by dragging it to a
-          field, then selecting <guimenuitem>Negate</guimenuitem> from
-          the right-click menu. In
+          In addition, you can exclude, or "negate," a source or destination address by dragging it into the 
+          field, then right-clicking and selecting <guimenuitem>Negate</guimenuitem> from
+          the context menu. In the example presented in 
           <xref linkend="policies-rule-negate-rfc1918" />, the RFC
-          1918 address range object has been negated, so the rule
-          matches any destination address that
-          is <emphasis>not</emphasis> part of private address
+          1918 address range object has been excluded from the rule; as a result, the rule
+          matches any destination address <emphasis>except</emphasis> addresses within the private address
           space.
         </para>
 
@@ -101,17 +159,19 @@
         <title>Service</title>
 
         <para>
-          The <guilabel>Service</guilabel> field is also used to
-          match packets to rules. Use service objects
-          (<xref linkend="working-with-services" />) to specify what
-          services should be matched.
+          The <guilabel>Service</guilabel> rule element 
+          matches packets based on the packet's IP service, as defined by 
+          protocol and port numbers. To match on a service, drag 
+          a service object from the object tree into 
+          the <guilabel>Service</guilabel> field. More information on
+          service objects is available in (<xref linkend="working-with-services" />.
         </para>
 
         <para>
-          As in the Source and Destination fields, you can
-          "negate" an object by dragging it to a field, then
-          selecting <guimenuitem>Negate</guimenuitem> from the
-          right-click menu.
+          As in the <guilabel>Source</guilabel> and <guilabel>Destination</guilabel> rule elements, you can
+          exclude, or "negate" a service by dragging its object to the <guilabel>Service</guilabel> field, then
+          right-clicking and selecting <guimenuitem>Negate</guimenuitem> from the
+          context menu.
         </para>
 
       </sect2>
@@ -120,32 +180,75 @@
         <title>Interface</title>
 
         <para>
+          The <guilabel>Interface</guilabel> rule element matches packets based on which firewall
+          interface the packet traverses. (Note that this rule element refers to firewall interfaces, not host interfaces.)
           By default, all rules created in Firewall Builder affect all
-          firewall interfaces, regardless of the target
-          platform. However, sometimes you want to assign a rule to only a
-          particular interface or set of interfaces. To
-          populate this field, drag an interface from the firewall
-          object.
+          firewall interfaces. (This is true in all target
+          platforms.) For cases where you want a rule to match on only a
+          particular interface or set of interfaces, you can drag a firewall interface object or set of firewall interface objects into the field.
         </para>
 
-        <para>
-          If you also want to assign a "direction" to the rule, use
-          the Direction field.
-        </para>
-
-        <para>
-          This field applies to <emphasis>firewall</emphasis>
-          interfaces only, not host interfaces.
-        </para>
-
-      </sect2>
+     </sect2>
 
       <sect2 id="direction">
         <title>Direction</title>
 
         <para>
-          The "direction" for a rule is defined with respect to the
-          firewall machine, not to the network behind it. For example,
+          The <guilabel>Direction</guilabel> rule element matches the  
+          direction a packet is travelling as it traverses the interface. There are three 
+          traffic direction settings for policy rules:
+        </para>
+        
+          <itemizedlist>
+            <listitem>
+              <para>A direction of <guilabel>Inbound</guilabel> matches traffic that is
+            ingressing through a firewall interface.
+              </para>
+            </listitem>
+            <listitem>
+              <para>A direction of <guilabel>Outbound</guilabel> matches traffic that is
+            egressing through a firewall interface. 
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                A direction of <guilabel>Both</guilabel> matches traffic either 
+              ingressing or egressing from the firewall. When you use 
+              the <guilabel>Both</guilabel> direction in a rule and compile the rule, Firewall
+              Builder converts the rule into to two rules: one for direction <guilabel>Inbound</guilabel> and
+              one for direction <guilabel>Outbound</guilabel>. Firewall Builder then
+              validates each rule to make sure they both make sense by
+              looking at the defined source and destination addresses, dropping one
+              of the rules if necessary.  
+              </para>
+              
+              <para>If you build a rule with a firewall
+              object in the <guilabel>Destination</guilabel> field and with direction of <guilabel>Both</guilabel>, the result
+              for <productname>PF</productname> platforms should be a rule with <command>pass in</command>, which is equivalent to a direction of 
+              <guilabel>Outbound</guilabel> in the original Firewall Builder rule. For <productname>iptables</productname>
+              platforms, the rule is placed in the <command>INPUT</command> chain. If the firewall object 
+              is defined in the <guilabel>Source</guilabel> field of the
+              rule, then Firewall Builder automatically changes the direction
+                <guilabel>Both</guilabel> to <guilabel>Outbound</guilabel> and processes the rule accordingly. 
+              </para>
+                  
+              <para>
+                This automatic change of the direction is only performed when the
+                direction is <guilabel>Both</guilabel>. If the direction is <guilabel>Inbound</guilabel> or
+                <guilabel>Outbound</guilabel>, Firewall Builder complies with the setting without changing
+                the rule. (This is how anti-spoofing rules are constructed,
+                for example, because in rules of that kind, the firewall object
+                and the objects representing addresses and networks behind it are
+                in the <guilabel>Source</guilabel> field, yet the direction must be set to <guilabel>Inbound</guilabel>.)
+              </para>
+              
+            </listitem>
+          </itemizedlist>
+ 
+        <para>
+          Note that traffic direction is defined with respect to 
+          the firewall device, not with respect to the network behind it. 
+          For example,
           packets that leave the internal network through the firewall
           are considered "inbound" on firewall's internal interface
           and "outbound" on its external interface. Likewise, packets
@@ -157,56 +260,27 @@
         </para>
 
         <figure id="f-directions">
-          <title>Directions</title>
+          <title>Traffic Directions</title>
           <graphic scale="70" fileref="firewall_policies/images/directions.png" />
         </figure>
 
-        <para>
-          As shown later in <xref linkend="changing_direction"/>,
-          there are three possible settings of direction in policy
-          rules: "Inbound", "Outbound" and "Both":
-
-          <figure id="editing-policy-direction">
-            <title>Modifying the Direction of a Policy Rule</title>
-            <graphic scale="50" fileref="firewall_policies/images/editing_policy4.png" />
-          </figure>
-        </para>
-
-        <para>
-          When you use direction "Both" in a rule, the program first
-          converts it to two rules, with direction "Inbound" and
-          "Outbound". Then it checks if both of them make sense by
-          looking at addresses in source and destination and drops one
-          of the rules if necessary. If you build a rule with firewall
-          object in destination and direction "Both", you should only
-          get PF rule with "pass in" which is equivalent to direction
-          "Inbound" in the original rule in the GUI. In case of
-          iptables, the rule will be placed in the chain INPUT in this
-          case. If firewall object is found in "source" field of the
-          rule, then the program will automatically change direction
-          "Both" to "Outbound" and process the rule accordingly. 
-        </para>
-
-        <para>
-          This automatic change of the direction is only done when you
-          use direction "Both". If you use direction "Inbound" or
-          "Outbound", the program follows your setting and does not
-          change the rule. This is how anti-spoofing rules are built,
-          for example, because in rules of this kind the firewall object
-          and objects representing addresses and networks behind it are
-          in "source", yet direction has to be set to "inbound".
-        </para>
-
+  
         <para>
           Many supported firewall platforms allow for rules to be
-          written without nailing direction "in" or "out", such as
-          "pass quick proto tcp .. .." in PF configuration or iptables
-          rules in the FORWARD chain without "-i interface" or "-o
-          interface" clause. Firewall Builder always tries to use this
-          construct for rules with direction "Both" unless addresses
-          in source and destination indicate that the rule can be made
+          written without explicitly specifying a direction of "in" or "out"; 
+          for example, <command>pass quick proto tcp .. ..</command> in <productname>PF</productname> configuration or <productname>iptables</productname>
+          rules in the <command>FORWARD</command> chain without the <command>-i interface</command> or <command>-o
+            interface</command> clauses. Firewall Builder always tries to use this
+          construct for rules with direction <guilabel>Both</guilabel>, unless addresses
+          in the source and destination indicate that the rule can be made
           more specific.
         </para>
+        
+        <figure id="editing-policy-direction">
+          <title>Modifying the Direction of a Policy Rule</title>
+          <graphic scale="50" fileref="firewall_policies/images/editing_policy4.png" />
+        </figure>
+        
 
       </sect2>
 
@@ -214,32 +288,29 @@
         <title>Action</title>
 
         <para>
-          The Action is the action taken on a rule that matches on
-          the Source, Destination, Service, Interface, Direction, and
-          Time fields.
+          The <guilabel>Action</guilabel> is the action taken on a rule that matches on
+          the <guilabel>Source</guilabel>, <guilabel>Destination</guilabel>, 
+          <guilabel>Service</guilabel>, <guilabel>Interface</guilabel>, <guilabel>Direction</guilabel>, and
+          <guilabel>Time</guilabel> fields.
         </para>
 
         <para>
-          The policy rule action can be one of the options listed
-          below. Not all firewalls support all options, but the GUI
-          will only allow options that are valid for the indicated
-          firewall target. In addition, the same action may have a
-          different name on different platforms.
+          The policy rule action can be any of the actions types listed
+          below. Not all firewalls support every action; however, Firewall Builder is aware
+          of the capabilities of each platform and allows only the options valid 
+          for the specified firewall target.
+          Note also that the same action may be referred to by  
+          a different name on different target platforms.
         </para>
 
         <para>
-          Some actions can have parameters. To set a parameter for an
-          action, first select the action, then double-click on the
-          icon. (You can also right-click and
-          select <guimenuitem>parameters</guimenuitem>.) The
-          parameters dialog appears:
+          Some actions have parameters. For these actions, Firewall Builder
+          opens the action dialog when you select the action for you to specify 
+          the setting. To change the parameter setting for an existing action,
+          double-click the action icon in the <guilabel>Action</guilabel> field or right-click it and
+          select <guimenuitem>Parameters</guimenuitem> from the context menu. This opens the dialog 
+          for the action, where you can change the parameter setting.
         </para>
-
-        <figure id="action-parameters-reject">
-          <title>Parameter Options for the Reject Action</title>
-          <graphic scale="70" fileref="firewall_policies/images/action-parameters-reject.png" />
-        </figure>
-
 
         <itemizedlist spacing="compact">
           <listitem>
@@ -265,86 +336,46 @@
             <para>Reject:</para>
 
             <para>
-              Packet is dropped and an appropriate message is sent
-              back to the sender. No subsequent rules are
-              applied. This action has a parameter that lets you
-              specify how the firewall reacts to the packet. Parameter
-              options include TCP RST and a number of ICMP
-              messages.
+              The packet is dropped and the firewall reacts to the packet 
+              in the way you specify; for example,
+              the firewall can send a TCP RST message or one of a number
+              of ICMP messages. No subsequent rules are applied. 
+              This action has one parameter: when you select Reject as the action,
+              the action dialog automatically opens for you to specify the response to be sent.
+              <xref linkend="action-parameters-reject" /> shows the supported 
+              responses for the Reject action.
             </para>
+            
+            <figure id="action-parameters-reject">
+              <title>Responses for the Reject Action</title>
+              <graphic scale="70" fileref="firewall_policies/images/action-parameters-reject.png" />
+            </figure>
           </listitem>
 
           <listitem>
-            <para>Accounting/Count:</para>
+            <para>Accounting:</para>
 
             <para>
-              Counts packets that match the rule, but makes no
+              Counts packets matching the rule, but makes no
               decision on the packet. Even if the packet matches, the
-              inspection process continues with other rules below
-              it. This action has a parameter for specifying the rule
-              name for accounting.
+              inspection process continues with subsequent rules. 
+              This action has one parameter: when you select the Accounting action,
+              the action dialog automatically opens for you to specify the name of the 
+              accounting rule to be used.
             </para>
           </listitem>
 
           <listitem>
-            <para>Queue/Pipe:</para>
+            <para>Queue:</para>
 
             <para>
-              Passes the packet to a user space process for
-              inspection. It is translated into QUEUE for iptables and
-              "divert" for ipfw. This action is only supported by
-              compilers for iptables and ipfw. This action has no
-              parameters.
-            </para>
-          </listitem>
-
-          <listitem>
-            <para>Tag/Mark:</para>
-
-            <para>
-              Associates a tag with the packet. The tag can later be
-              inspected using service object TagService. This action
-              is translated into MARK target with
-              corresponding --set-mark parameter and optionally
-              additional an rule with a CONNMARK --save-mark target
-              for iptables. If the option that activates CONNMARK
-              target is used, the compiler also adds a rule at the
-              very top of the policy to restore the mark. Rules are
-              placed in INPUT,OUTPUT and FORWARD chain of the "mangle"
-              table, which ensures that DNAT happens before rules in
-              the mangle table see the packet. The PREROUTING chain in
-              the mangle table is executed before the PREROUTING chain
-              in the NAT table, so placing tagging rules in the
-              PREROUTING chain would make them fire before DNAT. The
-              POSTROUTING chain of the mangle table, as well as its
-              FORWARD and OUTPUT chains, work before corresponding
-              chains of the NAT table. In all cases the goal is to
-              make sure DNAT rules process the packet before, and SNAT
-              rules process it after, filtering and tagging
-              rules.
-            </para>
-
-            <para>
-              For PF, this action is translated into tag. Supported
-              only by compilers for iptables and PF. This action's
-              parameter lets you specify which TagService service
-              object to apply to the matching packet.
-            </para>
-          </listitem>
-
-          <listitem>
-            <para>Classify:</para>
-
-            <para>
-              Allows the firewall to define a QoS class for the packet
-              that matches the rule. It is translated into CLASSIFY
-              for iptables, with parameter --set-class. For PF it is
-              translated into "queue". The compiler for ipfw can use
-              "pipe", "queue" or "divert" depending on how the action
-              is configured in the GUI. This action is only supported
-              by compilers for iptables, PF and ipfw. This action has
-              a parameter that lets you specify a Classify
-              string.
+              Supported only for <productname>iptables</productname> 
+              and <productname>ipfw</productname> target platforms. 
+              Passes the packet to a user-space process for
+              inspection. It is translated into <command>QUEUE</command> 
+              for <productname>iptables</productname> and the 
+              <command>divert</command> for <productname>ipfw</productname>. 
+              This action has no parameters.
             </para>
           </listitem>
 
@@ -352,47 +383,33 @@
             <para>Custom:</para>
 
             <para>
+              Supported for <productname>iptables</productname>,  
+              <productname>ipf</productname>, and 
+              <productname>ipfw</productname> target platforms. 
               Allows you to specify an arbitrary piece of code to be
-              used in place of an action. Supported by compilers for
-              iptables, ipf, and ipfw. A parameter lets you specify the
-              string.
+              used in place of an action. This action has one parameter:
+              when you select Custom as the action, the action dialog 
+              automatically opens for you to specify the custom string. 
             </para>
           </listitem>
 
           <listitem>
-            <para>Branch/Chain/Anchor:</para>
+            <para>Branch:</para>
 
             <para>
-              Used to branch to a different rule set. It works on
-              target platforms that provide suitable syntax and allow
-              control to return to the higher level rule set if the
+              Supported only for <productname>iptables</productname> 
+              and <productname>PF</productname> target platforms, which 
+              provide suitable syntax 
+              for allowing control to return to the higher-level rule set if the
               branch cannot make a final decision about the
-              packet. For iptables, this action is translated into a
+              packet. Used to branch to a different rule set.  
+              For <productname>iptables</productname>, this action is translated into a
               user-defined chain. The name of the chain is the name of
-              the branch chosen by the administrator. For PF, this
+              the branch chosen by the administrator. For <productname>PF</productname>, this
               action is translated into an anchor with the same name
-              as the branch rule set. This action is only supported by
-              compilers for iptables and PF. A parameter lets you
-              specify which other rule set to branch into.
-            </para>
-          </listitem>
-
-          <listitem>
-            <para>Routing:</para>
-
-            <para>
-              Makes the firewall route matching packets through a
-              specified interface or a gateway. This action is
-              translated into ROUTE target for iptables and route
-              option for PF and ipfilter. Compilers for PF and
-              ipfilter support "fastroute", "route-to", "reply-to" and
-              "dup-to" options. Parameters let you change the inbound
-              and outbound interface and route the packet through a
-              specified gateway. You can also tell the firewall to
-              continue inspecting the packet after a match, and you
-              can tell the firewall to make these changes to
-              a <emphasis>copy</emphasis> of the packet while allowing
-              the original packet to proceed normally.
+              as the branch rule set. This action has one parameter: when
+              you select Branch as the action, the action dialog automatically opens for you to specify 
+              the rule set into which to branch.
             </para>
           </listitem>
 
@@ -400,17 +417,17 @@
             <para>Continue:</para>
 
             <para>
-              Essentially an empty action. Can be used when you want
-              to assign an option, such as logging, to a match but
+              Continue is, essentially, an empty action. You can use this option when you want
+              to assign an option, such as logging or packet marking, to a matched packet but
               take no other action in that rule. This action has no
               parameters.
             </para>
-
+            
             <para>
-              On iptables systems, using just the Continue action will result 
-              in a rule being generated that has no "-j" target defined. If 
-              the action is set to Continue and Logging is on the generated 
-              rule will have the "-j LOG" target set.
+              On <productname>iptables</productname> systems, using just the Continue action results 
+              generates a rule that has no <command>-j</command> target defined. If 
+              the action is set to Continue and the logging option has been applied, the generated 
+              rule has the <command>-j LOG</command> target set.
             </para>
 
           </listitem>
@@ -420,85 +437,412 @@
           <title>Rule Actions</title>
           <graphic scale="70" fileref="firewall_policies/images/actions.png" />
         </figure>
+        
+        <para>
+          Policy actions can be combined with rule options 
+          specified in the <guilabel>Options</guilabel> rule element to have the firewall perform multiple operations
+          within a single policy rule. For example, you can tag, classify, and accept a packet within
+          a single rule by setting the Tag and Classify options and setting the action to Accept.
+          For more information on configuring policies to perform multiple operations, see 
+          <xref linkend="multiple_operations_per_rule" />.
+        </para>
       </sect2>
 
       <sect2>
         <title>Time</title>
 
         <para>
-          The <guilabel>Time</guilabel> field allows you to restrict a
+          The <guilabel>Time</guilabel> rule element allows you to restrict a
           match to a particular time
-          interval. <xref linkend="time-interval-objects" /> has
-          information on creating and using Time Interval objects in a
-          rule.
+          interval. To match against a particular time, define a time interval object 
+          as described in <xref linkend="time-interval-objects" /> 
+          and drag the time interval object into the <guilabel>Time</guilabel> rule element.
         </para>
 
       </sect2>
 
       <sect2 id="options">
-        <title>Options</title>
+        <title>Options and Logging</title>
 
         <para>
-          The <guilabel>Options</guilabel> field allows you to specify
-          certain options with regard to packets that match the
-          rule. Almost all platforms have options related to logging,
-          and some platforms have more extensive
-          options. Click <guibutton>Help</guibutton> in the Options
-          dialog for platform-specific help.
+          The <guilabel>Options</guilabel> rule element allows you to 
+          enable and disable logging, set logging values, and set certain
+          options (such as tagging and classifying) to be applied when a packet matches the rule.
+          Not all firewalls support all log settings or a full set of options; however, Firewall Builder is aware
+          of the capabilities of each platform and shows only the options valid 
+          for the specified firewall target. Note that options apply only to the 
+          current rule.
         </para>
+        
+        <para>The right-click <guilabel>Options</guilabel> context menu contains three selections: 
+        </para>
+          <itemizedlist>
+            <listitem>
+              <para>Rule Options:</para>
+              
+              <para>
+                Opens the Options dialog, which allows you to set 
+                logging values and supported options for the current rule. 
+                The options and log settings available vary with the target platform. 
+              </para>
+              
+            </listitem>
+ 
+            <listitem>
+              <para>Logging On:</para>
+              
+              <para>Enables logging for packets matching this rule. If
+                the target firewall platform does not support selective logging
+                of packets, log settings are disabled in the 
+                <guilabel>Options</guilabel> dialog. 
+              </para>
+            </listitem>
+            
+            <listitem>
+              <para>Logging Off:</para>
+              
+              <para>Disables logging for packets matching this rule. If the
+                target firewall platform does not support selective logging of
+                packets, this menu item is disabled. 
+              </para>
+              
+            </listitem>
+            
+          </itemizedlist>
+          <para>
+            At the bottom of the context menu, the <guilabel>Compile Rule</guilabel> 
+            selection allows you to perform quick rule compilation.  
+          </para>
+        
+        <para>
+          Rule options may include the following, depending on the target platform:
+        </para>
+        
+        <itemizedlist>
+   
+          <listitem>
+            <para>
+              General:
+            </para>
+            <para>
+              Depending on the target platform, general settings may include
+              whether inspection should be stateless rather than stateful (for some
+              targets, state tracking options are located  
+              located on a <guilabel>Stateless</guilabel> or 
+              <guilabel>State Tracking</guilabel> tab), sending ICMP
+              "Unreachable" packets masquerading as being from the original destination, 
+              keeping information on fragmented packets to be applied to later
+              fragments, and/or whether to assume that the firewall is part of the
+              "any" specification.
+            </para>
+            
+          </listitem>     
+  
+          <listitem>
+            <para>
+              Logging:
+            </para>
+            <para>
+              Depending on the target platform, log settings may include 
+              the log level, logging interval, log facility,
+              log prefix, the Netlink group, and/or a checkbox 
+              to disable logging for the current rule.
+            </para>
+          </listitem>
+          
+            <listitem>
+            <para>
+              Route:
+            </para>
+              
+              <para>
+                Supported only for <productname>ipfilter</productname>
+                and <productname>PF</productname> targets. For 
+                <productname>iptables</productname>, this option is 
+                deprecated. Directs the firewall to route matching packets through a
+                specified interface.               
+                For <productname>PF</productname> and <productname>ipfilter</productname>, 
+                you can specify the interface and next hop. This information
+                is translated into the <command>route</command>
+                option. You can also specify whether to reroute the packet,
+                reroute the reply to the packet, or make the changes to a copy of the 
+                packet, allowing the original packet to proceed normally. 
+                This information is translated into the 
+                <command>route-to</command>, <command>reply-to</command>, and
+                <command>dup-to</command> options, respectively. 
+                The <productname>PF</productname> platform also supports a fast-route
+                option, translated as the <command>fastroute</command> option, and 
+                supports selecting from a set of load-balancing alogrithms.
+              </para>
+ 
+          </listitem>
+          
+          <listitem>
+            <para>
+              State Tracking:
+            </para>
+            <para>
+              Allows you to specify a number of options for tracking
+              the progress of a connection. Keeping state
+              can help you develop rule sets that are simpler
+              and result in better packet filtering performance. For 
+              <productname>iptables</productname>, <productname>ipfilter</productname>,
+              and <productname>ipfw</productname> target platforms, this 
+              option allows you to make packet inspection to be stateless rather than 
+              stateful, which is the default. (For these platforms, this option 
+              is located on the <guilabel>General</guilabel> tab.) 
+              <productname>PF</productname> targets support a number of additional 
+              state tracking settings. The <command>Force "keep state"</command> setting
+              directs the firewall to make a state entry even if the default
+              for the rule is to be stateless.
+              The <command>Activate source tracking</command> setting
+              enables tracking the number of states created per source IP address.
+              The <command>Maximum number of source addresses</command> setting
+              controls the maximum number of source addresses that can 
+              simultaneously have state table entries; this is the 
+              <productname>PF</productname> <command>max-src-nodes</command> option. 
+              The <command>Maximum of simultaneous state entries</command> setting
+              controls the maximum number of simultaneous state entries that can 
+              be created per source IP address; this is the 
+              <productname>PF</productname> <command>max-src-states</command> option.  
+              Note that this limit controls only states created by this rule.
+              State tracking is not supported for <productname>Cisco FWSM</productname>,
+              <productname>Cisco Router IOS ACL</productname>, or  
+              <productname>Cisco ASA/ Cisco PIX</productname> target platforms.
+            </para>
+          </listitem>
+   
+          <listitem>
+            <para>Tag:</para>
+            
+            <para>
+              Supported only for <productname>iptables</productname> 
+              and <productname>PF</productname> platforms. 
+              Associates a tag, or mark, with the packet. When you enable this option,
+              you must specify a TagService object which defines the tag to be applied
+              to matching packets.
+            </para>
+            <para>For <productname>iptables</productname>, the Tag operation
+              is translated into a <command>MARK</command> target with
+              corresponding <command>--set-mark</command> parameter and, optionally,
+              additional rule with a <command>CONNMARK --save-mark</command> target.
+              If the option that activates the <command>CONNMARK</command>
+              target is used, the compiler also adds a rule at the
+              very top of the policy to restore the mark. Rules are
+              placed in the <command>INPUT</command>, <command>OUTPUT</command>, and <command>FORWARD</command> chain of the mangle
+              table, which ensures that DNAT happens before rules in
+              the mangle table interact with the packet. The <command>PREROUTING</command> chain in
+              the mangle table is executed before the <command>PREROUTING</command> chain
+              in the NAT table, so placing tagging rules in the
+              <command>PREROUTING</command> chain would make them fire before DNAT. The
+              <command>POSTROUTING</command> chain of the mangle table, as well as its
+              <command>FORWARD</command> and <command>OUTPUT</command> chains, work before corresponding
+              chains of the NAT table. In all cases, the goal is to
+              make sure DNAT rules process the packet before, and SNAT
+              rules process the packet after, filtering and tagging
+              rules.
+            </para>
+            
+            <para>
+              For <productname>PF</productname>, this option is translated into the 
+              <command>tag</command> option.
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>Classify:</para>
+            
+            <para>
+              Supported only for <productname>iptables</productname>, 
+              <productname>PF</productname>, and <productname>ipfw</productname>. 
+              Allows the firewall to define a QoS class for the packet
+              that matches the rule. It is translated into <command>CLASSIFY</command>
+              for <productname>iptables</productname>, with the 
+              <command>--set-class</command> parameter. For <productname>PF</productname>, it is
+              translated into <command>queue</command>. The compiler for 
+              <productname>ipfw</productname> can use
+              <command>pipe</command>, <command>queue</command>, 
+              or <command>divert</command>, depending on how the action
+              is configured in Firewall Builder. When you 
+              enable this option, you must specify a Classify string.
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>limit:</para>
+            
+            <para>
+              Supported only for <productname>iptables</productname>. Implements
+              the <productname>iptables</productname> 
+              <command>limit</command> module, directing
+              the firewall to perform rate-limiting on the connection. This option
+              is useful for preventing, for example, TCP SYN flood attacks.
+              You specify the maximum average matching rate; this 
+              translates into the <guilabel>iptables</guilabel>
+              <command>--limit rate</command> option, limiting incoming
+              connections once the limit is reached. You can also
+              specify a burst level; this is the maximum initial number of 
+              packets to match. The burst number is incremented
+              by one every time the rate-limit 
+              is not reached, up to this number; this value
+              translates into the <guilabel>iptables</guilabel>
+              <command>--limit-burst</command> option
+              You can also reverse the meaning of the rate-limit rule
+              (that is, accept everything above a given limit) by checking
+              the <guilabel>Negate</guilabel> checkbox. 
+              
+            </para>
 
+          </listitem>
+          
+          <listitem>
+            <para>connlimit:</para>
+            
+            <para>
+              Supported only for <productname>iptables</productname>. Implements
+              the <productname>iptables</productname> 
+              <command>connlimit</command> module, directing
+              the firewall to restrict the number of parallel TCP 
+              connections for this
+              source/destination pair. 
+              You specify the maximum number of existing parallel 
+              connections; this 
+              translates into the <guilabel>iptables</guilabel>
+              <command>--connlimit-above</command> option. You can also
+              specify a network mask to limit the number of connections
+              to networks of a particular size; this value
+              translates into the <guilabel>iptables</guilabel>
+              <command>--connlimit-mask</command> option
+              You can reverse the meaning of the connection-limiting rule
+              (that is, accept everything above a given limit) by checking
+              the <guilabel>Negate</guilabel> checkbox. 
+              
+            </para>
+            
+          </listitem>
+          <listitem>
+            <para>hashlimit:</para>
+            
+            <para>
+              Supported only for <productname>iptables</productname>. Implements
+              the <productname>iptables</productname> 
+              <command>hashlimit</command> module. The hashlimit matching
+              option is similar to the rate-limiting option, implemented
+              per destination IP or per destination-IP/destination-port tuple. 
+              You must provide a name for this hash-limiting entry 
+              specify the rate and burst level. You can also select the 
+              mode of the module, which specifies whether to match 
+              on IP address alone (<command>srcip</command> or (<command>dstip</command>)
+              or on an address/port combination (<command>srcport</command>
+              or <command>dstport</command>).
+              The <command>htable-size</command> setting controls the number
+              of buckets of the hash table. The <command>htable-max</command> 
+              setting controls the maximum number of entries in the hash table.   
+              The <command>htable-expire</command> setting controls 
+              the interval (in milliseconds) after which a has entry expires. 
+              The <command>htable-gcinterval</command> setting controls 
+              the interval (in milliseconds) between garbage collection operations.
+              
+            </para>
+            
+            <para>
+              On some older <productname>iptables</productname> systems, this module
+              is named <command>dstlimit</command>. If your target platform is 
+              one of these systems, check the checkbox
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>
+              Mirror rules:
+            </para>
+            <para>
+              Supported only for <productname>Cisco Router IOS ACL</productname>. 
+              Directs the compiler to create a rule reversing the specified
+              source and destination address and service fields, which can be used 
+              to match "reply" packets for address 
+              and service characteristics in packets matched by this rule. Detailed information 
+              about mirror rule settings is provided in the <guilabel>Rule Options</guilabel> 
+              dialog for this platform.
+            </para>
+          </listitem>
+          
+        </itemizedlist>
+        
+        <para>
+          <xref linkend="rule-options1" /> shows the <guilabel>Tag</guilabel> tab of the 
+          <guilabel>Options</guilabel> dialog for the 
+          <command>iptables</command> platform.
+        </para>
+        
+        <figure id="rule-options1">
+          <title>iptables Options Dialog</title>
+          <graphic scale="70" fileref="firewall_policies/images/rule-options1.png" />
+        </figure>
+ 
+        
         <para>
           If the options of a particular rule have been changed from
-          their default, a <inlinegraphic fileref="firewall_policies/images/option-icon.png"/>
-          appears in the Option field for that rule. Keep in mind that
+          their default values, a <inlinegraphic fileref="firewall_policies/images/option-icon.png"/>
+          appears in the <guilabel>Option</guilabel> field for that rule. Keep in mind that
           not all rules have the same default options. For example, by
           default a Deny rule is stateless, because there is no reason
           to keep state on a connection that won't be allowed. So, if
-          you turn on state for a Deny rule, you'll see the icon.
-        </para>
-
-        <para>
-          An Accept rule has the opposite behavior. By default, state
+          you turn on state for a Deny rule, you'll see the icon.   
+          An Accept rule, on the other hand, has the opposite behavior. By default, state
           is kept for Accept rules, so no icon appears when state is
           on. In other words, if you turn state keeping off, then if you
-          change the default behaviour for that rule, the icon is
+          change the default behavior for that rule, the icon is
           displayed.
         </para>
 
+        <para>
+          You can set multiple options and combine them with 
+          the policy's action so that the firewall performs multiple operations
+          within a single policy rule. For example, where supported, 
+          you can tag, classify, and accept a packet within
+          a single rule by configuring the <guilabel>Tag</guilabel> and <guilabel>Classify</guilabel>
+          options and setting the action to <guilabel>Accept</guilabel>.
+          For more information on configuring policies to perform multiple operations, see 
+          <xref linkend="multiple_operations_per_rule" />.
+        </para>
+        
       </sect2>
+          
 
       <sect2 id="multiple_policy_rule_sets">
         <title>Working with Multiple Policy Rule Sets</title>
 
           <para>
-            Every firewall object created in Firewall Builder has a
-            single Policy rule set to start. For many firewalls, this
-            is all you need. However, with Firewall Builder, you can
-            create multiple access policy rule sets, and, if you
-            platform supports it, branch between them. This can help
+            Every firewall object created in Firewall Builder begins with
+            a single policy rule set. For many firewalls, this
+            is all you need. However, Firewall Builder allows you to
+            create multiple access policy rule sets for a single firewall 
+            object and, if your
+            platform supports it, branch between the rule sets. This can help
             you modularize your policy.
           </para>
 
           <para>
-            Here we have Firewall object "fw" with three policy rule
-            sets, Policy, Policy_2, and mgmt:
+            In the following example, the firewall object "fw" has three policy rule
+            sets: <command>Policy</command>, <command>Policy_2</command>, and <command>mgmt</command>:
           </para>
 
           <figure id="policy-rulesets1">
-            <title>Firewall with More Than One Policy Rule Set</title>
+            <title>Firewall with Multiple Policy Rule Sets</title>
             <graphic scale="70" fileref="firewall_policies/images/policy-rulesets1.png" />
           </figure>
 
         <para>
           To create an additional rule set, right-click the
           firewall object in the tree and select <guimenuitem>Add
-          Policy Rule Set</guimenuitem>.
+          Policy Rule Set</guimenuitem> from the context menu.
         </para>
 
         <para>
           All policy rule sets have configurable parameters. To see a
-          policy rule set's parameters, double-click it in the tree
-          to open it in the editor.
+          policy rule set's parameters, open it in the editor by 
+          double-clicking it in the tree.
         </para>
 
         <figure id="policy-rulesets2">
@@ -521,64 +865,68 @@
           rule set should be compiled for IPv4 only (ignoring any
           IPv6-related rules), IPv6 only (ignoring any IPv4-related
           rules), or for both IPv4 and IPv6. If both IPv4 and IPv6 are
-          selected, the compiler "does the right thing" and puts each
+          selected, the compiler automatically places each
           rule into the correct part of the configuration.
         </para>
 
         <para>
-          Only one rule set can be tagged as the "top" rule set. The
-          "top" rule set is the primary rule set that is assigned to
-          the device. Only one rule set of each type, can be marked as
-          "top". The "top" rule set is always used (if it has any
+          When multiple rule sets have been defined, one rule set is 
+          tagged as the "top" rule set by checking the 
+          <guilabel>Top rule set</guilabel> 
+          checkbox when the rule set is added. The
+          top rule set is the primary rule set assigned to
+          the device. Only one rule set of each type can be marked as
+          the top rule set. The top rule set is always used (if it has any
           rules). Other rule sets are only used if they are the
-          targets of branching. (In Firewall Builder 3.X, only the
-          Policy rule set can branch.)
+          targets of branching. Scripts are generated as follows for target
+          platforms.
         </para>
 
       <itemizedlist>
           <listitem>
-            <para>iptables: rules defined in the "top" rule set will
-            go into built-in chains INPUT,OUTPUT,FORWARD. Rules
-            defined in rule sets where this checkbox is not checked go
-            into a user-defined chain with the same name as the rule
-            set.</para>
+            <para><productname>iptables</productname>: Rules 
+              defined in the top rule set are placed
+              into the built-in INPUT, OUTPUT, and FORWARD chains. 
+              Rules defined in rule sets where the <guilabel>Top rule set</guilabel> checkbox 
+              is not checked 
+              are placed into a user-defined chain with the same name as 
+              the rule set.</para>
           </listitem>
 
           <listitem>
-            <para>PF: rules defined in the rule set with <guilabel>top
-            rule set</guilabel> checkbox turned off go into an anchor
-            with the name of the rule set.</para>
+            <para><productname>PF</productname>: Rules defined in rule sets
+              other than the top rule set are placed into an anchor
+              with the name of the rule set.</para>
           </listitem>
 
           <listitem>
-            <para>Cisco IOS access lists: if the <guilabel>top rule
-            set</guilabel> checkbox is turned off, the rules go into
-            access list with the name prefixed with the name of the
-            rule set; this access list will not be assigned to
-            interfaces via "ip access-group" command. Rulesets with
-            checkbox <guilabel>top rule set</guilabel> checked
-            generate ACLs with names consisting of the shortened name
-            of interface and direction abbreviation ("in" or
-            "out"). Only these lists are assigned to
-            interfaces.</para>
+            <para><productname>Cisco IOS ACLs</productname>: If the rule set
+              is not the top rule set, rules are placed into an
+              access list and the rule set name is prefixed to the 
+              accless list name; this access list is not assigned to
+              interfaces using the <command>ip access-group</command> command. 
+              Top rule sets generate ACLs with names consisting of a shortened 
+              interface name plus traffic direction. Only these lists 
+              are assigned to interfaces.</para>
           </listitem>
         </itemizedlist>
 
-        <para>You can fork processing between rule sets with the
-        "Branch/Chain/Anchor" (depending on platform) action in a
-        rule. This rule causes packets headed for the "fw-mgmt" host
-        to be passed to the "mgmt" rule set.</para>
+        <para>You fork processing between rule sets using the
+        <guilabel>Branch</guilabel> rule action. In the example, 
+          this rule causes packets headed for the <command>fw-mgmt</command> host
+          to be passed to the <command>mgmt</command> rule set.</para>
 
         <figure id="policy-rulesets3">
           <title>Passing a Packet to the "mgmt" Rule Set</title>
           <graphic scale="70" fileref="firewall_policies/images/policy-rulesets3.png" />
         </figure>
 
-        <para>A packet directed to the "mgmt" rule set leaves the main
-        rule set and begins matching against rules in the "mgmt" rule
-        set. If it matches in the "mgmt" rule set, then that action is
-        taken. If it does not match in the "mgmt" rule set, then
-        processing is passed back to the calling rule set.</para>
+        <para>A packet directed to the <command>mgmt</command> 
+          rule set leaves the main 
+          rule set and begins matching against rules in the <command>mgmt</command> rule
+          set. If it matches in the <command>mgmt</command> rule set, then the specified action is
+          taken. If it does not match in the <command>mgmt</command> rule set, 
+          processing is passed back to the calling rule set.</para>
       </sect2>
     </sect1>
 

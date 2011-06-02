@@ -6,16 +6,16 @@
     <title>Linux cluster with OpenVPN tunnel interfaces</title>
 
     <para>
-      In this example we are working with the same two Linux machines
+      In this example, we are working with the same two Linux machines
       used in the previous example <xref linkend="heartbeat_cluster" />
       running heartbeat for failover that form a High Availability 
-      (HA) firewall pair. In addition to standard ethernet interfaces
+      (HA) firewall pair. In addition to standard Ethernet interfaces
       the firewalls in the cluster are using an OpenVPN tunnel
       interface, tun0, to connect to a remote location.
     </para> 
 
     <figure id="openvpn_cluster_configuration">
-    <title>Linux cluster with OpenVPN tunnel interfaces</title>
+    <title>Linux Cluster with OpenVPN Tunnel Interfaces</title>
     <graphic fileref="cookbook/cluster/images/openvpn_cluster_configuration.png" />
     </figure>
 
@@ -23,14 +23,14 @@
     <para>
     You must configure OpenVPN tunnels outside of Firewall Builder.
     Configuration of OpenVPN tunnes is outside the scope of this 
-    cookbook, you can find more information about OpenVPN and how to
-    configure tunnels at
+    cookbook; you can find more information about OpenVPN and information on
+    configuring tunnels at
     <ulink href="http://www.openvpn.net/">www.openvpn.net</ulink>.
     </para>
   </note>
 
     <para>
-    In this scenario in addition to the regular Ethernet interfaces
+    In this scenario, in addition to the regular Ethernet interfaces
     failing over in the event of a failure, we also want the OpenVPN
     tunnel interface, tun0, to failover automatically as well. This 
     design requires that the OpenVPN tunnel configuration use the 
@@ -49,7 +49,7 @@
 
     <para>
     This behavior leads to the second issue, which is that the Firewall
-    Builder generated script will fail to start if the tunnel interface, 
+    Builder-generated script will fail to start if the tunnel interface, 
     tun0, is used in any of the firewall rules. Since the tun0 interface 
     does not exist on the slave firewall the script cannot implement the 
     rules as defined which causes it to exit with an error.
@@ -68,7 +68,7 @@
     OpenVPN provides a feature called "persistent tunnels". These are
     tunnel interfaces that always exist even if the OpenVPN daemon is 
     not running. The tunnel interface needs to be created early in the 
-    boot sequence, you can do this by adding the following to the 
+    boot sequence; you can do this by adding the following to the 
     file /etc/network/intefaces.
     </para>
 
@@ -92,7 +92,7 @@ iface tun0 inet static
     interface, but note that this is an interface "stub" since 
     the full OpenVPN configuration has not been applied and thus 
     the tunnel interface is not providing any connectivity to 
-    the remote site. Later when the OpenVPN daemon is run the 
+    the remote site. Later when the OpenVPN daemon is run, the 
     rest of the VPN configuration will be applied to this interface.
     </para>
 
@@ -144,7 +144,7 @@ exit 0
     </programlisting>
 
     <para>
-    To execute this wrapper script on a failover event we need
+    To execute this wrapper script on a failover event, we need
     to add it to the haresources file as shown below.
     </para>
     
@@ -156,8 +156,8 @@ linux-test-1  IPaddr::10.1.1.1/24/eth1/10.1.1.255
     </programlisting>
 
     <para>
-    With this configuration in place you can now use the tun0
-    interface like you would use any other interface in your 
+    With this configuration in place, you can now use the tun0
+    interface as you would use any other interface in your 
     Firewall Builder cluster Policy rules.
     </para>   
 
