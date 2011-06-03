@@ -224,8 +224,8 @@
               
               <para>If you build a rule with a firewall
               object in the <guilabel>Destination</guilabel> field and with direction of <guilabel>Both</guilabel>, the result
-              for <productname>PF</productname> platforms should be a rule with <command>pass in</command>, which is equivalent to a direction of 
-              <guilabel>Outbound</guilabel> in the original Firewall Builder rule. For <productname>iptables</productname>
+              for <application>PF</application> platforms should be a rule with <command>pass in</command>, which is equivalent to a direction of 
+              <guilabel>Outbound</guilabel> in the original Firewall Builder rule. For <application>iptables</application>
               platforms, the rule is placed in the <command>INPUT</command> chain. If the firewall object 
               is defined in the <guilabel>Source</guilabel> field of the
               rule, then Firewall Builder automatically changes the direction
@@ -268,7 +268,7 @@
         <para>
           Many supported firewall platforms allow for rules to be
           written without explicitly specifying a direction of "in" or "out"; 
-          for example, <command>pass quick proto tcp .. ..</command> in <productname>PF</productname> configuration or <productname>iptables</productname>
+          for example, <command>pass quick proto tcp .. ..</command> in <application>PF</application> configuration or <application>iptables</application>
           rules in the <command>FORWARD</command> chain without the <command>-i interface</command> or <command>-o
             interface</command> clauses. Firewall Builder always tries to use this
           construct for rules with direction <guilabel>Both</guilabel>, unless addresses
@@ -369,12 +369,12 @@
             <para>Queue:</para>
 
             <para>
-              Supported only for <productname>iptables</productname> 
-              and <productname>ipfw</productname> target platforms. 
+              Supported only for <application>iptables</application> 
+              and <application>ipfw</application> target platforms. 
               Passes the packet to a user-space process for
               inspection. It is translated into <command>QUEUE</command> 
-              for <productname>iptables</productname> and the 
-              <command>divert</command> for <productname>ipfw</productname>. 
+              for <application>iptables</application> and the 
+              <command>divert</command> for <application>ipfw</application>. 
               This action has no parameters.
             </para>
           </listitem>
@@ -383,9 +383,9 @@
             <para>Custom:</para>
 
             <para>
-              Supported for <productname>iptables</productname>,  
-              <productname>ipf</productname>, and 
-              <productname>ipfw</productname> target platforms. 
+              Supported for <application>iptables</application>,  
+              <application>ipf</application>, and 
+              <application>ipfw</application> target platforms. 
               Allows you to specify an arbitrary piece of code to be
               used in place of an action. This action has one parameter:
               when you select Custom as the action, the action dialog 
@@ -397,15 +397,15 @@
             <para>Branch:</para>
 
             <para>
-              Supported only for <productname>iptables</productname> 
-              and <productname>PF</productname> target platforms, which 
+              Supported only for <application>iptables</application> 
+              and <application>PF</application> target platforms, which 
               provide suitable syntax 
               for allowing control to return to the higher-level rule set if the
               branch cannot make a final decision about the
               packet. Used to branch to a different rule set.  
-              For <productname>iptables</productname>, this action is translated into a
+              For <application>iptables</application>, this action is translated into a
               user-defined chain. The name of the chain is the name of
-              the branch chosen by the administrator. For <productname>PF</productname>, this
+              the branch chosen by the administrator. For <application>PF</application>, this
               action is translated into an anchor with the same name
               as the branch rule set. This action has one parameter: when
               you select Branch as the action, the action dialog automatically opens for you to specify 
@@ -424,7 +424,7 @@
             </para>
             
             <para>
-              On <productname>iptables</productname> systems, using just the Continue action results 
+              On <application>iptables</application> systems, using just the Continue action results 
               generates a rule that has no <command>-j</command> target defined. If 
               the action is set to Continue and the logging option has been applied, the generated 
               rule has the <command>-j LOG</command> target set.
@@ -556,12 +556,12 @@
             </para>
               
               <para>
-                Supported only for <productname>ipfilter</productname>
-                and <productname>PF</productname> targets. For 
-                <productname>iptables</productname>, this option is 
+                Supported only for <application>ipfilter</application>
+                and <application>PF</application> targets. For 
+                <application>iptables</application>, this option is 
                 deprecated. Directs the firewall to route matching packets through a
                 specified interface.               
-                For <productname>PF</productname> and <productname>ipfilter</productname>, 
+                For <application>PF</application> and <application>ipfilter</application>, 
                 you can specify the interface and next hop. This information
                 is translated into the <command>route</command>
                 option. You can also specify whether to reroute the packet,
@@ -570,7 +570,7 @@
                 This information is translated into the 
                 <command>route-to</command>, <command>reply-to</command>, and
                 <command>dup-to</command> options, respectively. 
-                The <productname>PF</productname> platform also supports a fast-route
+                The <application>PF</application> platform also supports a fast-route
                 option, translated as the <command>fastroute</command> option, and 
                 supports selecting from a set of load-balancing alogrithms.
               </para>
@@ -586,12 +586,12 @@
               the progress of a connection. Keeping state
               can help you develop rule sets that are simpler
               and result in better packet filtering performance. For 
-              <productname>iptables</productname>, <productname>ipfilter</productname>,
-              and <productname>ipfw</productname> target platforms, this 
+              <application>iptables</application>, <application>ipfilter</application>,
+              and <application>ipfw</application> target platforms, this 
               option allows you to make packet inspection to be stateless rather than 
               stateful, which is the default. (For these platforms, this option 
               is located on the <guilabel>General</guilabel> tab.) 
-              <productname>PF</productname> targets support a number of additional 
+              <application>PF</application> targets support a number of additional 
               state tracking settings. The <command>Force "keep state"</command> setting
               directs the firewall to make a state entry even if the default
               for the rule is to be stateless.
@@ -600,15 +600,15 @@
               The <command>Maximum number of source addresses</command> setting
               controls the maximum number of source addresses that can 
               simultaneously have state table entries; this is the 
-              <productname>PF</productname> <command>max-src-nodes</command> option. 
+              <application>PF</application> <command>max-src-nodes</command> option. 
               The <command>Maximum of simultaneous state entries</command> setting
               controls the maximum number of simultaneous state entries that can 
               be created per source IP address; this is the 
-              <productname>PF</productname> <command>max-src-states</command> option.  
+              <application>PF</application> <command>max-src-states</command> option.  
               Note that this limit controls only states created by this rule.
-              State tracking is not supported for <productname>Cisco FWSM</productname>,
-              <productname>Cisco Router IOS ACL</productname>, or  
-              <productname>Cisco ASA/ Cisco PIX</productname> target platforms.
+              State tracking is not supported for <application>Cisco FWSM</application>,
+              <application>Cisco Router IOS ACL</application>, or  
+              <application>Cisco ASA/ Cisco PIX</application> target platforms.
             </para>
           </listitem>
    
@@ -616,13 +616,13 @@
             <para>Tag:</para>
             
             <para>
-              Supported only for <productname>iptables</productname> 
-              and <productname>PF</productname> platforms. 
+              Supported only for <application>iptables</application> 
+              and <application>PF</application> platforms. 
               Associates a tag, or mark, with the packet. When you enable this option,
               you must specify a TagService object which defines the tag to be applied
               to matching packets.
             </para>
-            <para>For <productname>iptables</productname>, the Tag operation
+            <para>For <application>iptables</application>, the Tag operation
               is translated into a <command>MARK</command> target with
               corresponding <command>--set-mark</command> parameter and, optionally,
               additional rule with a <command>CONNMARK --save-mark</command> target.
@@ -644,7 +644,7 @@
             </para>
             
             <para>
-              For <productname>PF</productname>, this option is translated into the 
+              For <application>PF</application>, this option is translated into the 
               <command>tag</command> option.
             </para>
           </listitem>
@@ -653,14 +653,14 @@
             <para>Classify:</para>
             
             <para>
-              Supported only for <productname>iptables</productname>, 
-              <productname>PF</productname>, and <productname>ipfw</productname>. 
+              Supported only for <application>iptables</application>, 
+              <application>PF</application>, and <application>ipfw</application>. 
               Allows the firewall to define a QoS class for the packet
               that matches the rule. It is translated into <command>CLASSIFY</command>
-              for <productname>iptables</productname>, with the 
-              <command>--set-class</command> parameter. For <productname>PF</productname>, it is
+              for <application>iptables</application>, with the 
+              <command>--set-class</command> parameter. For <application>PF</application>, it is
               translated into <command>queue</command>. The compiler for 
-              <productname>ipfw</productname> can use
+              <application>ipfw</application> can use
               <command>pipe</command>, <command>queue</command>, 
               or <command>divert</command>, depending on how the action
               is configured in Firewall Builder. When you 
@@ -672,8 +672,8 @@
             <para>limit:</para>
             
             <para>
-              Supported only for <productname>iptables</productname>. Implements
-              the <productname>iptables</productname> 
+              Supported only for <application>iptables</application>. Implements
+              the <application>iptables</application> 
               <command>limit</command> module, directing
               the firewall to perform rate-limiting on the connection. This option
               is useful for preventing, for example, TCP SYN flood attacks.
@@ -699,8 +699,8 @@
             <para>connlimit:</para>
             
             <para>
-              Supported only for <productname>iptables</productname>. Implements
-              the <productname>iptables</productname> 
+              Supported only for <application>iptables</application>. Implements
+              the <application>iptables</application> 
               <command>connlimit</command> module, directing
               the firewall to restrict the number of parallel TCP 
               connections for this
@@ -724,8 +724,8 @@
             <para>hashlimit:</para>
             
             <para>
-              Supported only for <productname>iptables</productname>. Implements
-              the <productname>iptables</productname> 
+              Supported only for <application>iptables</application>. Implements
+              the <application>iptables</application> 
               <command>hashlimit</command> module. The hashlimit matching
               option is similar to the rate-limiting option, implemented
               per destination IP or per destination-IP/destination-port tuple. 
@@ -746,7 +746,7 @@
             </para>
             
             <para>
-              On some older <productname>iptables</productname> systems, this module
+              On some older <application>iptables</application> systems, this module
               is named <command>dstlimit</command>. If your target platform is 
               one of these systems, check the checkbox
             </para>
@@ -757,7 +757,7 @@
               Mirror rules:
             </para>
             <para>
-              Supported only for <productname>Cisco Router IOS ACL</productname>. 
+              Supported only for <application>Cisco Router IOS ACL</application>. 
               Directs the compiler to create a rule reversing the specified
               source and destination address and service fields, which can be used 
               to match "reply" packets for address 
@@ -884,7 +884,7 @@
 
       <itemizedlist>
           <listitem>
-            <para><productname>iptables</productname>: Rules 
+            <para><application>iptables</application>: Rules 
               defined in the top rule set are placed
               into the built-in INPUT, OUTPUT, and FORWARD chains. 
               Rules defined in rule sets where the <guilabel>Top rule set</guilabel> checkbox 
@@ -894,13 +894,13 @@
           </listitem>
 
           <listitem>
-            <para><productname>PF</productname>: Rules defined in rule sets
+            <para><application>PF</application>: Rules defined in rule sets
               other than the top rule set are placed into an anchor
               with the name of the rule set.</para>
           </listitem>
 
           <listitem>
-            <para><productname>Cisco IOS ACLs</productname>: If the rule set
+            <para><application>Cisco IOS ACLs</application>: If the rule set
               is not the top rule set, rules are placed into an
               access list and the rule set name is prefixed to the 
               accless list name; this access list is not assigned to

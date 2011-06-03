@@ -342,7 +342,7 @@
           </figure>
 
           <para>Rule options and log settings are described in detail in
-            <xref linkend="options"" />.
+            <xref linkend="options" />.
           </para>
           
         </sect2>
@@ -356,16 +356,16 @@
             then classify it, and then accept the packet. Instead of 
             defining multiple single-action rules to accomplish this
             behavior, Firewall Builder allows
-            you to combine a set of policy options with a policy action within 
+            you to combine a set of rule options with an action within 
             a single rule, so that the firewall performs all the specified operations
-            when the single policy is matched. The ability to specify 
-            multiple operations for a single policy
-            helps keep the number of required policies to a minimum, 
+            when the rule is matched. The ability to specify 
+            multiple operations for a single rule 
+            helps keep the number of required rules to a minimum, 
             and keeps your rule set simpler and more readable.
           </para>
           
-          <para>Some target firewall platforms, such as <productname>PF</productname>, natively support multi-action
-            rules. Other firewall platforms, such as <productname>iptables</productname>, do not explicitly support
+          <para>Some target firewall platforms, such as <application>PF</application>, natively support multi-action
+            rules. Other firewall platforms, such as <application>iptables</application>, do not explicitly support
             configuring multiple operations per rule. For these
             platforms, Firewall Builder automatically transforms the configured policy
             into however many rules are required by the target platform.

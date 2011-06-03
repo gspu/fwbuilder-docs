@@ -9,10 +9,12 @@
     </para>
 
     <para>
-    For this example we will be configuring the traffic shaping on 
-    a web server where we want to limit the total bandwidth used 
-    for HTTP traffic to be 2Mbps or less. You can extend these 
-    same principles to have more complex scenarios using more 
+    For this example we will be using Firewall Builder to configure 
+    a Linux host with a webserver. The generated firewall script will 
+    be run directly on the webserver and this is also where the traffic 
+    shaping will be done. The goal of this example is to limit the  
+    total bandwidth used for HTTP traffic to be 2Mbps or less. You can 
+    extend the same principles to more complex scenarios using more 
     advanced features in tc.
     </para> 
 
@@ -38,8 +40,8 @@
     
     <para>
     To set the class ID for the HTTP traffic originating from the server, we 
-    need to add a rule <emphasis>above</emphasis> the rule that allows the 
-    traffic as shown in the <xref linkend="basic_http_src_rate_limit"/>.
+    need to add a rule that allows the traffic as shown in the 
+    <xref linkend="basic_http_src_rate_limit"/>.
     </para>
 
     <figure id="basic_http_src_rate_limit">
@@ -117,6 +119,12 @@ tc class add dev eth0 parent 1:1 classid 1:10 htb rate 1kbit ceil ${RATE_HTTP}kb
       <title>Classify Rule</title>
       <graphic scale="60" fileref="cookbook/traffic_shaping/images/epilog_window.png" />
     </figure>
+
+    <para>
+    While this example showed controlling bandwidth from a single host, you can 
+    also apply the same concepts to a network firewall that provides traffic shaping 
+    for multiple systems on a network.
+    </para>
 
   </sect2>
 
