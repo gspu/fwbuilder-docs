@@ -348,7 +348,7 @@
         </sect2>
         
         <sect2 id="multiple_operations_per_rule">
-          <title>Configuring Multiple Rule Operations</title>
+          <title>Configuring Multiple Operations per Rule</title>
           
           <para>Suppose you have a scenario where you want the firewall to 
             perform a number of operations on packets of a certain type. 
@@ -370,6 +370,153 @@
             platforms, Firewall Builder automatically transforms the configured policy
             into however many rules are required by the target platform.
           </para>
+
+          <sect3 id="multiple_rule_actions_iptables">
+            <title>Configuring an iptables rule to Accept and Classify</title>
+
+            <para>Let's look at an example where traffic matching a particular 
+            rule, such as the one shown in <xref linkend="iptables_rule_accept_classify" />.
+            This rule matches SSH traffic to a specific address.
+            </para>
+
+            <figure id="iptables_rule_accept_classify">
+              <title>Basic rule with no options set</title>
+              <graphic scale="70" fileref="firewall_policies/images/iptables_rule_accept_classify.png" />  
+            </figure>
+
+            <para>The way the rule is currently defined traffic matching the rule 
+            will be accepted and no other action will be taken. However, if in 
+            addition to accepting the traffic you also want to classify the 
+            traffic into classful qdisc for use with tc, then you need to use 
+            the Classify rule option to set the classify value that should be 
+            set for traffic matching the rule.
+            </para>
+
+            <para>In this example we will use a qdisc value of 1:20 which matches 
+            a value configured in tc for prioritizing SSH traffic.
+            </para>
+            
+            <para>Steps for adding classify string to matching traffic.</para>
+            
+            <orderedlist>
+              <listitem>Right-click on Options section of rule and select
+              Rule Options</listitem>
+              <listitem>Click on Classify tab in the Editor panel at the bottom of 
+              the screen</listitem>
+              <listitem>Enter the value 1:20 in the text box for the Classify 
+              string as shown in <xref linkend="iptables_rule_accept_classify_string" />
+              </listitem> 
+            </orderedlist>
+
+            <figure id="iptables_rule_accept_classify_string">
+              <title>Entering classify string in Editor panel</title>
+              <graphic scale="70" fileref="firewall_policies/images/iptables_rule_accept_classify_string.png" />  
+            </figure>
+
+            <para>Notice that the Classify icon and classify string value are now 
+            displayed in the rule's Options column. This lets you quickly and easily 
+            see what options have been configured for a particular rule.
+            </para>
+
+            <figure id="iptables_rule_accept_classify_rule">
+              <title>Rule with Classify option set</title>
+              <graphic scale="70" fileref="firewall_policies/images/iptables_rule_accept_classify_rule.png" />  
+            </figure>
+
+            <para>Using the <xref linkend="compile-single-rule" /> feature you can 
+            see that this rule will result in the following iptables commands being 
+            generated.</para>
+
+<programlisting>
+$IPTABLES -A FORWARD -p tcp -m tcp -d 192.168.2.10 --dport 22 -m state --state NEW \
+-j ACCEPT 
+# Allow SSH to server
+$IPTABLES -t mangle -A POSTROUTING -p tcp -m tcp -d 192.168.2.10 --dport 22 -m state \
+--state NEW  -j CLASSIFY --set-class 1:20
+</programlisting>
+
+          </sect3>
+
+          <sect3 id="multiple_rule_actions_pf">
+            <title>Configuring a PF rule to Tag packets</title>
+
+            <para>In this example traffic matching a rule on a PF firewall should be 
+            tagged with a tag value that identifies the traffic is from an internal 
+            network that entered the firewall inbound on its internal (em1) network 
+            interface.
+            </para> 
+
+            <para>First, a TagService object needs to be created that will identify 
+            the tag value that should be applied to the matching traffic. In this case 
+            the tag value will be set to "Internal_Net".
+            </para>
+
+            <orderedlist>
+              <listitem>In the object tree right-click on the TagServices folder and 
+              select New TagService</listitem>
+              <listitem>Enter a name for the TagService object</listitem>
+              <listitem>Enter the tag value that should be applied, in this case 
+              "Internal_Net"</listitem>
+            </orderedlist>
+
+            <para>The TagService should like like <xref linkend="pf_tag_service"/>.
+            </para>
+            
+            <figure id="pf_tag_service">
+              <title>TagService object settings</title>
+              <graphic scale="70" fileref="firewall_policies/images/pf_tag_service.png" />  
+            </figure>
+
+            <para>Next, a rule that matches the internal network traffic inbound on 
+            networking interface em1 needs to be created. Since we only want to tag 
+            the packets so they can be acted on by later rules the Action for the 
+            rule will be set to Continue as shown in <xref linkend="pf_tag_rule_continue"/>
+            .</para>
+
+            <figure id="pf_tag_rule_continue">
+              <title>Basic rule without tag being set</title>
+              <graphic scale="70" fileref="firewall_policies/images/pf_tag_rule_continue.png" />  
+            </figure>
+
+            <para>To set the tag value that will be added to packets that match 
+            this rule, do the following:
+            </para>
+           
+            <orderedlist>
+              <listitem>Right-click on the Options column of the rule and select 
+              Rule Options</listitem>
+              <listitem>Click on the Tag tab in the Editor panel at the bottom
+              </listitem>
+              <listitem>Drag-and-drop the TagService object created earlier from 
+              the object tree to the the drop target in the Editor panel as shown 
+              in <xref linkend="pf_tag_rule_continue_tag"/>
+              </listitem>
+            </orderedlist>
+
+            <figure id="pf_tag_rule_continue_tag">
+              <title>Setting the TagService object to use in the rule</title>
+              <graphic scale="70" fileref="firewall_policies/images/pf_tag_rule_continue_tag.png" />  
+            </figure>
+
+            <para>After the TagService object has been added to the rule, the final 
+            rule should look like <xref linkend="pf_tag_rule_complete"/>.
+            </para>
+
+            <figure id="pf_tag_rule_complete">
+              <title>Completed tag rule for PF</title>
+              <graphic scale="70" fileref="firewall_policies/images/pf_tag_rule_complete.png" />  
+            </figure>
+
+            <para>Using the <xref linkend="compile-single-rule" /> feature you can 
+            see that this rule will result in the following PF commands being 
+            generated.</para>
+
+<programlisting>
+# Tag internal traffic
+pass in on em1 inet from 192.168.1.0/24 to any tag Internal_Net label "RULE 0 --  "
+</programlisting>
+
+          </sect3>
           
           
         </sect2>

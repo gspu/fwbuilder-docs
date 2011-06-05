@@ -359,9 +359,13 @@
               Counts packets matching the rule, but makes no
               decision on the packet. Even if the packet matches, the
               inspection process continues with subsequent rules. 
-              This action has one parameter: when you select the Accounting action,
-              the action dialog automatically opens for you to specify the name of the 
-              accounting rule to be used.
+              For <application>iptables</application> This action has 
+              one parameter which is the name of the rule chain that will be 
+              created. Traffic that matches this rule will have a target of 
+              the defined accounting user chain. In this case the traffic is 
+              neither accepted nor denied, so in order for the traffic to 
+              be passed through the firewall another rule must be defined 
+              with the Action set to Accept.
             </para>
           </listitem>
 
@@ -386,10 +390,12 @@
               Supported for <application>iptables</application>,  
               <application>ipf</application>, and 
               <application>ipfw</application> target platforms. 
-              Allows you to specify an arbitrary piece of code to be
-              used in place of an action. This action has one parameter:
-              when you select Custom as the action, the action dialog 
-              automatically opens for you to specify the custom string. 
+              Allows you to specify an abitrary string, for example 
+              defining <application>iptables</application> module 'recent' 
+              parameters as shown in <xref linkend="custom-service"/>.
+              This action has one parameter: when you select Custom 
+              as the action, the action dialog automatically opens 
+              for you to specify the custom string. 
             </para>
           </listitem>
 
@@ -405,11 +411,13 @@
               packet. Used to branch to a different rule set.  
               For <application>iptables</application>, this action is translated into a
               user-defined chain. The name of the chain is the name of
-              the branch chosen by the administrator. For <application>PF</application>, this
+              the Policy rule set object that the branch jumps to. For 
+              <application>PF</application>, this
               action is translated into an anchor with the same name
-              as the branch rule set. This action has one parameter: when
-              you select Branch as the action, the action dialog automatically opens for you to specify 
-              the rule set into which to branch.
+              as the Policy rule set that the branch jumps to. This action has 
+              one parameter: when you select Branch as the action, the action 
+              dialog automatically opens for you with a drop area to drag-and-drop 
+              the Policy rule set which will be branched to.
             </para>
           </listitem>
 
@@ -441,7 +449,7 @@
         <para>
           Policy actions can be combined with rule options 
           specified in the <guilabel>Options</guilabel> rule element to have the firewall perform multiple operations
-          within a single policy rule. For example, you can tag, classify, and accept a packet within
+          within a single rule. For example, you can tag, classify, and accept a packet within
           a single rule by setting the Tag and Classify options and setting the action to Accept.
           For more information on configuring policies to perform multiple operations, see 
           <xref linkend="multiple_operations_per_rule" />.
