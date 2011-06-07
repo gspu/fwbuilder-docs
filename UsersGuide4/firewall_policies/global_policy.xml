@@ -359,7 +359,7 @@
               Counts packets matching the rule, but makes no
               decision on the packet. Even if the packet matches, the
               inspection process continues with subsequent rules. 
-              For <application>iptables</application> This action has 
+              For <application>iptables</application> this action has 
               one parameter which is the name of the rule chain that will be 
               created. Traffic that matches this rule will have a target of 
               the defined accounting user chain. In this case the traffic is 
