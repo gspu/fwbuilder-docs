@@ -9,6 +9,7 @@
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="addressable-objects.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="service-objects.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="time-objects.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="object-keywords.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="new-library.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="find-and-replace.xml"/>
 
