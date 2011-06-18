@@ -108,7 +108,7 @@
           </para>
         </note>
 
-      <sect2>
+      <sect2 id="routing-policy-default-route">
         <title>Handling of the Default Route</title>
 
           <para>

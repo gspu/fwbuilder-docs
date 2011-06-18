@@ -6,7 +6,7 @@
       generated configuration using scp. 
     </para>
 
-    <sect2>
+    <sect2 id="ios-install-scp">
       <title>Installing configuration with scp</title>
 
       <para>

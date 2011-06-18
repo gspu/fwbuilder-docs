@@ -10,7 +10,7 @@
 
 
 
-      <sect2>
+      <sect2 id="debian-ubuntu-packages">
         <title>Debian/Ubuntu Packages Repository</title>
 
         <para>
@@ -221,7 +221,7 @@ debsig: Verified package from `package from Firewall Builder' (Firewall Builder)
         </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="rpm-packages">
         <title>RPM Packages Repository</title>
 
         <para></para>

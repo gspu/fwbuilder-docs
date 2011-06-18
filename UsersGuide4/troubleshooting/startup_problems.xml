@@ -1,7 +1,7 @@
     <sect1 id="startup_problems">
       <title>Program Startup Issues</title>
 
-      <sect2>
+      <sect2 id="cannot-connect-to-x">
         <title>"fwbuilder: cannot connect to X server localhost:0.0"</title>
 
         <para><emphasis>The Firewall Builder binary does not start. Error "fwbuilder: cannot
@@ -39,7 +39,7 @@
           </itemizedlist></para>
       </sect2>
 
-      <sect2>
+      <sect2 id="error-loading-shared-lib">
         <title>"fwbuilder: error while
         loading shared libraries: libfwbuilder.so.0: cannot load shared
         object file: no such file or directory."</title>
@@ -80,7 +80,7 @@
           </itemizedlist></para>
       </sect2>
 
-      <sect2>
+      <sect2 id="error-loading-shared-lib-2">
         <title>"fwbuilder: error while loading shared libraries: /usr/local/lib/libfwbuilder.so.8: cannot restore segment prot after re
 loc: Permission denied"</title>
 

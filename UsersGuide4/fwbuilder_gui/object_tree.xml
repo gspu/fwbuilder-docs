@@ -233,7 +233,7 @@
         </tgroup>
       </table>
 
-      <sect2>
+      <sect2 id="floating-object-tree">
         <title>Floating the Object Tree Panel</title>
       <para>By default, the object tree panel and editor panels are anchored to the display area. However, you can make a panel float 
 by clicking the little button next to the close button in the respective panel, as shown below.</para>
@@ -251,7 +251,7 @@ by clicking the little button next to the close button in the respective panel, 
     <para>To re-attach a floating panel, click the icon next to the Close button.</para>
      </sect2>
 
-     <sect2>
+     <sect2 id="filtering-the-object-tree">
         <title>Filtering the Object Tree</title>
         <para>The object tree can hold a great many objects, nested in their respective categories. You can filter the tree to show
           only certain objects and categories appear based on a string. For example, typing "eth" in the <guilabel>Filter</guilabel> field causes all the o

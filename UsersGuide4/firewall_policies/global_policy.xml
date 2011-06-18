@@ -73,7 +73,7 @@
     in the rule.
   </para>
 
-      <sect2>
+      <sect2 id="source-and-destination-in-rule">
         <title>Source and Destination</title>
 
         <para>
@@ -155,7 +155,7 @@
       </figure>
       </sect2>
 
-      <sect2>
+      <sect2 id="service-in-rule">
         <title>Service</title>
 
         <para>
@@ -176,7 +176,7 @@
 
       </sect2>
 
-      <sect2>
+      <sect2 id="interface-in-rule">
         <title>Interface</title>
 
         <para>
@@ -456,7 +456,7 @@
         </para>
       </sect2>
 
-      <sect2>
+      <sect2 id="time-in-rule">
         <title>Time</title>
 
         <para>

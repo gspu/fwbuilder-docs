@@ -11,6 +11,7 @@
             <listitem>iptables</listitem>
             <listitem>Cisco IOS router access-lists</listitem>
             <listitem>Cisco ASA / Cisco PIX (requires Firewall Builder V4.2 or greater)</listitem>
+            <listitem>PF</listitem>
           </itemizedlist>
             
       <sect2 id="import_firewall_overview">
@@ -57,6 +58,13 @@
           when the "show run" command is executed. Copy the output from the "show 
           run" command to a file an the system that Firewall Builder is running 
           on.
+        </para>
+      <bridgehead>PF</bridgehead>
+        <para>
+          PF configurations must be in a single pf.conf configuration file, Firewall 
+          Builder does not support anchors with external files. All configurations must 
+          make use of the "quick" keyword. For more information see
+          <xref linkend="pf-import-info"/>.
         </para>
       </note>
 
@@ -134,7 +142,7 @@
               
       </sect2>
 
-      <sect2>
+      <sect2 id="iptables-import-example">
         <title>iptables Import Example</title>
 
         <para>
@@ -434,4 +442,65 @@ COMMIT
       </sect3>
 
      </sect2>
-    </sect1>
+
+     <sect2 id="pf-import-info">
+      <title>Information Regarding PF Import</title>
+
+        <para>
+        Most firewall platforms like iptables, Cisco ASA, etc. are designed based on
+        a first match and exit paradigm and these firewalls also usually have an implicit
+        "deny all" rule as the last rule in the firewall. This means that anything that
+        is not explicitly allowed is denied. Firewall Builder is also designed with this
+        approach and we even add an explicit "deny all" rule as our final entry in the
+        firewall rules to enforce this behavior.
+        </para>
+
+        <para>
+        PF is a bit unique in that it does not require first match and exit behavior. You
+        can force match and exit behavior by using the "quick" keyword, but by default traffic
+        in a PF firewall will traverse all rules and each time a rule is matched the action or
+        other parameters are updated. Once the entire rule set has been evaluated the packet
+        is checked to see what parameter values have been set and and the firewall will act
+        based on those parameters.
+        </para>
+
+        <para>
+        When Firewall Builder generates a PF policy, we always use the "quick" command and we
+        add a "block all" command at the end of the configuration file. This makes PF behave the
+        same way as other firewalls that we configure which helps to maintain consistency across
+        platforms. The problem that arises is when we need to import a pf.conf configuration
+        that has "block all" at the top of the configuration and that does not make use of the
+        "quick" command. Since we don't generate rules this way we don't have a way to import
+        configurations that use this format.
+        </para>
+
+        <bridgehead>Example of PF configuration that IS NOT supported</bridgehead>
+
+        <para>
+        The following is an example of a pf.conf style that <emphasis>cannot</emphasis> 
+        be imported into Firewall Builder.
+        </para>
+
+<programlisting>
+  block in log
+  pass out keep state
+  pass in on em0 proto tcp from any to self port 22 keep state
+  pass in on em0 proto udp from any to self port 53 keep state
+</programlisting>
+
+        <bridgehead>Example of PF configuration that IS supported</bridgehead>
+
+        <para>
+        The following is an example of a pf.conf style that <emphasis>is</emphasis> 
+        supported for importing into Firewall Builder.
+        </para>
+
+<programlisting>
+  pass out keep state
+  pass in quick on em0 proto tcp from any to self port 22 keep state
+  pass in quick on em0 proto udp from any to self port 53 keep state
+  block in log
+</programlisting>
+
+    </sect2>
+  </sect1>

@@ -1,7 +1,7 @@
     <sect1 id="problems_after_policy_activation">
       <title>Issues after new policy activation</title>
 
-      <sect2>
+      <sect2 id="cannot-access-some-websites">
         <title>Cannot access only some web sites</title>
 
         <para><emphasis>Can access most web sites through the firewall just fine,
@@ -40,7 +40,7 @@
         do it.</para>
       </sect2>
 
-      <sect2>
+      <sect2 id="firewall-slow-after-new-policy">
         <title>Firewall becomes very slow with new policy</title>
 
         <para>You compiled and started firewall policy script and then
@@ -123,7 +123,7 @@
 
       </sect2>
 
-      <sect2>
+      <sect2 id="x-wont-start">
         <title>X won't start on a server protected by the firewall</title>
 
         <para>You've built a firewall script to protect a server, but after you ran the script, X (KDE, Gnome) won't start anymore.</para>
@@ -138,7 +138,7 @@
 
       </sect2>
 
-      <sect2>
+      <sect2 id="cannot-access-internet">
         <title>Cannot access Internet from behind firewall</title>
 
         <para><emphasis>I compiled and activated firewall policy, but workstations
@@ -206,7 +206,7 @@
           </itemizedlist></para>
       </sect2>
 
-      <sect2>
+      <sect2 id="fw-policy-changes-not-working">
         <title>Installing updated firewall policy seems to make no difference</title>
 
         <para><emphasis>I compiled and activated firewall policy, but

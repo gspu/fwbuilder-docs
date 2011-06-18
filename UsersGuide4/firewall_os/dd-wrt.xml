@@ -11,7 +11,7 @@
       in nvram or in jffs (journaling flash file system).
     </para>
 
-    <sect2>
+    <sect2 id="dd-wrt-nvram">
       <title>DD-WRT (nvram)</title>
 
       <para>
@@ -38,7 +38,7 @@
 
     </sect2>
 
-    <sect2>
+    <sect2 id="dd-wrt-jffs">
       <title>DD-WRT (jffs)</title>
 
       <para>

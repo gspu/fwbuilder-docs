@@ -2,7 +2,7 @@
 
       <title>Troubleshooting installing policy on the firewall</title>
 
-      <sect2>
+      <sect2 id="plink-error-looking-up-host">
         <title>Plink.exe fails while trying to activate the firewall policy with an error 'Looking up host ""
           Connecting to 0.0.0.0 port 22'</title>
 

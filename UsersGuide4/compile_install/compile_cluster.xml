@@ -11,7 +11,7 @@
       like you would compile a regular standalone firewall
       object.</para>
 
-    <sect2>
+    <sect2 id="compile-install-cluster">
       <title>Compile a Cluster, Install a Firewall</title>
 
       <para>
@@ -51,7 +51,7 @@
       </tip>
     </sect2>
 
-    <sect2>
+    <sect2 id="mixed-object-files">
       <title>Mixed Object Files</title>
 
       <para>
@@ -70,7 +70,7 @@
 
     </sect2>
 
-    <sect2>
+    <sect2 id="compile-single-cluster-fw">
       <title>Compile a single firewall within a cluster</title>
       <para>
         You can try to compile a firewall object that is a member of

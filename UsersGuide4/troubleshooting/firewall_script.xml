@@ -1,6 +1,6 @@
     <sect1 id="running_firewall_script">
       <title>Running the Firewall Script</title>
-      <sect2>
+      <sect2 id="troubleshooting-which-rule">
         <title>Determining which rule caused an error</title>
 
         <para>
@@ -12,7 +12,7 @@
         so it will print all commands while executing. This way you can see which command 
         causes the error and trace it back to the policy rule.</para>
       </sect2>
-      <sect2>
+      <sect2 id="ip-command-not-found">
         <title>"ip: command not found"</title>
 
         <para><emphasis> (Linux / iptables only) I've generated script for iptables firewall 
@@ -22,7 +22,7 @@
         <para>This tool is part of the package 'iproute'; we use it to manage virtual IP addresses 
         needed for some NAT rules.</para>
       </sect2>
-      <sect2>
+      <sect2 id="cant-initialize-table-drop">
         <title> I get the following error when I run generated script for iptables firewall: 
         "iptables v1.2.8: can't initialize iptables table 'drop': Table does not exits (do 
         you need to insmod?) Perhaps iptables or your kernel needs to be upgraded."</title>
@@ -33,7 +33,7 @@
         corresponding patch and recompile both kernel modules and command-line utilities 
         for iptables.</para>
       </sect2>
-      <sect2>
+      <sect2 id="interface-does-not-exist">
         <title>"Interface eth0 does not exist"</title>
 
               <para>
@@ -59,7 +59,7 @@
         not there yet, which leads to this error. Make sure you start firewall script after 
         all interfaces has been initialized.</para>
       </sect2>
-      <sect2>
+      <sect2 id="interface-does-not-exist-2">
         <title>"Interface eth0:1 does not exist"</title>
 
         <para>
@@ -83,7 +83,7 @@
         pseudo-interfaces. The command "ip addr show" will reveal that the eth0:1 is 
         really a label on the second IP address of eth0.</para>
       </sect2>
-      <sect2>
+      <sect2 id="script-fails-to-load-nf_conntrack">
         <title>Script fails to load module nf_conntrack</title>
 
         <para>

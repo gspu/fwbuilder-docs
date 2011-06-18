@@ -1,7 +1,7 @@
       <sect1 id="editing-policy-and-nat">
         <title>Editing Firewall Rule Sets</title>
 
-        <sect2>
+        <sect2 id="adding-and-removing-rules">
           <title>Adding and Removing Rules</title>
 
           <figure id="editing-policy1">
@@ -182,7 +182,7 @@
 
         </sect2>
 
-        <sect2>
+        <sect2 id="adding-removing-nat-rules">
           <title>Adding, Removing, and Modifying Objects in Policies and NAT
           Rules</title>
 
@@ -284,7 +284,7 @@
           </para>
         </sect2>
 
-        <sect2>
+        <sect2 id="changing-action-for-rule">
           <title>Changing the Rule Action</title>
 
           <para>To change a rule action, right-click in the <guilabel>Action</guilabel> field 

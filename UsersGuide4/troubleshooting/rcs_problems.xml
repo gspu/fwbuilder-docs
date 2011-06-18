@@ -1,6 +1,6 @@
     <sect1 id="rcs-troubleshooting">
       <title>RCS Troubleshooting</title>
-      <sect2>
+      <sect2 id="error-adding-file-rcs">
         <title>Error adding file to RCS</title>
 
           <para><emphasis>Error adding file to RCS: Fatal error during initial RCS checkin of file</emphasis></para>
@@ -8,7 +8,7 @@
           <para>You will get this error if you do not have RCS set up on your system. To resolve it, install and configure RCS on the w
 orkstation running Firewall Builder.</para>
       </sect2>
-      <sect2>
+      <sect2 id="error-checking-file-out">
         <title>"Error checking file out: co: RCS file c:/fwbuilder/RCS/file.fwb is in use"</title>
 
         <para><emphasis>I cannot open my data file, I get error "Error checking file out: co: RCS file c:/fwbuilder/RCS/file.fwb is in 
@@ -26,7 +26,7 @@ o be left behind. When that happens, ci won't check file in because it thinks an
  check the file out for the same reason. If such file exists (zero bytes in length and name starting or ending with a comma), just dele
 te it and try to check your data file out again.</para>
       </sect2>
-      <sect2>
+      <sect2 id="error-checking-file-out-2">
         <title>"Error checking file out:"</title>
         <para><emphasis>I cannot open my data file, I get error "Error checking file out:"</emphasis></para>
 

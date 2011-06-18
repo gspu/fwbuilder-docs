@@ -1801,7 +1801,7 @@ $IPTABLES -t nat -A POSTROUTING -o eth0 -s 172.16.0.0/24 -j SNAT --to-source 192
 
     </sect2>
 
-    <sect2>
+    <sect2 id="physical-address-object">
       <title>Physical Address Objects</title>
 
       <figure id="physAddress1">
@@ -2031,7 +2031,7 @@ $IPTABLES -A FORWARD  -m mac --mac-source 00:1D:09:8B:8E:94 -m state --state NEW
       </sect3>
     </sect2>
 
-    <sect2>
+    <sect2 id="host-object">
       <title>Host Object</title>
 
       <para>The host object in Firewall Builder is designed to
@@ -2325,7 +2325,7 @@ $IP6TABLES -A Cid6066X5981.1  -d fe80::a3:e2c  -j ACCEPT
     </sect3>
     </sect2>
 
-    <sect2>
+    <sect2 id="ipv4-network-object">
       <title>IPv4 Network Object</title>
 
       <figure id="network-dialog1">
@@ -2418,7 +2418,7 @@ access-group inside_acl_in in interface inside
 
     </sect2>
 
-    <sect2>
+    <sect2 id="ipv6-network-object">
       <title>IPv6 Network Object</title>
 
       <figure id="ipv6-network-dialog1">
@@ -2466,7 +2466,7 @@ exit
 
     </sect2>
 
-    <sect2>
+    <sect2 id="address-range-object">
       <title>Address Range Object</title>
 
       <figure id="address_range_1">
@@ -3090,7 +3090,7 @@ fwadmin@guardian:~$
     </sect2>
 
 	
-    <sect2>
+    <sect2 id="special-case-addresses">
       <title>Special-Case addresses</title>
 
 	<para>Policy compilers treat some addresses in policy rules in
@@ -3389,7 +3389,7 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
 
     </sect2>
 
-    <sect2>
+    <sect2 id="group-objects">
       <title>A Group of Addressable Objects</title>
 
       <figure id="group-dialog1">

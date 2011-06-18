@@ -10,7 +10,7 @@
     service objects for hundreds of well-known and frequently-used services in ICMP (IP protocol
     number 1), TCP (IP protocol number 6), and UDP (IP protocol number 17). </para>
 
-    <sect2>
+    <sect2 id="ip-service-object">
       <title>IP Service</title>
 
       <para>    

@@ -1,6 +1,6 @@
     <sect1 id="troubleshooting-compiler-runtime">
       <title>Firewall Compiler and Other Runtime Issues</title>
-      <sect2>
+      <sect2 id="fwbuilder-crashes">
         <title>Firewall Builder Crashes</title>
 
         <para><emphasis>Firewall Builder or Policy Compiler Crashes</emphasis></para>
@@ -9,7 +9,7 @@
 builder.org/contact.html"><citetitle>Firewall Builder Contact</citetitle></ulink> page for links to bug tracking and instructions for f
 iling bugs.</para>
         </sect2>
-        <sect2>
+        <sect2 id="old-data-file-cannot-be-loaded">
           <title>Older Data File Cannot Be Loaded in Firewall Builder</title>
 
         <para><emphasis>Data file created in the older version of fwbuilder cannot be loaded in the latest one</emphasis></para>
@@ -18,7 +18,7 @@ iling bugs.</para>
 ade procedure somewhere around version 1.0.4 which broke automatic upgrades from versions before 1.0.4 to versions after that. If this 
 happens to you, upgrade your data file using script fwb-upgrade.sh that you can find in Contrib/Scripts area on our SourceForge site.</para>
         </sect2>
-      <sect2>
+      <sect2 id="io-error-compiling">
         <title>"I/O Error" While Compiling policy. No Other Error.</title>
 
         <para><emphasis>"I/O Error" while compiling policy. There is no other indication of error though.</emphasis></para>
@@ -32,7 +32,7 @@ builder-ipt-2.0.2-1rh9.i386.rpm</para>
         <para><command>$ fwb_ipt  -f path_to_objects.xml   firewall_object_name</command></para> 
         <para>All policy compilers have the same command line format.</para>
       </sect2>
-      <sect2>
+      <sect2 id="ios-base-failbit-windows">
         <title>ios_base::failbit set on Windows</title>
 
         <para><emphasis>Policy compiler stops with an error
@@ -60,7 +60,7 @@ ios_base::failbit set
         with the new copy until you close Notepad.</para>
       </sect2>
 
-      <sect2>
+      <sect2 id="cannot-create-virtual-address">
         <title>"Cannot create virtual address NN.NN.NN.NN"</title>
 
         <para><emphasis>Policy compiler stops processing rules with

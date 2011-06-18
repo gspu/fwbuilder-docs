@@ -10,7 +10,7 @@
         </para>
       </note>
 
-      <sect2>
+      <sect2 id="basic-nat-rules">
         <title>Basic NAT Rules</title>
                                 
         <para>
@@ -198,7 +198,7 @@
         described in <xref linkend="editing-policy-and-nat" /></para>
       </sect2>
 
-      <sect2>
+      <sect2 id="source-address-translation">
         <title>Source Address Translation</title>
 
        <para>
@@ -649,7 +649,7 @@ nat proto {tcp udp icmp} from 172.16.22.0/24 to any -&gt; 192.0.2.0/27 source-ha
         </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="destination-address-translation">
         <title>Destination Address Translation</title>
 
         <para>Suppose we have a network using private IP addresses behind the

@@ -1,7 +1,7 @@
   <sect1 id="load_policy_on_reboot">
     <title>How to make your firewall load your firewall policy on reboot</title>
     
-    <sect2>
+    <sect2 id="load-fw-script-on-reboot-iptables">
       <title>Making the Firewall Load the Firewall Policy After Reboot: iptables</title>
 
       <para>
@@ -224,7 +224,7 @@ chkconfig --level 2345 iptables on
       </sect3>
     </sect2>
 
-    <sect2>
+    <sect2 id="load-fw-policy-on-reboot-pf">
       <title>Making the Firewall Load the Firewall Policy After Reboot: pf</title>
 
       <para>
@@ -273,7 +273,7 @@ pflogd_flags=                   # add more flags, i.e. "-s 256"
 
     </sect2>
 
-    <sect2>
+    <sect2 id="load-fw-policy-on-reboot-ipfw">
       <title>Making the Firewall Load the Firewall Policy After Reboot: ipfw</title>
 
       
@@ -302,7 +302,7 @@ firewall_script="/usr/local/etc/firewall.fw"
 
     </sect2>
 
-    <sect2>
+    <sect2 id="load-fw-policy-on-reboot-ipfilter">
       <title>Making the Firewall Load the Firewall Policy After Reboot:  ipfilter</title>
 
       <para>

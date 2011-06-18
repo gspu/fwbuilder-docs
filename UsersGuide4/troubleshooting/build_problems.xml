@@ -1,7 +1,7 @@
     <sect1 id="build_problems">
       <title>Build Issues</title>
 
-      <sect2>
+      <sect2 id="autogen-sh-libfwbuilder-not-found">
         <title>autogen.sh Complains "libfwbuilder not installed"</title>
 
         <para><emphasis>When compiling from source, autogen.sh complains "libfwbuilder
@@ -15,7 +15,7 @@
         procedure.</para>
       </sect2>
 
-      <sect2>
+      <sect2 id="rpm-failed-dependencies">
         <title>"Failed dependencies: ..." when installing RPM</title>
 
         <para><emphasis>Trying to install Firewall Builder RPM but I get a bunch of errors
