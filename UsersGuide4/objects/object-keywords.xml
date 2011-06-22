@@ -17,7 +17,7 @@
         two datacenters, one in New York (NY) and one in London (LON). For objects 
         that represent items in the datacenter you could add a keyword, called 
         "datacenter", to each of the objects. You could also add another keyword, 
-        for example "NY" or "LON", to identify the location of the object.
+        for example "trusted" or "DMZ", to identify the security zone of the object.
       </para>
 
       <para>
@@ -48,7 +48,7 @@
       </para>
       
       <para>
-        In this example we want to add the "datacenter" and "NY" keywords to 
+        In this example we want to add the "datacenter" and "trusted" keywords to 
         the network object. <xref linkend="keyword-dialog-2"/> shows the 
         dialog after the keywords have been entered. Click OK to apply the 
         keywords to the object.
@@ -105,13 +105,15 @@
       </figure>
 
       <para>
-        Another example is shown in <xref linkend="filter-NY-keyword"/> where 
-        all the objects are being filtered for the "NY" keyword.
+        Another example is shown in <xref linkend="filter-trusted-keyword"/> where 
+        all the objects are being filtered for the "trusted" keyword. Only objects 
+        that have had the "trusted" keyword applied will be displayed. In this example 
+        only one of the two networks at each datacenter is considered trusted.
       </para>
 
-      <figure id="filter-NY-keyword">
-          <title>Filtering Based on Keyword - NY</title>
-              <graphic scale="60" fileref="objects/images/filter_NY_keyword.png" />
+      <figure id="filter-trusted-keyword">
+          <title>Filtering Based on Keyword - trusted</title>
+              <graphic scale="60" fileref="objects/images/filter_trusted_keyword.png" />
       </figure>
 
    </sect1>
