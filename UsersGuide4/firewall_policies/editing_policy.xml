@@ -361,8 +361,9 @@
             rules to a minimum, and keeps your rule set simpler and more readable.
           </para>
           
-          <para>Some target firewall platforms, such as <application>PF</application>, natively support multi-action
-            rules. Other firewall platforms, such as <application>iptables</application>, do not explicitly support
+          <para>Some target firewall platforms, such as <application>PF</application>, natively 
+            support performing multiple operations per rule. Other firewall platforms, such as 
+            <application>iptables</application>, do not explicitly support
             configuring multiple operations per rule. For these
             platforms, Firewall Builder automatically transforms the configured policy
             into however many rules are required by the target platform.
@@ -529,8 +530,10 @@ $IPTABLES -t mangle -A POSTROUTING -p tcp -m tcp -d 192.168.2.10 --dport 22 -m s
 pass in on em1 inet from 192.168.1.0/24 to any tag Internal_Net label "RULE 0 --  "
 </programlisting>
 
-            <para>On more recent versions of PF this rule will result in the 
-            following PF command being generated.</para>
+            <para>On more recent versions of PF using the Continue Action in a rule
+            will result in the "match" keyword being used. Here's an example of the 
+            same rule from above, but with a configuration generated for a firewall 
+            that is running PF 4.7.</para>
 
 <programlisting>
 # Tag internal traffic
