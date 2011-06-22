@@ -1799,6 +1799,25 @@ $IPTABLES -t nat -A POSTROUTING -o eth0 -s 172.16.0.0/24 -j SNAT --to-source 192
       </para>
       </note>
 
+      <bridgehead>Attached Networks - Cisco ASA/PIX</bridgehead>
+
+      <para>
+      The Attached Network object on Cisco ASA/PIX firewalls works the same way as it 
+      does for iptables firewalls where the Attached Network object will be expanded 
+      to include all networks that are associated with the IP address(es) assigned to 
+      the interface.
+      </para>
+
+      <bridgehead>Attached Networks - PF</bridgehead>
+
+      <para>
+      On PF firewalls the Attached Networks object translates into the 
+      "&lt;interface&gt;:network" configuration parameter. For example, if you create 
+      an Attached Network object on interface <emphasis>em0</emphasis>, and use that
+      Attached Network object in a rule, the generated configuration will use the 
+      <emphasis>em0:network</emphasis> parameter in the generated configuration.
+      </para>
+
     </sect2>
 
     <sect2 id="physical-address-object">
