@@ -9,7 +9,7 @@
   </para>
   <figure id="gui_layout_diag">
     <title>Firewall Builder GUI Layout</title>
-    <graphic scale="50" fileref="images/fwbuilder_gui_layout.png"/>
+    <graphic scale="50" fileref="images/fwbuilder_gui_layout_v5.png"/>
   </figure>
   <itemizedlist>
     <listitem>
