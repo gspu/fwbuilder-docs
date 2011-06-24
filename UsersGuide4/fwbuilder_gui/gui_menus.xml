@@ -278,8 +278,9 @@ e next change, all changes after the current one are removed from the undo histo
         </sect2>
         <sect2 id="object-context-menu">
         <title>Object Context Menu</title>
-      <para>The <guimenu>Context Menu</guimenu> for a particular object provides a short-cut to menu commands for that object. Right-cl
-ick an object's label to bring up a
+      <para>The <guimenu>Context Menu</guimenu> for a particular object 
+      provides a short-cut to menu commands for that object. Right-click 
+      an object's label to bring up a
       menu of the following functions:</para>
 
       <table frame='none' tabstyle='reg_table'>
@@ -309,6 +310,11 @@ ick an object's label to bring up a
             object, unless that object name is already in use in that
             tree. If so, a "-1" is appended to the object
             name.</entry>
+              </row>
+              <row>
+                <entry>Move</entry>
+                <entry>Deletes the object from the current library and 
+                places it in the selected new library.</entry>
               </row>
               <row>
                 <entry>Copy</entry>
@@ -348,13 +354,25 @@ ick an object's label to bring up a
                 dialog.</para></entry>
               </row>
               <row>
-                <entry>Used Where</entry>
+                <entry>Where Used</entry>
                 <entry>Scans the whole tree, including all groups and policies
             of all firewalls, looking for references to the object. When finished,
             the program shows a pop-up dialog with icons corresponding
             to groups and firewalls using the object. Double-clicking
             an icon opens the corresponding object in the main
             window.</entry>
+              </row>
+              <row>
+                <entry>Group</entry>
+                <entry>Only active if multiple objects are selected. This operation 
+                will open a dialog for you to enter a group name and select the 
+                Library the group should be created in.</entry>
+              </row>
+              <row>
+                <entry>Keywords</entry>
+                <entry>Add or remove a keyword from the selected object(s). To 
+                apply a keyword that doesn't exist yet select Add -> New Keyword.
+                </entry>
               </row>
               <row>
                 <entry>Lock and Unlock</entry>
@@ -382,7 +400,7 @@ cting this option compiles the rule and displays the output in the <guilabel>Out
       <para>
       <figure id="main-buttons">
         <title>Buttons</title>
-        <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-3.png" />
+        <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-3_v5.png" />
       </figure>
       </para>
 
@@ -409,7 +427,24 @@ cting this option compiles the rule and displays the output in the <guilabel>Out
                 <entry>Saves the current file.</entry>
               </row>
               <row>
-                <entry>Find</entry>
+                <entry>Back</entry>
+                <entry>Navigation tool that changes the active selection 
+                to an earlier selection in the selection history.</entry>
+              </row>
+              <row>
+                <entry>Forward</entry>
+                <entry>Navigation tool that changes the active selection 
+                to the next selection if you have used the Back button to 
+                navigate the selection history.</entry>
+              </row>
+              <row>
+                <entry>New Object</entry>
+                <entry>Activates dropdown menu that allows you to create a 
+                new object of any object type, including creating a new 
+                Library object.</entry>
+              </row>
+              <row>
+                <entry>Find Object</entry>
                 <entry>Opens the <guilabel>Find object</guilabel>
                 dialog, which also provides search-and-replace
                 functions.  <xref linkend="find-replace" /> explains
@@ -417,16 +452,18 @@ cting this option compiles the rule and displays the output in the <guilabel>Out
               </row>
               <row>
                 <entry>Compile</entry>
-                <entry>Opens the compile
-                wizard for all firewalls in the current object file. The compile button on an individual file opens the compile dialog 
-for just the selected firewall. <xref linkend="compile-install-detail" />
-                explains this in more detail.</entry>
+                <entry>Opens the compile wizard for all firewalls in the 
+                current object file. The compile button on an individual 
+                file opens the compile dialog for just the selected firewall. 
+                <xref linkend="compile-install-detail" /> explains this in 
+                more detail.</entry>
               </row>
               <row>
                 <entry>Install</entry>
-                <entry>Opens the compile/install
-                wizard for all firewalls in the current object file. The compile/install button on an individual file opens the compile
-/install dialog for just the selected firewall. <xref linkend="compile-install-detail" />
+                <entry>Opens the compile/install wizard for all firewalls in 
+                the current object file. The compile/install button on an 
+                individual file opens the compile/install dialog for just the 
+                selected firewall. <xref linkend="compile-install-detail" />
                 explains this in more detail.</entry>
               </row>
           </tbody>
