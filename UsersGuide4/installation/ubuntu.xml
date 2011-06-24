@@ -2,12 +2,10 @@
       <title>Ubuntu Installation</title>
       <para>Using pre-built binary packages</para>
       
-      <para>You need to download and install two packages: 
+      <para>You need to download and install the Firewall Builder package: 
 
       <itemizedlist>
-        <listitem><para>Example: <filename>libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</filename>
-        </para></listitem>
-        <listitem><para>Example: <filename>fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</filename>
+        <listitem><para>Example: <filename>fwbuilder_4.2.2.3541-ubuntu-karmic-1_i386.deb</filename>
         </para></listitem>
       </itemizedlist></para>
 
@@ -27,8 +25,7 @@
       and execute the following command (replacing the filenames with the
       names of the files you actually downloaded):</para>
 
-      <programlisting>dpkg -i libfwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb \
-          fwbuilder_4.0.4-b2513-ubuntu-karmic-1_i386.deb</programlisting>
+      <programlisting>dpkg -i fwbuilder_4.2.2.3541-ubuntu-karmic-1_i386.deb</programlisting>
 
     </sect1>
 
