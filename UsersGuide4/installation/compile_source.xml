@@ -96,18 +96,12 @@
         </listitem>
       </itemizedlist>
 
-      <para>Next, download the source archives from SourceForge
-      (<filename>libfwbuilder-4.0.0.tar.gz</filename> and <filename>fwbuilder-4.0.0.tar.gz</filename>, for
-        example) and unpack them to a location. Then build as
-      follows:
+      <para>Next, download the source archives from SourceForge, 
+      for example <filename>fwbuilder-4.2.2.3541.tar.gz</filename>, 
+      and unpack them to a location. Then build as follows:
       </para>
 
 <programlisting>
-cd libfwbuilder-&lt;version_number&gt;
-./autogen.sh
-make
-make install
-
 cd /fwbuilder-&lt;version_number&gt;
 ./autogen.sh
 make
@@ -122,7 +116,7 @@ make install
       besides these, but these two are often forgotten.</para>
     </note>
 
-    <para>The configure scripts for both <filename>libfwbuilder</filename> and <filename>fwbuilder</filename>
+    <para>The configure scripts for <filename>fwbuilder</filename>
       tries to find your QT4 installation in several 
       standard places. However, if you installed QT in a directory
       where the script is unable to find it, you can provide the path to it
@@ -131,11 +125,6 @@ make install
     </para>
 
     <programlisting>
-cd libfwbuilder-&lt;version_number&gt;
-./autogen.sh --with-qtdir=/opt/qt4
-make
-make install
-      
 cd /fwbuilder-&lt;version_number&gt;
 ./autogen.sh --with-qtdir=/opt/qt4
 make
@@ -144,7 +133,7 @@ make install
 
     <para>
       By default, script configure assumes <filename>prefix="/usr/local"</filename> and
-      installs <filename>libfwbuilder</filename> libraries in <filename>/usr/local/lib</filename> and binaries
+      installs libraries in <filename>/usr/local/lib</filename> and binaries
       in <filename>/usr/local/bin</filename>. Make sure <filename>/usr/local/lib</filename> is added to your
       <filename>LD_LIBRARY_PATH</filename> environment variable or to the <filename>/etc/ld.so.conf</filename>
       configuration file; otherwise the program will be unable to find dynamic
