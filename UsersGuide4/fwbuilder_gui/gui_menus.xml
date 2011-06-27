@@ -78,9 +78,10 @@
                 explanation.</entry>
               </row>
               <row>
-                <entry>Import Policy</entry>
-                <entry>Allows you to import an existing policy into Firewall Builder. See <xref linkend="import_firewall" /> for a deta
-iled explanation.</entry>
+                <entry>Import Firewall</entry>
+                <entry>Allows you to import an existing firewall policy 
+                into Firewall Builder. See <xref linkend="import_firewall" /> for a 
+                detailed explanation.</entry>
               </row>
               <row>
                 <entry>Import Library</entry>
