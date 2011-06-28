@@ -309,14 +309,23 @@
         <graphic scale="50" fileref="fwbuilder_gui/images/user-folder-after.png" />
       </figure>
 
+      <para>
+        While this example showed using subfolders in the Firewalls system folder,
+        you can create subfolders in any of the predefined system folders. 
+      </para>
+
       <note>
       <para>
         To <emphasis>delete</emphasis> a subfolder simply right-click on the subfolder 
         and select Delete. If there are objects in the subfolder Firewall Builder will 
         pop-up a warning showing the locations where the objects that are going to be 
-        deleted are used. If you don't want to delete the objects when you delete the 
-        subfolder select all the objects in the subfolder that you want to delete and 
-        drag-and-drop them on the appropriate system folder.
+        deleted are used.
+      </para>
+      <para>
+        If you don't want to delete the objects in the subfolder then you first need 
+        to move them to the system folder by selecting all the objects in the subfolder 
+        and dragging-and-dropping them onto the system folder that is the parent of 
+        the subfolder you want to delete.
       </para>
       </note>
 
