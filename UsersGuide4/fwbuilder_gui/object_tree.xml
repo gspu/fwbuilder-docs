@@ -246,6 +246,82 @@
         </tgroup>
       </table>
 
+    <sect2 id="user-folders">
+      <title>Using Subfolders to Organize Object Tree</title>
+
+      <para>
+        Firewall Builder comes with a set of predefined system folders 
+        as shown in <xref linkend="tree-structure"/>. You can also create 
+        your own subfolders in the Object Tree to help organize your 
+        objects.
+      </para>
+
+      <para>
+        <xref linkend="object-tree-without-subfolders"/> shows the object 
+        tree of a retailer with multiple stores in several cities. As you  
+        you can see the objects are not grouped together which can make it 
+        hard to quickly find the object you are looking for. Subfolders 
+        provide an easy way to organize your objects.
+      </para>
+        
+      <figure id="object-tree-without-subfolders">
+        <title>Object Tree without Subfolders</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/user-folder-before.png" />
+      </figure>
+
+      <para>
+        To add a subfolder right-click on one of the system folders, in this 
+        case we are going to start with the Firewalls folder, and select the 
+        New Subfolder menu item.
+      </para>
+
+      <figure id="add-user-folder">
+        <title>Add Firewalls Subfolder</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/add-user-folder.png" />
+      </figure>
+
+      <para>
+        A dialog window will appear. Enter the name of your subfolder an click 
+        OK. In this case we will create a new subfolder called "Berlin" to 
+        hold all the Firewall objects located in Berlin.
+      </para>
+
+      <para>
+        To add the firewalls to the Berlin subfolder, select the firewall objects 
+        in the tree as shown in <xref linkend="move-berlin-fw"/>, and drag-and-drop 
+        the firewalls onto the Berlin subfolder.
+      </para> 
+
+      <figure id="move-berlin-fw">
+        <title>Moving Objects to Subfolder</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/move-berlin-fw.png" />
+      </figure>
+
+      <para>
+        <xref linkend="user-folder-after"/> shows the Object Tree after folders 
+        have been created for both London and New York and the firewalls at each 
+        of these locations have been moved to the subfolder. As you can see this 
+        makes it much easier to find things quickly in your tree.
+      </para>
+
+      <figure id="user-folder-after">
+        <title>Subfolders for Firewalls</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/user-folder-after.png" />
+      </figure>
+
+      <note>
+      <para>
+        To <emphasis>delete</emphasis> a subfolder simply right-click on the subfolder 
+        and select Delete. If there are objects in the subfolder Firewall Builder will 
+        pop-up a warning showing the locations where the objects that are going to be 
+        deleted are used. If you don't want to delete the objects when you delete the 
+        subfolder select all the objects in the subfolder that you want to delete and 
+        drag-and-drop them on the appropriate system folder.
+      </para>
+      </note>
+
+    </sect2>
+
      <sect2 id="filtering-the-object-tree">
         <title>Filtering the Object Tree</title>
         <para>The object tree can hold a great many objects, nested in 
