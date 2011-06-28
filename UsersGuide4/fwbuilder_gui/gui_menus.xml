@@ -253,13 +253,17 @@ e next change, all changes after the current one are removed from the undo histo
                 a problem if you wanted to merge the files.</entry>
               </row>
               <row>
-                <entry>Discovery Druid</entry>
+                <entry>Import Addresses From File</entry>
+                <entry>Launches a wizard that lets you import objects 
+                from a file in <filename>/etc/hosts</filename> format.
+                </entry>
+              </row>
+              <row>
+                <entry>Discovery Networks and Hosts via SNMP</entry>
                 <entry>Launches a wizard that lets you populate many
-                objects automatically using an SNMP crawl, an
-                existing "hosts" file, or the import of an
-                existing firewall policy. 
-                <xref linkend="network-discovery" /> explains the
-                tool.</entry>
+                objects automatically using an SNMP crawl of your 
+                network. <xref linkend="network-discovery" /> explains 
+                the tool.</entry>
               </row>
           </tbody>
         </tgroup>

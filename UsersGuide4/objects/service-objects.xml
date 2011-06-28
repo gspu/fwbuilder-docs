@@ -462,7 +462,7 @@ exit
       in the User tree and select New ICMP Service to create a service object from scratch. </para>
   
 
-        <figure><title/><graphic scale="50" fileref="objects/images/icmp_service_tree.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="objects/images/icmp_service_tree_v5.png"/></figure>
 
         <para>
   
@@ -624,9 +624,6 @@ pass in   quick inet6 proto icmp6  from any  to any
     <sect2 id="tcp-service">
       <title>TCP Service</title>
 
-
-  
-
           <para> The TCP service object is a generalization of the TCP protocol, which provides a
       connection-oriented reliable byte-stream service. Many well-known, frequently-used application
       protocols use the TCP protocol: FTP (File Transfer Protocol), SMTP (Simple Mail Transfer
@@ -666,7 +663,7 @@ pass in   quick inet6 proto icmp6  from any  to any
           </para>
   
 
-        <figure><title/><graphic scale="50" fileref="objects/images/tcp_service_1_1.png"/></figure>
+        <figure><title/><graphic scale="50" fileref="objects/images/tcp_service_1_1_v5.png"/></figure>
 
           <para>
   

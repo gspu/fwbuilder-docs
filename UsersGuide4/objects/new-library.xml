@@ -20,14 +20,14 @@
 
       <figure id="user-defined-library1">
           <title>A New, Rmpty User-Defined Library</title>
-              <graphic scale="70" fileref="objects/images/user-defined-library1.png" />
+              <graphic scale="70" fileref="objects/images/user-defined-library1_v5.png" />
         </figure>
 
       <para>Click the New Library icon to bring up the library dialog.</para>
 
       <figure id="user-defined-library2">
           <title>Library Dialog</title>
-              <graphic scale="70" fileref="objects/images/user-defined-library2.png" />
+              <graphic scale="70" fileref="objects/images/user-defined-library2_v5.png" />
         </figure>
 
       <para>The Library dialog has three controls: Name, Color, and Comments. Enter a new name for
@@ -37,16 +37,17 @@
 
       <figure id="user-defined-library3">
           <title>ACME Library with Blue Background</title>
-              <graphic scale="70" fileref="objects/images/user-defined-library3.png" />
+              <graphic scale="70" fileref="objects/images/user-defined-library3_v5.png" />
         </figure>
 
       <para>Use the normal object creation procedures to create objects in the library. Here we have
-        created a web server object with a interface that has a dynamically assigned IP address.
-        We've also created a network object for the 192.168.3.0/24 subnet.</para>
+        created two Address objects that represent web servers, a host object with two interfaces that
+        matches an email server and a network object to match the local LAN.
+      </para>
 
       <figure id="user-defined-library4">
           <title>Library with User-Created Objects</title>
-              <graphic scale="70" fileref="objects/images/user-defined-library4.png" />
+              <graphic scale="70" fileref="objects/images/user-defined-library4_v5.png" />
         </figure>
 
       <para>Click <guimenuitem>File/Save</guimenuitem> to save the object file.</para>
@@ -57,7 +58,7 @@
 
       <figure id="user-defined-library5">
           <title>Export Your Library</title>
-              <graphic scale="70" fileref="objects/images/user-defined-library5.png" />
+              <graphic scale="70" fileref="objects/images/user-defined-library5_v5.png" />
         </figure>
 
       <para>If you want to make the library read-only, leave
@@ -72,7 +73,7 @@
 
       <figure id="user-defined-library6">
           <title>Save Dialog Box</title>
-              <graphic scale="60" fileref="objects/images/user-defined-library6.png" />
+              <graphic scale="60" fileref="objects/images/user-defined-library6_v5.png" />
         </figure>
 
       <para>You can now move or e-mail the library to someone else.</para>
