@@ -1,0 +1,506 @@
+    <sect1 id="import_firewall">
+      <title>Importing Existing Firewall Configurations into Firewall Builder</title>
+
+          <para>
+            Existing firewall configurations can be imported into 
+            Firewall Builder using the Import Firewall wizard. Import 
+            is supported for the following platforms.
+          </para>
+
+          <itemizedlist>
+            <listitem>iptables</listitem>
+            <listitem>Cisco IOS router access-lists</listitem>
+            <listitem>Cisco ASA / Cisco PIX (requires Firewall Builder V4.2 or greater)</listitem>
+            <listitem>PF</listitem>
+          </itemizedlist>
+            
+      <sect2 id="import_firewall_overview">
+      <title>Importing Existing Firewall Configurations</title>
+
+      <para>
+        To start the Import Firewall wizard select the File -> 
+        Import Firewall menu item. This launches the wizard 
+        as shown in <xref linkend="import_firewall_dialog-1"/>.
+      </para>
+
+      <figure id="import_firewall_dialog-1">
+        <title>Main Import Firewall Wizard</title>
+        <graphic scale="50" fileref="network_discovery/images/import_firewall_dialog-1.png"/>
+      </figure>
+              
+      <para>
+        To start the import process, use the Browse function to select 
+        the file that contains the firewall configuration that you want 
+        to import.
+      </para>
+
+      <note>
+      <bridgehead>iptables</bridgehead>
+        <para>
+          The configuration file format must be in the iptables-save 
+          format. For example, run the "iptables-save > myfirewall.conf" command 
+          on the firewall you want to import, transfer that file to the system 
+          running the Firewall Builder application and select this file in the 
+          import wizard.
+        </para>
+
+      <bridgehead>Cisco IOS router access-lists</bridgehead>
+        <para>
+          Cisco IOS router access-lists must be in the format displayed when 
+          the "show run" command is executed. Copy the output from the "show 
+          run" command to a file on the system that Firewall Builder is running 
+          on.
+        </para>
+
+      <bridgehead>Cisco ASA / Cisco PIX</bridgehead>
+        <para>
+          Cisco ASA and Cisco PIX configurations must be in the format displayed 
+          when the "show run" command is executed. Copy the output from the "show 
+          run" command to a file an the system that Firewall Builder is running 
+          on.
+        </para>
+      <bridgehead>PF</bridgehead>
+        <para>
+          PF configurations must be in a single pf.conf configuration file, Firewall 
+          Builder does not support anchors with external files. All configurations must 
+          make use of the "quick" keyword. For more information see
+          <xref linkend="pf-import-info"/>.
+        </para>
+      </note>
+
+      <para>
+        After you have selected the configuration file to import click on the 
+        Continue button. 
+      </para>
+          
+      <para>
+        Firewall Builder will automatically detect the type of configuration 
+        file that is being imported and will display a preview of the file 
+        in the window.
+      </para>
+
+      <figure id="import_firewall_dialog-2">
+        <title>Import Firewall Wizard - Configuration Preview</title>
+        <graphic scale="50" fileref="network_discovery/images/import_firewall_dialog-2.png"/>
+      </figure>
+
+      <para>
+        Click the Continue button. On the next page, shown in 
+        <xref linkend="import_firewall_dialog-3"/>, enter a name for the firewall 
+        object that will be created.
+      </para>
+
+      <figure id="import_firewall_dialog-3">
+        <title>Import Firewall Wizard - Set Firewall Name</title>
+        <graphic scale="50" fileref="network_discovery/images/import_firewall_dialog-3.png"/>
+      </figure>
+
+      <note>
+      <para>
+        By default, the option to "Find and use existing objects" is enabled. 
+        When this option is enabled Firewall Builder will attempt to match elements 
+        in in the firewall's configuration file with objects that are already 
+        configured in the Firewall Builder object tree. This includes both Standard 
+        Library objects and objects the user has created.
+      </para>
+
+      <para>
+        For example, if an imported firewall configuration file has an object 
+        or rule that uses TCP port 22, SSH, Firewall Builder will match that to 
+        the pre-existing Standard ssh object instead of creating a new TCP service 
+        object.
+      </para>
+      </note>
+
+      <para>
+        After entering the firewall object name, click Commit. Firewall Builder 
+        will show a log of the import process and will include any warning messages 
+        in blue colored text and any error messages in red colored text. 
+      </para>
+        
+      <figure id="import_firewall_dialog-4">
+        <title>Import Firewall Wizard - Import Process Log</title>
+        <graphic scale="50" fileref="network_discovery/images/import_firewall_dialog-4.png"/>
+      </figure>
+        
+       <para> 
+        Depending on the platform, this will either be the final step of the 
+        wizard or the user will be guided through platform specific 
+        configuration activities.
+      </para>
+      
+      <bridgehead>Cisco ASA/PIX/FWSM</bridgehead>
+
+      <note>
+      <para>
+        Firewall Builder will not properly import objects whose names start 
+        with a number instead of a letter.  For example, an object group with 
+        the name "10-net" will not be imported, but the object group with the 
+        name "net-10" will be imported.
+      </para>
+      </note> 
+              
+      </sect2>
+
+      <sect2 id="iptables-import-example">
+        <title>iptables Import Example</title>
+
+        <para>
+          For this example we are going to import a very basic iptables 
+          configuration from a firewall that matches the diagram in 
+          <xref linkend="iptables_import_diagram"/>.
+        </para>
+
+        <figure id="iptables_import_diagram">
+          <title>Firewall Example</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_diagram.png"/>
+        </figure>
+
+          <para>
+            Firewall Builder imports iptables configs in the format of 
+            iptables-save. Script <command>iptables-save</command> is part
+            of the standard iptables install and should be
+            present on all Linux distribution. Usually this
+            script is installed in <emphasis>/sbin/</emphasis>. 
+          </para>
+            
+          <para>
+            When you run this script, it dumps the current iptables 
+            configuration to stdout. It reads iptables rules directly form 
+            the kernel rather than from some file, so what it dumps is what 
+            is really working right now. To import this into Firewall Builder, 
+            run the script to save the configuration to a file:
+          </para>
+  
+<programlisting>
+iptables-save &gt; linux-1.conf
+</programlisting>
+
+          <para>
+            As you can see in the output below, the linux-1.conf iptables 
+            configuration is very simple with only a few filter rules and one 
+            nat rule.
+          </para>
+          
+<programlisting>
+# Completed on Mon Apr 11 21:23:33 2011
+# Generated by iptables-save v1.4.4 on Mon Apr 11 21:23:33 2011
+*filter
+:INPUT DROP [145:17050]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [1724:72408]
+:LOGDROP - [0:0]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i eth1 -s 10.10.10.0/24 -d 10.10.10.1/32 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
+-A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -o eth0 -s 10.10.10.0/24 -p tcp -m tcp --dport 80 -m state --state NEW -j ACCEPT
+-A FORWARD -o eth0 -s 10.10.10.0/24 -p tcp -m tcp --dport 443 -m state --state NEW -j ACCEPT
+-A FORWARD -j LOGDROP
+-A LOGDROP -j LOG
+-A LOGDROP -j DROP
+COMMIT
+# Completed on Mon Apr 11 21:23:33 2011
+# Generated by iptables-save v1.4.4 on Mon Apr 11 21:23:33 2011
+*nat
+:PREROUTING ACCEPT [165114:22904965]
+:OUTPUT ACCEPT [20:1160]
+:POSTROUTING ACCEPT [20:1160]
+-A POSTROUTING -s 10.10.10.0/24 -o eth0 -j MASQUERADE
+COMMIT
+# Completed on Mon Apr 11 21:23:33 2011
+</programlisting> 
+
+          <para>
+            If you are running Firewall Builder on a different system than the 
+            one that is running iptables copy <filename>linux-1.conf</filename> 
+            from the firewall to the system where Firewall Builder is running.
+          </para>
+
+          <para>
+            Launch the Import wizard by selecting the File -> Import Firewall menu 
+            item.
+          </para>
+
+          <para>
+            Click <guibutton>Browse</guibutton> to find <filename>linux-1.conf</filename>. 
+          </para>
+
+        <figure id="iptables-import-example-1">
+          <title>Select File containing iptables-save data</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_select_file.png"/>
+        </figure>
+
+        <para>
+          Click <guibutton>Continue</guibutton> to move to the next window which 
+          shows a preview of the configuration file that will be imported and the 
+          type of firewall that Firewall Builder has detected it to be.
+        </para>
+
+        <figure id="iptables-import-preview-1">
+          <title>Preview showing detected platform and configuration data</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_preview.png"/>
+        </figure>
+
+        <para>
+          Next you need to enter a name for the firewall. This is the name that will 
+          be used in Firewall Builder to refer to the firewall after it is imported. When 
+          you click the Commit button the configuration data will be read.
+        </para>
+
+        <para>
+          By default, Firewall Builder attempts to detect if there are items, like IP 
+          addresses, used in the rules that match existing items in the object tree. 
+          If there is a match the existing item is used, if there is no match a new 
+          object is created. This feature can be disabled by unchecking the box next 
+          to "Find an use existing objects" which will result in objects being 
+          created for evry item used in the imported rules regardless of whether it 
+          already exists in the object tree or no.
+        </para>
+
+        <figure id="iptables-import-name-1">
+          <title>Entering the Name of the Firewall</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_name_fw.png"/>
+        </figure>
+
+        <para>
+          After the import is complete, Firewall Builder displays a log showing 
+          all the actions that were taken during the import. Warning messages are 
+          displayed in blue font and Error messages are displayed in red.
+        </para>
+
+        <figure id="iptables-import-log-1">
+          <title>Import Log with Status and Warning/Error Messages</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_log.png"/>
+        </figure>
+
+        <para>
+          The program tries to interpret the configuration file rule by rule 
+          and recreates the equivalent rule in Firewall Builder. The progress 
+          window displays warning and error messages, if any, as well as some 
+          diagnostics that shows network and service objects created in the 
+          process. 
+        </para>
+
+        <note>
+        <para>
+         Firewall Builder detected that there are rules in the iptables configuration 
+         that allow RELATED and ESTABLISHED traffic through the firewall. This behavior 
+         can be controlled by a setting in Firewall Builder, so a warning message is 
+         shown.
+        </para>
+        </note>
+
+        <para>
+          Click the Done button to complete the firewall import.
+        </para>
+        
+        <para>
+          After the import is completed, the newly created firewall object will be 
+          displayed in the object tree. If you expand the Objects system folder, as 
+          shown in <xref linkend="iptables-import-object-tree-1" />, you can also see 
+          the Address and Network objects that were created during the import process.
+        </para>
+        
+        <figure id="iptables-import-object-tree-1">
+          <title>Imported Firewall and Created Objects in Object Tree</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_object_tree.png"/>
+        </figure>
+
+        <sect3 id="iptables-import-post-processing">
+        <title>Common iptables Post-Import Actions</title>
+
+        <para>
+          After the firewall object is created in the object tree there are typically 
+          a few more steps required in order to be able to manage your firewall 
+          configuration using Firewall Builder.
+        </para>
+
+        <bridgehead>Interfaces</bridgehead>
+         
+        <para>
+          There is not enough information in the iptables configuration for Firewall 
+          Builder to deterministically determine what interfaces and IP addresses are 
+          configured on the firewall. During the import if a rule contains either "-i" 
+          or "-o" interface references Firewall Builder will add the interface to the 
+          firewall object, but some interfaces may not be used in rules and therefore 
+          will not be detected.
+        </para>
+
+        <para>
+          In the example configuration that was imported for linux-1, both the eth0 and 
+          eth1 interfaces were used in the configuration, so the firewall object includes 
+          these interfaces. By default Firewall Builder marks these interfaces as 
+          Unnumbered.
+        </para>
+        
+        <para>
+          To update the eth0 interface, double-click it to open it for editing. 
+          <xref linkend="iptables-import-update-interface-1"/> shows how to set a label 
+          for the interface and to identify that it should have a static IP address.
+        </para>
+
+        <figure id="iptables-import-update-interface-1">
+          <title>Editing Parameters for eth0</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_edit_interface_params.png"/>
+        </figure>
+
+        <para>
+          Right-click the interface and select New Address to add an IP address 
+          to the interface as shown in <xref linkend="iptables-import-update-interface-2"/>. 
+          Set the IP address and netmask to match your environment.
+        </para>
+
+        <figure id="iptables-import-update-interface-2">
+          <title>Setting IP Address for eth0</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_edit_interface_params-2.png"/>
+        </figure>
+
+        <note>
+        <para>
+          You may also need to add additional interfaces to the firewall object depending 
+          on what Firewall Builder was able to detect from the iptables rules. To add a 
+          new interface right-click the firewall object (in our example linux-1) and 
+          select New Interface. Add the interface name and label and set the type. The 
+          default type is Static IP address.
+        </para>
+        </note>
+
+        <bridgehead>Rules</bridgehead>
+
+        <para>
+          During the import of the linux-1.conf file. Firewall Builder displayed a 
+          warning message that there were rules defined to allow RELATED and ESTABLISHED 
+          traffic to the firewall. Instead of having to explicitly have a rule for 
+          this, Firewall Builder has a configuration option controlling this behavior.
+        </para>
+
+        <para>
+          To view the configuration option controlling RELATED and ESTABLISHED traffic 
+          double-click on the firewall object and click on the Firewall Settings button 
+          in the Editor Panel. The dialog window will open with the Compiler tab selected. 
+          About halfway down the window is the checkbox that controls RELATED and 
+          ESTABLISHED traffic, which is enabled by default.
+        </para>
+
+        <figure id="iptables-import-settings">
+          <title>Firewall Settings Option for Controlling RELATED and ESTABLISHED Traffic</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_options.png"/>
+        </figure>
+
+        <para>
+          Since the default is to allow RELATED and ESTABLISHED traffic, the imported 
+          rules 0 and 2 are not necessary. To remove these rules right-click the rule 
+          number and select Remove Rule. 
+        </para>
+
+        <figure id="iptables-import-remove-rules">
+          <title>Removing Unnecessary Rules for RELATED and ESTABLISHED</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_remove_rule.png"/>
+        </figure>
+
+        <note>
+        <para>
+          The specific rule numbers will vary based on your configuration, but the rules 
+          created for matching RELATED and ESTABLISHED traffic are identifiable by the use 
+          of the predefined ESTABLISHED objct in the Service field of the rule.
+        </para>
+        </note>
+
+        <bridgehead>NAT rules</bridgehead>
+
+        <para>
+          To view the imported NAT rules, double-click the NAT object under the linux-1 
+          object in the tree. In this example, there is a single source NAT rule that translates 
+          inside addresses to the eth0 (outside) interface of the firewall.
+        </para>
+
+        <figure id="iptables-import-nat-rules">
+          <title>NAT Rules</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_nat_rules.png"/>
+        </figure>
+
+        <bridgehead>User-Defined Chains</bridgehead>
+        
+        <para>
+          If your iptables configuration includes user-defined chains, Firewall Builder will 
+          create a new Policy object for each user chain and will use the Branch feature to 
+          jump from the main Policy to the user chain Policy. In our example linux-1.conf 
+          configuration there is a user chain called LOGDROP that has 2 rules. The first 
+          rule logs the packet and the second rule drops it.
+        </para>
+
+        <para>
+          To view the rules in the LOGDROP policy, double-click the LOGDROP policy object 
+          located under the linux-1 firewall object. This will open the rules in the Rules 
+          Editor as shown in <xref linkend="iptables-import-logdrop-rules"/>.
+        </para>
+
+        <figure id="iptables-import-logdrop-rules">
+          <title>Rules in LOGDROP policy</title>
+          <graphic scale="50" fileref="network_discovery/images/iptables_import_logdrop_rules.png"/>
+        </figure>
+      </sect3>
+
+     </sect2>
+
+     <sect2 id="pf-import-info">
+      <title>Information Regarding PF Import</title>
+
+        <para>
+        Most firewall platforms like iptables, Cisco ASA, etc. are designed based on
+        a first match and exit paradigm and these firewalls also usually have an implicit
+        "deny all" rule as the last rule in the firewall. This means that anything that
+        is not explicitly allowed is denied. Firewall Builder is also designed with this
+        approach and we even add an explicit "deny all" rule as our final entry in the
+        firewall rules to enforce this behavior.
+        </para>
+
+        <para>
+        PF is a bit unique in that it does not require first match and exit behavior. You
+        can force match and exit behavior by using the "quick" keyword, but by default traffic
+        in a PF firewall will traverse all rules and each time a rule is matched the action or
+        other parameters are updated. Once the entire rule set has been evaluated the packet
+        is checked to see what parameter values have been set and and the firewall will act
+        based on those parameters.
+        </para>
+
+        <para>
+        When Firewall Builder generates a PF policy, we always use the "quick" command and we
+        add a "block all" command at the end of the configuration file. This makes PF behave the
+        same way as other firewalls that we configure which helps to maintain consistency across
+        platforms. The problem that arises is when we need to import a pf.conf configuration
+        that has "block all" at the top of the configuration and that does not make use of the
+        "quick" command. Since we don't generate rules this way we don't have a way to import
+        configurations that use this format.
+        </para>
+
+        <bridgehead>Example of PF configuration that IS NOT supported</bridgehead>
+
+        <para>
+        The following is an example of a pf.conf style that <emphasis>cannot</emphasis> 
+        be imported into Firewall Builder.
+        </para>
+
+<programlisting>
+  block in log
+  pass out keep state
+  pass in on em0 proto tcp from any to self port 22 keep state
+  pass in on em0 proto udp from any to self port 53 keep state
+</programlisting>
+
+        <bridgehead>Example of PF configuration that IS supported</bridgehead>
+
+        <para>
+        The following is an example of a pf.conf style that <emphasis>is</emphasis> 
+        supported for importing into Firewall Builder.
+        </para>
+
+<programlisting>
+  pass out keep state
+  pass in quick on em0 proto tcp from any to self port 22 keep state
+  pass in quick on em0 proto udp from any to self port 53 keep state
+  block in log
+</programlisting>
+
+    </sect2>
+  </sect1>

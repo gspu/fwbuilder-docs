@@ -1,0 +1,132 @@
+        <sect2 id="no_nat_rules">
+        <title>"No NAT" Rules</title>
+
+        <para>
+  
+                Sometimes a firewall that is doing NAT should skip
+                translation for some pairs of source and destination
+                addresses. One example when this is necessary is when
+                you have DMZ segment that uses private addresses, so
+                you need to use NAT to provide access to servers in
+                DMZ from outside, but no NAT is needed for access to
+                the same servers from internal network. Here is how it
+                looks:
+              
+        </para>
+  
+        <figure float="1"><title/><graphic scale="50" fileref="cookbook/nat_rules/images/fwobj-dnat-3.png"/></figure>
+
+        <para>
+          
+          Firewall object <emphasis>fw-1</emphasis> has 4
+          interfaces:
+        </para>
+
+        <table>
+          <title></title>
+          <tgroup cols='3' align='left'  rowsep='1'>
+            <colspec colnum="1" colname="col1" colwidth="1*"/>
+            <colspec colnum="2" colname="col2" colwidth="1*"/>
+            <colspec colnum="3" colname="col3" colwidth="1*"/>
+            <tbody>
+
+              <row>
+                <entry>Interface</entry>
+                <entry>Network zone</entry>
+                <entry>Address</entry>
+              </row>
+
+              <row>
+                <entry><emphasis>eth0</emphasis></entry>
+                <entry>external interface</entry>
+                <entry>192.0.2.1/24</entry>
+              </row>
+
+              <row>
+                <entry><emphasis>eth1</emphasis></entry>
+                <entry>internal interface</entry>
+                <entry>172.16.22.1/24</entry>
+              </row>
+
+              <row>
+                <entry><emphasis>eth2</emphasis></entry>
+                <entry>DMZ</entry>
+                <entry>192.168.2.1/24</entry>
+              </row>
+
+              <row>
+                <entry><emphasis>lo</emphasis></entry>
+                <entry>loopback</entry>
+                <entry>127.0.0.1</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
+        <para>
+          The internal interface <emphasis>eth1</emphasis> also has IPv6 address
+          but it is not used in this example.
+        </para>
+  
+
+        <para>
+          Here is a NAT rule to permit access to the DMZ network
+          (192.168.2.10) from internal network directly without
+          NAT.
+        </para>
+  
+
+        <figure><title/><graphic scale="50" fileref="cookbook/nat_rules/images/dnat-rule-4.png"/></figure>
+
+        <para>
+  
+          Here is the script generated for iptables:
+              
+        </para>
+  
+
+  <programlisting>
+
+# 
+# Rule 0 (NAT)
+# 
+$IPTABLES -t nat -A POSTROUTING   -s 172.16.22.0/24 -d 192.168.2.0/24 -j ACCEPT  
+$IPTABLES -t nat -A PREROUTING   -s 172.16.22.0/24 -d 192.168.2.0/24 -j ACCEPT  
+
+  </programlisting>
+
+  <para>
+    
+    For PF we get this:
+    
+  </para>
+  
+
+  <programlisting>
+
+# Rule  0 (NAT)
+# 
+no nat proto {tcp udp icmp} from 172.16.22.0/24 to 192.168.2.0/24 
+no rdr proto {tcp udp icmp} from 172.16.22.0/24 to 192.168.2.0/24 
+
+              </programlisting>
+
+        <para>
+  
+                For PIX, Firewall Builder generates "nat 0" rule:
+              
+  </para>
+  
+
+  <programlisting>
+
+! Rule  0 (NAT)
+!
+access-list nat0.inside permit ip 172.16.22.0 255.255.255.0 192.168.2.0 255.255.255.0
+nat (inside) 0 access-list nat0.inside
+! 
+
+              </programlisting>
+
+        </sect2>
+

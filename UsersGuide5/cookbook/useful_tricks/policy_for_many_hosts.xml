@@ -1,0 +1,31 @@
+  <sect2 id="tricks_many_hosts">
+    <title>Another Way to Generate a Firewall Policy for Many Hosts</title>
+    
+    <para>
+    This is a simplier, but less powerful and flexible, way to manage multiple hosts
+    requiring the same firewall policy.
+    </para>
+
+    <para>Suppose you use Firewall Builder to generate a policy for the firewall running on a server. How can Firewall Builder help you
+ generate a policy for it and how can you do it if you have hundreds of servers like that?</para>
+
+    <para>For example, you could run a firewall locally on the web server that should be accessible to anyone on protocol HTTP, but oth
+er protocols used to publish content and manage the machine should be open only to a limited number of IP addresses. To configure such 
+a firewall running on a host in Firewall Builder, create a firewall object and configure it with interfaces as usual. You will need to 
+create a loopback interface and Ethernet (if it's a Linux machine, then it will be "eth0"). This firewall object now represents your se
+rver with a firewall running on it. You can then build a policy. Most likely you won't need NAT rules there, although there are some ca
+ses where NAT rules may be useful too. Compile the policy and transfer it to the server using the Firewall Builder installer as usual. 
+That's it.</para>
+
+    <para>This procedure gets really tiresome if you need to repeat it many times. This is so if you have a whole farm of servers and n
+eed to generate and install a firewall policy on each one of them. The following trick helps simplify the process if the servers are ve
+ry similar (like a web servers farm) and use identical firewall policies.</para>
+
+    <para>You need to create a firewall object as described above, except its interface "eth0" should be marked as "dynamic". Do not ad
+d an address object with IP address to it, just make it look like it gets IP address dynamically. Even if in reality it is configured s
+tatically, you make Firewall Builder believe it is dynamic. In this case, the generated firewall script will determine the actual addre
+ss of the interface and then use it in the policy rules, which allows you to run the same script on many servers with different address
+es. You will need to copy the firewall script from the management workstation to the servers by hand or by using some custom script. Th
+is should not be difficult though if you use SSH and RSA or DSA keys.</para>
+  </sect2>
+

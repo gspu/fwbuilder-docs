@@ -1,0 +1,63 @@
+  <sect1 id="firewall_setup_for_remote_management">
+
+    <title>Dedicated Firewall machine</title>
+    
+    <para>
+      The choice of the hardware for the firewall depends on how much
+      bandwidth is needed by the network it protects. Our experience
+      indicates that an old Pentium machine is sufficient for a group
+      of 2-5 people doing regular web surfing, sending and receiving
+      email and doing some other not-very-demanding tasks. Small
+      firewall appliances made by Linksys or DLink demonstrate good
+      performance as well. These appliances do not allow ssh access by
+      default, so fwbuilder won't be able to upload generated firewall
+      configuration, however their firmware can be replaced with
+      <ulink url="http://www.dd-wrt.com/site/index">DD-WRT</ulink>
+      or <ulink url="http://openwrt.org/">OpenWRT</ulink> which
+      enabled ssh and many other powerful features. Firewall Builder
+      4.0 comes with direct support for OpenWRT and can generate a
+      drop-in replacement for its standard firewall configuration
+      (just choose host OS "OpenWRT" in the firewall object).
+    </para>
+
+    <para>
+      We have ran firewalls like that at various times using
+      Linux/iptables, FreeBSD/ipfilter and OpenBSD/pf combinations and
+      can't say that any particular platform has better
+      performance. They all just work. A firewall like one of these
+      won't slow down file transfer on a DSL or a cable network,
+      easily supporting download speeds of 1.5 - 2 Mbit/sec. Since
+      hardware like this is very obsolete and can be had for almost
+      nothing, we never saw the need to investigate which OS and
+      firewall performs better on a slower CPU. People have had good
+      results using old notebooks as their firewalls, too. The
+      advantage of the notebook is that is has a monitor which makes
+      troubleshooting easier in case you make a mistake in the policy
+      rules and block your own access to the firewall over the
+      network.
+    </para>
+
+    <para>
+      For a larger installation (more people or long policy) a faster
+      CPU is needed.
+    </para>
+
+    <para>
+      The OS installed on the firewall machine should be
+      minimal. Basically, all you need is the kernel, basic tools
+      usually found in /bin, and ssh. This is true regardless of what
+      OS you choose, so just follow installation instructions
+      appropriate for your OS. Do not install development tools, X11,
+      editors, graphics software and so on and you'll be fine. Make
+      sure you get ssh, though, and in some cases you may need Perl.
+    </para>
+
+    <para>
+      Once you install the firewall machine, check if the ssh daemon
+      is running. It usually is, but some OS have different
+      installation options and if you choose "workstation" install,
+      they may not start ssh daemon automatically. Use <command>ps -ax
+      | grep sshd</command> to check if the daemon is running, and if
+      it is not, activate it.</para>
+  </sect1>
+

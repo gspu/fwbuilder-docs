@@ -1,0 +1,87 @@
+    <sect1 id="troubleshooting-compiler-runtime">
+      <title>Firewall Compiler and Other Runtime Issues</title>
+      <sect2 id="fwbuilder-crashes">
+        <title>Firewall Builder Crashes</title>
+
+        <para><emphasis>Firewall Builder or Policy Compiler Crashes</emphasis></para>
+
+        <para>Please file a bug on Sourceforge. Provide information we might need to fix the problem. See the <ulink url="http://www.fw
+builder.org/contact.html"><citetitle>Firewall Builder Contact</citetitle></ulink> page for links to bug tracking and instructions for f
+iling bugs.</para>
+        </sect2>
+        <sect2 id="old-data-file-cannot-be-loaded">
+          <title>Older Data File Cannot Be Loaded in Firewall Builder</title>
+
+        <para><emphasis>Data file created in the older version of fwbuilder cannot be loaded in the latest one</emphasis></para>
+
+          <para>Sometimes this happens when you skip several versions trying to upgrade the program. There used to be a bug in the upgr
+ade procedure somewhere around version 1.0.4 which broke automatic upgrades from versions before 1.0.4 to versions after that. If this 
+happens to you, upgrade your data file using script fwb-upgrade.sh that you can find in Contrib/Scripts area on our SourceForge site.</para>
+        </sect2>
+      <sect2 id="io-error-compiling">
+        <title>"I/O Error" While Compiling policy. No Other Error.</title>
+
+        <para><emphasis>"I/O Error" while compiling policy. There is no other indication of error though.</emphasis></para>
+
+        <para>Did you install package with corresponding compiler? Our pre-built compilers come in a separate RPMs named like this: fw
+builder-ipt-2.0.2-1rh9.i386.rpm</para>
+
+        <para>Check if compiler dumped core. If you can't find it, you may try to run compiler manually, providing the following 
+          command-line parameters:</para>
+
+        <para><command>$ fwb_ipt  -f path_to_objects.xml   firewall_object_name</command></para> 
+        <para>All policy compilers have the same command line format.</para>
+      </sect2>
+      <sect2 id="ios-base-failbit-windows">
+        <title>ios_base::failbit set on Windows</title>
+
+        <para><emphasis>Policy compiler stops with an error
+        ios_base::failbit set on Windows</emphasis></para>
+
+        <para>It looks something like this:</para>
+        <programlisting>
+---------------------------------------
+fwb_ipfw -f C:/Documents and Settings/User/data.fwb -d C:/Documents
+and Settings/User -r C:\FWBuilder\resources fw
+
+ Compiling policy for fw ...
+  Detecting rule shadowing
+ Begin processing
+ Policy compiled successfully 
+ios_base::failbit set
+------------------------------------------
+        </programlisting>
+
+        <para>First of all, check available free disk space. Also
+        check if the output file ( fw.fw ) is opened in another
+        program while compiler is running. That is, if you looked at
+        it after the previous compiler run and opened it in Notepad,
+        it becomes locked and compiler won't be able to overwrite it
+        with the new copy until you close Notepad.</para>
+      </sect2>
+
+      <sect2 id="cannot-create-virtual-address">
+        <title>"Cannot create virtual address NN.NN.NN.NN"</title>
+
+        <para><emphasis>Policy compiler stops processing rules with
+        error message "Cannot create virtual address
+        NN.NN.NN.NN"</emphasis></para>
+
+        <para>This happens when you are using an option "Create
+        virtual addresses for NAT rules". The problem is that policy
+        compiler needs to be able to determine interface of the
+        firewall to assign virtual address to. In order to do that it
+        scans all interfaces trying to find subnet requested NAT
+        address is on. Sometimes the firewall's interface has an address
+        which belongs to a different network than the NAT address
+        specified in the rule; in this case, the  compiler cannot identify
+        an interface and aborts.</para>
+
+        <para>The NAT rule still can be built without "-i" or "-o"
+        option, but automatic assignment of virtual address is
+        impossible. You need to turn off option "Create virtual
+        addresses for NAT rules" in the tab "Firewall" of firewall
+        dialog and configure this address manually. </para>
+      </sect2>
+    </sect1>
+

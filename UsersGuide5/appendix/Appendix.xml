@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <chapter id="Appendix">
+    <title>Appendix</title>
+
+    <para>This chapter provides additional information that may be useful 
+    to Firewall Builder users.</para>
+
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iptables_modules.xml"/>
+
+  </chapter>

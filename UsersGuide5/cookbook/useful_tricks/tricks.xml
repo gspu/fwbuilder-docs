@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+
+<sect1 id="tricks">
+  <title>Useful Tricks</title>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="cluster_server_fw_synch.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="cluster_server_fw_synch_local_rules.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="policy_for_many_hosts.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="empty_groups.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="pppoe.xml"/>
+
+</sect1>
+

@@ -1,0 +1,192 @@
+       <sect2 id="combined-ipv4-ipv6-rule-set">
+         <title>Using Mixed IPv4+IPv6 Rule Sets to Simplify Adoption of
+          IPv6</title>
+
+        <para>
+          Mixed IPv4/IPv6 rule sets can be especially useful in the
+          configuration of the router's access lists and firewall
+          policies where rules can become rather complicated when IPv6
+          is added to an existing IPv4 network. Since most firewalls and
+          routers require different syntax for IPv6 ACL and rules,
+          administrator has to implement second rule set for IPv6,
+          carefully trying to copy existing IPv4 rules to preserve
+          general structure and meaning of the security policy. Things
+          get even more complicated after that because every change in
+          the policy should now be reflected in two sets of ACL or
+          firewall rules. Keeping these synchronized can quickly turn
+          into major task that can significantly elevate probability
+          of human error and network outage. Mixed IPv4+IPv6 rule sets
+          in Firewall Builder help solve this problem.
+        </para>
+
+        <para>
+          Lets illustrate this using simplified example of a Cisco
+          router access list configuration that we migrate from IPv4
+          only to mixed IPv4+IPv6. We start with simple two rules that
+          use only IPv4 address and service objects:
+        </para>
+
+        <figure id="ipv6_slide_19">
+          <title>IPv4 only rule set</title>
+              <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_19.png" />
+        </figure>
+
+        <para>
+          In this example, the router has just two interfaces,
+          FastEthernet0/0 and FastEthernet0/1, both interfaces have
+          only IPv4 addresses when we start. The generated configuration
+          looks like this:
+        </para>
+
+        <programlisting>
+! ================ IPv4
+! Policy compiler errors and warnings:
+! 
+no ip access-list extended fe0_0_in
+no ip access-list extended fe0_1_in
+
+ip access-list extended fe0_0_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+exit
+
+ip access-list extended fe0_1_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+  permit tcp any  192.168.1.0 0.0.0.255 eq 80 
+exit
+
+interface FastEthernet0/0
+  ip access-group fe0_0_in in
+exit
+interface FastEthernet0/1
+  ip access-group fe0_1_in in
+exit
+        </programlisting>
+
+        <para>
+          Here rule #0 permits ICMP ping requests to the firewall
+          through all interfaces and rule #1 permits http to internal
+          network through interface FastEthernet0/1 (external),
+          direction inbound. As the result, we get two access lists
+          "fe0_0_in" and "fw0_1_in", one for each interface, that
+          reflect these rules.
+        </para>
+
+
+        <para>
+          Suppose we need to add IPv6 to this network. To do this, I
+          add IPv6 addresses to the interfaces of the router and
+          create a network object to describe IPv6 internal network.  I
+          then add a new IPv6 network object to the rule #1 to permit
+          HTTP to internal net both on IPv4 and IPv6. Rule #0 should
+          also permit ICMPv6 neighbor solicitation and advertisement
+          messages, as well as ICMPv6 ping since it is different from
+          IPv4 ICMP ping. Lets permit any ICMPv6 to the internal
+          network as well. I'll just add IPv6 objects to existing
+          rules, mark rule set as "Mixed IPv4 and IPv6" and let the
+          program sort it out. Here is how the updated rules look:
+        </para>
+
+
+        <figure id="ipv6_slide_20">
+          <title>Mixed IPv4/IPv6 Rule Set</title>
+              <graphic scale="50" fileref="cookbook/policy_rules/images/ipv6_slide_20.png" />
+        </figure>
+
+        <para>
+          Now the router has the same two interfaces, FastEthernet0/0 and
+          FastEthernet0/1, but both interfaces have IPv4 and IPv6
+          addresses. Here is the result:
+        </para>
+
+        <programlisting>
+! ================ IPv4
+! Policy compiler errors and warnings:
+! 
+no ip access-list extended fe0_0_in
+no ip access-list extended fe0_1_in
+
+ip access-list extended fe0_0_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+exit
+
+ip access-list extended fe0_1_in
+  permit icmp any  host 192.0.2.1 8 
+  permit icmp any  host 192.168.1.1 8 
+  permit tcp any  192.168.1.0 0.0.0.255 eq 80 
+exit
+
+
+interface FastEthernet0/0
+  ip access-group fe0_0_in in
+exit
+interface FastEthernet0/1
+  ip access-group fe0_1_in in
+exit
+
+! ================ IPv6
+! Policy compiler errors and warnings:
+! 
+no ipv6 access-list ipv6_fe0_0_in
+no ipv6 access-list ipv6_fe0_1_in
+
+ipv6 access-list ipv6_fe0_0_in
+  permit icmp any  host 2001:db8:1:1::1 135 
+  permit icmp any  host 2001:db8:1:1::1 136 
+  permit icmp any  host 2001:db8:1:1::1 128 
+  permit icmp any  host 2001:db8:ffff:ffff::1 135 
+  permit icmp any  host 2001:db8:ffff:ffff::1 136 
+  permit icmp any  host 2001:db8:ffff:ffff::1 128 
+exit
+
+ipv6 access-list ipv6_fe0_1_in
+  permit icmp any  host 2001:db8:1:1::1 135 
+  permit icmp any  host 2001:db8:1:1::1 136 
+  permit icmp any  host 2001:db8:1:1::1 128 
+  permit icmp any  host 2001:db8:ffff:ffff::1 135 
+  permit icmp any  host 2001:db8:ffff:ffff::1 136 
+  permit icmp any  host 2001:db8:ffff:ffff::1 128 
+  permit tcp any  2001:db8:ffff:ffff::/64 eq 80 
+  permit icmp any  2001:db8:ffff:ffff::/64 
+exit
+
+interface FastEthernet0/0
+  ipv6 traffic-filter ipv6_fe0_0_in in
+exit
+interface FastEthernet0/1
+  ipv6 traffic-filter ipv6_fe0_1_in in
+exit
+        </programlisting>
+
+        <para>
+          The IPv4 part looks exactly the same as before, but we also
+          have additional IPv6 access lists. For IPv6, rule #1 permits
+          ICMPv6 neighbor solicitation, neighbor advertisement, and
+          IPv6 ping request messages to the firewall through all
+          interfaces, direction inbound, and rule #1 permits HTTP and
+          all ICMPv6 to the internal network through FastEthernet0/1,
+          inbound. Generated IPv6 access lists "ipv6_fe0_0_in" and
+          "ipv6_fe0_1_in" reflect this. ACL ipv6_fe0_0_in permits icmp
+          types 128, 135 and 136 to IPv6 addresses that belong to the
+          firewall and ACL ipv6_fe0_1_in permits the same ICMP
+          messages to the firewall, plus TCP port 80 and any IPv6 ICMP
+          to the internal IPv6 network.
+        </para>
+
+        <para>
+          The program automatically separated IPv4 and IPv6 objects
+          and created two sets of access lists to implement policies
+          for both address families. This simplifies adoption of IPv6
+          into existing network because you don't have to reimplement
+          access lists and firewall rules written for IPv4 again and
+          then maintain two rule sets coordinated as you make
+          changes. Instead, the structure of existing policy rule set
+          is preserved, you just add IPv6 objects to the same rules
+          and the program generates both IPv4 and IPv6 configurations
+          from it.
+        </para>
+
+      </sect2>
+

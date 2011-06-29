@@ -1,0 +1,479 @@
+      <sect1 id="gui-menus">
+        <title>GUI Menu and Tool Bars</title>
+
+     <para>This section describes the commands available in the GUI menus and tool bar.</para>
+        <sect2 id="file-menu">
+        <title>File Menu</title>
+      <para>The <guimenu>File</guimenu> menu provides standard file
+      management options, and in addition allows you to import
+      and export libraries and manage your object files with the
+      revision control system.</para>
+
+      <table frame='none' tabstyle='reg_table'>
+        <title>File Menu</title>
+        <tgroup cols='2' align='left'  rowsep='1'>
+          <colspec colnum="1" colname="c1"  colwidth="120pt"/>
+          <colspec colnum="2" colname="c2"  />
+            <thead>
+              <row>
+                <entry>File Menu Entry</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>New Object File</entry>
+                <entry>Opens a "file" dialog that lets you name your
+                new object file. Object file names end with
+                ".fwb". In general, you should create a new directory
+                for your object files.</entry>
+              </row>
+              <row>
+                <entry>Open...</entry>
+                <entry>Opens a standard "file" dialog that lets you
+                select an existing file. The file dialog, by default,
+                only looks for files that end in ".fwb".</entry>
+              </row>
+              <row>
+                <entry>Open Recent</entry>
+                <entry>Contains a submenu listing recently opened object files.</entry>
+              </row>
+              <row>
+                <entry>Save</entry>
+                <entry>Saves the current file.</entry>
+              </row>
+              <row>
+                <entry>Save As...</entry>
+                <entry>Opens a "file" dialog that lets you save the object file under a new name.</entry>
+              </row>
+              <row>
+                <entry>Close</entry>
+                <entry>Closes the current object file, but does not exit the program.</entry>
+              </row>
+              <row>
+                <entry>Properties</entry>
+                <entry>Opens a dialog indicating properties of the
+                current file, including revision control information
+                (if applicable.) (Program preferences are in the Edit
+                menu.)</entry>
+              </row>
+              <row>
+                <entry>Add File to RCS</entry>
+                <entry>This menu item adds the object file to
+                reversion control. See <xref linkend="rcs" /> for a
+                detailed explanation.</entry>
+              </row>
+              <row>
+                <entry>Commit</entry>
+                <entry>Commits current changes to RCS. (This option is
+                grayed out if the file has not already been added to
+                RCS.)  See <xref linkend="rcs" /> for a detailed
+                explanation.</entry>
+              </row>
+              <row>
+                <entry>Discard</entry>
+                <entry>Discards current changes. (This option is
+                grayed out if the file has not already been added to
+                RCS.)  See <xref linkend="rcs" /> for a detailed
+                explanation.</entry>
+              </row>
+              <row>
+                <entry>Import Firewall</entry>
+                <entry>Allows you to import an existing firewall policy 
+                into Firewall Builder. See <xref linkend="import_firewall" /> for a 
+                detailed explanation.</entry>
+              </row>
+              <row>
+                <entry>Import Library</entry>
+                <entry>Lets you import an Object Library. (See <guimenuitem>Export Library</guimenuitem>.)</entry>
+              </row>
+              <row>
+                <entry>Export Library</entry>
+                <entry>Brings up a dialog that lets you select which
+                Object Library you wish to export to a ".fwl"
+                file. Once a library is exported, you can import it into another
+                instantiation of Firewall Builder. This is
+                particularly useful in Enterprise settings that have
+                multiple Firewall Builder workstations and
+                administrators.</entry>
+              </row>
+              <row>
+                <entry>Print</entry>
+                <entry>Lets you print your policy.</entry>
+              </row>
+              <row>
+                <entry>Exit</entry>
+                <entry>Closes Firewall Builder.</entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+        </sect2>
+        <sect2 id="edit-menu">
+        <title>Edit Menu</title>
+      <para>The <guimenu>Edit</guimenu> options are standard
+      for GUI-based tools. <guimenuitem>Preferences</guimenuitem> 
+      for Firewall Builder are described in <xref linkend="preferences" />.</para>
+
+        </sect2>
+        <sect2 id="view-menu">
+        <title>View Menu</title>
+      <para>The <guimenu>View</guimenu> menu lets you turn on or off various display panes.</para>
+
+      <table frame='none' tabstyle='reg_table'>
+        <title>View Menu</title>
+        <tgroup cols='2' align='left' rowsep='1'>
+          <colspec colname='c1'  colwidth="120pt"/>
+          <colspec colname='c2'/>
+            <thead>
+              <row>
+                <entry>View Menu entry</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>Object Tree</entry>
+                <entry>If checked, the object tree is displayed</entry>
+              </row>
+              <row>
+                <entry>Editor Panel</entry>
+                <entry>Displays the object editor. You can also display this panel by double-clicking an object.</entry>
+              </row>
+              <row>
+                <entry>Undo Stack</entry>
+                <entry>Displays the undo history. You can undo several changes by clicking on the last change you want to keep. With th
+e next change, all changes after the current one are removed from the undo history.</entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+        </sect2>
+        <sect2 id="object-menu">
+        <title>Object Menu</title>
+      <para>The <guimenu>Object</guimenu> menu lets you create a new
+      object, find occurrences of an object (including doing
+      replaces), lock an object to prevent accidental changes, and
+      unlock an object when you need to edit it.</para>
+
+      <table frame='none' tabstyle='reg_table'>
+        <title>Object Menu</title>
+        <tgroup cols='2' align='left' rowsep='1'>
+          <colspec colname='c1'  colwidth="120pt"/>
+          <colspec colname='c2'/>
+            <thead>
+              <row>
+                <entry>Object Menu entry</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>New Object</entry>
+                <entry>Opens a menu of all possible object
+                types. Select one to create a new object of that
+                type. <xref linkend="creating-objects" /> describes
+                how to create objects.</entry>
+              </row>
+              <row>
+                <entry>Find Object</entry>
+                <entry>Opens the <guilabel>Find object</guilabel>
+                dialog, which also provides search and replace
+                functions. <xref linkend="find-replace" /> explains
+                how to use this dialog.</entry>
+              </row>
+              <row>
+                <entry>Lock</entry>
+                <entry>Makes the selected object read-only, which
+                prevents accidental modification. An object that is
+                locked has a little padlock for its icon. In this
+                example, the eth0 interface of test server is
+                locked. Locking the eth0 interface object also renders
+                read-only the address objects associated with the
+                interface. (Note that the test server object, located "above" eth0 in
+                the hierarchy, is still editable.)
+      <para>
+      <figure id="locked-icon">
+        <title>Locked Object</title>
+        <graphic scale="70" fileref="fwbuilder_gui/images/locked.png" />
+      </figure>
+      </para>
+                </entry>
+              </row>
+              <row>
+                <entry>Unlock</entry>
+                <entry>Unlocks the selected object. The object becomes
+                editable, and the objects associated with it become
+                editable as well, unless they have their own
+                locks.
+      <para>
+      <figure id="unlocked-icon">
+        <title>Unlocked Object</title>
+        <graphic scale="70" fileref="fwbuilder_gui/images/unlocked.png" />
+      </figure>
+      </para>
+                </entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+        </sect2>
+        <sect2 id="rules-menu">
+        <title>Rules Menu</title>
+      <para>The <guimenu>Rules</guimenu> menu lets you add, delete, and
+        rearrange rules and rule groups in a policy. In addition, the <guimenu>Rules</guimenu> menu lets you 
+      compile an individual rule or an entire policy or  
+      install an entire policy. The menu is context-sensitive, so not all 
+      options are visible at all times. See <xref linkend="editing-policy-and-nat" /> 
+      for details.</para>
+        </sect2>
+        <sect2 id="tools-menu">
+        <title>Tools Menu</title>
+     <para>The <guimenu>Tools</guimenu> menu provides access to useful
+     tools.</para>
+
+     <table frame='none' tabstyle='reg_table'>
+       <title>Tools Menu</title>
+        <tgroup cols='2' align='left' rowsep='1'>
+          <colspec colname='c1'  colwidth="120pt"/>
+          <colspec colname='c2'/>
+            <thead>
+              <row>
+                <entry>Tools Menu entry</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>Find Conflicting Objects in Two Files</entry>
+                <entry>Launches a tool that lets you specify two
+                object files (.fwb) or two library files (.fwl). The
+                tool then looks for objects that have the same ID, but
+                different characteristics. This kind of conflict would cause
+                a problem if you wanted to merge the files.</entry>
+              </row>
+              <row>
+                <entry>Import Addresses From File</entry>
+                <entry>Launches a wizard that lets you import objects 
+                from a file in <filename>/etc/hosts</filename> format.
+                </entry>
+              </row>
+              <row>
+                <entry>Discovery Networks and Hosts via SNMP</entry>
+                <entry>Launches a wizard that lets you populate many
+                objects automatically using an SNMP crawl of your 
+                network. <xref linkend="network-discovery" /> explains 
+                the tool.</entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+        </sect2>
+        <sect2 id="window-menu">
+        <title>Window Menu</title>
+      <para>The <guimenu>Window</guimenu> menu provides controls for
+      selecting and rearranging object file windows. This feature works
+      similarly to Window menus in most GUIs.</para>
+        </sect2>
+        <sect2 id="help-menu">
+        <title>Help Menu</title>
+      <para>The <guimenu>Help</guimenu> menu provides access to help
+      resources, information about the current version of Firewall
+      Builder, and a dialog with debugging information.</para>
+        </sect2>
+        <sect2 id="object-context-menu">
+        <title>Object Context Menu</title>
+      <para>The <guimenu>Context Menu</guimenu> for a particular object 
+      provides a short-cut to menu commands for that object. Right-click 
+      an object's label to bring up a
+      menu of the following functions:</para>
+
+      <table frame='none' tabstyle='reg_table'>
+        <title>Object Right-Click Menu</title>
+        <tgroup cols='2' align='left'  rowsep='1'>
+          <colspec colname='c1'  colwidth="120pt"/>
+          <colspec colname='c2'/>
+            <thead>
+              <row>
+                <entry>Right-Click Menu Entry</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>Edit</entry>
+                <entry>Opens the Editor dialog for that object. (You can
+                achieve the same result by double-clicking the
+                object.)</entry>
+              </row>
+              <row>
+                <entry>Duplicate</entry>
+                <entry>Places a copy of the object into the specified
+            library. (If no user-created libraries exist, then
+            Firewall Builder puts the object in the User tree by
+            default.) The new object has the same name as the original
+            object, unless that object name is already in use in that
+            tree. If so, a "-1" is appended to the object
+            name.</entry>
+              </row>
+              <row>
+                <entry>Move</entry>
+                <entry>Deletes the object from the current library and 
+                places it in the selected new library.</entry>
+              </row>
+              <row>
+                <entry>Copy</entry>
+                <entry>Copies an object onto the clipboard.</entry>
+              </row>
+              <row>
+                <entry>Cut</entry>
+                <entry>Copies an object onto the clipboard and removes it from
+            the tree.</entry>
+              </row>
+              <row>
+                <entry>Paste</entry>
+                <entry>Puts a copy of the object on the clipboard into
+                a tree or into the policy, depending on where the
+                mouse is when you click.</entry>
+              </row>
+              <row>
+                <entry>Delete</entry>
+                <entry>Deletes an object without making a copy on the
+            clipboard. If the Deleted Objects tree has been enabled, the object shows up there.</entry>
+              </row>
+              <row>
+                <entry>Find</entry>
+                <entry><para>Brings up a Find/Find-and-Replace
+                panel, which is another tab in the object dialog. 
+                Click <guibutton>Next</guibutton> in the panel
+                to see all instances of the object boxed in
+                red.</para>
+                <para>To do a Search and Replace, drag another object
+                into the <guilabel>Replace object</guilabel> box,
+                specify a scope for the replacement using the
+                pull-down menu, and then use the <guibutton>Replace
+                All</guibutton>, <guibutton>Replace</guibutton>, <guibutton>Replace
+                &amp; Find</guibutton>,
+                and <guibutton>Next</guibutton> buttons.</para>
+                <para><xref linkend="find-replace" /> has details on this
+                dialog.</para></entry>
+              </row>
+              <row>
+                <entry>Where Used</entry>
+                <entry>Scans the whole tree, including all groups and policies
+            of all firewalls, looking for references to the object. When finished,
+            the program shows a pop-up dialog with icons corresponding
+            to groups and firewalls using the object. Double-clicking
+            an icon opens the corresponding object in the main
+            window.</entry>
+              </row>
+              <row>
+                <entry>Group</entry>
+                <entry>Only active if multiple objects are selected. This operation 
+                will open a dialog for you to enter a group name and select the 
+                Library the group should be created in.</entry>
+              </row>
+              <row>
+                <entry>Keywords</entry>
+                <entry>Add or remove a keyword from the selected object(s). To 
+                apply a keyword that doesn't exist yet select Add -> New Keyword.
+                </entry>
+              </row>
+              <row>
+                <entry>Lock and Unlock</entry>
+                <entry>Lock makes an object read-only, which prevents
+                accidental modification. Unlock places the object back
+                into read/write mode.</entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+
+      <para>The pop-up menu can also have items to add interface and
+      address objects, depending on the type of object that was clicked.</para>
+
+      <para>In addition, the right-click context menu on policy rules has a selection for <guimenuitem>Compile Rule</guimenuitem>. Sele
+cting this option compiles the rule and displays the output in the <guilabel>Output</guilabel> tab of the Editor dialog. See 
+                <xref linkend="policy-and-nat-rules-for-the-cluster" /> for 
+                details on compiling a single rule and viewing the results in the Output tab.</para>
+        </sect2>
+        <sect2 id="tool-bar-menu">
+        <title>Tool Bar</title>
+      <para>The Tool Bar has buttons for commonly used
+      functions:</para>
+
+      <para>
+      <figure id="main-buttons">
+        <title>Buttons</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-3_v5.png" />
+      </figure>
+      </para>
+
+     <table frame='none' tabstyle='reg_table'>
+       <title>Tool Bar</title>
+        <tgroup cols='2' align='left' rowsep='1'>
+          <colspec colname='c1'  colwidth="120pt"/>
+          <colspec colname='c2'/>
+            <thead>
+              <row>
+                <entry>Button</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>Open</entry>
+                <entry>Opens a standard "file" dialog that lets you
+                select an existing file. The file dialog, by default,
+                only looks for files that end in ".fwb".</entry>
+              </row>
+              <row>
+                <entry>Save</entry>
+                <entry>Saves the current file.</entry>
+              </row>
+              <row>
+                <entry>Back</entry>
+                <entry>Navigation tool that changes the active selection 
+                to an earlier selection in the selection history.</entry>
+              </row>
+              <row>
+                <entry>Forward</entry>
+                <entry>Navigation tool that changes the active selection 
+                to the next selection if you have used the Back button to 
+                navigate the selection history.</entry>
+              </row>
+              <row>
+                <entry>New Object</entry>
+                <entry>Activates dropdown menu that allows you to create a 
+                new object of any object type, including creating a new 
+                Library object.</entry>
+              </row>
+              <row>
+                <entry>Find Object</entry>
+                <entry>Opens the <guilabel>Find object</guilabel>
+                dialog, which also provides search-and-replace
+                functions.  <xref linkend="find-replace" /> explains
+                how to use this dialog.</entry>
+              </row>
+              <row>
+                <entry>Compile</entry>
+                <entry>Opens the compile wizard for all firewalls in the 
+                current object file. The compile button on an individual 
+                file opens the compile dialog for just the selected firewall. 
+                <xref linkend="compile-install-detail" /> explains this in 
+                more detail.</entry>
+              </row>
+              <row>
+                <entry>Install</entry>
+                <entry>Opens the compile/install wizard for all firewalls in 
+                the current object file. The compile/install button on an 
+                individual file opens the compile/install dialog for just the 
+                selected firewall. <xref linkend="compile-install-detail" />
+                explains this in more detail.</entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+        </sect2>
+    </sect1>
+

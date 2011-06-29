@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+
+
+  <sect1 id="time-interval-objects">
+    <title>Time Interval Objects</title>
+
+      <para>Time interval objects allow you to create a rule that only matches during certain
+    periods of time, such as on weekend days, during work hours, or other periods. Time intervals
+    operate based on the time as known <emphasis>by the firewall device</emphasis>.</para>
+
+      <figure id="time-interval2">
+          <title>Time Interval Dialog</title>
+              <graphic scale="60" fileref="objects/images/time-interval2.png" />
+        </figure>
+
+      <para>Time intervals can be certain days of the week (only on
+      Mondays, for example), only certain times, and/or only during a
+      certain range of dates. You can combine these options to create
+      an object that represents, for example, Tuesday afternoons from
+      1 to 3 PM during March of 2011.</para>
+
+      <itemizedlist spacing="compact">
+        <listitem>
+            <para>Name:</para>
+
+            <para>This is the name of the object.</para>
+          </listitem>
+
+          <listitem>
+            <para>Start date checkbox:</para>
+
+            <para>Indicates that the time interval has a starting
+            date. If this is not checked, the <guilabel>Start
+            date</guilabel> field is inaccessible and is not included
+            in the object.</para>
+          </listitem>
+
+          <listitem>
+            <para>Start date:</para>
+
+            <para>Indicates the day the time interval will start.</para>
+          </listitem>
+
+          <listitem>
+            <para>Start time:</para>
+
+            <para>Indicates the beginning of the daily interval. Only
+            applies to days after <guilabel>Start date</guilabel> (if
+            specified) and before <guilabel>End date</guilabel> (if
+            specified) and on indicated days of the week. For example,
+            if <guilabel>Sunday</guilabel> is not checked, then the
+            time interval does not apply on Sundays.</para>
+          </listitem>
+
+          <listitem>
+            <para>End date checkbox:</para>
+
+            <para>Indicates that the time interval has an ending
+            date. If this is not checked, the <guilabel>End
+            date</guilabel> field is inaccessible and is not included
+            in the object.</para>
+          </listitem>
+
+          <listitem>
+            <para>End date:</para>
+
+            <para>Indicates the day the time interval will end.</para>
+          </listitem>
+
+          <listitem>
+            <para>End time:</para>
+
+            <para>Indicates the end of the daily interval. Only
+            applies to days after <guilabel>Start date</guilabel> (if
+            specified) and before <guilabel>End date</guilabel> (if
+            specified) and on indicated days of the week. For example,
+            if <guilabel>Sunday</guilabel> is not checked, then the
+            time interval does not apply on Sundays.</para>
+          </listitem>
+
+          <listitem>
+            <para>Mon, Tue, Wed, Thu, Fri, Sat, Sun</para>
+
+            <para>Indicates on which days of the week the time
+            interval should be applicable. For example,
+            if <guilabel>Mon</guilabel> is checked
+            and <guilabel>Tue</guilabel> is not, then the time
+            interval object will apply to Mondays, but not
+            Tuesdays.</para>
+          </listitem>
+
+          <listitem>
+            <para>Comments:</para>
+
+            <para>This is a free-style text field used for comments.</para>
+          </listitem>
+        </itemizedlist>
+
+	<para>In <xref linkend="time-interval2"/>, the object would be valid from the beginning of Dec. 19,
+    2009 and end the beginning of Jan. 4, 2010. This might correspond, for example, to a "winter
+    break" at some institution when access to some networks could be restricted.</para>
+
+	<para>Another possibility is to limit recreational activities to non-work hours.</para>
+
+      <figure id="time-interval1">
+          <title>Time Interval Rule Example</title>
+              <graphic scale="50" fileref="objects/images/time-interval1.png" />
+        </figure>
+
+      <para>In this rule, the "quake" protocol is allowed from the
+      internal network after hours and during weekends. Otherwise, the
+      final "deny all" rule in the rule set would prevent it during
+      other times (during work hours).</para>
+   </sect1>

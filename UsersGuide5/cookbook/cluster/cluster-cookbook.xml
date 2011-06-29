@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+
+<sect1 id="cluster-cookbook">
+  <title>Examples of cluster configurations</title>
+
+  <para>
+    This chapter is dedicated to high availability (HA) or cluster
+    configurations that involve two or more firewalls sharing the same
+    set of virtual addresses. Examples are written assuming that the
+    reader will probably jump straight to the one that is most close
+    to the configuration they have, instead of reading all of them in
+    order, so many procedures and explanations are repeated in each
+    example. Nevertheless, sometimes examples refer to each other and
+    other chapters in this Guide to reduce the amount of redundant
+    material.
+  </para>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="web_server_cluster.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vrrpd_cluster.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_cluster.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="linux_cluster_with_openvpn_interfaces.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_vlan_cluster.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="heartbeat_dedicated_interface.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="state_sync_conntrackd.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="pf_cluster.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="pix_cluster.xml"/>
+  
+</sect1>
+
