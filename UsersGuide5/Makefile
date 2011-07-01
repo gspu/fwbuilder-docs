@@ -4,7 +4,7 @@ SYSTEM := $(shell uname -s)
 SOURCES = Introduction.xml \
 		troubleshooting/Troubleshooting.xml \
 		appendix/Appendix.xml \
-		UsersGuide4.xml \
+		UsersGuide5.xml \
 		cluster_config/clusters.xml \
 		interface_config/interfaces.xml \
 		compile_install/compile-install-detail.xml \
@@ -89,13 +89,13 @@ html/index.html:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	cp troubleshooting/images/*.png html/troubleshooting/images
 	cp *.css html/
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc --xinclude html.xsl \
-			UsersGuide4.xml
+			UsersGuide5.xml
 	chmod +x html/*.html
 
 
-fo:   fo/UsersGuide4.fo  target.db
+fo:   fo/UsersGuide5.fo  target.db
 
-fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
+fo/UsersGuide5.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	rm -rf fo
 	mkdir -p fo
 	mkdir -p fo/getting_started/images
@@ -135,13 +135,13 @@ fo/UsersGuide4.fo: $(SOURCES) $(CATALOGS) $(FO_STYLESHEETS)
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 		--xinclude \
 		--stringparam fop1.extensions 1  \
-		--output fo/UsersGuide4.fo \
-		fo.xsl UsersGuide4.xml
+		--output fo/UsersGuide5.fo \
+		fo.xsl UsersGuide5.xml
 
-#	docbook2pdf -o pdf UsersGuide4.xml
+#	docbook2pdf -o pdf UsersGuide5.xml
 
-pdf: UsersGuide4.pdf
+pdf: UsersGuide5.pdf
 
-UsersGuide4.pdf: fo/UsersGuide4.fo
-	FOP_OPTS="-Xmx256m" fop fo/UsersGuide4.fo UsersGuide4.pdf
+UsersGuide5.pdf: fo/UsersGuide5.fo
+	FOP_OPTS="-Xmx256m" fop fo/UsersGuide5.fo UsersGuide5.pdf
 
