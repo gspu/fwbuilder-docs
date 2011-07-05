@@ -181,17 +181,17 @@
       systems. Firewall Builder is dual-licensed; packages for Windows
       and Mac OS X are distributed under traditional EULA for a
       reasonable
-      fee. <ulink url="http://www.fwbuilderr.org/docs/firewall_builder_licensing.html">More...</ulink>
+      fee. <ulink url="http://www.fwbuilder.org/docs/firewall_builder_licensing.html">More...</ulink>
     </para>
     <para> </para>
     <para>Documentation is freely available online. Start with the Firewall Builder
-      User's Guide (available in <ulink url="http://www.fwbuilderr.org/UsersGuide3.pdf">PDF</ulink>
-      and <ulink url="http://www.fwbuilderr.org/docs/users_guide/book1.htm">HTML</ulink> formats).  
+      User's Guide (available in <ulink url="http://www.fwbuilder.org/4.0/docs/users_guide5/UsersGuide5.pdf">PDF</ulink>
+      and <ulink url="http://www.fwbuilder.org/4.0/docs/users_guide5/">HTML</ulink> formats).  
       The User's
       Guide explains the program in detail and includes a large &quot;CookBook&quot;
       section that presents typical firewall rule design problems and
       demonstrates how they can be solved with Firewall Builder. There is
-      also an <ulink url="http://www.fwbuilderr.org/docs/firewall_builder_faq.html">FAQ</ulink>, an 
+      also an <ulink url="http://www.fwbuilder.org/docs/firewall_builder_faq.html">FAQ</ulink>, an 
       <ulink url="http://www.fwbuilder.org/docs/firewall_builder_installation.html">Installation Guide</ulink> and a set of 
       <ulink url="http://www.fwbuilder.org/docs/firewall_builder_release_notes.html">Release Notes</ulink> for each version.
     </para>
@@ -199,7 +199,7 @@
     <para>
       We provide support via e-mail, an
       active <ulink url="http://lists.sourceforge.net/lists/listinfo/fwbuilderr-discussion">mailing list</ulink>,
-      and <ulink url="https://sourceforge.net/projects/fwbuilderr/forums/forum/16372">online forum</ulink>. Follow the <ulink url="http://blog.fwbuilderr.org/">Firewall Builder blog </ulink> to get the latest project
+      and <ulink url="https://sourceforge.net/projects/fwbuilderr/forums/forum/16372">online forum</ulink>. Follow the <ulink url="http://blog.fwbuilder.org/">Firewall Builder blog </ulink> to get the latest project
       news. 
     </para>
 
