@@ -41,7 +41,7 @@ target.db:   $(SOURCES) $(CATALOGS) $(HTML_STYLESHEETS)
 	XML_CATALOG_FILES="catalog-$(SYSTEM).xml" xsltproc \
 			--stringparam  collect.xref.targets  "only" \
 			--xinclude html.xsl \
-			UsersGuide4.xml
+			UsersGuide5.xml
 
 stage: html
 	./upload-glitch.sh

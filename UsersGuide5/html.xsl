@@ -5,7 +5,7 @@
 <xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
 <xsl:param name="base.dir" select="'./html/'"/>
-<xsl:param name="html.stylesheet" select="'users_guide_4.css'"/>
+<xsl:param name="html.stylesheet" select="'users_guide_5.css'"/>
 <xsl:param name="section.autolabel" select="1"/>
 <xsl:param name="section.label.includes.component.label" select="1"/>
 <!-- <xsl:param name="admon.graphics" select="1"/> -->
@@ -48,7 +48,7 @@ user.footer.navigation	Called after the standard navigational footer
 -->
 
 <xsl:template name="user.header.navigation">
-  <xsl:comment>#include virtual="/4.0/users_guide_page_header.html"</xsl:comment>
+  <xsl:comment>#include virtual="/4.0/users_guide_page_header5.html"</xsl:comment>
 </xsl:template>
 
 <xsl:template name="user.footer.navigation">
