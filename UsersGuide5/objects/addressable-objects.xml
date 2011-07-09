@@ -3409,7 +3409,7 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
     </sect2>
 
     <sect2 id="group-objects">
-      <title>A Group of Addressable Objects</title>
+      <title>Object Groups</title>
 
       <figure id="group-dialog1">
         <title>Group of Objects</title>
@@ -3454,5 +3454,117 @@ pass out  quick inet  from any  to www.fwbuilder.org keep state
             Object</guimenuitem> from the menu bar.</para>
           </listitem>
         </itemizedlist></para>
+    </sect2>
+
+    <sect2 id="dynamic-groups">
+    <title>Dynamic Object Groups</title>
+
+    <para>
+      Dynamic Groups allow you to define filter criteria to match objects based 
+      on their <emphasis>Object Type</emphasis> and <emphasis>Keywords</emphasis>. 
+      When a Dynamic Group is used in a rule the compiler automatically expands
+      the group to include all the objects that match the filter criteria at the 
+      time the compiler is run.
+    </para>
+
+    <para>
+      To create a Dynamic Group right-click on the Groups system folder in the 
+      object tree and select "New Dynamic Group". <xref linkend="dynamic-group-1"/>
+      shows the new group in the Editor Panel with the default values set.
+    </para>
+
+    <figure id="dynamic-group-1">
+      <title>Creating a Dynamic Group</title>
+          <graphic scale="50" fileref="objects/images/dynamic-group-1.png" />
+    </figure>
+
+    <para>
+      Click Add Match to create filter rules that will be used to determine 
+      which objects will be included in the Dynamic Group. Multiple filter 
+      rules can be created in a single group. The logic used between rules 
+      is "OR" where an object that matches <emphasis>any</emphasis> of the 
+      rules will be included in the group.
+    </para>
+      
+    <para>
+      Within a filter rule, the logic between the Object Type and Keyword 
+      fields is "AND" logic where both elements need to match in order for 
+      an object to be included in the group. For example, a filter rule 
+      with the Object Type set to Network and the Keyword set to "New York" 
+      will only match Network objects that have the keyword set to New York.
+    </para>
+   
+    <bridgehead>Dynamic Group Example</bridgehead> 
+
+    <para>
+      In this example the Firewall Builder data file includes a number of 
+      objects that have already been defined. Some of these objects have 
+      been configured with keywords like "New York" and "London" to identify 
+      the city where the element the object represents is located.
+    </para>
+
+    <para>
+      To create a rule that matches all the network objects that are 
+      associated with New York, we create a new Dynamic Group called 
+      New York Networks as shown in <xref linkend="dynamic-group-2"/>.
+    </para>
+
+    <figure id="dynamic-group-2">
+      <title>Example of Dynamic Group</title>
+          <graphic scale="50" fileref="objects/images/dynamic-group-2.png" />
+    </figure>
+
+    <para>
+      From the preview window you can see that there are four networks that 
+      have Keywords that include New York (remember that an object can have 
+      more than one Keyword defined).
+    </para>
+
+    <para>
+      <xref linkend="dynamic-group-3"/> shows a rule that includes the Dynamic 
+      Group object in the Source column of the rule.
+    </para>
+
+    <figure id="dynamic-group-3">
+      <title>Dynamic Group Used in a Rule</title>
+          <graphic scale="50" fileref="objects/images/dynamic-group-3.png" />
+    </figure>
+
+    <para>
+      Running a single rule compile, shown in <xref linkend="compile-single-rule" />,
+      for this rule will result in all the objects that match the current 
+      filter rules in the "New York Networks" Dynamic Group getting expanded 
+      to match the four network elements that have Keywords that include New 
+      York. The single rule compile output is shown in <xref linkend="dynamic-group-4"/>.
+    </para>
+
+    <figure id="dynamic-group-4">
+      <title>Compile Output of a Rule That Uses Dynamic Group</title>
+          <graphic scale="50" fileref="objects/images/dynamic-group-4.png" />
+    </figure>
+
+    <para>
+      Adding a new filter rule to the "New York Networks" Dynamic Group to 
+      include any Address Ranges that include the Keyword of New York will 
+      result in the group shown in <xref linkend="dynamic-group-5"/>.
+    </para>
+
+    <figure id="dynamic-group-5">
+      <title>Updated Dynamic Group</title>
+          <graphic scale="50" fileref="objects/images/dynamic-group-5.png" />
+    </figure>
+
+    <para>
+      Recompiling a rule that uses the "New York Networks" Dynamic Group 
+      object will automatically detect the additional Address Ranges 
+      that include the Keyword of New York. <xref linkend="dynamic-group-6"/> 
+      shows the updated compiler output.
+    </para>
+
+    <figure id="dynamic-group-6">
+      <title>Updated Dynamic Group</title>
+          <graphic scale="50" fileref="objects/images/dynamic-group-6.png" />
+    </figure>
+
     </sect2>
    </sect1>
