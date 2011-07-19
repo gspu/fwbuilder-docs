@@ -1,0 +1,66 @@
+    <sect2 id="using-address-range-instead-of-group">
+
+      <title>Using an Address Range Instead of a Group</title>
+
+
+      <para>
+        In the example above, the three hosts used for the
+        group <emphasis>"management hosts"</emphasis> have consecutive
+        addresses 192.168.1.110, 192.168.1.111,
+        192.168.1.112. Although this example may be artificial, it
+        allows us to illustrate how a different type of object could
+        be used to achieve the same goal - to permit access to the
+        firewall from these three addresses. The difference may be
+        negligible when we deal with just three addresses, but when
+        the list gets into hundreds it may become significant.
+      </para>
+
+      <para>
+        Since addresses of the management hosts are consecutive, we
+        can use an address range object to describe them:
+      </para>
+
+      <figure id="address-range-obj-1">
+        <title>Policy for the Server</title>
+        <graphic scale="50" fileref="policy-rule-address-range-object.png" />
+      </figure>
+
+      <para>
+        We use this object in the rule just like any other
+        object. <xref linkend="policy-rule-with-address-range-obj"/> shows the rule:
+      </para>
+
+      <figure id="policy-rule-with-address-range-obj">
+        <title>Policy for the Server</title>
+        <graphic scale="50" fileref="policy-rule-with-address-range.png" />
+      </figure>
+
+      <para>
+        The main difference in the generated code for the rule using
+        a address range compared to the rule using collection of
+        individual addresses is that compiler is allowed to optimize
+        it. It tries to squeeze the address range to the minimal set
+        of address and network objects. Here is how it looks like for
+        iptables:
+      </para>
+
+      <programlisting>
+# Rule 0 (global)
+# 
+$IPTABLES -A INPUT  -s 192.168.1.110/31   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A INPUT  -s 192.168.1.112   -m state --state NEW  -j ACCEPT 
+      </programlisting>
+
+      <para>
+        Again, the difference may not be very great when we have only
+        three IP addresses, but in the case of a range that spans hundred
+        addresses the performance gain and reduction in the size of
+        generated script are significant.
+      </para>
+
+      <para>
+        The generated PF and PIX configurations look similar.
+      </para>
+
+    </sect2>
+

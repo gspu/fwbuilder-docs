@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <sect1 id="object-keywords">
+    <title>Object Keywords</title>
+
+      <para>
+        Keywords can be added to all object types and help you quickly find 
+        and organize the objects in your object tree. To set the keywords for 
+        an individual object open the object for editing and then click on the 
+        Keywords button in the lower right corner of the Editor panel.
+      </para>
+
+      <para>
+        For an example of how you could use Keywords, let's assume that you have 
+        two datacenters, one in New York (NY) and one in London (LON). For objects 
+        that represent items in the datacenter you could add a keyword, called 
+        "datacenter", to each of the objects. You could also add another keyword, 
+        for example "trusted" or "DMZ", to identify the security zone of the object.
+      </para>
+
+      <para>
+        <xref linkend="ny-datacenter-net-1" /> shows the editor panel for an object 
+        called NY Datacenter-Net-1.
+      </para>
+
+      <figure id="ny-datacenter-net-1">
+          <title>Datacenter Network Object</title>
+              <graphic scale="60" fileref="objects/images/ny_datacenter_net_1_editor.png" />
+      </figure>
+
+      <para>
+        Click the Keywords button to set the keywords for the active object. 
+        This will bring up the dialog window shown in <xref linkend="keyword-dialog-1"/>.
+      </para>
+      
+      <figure id="keyword-dialog-1">
+          <title>Keywords Dialog</title>
+              <graphic scale="60" fileref="objects/images/keywords_dialog_1.png" />
+      </figure>
+
+      <para>
+        As you can see no Keywords have been configured yet, so there are 
+        no existing keywords that can be assigned to the object. To create 
+        a new keyword type the name of the keyword in the text box labeled 
+        "New Keyword:".
+      </para>
+      
+      <para>
+        In this example we want to add the "datacenter" and "trusted" keywords to 
+        the network object. <xref linkend="keyword-dialog-2"/> shows the 
+        dialog after the keywords have been entered. Click OK to apply the 
+        keywords to the object.
+      </para>
+
+      <figure id="keyword-dialog-2">
+          <title>Keywords Dialog After Creating Some Keywords</title>
+              <graphic scale="60" fileref="objects/images/keywords_dialog_2.png" />
+      </figure>
+
+      <note>
+      <para>
+        After you apply keywords to an object the keywords will be displayed 
+        in the Editor panel next to the Keywords button.
+      </para>
+      </note>
+
+      <para>
+        What if you have a lot of objects that need to have the same keywords 
+        applied? To apply a keyword to muliple objects at the same time select 
+        the objects in the tree, remember to use the CTRL or Shift keys to 
+        select more than one object, right-click on the selected objects and 
+        select Keywords, then Add and then select the keyword you want to apply.
+        <xref linkend="keywords-multiple-objects-1"/> shows applying the 
+        "datacenter" keyword to multiple Network objects.
+      </para>
+
+      <figure id="keywords-multiple-objects-1">
+          <title>Applying Keywords to Multiple Objects at Once</title>
+              <graphic scale="60" fileref="objects/images/keywords_multiple_objects_1.png" />
+      </figure>
+
+      <para>
+        You can also remove keywords from multiple objects by selecting multiple 
+        objects, right-clicking and selecting Keywords -> Remove and then selecting 
+        the keyword that you want to remove.
+      </para>
+
+      <para>
+        After you have configured keywords for your objects you can type the 
+        keyword into the filter box at the top of the object tree and only the 
+        objects that match that keyword, or have an object name that matches 
+        the keyword, will be displayed.
+      </para>
+
+      <para>
+        <xref linkend="filter-datacenter-keyword"/> shows the filtered view after 
+        the "datacenter" keyword has been typed into the filter box.
+      </para>
+
+      <figure id="filter-datacenter-keyword">
+          <title>Filtering Based on Keyword - datacenter</title>
+              <graphic scale="60" fileref="objects/images/filter_datacenter_keyword.png" />
+      </figure>
+
+      <para>
+        Another example is shown in <xref linkend="filter-trusted-keyword"/> where 
+        all the objects are being filtered for the "trusted" keyword. Only objects 
+        that have had the "trusted" keyword applied will be displayed. In this example 
+        only one of the two networks at each datacenter is considered trusted.
+      </para>
+
+      <figure id="filter-trusted-keyword">
+          <title>Filtering Based on Keyword - trusted</title>
+              <graphic scale="60" fileref="objects/images/filter_trusted_keyword.png" />
+      </figure>
+
+   </sect1>

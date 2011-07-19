@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <chapter id="install">
+    <title>Installing Firewall Builder</title>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="rpm_based.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ubuntu.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bsd.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="windows.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mac.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile_source.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="repositories.xml"/>
+
+  </chapter>

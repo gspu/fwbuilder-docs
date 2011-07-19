@@ -1,0 +1,63 @@
+    <sect1 id="rcs-troubleshooting">
+      <title>RCS Troubleshooting</title>
+      <sect2 id="error-adding-file-rcs">
+        <title>Error adding file to RCS</title>
+
+          <para><emphasis>Error adding file to RCS: Fatal error during initial RCS checkin of file</emphasis></para>
+
+          <para>You will get this error if you do not have RCS set up on your system. To resolve it, install and configure RCS on the w
+orkstation running Firewall Builder.</para>
+      </sect2>
+      <sect2 id="error-checking-file-out">
+        <title>"Error checking file out: co: RCS file c:/fwbuilder/RCS/file.fwb is in use"</title>
+
+        <para><emphasis>I cannot open my data file, I get error "Error checking file out: co: RCS file c:/fwbuilder/RCS/file.fwb is in 
+use"</emphasis></para>
+
+        <para>A catastrophe (e.g. a system crash) can cause RCS to leave behind a semaphore file that causes later invocations of RCS t
+o claim that the RCS file is in use. To fix this, remove the semaphore file. A semaphore file name typically begins with , or ends with
+ _.</para>
+
+        <para>If not that, then it could be another manifestation of bug #1908351</para>
+
+        <para>See if there is a file with the name starting and ending with a comma in the RCS directory (like ",file.fwb,"). The file 
+should have length of zero bytes. This file is a lock file, it is created and deleted by RCS tools. Bug 1908351 caused this lock file t
+o be left behind. When that happens, ci won't check file in because it thinks another copy of ci is already running. Likewise, co won't
+ check the file out for the same reason. If such file exists (zero bytes in length and name starting or ending with a comma), just dele
+te it and try to check your data file out again.</para>
+      </sect2>
+      <sect2 id="error-checking-file-out-2">
+        <title>"Error checking file out:"</title>
+        <para><emphasis>I cannot open my data file, I get error "Error checking file out:"</emphasis></para>
+
+        <para>Such non-descriptive error message is usually caused by hard unrecoverable errors experienced by RCS tools. Unfortunately
+ these tools not always report errors in the best way possible and when this happens, Firewall Builder GUI cannot provide any better di
+agnostics than it gets from the tool. Such poor diagnostics of errors happens more frequently on Windows than on other platforms.</para>
+
+        <para>Here are few things to check and try:</para>
+        <itemizedlist>
+          <listitem><para>First of all, check file permissions. The data file (.fwb) should be read-only. RCS repository file (.fwb,v) 
+should also be read-only. Repository file may be located in subdirectory RCS but that depends on the OS. It may be located in the same 
+directory with corresponding data file (.fwb) as well.</para></listitem>
+          <listitem><para>Try to check the file out manually to see if you can get better diagnostics:</para>
+          <para>If you use Windows, start MS DOS window and in it navigate to the folder where you keep your files, then execute the fo
+llowing command:</para>
+          <programlisting>c:\FWBuilder\co.exe -l filename.fwb</programlisting>
+          <para>If it checks the file out successfully, it just prints revision number and 'done'. Otherwise it will print some error.</para>
+          <para>After you do that, you need to check the file in to RCS again. Do it like this:</para>
+          <programlisting>c:\FWBuilder\ci.exe -u filename.fwb</programlisting>
+          <para>Since the file hasn't changed, it should just check it in without asking you for the RCS log record. If you can success
+fully check it out and then check it in again from the command line, then the GUI should work too.</para>
+          <para>On Linux, *BSD and Mac OS X the process is exactly the same, except for the path to the checkout and checkin commands:</para>
+
+          <para>To check the file out use</para>
+          <programlisting>co -l filename.fwb</programlisting>
+          <para>
+      To check the file in use
+          </para>
+          <programlisting>ci -u filename.fwb</programlisting>
+          </listitem>
+        </itemizedlist>
+      </sect2>
+    </sect1>
+

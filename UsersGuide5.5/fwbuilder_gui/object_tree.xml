@@ -1,0 +1,445 @@
+    <sect1 id="object_tree">
+    <title>Object Tree</title>
+
+      <para>
+    <figure id="tree-structure">
+      <title>Object Tree Structure</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-4_v5.png" />
+    </figure>
+      </para>
+
+      <para>The object tree stores all objects in a predefined
+      hierarchy:</para>
+      <itemizedlist>
+        <listitem>
+          Types that correspond to network objects (hosts,
+          address ranges, networks, and groups of these) are located in
+          the <guilabel>Objects</guilabel> branch.</listitem>
+        <listitem>Types that correspond to services are located in the <guilabel>Services</guilabel> branch.</listitem>
+        <listitem>Time intervals are located in the <guilabel>Time</guilabel> branch.</listitem>
+        <listitem>All firewalls are located in the <guilabel>Firewalls</guilabel> branch. </listitem>
+      </itemizedlist>
+       <para>Newly created objects are
+      automatically placed in the appropriate position in the
+      tree. Each branch of the tree is automatically sorted by the
+      object name.</para>
+
+      <para>The program has three default libraries: <guilabel>User</guilabel>, <guilabel>Standard</guilabel>,
+        and <guilabel>Deleted Objects</guilabel>. </para>
+      <itemizedlist>
+        <listitem>The <guilabel>User</guilabel> library holds objects
+      that you define, including objects for your firewall, hosts, and
+      networks.</listitem>
+        <listitem>The <guilabel>Standard</guilabel> library holds a collection of
+          predefined standard objects that come with Firewall Builder. Note that you need not 
+          (and cannot) insert objects into the Standard tree.</listitem> 
+      <listitem>The <guilabel>Deleted Objects</guilabel> library acts like a trash can
+      or recycle bin for user objects you delete. Note that the Deleted Objects library must be enabled
+      using the <guimenuitem>File > Preferences > Objects > Show deleted
+      objects</guimenuitem> menu option.</listitem> 
+      </itemizedlist>
+      <para>In addition, you can
+        create custom libraries by selecting <guimenuitem>New
+          Library</guimenuitem> from the <guimenu>New Object</guimenu>
+        menu. You can populate the new library by copying and pasting objects other views or by creating them from
+        scratch within the new library.  <xref linkend="new-library" /> provides instructions for
+          creating and distributing user-defined libraries.</para>
+
+      <para>Functionally, there is no difference between having an
+      object in the Standard tree, the User tree, or a user-defined
+      tree; it is just a convenient way to sort objects in the
+      tree. You can think of each as a kind of the "view". The choice of tree affect only
+      the display of the data in the GUI; objects are all
+      equal in all other senses and you can use an object from any
+      library in your policy. </para>
+
+      <para>The object that is currently selected in the tree is
+      highlighted in color and is shown in the dialog area on the
+      right.</para>
+
+      <para>
+      <figure id="main-standard-objects">
+        <title>Standard Objects</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/fwbMainWindow-std-lib.png" />
+      </figure>
+      </para>
+
+      <para>Firewall Builder understands and uses the object and
+      service types described in the table below. See
+      <xref linkend="working-with-objects" /> and
+      <xref linkend="working-with-services" /> for more detailed
+      information.</para>
+
+     <table frame='none' tabstyle='reg_table'>
+       <title>Object Types</title>
+        <tgroup cols='2' align='left' rowsep='1'>
+          <colspec colname='c1'  colwidth="120pt"/>
+          <colspec colname='c2'/>
+            <thead>
+              <row>
+                <entry>Object Type</entry>
+                <entry>Explanation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>Library</entry>
+                <entry>A library of objects. Firewall Builder comes with the User, Standard,
+                and Deleted Objects libraries. In addition, you can
+                create your own.</entry>
+              </row>
+              <row>
+                <entry>Cluster</entry>
+                <entry>A high-availability pair of firewall devices. The firewall objects themselves 
+                  must be created as firewall objects, then added to the cluster. The cluster's platform and OS 
+                  settings must match those of the component firewalls.</entry>
+              </row>
+              <row>
+                <entry>Firewall</entry>
+                <entry>A physical firewall device, its
+                interfaces and addresses, and the policy rule sets
+                associated with the device. Use Firewall Builder to
+                model your actual device's firewall software, OS,
+                interfaces and addresses. Then, use Firewall Builder
+                to construct the policy rule sets to assign to the
+                device.</entry>
+              </row>
+              <row>
+                <entry>Host</entry>
+                <entry>A computer on your network. Hosts can have interfaces associated with them.</entry>
+              </row>
+              <row>
+                <entry>Interface</entry>
+                <entry>A physical interface on a firewall or
+                host. Interfaces can have IP and physical (MAC)
+                addresses associated with them. An IP address can be
+                created from the <guimenu>New Object</guimenu> for the
+                selected interface, but physical addresses can only be
+                created by right-clicking on an interface
+                object.</entry>
+              </row>
+              <row>
+                <entry>Network</entry>
+                <entry>An IPv4 subnet</entry>
+              </row>
+              <row>
+                <entry>Network IPv6</entry>
+                <entry>An IPv6 subnet</entry>
+              </row>
+              <row>
+                <entry>Address</entry>
+                <entry>An IPv4 address</entry>
+              </row>
+              <row>
+                <entry>Address IPv6</entry>
+                <entry>An IPv6 address</entry>
+              </row>
+              <row>
+                <entry>DNS Name</entry>
+                <entry>A DNS "A" or
+                "AAAA" record. This name is resolved into an IP address at
+                compile or run time.</entry>
+              </row>
+              <row>
+                <entry>Address Table</entry>
+                <entry>An IP address. Objects of this type can be configured with the
+                name of an external file that is expected to contain a
+                list of IP addresses. Mixing IPv4 and IPv6 addresses is
+                supported. Addresses can be loaded during policy
+                compile or during the execution of a generated
+                firewall script.</entry>
+              </row>
+              <row>
+                <entry>Address Range</entry>
+                <entry>A range of IPv4 or IPv6 IP addresses. This
+                range does not have to be a specific subnet, but address must be contiguous.</entry>
+              </row>
+              <row>
+                <entry>Object Group</entry>
+                <entry>A collection of addressable objects (objects
+                that have or contain IP addresses) such as network,
+                interface, and hosts objects. A group is useful for creating a
+                less cluttered-looking firewall policy and for making
+                sure you have the same objects in every related
+                rule.</entry>
+              </row>
+              <row>
+                <entry>Dynamic Group</entry>
+                <entry>Dynamic Groups include filters based on the object type 
+                and keywords in order to build a dynamic list of objects that 
+                will be included in the group. Dynamic Groups are used in rules 
+                in the same way that standard Object Groups are. When a firewall 
+                is compiled the Dynamic Group is expanded to include all the 
+                object matching the filter rules when the compile is run.
+                </entry>
+              </row>
+              <row>
+                <entry>Custom Service</entry>
+                <entry>An object that can be used to inject arbitrary code into the generated firewall script.</entry>
+              </row>
+              <row>
+                <entry>ESTABLISHED and ESTABLISHED IPv6 Services</entry>
+                <entry>An object matching all packets that are part of 
+                network connections established through the firewall, 
+                or connections 'related' to those established through 
+                the firewall. (The term "established" here refers to the state 
+                tracking mechanism used by iptables and other stateful 
+                firewalls; it does not imply any particular combination 
+                of packet header options.)</entry>
+              </row>
+              <row>
+                <entry>IP Service</entry>
+                <entry>An IP service such as GRE, ESP, or VRRP. This category is meant to include IP services 
+                  that do not fall into ICMP, ICMP6, TCP, or UDP service categories.</entry>
+              </row>
+              <row>
+                <entry>ICMP Service</entry>
+                <entry>An ICMP service such as a ping request or reply.</entry>
+              </row>
+              <row>
+                <entry>ICMP6 Service</entry>
+                <entry>An ICMP6 service such as "ipv6 packet too big", "ipv6 ping request", or "ipv6 ping reply".</entry>
+              </row>
+              <row>
+                <entry>TCP Service</entry>
+                <entry>A TCP service such as HTTP, SMTP, or FTP.</entry>
+              </row>
+              <row>
+                <entry>UDP Service</entry>
+                <entry>A UDP service such as DNS or NTP.</entry>
+              </row>
+              <row>
+                <entry>TagService</entry>
+                <entry>A service object that lets you examine the tag
+                in an IP header. You can then construct your rule to
+                take appropriate action on a match.</entry>
+              </row>
+              <row>
+                <entry>User Service</entry>
+                <entry>A service object that matches the owner of the
+                process on the firewall that sends the packet. This object correlates
+                 to the "owner" match in iptables and the "user"
+                parameter for PF.</entry>
+              </row>
+              <row>
+                <entry>Service Group</entry>
+                <entry>A collection of services. For example, Firewall
+                Builder comes with the Useful_ICMP service group containing the "time exceeded", "time exceeded in
+                transit", "ping reply", and "all ICMP unreachable"
+                ICMP services. It also comes with a "DNS" service
+                group containing both the UDP and TCP version of
+                DNS. Grouping services is useful for creating a less cluttered-looking
+                firewall policy and for making sure you have the same
+                objects in every related rule.</entry>
+              </row>
+              <row>
+                <entry>Time Interval</entry>
+                <entry>A time period such as "weekends" or a range of
+                dates, or a range of times on certain days of the
+                week. Can be used as part of rule matching in Access
+                Policy rule sets to provide or deny access to something
+                based on time. Note that these time intervals are
+                relative to the time on the firewall device
+                itself.</entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+
+    <sect2 id="user-folders">
+      <title>Using Subfolders to Organize Object Tree</title>
+
+      <para>
+        Firewall Builder comes with a set of predefined system folders 
+        as shown in <xref linkend="tree-structure"/>. You can also create 
+        your own subfolders in the Object Tree to help organize your 
+        objects.
+      </para>
+
+      <para>
+        <xref linkend="object-tree-without-subfolders"/> shows the object 
+        tree of a retailer with multiple stores in several cities. As you  
+        you can see the objects are not grouped together which can make it 
+        hard to quickly find the object you are looking for. Subfolders 
+        provide an easy way to organize your objects.
+      </para>
+        
+      <figure id="object-tree-without-subfolders">
+        <title>Object Tree without Subfolders</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/user-folder-before.png" />
+      </figure>
+
+      <para>
+        To add a subfolder right-click on one of the system folders, in this 
+        case we are going to start with the Firewalls folder, and select the 
+        New Subfolder menu item.
+      </para>
+
+      <figure id="add-user-folder">
+        <title>Add Firewalls Subfolder</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/add-user-folder.png" />
+      </figure>
+
+      <para>
+        A dialog window will appear. Enter the name of your subfolder an click 
+        OK. In this case we will create a new subfolder called "Berlin" to 
+        hold all the Firewall objects located in Berlin.
+      </para>
+
+      <para>
+        To add the firewalls to the Berlin subfolder, select the firewall objects 
+        in the tree as shown in <xref linkend="move-berlin-fw"/>, and drag-and-drop 
+        the firewalls onto the Berlin subfolder.
+      </para> 
+
+      <figure id="move-berlin-fw">
+        <title>Moving Objects to Subfolder</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/move-berlin-fw.png" />
+      </figure>
+
+      <para>
+        <xref linkend="user-folder-after"/> shows the Object Tree after folders 
+        have been created for both London and New York and the firewalls at each 
+        of these locations have been moved to the subfolder. As you can see this 
+        makes it much easier to find things quickly in your tree.
+      </para>
+
+      <figure id="user-folder-after">
+        <title>Subfolders for Firewalls</title>
+        <graphic scale="50" fileref="fwbuilder_gui/images/user-folder-after.png" />
+      </figure>
+
+      <para>
+        While this example showed using subfolders in the Firewalls system folder,
+        you can create subfolders in any of the predefined system folders. 
+      </para>
+
+      <note>
+      <para>
+        To <emphasis>delete</emphasis> a subfolder simply right-click on the subfolder 
+        and select Delete. If there are objects in the subfolder Firewall Builder will 
+        pop-up a warning showing the locations where the objects that are going to be 
+        deleted are used.
+      </para>
+      <para>
+        If you don't want to delete the objects in the subfolder then you first need 
+        to move them to the system folder by selecting all the objects in the subfolder 
+        and dragging-and-dropping them onto the system folder that is the parent of 
+        the subfolder you want to delete.
+      </para>
+      </note>
+
+    </sect2>
+
+     <sect2 id="filtering-the-object-tree">
+        <title>Filtering the Object Tree</title>
+        <para>The object tree can hold a great many objects, nested in 
+        their respective categories. You can filter the tree to show
+        only certain objects and categories appear based on a string. 
+        For example, typing "eth" in the <guilabel>Filter</guilabel> 
+        field causes all the objects with "eth" in the object name to 
+        appear.</para>
+
+      <para>As your configuration grows you will find that it becomes 
+      harder to quickly find the objects you are looking for. This 
+      example shows how filtering helps. Before filtering the object 
+      tree looks like <xref linkend="filter-before"/>.
+      </para>
+
+    <para>
+    <figure id="filter-before">
+      <title>Empty Filter Field</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/filter-before_v5.png" />
+    </figure>
+      </para>
+
+     <para>In the example, the word "new york" is typed into <guilabel>Filter</guilabel> 
+     field, with the goal of retrieving all address-related objects. As the screen 
+     shot below shows, filtering takes effect immediately. In the example, only 
+     "new" has been typed but the tree is already filtered by those characters, 
+     showing the <guilabel>Address Range</guilabel>, <guilabel>Addresses</guilabel>, 
+     <guilabel>Groups</guilabel>, and <guilabel>Networks</guilabel> objects that
+     include "new" in their name. Filters are not case sensitive.</para>
+
+    <para>
+    <figure id="filter-after">
+      <title>Populated Filter Field</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/filter-after_v5.png" />
+    </figure>
+      </para>
+
+      <para>Click the X in the filter box to clear the active filter.</para>
+
+     </sect2>
+
+     <sect2 id="object-attributes">
+       <title>Object Attributes in the Tree</title>
+        <para>If you check the <guilabel>Show object attributes in the tree</guilabel> checkbox in the <guilabel>Preferences > Object</guilabel> tab,  the object tree displays a second column of information, as shown below.</para>
+
+
+    <para>
+    <figure id="object-attributes-in-tree">
+      <title>Object Attributes Column</title>
+      <graphic scale="50" fileref="fwbuilder_gui/images/object-attributes-in-tree_v5.png" />
+    </figure>
+      </para>
+
+    <para>The information shown depends on the type of object.</para>
+
+    <para>If you check the checkbox but don't see the second column, make 
+    the panel wider until you see the column separator, then 
+    drag the column separator until the columns are in the correct position. 
+    Column sizing is saved with the object file, so the next time you open 
+    the object, the column display preservers your changes.</para>
+
+     </sect2>
+
+    <sect2 id="creating-objects">
+      <title>Creating Objects</title>
+
+      <para>New objects can be created using the
+      <guimenu>New Object</guimenu> menu, accessed by clicking this icon above the object tree:</para>
+      <para>
+      <figure id="new-object-icon.png">
+        <title>Create Objects button</title>
+            <graphic scale="100" fileref="fwbuilder_gui/images/new-object-icon.png" />
+      </figure>
+      </para>
+        <para>Certain objects can also
+      be created using a pop-up menu. Acccess this menu by right-clicking a parent object in the tree.</para>
+      <para>
+      <figure id="menu-new-object">
+        <title>Creating Objects Using The Object Menu</title>
+            <graphic scale="50" fileref="fwbuilder_gui/images/menu-new-object.png" />
+      </figure>
+      </para>
+
+      <para>You can create all objects except physical address objects
+      through the <guimenu>New Object</guimenu> menu. (Physical address objects can only
+      be created by right-clicking an existing interface object.)
+      You can also create objects by right-clicking  a folder in a
+      tree (though not in the read-only Standard tree). If you
+      right-click a folder, you can only create objects appropriate to
+      that folder. For example, an interface object can only be
+      placed under a host or firewall object, so the
+      <guimenuitem>Add Interface</guimenuitem> option is available
+      only if you right-click a host or firewall.</para>
+
+      <para>
+      <figure id="menu-right-click-new-object">
+        <title>Creating Objects by Right-Clicking</title>
+            <graphic scale="50" fileref="fwbuilder_gui/images/menu-right-click-new-object.png" />
+      </figure>
+      </para>
+
+      <para>Another way to create objects is to use
+      the <guimenuitem>Duplicate</guimenuitem> option when you right-click 
+        an object. This allows you to create a copy of the
+      object. For example, you may want to create a firewall policy
+      for one platform, duplicate it, then just change the target
+      platform on the copy. Note that copies are not linked in any
+      way. A change to the original has no affect on the copy, and
+      vice versa.</para>
+        </sect2>
+    </sect1>
+

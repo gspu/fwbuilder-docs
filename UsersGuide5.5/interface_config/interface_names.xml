@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="interface_names">
+  <title>Interface Names</title>
+
+  <para>
+    By default, Firewall Builder attempts to determine an interfaces 
+    function based on the name of the interface. For example, on Linux 
+    if an interface is named <emphasis>eth2.102</emphasis> based on 
+    the interface name Firewall Builder will determine that the interface 
+    appears to be a VLAN interface with parent interface <emphasis>eth2
+    </emphasis> and VLAN ID 102.
+  </para>
+
+  <para>
+    If a user tries to create an interface with a name that doesn't 
+    match the expected patterns Firewall Builder will generate an error. 
+    For example, attempting to create the same <emphasis>eth2.102</emphasis> 
+    interface from our previous example as an interface object directly 
+    under a firewall object Firewall Builder will generate the error shown 
+    in <xref linkend="interface_name_error"/>.
+  </para>
+
+    <para>
+      <figure id="interface_name_error">
+        <title>Error Message When Incorrect VLAN Interface Is Created</title>
+        <graphic scale="70" fileref="interface_config/images/interface_name_error.png"/>
+      </figure>
+    </para>
+  
+  <para>
+    If instead the <emphasis>eth2.102</emphasis> interface were to be 
+    created as a child object under the <emphasis>eth2</emphasis> interface 
+    then Firewall Builder would not generate the error since the VLAN 
+    interface eth2.102 should be a sub-interface of eth2. Note that 
+    in this case Firewall Builder will automatically set the interface 
+    type to VLAN and will set the VLAN ID to 102.
+  </para>
+
+  <para>
+    You can view and edit the interface type and VLAN ID by clicking 
+    the "Advanced Interface Settings ..." button in the editor 
+    panel of the interface. An example of the advanced settings for 
+    eth2.102, when created as a child interface of eth2, is shown in 
+    diagram <xref linkend="auto_vlan_interface_config"/>.
+  </para>
+
+    <para>
+      <figure id="auto_vlan_interface_config">
+        <title>Advanced Settings for eth2.102 Interface</title>
+        <graphic scale="70" fileref="interface_config/images/auto_vlan_interface_config.png"/>
+      </figure>
+    </para>
+
+  <para>
+    Sometimes you may want to override the default behavior where 
+    Firewall Builder expects interface names to follow a specific 
+    naming convention. To disable this feature, open the Firewall 
+    Builder preferences window, click the Objects tab and click 
+    the Interface sub-tab in the lower window. Uncheck the 
+    checkbox labeled "Verify interface names and autoconfigure their 
+    parameters using known name patterns".
+  </para>
+
+    <para>
+      <figure id="disable_name_checks">
+        <title>Disabling Automatic Name Checking</title>
+        <graphic scale="70" fileref="interface_config/images/disable_name_checks.png"/>
+      </figure>
+    </para>
+
+  <para>
+    In this mode, Firewall Builder will not auto-populate any fields, 
+    even if the interface name matches an expected pattern like 
+    <emphasis>eth2.102</emphasis>. All interface parameters, such as 
+    interface type and VLAN ID, must be configured manually.
+  </para>
+
+</sect1>
+

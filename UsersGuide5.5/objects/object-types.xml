@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <sect1 id="object-types">
+    <title>Types of Objects</title>
+
+    <para>
+      Firewall Builder supports a variety of object types, both
+      simple and complex. Simple object types include Address,
+      Network, Host, and IP, TCP, UDP and ICMP service objects. More
+      complex object types are Firewall, Address Table, DNS Name, and
+      User Service.
+    </para>
+
+    <para>
+      There are the following types of objects in Firewall
+      Builder:
+    </para>
+    
+    <itemizedlist spacing="compact">
+      <listitem>
+        <para>Addressable objects:
+          <xref linkend="addressable-objects" /> describes
+          objects that have, either directly or indirectly, an
+          address of some kind. This category includes the
+          physical objects (firewalls, hosts, interfaces) as
+          well as some logical objects (networks, address
+          ranges, individual addresses). Addressable objects can
+          be grouped together into Object groups.</para>
+      </listitem>
+      <listitem>
+        <para>Service objects:
+          <xref linkend="working-with-services" /> describes
+          objects that represent services. They include IP, TCP,
+          UDP, and ICMP services, as well as user
+          services. Service objects can be grouped together into
+          Service groups.</para>
+      </listitem>
+      <listitem>
+        <para>Time Interval objects: Described in
+          <xref linkend="time-interval-objects" />, these
+          represent a discreet or recurring period of time. They
+          can be used as part of a rule in the firewall. For
+          example, you could have a rule that matches on
+          weekends, but not during the week.</para>
+      </listitem>
+      <listitem>
+	<para>Rule set objects: Described in
+	  <xref linkend="rule-set-objects" />, these represent
+	  the various rule sets in a firewall. By default, a
+	  firewall starts with one access policy, one NAT, and
+	  one routing rule set, but you can add more of
+	  each. Rule set objects only exist as child objects of
+	  a firewall.</para></listitem>
+    </itemizedlist>
+
+    <para>
+      All objects in Firewall Builder have some characteristics
+      in common.
+    </para>
+
+    <para>
+      All objects have a <guilabel>Name</guilabel> field and
+      a <guilabel>Comment</guilabel> field. The Name field can contain
+      white spaces and can be arbitrarily long (though shorter names
+      work better in the GUI). The Comment field can contain any text
+      of any length.
+    </para>
+
+  </sect1>

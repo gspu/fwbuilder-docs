@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE catalog
+   PUBLIC "-//OASIS/DTD Entity Resolution XML Catalog V1.0//EN"
+   "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+  <!--
+
+      See http://www.sagehill.net/docbookxsl/ExampleCatalog.html
+
+    -->
+
+
+  <!-- DTD and stylesheet files installed under /opt/local/share/xml/
+       on Mac OS X (if installed from Mac Ports
+    -->
+  <group  xml:base="file:///opt/local/share/xml/">
+
+    <!-- Resolve DTD URL system ID to local file -->
+    <rewriteSystem
+        systemIdStartString="http://www.oasis-open.org/docbook/xml/4.5/"
+        rewritePrefix="docbook/4.5/" />
+
+    <rewriteSystem
+        systemIdStartString="http://www.oasis-open.org/docbook/xml/5.0/"
+        rewritePrefix="docbook/5.0/" />
+
+    <!-- Resolve DTD PUBLIC identifiers -->
+    <nextCatalog  catalog="docbook/4.5/catalog.xml" />
+  </group>
+
+  <group xml:base="/opt/local/share/xsl/">
+
+    <!-- Resolve stylesheet URL to local file -->
+    <rewriteURI
+        uriStartString="http://docbook.sourceforge.net/release/xsl/current/"
+        rewritePrefix="docbook-xsl/" />
+
+  </group>
+
+  <group xml:base="/opt/local/share/xsl/docbook-xsl/">
+
+    <!-- To resolve short stylesheet references -->
+    <uri
+        name="docbook.xsl"
+        uri="html/docbook.xsl" />
+    <uri 
+        name="chunk.xsl"
+        uri="html/chunk.xsl" />
+    <uri 
+        name="chunkfast.xsl"
+        uri="html/chunkfast.xsl" />
+    <uri
+        name="fo-docbook.xsl"
+        uri="fo/docbook.xsl" />
+
+  </group>
+
+
+</catalog>

@@ -1,0 +1,72 @@
+    <sect2 id="blocking-packets">
+      <title>Blocking unwanted types of packets</title>
+
+      <para>Fragmented IP packets, although useful in certain situations, are
+      often used as a tool to probe and penetrate simple packet filters.
+      Particular kinds of fragmented packets, namely those with incorrect
+      length specifications, are especially bad because they can cause some
+      operating systems to crash (for example Windows NT was known to crash
+      before a fix was developed and published by Microsoft). These packets
+      therefore are considered potentially harmful and should be blocked on
+      the perimeter of your network. Many firewall platforms provide ways to
+      deal with such packets.</para>
+
+      <para>In Firewall Builder, we provide a way to set flags or options in
+      the IP service object. Two options deal with fragments: one is called
+      "all fragments" and another "short fragments". <xref
+      linkend="f-policy-2" /> shows how a user-defined object called "fragments" looks
+      with both options turned on. Policy compilers recognize this object and
+      generate correct code for underlying firewall software platform.</para>
+
+      <figure id="f-policy-2">
+        <title>IP Service Object Representing Fragmented
+          Packets</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/policy-2.png" />
+      </figure>
+
+      <para>The "ip_fragments" object, which is included in the section "Services/IP" of
+      the Standard objects tree, is set to block "short" fragments only.</para>
+
+      <para>Another potentially harmful type of packets is so called
+      "Christmas tree" packet. This one is just a TCP packet with an impossible
+      combination of TCP flags or even all TCP flags turned on at once (for
+      example SYN, ACK, FIN, RST, PSH). This combination is never used in real
+      communications, so if a packet like that appears at the boundary of your
+      network, it should be considered illegal and blocked. Object "tcp-xmas"
+      is included in the section "Services/TCP" of the standard objects
+      database coming with Firewall Builder.</para>
+
+      <para>Some platforms provide a mechanism to turn on and off stateful
+      inspection on individual rules. Turning it off on those rules which do
+      not require it may improve performance of the firewall. Obviously, we do
+      not need stateful inspection while analysing fragmented packets as we do
+      not really want any session to be established, so we can safely use this
+      option on this rule. One example of firewall platform which supports
+      stateful inspection but provides a way to turn it on and off is
+      iptables. In Firewall Builder, this can be done in the rule options
+      dialog (which is platform-sensitive and shows different options for
+      different platforms). <xref linkend="f-policy-3" /> shows rule logging options
+      dialog for iptables:</para>
+
+      <figure id="f-policy-3">
+        <title>Rule Options Dialog for iptables Firewall</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/iptables-options-logging.png" />
+      </figure>
+      
+      <para>Here is an example of the policy rule which is intended to block
+      short fragments and TCP "Christmas scan" packets. The icon in the Options column indicates that logging is turned on.</para>
+
+      <figure>
+        <title>A Rule Blocking Short Fragmented Packets and TCP "Christmas Scan"
+          Packets</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/policy-4.png" />
+      </figure>
+
+      <para>This rule applies to
+      all packets crossing the firewall regardless of their origin. This means
+      that it will block such packets originating in your network, too. If by
+      some reason you might want to be able to send this kind of packets out,
+      then specify your external interface in the <guilabel>Interface</guilabel> column.</para>
+
+    </sect2>
+

@@ -1,0 +1,126 @@
+  <sect1 id="compile-install-policy">
+    <title>Compiling firewall policies</title>
+
+    <para>Once you have a policy created, you need to compile it
+      into a script that can run on your target device. You then
+      need to install it on that device.</para>
+
+    <para>Let's walk through compiling a iptables firewall. Below
+      is the access policy of the firewall.</para>
+
+    <figure id="compile-install-firewall-1">
+      <title>A policy to compile</title>
+      <graphic scale="50" fileref="compile_install/images/compile-install-firewall-1.png" />
+    </figure>
+
+    <para>To compile it use main menu item <guimenuitem>Rules >
+    Compile</guimenuitem>.</para>
+
+    <para>
+      Alternatively, open the Policy, NAT or routing rules of the firewall
+      you want to compile by double-clicking in the tree, then click
+      the "Compile" icon (the hammer) in the policy window.
+    </para>
+
+    <para>To compile several firewalls, use Shift-left click or Ctrl-left click to select
+      more than one firewall. Then, right-click on one of
+      them to bring up the context menu and
+      select <guimenuitem>Compile</guimenuitem>.
+    </para>
+
+    <para>
+      Different ways to compile one or several firewall objects were
+      described earlier in <xref linkend="compile-and-install-options"/>.
+    </para>
+
+    <figure id="compile-install-firewall-3">
+      <title>Select your firewall</title>
+      <graphic scale="50" fileref="compile_install/images/compile-install-firewall-3.png" />
+    </figure>
+
+
+    <para>
+      Check the <guilabel>Compile</guilabel> checkbox next to the firewall you want to compile, and uncheck all the others.
+    </para>
+
+    <para>
+      Firewall Builder keeps track of the last time the firewall was
+      compiled and also keeps track of any changes since then. If the
+      firewall has not changed since the last compile,
+      that firewall is unchecked by default because no compile is
+      needed. Any direct change done to the rules of the firewall, or 
+      a change to any object used in rules, triggers the
+      recompile. You can always force compile by checking the 
+      <guilabel>Compile</guilabel> next to the object in the list or 
+      skip it by unchecking it.
+    </para>
+
+    <para>
+      In addition, you can see which firewalls and clusters
+      have been modified since their last compile by looking at the
+      object tree. If a firewall has been compiled since it was last
+      modified, it appears in normal font. If it has not been
+      compiled since its last modification, it appears in
+      bold.
+    </para>
+
+    <para>As you can see in this image, firewalls that need compilation are in bold and are checked by default in the Compile dialog. F
+irewalls that have been compiled since their last change are in regular font and are unchecked by default.</para>
+
+    <figure id="compile-install-firewall-8">
+      <title>Uncompiled firewalls are in bold</title>
+      <graphic scale="50" fileref="compile_install/images/compile-install-firewall-8.png" />
+    </figure>
+
+    <para>
+      To see the last time a firewall or cluster was compiled,
+      double-click it to bring up its object editor.
+    </para>
+
+    <figure id="compile-install-firewall-both2">
+      <title>Object Editor Dialog with last modify and compile times</title>
+      <graphic scale="50" fileref="compile_install/images/compile-install-firewall-both2.png" />
+    </figure>
+
+    <para>
+      Returning to <xref linkend="compile-install-firewall-3"/>.
+      Since we are just doing a compile, the only
+      checkbox is the <guilabel>Compile</guilabel> checkbox. If we were doing a compile
+      and install in the same run, you would also see an <guilabel>Install</guilabel>
+      checkbox.
+    </para>
+
+    <para>Click <guibutton>Next</guibutton>.</para>
+
+    <para>A dialog appears that tracks the status of the
+      compile. In this case, we have an error:</para>
+
+    <figure id="compile-install-firewall-4">
+      <title>Compile status messages</title>
+      <graphic scale="50" fileref="compile_install/images/compile-install-firewall-4.png" />
+    </figure>
+
+    <para>Errors appear in red, and warnings appear in blue. In
+      this case, it turns out that one of our rules shadows one of
+      our other rules. For other types of problems, see
+      <xref linkend="troubleshooting-compiler-runtime" />.</para>
+
+    <para>Errors and warnings are clickable. Clicking an error
+      takes you to the portion of the policy where the error
+      occurs.</para>
+
+    <para>We fix the problem, then compile again.</para>
+
+    <figure id="compile-install-firewall-4c">
+      <title>Successful compile</title>
+      <graphic scale="50" fileref="compile_install/images/compile-install-firewall-4c.png" />
+    </figure>
+
+    <para>To see the created script, look in the same directory as
+      your .fwb file. The file will be called
+      &lt;firewallName&gt;.fw. (If you changed your default
+      directory in the Preferences, then the generated script will
+      be there instead.)</para>
+
+  </sect1>
+

@@ -1,0 +1,59 @@
+    <sect2 id="rules-on-loopback">
+      <title>Firewall talking to itself</title>
+
+      <para>Many services running on the firewall machine need to be
+      able to establish connections to the same machine. X11, RPC, DNS
+      are services like that, to name a few. Blocking these services
+      on the firewall can cause various problems, depending on what
+      protocol is being blocked. If it is DNS, then it may take a lot
+      longer than usual to get to a command-line prompt when logging
+      in to the machine using Telnet or SSH. Once logged in, you won't
+      be able to resolve any host names into addresses.  If X11 is
+      blocked, then X server and any graphic environment using it
+      (KDE, Gnome etc.) won't start. In any case though the problem
+      can easily be solved by adding a simple any-any rule and
+      specifying the loopback interface of the firewall to permit all
+      sorts of communications. As shown on
+      <xref linkend="rule-on-loopback" />, this rule must specify the
+      loopback interface, have action <emphasis>Accept</emphasis> and
+      direction <emphasis>Both</emphasis>.</para>
+
+      <figure id="rule-on-loopback">
+          <title>Rule Permitting Everything on the Loopback Interface</title>
+          <graphic scale="50" fileref="cookbook/policy_rules/images/policy-10.png" />
+        </figure>
+
+      <note>
+        <para>Running X11 and other complex services on the dedicated
+        firewall machine should be discouraged. However, you may want
+        to run a firewall to protect a server, workstation, or laptop
+        where X11, RPC, and other services are perfectly normal.</para>
+      </note>
+
+      <para>
+        The generated iptables commands are placed in INPUT and OUTPUT
+        chains because packets sent by the firewall to itself never
+        hit FORWARD chain. Options "-i lo" and "-o lo" nail interface
+        and direction:
+      </para>
+
+      <programlisting>
+$IPTABLES -A INPUT  -i lo   -m state --state NEW  -j ACCEPT 
+$IPTABLES -A OUTPUT  -o lo   -m state --state NEW  -j ACCEPT 
+      </programlisting>
+
+      <para>
+        For PF, we can specify interface to match but keep direction
+        open so both "in" and "out" will match:
+      </para>
+
+      <programlisting>
+pass  quick on lo inet  from any  to any keep state
+      </programlisting>
+
+      <para>
+
+      </para>
+
+    </sect2>
+

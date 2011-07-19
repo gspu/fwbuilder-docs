@@ -1,0 +1,152 @@
+    <sect2 id="using-negation-in-policy-rules">
+      <title>Using Negation in Policy Rules</title>
+
+      <para>
+        Suppose we want to set up a rule to permit access from the
+        host on DMZ net "mail_relay_1" to hosts on the Internet, but
+        do not want to open access from it to machines on our internal
+        network represented by the object "internal-network". Since we
+        want it to connect to hosts on the Internet and cannot predict
+        their addresses, we have to use "any" as a destination in the
+        policy rule. Unfortunately "any" includes our internal net as
+        well, which is going to open undesired hole in the
+        firewall.
+      </para>
+
+      <para>
+        There are two solutions to this problem. First, we can use two
+        rules: first will deny access from "mail_relay_1" to
+        "internal_net" and the second will permit access from
+        "mail_relay_1" to "any". Since rules are consulted in the
+        order they are specified in the policy, access to the internal net
+        will be blocked by the first rule since the packet would hit
+        it first. These two rules are represented on
+        <xref linkend="f-policy-8" />
+      </para>
+
+      <figure id="f-policy-8">
+        <title>Using Two Rules to Block Access from the DMZ to the Internal Net and
+          Permit Access to the Internet</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/policy-8.png" />
+      </figure>
+
+      <para>
+        Here are the generated iptables rules:
+      </para>
+
+      <programlisting>
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 -d 192.168.1.0/24 \
+    --dport 25  -j DROP 
+# 
+# Rule 1 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp -s 192.168.2.22 --dport 25  \
+    -m state --state NEW  -j ACCEPT 
+      </programlisting>
+
+      <para>
+        Another solution uses negation. We can specify destination in
+        the rule as "not internal_net", thus permitting access to
+        anything but "internal_net". Negation can be enabled and
+        disabled in the pop-up menu which you call by right-clicking 
+        the corresponding rule field. This rule
+        depends on the rules below it to block access from
+        "mail_relay1" to the "internal_net". If the policy was built
+        using a general principle of blocking everything and then
+        enabling only types of connections that must be permitted,
+        then it usually has a "catch-all" rule at the bottom that
+        blocks everything. This last rule is going to deny connections
+        from the "mail_relay1" to "internal_net".
+      </para>
+
+      <figure id="f-policy-9">
+        <title>Using a Rule with Negation to Block Access from the DMZ to the Internal
+          Net and Permit Access to the Internet</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/policy-9.png" />
+      </figure>
+
+      <para>
+        Firewall Builder can use the "!" option to generate a compact
+        iptables command for this rule:
+      </para>
+
+      <programlisting>
+# Rule 0 (global)
+# 
+$IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22 -d ! 192.168.1.0/24 \
+      --dport 25  -m state --state NEW  -j ACCEPT 
+      </programlisting>
+
+      <para>Negation Can Be Used in NAT Rules in a Similar Way</para>
+
+      <para>
+        Firewall Builder can use similar "!" option for PF as well, but
+        there is no negation in the PIX ACL syntax.
+      </para>
+
+      <para>
+        Things get more complicated if we have several networks inside
+        and want to build a rule to permit connects from a server on DMZ
+        to everywhere except for the three internal networks:
+      </para>
+
+      <figure id="f-policy-9-a">
+        <title>Using a Rule with Negation to Block Access from DMZ to Internal
+          Net and Permit Access to the Internet</title>
+        <graphic scale="50" fileref="cookbook/policy_rules/images/policy-9-a.png" />
+      </figure>
+
+      <para>
+        Simple "!" negation in the generated iptables command won't
+        work, so the program generates the following more complicated
+        script:
+      </para>
+
+      <programlisting>
+# Rule 0 (global)
+# 
+$IPTABLES -N Cid168173X9037.0
+$IPTABLES -A FORWARD -p tcp -m tcp  -s 192.168.2.22   --dport 25  \
+    -m state --state NEW  -j Cid168173X9037.0 
+$IPTABLES -A Cid168173X9037.0  -d 192.168.1.0/24   -j RETURN 
+$IPTABLES -A Cid168173X9037.0  -d 192.168.10.0/24   -j RETURN 
+$IPTABLES -A Cid168173X9037.0  -d 192.168.20.0/24   -j RETURN 
+$IPTABLES -A Cid168173X9037.0  -j ACCEPT 
+      </programlisting>
+
+      <para>
+        The first rule checks protocol, port number, and source address
+        and if they match, passes control to the user-defined chain
+        where destination address is compared with addresses of the
+        three networks we want to protect. If either one of them
+        matches, the iptables target "RETURN" terminates analysis in the
+        temporary chain and returns control. Note that in this case,
+        the firewall does not make any decision what to do with the
+        packet. The rule <xref linkend="f-policy-9-a"/> in the GUI
+        specifies action for the packets that <emphasis>do
+        not</emphasis> head for the internal networks but does not say
+        anything about those that do. Some other rules in the policy
+        should decide what to do with them. This is why the generated
+        iptables script uses target "RETURN" instead of "DROP" or
+        "ACCEPT" to simply return from the temporary chain and
+        continue analysis of the packet further.
+      </para>
+
+      <para>
+        For PF, Firewall Builder uses combination of the "!" option and a
+        table:
+      </para>
+
+      <programlisting>
+
+table &lt;tbl.r0.d&gt; { 192.168.1.0/24 , 192.168.10.0/24 , 192.168.20.0/24 } 
+
+# Rule  0 (global)
+# 
+pass  quick inet proto tcp  from 192.168.2.22  to ! &lt;tbl.r0.d&gt; port 25 keep state 
+      </programlisting>
+
+    </sect2>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="configlets">
+  <title>Configlets</title>
+
+  <para>
+    Generated firewall scripts are assembled from fragments called
+    "configlets." Each configlet is a template. The program replaces
+    configlet macros with actual strings and values when it generates a
+    firewall configuration. Normally, you don't need to think about
+    them.
+  </para>
+
+  <para>
+    However, if you have the need, you can use your own configlets or
+    modify the existing ones. Using your own configlets, you can
+    change virtually all aspects of generated configuration
+    files.
+  </para>
+
+  <para>
+    Default configlets are stored in
+    "/usr/share/fwbuilder-4.0.0/configlets" on Linux,
+    "C:\FWBuilder40\resources\configlets on Windows", and
+    "fwbuilder400.app/Contents/Resources/configlets" on a Mac. If you
+    create a "fwbuilder/configlets" directory in your home directory
+    and place files with the same name there, Firewall Builder will
+    use those configlets instead. You need to retain the structure of
+    subdirectories inside this directory. For example, Linux
+    configlets stored in "$HOME/fwbuilder/configlets/linux24" will
+    override the configlets installed in
+    "/usr/share/fwbuilder/configlets/linux24".
+  </para>
+
+  <para> Configlets provide the commands the built-in policy installer needs to install the policy
+    on the firewall. Two configlets are used for Unix-based firewalls (Linux, OpenWRT, Sveasoft,
+    IPCOP and its variants, OpenBSD, FreeBSD, MacOSX, Solaris): "installer_commands_reg_user" and
+    "installer_commands_root". You can change the behavior of the installer without having to touch
+    C++ code: just create a copy of the configlet file in $HOME/fwbuilder/configlets and modify it. </para>
+ 
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="configlet_example.xml"/>
+    
+</chapter>
