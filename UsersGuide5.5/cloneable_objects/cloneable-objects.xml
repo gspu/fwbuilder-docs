@@ -349,6 +349,18 @@ $IPTABLES -A OUTPUT -p tcp -m tcp -d <emphasis role="redtext">192.0.2.105</empha
 
     </sect2>
 
+    <sect2 id="cloneable_objects_notes">
+    <title>Additional information about cloneable objects</title>
+
+    <para>
+      One thing to note is that it is possible to create two Variable objects under 
+      the same clone master with the same name. This situation can arise if you use 
+      the same name for Variable object that is a child of an interface and a Variable 
+      object located in the Variables system folder. To avoid potential confusion it 
+      is recommended to use unique Variable object names.
+    </para>
+
+    </sect2>
     </sect1>
 
   </chapter>
