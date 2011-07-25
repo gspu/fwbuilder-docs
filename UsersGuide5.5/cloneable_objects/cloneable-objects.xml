@@ -1,0 +1,354 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+  <chapter id="cloneable_objects">
+    <title>Cloneable Objects Configuration</title>
+
+    <para>
+      Cloneable object configurations allow you to define a special type 
+      of firewall object, called a clone master, whose configuration can 
+      be replicated onto an unlimited number of devices which are 
+      called clones. An example of where you might use this feature is a 
+      server farm where lots of servers need to have the same firewall 
+      rules applied. 
+    </para>
+      
+    <para>
+      The clone master configuration includes a new type of object, called 
+      Variables, which are used to represent data elements that are unique 
+      to each clone. For example, the IP address of an interface could be 
+      a variable since the value of the IP address will probably be 
+      different for each clone. A list of all clones, including the values 
+      for each Variable, are stored in an object called the Clone Table.
+    </para>
+
+    <sect1 id="creating_clone_master">
+    <title>Creating a Clone Master</title>
+
+    <para>
+      The process for creating a clone master is basically the same as  
+      creating a regular firewall, except that clone master objects are 
+      located in the system folder titled "Clones".
+    </para>
+
+    <para>
+    The basic steps for creating a clone master are:
+    <itemizedlist>
+      <listitem>
+        Right-click on Clones system folder and select New Clone Master
+      </listitem>
+      <listitem>
+        Enter a name for the clone master, select the platform and OS, and 
+        choose if you want to use predefined firewall templates
+      </listitem>
+      <listitem>
+        Select appropriate template, or if you chose not to use templates
+        select how interface data will be populated
+      </listitem>
+      <listitem>
+        Edit interface information with the desired values for the first 
+        clone object
+      </listitem>
+      <listitem>
+        Review and click Finish once you are satisfied with configuration
+      </listitem>
+    </itemizedlist>
+    </para>
+
+    <sect2 id="clone_master_example">
+    <title>Example Clone Master</title>
+
+    <para>
+      In this example we are going to start with a clone master that was 
+      created from the <emphasis>web server</emphasis> predifined 
+      template. The newly created clone master is shown in 
+      <xref linkend="new_webserver_clone_master"/>. Clone masters are 
+      identified by the * in the upper right corner of the clone master 
+      icon.
+    </para>
+
+    <figure id="new_webserver_clone_master">
+      <title>New Clone Master - webserver</title>
+        <graphic scale="50" fileref="cloneable_objects/images/new_clone_master.png" />
+    </figure>
+
+    <para>
+      When the clone master was created both the <emphasis>eth0</emphasis> 
+      and <emphasis>lo</emphasis> interfaces were created with Variable 
+      IP address child objects. This is what we want for the 
+      <emphasis>eth0</emphasis> interface since that IP address will be 
+      different on each clone system, but the <emphasis>lo</emphasis> 
+      interface will always have the same 127.0.0.1/8 IP address value so 
+      we need to update that by doing the following:
+      <itemizedlist>
+        <listitem>
+          Right-click on the Variable child object under the lo (loopback) 
+          interface and select Delete
+        </listitem>
+        <listitem>
+          Right-click on the lo (loopback) interface object and select
+          New Address
+        </listitem>
+        <listitem>
+          Edit the value of the IP address and netmask to be 127.0.0.1 and 
+          255.0.0.0 respectively
+        </listitem>
+      </itemizedlist> 
+    </para>
+
+    <para>
+      <xref linkend="lo_clone_master"/> shows the object tree and IP address 
+      attributes after the changes have been made.
+    </para> 
+
+    <figure id="lo_clone_master">
+      <title>Configuration of lo interface after edits</title>
+        <graphic scale="50" fileref="cloneable_objects/images/lo_clone_master.png" />
+    </figure>
+      
+    <para>
+      Next we want to create some Variables to use in our clone master rules. 
+      These variables identify IP objects that will have different values in 
+      the rules based on which clone the rules were compiled for. In this example 
+      we are going to create two Variables, one to represent an application 
+      server the clone should be allowed to connect to and the second Variable 
+      will represent a customer network that is allowed to connect to the 
+      clone using HTTP.
+    </para>
+
+    <para>
+      To create a new Variable right-click on the Variables system folder 
+      located below the clone master object and select New Variable. This 
+      will open the Variable in the Editor panel. Change the name to your 
+      desired value and set the type. The "Address" type should be used 
+      when you want to define a single IP address and the "Network" type 
+      should be used when you want to define an IP subnet.
+    </para>
+
+    <para>
+      <xref linkend="app_server_variable"/> shows the configured values 
+      for the application server and <xref linkend="network_variable"/> 
+      shows the variable configurarion for the customer network.
+    </para> 
+
+    <figure id="app_server_variable">
+      <title>Variable for Application Server</title>
+        <graphic scale="50" fileref="cloneable_objects/images/app_server_variable.png" />
+    </figure>
+
+    <figure id="network_variable">
+      <title>Variable for Customer Network</title>
+        <graphic scale="50" fileref="cloneable_objects/images/network_variable.png" />
+    </figure>
+
+    <para>
+      After the Variables have been defined for a clone master, the 
+      variables can be used in rules just like regular addressable 
+      objects like IP addresses or Networks. To add a Variable object 
+      to a rule just drag-and-drop it from the Variables system folder 
+      into the desired location in the rule. <xref linkend="variables_in_rules"/> 
+      shows the updated clone master rules using the app_server and 
+      customer_network variables.
+    </para>
+
+    <figure id="variables_in_rules">
+      <title>Variables used in clone master rules</title>
+        <graphic scale="50" fileref="cloneable_objects/images/variables_in_rules.png" />
+    </figure>
+
+    <para>
+      Now that we have a clone master configured with Variables, and rules 
+      that use those Variables, it's time to start creating our clones which 
+      are the devices that the firewall rules will be installed on. There are 
+      several ways to create clones, we'll start with manually adding clones.
+    </para>
+
+    <para>
+      To edit the clones that are associated with the clone master double-click 
+      the Clone Table object. This will open the Clone Table for editing in the 
+      Editor panel as shown in <xref linkend="clone_table_editor"/>.
+    </para>
+
+    <para>
+      The Clone Table will initially have a single clone which has the values 
+      for its interfaces based on the information you entered when you created 
+      the clone master.
+    </para>
+
+    <figure id="clone_table_editor">
+      <title>Initial Clone Table</title>
+        <graphic scale="50" fileref="cloneable_objects/images/clone_table_editor.png" />
+    </figure>
+
+    <para>
+      Notice that the Value fields for the "app_server" and "customer_network" 
+      are blank. Since these variables are used in the clone master Policy we 
+      need to assign values to the variables. The clone name is also set to the 
+      default value of Clone_Descriptor. To finalize the configuration of this 
+      clone we are going to make the following edits:
+      <itemizedlist>
+        <listitem>
+          Change the clone name to "web_01"
+        </listitem>
+        <listitem>
+          Click in the Value field for app_server and set the value to 
+          192.0.2.101
+        </listitem>
+        <listitem>
+          Click in the Value field for customer_network and set the value to 
+          192.101.101.0/24
+        </listitem>
+      </itemizedlist>
+    </para>
+
+    <para>
+      To add another clone click on the "Add new clone" button. The clone 
+      name will automatically be created as "web_02". Firewall Builder will 
+      attempt to detect sequence numbers in clone names, if it can't identify 
+      the proper name to use it will default to Clone_Descriptor.
+    </para>
+
+    <para>
+      You can also add and delete clones by clicking on the "Bulk Edit" button. 
+      This will open a table view of all clones and their variable values. 
+      <xref linkend="bulk_edit"/> shows our example clone master with five 
+      clones configured.
+    </para>
+      
+    <figure id="bulk_edit">
+      <title>Bulk Edit</title>
+        <graphic scale="50" fileref="cloneable_objects/images/bulk_edit.png" />
+    </figure>
+
+    </sect2>
+
+    <sect2 id="compile_clones">
+    <title>Compiling Clones</title>
+
+    <para>
+      Clones can be compiled individually or all the clones of a clone master 
+      can compiled in bulk. When a clone is compiled a script file will be 
+      generated for each clone and filename will use the naming convention 
+      of &lt;clone name&gt;.fw.
+    </para>
+
+    <para>
+      To compile an individual clone, select the active clone that you want to 
+      use by picking the desired clone name from the dropdown in the Clone Table 
+      editor. The name of the active clone is displayed at the top of the Rules 
+      editor. Click on the compile icon at the top right of the Rules editor as 
+      shown in <xref linkend="compile_clones_options"/>.
+    </para>
+
+    <para>
+      To compile all the clones for a clone master click on the compile button 
+      in the top toolbar as shown in <xref linkend="compile_clones_options"/>.
+    </para>
+
+    <figure id="compile_clones_options">
+      <title>Options for compiling clones</title>
+        <graphic scale="50" fileref="cloneable_objects/images/compile_clones.png" />
+    </figure>
+
+    <para>
+      <xref linkend="all_clone_compile_success"/> shows the status window after 
+      all the clones for the web-server clone master have been compiled. During 
+      the compile process the Variable values are read for each clone and those 
+      values are what are used to generate the rules. This is how you can have 
+      a single template policy that gets customized for each individual clone.
+    </para>
+
+    <figure id="all_clone_compile_success">
+      <title>Status after compiling all clones</title>
+        <graphic scale="50" fileref="cloneable_objects/images/all_clone_compile_success.png" />
+    </figure>
+
+    <para>
+      You can use the single rule compile function, dcoumented in 
+      <xref linkend="compile-single-rule"/>, to verify 
+      that the variable substitution is occurring. For example, compiling rule 6 
+      which uses the app_server variable for the "web_03" clone results in the 
+      output shown below. The IP address value of the app_server value is shown 
+      in red text.
+    </para>
+
+<programlisting>
+$IPTABLES -A OUTPUT -p tcp -m tcp -d <emphasis role="redtext">192.0.2.103</emphasis> --dport 5501 -m state --state NEW -j ACCEPT
+</programlisting>
+
+    <para>
+      If we then switch the active clone to "web_05" and recompile the same 
+      rule in the clone master Policy we get a different value for the IP 
+      address, again shown in red text, of the app_server variable.
+    </para>
+
+<programlisting>
+$IPTABLES -A OUTPUT -p tcp -m tcp -d <emphasis role="redtext">192.0.2.105</emphasis> --dport 5501 -m state --state NEW -j ACCEPT
+</programlisting>
+
+    </sect2>
+
+    <sect2 id="install_clones">
+    <title>Installing clones</title>
+
+    <para>
+      Like compiling, installation can also be done for either an individual clone 
+      or for all clones in bulk. The install process is the same as for regular 
+      firewalls, Firewall Builder will use SCP to copy the clone's firewall 
+      script to the target device and then use SSH to activate the firewall 
+      policy.
+    </para>
+
+    <note>
+    <para>
+      All clones inherent the Firewall Settings from the clone master. For example, 
+      if you set the installation directory to /etc/fw in the clone master settings 
+      this is the installation directory that will be used for all clones.
+    </para>
+    </note>
+    
+    <para>
+      <xref linkend="all_clones_install"/> shows the install dialog that is 
+      displayed when installing all clones that are configured for a particular 
+      clone master. Only the clone master name is listed, there is no individual 
+      clone name displayed.
+    </para>
+      
+    <figure id="all_clones_install">
+      <title>Install clone master dialog</title>
+        <graphic scale="50" fileref="cloneable_objects/images/all_clones_install.png" />
+    </figure>
+
+    <para>
+      For each clone that is configured in the clone master's Clone Table the window 
+      shown in <xref linkend="clone_install_dialog"/> will be displayed. Enter the 
+      username and password information for the specific clone that is currently being 
+      installed. Make sure to mark on of the clone master interfaces as the Management 
+      Interface so that the IP address is automatically updated for each clone.
+    </para>
+
+    <figure id="clone_install_dialog">
+      <title>Install dialog per clone</title>
+        <graphic scale="50" fileref="cloneable_objects/images/clone_install_dialog.png" />
+    </figure>
+
+    <note>
+    <para>
+      If all you connect to all your clones using the same user name and password 
+      then you can set the username in the clone master Firewall Settings under the 
+      Installer tab as shown in <xref linkend="firewall_settings_clone_user"/>.
+     
+    <figure id="firewall_settings_clone_user">
+      <title>Clone master Firewall Settings for username</title>
+        <graphic scale="50" fileref="cloneable_objects/images/firewall_settings_clone_user.png" />
+    </figure>
+
+    </para>
+    </note>
+
+    </sect2>
+
+    </sect1>
+
+  </chapter>

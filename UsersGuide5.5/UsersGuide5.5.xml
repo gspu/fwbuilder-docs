@@ -60,6 +60,8 @@
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile_install/compile-install-detail.xml"/>
 
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="cloneable_objects/cloneable-objects.xml"/>
+
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="remote_management/remote-management.xml"/>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="firewall_os/support_for_specific_firewall_os.xml"/>
