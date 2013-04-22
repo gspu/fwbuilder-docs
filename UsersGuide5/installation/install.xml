@@ -11,6 +11,5 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="windows.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mac.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="compile_source.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="repositories.xml"/>
 
   </chapter>
